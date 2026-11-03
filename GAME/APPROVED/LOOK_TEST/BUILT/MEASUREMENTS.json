@@ -1,0 +1,59 @@
+{
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"fps": {
+		"day": {
+			"average": 54.1518535869758,
+			"frames": 542,
+			"p99_frame_ms": 32.994,
+			"seconds": 10.008891
+		},
+		"night": {
+			"average": 68.3105882710121,
+			"frames": 684,
+			"p99_frame_ms": 15.518,
+			"seconds": 10.013089
+		}
+	},
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Street fixed shot; 3 s warm-up then frames / elapsed wall time over 10 s; rendered viewport 1920x1080",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "01_street_day.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "02_street_night.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "03_gate_night.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "04_river_night.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "05_market_day.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "06_overview_dusk.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"settings": "Forward+, Metal, 2x MSAA + TAA, SSAO, SSIL, glow, soft shadows, light fog; vsync off; no export",
+	"timestamp_utc": "2026-11-03T21:01:59Z"
+}

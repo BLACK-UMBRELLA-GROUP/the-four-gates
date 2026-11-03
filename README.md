@@ -10,20 +10,25 @@ a period when a city's libraries, markets and workshops were the centre of the k
 
 ## Status
 
-Day one (started 2 Nov 2026). The game is being designed: the core loop, the first playable area and the art direction
-come first. There is nothing to play yet. See [ROADMAP.md](ROADMAP.md) for the work ahead.
+Started 2 Nov 2026. The game is being designed. A disposable Godot look test shows a stylised market street,
+city gate and canal in day, night and dusk lighting. It has free-look and four fixed camera views, with no gameplay.
+The scene is a Founder-named engine evaluation and has not been locked as game design.
+See [ROADMAP.md](ROADMAP.md) for the planned game.
 
 ## Built with
 
 - [Godot 4](https://godotengine.org) (MIT licence) and GDScript.
 - Text-based scenes and resources, so every part of the game can be read, reviewed and changed.
-- Art and sound credits will be listed in `SOURCE/assets/CREDITS.md`.
+- Asset sources and licences are listed in [SOURCE/assets/CREDITS.md](SOURCE/assets/CREDITS.md).
 
 ## Run it
 
 1. Install Godot 4 (the exact version is recorded in [SOURCE/README.md](SOURCE/README.md)).
 2. Open Godot, choose **Import**, and pick `SOURCE/project.godot`.
-3. Press **Run**.
+3. Press **Run** to open the look test. Hold right mouse to look and use WASD to fly.
+
+F1–F4 choose street, gate, river and market views; F5/F6/F7 change day/night/dusk.
+[Source instructions](SOURCE/README.md) cover camera controls, native screenshot capture and frame-rate measurement.
 
 No accounts, keys or services are needed.
 
