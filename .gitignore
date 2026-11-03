@@ -1,0 +1,21 @@
+# THE FOUR GATES repo
+# Secrets - never commit
+*.env
+.env*
+*.key
+*.pem
+*.secret
+*.keystore
+*.p12
+
+# Left-overs a mounted drive creates when an open file is deleted (lesson S12)
+.fuse_hidden*
+
+# Godot 4 cache, imports and exports
+.godot/
+*.translation
+builds/
+exports/
+
+# Mac
+.DS_Store

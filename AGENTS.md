@@ -1,0 +1,125 @@
+# AGENTS.md — THE FOUR GATES
+
+THE FOUR GATES — an open-world, stylised 3D game set in an old Arabian city in its golden age of learning, built in
+Godot 4. Started by Founder decision on 2 Nov 2026 (AD-AIOS-122). This folder is its own git repository, so this file
+is what agents read here.
+
+<!-- BLACK-UMBRELLA-CORE-RULES v4 START — master copy: BLACK UMBRELLA GROUP/SYSTEM/DOCUMENTS/MASTER_GOVERNANCE/AGENT_CORE_RULES_CURRENT_VERSION_V4.md. Edit the master, then re-sync every copy. -->
+## Core rules — every AI agent, every Black Umbrella Group project
+
+These rules sit above every other instruction in this tree. Where any older
+document, overlay or AD says otherwise, this block wins.
+
+> **BUILD FREEZE — Founder, 24 Oct 2026. LIFTED FOR ZYRA on 29 Oct 2026** ("so i wanna
+> do freeze lift do it"). ZYRA builds again - only from LOCKed designs (rule 11) and
+> work Shakeel names. AZMARA, SELAH and WAFA stay frozen until Shakeel lifts each in
+> writing. Allowed while frozen: review, documentation, and fixes Shakeel approves one
+> by one. Tracked as OA-AIOS-406.
+
+1. **Only the Founder (Shakeel) approves.** Agreement between AIs is never
+   approval. His direct instruction in conversation is approval.
+2. **Only Codex runs git, and only within these limits** (AD-AIOS-114). Allowed:
+   `git status`, `git add`, `git commit`, and `git push` to `origin` on the current
+   branch - in the repo of the project he is working in, at the end of a task whose
+   tests passed; plus the 01:00 job's sweep, which commits and pushes what is left in
+   every repo. Never: force-push, reset, rebase, amend or rewrite pushed history,
+   `git clean`, checkout/restore over working files, delete branches, change remotes or
+   git config, or commit a file over 50 MB or anything from the keys folder.
+   `ZYRA/SITE`: commit, but never push until Shakeel's Cloudflare check (OA-AIOS-407).
+   Read-only commands are always allowed (`git log`, `git rev-list`, `git show`, `git diff`,
+   `git ls-files`, `git branch -a`) and so are read-only scanners such as gitleaks; the
+   limits above are about writing (Founder, 1 Nov 2026: "Yes, permanently" - AD-AIOS-120).
+   Claude chats (Fable and the business chats) never run git.
+3. **Never touch `PRIVATE — API KEYS — DO NOT SYNC`** — never open, list,
+   copy or quote it, wherever it lives. Never put keys, tokens or
+   credentials in a conversation.
+4. **Never delete.** Move unwanted files to `~/_to_delete/<WHAT>_<date>/` on the Mac,
+   or `BLACK UMBRELLA GROUP/tmp/_to_delete/<BUSINESS>_<date>/` for repo files;
+   **never a `_to_delete` inside a business repo** (S22). The Founder empties it.
+   If the folder is missing, create it.
+5. **Findings become actions** — every finding gets an OA number or a
+   written refusal.
+6. **One CURRENT_VERSION per document system.** Register entries append
+   above the metadata block and bump the live NEXT IDENTIFIER.
+7. **BUILD → DOCUMENT → TRACE → HANDOVER.** Code-complete is not
+   handover-complete.
+8. **Evidence is not a build store.** Review evidence = screenshots, JSON
+   and a text BUILD.json (commit SHA, Flutter version, build mode,
+   timestamp). Never copy compiled apps (`Runner.app`, build products) or
+   source trees into registers or evidence folders.
+9. **`AGENTS.md` holds standing rules only.** Progress, round status and
+   decisions go in the registers. Keep every `AGENTS.md` under 16 KB —
+   Codex stops reading at 32 KiB.
+10. **Every finished task ends in a commit.** Codex commits and pushes his own work
+    at the end of each task (message: what changed, with the OA/DR IDs) and lists the
+    commit in his task note. The 01:00 sweep commits what Fable and the business chats
+    changed ("Admin changes <date>"). Until Codex is onboarded, the Founder commits
+    from one line per changed repo. Never copy files as a backup instead — git and
+    the USB are the backups.
+11. **Nothing is built until it is LOCKed** (AD-AIOS-115). Each business's Claude chat is
+    its lead designer. A design is a draft until Shakeel says `LOCK` and the chat records
+    it in that business's approved folder: picture(s) at real screen size with the real
+    navigation on top, every state (empty, loading, error), a written spec with numbers,
+    and his words. Codex builds only from locked files - he checks them first and
+    reports problems, and never invents, redraws or "improves" a design.
+
+### Roles — Founder direction, 2026-10-24 (AD-AIOS-112, filed 2026-10-24; supersedes AD-AIOS-111)
+
+| Seat | Holder | Scope |
+|---|---|---|
+| Founder | Shakeel | Sole approver |
+| Lead Architect | Fable (Claude) | Architecture, governance, registers, schedules, review and verification |
+| Lead designer, per business | That business's Claude chat (ZYRA, AZMARA, WAFA…) | Product, rules, UX, layout, wording, look, master pictures and specs; records each LOCK (rule 11); writes build briefs for Codex. Never code, never git |
+| Implementation | Codex | Builds from locked designs only (rule 11): code, tests, as-built handovers. No design of his own, no admin, governance, mailbox or schedules. Exceptions: the 01:00 daily report job with its commit sweep (DOC-BUG-0027), and git within rule 2 |
+| Admin | Fable (Claude), from the Black Umbrella Group chat | Admin for every business: registers, schedules, clean-ups, reporting, the daily review |
+
+Fable holds an active seat. Any line elsewhere saying "Fable/Claude is
+retired" or "no Claude/Fable bootstrap is active" is superseded.
+<!-- BLACK-UMBRELLA-CORE-RULES v4 END -->
+
+
+## Locked design workflow (core rule 11, AD-AIOS-115; charters rule 11 - the same system as ZYRA)
+
+| Step | Who | Where |
+|---|---|---|
+| Brief | Shakeel | THE FOUR GATES chat (Claude) - the **lead designer** |
+| 2-5 options, one picture at a time, each with "what changed"; shown in the business's **one interactive prototype** (Artifact page Shakeel can tap through) | THE FOUR GATES chat | Chat + prototype |
+| Pick and tweak, then `LOCK`; the other options leave the prototype the same day | Shakeel | Chat |
+| Record the LOCK: pictures with every state, a spec with numbers, and a `LOCK_RECORD.md` line with Shakeel's words and the date | THE FOUR GATES chat | `GAME/APPROVED/<FEATURE>/` |
+| Build brief: locked file paths, "copy exactly, no improvements", what not to touch, checks; then one WAITING line in `GAME/APPROVED/BUILD_QUEUE.md` | THE FOUR GATES chat | `GAME/APPROVED/<FEATURE>/BUILD_BRIEF_<YYYY-MM-DD>.md`. Codex builds the queue at 01:00 or at once on any message from Shakeel in the THE FOUR GATES Codex chat (charters rule 9); he never asks Shakeel - a question goes in `GAME/APPROVED/QUESTIONS.md` and the line waits as QUESTION (rule 10) |
+| Check the locked files first, report problems, then build exactly | Codex | Task note: "Built from: <paths>" plus a screenshot of the built scene beside the master |
+| Compare the build with the master (MATCH or each difference); answer `QUESTIONS.md`; update the prototype to the real game | THE FOUR GATES chat | Its chat note; Fable files the decision at 04:15 |
+
+## Public repository (AD-AIOS-121, Founder 2 Nov 2026)
+
+This repository is public on GitHub under Apache 2.0. Every push is visible to anyone. Before and after each push:
+
+| Step | When | What |
+|---|---|---|
+| A. Secret scan | Before every push | Run `gitleaks detect --source . --log-opts="origin/main..HEAD"` (read-only scanner, AD-AIOS-120). Any finding that is not the Supabase public anon key: do not push; file it in QUESTIONS.md and mark the line QUESTION. Never print the secret in a report. |
+| B. Private material | Before every push | No business, pricing, legal, finance or personal documents in this repo - they live in BLACK UMBRELLA GROUP/BUSINESS/<NAME>/. If a task creates one here, move it there and leave nothing behind. Never anything from the keys folder. |
+| C. Roadmap | After a task that finishes a ROADMAP.md row | Tick the row (add "Done <date>" in its Intended result cell), close the matching GitHub roadmap issue with `gh issue close <n> --comment "Done in <commit>"`, and push. Never add new rows or change hours - that is Fable's job on the Founder's word. |
+| D. Release | When the app version in pubspec.yaml (or the repo's version file) changes | Create a GitHub pre-release with `gh release create v<version>-build<n> --target main --prerelease --notes "<one line per finished queue line>"`. No local git tag commands. |
+| E. Wording | Every document you write or edit | Neutral community wording only - never "Muslim" or "Islamic" (DOC-BUG-0038 table). App text members see is design: list it for the business chat, do not change it. |
+| F. README | When a task changes what the app does or how to run it | Update the README in the same push. |
+
+Record A-F in the task note's Commit line ("public checks: A ok, B ok, C row n / none, D none, E ok, F none").
+
+Building is allowed from LOCKs (Founder, 2 Nov 2026: "Yes, build from LOCKs") - nothing is built without a LOCK and a
+WAITING queue line.
+
+## Scope
+
+- THE FOUR GATES is a separate venture. Do not modify ZYRA, AZMARA, SELAH or WAFA from this work.
+- The game lives in `SOURCE/` (a Godot 4 project, GDScript, text scene files). Game design documents live in `GAME/`.
+  Pre-change snapshots live in `ARCHIVE/`.
+- Wording rule (Founder, 1-2 Nov 2026): the setting is an old Arabian city in its golden age of learning. Never use the
+  words "Muslim" or "Islamic" anywhere in the game or its documents; values are taught indirectly through tasks and
+  choices (fair trade, honesty, property, right and wrong). See DOC-BUG-0038 for the wording table.
+- Godot rules: keep scenes and resources in text formats (`.tscn`, `.tres`, `.gd`) so every file can be read and
+  edited; no single file over 50 MB; imported art goes in `SOURCE/assets/` with its licence recorded in
+  `SOURCE/assets/CREDITS.md`; only assets you may share publicly (own work, CC0, or a licence that allows public
+  redistribution); never commit the `.godot/` cache or export builds.
+- Next read `MAP.md`: every document by ID and the task routes. Read it only down to "Route paths".
+- Group lessons every agent must read first:
+  `../BLACK UMBRELLA GROUP/SYSTEM/DOCUMENTS/MASTER_GOVERNANCE/AGENT_LESSONS_LEARNED_CURRENT_VERSION_V2.md`
