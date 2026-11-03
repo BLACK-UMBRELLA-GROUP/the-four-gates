@@ -21,3 +21,4 @@ file and moved on; the business chat answers and sets the line back to WAITING (
 
 | # | Added | Brief path | Status (WAITING / BUILT / FAILED / QUESTION) | Built on | Note |
 |---|---|---|---|---|---|
+| 1 | 2026-11-03 | `GAME/APPROVED/LOOK_TEST/BRIEFS/LOOK_TEST_BRIEF_2026-11-03.md` | BUILT | 2026-11-03 | Founder-named task (3 Nov, clickable "See a Godot look test first"), written by Fable before the THE FOUR GATES chat is open: a throwaway stylised night-and-day market street with lanterns, CC0 assets only, 6 screenshots + fps. Not a LOCK, not gameplay. Waits for group line 20 if a fresh chat cannot write |

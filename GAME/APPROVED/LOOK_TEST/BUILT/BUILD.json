@@ -1,0 +1,95 @@
+{
+  "source_commit": "60e29dca00c0e688fa280f0cbc97f0f206e9570e",
+  "built_from": "GAME/APPROVED/LOOK_TEST/BRIEFS/LOOK_TEST_BRIEF_2026-11-03.md",
+  "authority": "Founder-named throwaway engine look test; not a LOCK or gameplay",
+  "godot_version": "4.7.2-stable (official)",
+  "build_mode": "Godot project run using installed editor executable; no export",
+  "target": "Mac mini Mac14,3; Apple M2; 8 GB RAM",
+  "timestamp_utc": "2026-11-03T21:01:59Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "settings": "Forward+, Metal, 2x MSAA + TAA, SSAO, SSIL, glow, soft shadows, light fog; vsync off; no export",
+  "fps": {
+    "day": {
+      "average": 54.1518535869758,
+      "frames": 542,
+      "p99_frame_ms": 32.994,
+      "seconds": 10.008891
+    },
+    "night": {
+      "average": 68.3105882710121,
+      "frames": 684,
+      "p99_frame_ms": 15.518,
+      "seconds": 10.013089
+    }
+  },
+  "measurement_method": "Street fixed shot; 3 s warm-up then frames / elapsed wall time over 10 s; rendered viewport 1920x1080",
+  "screenshots": [
+    {
+      "file": "01_street_day.png",
+      "height": 1080,
+      "width": 1920,
+      "sha256": "9f65d0d07933eb8f98eef9595daf8ec9fe00da8fe2d4c4f84bfcb00f5f254173",
+      "bytes": 975885
+    },
+    {
+      "file": "02_street_night.png",
+      "height": 1080,
+      "width": 1920,
+      "sha256": "79ea3792cdb99df9eecb40690cbc888d80b10faa7427920d1a6a3c869833f79e",
+      "bytes": 1218270
+    },
+    {
+      "file": "03_gate_night.png",
+      "height": 1080,
+      "width": 1920,
+      "sha256": "75a55fe273a299864707ad985b745389ececb348bd0087218cb2c60d320f22e4",
+      "bytes": 1067073
+    },
+    {
+      "file": "04_river_night.png",
+      "height": 1080,
+      "width": 1920,
+      "sha256": "fe95d88afd5cd0f852ae96079cfd3dc87526bdef1e5fba2ea635fba3740915e0",
+      "bytes": 716280
+    },
+    {
+      "file": "05_market_day.png",
+      "height": 1080,
+      "width": 1920,
+      "sha256": "3c02cd978d972df56808619d3bb7d574a3294f8834084892023e29188a9087b8",
+      "bytes": 1118178
+    },
+    {
+      "file": "06_overview_dusk.png",
+      "height": 1080,
+      "width": 1920,
+      "sha256": "ab8ddc03ebe04dfefafbf3e8f745b736fca8378ea36f7faedfb3c661ffdaa4c4",
+      "bytes": 1066799
+    }
+  ],
+  "checks": {
+    "native_import": "PASS",
+    "camera_and_lighting_input": "PASS",
+    "six_native_pngs_1920x1080": "PASS",
+    "visual_implementation_self_check": "PASS; all six individually inspected, no Founder approval claimed",
+    "lantern_count": 13,
+    "third_party_assets": 0,
+    "runtime_scripts": [
+      "camera.gd",
+      "capture_helper.gd"
+    ],
+    "exports_created": false
+  },
+  "corrections": [
+    "Retained deferred screenshot helper",
+    "Fog no longer hides sky",
+    "Extended plain background to horizon",
+    "Corrected diagonal beam rotation",
+    "TAA resolves soft-shadow grain"
+  ]
+}
