@@ -4,6 +4,8 @@ extends SceneTree
 func _initialize() -> void:
 	var folder := "res://../GAME/APPROVED/FOUNDATIONS/"
 	var names := ["f01_title", "f02_city_map__gate_closed", "f03_market_map__day_start_quay", "f04_market_map__night", "f05_market_map__at_task_board"]
+	if "--tasks" in OS.get_cmdline_user_args():
+		names = ["f06_task_board__start", "f07_task__choice", "f08_result__honest", "f09_result__quick", "f10_task_board__amends_and_daily_job", "f11_task_board__daily_job_done"]
 	for stem: String in names:
 		var master := Image.load_from_file(folder + "MASTERS/" + stem + ".png")
 		var build := Image.load_from_file(folder + "BUILT/V1/" + stem + "__build.png")

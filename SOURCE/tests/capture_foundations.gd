@@ -81,7 +81,8 @@ func run(app: Node3D) -> void:
 	await app.get_tree().create_timer(4.0).timeout
 	await capture(app, "f05_market_map__at_task_board__build.png")
 	await action(app, "use")
-	await capture(app, "board_not_built__build.png")
+	assert(app.ui.screen == "board")
+	await capture(app, "f06_task_board__start__build.png")
 	app.show_screen("game")
 	await app.get_tree().create_timer(4.0).timeout
 	await capture(app, "task_board_day__build.png")

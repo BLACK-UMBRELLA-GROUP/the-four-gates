@@ -10,9 +10,10 @@ a period when a city's libraries, markets and workshops were the centre of the k
 
 ## Status
 
-LOCK 1 part 1 is playable in Godot: River Market streets and collision, a third-person capsule player,
-place actions, market/city maps and day/night lighting. Placeholder shapes; gameplay first.
-The gate is closed. Tasks, earning, the scales lesson and gate progression are the next approved queue parts.
+LOCK 1 parts 1–2 are playable in Godot: River Market streets and collision, a third-person capsule player,
+place actions, market/city maps, day/night lighting, three tasks with honest and quick choices, live coins/trust,
+amends and a daily boat job. The job becomes available again when night turns to day. Placeholder shapes; gameplay first.
+The gate is closed. The scales lesson, gate progression and goal panel are the next approved queue part.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

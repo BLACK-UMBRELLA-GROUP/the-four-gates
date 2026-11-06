@@ -24,12 +24,15 @@ line 19 and records the exact Godot version below; gameplay is built only from L
 
 Import `SOURCE/project.godot` in Godot 4.7.2 and press Run, or run `godot --path SOURCE` from the repository root.
 The title opens first; Begin starts at the quay in River Market. These are placeholder shapes; gameplay first.
-LOCK 1 part 1 provides the street layout, collision, capsule player, camera, maps and day/night switch.
-Tasks, earning, the scales lesson and gate progression are later queue parts. Their actions currently show the
-approved temporary message. The gate stays closed; coins start at 0 and trust at 20 / 100.
+LOCK 1 parts 1–2 provide the street layout, collision, capsule player, camera, maps, day/night switch and task board.
+Use E at the board to take the three tasks, choose the honest or quick way, earn coins/trust, put quick choices right
+and unload a boat once each day. Amends return the trust actually lost plus the honest reward. Only night turning
+to day restores the daily job. Coins start at 0 and trust at 20 / 100; trust stays within 0–100.
+The scales lesson, gate progression and goal panel are later work. Their actions show the approved temporary message;
+the gate stays closed. There is no shop yet.
 
 WASD moves, mouse turns the third-person camera, Shift runs, E uses the nearby place, M opens/closes the market map,
-G shows the temporary goal message, T switches day/night, and Esc closes maps or releases the mouse. Click the world
+G shows the temporary goal message, T switches day/night, and Esc closes panels or releases the mouse. Click the world
 to capture the mouse again. Map place markers choose a walking route along the approved streets; the player moves
 physically. City map opens from the market map; its River Market area returns to the market map.
 
@@ -44,7 +47,7 @@ Run the plain GDScript checks from the repository root:
 
 Use `--log-file /private/tmp/tfg-tests.log` if the sandbox cannot write the default engine log.
 Tests exercise actual capsule movement/collision, quay-to-gate walking, stepping, wall pull-in, production map routing,
-data-driven input and the part-1 UI actions. The headless display checks look transforms; native capture separately
+data-driven input, real task/choice/result buttons, amends economics and daily job transitions. The headless display checks look transforms; native capture separately
 checks actual mouse dispatch and both pitch limits.
 
 `godot --path SOURCE -- --capture-foundations` records native 1920×1080 viewport PNGs and
@@ -52,6 +55,12 @@ checks actual mouse dispatch and both pitch limits.
 warm-up and rendered frames over ten seconds per mode, with vsync disabled. Captures include f01–f05 states,
 three world views and temporary action/toast states. `BUILD.json` records the source commit and honest visual differences.
 Run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd` after native capture to create the five side-by-side PNGs, with the approved master on the left and actual game on the right.
+
+`godot --path SOURCE -- --capture-tasks` captures the six part-2 master states f06–f11 plus gameplay checks and
+`PART2_MEASUREMENTS.json` in that same evidence folder. It preserves the earlier part-1 captures. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --tasks` for the six additional comparison
+PNGs. f11's master retains 31 coins / 0 trust after the job; the game applies the approved +2 coins / +5 trust and
+shows 33 / 5 for that sequence. Content and economic settings come from the unchanged V2 JSON.
 
 ## Earlier look test
 

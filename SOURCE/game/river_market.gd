@@ -1,10 +1,11 @@
 extends Node3D
-## LOCK 1 part 1: world, movement, maps and temporary later-part actions.
+## LOCK 1 parts 1–2: world, movement, maps and market task progression.
 
 const Foundations = preload("res://game/foundations.gd")
 const MarketWorld = preload("res://game/market_world.gd")
 const MarketPlayer = preload("res://game/market_player.gd")
 const MarketUI = preload("res://game/market_ui.gd")
+const TaskProgress = preload("res://game/task_progress.gd")
 
 var data: Dictionary
 var world: Node3D
@@ -15,10 +16,12 @@ var current_place := ""
 var destination := ""
 var route: Array[Vector3] = []
 var capture_runner: RefCounted
+var progress := TaskProgress.new()
 
 func _ready() -> void:
 	data = Foundations.load_data()
 	Foundations.configure_input(data)
+	progress.setup(data)
 	world = MarketWorld.new()
 	add_child(world)
 	world.setup(data)
@@ -28,23 +31,33 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data)
+	ui.setup(data, progress)
 	ui.begin_requested.connect(begin_game)
 	ui.screen_requested.connect(show_screen)
 	ui.wait_requested.connect(toggle_night)
 	ui.use_requested.connect(use_place)
 	ui.goal_requested.connect(show_goal)
 	ui.destination_requested.connect(walk_to_place)
+	ui.task_requested.connect(open_task)
+	ui.choice_requested.connect(choose_task)
+	ui.amend_requested.connect(amend_task)
+	ui.daily_job_requested.connect(do_daily_job)
 	show_screen("title")
 	update_state()
 	if "--capture-foundations" in OS.get_cmdline_user_args():
 		capture_runner = preload("res://tests/capture_foundations.gd").new()
+		capture_runner.run(self)
+	elif "--capture-tasks" in OS.get_cmdline_user_args():
+		capture_runner = preload("res://tests/capture_tasks.gd").new()
 		capture_runner.run(self)
 
 func _process(_delta: float) -> void:
 	update_state()
 
 func _physics_process(_delta: float) -> void:
+	if ui.screen not in ["game", "market_map"]:
+		player.test_move_axis = Vector2.ZERO
+		return
 	if route.is_empty():
 		return
 	var offset := route[0] - player.position
@@ -88,6 +101,8 @@ func show_screen(screen: String) -> void:
 
 func toggle_night() -> void:
 	night = not night
+	if not night:
+		progress.morning()
 	world.set_night(night)
 	update_state()
 	ui.show_toast(data.other_text.night if night else data.other_text.day)
@@ -95,17 +110,52 @@ func toggle_night() -> void:
 func use_place() -> void:
 	update_state()
 	match current_place:
-		"board", "scales", "gate": ui.show_toast(data.ui.not_built)
+		"board": show_board()
+		"scales", "gate": ui.show_toast(data.ui.not_built)
 		"centre": ui.show_toast(data.other_text.centre_exit)
 		_: pass
 
 func show_goal() -> void:
 	ui.show_toast(data.ui.not_built)
 
+func show_board() -> void:
+	show_screen("board")
+
+func open_task(id: String) -> void:
+	if progress.tasks.has(id):
+		return
+	for task: Dictionary in data.tasks:
+		if task.id == id:
+			ui.task_id = id
+			show_screen("task")
+			return
+
+func choose_task(id: String, choice: String) -> void:
+	var result := progress.choose_task(id, choice)
+	if result.is_empty():
+		return
+	ui.result = result
+	show_screen("result")
+
+func amend_task(id: String) -> void:
+	if not progress.amend_task(id):
+		return
+	show_board()
+	for task: Dictionary in data.tasks:
+		if task.id == id:
+			ui.show_toast(task.amends.result)
+			return
+
+func do_daily_job() -> void:
+	if progress.do_daily_job():
+		show_board()
+		ui.show_toast(data.daily_job.toast)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("close"):
 		if ui.screen == "city_map": show_screen("market_map")
 		elif ui.screen == "market_map": show_screen("game")
+		elif ui.screen in ["board", "task", "result"]: show_screen("game")
 		else: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	elif event.is_action_pressed("market_map") and ui.screen != "title":
 		show_screen("game" if ui.screen == "market_map" else "market_map")
