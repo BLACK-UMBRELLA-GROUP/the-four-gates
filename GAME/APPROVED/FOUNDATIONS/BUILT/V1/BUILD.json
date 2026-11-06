@@ -1,0 +1,168 @@
+{
+  "id": "DOC-TFG-0008",
+  "queue_line": 2,
+  "lock": "LOCK 1 V2",
+  "commit_sha": "6e04efc1ba66feab4d9e1f90817cf2437b30dbad",
+  "godot_version": "4.7.2-stable (official)",
+  "build_mode": "native debug viewport; Forward+ Metal; no export",
+  "timestamp_utc": "2026-11-06T21:12:13Z",
+  "built_from": [
+    "GAME/APPROVED/FOUNDATIONS/BRIEFS/BUILD_BRIEF_2026-11-06_PART1_STREET.md",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/FOUNDATIONS_SPEC_CURRENT_VERSION_V2.md",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/foundations_data_V2.json",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/LOCK_RECORD.md",
+    "GAME/APPROVED/FOUNDATIONS/MASTERS/f01_title.png",
+    "GAME/APPROVED/FOUNDATIONS/MASTERS/f02_city_map__gate_closed.png",
+    "GAME/APPROVED/FOUNDATIONS/MASTERS/f03_market_map__day_start_quay.png",
+    "GAME/APPROVED/FOUNDATIONS/MASTERS/f04_market_map__night.png",
+    "GAME/APPROVED/FOUNDATIONS/MASTERS/f05_market_map__at_task_board.png",
+    "GAME/APPROVED/FOUNDATIONS/MASTERS/f20_city_map__gate_open.png"
+  ],
+  "runtime_source_sha256": {
+    "SOURCE/project.godot": "a7bda839fef03bd60d3921cf35f7cbd914ee0e2fb64f657dd1c6893822c9fee1",
+    "SOURCE/game/foundations.gd": "f6e2a2349b0c0cc9fe74ae60c224770b671f6c15aa9750ee7dc3b2783f8754da",
+    "SOURCE/game/map_canvas.gd": "8bed15ef4463c4da4a31895f184148e3df16fe5239f98af16e88cc9e978e26f1",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_ui.gd": "e0aaf3be2a2e213121240793a0af253fd6678af48a98ff21f3492d238aa142ad",
+    "SOURCE/game/market_world.gd": "797c750a6b4425391dec9d2ee8ece181d239faffe2737a730fb76c94a01976d2",
+    "SOURCE/game/river_market.gd": "a3f54a332ab35441897e06d683e9fe317b51b7969ea7a82a3d034d679830ccc5",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/data/foundations.json": "96f9cab093fc7cd949a10663c44f4bb037556c7caa33cf0f4df0e4a5e03ba66f"
+  },
+  "approved_runtime_data_byte_identical": true,
+  "tests": {
+    "headless": "157/157 passed; exit 0",
+    "native_capture": "21 actual 1920x1080 captures; rendered mouse yaw and both pitch clamps passed; exit 0",
+    "comparisons": "5 master-left/native-build-right PNGs at 3840x1080; dimensions and images inspected",
+    "details": "CHECKS.json"
+  },
+  "fps": {
+    "day": {
+      "average": 60.0071988669523,
+      "frames": 601,
+      "p99_frame_ms": 17.68,
+      "seconds": 10.015465
+    },
+    "night": {
+      "average": 59.9971021399666,
+      "frames": 600,
+      "p99_frame_ms": 18.002,
+      "seconds": 10.000483
+    }
+  },
+  "performance_limit": "Approximately 60 fps with this window/compositor cadence; this is a measured native scene rate, not a maximum-GPU claim.",
+  "screenshots": {
+    "board_not_built__build.png": {
+      "bytes": 149387,
+      "sha256": "c5d713fb3e37861fdd2a5b7b31d93bbb0a13ec7e253f8c562a4c7175230710c4"
+    },
+    "centre_action__build.png": {
+      "bytes": 91097,
+      "sha256": "8ed5991892d248ac1decb3139b1ebd0bd93e8905f087f21f6011004198f66608"
+    },
+    "city_gate_message_0__build.png": {
+      "bytes": 143261,
+      "sha256": "3d979b69f540c125be999359c759be868e81de4276be8e93f819e9c5b1087127"
+    },
+    "city_gate_message_1__build.png": {
+      "bytes": 141036,
+      "sha256": "8cbe1cf1aa01368369255b9cf3d2bfebe2589180a27a6f57a167ea6563f7dced"
+    },
+    "city_gate_message_2__build.png": {
+      "bytes": 141156,
+      "sha256": "36bd92eaff6a71092a129094e8de0b27c0bcda11246e3df8b8dc37ceb34d27f6"
+    },
+    "city_gate_message_3__build.png": {
+      "bytes": 141608,
+      "sha256": "0a90d54a1d21a38f71bfafc97b8d66fa3da1211344fb562c7713e36b04c0e2f7"
+    },
+    "f01_title__build.png": {
+      "bytes": 256240,
+      "sha256": "ce29c5121ea0e17f4a82653f4b56615bfd51b1ef0f4c406a632022ec80d77a14"
+    },
+    "f01_title__master_beside_build.png": {
+      "bytes": 1834310,
+      "sha256": "49e2a56460a735c791780f7d0c7e91a8cee1a2f8ad6ac3d5199f6436a19eca22"
+    },
+    "f02_city_map__gate_closed__build.png": {
+      "bytes": 144614,
+      "sha256": "de9f52afc9a9b202a5ad364dca20988271b499940468d552fe41bf110d471a77"
+    },
+    "f02_city_map__gate_closed__master_beside_build.png": {
+      "bytes": 355876,
+      "sha256": "2fed5e9f9b165ff27baabfee74607a80c78d78fa1dfb178670a27dd59252aee1"
+    },
+    "f03_market_map__day_start_quay__build.png": {
+      "bytes": 151523,
+      "sha256": "e8900ac698fecb5e5bc69093a728536b35e4a862c63f111516d3c39d2d190033"
+    },
+    "f03_market_map__day_start_quay__master_beside_build.png": {
+      "bytes": 333545,
+      "sha256": "07fc652e2c07d80c5d816802088fde5cefa5a13977c38c8a41d8c9332b91929f"
+    },
+    "f04_market_map__night__build.png": {
+      "bytes": 201312,
+      "sha256": "83257a106d5c849a028d3a27559dae79489ed9581a2fb751320ac8d2412e02d6"
+    },
+    "f04_market_map__night__master_beside_build.png": {
+      "bytes": 435299,
+      "sha256": "a7504004f5d101a87ce560f78e13bfcec8afc0263e209eafa15c8a6c6aaedae5"
+    },
+    "f05_market_map__at_task_board__build.png": {
+      "bytes": 152683,
+      "sha256": "cc6b280a8363b33d8858913a23fd095a5badb32802a04ed30c9de95e5a32a358"
+    },
+    "f05_market_map__at_task_board__master_beside_build.png": {
+      "bytes": 337231,
+      "sha256": "8601c55c54431e125758a5af7e5029d43009dd293584c4082f5a45666f38c7d0"
+    },
+    "gate_action__build.png": {
+      "bytes": 168729,
+      "sha256": "032a881fefe7f5bcba186a4cec9a8a3f46c90c09de9a80d5390f6a5d5a43cd49"
+    },
+    "goal_not_built__build.png": {
+      "bytes": 166760,
+      "sha256": "177a46bce8401ad1045a58d08c52c10618d7507dce5f7c4c3c6372573990d5d3"
+    },
+    "quay_action__build.png": {
+      "bytes": 218534,
+      "sha256": "d87aff0c708de0815c9dec40b3cc5f15a0d3ae7442f999552815ee6e496d8b85"
+    },
+    "quay_day__build.png": {
+      "bytes": 185440,
+      "sha256": "54eaaa2dc7ffe989ffb02767b18546caba178875a04c442e83b6ca2d5bbd4aa0"
+    },
+    "scales_action__build.png": {
+      "bytes": 116358,
+      "sha256": "93886dfe965d5094c33f453c440c5be54873105fdef47f9c2132b488d02e5a89"
+    },
+    "spice_action__build.png": {
+      "bytes": 113366,
+      "sha256": "f2f3c46d1401e7c2bfd1b1b251cf81558feb717b1273daff44ee7da6568e28fc"
+    },
+    "square_night__build.png": {
+      "bytes": 258642,
+      "sha256": "6f2980961cf28d67c6a57e881d4aaade886ebc2a07dc3e63c96fc9b817e03df0"
+    },
+    "task_board_day__build.png": {
+      "bytes": 165777,
+      "sha256": "4723ec41de351097683585bfea30480db836da144969f9f4a5a9585bba30ccae"
+    },
+    "title_settings__build.png": {
+      "bytes": 255849,
+      "sha256": "51d4451dd010a75450200002421ba8110edaefde6a0a799ddf8cf746481b7c2d"
+    },
+    "weaver_action__build.png": {
+      "bytes": 87823,
+      "sha256": "3ac9378abcac2281d761dcc454264370d36df578ddcf89a35bc9c1c7ebf290f5"
+    }
+  },
+  "visual_limits": [
+    "Placeholder 3D world replaces the old look-test backgrounds as required; no art pass.",
+    "System font metrics, text outline strokes, lantern glow and small shape/river-outline differences remain; no pixel-identical match claimed.",
+    "Quay shot faces toward the gate, which the bent route and buildings obscure from that position.",
+    "f20 open gate is a later-part reference, inspected but not enabled by part 1.",
+    "Founder visual acceptance remains for the design chat."
+  ],
+  "scope": "Only queue line 2. No tasks, wallet progression, lesson, gate opening, goal panels or identity features. Look test untouched. Evidence contains PNG and JSON only."
+}
