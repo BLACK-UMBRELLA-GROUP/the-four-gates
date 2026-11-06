@@ -10,9 +10,10 @@ a period when a city's libraries, markets and workshops were the centre of the k
 
 ## Status
 
-Started 2 Nov 2026. The game is being designed. A disposable Godot look test shows a stylised market street,
-city gate and canal in day, night and dusk lighting. It has free-look and four fixed camera views, with no gameplay.
-The scene is a Founder-named engine evaluation and has not been locked as game design.
+LOCK 1 part 1 is playable in Godot: River Market streets and collision, a third-person capsule player,
+place actions, market/city maps and day/night lighting. Placeholder shapes; gameplay first.
+The gate is closed. Tasks, earning, the scales lesson and gate progression are the next approved queue parts.
+The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 
 ## Built with
@@ -25,10 +26,12 @@ See [ROADMAP.md](ROADMAP.md) for the planned game.
 
 1. Install Godot 4 (the exact version is recorded in [SOURCE/README.md](SOURCE/README.md)).
 2. Open Godot, choose **Import**, and pick `SOURCE/project.godot`.
-3. Press **Run** to open the look test. Hold right mouse to look and use WASD to fly.
+3. Press **Run**, then **Begin** to start at the quay.
 
-F1–F4 choose street, gate, river and market views; F5/F6/F7 change day/night/dusk.
-[Source instructions](SOURCE/README.md) cover camera controls, native screenshot capture and frame-rate measurement.
+WASD moves, mouse looks, Shift runs, E uses a nearby place, M opens the map, G shows the temporary goal message,
+T switches day/night, and Esc closes maps or releases the mouse. Map markers choose a physical walking route.
+Run `godot --headless --path SOURCE --script res://tests/run_tests.gd` for the plain automated checks.
+[Source instructions](SOURCE/README.md) cover native captures, frame-rate measurement and the old look-test scene.
 
 No accounts, keys or services are needed.
 

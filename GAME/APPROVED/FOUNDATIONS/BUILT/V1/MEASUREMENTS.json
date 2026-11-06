@@ -1,0 +1,141 @@
+{
+	"checks": [
+		"Native capture resolution asserted for every image",
+		"T dispatched through Input.parse_input_event and verified night",
+		"E dispatched at all seven real place points",
+		"G temporary action dispatched through Input",
+		"f20 inspected as a future open state; gate stays closed in part 1"
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"fps": {
+		"day": {
+			"average": 60.0071988669523,
+			"frames": 601,
+			"p99_frame_ms": 17.68,
+			"seconds": 10.015465
+		},
+		"night": {
+			"average": 59.9971021399666,
+			"frames": 600,
+			"p99_frame_ms": 18.002,
+			"seconds": 10.000483
+		}
+	},
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Actual 1920x1080 Godot viewport; vsync off; 3s warm-up then frames / wall seconds for 10s in each lighting mode; player at quay, third-person camera.",
+	"rendered_mouse": "Input.parse_input_event mouse motion changed actual camera yaw and clamped pitch at both approved limits.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "f01_title__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "title_settings__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "quay_day__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f03_market_map__day_start_quay__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f04_market_map__night__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "square_night__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f05_market_map__at_task_board__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "board_not_built__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "task_board_day__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f02_city_map__gate_closed__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "city_gate_message_0__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "city_gate_message_1__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "city_gate_message_2__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "city_gate_message_3__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "goal_not_built__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "scales_action__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "gate_action__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "centre_action__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "quay_action__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "spice_action__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "weaver_action__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"timestamp_utc": "2026-11-06T21:12:13Z"
+}

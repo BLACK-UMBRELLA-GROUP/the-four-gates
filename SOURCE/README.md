@@ -20,16 +20,43 @@ line 19 and records the exact Godot version below; gameplay is built only from L
 | Scene format | Text (`.tscn`, `.tres`) |
 | Art and sound | `assets/`, each item's source and licence in `assets/CREDITS.md` |
 
-Open the look test: import `SOURCE/project.godot` in Godot 4.7.2 and press Run (or run `godot --path SOURCE` from the repository root).
+## Play the current greybox
 
-The Founder-named look test is a disposable scene for judging the engine, not a locked game design.
-Hold the right mouse button to look; WASD flies, Q/E lowers/raises, Shift moves faster, and Escape releases the mouse.
-F1–F4 select street, gate, river and market views; F5/F6/F7 select day/night/dusk. No interface text appears in the scene.
+Import `SOURCE/project.godot` in Godot 4.7.2 and press Run, or run `godot --path SOURCE` from the repository root.
+The title opens first; Begin starts at the quay in River Market. These are placeholder shapes; gameplay first.
+LOCK 1 part 1 provides the street layout, collision, capsule player, camera, maps and day/night switch.
+Tasks, earning, the scales lesson and gate progression are later queue parts. Their actions currently show the
+approved temporary message. The gate stays closed; coins start at 0 and trust at 20 / 100.
 
-To reproduce the six actual 1920×1080 viewport screenshots and day/night measurements, run
-`godot --path SOURCE -- --capture` from the repository root. Results overwrite the six final PNGs and
-`MEASUREMENTS.json` in `GAME/APPROVED/LOOK_TEST/BUILT/`. `--measure` records performance only,
-and `--check-controls` exercises camera and lighting input. Measurements disable vsync, warm up for
-three seconds, then count rendered frames over ten seconds for each lighting mode. The render viewport
-is 1920×1080 even when the desktop window is smaller. Forward+ uses Metal, 2× MSAA with TAA, SSAO, SSIL, glow,
-soft shadow maps and light fog. There are no exports or downloaded assets.
+WASD moves, mouse turns the third-person camera, Shift runs, E uses the nearby place, M opens/closes the market map,
+G shows the temporary goal message, T switches day/night, and Esc closes maps or releases the mouse. Click the world
+to capture the mouse again. Map place markers choose a walking route along the approved streets; the player moves
+physically. City map opens from the market map; its River Market area returns to the market map.
+
+The unchanged locked `GAME/APPROVED/FOUNDATIONS/RECORD/foundations_data_V2.json` is copied to
+`SOURCE/data/foundations.json`. One loader reads it and configures runtime bindings from its keys. Content and gameplay
+settings stay in portable JSON. No art assets, plugins, packages or exports were added.
+
+## Checks and evidence
+
+Run the plain GDScript checks from the repository root:
+`godot --headless --path SOURCE --script res://tests/run_tests.gd`
+
+Use `--log-file /private/tmp/tfg-tests.log` if the sandbox cannot write the default engine log.
+Tests exercise actual capsule movement/collision, quay-to-gate walking, stepping, wall pull-in, production map routing,
+data-driven input and the part-1 UI actions. The headless display checks look transforms; native capture separately
+checks actual mouse dispatch and both pitch limits.
+
+`godot --path SOURCE -- --capture-foundations` records native 1920×1080 viewport PNGs and
+`MEASUREMENTS.json` under `GAME/APPROVED/FOUNDATIONS/BUILT/V1/`. It measures day and night using three seconds of
+warm-up and rendered frames over ten seconds per mode, with vsync disabled. Captures include f01–f05 states,
+three world views and temporary action/toast states. `BUILD.json` records the source commit and honest visual differences.
+Run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd` after native capture to create the five side-by-side PNGs, with the approved master on the left and actual game on the right.
+
+## Earlier look test
+
+The disposable Founder-named engine evaluation remains in `SOURCE/look_test/`, unchanged. Run it explicitly with
+`godot --path SOURCE res://look_test/look_test.tscn`. Hold right mouse to look; WASD flies, Q/E lowers/raises,
+Shift moves faster, and Escape releases the mouse. F1–F4 choose street, gate, river and market views;
+F5/F6/F7 choose day/night/dusk. Its old capture flags remain available after the explicit scene path.
+It is not the playable greybox or the locked art direction.

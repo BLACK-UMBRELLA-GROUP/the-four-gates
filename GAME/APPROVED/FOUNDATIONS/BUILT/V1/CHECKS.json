@@ -1,0 +1,58 @@
+{
+  "id": "DOC-TFG-0008",
+  "queue_line": 2,
+  "headless": {
+    "passed": 157,
+    "total": 157,
+    "exit_code": 0,
+    "command": "godot --headless --path SOURCE --log-file /private/tmp/tfg-headless-tests.log --script res://tests/run_tests.gd",
+    "covers": [
+      "Byte-identical approved V2 data",
+      "Real W A S D and Shift movement",
+      "Physical quay-to-gate route and closed gate",
+      "Off-street house, wall, west exit and canal collision",
+      "Exact 0.4 m step climb and higher obstacle rejection",
+      "Camera wall pull-in and approved pitch limits",
+      "All seven place triggers with exact radius",
+      "Title/Settings/Begin and map/HUD/temporary actions",
+      "Production map routing from intermediate street XZ (68,38.4) to task board",
+      "Ten runtime bindings from data.keys; alternate I/J/K/L physical movement then approved binding restoration",
+      "Exact integer HUD labels"
+    ]
+  },
+  "native": {
+    "capture_exit_code": 0,
+    "screenshots": 21,
+    "comparisons": 5,
+    "all_dimensions_checked": true,
+    "mouse_dispatch": "Input.parse_input_event mouse motion changed actual camera yaw and clamped pitch at both approved limits.",
+    "fps": {
+      "day": {
+        "average": 60.0071988669523,
+        "frames": 601,
+        "p99_frame_ms": 17.68,
+        "seconds": 10.015465
+      },
+      "night": {
+        "average": 59.9971021399666,
+        "frames": 600,
+        "p99_frame_ms": 18.002,
+        "seconds": 10.000483
+      }
+    }
+  },
+  "visual_review": {
+    "result": "CONTENT_AND_STATE_MATCH_WITH_RECORDED_RENDERING_DIFFERENCES",
+    "f01": "Title words, order and placement reproduced; required live greybox replaces old background. System serif metrics differ.",
+    "f02": "Closed gate names, tags, positions and messages reproduced. River outline is polygonal and market area elliptical; system font metrics differ.",
+    "f03_f04_f05": "Approved plan points, streets, place labels, player marker, integer HUD, bar/actions and day/night state reproduced. Text outlines, small box/ring shapes and night lantern glow differ from the web rendering.",
+    "world": "Required placeholder boxes/capsule/flat colours, simple sun and night lantern lighting. Quay camera faces toward gate; the bent route and buildings obscure the gate from that position.",
+    "f20": "Inspected as future open-gate reference. No open gate built or claimed in part 1.",
+    "acceptance": "No pixel-identical match or Founder visual acceptance claimed."
+  },
+  "scope": {
+    "later_actions": "Board, scales, gate and goal use approved Not built yet.; centre uses approved later-area toast; Look around leaves player in world.",
+    "look_test": "All five original file hashes unchanged",
+    "no_exports_or_source_copies": true
+  }
+}
