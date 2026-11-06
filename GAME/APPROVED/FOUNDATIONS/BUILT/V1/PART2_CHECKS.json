@@ -1,0 +1,73 @@
+{
+  "queue_line": 3,
+  "lock": "LOCK 1 V2",
+  "headless": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "passed": 370,
+    "total": 370,
+    "exit_code": 0,
+    "runner_sha256": "7e4ea58422c05b8d00411161c10888086c14951aa9101f3f22797b1cdb6e0069"
+  },
+  "native": {
+    "command": "godot --path SOURCE -- --capture-tasks",
+    "checks": 102,
+    "failures": 0,
+    "exit_code": 0,
+    "captures": 18,
+    "dimensions": [
+      1920,
+      1080
+    ],
+    "details": "PART2_MEASUREMENTS.json",
+    "runtime_fingerprints_match_current_source": true
+  },
+  "comparisons": {
+    "count": 6,
+    "dimensions": [
+      3840,
+      1080
+    ],
+    "master_left_build_right": true,
+    "visually_inspected": [
+      "f06_task_board__start",
+      "f07_task__choice",
+      "f08_result__honest",
+      "f09_result__quick",
+      "f10_task_board__amends_and_daily_job",
+      "f11_task_board__daily_job_done"
+    ]
+  },
+  "required_economics": {
+    "all_honest": {
+      "trust": 75,
+      "coins": 12
+    },
+    "all_quick": {
+      "trust": 0,
+      "coins": 31
+    },
+    "all_quick_then_all_amends": {
+      "trust": 75,
+      "coins": 0
+    },
+    "actual_losses_data_order": [
+      10,
+      10,
+      0
+    ],
+    "amend_trust_data_order": [
+      25,
+      30,
+      20
+    ]
+  },
+  "regression": "Existing real capsule route, intermediate map route, physical 0.4m step and higher rejection, wall camera pull-in, InputMap alternate-data binding/restoration retained and passed. World/player/map/input/project files unchanged.",
+  "approved_data_sha256": "96f9cab093fc7cd949a10663c44f4bb037556c7caa33cf0f4df0e4a5e03ba66f",
+  "approved_runtime_data_byte_identical": true,
+  "part1_pngs_unchanged": true,
+  "visual_discrepancies": [
+    "f11 master retains31coins/0trust after daily job; native applies V2+2coins/+5trust and displays33coins/5trust.",
+    "Placeholder shapes replace old master background as required. System font metrics/letter spacing, panel transparency and border details differ; no pixel-identical or Founder visual acceptance claim."
+  ],
+  "scope": "Line3 only. Tasks and money roadmap ADVANCED, not done; no shop. Lesson/gate/goal panel/identity remain unbuilt."
+}

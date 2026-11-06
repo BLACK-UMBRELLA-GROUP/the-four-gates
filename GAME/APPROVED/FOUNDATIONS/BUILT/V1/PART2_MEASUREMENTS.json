@@ -1,0 +1,890 @@
+{
+	"checks": [
+		{
+			"description": "E at the real board opens the task board",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f06_task_board__start__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f06_task_board__start__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 6 coins",
+			"passed": true
+		},
+		{
+			"description": "board opens the selected task spice",
+			"passed": true
+		},
+		{
+			"description": "viewport-local mouse hit opens the task choice screen without a signal fallback",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f07_task__choice__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f07_task__choice__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Tell the spice seller what happened",
+			"passed": true
+		},
+		{
+			"description": "honest spice result is 4 coins / 35 trust",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f08_result__honest__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f08_result__honest__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: See your goal",
+			"passed": true
+		},
+		{
+			"description": "result goal button shows the approved temporary message",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: part2_result_goal_placeholder__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: part2_result_goal_placeholder__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 3 coins",
+			"passed": true
+		},
+		{
+			"description": "board opens the selected task purse",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: part2_task_purse__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: part2_task_purse__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Return it to the weaver",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: part2_result_purse_honest__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: part2_result_purse_honest__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 5 coins",
+			"passed": true
+		},
+		{
+			"description": "board opens the selected task scales_help",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: part2_task_scales_help__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: part2_task_scales_help__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Refuse and tell the scale-keeper",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: part2_result_scales_help_honest__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: part2_result_scales_help_honest__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "all honest yields 12 coins / 75 trust",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: part2_all_honest__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: part2_all_honest__build.png",
+			"passed": true
+		},
+		{
+			"description": "E at the real board opens the task board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 6 coins",
+			"passed": true
+		},
+		{
+			"description": "board opens the selected task spice",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Top the sack up with sand",
+			"passed": true
+		},
+		{
+			"description": "quick spice result is 6 coins / 10 trust",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f09_result__quick__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f09_result__quick__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 3 coins",
+			"passed": true
+		},
+		{
+			"description": "board opens the selected task purse",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Keep the twenty coins",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: part2_result_purse_quick__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: part2_result_purse_quick__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 5 coins",
+			"passed": true
+		},
+		{
+			"description": "board opens the selected task scales_help",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the five coins and look away",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: part2_result_scales_help_quick__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: part2_result_scales_help_quick__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "all quick yields 31 coins / 0 trust",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f10_task_board__amends_and_daily_job__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f10_task_board__amends_and_daily_job__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Do it · 2 coins",
+			"passed": true
+		},
+		{
+			"description": "daily boat job applies 2 coins and 5 trust once",
+			"passed": true
+		},
+		{
+			"description": "used daily job has no repeat reward button",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f11_task_board__daily_job_done__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f11_task_board__daily_job_done__build.png",
+			"passed": true
+		},
+		{
+			"description": "day to night preserves the used daily job",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: part2_daily_job_still_used_at_night__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: part2_daily_job_still_used_at_night__build.png",
+			"passed": true
+		},
+		{
+			"description": "night to day restores the daily job",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: part2_daily_job_next_morning__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: part2_daily_job_next_morning__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Do it · 2 coins",
+			"passed": true
+		},
+		{
+			"description": "the restored job pays once the next morning",
+			"passed": true
+		},
+		{
+			"description": "E at the real board opens the task board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 6 coins",
+			"passed": true
+		},
+		{
+			"description": "board opens the selected task spice",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Top the sack up with sand",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 3 coins",
+			"passed": true
+		},
+		{
+			"description": "board opens the selected task purse",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Keep the twenty coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 5 coins",
+			"passed": true
+		},
+		{
+			"description": "board opens the selected task scales_help",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the five coins and look away",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Put it right",
+			"passed": true
+		},
+		{
+			"description": "real amends button repairs spice",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Put it right",
+			"passed": true
+		},
+		{
+			"description": "real amends button repairs purse",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Put it right",
+			"passed": true
+		},
+		{
+			"description": "real amends button repairs scales_help",
+			"passed": true
+		},
+		{
+			"description": "all quick followed by all amends yields 0 coins / 75 trust",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: part2_all_amends__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: part2_all_amends__build.png",
+			"passed": true
+		},
+		{
+			"description": "E at the real board opens the task board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 6 coins",
+			"passed": true
+		},
+		{
+			"description": "board opens the selected task spice",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Top the sack up with sand",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "insufficient wallet fixture has no affordable-amends button",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: part2_insufficient_fixture__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: part2_insufficient_fixture__build.png",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Progress setup resets between independent sequences; board-place positioning is a capture fixture. Rewards always use real buttons. The supplemental insufficient-funds capture sets the wallet to zero after the real quick spice choice solely to render that approved state; this is disclosed in its state record. No approved data changes.",
+	"fps": {
+		"day": {
+			"average": 60.0031129734817,
+			"frames": 601,
+			"p99_frame_ms": 17.63,
+			"seconds": 10.016147
+		},
+		"night": {
+			"average": 59.9865330233363,
+			"frames": 600,
+			"p99_frame_ms": 17.783,
+			"seconds": 10.002245
+		}
+	},
+	"gpu": "Apple M2 (Apple8)",
+	"master_difference": "f11 shows the job done with the earlier 31 coins / 0 trust HUD. The explicit V2 job reward produces 33 coins / 5 trust; the native capture records that live result.",
+	"method": "Actual 1920x1080 Godot viewport. E opens the board; real task/choice/result/amends/job buttons are pressed. T dispatches day/night. Native fps: vsync off, 3s warm-up and frames / 10 wall seconds per lighting mode at the quay.",
+	"mouse_button": {
+		"label": "Take it · 6 coins",
+		"method": "Viewport.push_input(event, true) sends local InputEventMouseMotion and left InputEventMouseButton press/release through the real GUI hit region; no signal fallback",
+		"viewport_position": [
+			1409.0,
+			471.5
+		]
+	},
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"runtime_source_sha256": {
+		"SOURCE/data/foundations.json": "96f9cab093fc7cd949a10663c44f4bb037556c7caa33cf0f4df0e4a5e03ba66f",
+		"SOURCE/game/foundations.gd": "f6e2a2349b0c0cc9fe74ae60c224770b671f6c15aa9750ee7dc3b2783f8754da",
+		"SOURCE/game/map_canvas.gd": "8bed15ef4463c4da4a31895f184148e3df16fe5239f98af16e88cc9e978e26f1",
+		"SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+		"SOURCE/game/market_ui.gd": "2f154e85be2556a5eef58082f7c479d6a38b0a0a697844cf27bb28e59dfc6875",
+		"SOURCE/game/market_world.gd": "797c750a6b4425391dec9d2ee8ece181d239faffe2737a730fb76c94a01976d2",
+		"SOURCE/game/river_market.gd": "f512a7fa3642f6d7f7d8e7008bed50b9b4f3c18ccdaf1d68ff4d713695d53a8a",
+		"SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+		"SOURCE/game/task_progress.gd": "8635bb01d5daf57379cb250f4309e76fe63c8ced2ef8af2b9233935256b5bc8b",
+		"SOURCE/project.godot": "a7bda839fef03bd60d3921cf35f7cbd914ee0e2fb64f657dd1c6893822c9fee1",
+		"SOURCE/tests/capture_tasks.gd": "1c0f1a0694f1bf4c1256bd0d1efe3304a414adbebe45cb6fe6bd3ff0435805c0"
+	},
+	"screenshots": [
+		{
+			"file": "f06_task_board__start__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f07_task__choice__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f08_result__honest__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "part2_result_goal_placeholder__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "part2_task_purse__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "part2_result_purse_honest__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "part2_task_scales_help__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "part2_result_scales_help_honest__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "part2_all_honest__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f09_result__quick__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "part2_result_purse_quick__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "part2_result_scales_help_quick__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f10_task_board__amends_and_daily_job__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f11_task_board__daily_job_done__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "part2_daily_job_still_used_at_night__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "part2_daily_job_next_morning__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "part2_all_amends__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "part2_insufficient_fixture__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"f06_task_board__start__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"night": false,
+			"screen": "board",
+			"tasks": {},
+			"trust": 20
+		},
+		"f07_task__choice__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"night": false,
+			"screen": "task",
+			"tasks": {},
+			"trust": 20
+		},
+		"f08_result__honest__build.png": {
+			"coins": 4,
+			"daily_count": 0,
+			"night": false,
+			"screen": "result",
+			"tasks": {
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"trust": 35
+		},
+		"f09_result__quick__build.png": {
+			"coins": 6,
+			"daily_count": 0,
+			"night": false,
+			"screen": "result",
+			"tasks": {
+				"spice": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				}
+			},
+			"trust": 10
+		},
+		"f10_task_board__amends_and_daily_job__build.png": {
+			"coins": 31,
+			"daily_count": 0,
+			"night": false,
+			"screen": "board",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				}
+			},
+			"trust": 0
+		},
+		"f11_task_board__daily_job_done__build.png": {
+			"coins": 33,
+			"daily_count": 1,
+			"night": false,
+			"screen": "board",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				}
+			},
+			"trust": 5
+		},
+		"part2_all_amends__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"night": false,
+			"screen": "board",
+			"tasks": {
+				"purse": {
+					"amended": true,
+					"choice": "quick",
+					"lost_trust": 10
+				},
+				"scales_help": {
+					"amended": true,
+					"choice": "quick",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": true,
+					"choice": "quick",
+					"lost_trust": 10
+				}
+			},
+			"trust": 75
+		},
+		"part2_all_honest__build.png": {
+			"coins": 12,
+			"daily_count": 0,
+			"night": false,
+			"screen": "board",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"trust": 75
+		},
+		"part2_daily_job_next_morning__build.png": {
+			"coins": 33,
+			"daily_count": 0,
+			"night": false,
+			"screen": "board",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				}
+			},
+			"trust": 5
+		},
+		"part2_daily_job_still_used_at_night__build.png": {
+			"coins": 33,
+			"daily_count": 1,
+			"night": true,
+			"screen": "board",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				}
+			},
+			"trust": 5
+		},
+		"part2_insufficient_fixture__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"fixture": "wallet set to zero after a real quick spice choice; approved need-coins rendering check",
+			"night": false,
+			"screen": "board",
+			"tasks": {
+				"spice": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				}
+			},
+			"trust": 10
+		},
+		"part2_result_goal_placeholder__build.png": {
+			"coins": 4,
+			"daily_count": 0,
+			"night": false,
+			"screen": "result",
+			"tasks": {
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"trust": 35
+		},
+		"part2_result_purse_honest__build.png": {
+			"coins": 7,
+			"daily_count": 0,
+			"night": false,
+			"screen": "result",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"trust": 55
+		},
+		"part2_result_purse_quick__build.png": {
+			"coins": 26,
+			"daily_count": 0,
+			"night": false,
+			"screen": "result",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				},
+				"spice": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				}
+			},
+			"trust": 0
+		},
+		"part2_result_scales_help_honest__build.png": {
+			"coins": 12,
+			"daily_count": 0,
+			"night": false,
+			"screen": "result",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"trust": 75
+		},
+		"part2_result_scales_help_quick__build.png": {
+			"coins": 31,
+			"daily_count": 0,
+			"night": false,
+			"screen": "result",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "quick",
+					"lost_trust": 10
+				}
+			},
+			"trust": 0
+		},
+		"part2_task_purse__build.png": {
+			"coins": 4,
+			"daily_count": 0,
+			"night": false,
+			"screen": "task",
+			"tasks": {
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"trust": 35
+		},
+		"part2_task_scales_help__build.png": {
+			"coins": 7,
+			"daily_count": 0,
+			"night": false,
+			"screen": "task",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"trust": 55
+		}
+	},
+	"timestamp_utc": "2026-11-06T23:43:37Z"
+}
