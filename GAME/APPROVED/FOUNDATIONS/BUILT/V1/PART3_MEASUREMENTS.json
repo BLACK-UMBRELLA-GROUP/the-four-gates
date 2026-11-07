@@ -1,0 +1,721 @@
+{
+	"checks": [
+		{
+			"description": "native 1920x1080 image: f12_learn__start__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f12_learn__start__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Weight 1",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f13_learn__true_weight_level__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f13_learn__true_weight_level__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Weight 1 is the false one",
+			"passed": true
+		},
+		{
+			"description": "wrong answer changes nothing and shows retry toast",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: part3_wrong_answer__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: part3_wrong_answer__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Weight 2",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f14_learn__false_weight_found__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f14_learn__false_weight_found__build.png",
+			"passed": true
+		},
+		{
+			"description": "native gate closed at 100 trust without lesson",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f15_market_map__gate_needs_lesson__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f15_market_map__gate_needs_lesson__build.png",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f16_market_map__gate_needs_trust__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f16_market_map__gate_needs_trust__build.png",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f18_goal__in_progress__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f18_goal__in_progress__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: playthrough_01_start__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: playthrough_01_start__build.png",
+			"passed": true
+		},
+		{
+			"description": "physical map route arrives at board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 6 coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Tell the spice seller what happened",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: playthrough_02_honest_spice__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: playthrough_02_honest_spice__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 3 coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Return it to the weaver",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: playthrough_03_honest_purse__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: playthrough_03_honest_purse__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 5 coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Refuse and tell the scale-keeper",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: playthrough_04_honest_scales_help__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: playthrough_04_honest_scales_help__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "native three honest tasks = 75 trust / 12 coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "physical map route arrives at scales",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Weight 2",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Weight 2 is the false one",
+			"passed": true
+		},
+		{
+			"description": "native honest playthrough plus lesson = 100 trust / 12 coins",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: playthrough_05_lesson_done__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: playthrough_05_lesson_done__build.png",
+			"passed": true
+		},
+		{
+			"description": "completed scales action pays no second reward",
+			"passed": true
+		},
+		{
+			"description": "physical map route arrives at gate",
+			"passed": true
+		},
+		{
+			"description": "native gate swings open and clears collision",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: playthrough_06_gate_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: playthrough_06_gate_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f17_market_map__gate_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f17_market_map__gate_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f19_goal__gate_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f19_goal__gate_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: City map",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: f20_city_map__gate_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: f20_city_map__gate_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "native open city gate uses its approved message",
+			"passed": true
+		}
+	],
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixtures": "f12-14 start lesson at scales. f15=100 trust/no lesson; f16=60 trust/no lesson; f17=100 trust/lesson done. f18=55 trust/12 coins and f19=100 trust/12 coins reproduce master HUD illustrations. Fixtures are independent of the continuous playthrough. Gate map captures use actual player at gate; prototype masters leave its marker at quay.",
+	"fps": {},
+	"method": "1920x1080 native viewport, actual viewport-local mouse hits and InputEventAction dispatch. Master fixtures reset progress/position; continuous six-shot playthrough uses Begin, physical map routes, board/choice buttons, scales buttons and E at gate, without progress/position edits.",
+	"mouse_button": {
+		"label": "City map",
+		"method": "Viewport.push_input(event, true) sends local InputEventMouseMotion and left InputEventMouseButton press/release through the real GUI hit region; no signal fallback",
+		"viewport_position": [
+			111.0,
+			1001.5
+		]
+	},
+	"runtime_source_sha256": {
+		"SOURCE/data/foundations.json": "96f9cab093fc7cd949a10663c44f4bb037556c7caa33cf0f4df0e4a5e03ba66f",
+		"SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+		"SOURCE/game/map_canvas.gd": "37020155b5909c3fa91f5cc26cb970dd119b1ca3a157d55a4c76004dfe6c2f80",
+		"SOURCE/game/market_ui.gd": "d1ab2bfd92107d3575d5385336041e9095b75f3c18fe2ed1162d46be3d01fdc6",
+		"SOURCE/game/market_world.gd": "3f7412d134c1d6a21fb68eaf7ed914aa41c9561a6456177e5d04fa16fb3b176f",
+		"SOURCE/game/river_market.gd": "0a4d83a46779ce8ec2b60048ad3fda14fffb0ab3bd76a5a2530a881f4e3b06d1",
+		"SOURCE/game/task_progress.gd": "75b72be44c61575625da399cd993e046ebc74f9f51140e2b552ebe5cec6771c9",
+		"SOURCE/tests/capture_gate.gd": "171679fdbdc0ea83b83c7d6dbc27880473ffaa998f3e43c24f3a62b13fb3d3fb"
+	},
+	"screenshots": [
+		{
+			"file": "f12_learn__start__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f13_learn__true_weight_level__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "part3_wrong_answer__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f14_learn__false_weight_found__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f15_market_map__gate_needs_lesson__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f16_market_map__gate_needs_trust__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f18_goal__in_progress__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "playthrough_01_start__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "playthrough_02_honest_spice__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "playthrough_03_honest_purse__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "playthrough_04_honest_scales_help__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "playthrough_05_lesson_done__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "playthrough_06_gate_open__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f17_market_map__gate_open__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f19_goal__gate_open__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "f20_city_map__gate_open__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"f12_learn__start__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				104.0,
+				0.0,
+				44.0
+			],
+			"screen": "lesson",
+			"tasks": {},
+			"tried_weight": -1,
+			"trust": 20
+		},
+		"f13_learn__true_weight_level__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				104.0,
+				0.0,
+				44.0
+			],
+			"screen": "lesson",
+			"tasks": {},
+			"tried_weight": 0,
+			"trust": 20
+		},
+		"f14_learn__false_weight_found__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				104.0,
+				0.0,
+				44.0
+			],
+			"screen": "lesson",
+			"tasks": {},
+			"tried_weight": 1,
+			"trust": 20
+		},
+		"f15_market_map__gate_needs_lesson__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"tried_weight": -1,
+			"trust": 100
+		},
+		"f16_market_map__gate_needs_trust__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"tried_weight": -1,
+			"trust": 60
+		},
+		"f17_market_map__gate_open__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": true,
+			"lesson_done": true,
+			"night": false,
+			"player": [
+				125.972625732422,
+				0.0,
+				8.54547500610352
+			],
+			"screen": "game",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"tried_weight": 1,
+			"trust": 100
+		},
+		"f18_goal__in_progress__build.png": {
+			"coins": 12,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "goal",
+			"tasks": {},
+			"tried_weight": -1,
+			"trust": 55
+		},
+		"f19_goal__gate_open__build.png": {
+			"coins": 12,
+			"daily_count": 0,
+			"gate_open": true,
+			"lesson_done": true,
+			"night": false,
+			"player": [
+				125.972625732422,
+				0.0,
+				8.54547500610352
+			],
+			"screen": "goal",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"tried_weight": 1,
+			"trust": 100
+		},
+		"f20_city_map__gate_open__build.png": {
+			"coins": 12,
+			"daily_count": 0,
+			"gate_open": true,
+			"lesson_done": true,
+			"night": false,
+			"player": [
+				125.972625732422,
+				0.0,
+				8.54547500610352
+			],
+			"screen": "city_map",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"tried_weight": 1,
+			"trust": 100
+		},
+		"part3_wrong_answer__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				104.0,
+				0.0,
+				44.0
+			],
+			"screen": "lesson",
+			"tasks": {},
+			"tried_weight": 0,
+			"trust": 20
+		},
+		"playthrough_01_start__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "game",
+			"tasks": {},
+			"tried_weight": -1,
+			"trust": 20
+		},
+		"playthrough_02_honest_spice__build.png": {
+			"coins": 4,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				86.9707183837891,
+				0.0,
+				34.7579612731934
+			],
+			"screen": "result",
+			"tasks": {
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"tried_weight": -1,
+			"trust": 35
+		},
+		"playthrough_03_honest_purse__build.png": {
+			"coins": 7,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				86.9707183837891,
+				0.0,
+				34.7579612731934
+			],
+			"screen": "result",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"tried_weight": -1,
+			"trust": 55
+		},
+		"playthrough_04_honest_scales_help__build.png": {
+			"coins": 12,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				86.9707183837891,
+				0.0,
+				34.7579612731934
+			],
+			"screen": "result",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"tried_weight": -1,
+			"trust": 75
+		},
+		"playthrough_05_lesson_done__build.png": {
+			"coins": 12,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": true,
+			"night": false,
+			"player": [
+				101.877716064453,
+				0.0,
+				42.7669677734375
+			],
+			"screen": "game",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"tried_weight": 1,
+			"trust": 100
+		},
+		"playthrough_06_gate_open__build.png": {
+			"coins": 12,
+			"daily_count": 0,
+			"gate_open": true,
+			"lesson_done": true,
+			"night": false,
+			"player": [
+				125.972625732422,
+				0.0,
+				8.54547500610352
+			],
+			"screen": "market_map",
+			"tasks": {
+				"purse": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"tried_weight": 1,
+			"trust": 100
+		}
+	},
+	"timestamp_utc": "2026-11-07T09:26:27Z"
+}

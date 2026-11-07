@@ -1,0 +1,30 @@
+{
+  "id": "DOC-TFG-0010",
+  "headless": {
+    "passed": 418,
+    "total": 418,
+    "exit_code": 0
+  },
+  "native_playthrough": {
+    "passed": 60,
+    "total": 60,
+    "exit_code": 0,
+    "receipt": "PART3_MEASUREMENTS.json"
+  },
+  "native_final_masters": {
+    "passed": 29,
+    "total": 29,
+    "exit_code": 0,
+    "receipt": "PART3_MASTERS_MEASUREMENTS.json"
+  },
+  "comparisons": {
+    "count": 9,
+    "size": [
+      3840,
+      1080
+    ],
+    "visually_inspected": true
+  },
+  "approved_data_byte_identical": true,
+  "scope": "Existing queue row 4 only; Learning thread advanced, not finished."
+}
