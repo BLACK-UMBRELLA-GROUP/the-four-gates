@@ -88,6 +88,7 @@ func _run() -> void:
 	await check_step_and_camera_collision()
 	await check_ui_states()
 	await check_task_economics()
+	await check_lesson_and_gate()
 	finish()
 
 
@@ -450,8 +451,10 @@ func check_ui_states() -> void:
 		await frames(2)
 		if id == "board":
 			check(app.ui.screen == "board" and visible_text().contains(data.ui.board.title), "E at the board opens the actual task board")
+		elif id == "scales":
+			check(app.ui.screen == "lesson" and visible_text().contains(data.lesson.title), "E opens the scales lesson")
 		else:
-			check(visible_text().contains(data.ui.not_built), "later-part action uses the authorized temporary toast: " + id)
+			check(visible_text().contains(data.gate.needs_trust.format({"trust": app.progress.trust})), "gate requires trust")
 	app.player.global_position = app.world.point("centre")
 	app.player.velocity = Vector3.ZERO
 	app.update_state()
@@ -461,7 +464,8 @@ func check_ui_states() -> void:
 	key_event(KEY_G, true)
 	key_event(KEY_G, false)
 	await frames(2)
-	check(visible_text().contains(data.ui.not_built), "G uses the authorized temporary goal toast")
+	check(app.ui.screen == "goal" and visible_text().contains(data.goal.title), "G opens the approved goal panel")
+	app.show_screen("game")
 	for id: String in ["quay", "spice", "weaver"]:
 		app.player.global_position = app.world.point(id)
 		app.player.velocity = Vector3.ZERO
@@ -523,7 +527,8 @@ func play_task(task: Dictionary, choice: String) -> void:
 	check(app.progress.tasks[task.id].choice == choice, "choice is recorded for the task: " + task.id)
 	if task.id == data.tasks[0].id:
 		await press_button(data.ui.buttons.see_goal, "result offers a usable See your goal button")
-		check(visible_text().contains(data.ui.not_built), "result goal button uses the authorized temporary goal message")
+		check(app.ui.screen == "goal" and visible_text().contains(data.goal.title), "result goal button opens the goal")
+		app.show_screen("result")
 	await press_button(data.ui.buttons.back_to_board, "result has a usable Back to the board button")
 	check(app.ui.screen == "board", "result returns to the board")
 	var status: String = data.ui.board.done_honest if choice == "honest" else data.ui.board.done_quick
@@ -554,7 +559,7 @@ func check_task_economics() -> void:
 	# The blank hit button over the trust HUD is a real button, not a label.
 	app.ui.show_toast("")
 	await press_button("", "trust HUD has a usable goal hit target")
-	check(visible_text().contains(data.ui.not_built), "trust HUD opens the authorized temporary goal message")
+	check(app.ui.screen == "goal", "trust HUD opens the goal screen")
 	await reset_tasks()
 	for task: Dictionary in data.tasks:
 		await play_task(task, "quick")
@@ -644,6 +649,92 @@ func check_economy_permutations_and_bounds() -> void:
 	check(app.progress.choose_task(data.tasks[0].id, "unknown-test-choice").is_empty(), "unknown choice IDs cannot claim a reward")
 	check(not app.progress.amend_task("unknown-test-task"), "unknown task IDs cannot claim amends")
 	check(app.progress.trust == int(data.numbers.start_trust) and app.progress.coins == int(data.numbers.start_coins) and app.progress.tasks.is_empty(), "invalid operations preserve initial state")
+
+
+func check_lesson_and_gate() -> void:
+	app.progress.setup(data)
+	app.player.position = app.world.point("gate")
+	app.player.velocity = Vector3.ZERO
+	app.show_screen("market_map")
+	app.progress.trust = int(data.numbers.gate_trust)
+	app.use_place()
+	await frames(2)
+	check(not app.progress.gate_open and app.world.gate_body.collision_layer != 0, "100 trust without lesson leaves physical gate closed")
+	check(visible_text().contains(data.gate.needs_lesson), "100 trust without lesson uses approved message")
+	app.progress.trust = int(data.numbers.start_trust)
+	app.use_place()
+	check(visible_text().contains(data.gate.needs_trust.format({"trust": app.progress.trust})), "insufficient trust uses live trust number")
+	app.player.position = app.world.point("scales")
+	app.player.velocity = Vector3.ZERO
+	app.show_screen("game")
+	app.use_place()
+	await frames(2)
+	check(app.ui.screen == "lesson" and not app.player.enabled, "lesson opens and pauses player input")
+	check(find_button(app.ui, data.lesson.answer_button.format({"n": 1})) == null, "lesson has no answer before trying a weight")
+	var before := Vector2i(app.progress.trust, app.progress.coins)
+	check(not app.progress.answer_weight() and Vector2i(app.progress.trust, app.progress.coins) == before, "answer before trying changes nothing")
+	check(not app.progress.try_weight(-1) and not app.progress.try_weight(data.lesson.options.size()), "invalid weight indices rejected")
+	for index in range(data.lesson.options.size()):
+		await press_button(data.lesson.options[index], "each weight has a real try button")
+		check(app.progress.tried_weight == index, "trying selects the requested weight")
+		var feedback: String = data.lesson.tip_text if index == int(data.lesson.false_weight_index) else data.lesson.level_text
+		check(visible_text().contains(feedback.format({"n": index + 1}).to_upper()), "scale feedback uses approved true/light wording")
+		if index != int(data.lesson.false_weight_index):
+			await press_button(data.lesson.answer_button.format({"n": index + 1}), "answer names the tried true weight")
+			check(visible_text().contains(data.lesson.wrong), "wrong answer shows approved retry message")
+			check(not app.progress.lesson_done and Vector2i(app.progress.trust, app.progress.coins) == before, "wrong answer changes no gameplay state")
+	await press_button(data.lesson.options[int(data.lesson.false_weight_index)], "false weight can be tried again")
+	await press_button(data.lesson.answer_button.format({"n": int(data.lesson.false_weight_index) + 1}), "false weight answer is usable")
+	check(app.progress.lesson_done and app.progress.trust == before.x + int(data.lesson.trust), "correct answer awards lesson trust")
+	check(app.ui.screen == "game" and visible_text().contains(data.lesson.win), "correct answer returns to world with win toast")
+	check(visible_text().contains(data.ui.place_actions.scales_after_lesson), "completed lesson changes place action")
+	before = Vector2i(app.progress.trust, app.progress.coins)
+	app.use_place()
+	check(visible_text().contains(data.other_text.scales_after_lesson), "check-scales action uses its approved line")
+	check(not app.progress.answer_weight() and not app.progress.try_weight(0), "completed lesson cannot be repeated")
+	check(Vector2i(app.progress.trust, app.progress.coins) == before, "lesson pays only once")
+	app.show_goal()
+	await frames(2)
+	check(visible_text().contains(data.ui.goal.rule_done_suffix.to_upper()), "goal rule shows done after lesson")
+	for gate: Array in data.goal.gates:
+		check(visible_text().contains(gate[0]), "goal lists each gate in data order")
+	await press_button(data.ui.buttons.map, "goal Map button works")
+	check(app.ui.screen == "market_map", "goal Map returns to map")
+	app.player.position = app.world.point("gate")
+	app.player.velocity = Vector3.ZERO
+	app.update_state()
+	app.use_place()
+	check(not app.progress.gate_open, "lesson alone cannot open gate below 100")
+	app.progress.setup(data)
+	for task: Dictionary in data.tasks:
+		app.progress.choose_task(task.id, "honest")
+	check(app.progress.trust == 75 and app.progress.coins == 12, "three honest tasks precede lesson at 75 trust / 12 coins")
+	app.progress.try_weight(int(data.lesson.false_weight_index))
+	app.progress.answer_weight()
+	check(app.progress.trust == 100 and app.progress.coins == 12, "all honest plus lesson is exactly 100 trust and 12 coins")
+	app.show_screen("market_map")
+	app.use_place()
+	await frames(60)
+	check(app.progress.gate_open and app.world.gate_open and app.world.gate_body.collision_layer == 0, "both requirements open physical gate")
+	check(is_equal_approx(app.world.gate_hinge.rotation.y, -PI / 2.0), "gate swings open at its hinge")
+	check(app.ui.map.gate_open, "maps receive the persistent open gate state")
+	app.show_screen("city_map")
+	app.ui.map.city_gate_requested.emit(0)
+	check(visible_text().contains(data.city_map.gate_open_message), "open city gate has approved region message")
+	app.show_goal()
+	check(visible_text().contains(data.ui.goal.open), "goal shows first gate open")
+	await press_button(data.ui.buttons.back_to_market, "goal Back to market button works")
+	app.progress.trust = 0
+	app.use_place()
+	check(app.progress.gate_open and app.world.gate_body.collision_layer == 0, "opened gate stays open even if trust later falls")
+	app.progress.setup(data)
+	for task: Dictionary in data.tasks:
+		app.progress.choose_task(task.id, "quick")
+	for task: Dictionary in data.tasks:
+		app.progress.amend_task(task.id)
+	app.progress.try_weight(int(data.lesson.false_weight_index))
+	app.progress.answer_weight()
+	check(app.progress.trust == 100 and app.progress.coins == 0, "all quick plus amends plus lesson is 100 trust / 0 coins")
 
 
 func finish() -> void:

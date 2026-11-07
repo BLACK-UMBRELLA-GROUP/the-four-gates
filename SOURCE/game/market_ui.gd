@@ -12,8 +12,11 @@ signal task_requested(task_id: String)
 signal choice_requested(task_id: String, choice: String)
 signal amend_requested(task_id: String)
 signal daily_job_requested
+signal weight_requested(index: int)
+signal answer_requested
 
 const MapCanvas = preload("res://game/map_canvas.gd")
+const LessonCanvas = preload("res://game/lesson_canvas.gd")
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
@@ -37,6 +40,8 @@ var result: Dictionary = {}
 var _last_coins := -1
 var _last_trust := -1
 var _last_daily_count := -1
+var _last_lesson := false
+var _last_gate := false
 
 func setup(source: Dictionary, progress_value: RefCounted) -> void:
 	data = source
@@ -54,7 +59,7 @@ func setup(source: Dictionary, progress_value: RefCounted) -> void:
 	map.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	map.configure(data)
 	map.destination_requested.connect(func(id: String): destination_requested.emit(id))
-	map.city_gate_requested.connect(func(index: int): show_toast(data.city_map.gate_messages[index]))
+	map.city_gate_requested.connect(func(index: int): show_toast(data.city_map.gate_open_message if index == 0 and progress.gate_open else data.city_map.gate_messages[index]))
 	map.market_requested.connect(func(): screen_requested.emit("market_map"))
 	root.add_child(map)
 	content = Control.new()
@@ -76,6 +81,10 @@ func show_screen(value: String) -> void:
 	screen = value
 	if not is_instance_valid(content):
 		return
+	# A message belongs to its current view; it must not obscure another panel.
+	if is_instance_valid(toast_panel):
+		toast_panel.hide()
+		_toast_seconds = 0.0
 	for child in content.get_children():
 		content.remove_child(child)
 		child.queue_free()
@@ -84,6 +93,7 @@ func show_screen(value: String) -> void:
 	map.night = night
 	map.player_position = player_position
 	map.selected_place = place_id
+	map.gate_open = progress.gate_open
 	map.queue_redraw()
 	match screen:
 		"title":
@@ -108,13 +118,21 @@ func show_screen(value: String) -> void:
 		"result":
 			_build_hud()
 			_build_result()
+		"lesson":
+			_build_hud()
+			_build_lesson()
+		"goal":
+			_build_hud()
+			_build_goal()
 	_last_coins = progress.coins
 	_last_trust = progress.trust
 	_last_daily_count = progress.daily_count
+	_last_lesson = progress.lesson_done
+	_last_gate = progress.gate_open
 
 func refresh(position_value: Vector3, place_value: String, night_value: bool) -> void:
 	player_position = position_value
-	var rebuild: bool = place_id != place_value or night != night_value or _last_coins != progress.coins or _last_trust != progress.trust or _last_daily_count != progress.daily_count
+	var rebuild: bool = place_id != place_value or night != night_value or _last_coins != progress.coins or _last_trust != progress.trust or _last_daily_count != progress.daily_count or _last_lesson != progress.lesson_done or _last_gate != progress.gate_open
 	place_id = place_value
 	night = night_value
 	if not is_instance_valid(root):
@@ -289,6 +307,67 @@ func _build_result() -> void:
 	_button(data.ui.buttons.back_to_board, Vector2(399, 646), Vector2(234, 56), func(): screen_requested.emit("board"), true)
 	_button(data.ui.buttons.see_goal, Vector2(646, 646), Vector2(189, 56), func(): goal_requested.emit())
 
+func _build_lesson() -> void:
+	var tried: bool = progress.tried_weight >= 0
+	var top := 254.0 if tried else 303.0
+	var height := 658.0 if tried else 560.0
+	var panel := _panel(Vector2(365, top), Vector2(1190, height), Color("241a0df2"))
+	_heading(panel, str(data.ui.lesson.kicker).format({"topic": data.lesson.topic}), data.lesson.title)
+	_label(panel, data.lesson.story, Vector2(34, 103), Vector2(1122, 48), 24, PAPER)
+	var scale := LessonCanvas.new()
+	scale.position = Vector2(718, top + 193)
+	scale.size = Vector2(484, 210)
+	scale.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	scale.data = data
+	scale.tried_weight = progress.tried_weight
+	scale.font = font
+	content.add_child(scale)
+	var x := 399.0
+	for index in range(data.lesson.options.size()):
+		var text: String = data.lesson.options[index]
+		var width := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 46
+		_button(text, Vector2(x, top + 409), Vector2(width, 56), func(): weight_requested.emit(index))
+		x += width + 14
+	var back_y := top + 478
+	if tried:
+		var feedback: String = data.lesson.tip_text if progress.tried_weight == int(data.lesson.false_weight_index) else data.lesson.level_text
+		_label(panel, feedback.format({"n": progress.tried_weight + 1}).to_upper(), Vector2(34, 467), Vector2(1122, 28), 16, Color("e9bd70"))
+		var answer: String = str(data.lesson.answer_button).format({"n": progress.tried_weight + 1})
+		var width := bold_font.get_string_size(answer, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 46
+		_button(answer, Vector2(399, top + 506), Vector2(width, 56), func(): answer_requested.emit(), true)
+		back_y = top + 576
+	_button(data.ui.buttons.back_to_market_map, Vector2(399, back_y), Vector2(307, 56), func(): screen_requested.emit("market_map"))
+
+func _build_goal() -> void:
+	var panel := _panel(Vector2(365, 279), Vector2(1190, 608), Color("241a0df2"))
+	_heading(panel, data.ui.goal.kicker, data.goal.title)
+	for index in range(data.goal.gates.size()):
+		var row_y := 113.0 + 81.0 * index
+		var gate: Array = data.goal.gates[index]
+		_board_row(panel, row_y, gate[0], gate[1], false)
+		var amount: int = progress.trust if index == 0 else 0
+		var track := ColorRect.new()
+		track.position = Vector2(455, row_y + 39)
+		track.size = Vector2(448, 10)
+		track.color = Color("514737")
+		track.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		panel.add_child(track)
+		var fill := ColorRect.new()
+		fill.size = Vector2(track.size.x * float(amount) / float(data.numbers.trust_max), track.size.y)
+		fill.color = GOLD
+		fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		track.add_child(fill)
+		var value: String = data.ui.goal.open if index == 0 and progress.gate_open else str(data.ui.goal.gate_trust_value).format({"n": amount})
+		var label := _label(panel, value, Vector2(955, row_y + 20), Vector2(201, 42), 24, Color("ffd27e"))
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	var rule: String = data.gate.goal_line
+	if progress.lesson_done:
+		rule += str(data.ui.goal.rule_done_suffix)
+	_label(panel, rule.to_upper(), Vector2(34, 436), Vector2(1122, 36), 16, Color("e9bd70"))
+	_label(panel, data.goal.line, Vector2(34, 470), Vector2(1122, 45), 24, PAPER)
+	_button(data.ui.buttons.back_to_market, Vector2(399, 804), Vector2(247, 56), func(): screen_requested.emit("game"), true)
+	_button(data.ui.buttons.map, Vector2(659, 804), Vector2(91, 56), func(): screen_requested.emit("market_map"))
+
 func _build_place_bar() -> void:
 	var x := 425.0 if screen == "market_map" else 203.0
 	if place_id.is_empty() or not data.places.has(place_id):
@@ -301,6 +380,8 @@ func _build_place_bar() -> void:
 	var name_value: String = place.name
 	var line_value: String = str(data.ui.place_bar.format).format({"name": "", "line": place.line})
 	var action: String = data.ui.place_actions[place_id]
+	if place_id == "scales" and progress.lesson_done:
+		action = data.ui.place_actions.scales_after_lesson
 	var name_width := bold_font.get_string_size(name_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var line_width := font.get_string_size(line_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var button_width := bold_font.get_string_size(action, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 46
@@ -351,7 +432,7 @@ func _button(value: String, at: Vector2, extent: Vector2, callback: Callable, pr
 	button.add_theme_color_override("font_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_hover_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_pressed_color", INK if primary else PAPER)
-	var task_panel := screen in ["board", "task", "result"]
+	var task_panel := screen in ["board", "task", "result", "lesson", "goal"]
 	var background := Color("1b130bf2") if task_panel else Color("191c19")
 	button.add_theme_stylebox_override("normal", _style(GOLD if primary else background))
 	button.add_theme_stylebox_override("hover", _style(GOLD.lightened(0.12) if primary else (background.lightened(0.1) if task_panel else Color("312b20"))))

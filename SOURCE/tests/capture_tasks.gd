@@ -33,9 +33,10 @@ func run(app: Node3D) -> void:
 	check(app.progress.coins == 4 and app.progress.trust == 35, "honest spice result is 4 coins / 35 trust")
 	await capture(app, "f08_result__honest__build.png")
 	await click(app, app.data.ui.buttons.see_goal)
-	check(app.ui.toast_label.text == app.data.ui.not_built and app.ui.toast_panel.visible, "result goal button shows the approved temporary message")
-	await capture(app, "part2_result_goal_placeholder__build.png")
-	await click(app, app.data.ui.buttons.back_to_board)
+	check(app.ui.screen == "goal", "result goal button opens the goal screen")
+	await capture(app, "part2_result_goal__build.png")
+	await click(app, app.data.ui.buttons.back_to_market)
+	app.show_board()
 	for index in range(1, app.data.tasks.size()):
 		var task: Dictionary = app.data.tasks[index]
 		await take_task(app, task)

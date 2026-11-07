@@ -24,15 +24,17 @@ line 19 and records the exact Godot version below; gameplay is built only from L
 
 Import `SOURCE/project.godot` in Godot 4.7.2 and press Run, or run `godot --path SOURCE` from the repository root.
 The title opens first; Begin starts at the quay in River Market. These are placeholder shapes; gameplay first.
-LOCK 1 parts 1–2 provide the street layout, collision, capsule player, camera, maps, day/night switch and task board.
+LOCK 1 parts 1–3 provide the street layout, collision, capsule player, camera, maps, day/night switch and task board.
 Use E at the board to take the three tasks, choose the honest or quick way, earn coins/trust, put quick choices right
 and unload a boat once each day. Amends return the trust actually lost plus the honest reward. Only night turning
 to day restores the daily job. Coins start at 0 and trust at 20 / 100; trust stays within 0–100.
-The scales lesson, gate progression and goal panel are later work. Their actions show the approved temporary message;
-the gate stays closed. There is no shop yet.
+Use E at Market scales to try the three weights against the checked weight and name the light one. A correct answer
+adds 25 trust once; later visits check the scales. Ask the gatekeepers with 100 trust and the lesson complete to swing
+the gate open permanently. Three honest tasks plus the lesson give exactly 100 trust and 12 coins. G or the trust bar
+opens the four-gate goal panel; the city map marks the opened Khurasan Gate green. There is no shop yet.
 
 WASD moves, mouse turns the third-person camera, Shift runs, E uses the nearby place, M opens/closes the market map,
-G shows the temporary goal message, T switches day/night, and Esc closes panels or releases the mouse. Click the world
+G opens the goal panel, T switches day/night, and Esc closes panels or releases the mouse. Click the world
 to capture the mouse again. Map place markers choose a walking route along the approved streets; the player moves
 physically. City map opens from the market map; its River Market area returns to the market map.
 
@@ -69,3 +71,9 @@ The disposable Founder-named engine evaluation remains in `SOURCE/look_test/`, u
 Shift moves faster, and Escape releases the mouse. F1–F4 choose street, gate, river and market views;
 F5/F6/F7 choose day/night/dusk. Its old capture flags remain available after the explicit scene path.
 It is not the playable greybox or the locked art direction.
+
+`godot --path SOURCE -- --capture-gate` captures part-3 states f12–f20, a wrong answer and six numbered playthrough
+screenshots. The master-state fixtures are disclosed separately from the continuous playthrough, which begins at the
+quay and walks to the board, scales and gate through production map routes. All GUI choices use viewport mouse hits.
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --gate` makes the nine master comparisons.
+The plain runner also checks wrong answers, repeat lesson rewards, both gate prerequisites and persistent opening.

@@ -10,10 +10,11 @@ a period when a city's libraries, markets and workshops were the centre of the k
 
 ## Status
 
-LOCK 1 parts 1–2 are playable in Godot: River Market streets and collision, a third-person capsule player,
+LOCK 1 parts 1–3 are playable in Godot: River Market streets and collision, a third-person capsule player,
 place actions, market/city maps, day/night lighting, three tasks with honest and quick choices, live coins/trust,
 amends and a daily boat job. The job becomes available again when night turns to day. Placeholder shapes; gameplay first.
-The gate is closed. The scales lesson, gate progression and goal panel are the next approved queue part.
+The scales lesson awards trust once. The Khurasan Gate swings open and stays open when the player asks with
+100 trust and the lesson complete. G or the trust bar opens the four-gate goal panel; maps show the first gate open.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 
@@ -29,7 +30,7 @@ See [ROADMAP.md](ROADMAP.md) for the planned game.
 2. Open Godot, choose **Import**, and pick `SOURCE/project.godot`.
 3. Press **Run**, then **Begin** to start at the quay.
 
-WASD moves, mouse looks, Shift runs, E uses a nearby place, M opens the map, G shows the temporary goal message,
+WASD moves, mouse looks, Shift runs, E uses a nearby place, M opens the map, G opens the goal panel,
 T switches day/night, and Esc closes maps or releases the mouse. Map markers choose a physical walking route.
 Run `godot --headless --path SOURCE --script res://tests/run_tests.gd` for the plain automated checks.
 [Source instructions](SOURCE/README.md) cover native captures, frame-rate measurement and the old look-test scene.

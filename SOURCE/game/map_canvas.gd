@@ -11,6 +11,7 @@ var mode := "market_map"
 var night := false
 var player_position := Vector3.ZERO
 var selected_place := ""
+var gate_open := false
 var font: Font = SystemFont.new()
 var bold_font: Font = SystemFont.new()
 var _place_hits: Dictionary = {}
@@ -96,6 +97,9 @@ func _draw_market() -> void:
 	draw_rect(Rect2(gate.x - gate_width / 2.0, 124, gate_width, 94), INK, false, 4)
 	draw_circle(gate, float(data.world.gatehouse.arch_width) * MAP_SCALE / 2.0, INK)
 	draw_rect(Rect2(gate.x - 34, gate.y, 68, 26), INK)
+	if gate_open:
+		draw_circle(gate, float(data.world.gatehouse.arch_width) * MAP_SCALE / 2.0, Color("80b78a"))
+		draw_rect(Rect2(gate.x - 34, gate.y, 68, 26), Color("80b78a"))
 	if night:
 		for edge in data.streets:
 			var a := project_point(data.street_points[edge[0]])
@@ -157,7 +161,7 @@ func _draw_city() -> void:
 		var p: Vector2 = corners[i]
 		var rect := Rect2(p - Vector2(34, 34), Vector2(68, 68))
 		_gate_hits.append(rect.grow(14))
-		_rounded(rect, GOLD, 10, INK, 5)
+		_rounded(rect, Color("80b78a") if i == 0 and gate_open else GOLD, 10, INK, 5)
 		var right: bool = i < 2
 		var y: float = 204 if i == 0 or i == 3 else 869
 		var x: float = 1162 if right else 469
@@ -165,6 +169,8 @@ func _draw_city() -> void:
 		var face_width := bold_font.get_string_size(name, HORIZONTAL_ALIGNMENT_LEFT, -1, 44).x
 		_text(name, Vector2(x if right else x - face_width, y), 44, PAPER, true)
 		var tag: String = city.gate_tags[name]
+		if i == 0 and gate_open:
+			tag = data.ui.city_map.open
 		var tag_width := font.get_string_size(tag, HORIZONTAL_ALIGNMENT_LEFT, -1, 38).x
 		_text(tag, Vector2(x if right else x - tag_width, y + 49), 38, Color("d8b571"))
 	_text(str(city.title), Vector2(58, 86), 48, PAPER, true)

@@ -1,5 +1,5 @@
 extends Node3D
-## LOCK 1 parts 1–2: world, movement, maps and market task progression.
+## LOCK 1: world, movement, market tasks, scales lesson and gate progression.
 
 const Foundations = preload("res://game/foundations.gd")
 const MarketWorld = preload("res://game/market_world.gd")
@@ -42,6 +42,8 @@ func _ready() -> void:
 	ui.choice_requested.connect(choose_task)
 	ui.amend_requested.connect(amend_task)
 	ui.daily_job_requested.connect(do_daily_job)
+	ui.weight_requested.connect(try_weight)
+	ui.answer_requested.connect(answer_weight)
 	show_screen("title")
 	update_state()
 	if "--capture-foundations" in OS.get_cmdline_user_args():
@@ -49,6 +51,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-tasks" in OS.get_cmdline_user_args():
 		capture_runner = preload("res://tests/capture_tasks.gd").new()
+		capture_runner.run(self)
+	elif "--capture-gate" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_gate.gd").new()
 		capture_runner.run(self)
 
 func _process(_delta: float) -> void:
@@ -111,12 +116,36 @@ func use_place() -> void:
 	update_state()
 	match current_place:
 		"board": show_board()
-		"scales", "gate": ui.show_toast(data.ui.not_built)
+		"scales":
+			if progress.lesson_done:
+				ui.show_toast(data.other_text.scales_after_lesson)
+			else:
+				progress.tried_weight = -1
+				show_screen("lesson")
+		"gate":
+			var message := progress.ask_gate()
+			if progress.gate_open:
+				world.open_gate()
+			update_state()
+			ui.show_toast(message)
 		"centre": ui.show_toast(data.other_text.centre_exit)
 		_: pass
 
 func show_goal() -> void:
-	ui.show_toast(data.ui.not_built)
+	show_screen("goal")
+
+func try_weight(index: int) -> void:
+	if ui.screen == "lesson" and progress.try_weight(index):
+		ui.show_screen("lesson")
+
+func answer_weight() -> void:
+	if ui.screen != "lesson" or progress.tried_weight < 0:
+		return
+	if progress.answer_weight():
+		show_screen("game")
+		ui.show_toast(data.lesson.win)
+	else:
+		ui.show_toast(data.lesson.wrong)
 
 func show_board() -> void:
 	show_screen("board")
@@ -155,7 +184,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("close"):
 		if ui.screen == "city_map": show_screen("market_map")
 		elif ui.screen == "market_map": show_screen("game")
-		elif ui.screen in ["board", "task", "result"]: show_screen("game")
+		elif ui.screen in ["board", "task", "result", "lesson", "goal"]: show_screen("game")
 		else: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	elif event.is_action_pressed("market_map") and ui.screen != "title":
 		show_screen("game" if ui.screen == "market_map" else "market_map")

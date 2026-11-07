@@ -6,6 +6,8 @@ func _initialize() -> void:
 	var names := ["f01_title", "f02_city_map__gate_closed", "f03_market_map__day_start_quay", "f04_market_map__night", "f05_market_map__at_task_board"]
 	if "--tasks" in OS.get_cmdline_user_args():
 		names = ["f06_task_board__start", "f07_task__choice", "f08_result__honest", "f09_result__quick", "f10_task_board__amends_and_daily_job", "f11_task_board__daily_job_done"]
+	if "--gate" in OS.get_cmdline_user_args():
+		names = ["f12_learn__start", "f13_learn__true_weight_level", "f14_learn__false_weight_found", "f15_market_map__gate_needs_lesson", "f16_market_map__gate_needs_trust", "f17_market_map__gate_open", "f18_goal__in_progress", "f19_goal__gate_open", "f20_city_map__gate_open"]
 	for stem: String in names:
 		var master := Image.load_from_file(folder + "MASTERS/" + stem + ".png")
 		var build := Image.load_from_file(folder + "BUILT/V1/" + stem + "__build.png")

@@ -6,6 +6,9 @@ var trust: int = 0
 var coins: int = 0
 var tasks: Dictionary = {}
 var daily_count: int = 0
+var lesson_done := false
+var tried_weight := -1
+var gate_open := false
 
 
 func setup(source: Dictionary) -> void:
@@ -14,6 +17,35 @@ func setup(source: Dictionary) -> void:
 	coins = int(data.numbers.start_coins)
 	tasks.clear()
 	daily_count = 0
+	lesson_done = false
+	tried_weight = -1
+	gate_open = false
+
+
+func try_weight(index: int) -> bool:
+	if lesson_done or index < 0 or index >= data.lesson.options.size():
+		return false
+	tried_weight = index
+	return true
+
+
+func answer_weight() -> bool:
+	if lesson_done or tried_weight != int(data.lesson.false_weight_index):
+		return false
+	lesson_done = true
+	_apply_trust(int(data.lesson.trust))
+	return true
+
+
+func ask_gate() -> String:
+	if gate_open:
+		return data.gate.open
+	if trust < int(data.numbers.gate_trust):
+		return str(data.gate.needs_trust).format({"trust": trust})
+	if bool(data.numbers.gate_needs_lesson) and not lesson_done:
+		return data.gate.needs_lesson
+	gate_open = true
+	return data.gate.open
 
 
 func choose_task(id: String, choice: String) -> Dictionary:

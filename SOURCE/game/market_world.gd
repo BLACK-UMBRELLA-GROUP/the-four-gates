@@ -6,6 +6,8 @@ var places := {}
 var lanterns: Array[OmniLight3D] = []
 var night := false
 var gate_body: StaticBody3D
+var gate_hinge: Node3D
+var gate_open := false
 var sun: DirectionalLight3D
 var environment: Environment
 var house_count := 0
@@ -137,6 +139,19 @@ func _build_gate() -> void:
 	_box(gate + Vector3(0.0, opening_height + (wall.height - opening_height) / 2.0, 0.0), Vector3(house.arch_width, wall.height - opening_height, thickness), Color("8a6340"))
 	gate_body = _box(gate + Vector3(0.0, opening_height / 2.0, 0.0), Vector3(house.arch_width, opening_height, data.world.houses.max_gap), Color("4f3e31"))
 	gate_body.name = "ClosedGate"
+	gate_hinge = Node3D.new()
+	gate_hinge.position = gate + Vector3(-half_arch, 0.0, 0.0)
+	add_child(gate_hinge)
+	gate_body.reparent(gate_hinge, true)
+
+
+func open_gate() -> void:
+	if gate_open:
+		return
+	gate_open = true
+	gate_body.collision_layer = 0
+	gate_body.collision_mask = 0
+	create_tween().tween_property(gate_hinge, "rotation:y", -PI / 2.0, 0.8)
 
 
 func _build_houses() -> void:
