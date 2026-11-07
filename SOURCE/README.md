@@ -77,3 +77,6 @@ screenshots. The master-state fixtures are disclosed separately from the continu
 quay and walks to the board, scales and gate through production map routes. All GUI choices use viewport mouse hits.
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --gate` makes the nine master comparisons.
 The plain runner also checks wrong answers, repeat lesson rewards, both gate prerequisites and persistent opening.
+
+Append `--masters-only` after `--capture-gate` for a short independent refresh of f12–f20 fixtures. It writes
+`PART3_MASTERS_MEASUREMENTS.json` and preserves the full playthrough receipt and its six numbered screenshots.
