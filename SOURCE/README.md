@@ -72,6 +72,12 @@ Shift moves faster, and Escape releases the mouse. F1–F4 choose street, gate, 
 F5/F6/F7 choose day/night/dusk. Its old capture flags remain available after the explicit scene path.
 It is not the playable greybox or the locked art direction.
 
+Run `godot --headless --path SOURCE --script res://tests/test_look_controls.gd` from the repository root for
+independent checks of the look-test controller. These cover the four shot shortcuts, day/night/dusk transitions,
+ignored key releases/repeats and shortcut suppression during capture, using a small in-memory scene. They do not
+load the playable game, render screenshots or measure frame rate; mouse dispatch and flight still need the native
+look-test control check.
+
 `godot --path SOURCE -- --capture-gate` captures part-3 states f12–f20, a wrong answer and six numbered playthrough
 screenshots. The master-state fixtures are disclosed separately from the continuous playthrough, which begins at the
 quay and walks to the board, scales and gate through production map routes. All GUI choices use viewport mouse hits.
