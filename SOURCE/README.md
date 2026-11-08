@@ -52,6 +52,11 @@ Tests exercise actual capsule movement/collision, quay-to-gate walking, stepping
 data-driven input, real task/choice/result buttons, amends economics and daily job transitions. The headless display checks look transforms; native capture separately
 checks actual mouse dispatch and both pitch limits.
 
+Run `godot --headless --path SOURCE --script res://tests/test_progress_restart.gd` for independent session-reset
+regression checks. An in-memory fixture completes tasks, amends, the daily job, the lesson and the gate, then starts
+another session on the same progress object. It checks cleared progress, replayed rewards and replacement wallet
+limits without loading game scenes or content files.
+
 `godot --path SOURCE -- --capture-foundations` records native 1920×1080 viewport PNGs and
 `MEASUREMENTS.json` under `GAME/APPROVED/FOUNDATIONS/BUILT/V1/`. It measures day and night using three seconds of
 warm-up and rendered frames over ten seconds per mode, with vsync disabled. Captures include f01–f05 states,
