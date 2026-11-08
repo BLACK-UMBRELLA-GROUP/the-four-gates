@@ -52,6 +52,11 @@ Tests exercise actual capsule movement/collision, quay-to-gate walking, stepping
 data-driven input, real task/choice/result buttons, amends economics and daily job transitions. The headless display checks look transforms; native capture separately
 checks actual mouse dispatch and both pitch limits.
 
+Run `godot --headless --path SOURCE --script res://tests/test_player_movement.gd` for independent player movement
+regressions. An in-memory floor and capsule exercise all four walking/running diagonals, movement after turning,
+opposing inputs, and stopping/resuming held input when the controller is disabled/enabled. This loads the real player
+controller without game scenes or content files; it does not verify the pending game integration.
+
 Run `godot --headless --path SOURCE --script res://tests/test_progress_restart.gd` for independent session-reset
 regression checks. An in-memory fixture completes tasks, amends, the daily job, the lesson and the gate, then starts
 another session on the same progress object. It checks cleared progress, replayed rewards and replacement wallet
