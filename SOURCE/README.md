@@ -44,8 +44,12 @@ settings stay in portable JSON. No art assets, plugins, packages or exports were
 
 ## Checks and evidence
 
-Run the plain GDScript checks from the repository root:
+Run the GDScript integration suite from the root of a complete checkout:
 `godot --headless --path SOURCE --script res://tests/run_tests.gd`
+
+The suite compares the runtime data byte for byte with the approved `foundations_data_V2.json` under `GAME/`.
+For a fixture containing only `SOURCE/`, use the independent player movement, progress restart and look-test
+controller checks below.
 
 Use `--log-file /private/tmp/tfg-tests.log` if the sandbox cannot write the default engine log.
 Tests exercise actual capsule movement/collision, quay-to-gate walking, stepping, wall pull-in, production map routing,
