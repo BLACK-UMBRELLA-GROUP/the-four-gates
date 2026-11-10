@@ -1,0 +1,178 @@
+{
+  "id": "DOC-TFG-0013",
+  "actions": [
+    "OA-AIOS-425",
+    "OA-AIOS-427"
+  ],
+  "queue_line": 5,
+  "lock": "LOCK 2 V3 data, identity spec V5; QUESTIONS 2 and 3 resolved",
+  "commit_sha": "262da0bd50287e10cd38d7ce36698697be9eefdf",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native debug viewport, Forward+ Metal on Apple M2",
+  "timestamp_utc": "2026-11-10T08:34:46Z",
+  "built_from": [
+    "GAME/APPROVED/IDENTITY/BRIEFS/BUILD_BRIEF_2026-11-06_PART1_NAMES_MAPS.md",
+    "GAME/APPROVED/IDENTITY/RECORD/IDENTITY_SPEC_CURRENT_VERSION_V5.md",
+    "GAME/APPROVED/IDENTITY/RECORD/identity_data_V3.json",
+    "GAME/APPROVED/IDENTITY/RECORD/LOCK_RECORD.md",
+    "GAME/APPROVED/IDENTITY/MASTERS/g01_title__ilmara.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g15_market_map__day_inn_masjid_clock.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g12_city_map.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g13_city_map__district_east.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g11_world_map.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g14_city_map__gate_of_trust_open.png",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/FOUNDATIONS_SPEC_CURRENT_VERSION_V2.md",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/foundations_data_V2.json",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/LOCK_RECORD.md"
+  ],
+  "runtime_source_sha256": {
+    "SOURCE/data/foundations.json": "bf3fdb75528c7126dca877e31b07fd8b4e97fe9d469c7db6ca1c5bba0814696d",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/game/foundations.gd": "e7a8ba0a7b23471f19bd175232811a09bc5a417a5e8424ea0f8b8ecdb58f6c18",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_ui.gd": "46bf83f1258f3f237148251f6e59c49e35543ea9a9e00aac258a913898e3a77f",
+    "SOURCE/game/market_world.gd": "3f7412d134c1d6a21fb68eaf7ed914aa41c9561a6456177e5d04fa16fb3b176f",
+    "SOURCE/game/river_market.gd": "293b534d523c07b8267c9091e44b3714efe8be3fe772e69de7863bd1e8ddcf87",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/game/task_progress.gd": "75b72be44c61575625da399cd993e046ebc74f9f51140e2b552ebe5cec6771c9",
+    "SOURCE/project.godot": "a7bda839fef03bd60d3921cf35f7cbd914ee0e2fb64f657dd1c6893822c9fee1",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/run_tests.gd": "97e88f9eebde58f81a605e50189050c6d136438687a2944ea75a6b89eb076584"
+  },
+  "tests": {
+    "headless": {
+      "passed": 554,
+      "total": 554,
+      "exit_code": 0,
+      "fixture": "Local complete checkout with both approved data files"
+    },
+    "standalone_headless": {
+      "player_movement": "39/39",
+      "progress_restart": "24/24",
+      "look_controls": "28/28"
+    },
+    "native": {
+      "passed": 52,
+      "total": 52,
+      "exit_code": 0,
+      "receipt": "CHECKS.json",
+      "fixture": "Only g14 uses seeded player position, trust and lesson state. Title and map states use normal navigation. The headless suite separately walks both new routes using the real capsule and collisions."
+    },
+    "comparisons": {
+      "count": 6,
+      "size": [
+        3840,
+        1080
+      ],
+      "visually_inspected": true
+    }
+  },
+  "visual_differences": {
+    "g01": "Native greybox street and capsule replace the illustrated night backdrop. Title lettering is slightly narrower. Text and buttons match.",
+    "g11": "Town positions, four gate roads, landing marker and navigation match. River bends, terrain circles, label outlines and button shades differ.",
+    "g12": "Five parts, four closed gates and Inn marker match. River bends, font widths, borders and button shades differ.",
+    "g13": "Exact East description. Native toast is slightly narrower with a gold border. Same map styling differences as g12.",
+    "g14": "Only the East gate is green. Same map styling differences as g12.",
+    "g15": "Shows 0 coins and 20/100 trust with no clock, and Wait until night/day. Inn and Masjid show Not built yet when selected. Marker outlines, label outlines and bar widths differ."
+  },
+  "screenshots": {
+    "g01_title__ilmara__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 227296,
+      "sha256": "f634b3a0342638ef6b13ddf4edcaaf022aeebbfd67c9b145d04f7d63bbaec013"
+    },
+    "g01_title__ilmara__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 1803005,
+      "sha256": "5c0c7240c2c429bca1f8a055b278da33379cbd870317a77b8d5202d9bdae5ab2"
+    },
+    "g15_market_map__day_inn_masjid_clock__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 167107,
+      "sha256": "6d0c674ebb9cad1b021c00a5b9bc86e623c01d054cdbd441fa6792b53078e4c5"
+    },
+    "g15_market_map__day_inn_masjid_clock__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 374777,
+      "sha256": "5e9e07183ae53b8b89fbe31975763263c26b0e48c5b8dce46b9e13acf2fbbff9"
+    },
+    "g12_city_map__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 153194,
+      "sha256": "ed63a7b8892ef5cff28e80e08a0798469fe7866065a5cd65bde1c87dc72f1639"
+    },
+    "g12_city_map__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 349861,
+      "sha256": "24cde7d7b23702a9220808f90f277f63b5b9639df5c19b17f68fb8f70524b9f3"
+    },
+    "g13_city_map__district_east__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 156921,
+      "sha256": "860584aaeeec95ef21d8a1ce065f6a47ff5cd082ea260c5c8823116ab5457a83"
+    },
+    "g13_city_map__district_east__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 369685,
+      "sha256": "13af9219d277ccff2e7ff19c8e3b3957c8ba0b60c14ab59262e0e564cd7fd27e"
+    },
+    "g11_world_map__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 225310,
+      "sha256": "414abf56fd0e73b4f4ae653ac031ed816bf243856039ff610ea2217026a3c744"
+    },
+    "g11_world_map__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 557720,
+      "sha256": "b3c55fe93ef6b539b92752135abf03c0f3ea2e31e868407877ad839e83861b80"
+    },
+    "g14_city_map__gate_of_trust_open__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 153401,
+      "sha256": "bd8e8bc9dd5f0275c9b9fe834796b2198d282c7c0dc106433a052aedac5e624f"
+    },
+    "g14_city_map__gate_of_trust_open__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 350086,
+      "sha256": "cdf41ccc2ec0603c7ad3f1b7d41745bf472f89e96edbd4877ff9a96b95d32344"
+    }
+  }
+}

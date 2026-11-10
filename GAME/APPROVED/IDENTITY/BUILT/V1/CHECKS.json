@@ -1,0 +1,365 @@
+{
+	"checks": [
+		{
+			"description": "native 1920x1080 image: g01_title__ilmara__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g01_title__ilmara__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "Begin opens market map with LOCK 1 wallet/trust",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g15_market_map__day_inn_masjid_clock__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g15_market_map__day_inn_masjid_clock__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: City map",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g12_city_map__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g12_city_map__build.png",
+			"passed": true
+		},
+		{
+			"description": "native East part shows its exact line",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g13_city_map__district_east__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g13_city_map__district_east__build.png",
+			"passed": true
+		},
+		{
+			"description": "native part line: centre",
+			"passed": true
+		},
+		{
+			"description": "native part line: north",
+			"passed": true
+		},
+		{
+			"description": "native part line: west",
+			"passed": true
+		},
+		{
+			"description": "native part line: south",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: World map",
+			"passed": true
+		},
+		{
+			"description": "native World map button opens the world map",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g11_world_map__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g11_world_map__build.png",
+			"passed": true
+		},
+		{
+			"description": "native placeholder town: Fishing village",
+			"passed": true
+		},
+		{
+			"description": "native placeholder town: Date-palm village",
+			"passed": true
+		},
+		{
+			"description": "native placeholder town: Mill town",
+			"passed": true
+		},
+		{
+			"description": "native placeholder town: Caravan stop",
+			"passed": true
+		},
+		{
+			"description": "native placeholder town: Shepherds’ hamlet",
+			"passed": true
+		},
+		{
+			"description": "native placeholder town: Pottery village",
+			"passed": true
+		},
+		{
+			"description": "native placeholder town: Orchard town",
+			"passed": true
+		},
+		{
+			"description": "native placeholder town: Well town",
+			"passed": true
+		},
+		{
+			"description": "native placeholder town: Bridge town",
+			"passed": true
+		},
+		{
+			"description": "native placeholder town: Marsh village",
+			"passed": true
+		},
+		{
+			"description": "native placeholder town: Quarry village",
+			"passed": true
+		},
+		{
+			"description": "native placeholder town: Herb village",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Title",
+			"passed": true
+		},
+		{
+			"description": "world Title button returns to title",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: City map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: World map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: City map",
+			"passed": true
+		},
+		{
+			"description": "world City map button opens city",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: World map",
+			"passed": true
+		},
+		{
+			"description": "world city symbol opens city",
+			"passed": true
+		},
+		{
+			"description": "Your inn marker opens River Market",
+			"passed": true
+		},
+		{
+			"description": "native gate stays closed with trust only",
+			"passed": true
+		},
+		{
+			"description": "native gate stays closed with lesson only",
+			"passed": true
+		},
+		{
+			"description": "native gate swings open and clears collision with both prerequisites",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: City map",
+			"passed": true
+		},
+		{
+			"description": "native city map displays the open East gate",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g14_city_map__gate_of_trust_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g14_city_map__gate_of_trust_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: World map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: River Market",
+			"passed": true
+		},
+		{
+			"description": "world River Market button returns to market",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Only g14 uses seeded player position, trust and lesson state. Title and map states use normal navigation. The headless suite separately walks both new routes using the real capsule and collisions.",
+	"fps": {},
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Real native Godot viewport, 1920x1080. Viewport-local mouse clicks exercise production maps and buttons. The g14 fixture places the player at the gate and sets each prerequisite in turn. The real use action drives the rule and hinge.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"runtime_source_sha256": {
+		"SOURCE/data/foundations.json": "bf3fdb75528c7126dca877e31b07fd8b4e97fe9d469c7db6ca1c5bba0814696d",
+		"SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+		"SOURCE/game/foundations.gd": "e7a8ba0a7b23471f19bd175232811a09bc5a417a5e8424ea0f8b8ecdb58f6c18",
+		"SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+		"SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+		"SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+		"SOURCE/game/market_ui.gd": "46bf83f1258f3f237148251f6e59c49e35543ea9a9e00aac258a913898e3a77f",
+		"SOURCE/game/market_world.gd": "3f7412d134c1d6a21fb68eaf7ed914aa41c9561a6456177e5d04fa16fb3b176f",
+		"SOURCE/game/river_market.gd": "293b534d523c07b8267c9091e44b3714efe8be3fe772e69de7863bd1e8ddcf87",
+		"SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+		"SOURCE/game/task_progress.gd": "75b72be44c61575625da399cd993e046ebc74f9f51140e2b552ebe5cec6771c9",
+		"SOURCE/project.godot": "a7bda839fef03bd60d3921cf35f7cbd914ee0e2fb64f657dd1c6893822c9fee1",
+		"SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+		"SOURCE/tests/run_tests.gd": "97e88f9eebde58f81a605e50189050c6d136438687a2944ea75a6b89eb076584"
+	},
+	"screenshots": [
+		{
+			"file": "g01_title__ilmara__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g15_market_map__day_inn_masjid_clock__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g12_city_map__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g13_city_map__district_east__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g11_world_map__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g14_city_map__gate_of_trust_open__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"g01_title__ilmara__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "title",
+			"tasks": {},
+			"trust": 20
+		},
+		"g11_world_map__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "world_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"g12_city_map__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "city_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"g13_city_map__district_east__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "city_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"g14_city_map__gate_of_trust_open__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": true,
+			"lesson_done": true,
+			"night": false,
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "city_map",
+			"tasks": {},
+			"trust": 100
+		},
+		"g15_market_map__day_inn_masjid_clock__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		}
+	},
+	"timestamp_utc": "2026-11-10T08:34:46Z"
+}
