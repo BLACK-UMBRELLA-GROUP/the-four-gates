@@ -1,0 +1,299 @@
+{
+  "id": "DOC-TFG-0014",
+  "actions": [
+    "OA-AIOS-425",
+    "AD-AIOS-116"
+  ],
+  "queue_line": 6,
+  "lock": "LOCK 2 V3 data and V5 identity spec. QUESTIONS row 4, Option A.",
+  "commit_sha": "ffff8cbb23472ca5df3549b7d0971721115286c1",
+  "godot_version": "4.7.2-stable (official)",
+  "build_mode": "Native debug Godot viewport, forward_plus / metal on Apple M2 (Apple8)",
+  "timestamp_utc": "2026-11-10T12:08:15Z",
+  "built_from": [
+    "GAME/APPROVED/IDENTITY/BRIEFS/BUILD_BRIEF_2026-11-06_PART2_ARRIVAL.md",
+    "GAME/APPROVED/IDENTITY/RECORD/IDENTITY_SPEC_CURRENT_VERSION_V5.md",
+    "GAME/APPROVED/IDENTITY/RECORD/identity_data_V3.json",
+    "GAME/APPROVED/IDENTITY/RECORD/LOCK_RECORD.md",
+    "GAME/APPROVED/QUESTIONS.md, row 4",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/FOUNDATIONS_SPEC_CURRENT_VERSION_V2.md",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/foundations_data_V2.json",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/LOCK_RECORD.md",
+    "GAME/APPROVED/IDENTITY/MASTERS/g02_arrival__dawn_quay.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g03_arrival__quay_reply.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g04_arrival__money_changers.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g05_arrival__fair_changer.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g06_arrival__smiling_changer.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g07_arrival__inn.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g08_arrival__sunset_adhan.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g09_arrival__end_fair.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g10_arrival__end_cheated.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g16_market_map__at_inn_night.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g17_market_map__morning_after_rest.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g18_market_map__rest_cannot_pay.png",
+    "GAME/APPROVED/IDENTITY/MASTERS/g30_after_lesson__cheat_found.png"
+  ],
+  "runtime_source_sha256": {
+    "SOURCE/data/foundations.json": "bf3fdb75528c7126dca877e31b07fd8b4e97fe9d469c7db6ca1c5bba0814696d",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/game/foundations.gd": "e7a8ba0a7b23471f19bd175232811a09bc5a417a5e8424ea0f8b8ecdb58f6c18",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_ui.gd": "b8ff7b73ff193d44fa2ce7c13185b5db0965e1eb53d131662dfa61440ec42c99",
+    "SOURCE/game/market_world.gd": "10eea1d7f5b8c2ce5aa3b273b9ce63ceb3507bcf74d7e5a1e30ffad5db15ef65",
+    "SOURCE/game/river_market.gd": "416cea5bcd9a51dead6f381bc777de2b17068973070219695b98da0475edcaf1",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/game/task_progress.gd": "75b72be44c61575625da399cd993e046ebc74f9f51140e2b552ebe5cec6771c9",
+    "SOURCE/project.godot": "a7bda839fef03bd60d3921cf35f7cbd914ee0e2fb64f657dd1c6893822c9fee1",
+    "SOURCE/tests/capture_arrival.gd": "fb2e560362904750caf2079a56b864ffa6273d803c1c4ef21d281fbba5770f8f",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/capture_tasks.gd": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003",
+    "SOURCE/tests/create_comparisons.gd": "406d4ba8b9eb0a674c0281dcf79a6c168ece5cf5fafe1f8cd99c5235774823bf",
+    "SOURCE/tests/run_tests.gd": "8b8caada232b7541151881b120702c78168ba5f33d0ee2004081572ae996f22c"
+  },
+  "tests": {
+    "headless": {
+      "passed": 771,
+      "total": 771,
+      "exit_code": 0
+    },
+    "standalone_headless": {
+      "player_movement": "39/39",
+      "progress_restart": "24/24",
+      "look_controls": "28/28"
+    },
+    "native": {
+      "passed": 82,
+      "total": 82,
+      "exit_code": 0,
+      "receipt": "CHECKS.json",
+      "fixture": "Only g18 seeds the wallet to zero, after the actual prepaid and paid rests. All choices, rests and the lesson use the real controls. g17 is the first no-credit rest, on day 3 after the preceding prepaid rest; line 6 has no clock UI. For g30 this shorter run places the player at the market scales, then uses the actual lesson buttons. The full native run previously verified the physical route.",
+      "earlier_run": "A full native run passed 83/83 with the physical Inn-to-scales route before the dialogue and toast layout fixes."
+    },
+    "comparisons": {
+      "count": 13,
+      "size": [
+        3840,
+        1080
+      ],
+      "visually_inspected": true
+    }
+  },
+  "visual_differences": {
+    "g02–g07": "Same dialogue, choices, replies, coins and trust. Existing capsule and greybox daylight replace the illustrated street. Fonts, wrapping, panel height and button widths vary. Clock omitted for line 7.",
+    "g08–g10": "Same sunset prompt, end copy, balances and three buttons. Greybox night replaces the illustrated sunset. Panel padding and lettering differ. No clock UI. The time advances only when Follow them is selected. Meet the old man shows the approved interim toast.",
+    "g16–g18": "The dark map, selected Inn, rest action, balances and rest messages agree. Marker strokes, action widths and toast border differ. The LOCK 1 control reads Wait until day and the clock is absent. The g17 and g18 fixture rests follow the actual prepaid night, so their stored days are 3 and 4. Both wake at 04:40.",
+    "g30": "Same cheat toast copy, 118 coins and 45 trust. The toast is shown at Market scales in the 3D street, the approved LOCK 1 exit. Toast border, place bar and background differ, and the clock is absent."
+  },
+  "screenshots": {
+    "g02_arrival__dawn_quay__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 241745,
+      "sha256": "0476d130ca1ef22cc1c0cf57a71f208c107e7269ddc756e39db179cf50c9731d"
+    },
+    "g02_arrival__dawn_quay__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 944394,
+      "sha256": "dd4141fff530f18a8bd11ae66b1ac923f794c77fa1f0ee563ead1a8595a417cd"
+    },
+    "g03_arrival__quay_reply__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 245593,
+      "sha256": "b9b17984e6ef26757d6f531dddd4348f91f918b13c34c70cf96d30672595e3b6"
+    },
+    "g03_arrival__quay_reply__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 981707,
+      "sha256": "af5efb00d198a746766dbf1470f4c5a224a5311186a2c90090ccae098aba940d"
+    },
+    "g04_arrival__money_changers__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 222051,
+      "sha256": "fc6b69b3c3f33bfb01b519c207ff6397ebd9e0168f484015b88e8f632a12b7fb"
+    },
+    "g04_arrival__money_changers__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 924159,
+      "sha256": "ac23a797a66f944f392f9a8bce1da13566f86ada7f5666a40c22943ba0cdb9b8"
+    },
+    "g05_arrival__fair_changer__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 237789,
+      "sha256": "82eb4d5aa84fcc963730e0275ab839d8382595b0631a33c5532c62465e807d3a"
+    },
+    "g05_arrival__fair_changer__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 974597,
+      "sha256": "3e9b266c80183bdd617fbff3d40dc0218e3a8ad03fb0c0805cd13d3461a92a04"
+    },
+    "g06_arrival__smiling_changer__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 240816,
+      "sha256": "ebb4cc01e4436f493bea0a2b151e416bb72623d013510b37c0b4e351b46aa15b"
+    },
+    "g06_arrival__smiling_changer__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 965391,
+      "sha256": "6db6bec07a6227c584a06d12c3c67ca22bd3dffcdc73a1b8ce50c05a770bdd61"
+    },
+    "g07_arrival__inn__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 219642,
+      "sha256": "8d13e38a70edac7d08994877d42cf317e738995b190a4f4cd95efb06b83990d4"
+    },
+    "g07_arrival__inn__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 964786,
+      "sha256": "ce775574d00cf919c0afd91f1db7b6b87b588287035facb6d19b7adad544f5f8"
+    },
+    "g08_arrival__sunset_adhan__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 182442,
+      "sha256": "49160cf9e5d1a4acbe2a189feb1552077484bc54bbce475c5d9ca6e657890d42"
+    },
+    "g08_arrival__sunset_adhan__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 913220,
+      "sha256": "3ec96cc90925bd924ff30ae0c768baba1c9a815adfb2a1475c8dbe5fd9ccc6cc"
+    },
+    "g09_arrival__end_fair__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 185889,
+      "sha256": "114032cdd2b705ce1a181cf455d476f1c95214612330ec9975b05e59bb42ec9d"
+    },
+    "g09_arrival__end_fair__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 914477,
+      "sha256": "1e23f6d26e8d40855c6d97a35d298c861faab87ec6dbefe16e31574432b5e478"
+    },
+    "g10_arrival__end_cheated__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 183916,
+      "sha256": "b354f1d3a04f350b11afc2613a8b557b5ba95f6d893f6fc9207a8684cc1a2ab8"
+    },
+    "g10_arrival__end_cheated__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 890657,
+      "sha256": "a8a8de4ae461608c7453f8beeeb718dc63d7976a1b34e5b335f276ab5672541e"
+    },
+    "g16_market_map__at_inn_night__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 227651,
+      "sha256": "182c61dbf4013695ca5afa2a3a07be9cea0f688854ce800d841995929c1a797a"
+    },
+    "g16_market_map__at_inn_night__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 472954,
+      "sha256": "a4cb064768764aeccfe5a1f843b398e546903306ce7ede3840781d70452e37fa"
+    },
+    "g17_market_map__morning_after_rest__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 231746,
+      "sha256": "1b939f300978c4cb28598a3d21d7045b983c61ad18743dcc206d6afb672fcf43"
+    },
+    "g17_market_map__morning_after_rest__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 481575,
+      "sha256": "1d711b1b0f5b34d25ad11d1ac4f658af864606d525f1ef5d983aaef843cc672a"
+    },
+    "g18_market_map__rest_cannot_pay__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 231503,
+      "sha256": "74c92f767054b57ff00afe64eca02a2b535e7f32102201b787ba3c86d0eabc64"
+    },
+    "g18_market_map__rest_cannot_pay__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 482825,
+      "sha256": "7dbba675079daeddfadfe8b5b1a72c0d31b91e0c10f7a05c3132447880b1d610"
+    },
+    "g30_after_lesson__cheat_found__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes": 197679,
+      "sha256": "57d5357b79f6cc43696154d0e1a80f166adde53dea28f2b4133cd4d7f4e71e07"
+    },
+    "g30_after_lesson__cheat_found__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes": 428478,
+      "sha256": "47471c3475b2309f8820f2cda557657e6a51aa4d1f2a15ea02b8af650206b3d2"
+    }
+  }
+}

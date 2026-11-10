@@ -1,0 +1,731 @@
+{
+	"checks": [
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "Begin starts the quay beat with an empty wallet",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g02_arrival__dawn_quay__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g02_arrival__dawn_quay__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "quay choice displays its exact reply",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g03_arrival__quay_reply__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g03_arrival__quay_reply__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "Continue opens the money-changer choices",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g04_arrival__money_changers__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g04_arrival__money_changers__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "open-scale changer pays 200 coins and displays its exact reply",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g05_arrival__fair_changer__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g05_arrival__fair_changer__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "Continue opens the Inn beat before paying",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g07_arrival__inn__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g07_arrival__inn__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "the Inn takes two coins once and credits one prepaid night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "sunset beat displays before Follow them applies the time jump",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g08_arrival__sunset_adhan__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g08_arrival__sunset_adhan__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "Follow them applies the time jump and displays its exact reply",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "the end view retains the selected changer and post-Inn balance",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g09_arrival__end_fair__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g09_arrival__end_fair__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Meet the old man",
+			"passed": true
+		},
+		{
+			"description": "meeting action shows the approved interim toast and keeps the end view",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "Walk opens the night map at the Inn with the fair purse",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g16_market_map__at_inn_night__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g16_market_map__at_inn_night__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Rest until morning",
+			"passed": true
+		},
+		{
+			"description": "prepaid rest consumes credit, keeps the wallet and wakes at 04:40 the next day",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Rest until morning",
+			"passed": true
+		},
+		{
+			"description": "no-credit rest pays two coins and wakes at 04:40 with the matching toast",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g17_market_map__morning_after_rest__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g17_market_map__morning_after_rest__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Rest until morning",
+			"passed": true
+		},
+		{
+			"description": "empty wallet and no credit use the stable with no debit",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g18_market_map__rest_cannot_pay__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g18_market_map__rest_cannot_pay__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: City map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: World map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Title",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "a second Begin resets the Arrival and wallet",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Wait until the crowd thins",
+			"passed": true
+		},
+		{
+			"description": "waiting at the quay displays the alternate reply",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the smiling one",
+			"passed": true
+		},
+		{
+			"description": "smiling changer pays 120 coins and displays its exact reply",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g06_arrival__smiling_changer__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g06_arrival__smiling_changer__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "the Inn takes two coins once and credits one prepaid night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "sunset beat displays before Follow them applies the time jump",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "Follow them applies the time jump and displays its exact reply",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "the end view retains the selected changer and post-Inn balance",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g10_arrival__end_cheated__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g10_arrival__end_cheated__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "Walk keeps the cheated purse at the Inn",
+			"passed": true
+		},
+		{
+			"description": "g30 fixture places the player at the market scales",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Learn the scales",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Weight 2",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Weight 2 is the false one",
+			"passed": true
+		},
+		{
+			"description": "scales success replaces its toast and returns to the street at the scales",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g30_after_lesson__cheat_found__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g30_after_lesson__cheat_found__build.png",
+			"passed": true
+		},
+		{
+			"description": "all 13 required screenshots were captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Only g18 seeds the wallet to zero, after the actual prepaid and paid rests. All choices, rests and the lesson use the real controls. g17 is the first no-credit rest, on day 3 after the preceding prepaid rest; line 6 has no clock UI. For g30 this shorter run places the player at the market scales, then uses the actual lesson buttons. The full native run previously verified the physical route.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport. Local mouse clicks dispatch through the production hit regions and buttons.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"runtime_source_sha256": {
+		"SOURCE/data/foundations.json": "bf3fdb75528c7126dca877e31b07fd8b4e97fe9d469c7db6ca1c5bba0814696d",
+		"SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+		"SOURCE/game/foundations.gd": "e7a8ba0a7b23471f19bd175232811a09bc5a417a5e8424ea0f8b8ecdb58f6c18",
+		"SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+		"SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+		"SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+		"SOURCE/game/market_ui.gd": "b8ff7b73ff193d44fa2ce7c13185b5db0965e1eb53d131662dfa61440ec42c99",
+		"SOURCE/game/market_world.gd": "10eea1d7f5b8c2ce5aa3b273b9ce63ceb3507bcf74d7e5a1e30ffad5db15ef65",
+		"SOURCE/game/river_market.gd": "416cea5bcd9a51dead6f381bc777de2b17068973070219695b98da0475edcaf1",
+		"SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+		"SOURCE/game/task_progress.gd": "75b72be44c61575625da399cd993e046ebc74f9f51140e2b552ebe5cec6771c9",
+		"SOURCE/project.godot": "a7bda839fef03bd60d3921cf35f7cbd914ee0e2fb64f657dd1c6893822c9fee1",
+		"SOURCE/tests/capture_arrival.gd": "fb2e560362904750caf2079a56b864ffa6273d803c1c4ef21d281fbba5770f8f",
+		"SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+		"SOURCE/tests/capture_tasks.gd": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003",
+		"SOURCE/tests/create_comparisons.gd": "406d4ba8b9eb0a674c0281dcf79a6c168ece5cf5fafe1f8cd99c5235774823bf",
+		"SOURCE/tests/run_tests.gd": "8b8caada232b7541151881b120702c78168ba5f33d0ee2004081572ae996f22c"
+	},
+	"screenshots": [
+		{
+			"file": "g02_arrival__dawn_quay__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g03_arrival__quay_reply__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g04_arrival__money_changers__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g05_arrival__fair_changer__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g07_arrival__inn__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g08_arrival__sunset_adhan__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g09_arrival__end_fair__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g16_market_map__at_inn_night__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g17_market_map__morning_after_rest__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g18_market_map__rest_cannot_pay__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g06_arrival__smiling_changer__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g10_arrival__end_cheated__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g30_after_lesson__cheat_found__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"g02_arrival__dawn_quay__build.png": {
+			"arrival_beat": 0,
+			"arrival_fair": null,
+			"arrival_reply": "",
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 390,
+			"night": false,
+			"paid_nights": 0,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "arrival",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g03_arrival__quay_reply__build.png": {
+			"arrival_beat": 0,
+			"arrival_fair": null,
+			"arrival_reply": "Porters, sacks, goats. Nobody looks at you twice - except at your clothes.",
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 390,
+			"night": false,
+			"paid_nights": 0,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "arrival",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g04_arrival__money_changers__build.png": {
+			"arrival_beat": 1,
+			"arrival_fair": null,
+			"arrival_reply": "",
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 390,
+			"night": false,
+			"paid_nights": 0,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "arrival",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g05_arrival__fair_changer__build.png": {
+			"arrival_beat": 1,
+			"arrival_fair": true,
+			"arrival_reply": "He weighs every coin in front of you and counts two hundred local coins into your hand.",
+			"coins": 200,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 390,
+			"night": false,
+			"paid_nights": 0,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "arrival",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g06_arrival__smiling_changer__build.png": {
+			"arrival_beat": 1,
+			"arrival_fair": false,
+			"arrival_reply": "He counts fast and presses coins into your hand. One hundred and twenty. You cannot tell if that is right.",
+			"coins": 120,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 390,
+			"night": false,
+			"paid_nights": 0,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "arrival",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g07_arrival__inn__build.png": {
+			"arrival_beat": 2,
+			"arrival_fair": true,
+			"arrival_reply": "",
+			"coins": 200,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 390,
+			"night": false,
+			"paid_nights": 0,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "arrival",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g08_arrival__sunset_adhan__build.png": {
+			"arrival_beat": 3,
+			"arrival_fair": true,
+			"arrival_reply": "",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 390,
+			"night": true,
+			"paid_nights": 1,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "arrival",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g09_arrival__end_fair__build.png": {
+			"arrival_beat": 4,
+			"arrival_fair": true,
+			"arrival_reply": "",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1095,
+			"night": true,
+			"paid_nights": 1,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "arrival",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g10_arrival__end_cheated__build.png": {
+			"arrival_beat": 4,
+			"arrival_fair": false,
+			"arrival_reply": "",
+			"coins": 118,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1095,
+			"night": true,
+			"paid_nights": 1,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "arrival",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g16_market_map__at_inn_night__build.png": {
+			"arrival_beat": 4,
+			"arrival_fair": true,
+			"arrival_reply": "",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1095,
+			"night": true,
+			"paid_nights": 1,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g17_market_map__morning_after_rest__build.png": {
+			"arrival_beat": 4,
+			"arrival_fair": true,
+			"arrival_reply": "",
+			"coins": 196,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 280,
+			"night": true,
+			"paid_nights": 0,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"toast": "You pay 2 coins and sleep. Morning comes.",
+			"trust": 20
+		},
+		"g18_market_map__rest_cannot_pay__build.png": {
+			"arrival_beat": 4,
+			"arrival_fair": true,
+			"arrival_reply": "",
+			"coins": 0,
+			"daily_count": 0,
+			"day": 4,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 280,
+			"night": true,
+			"paid_nights": 0,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"toast": "You cannot pay, so you sweep the stable for a straw bed. Morning comes.",
+			"trust": 20
+		},
+		"g30_after_lesson__cheat_found__build.png": {
+			"arrival_beat": 4,
+			"arrival_fair": false,
+			"arrival_reply": "",
+			"coins": 118,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": true,
+			"minute_of_day": 1095,
+			"night": false,
+			"paid_nights": 1,
+			"place": "scales",
+			"player": [
+				104.0,
+				0.0,
+				44.0
+			],
+			"screen": "game",
+			"tasks": {},
+			"toast": "Now you can read a scale - and you realise the smiling money-changer gave you 120 coins for silver worth 200.",
+			"trust": 45
+		}
+	},
+	"timestamp_utc": "2026-11-10T12:08:15Z"
+}
