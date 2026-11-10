@@ -1,0 +1,33 @@
+{
+ "version": "LOCK 19 V1 (9 Nov 2026) - worship: Ramadan",
+ "builds_on": "LOCK 2 prayer times and masjid, LOCK 8 private record, LOCK 18 calendar (Ramadan = month index 8). Placeholders: {t}, {n}.",
+ "numbers": {
+  "month": 8,
+  "suhoor_from": 210,
+  "fast_from": 285,
+  "iftar_from": 1090,
+  "iftar_until": 1170,
+  "tarawih_from": 1185,
+  "tarawih_until": 1380,
+  "tarawih_minutes": 60
+ },
+ "fasting_line": "Fasting · iftar at {t}",
+ "suhoor_button": "Eat suhoor",
+ "suhoor_toast": "You eat bread and dates by lamplight before Fajr.",
+ "iftar_button": "Break your fast with the people",
+ "iftar": {
+  "kicker": "The masjid · Maghrib",
+  "title": "Iftar",
+  "text": "Yunus calls the adhan from the roof. Idris passes you a date and a cup of water. The men who sold you pepper this morning sit beside you on the mats, and nobody is a stranger tonight.",
+  "to_map": "Back to the market map"
+ },
+ "tarawih_button": "Pray tarawih",
+ "tarawih_toast": "You stand behind Idris for the night prayer. The masjid is full and the Quran fills it.",
+ "record": {
+  "title": "Ramadan",
+  "fasted": "Days fasted",
+  "suhoor": "Suhoor",
+  "tarawih": "Nights of tarawih",
+  "count": "{n}"
+ }
+}

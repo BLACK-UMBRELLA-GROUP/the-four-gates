@@ -1,0 +1,256 @@
+{
+ "version": "LOCK 40 V1 (9 Nov 2026) - Safira, the caravanserai: the slow pilgrim and lost at night",
+ "builds_on": "LOCK 34 runner, LOCK 36 roads (Gate of Patience opens after chapter 1). Design references (not shown): Quran 2:153, 16:16.",
+ "towns": {
+  "safira": {
+   "name": "Safira",
+   "gate": "patience",
+   "start_trust": 10,
+   "inn": 2,
+   "kicker": "Safira · the caravanserai",
+   "text": "A great square courtyard of mud brick where the northern caravans rest. Camels kneel in rows and traders sleep on the roof under the stars.",
+   "work": {
+    "label": "Water the camels · 4 coins",
+    "hours": [
+     360,
+     1080
+    ],
+    "minutes": 60,
+    "coins": 4,
+    "trust": 1
+   },
+   "masjids": [
+    "safira"
+   ],
+   "bg": "street_night"
+  }
+ },
+ "masjids": {
+  "safira": {
+   "button": "Go to the caravanserai masjid",
+   "kicker": "Safira · the caravanserai masjid",
+   "title": "The caravanserai masjid",
+   "text": "A small prayer hall off the courtyard, its mihrab pointing past the camel lines.",
+   "first": "A camel driver from the far south prays beside you and smiles. “Every road ends facing the same way.”"
+  }
+ },
+ "people": [
+  {
+   "id": "harun",
+   "town": "safira",
+   "name": "Harun",
+   "role": "the caravan master",
+   "hours": [
+    300,
+    1200
+   ],
+   "prays": true,
+   "lines": {
+    "wary": "Harun checks a camel's hoof and ignores you.",
+    "friendly": "“The north road is long. A caravan moves at the speed of its slowest camel - and its slowest man.”",
+    "warm": "“Ride with me next season. I could use someone people trust.”"
+   },
+   "memory": [
+    [
+     "slow_pilgrim_walked",
+     "“You walked four hours behind my caravan with an old man. I've thought about that.”"
+    ]
+   ]
+  },
+  {
+   "id": "amina",
+   "town": "safira",
+   "name": "Amina",
+   "role": "the keeper of the caravanserai",
+   "hours": [
+    300,
+    1260
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "“Two coins for the roof, three for a room. Water is free.”",
+    "friendly": "“Every traveller in the world sleeps here once. Most of them snore.”",
+    "warm": "“Your room is ready before you ask. Sit, eat.”"
+   },
+   "memory": [
+    [
+     "night_found",
+     "Amina holds your face like she held her grandson's. “You brought him back by the star.”"
+    ]
+   ]
+  },
+  {
+   "id": "shuayb",
+   "town": "safira",
+   "name": "Shuayb",
+   "role": "an old pilgrim going home",
+   "hours": null,
+   "prays": false,
+   "lines": {
+    "wary": "Old Shuayb sits on his bundle. “Hajj is done. Home is still far.”",
+    "friendly": "“I saw the Ka'bah, child. Seventy years I waited.”",
+    "warm": "“When I reach my son, I'll tell him a stranger from Ilmara carried me.”"
+   },
+   "memory": []
+  }
+ ],
+ "missions": [
+  {
+   "id": "slow_pilgrim",
+   "town": "safira",
+   "main": true,
+   "title": "The slow pilgrim",
+   "kicker": "Chapter 2 · The slow pilgrim",
+   "button": "Harun is leaving someone behind",
+   "hours": [
+    300,
+    720
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Harun's caravan leaves for Wadira this morning. Old Shuayb, going home from Hajj, walks slowly with a stick. “He holds us back half a day each day,” Harun says. “I'm leaving him. Someone else will take him.” Shuayb sits on his bundle and says nothing.",
+     "choices": [
+      {
+       "label": "Walk with Shuayb behind the caravan",
+       "go": "walk",
+       "fx": {
+        "minutes": 240,
+        "trust": 8,
+        "flag": [
+         "slow_pilgrim_walked",
+         "slow_pilgrim_done"
+        ],
+        "say": "walked"
+       }
+      },
+      {
+       "label": "Pay for a camel for him · 15 coins",
+       "need_coins": 15,
+       "go": "camel",
+       "fx": {
+        "coins": -15,
+        "trust": 5,
+        "flag": "slow_pilgrim_done",
+        "say": "camel"
+       }
+      },
+      {
+       "label": "It's not your business",
+       "go": "left",
+       "fx": {
+        "flag": "slow_pilgrim_done"
+       }
+      }
+     ]
+    },
+    "walk": {
+     "text": "You walk at Shuayb's pace. It takes four hours to cover what the caravan did in two. He tells you about Makkah the whole way - and at the end, about the son he hasn't seen in twenty years.",
+     "end": true
+    },
+    "camel": {
+     "text": "Harun grumbles but rents you a camel. Shuayb rides out of the gate like a king and waves until he is out of sight.",
+     "end": true
+    },
+    "left": {
+     "text": "The caravan leaves. At noon Shuayb is still sitting on his bundle in the courtyard.",
+     "end": true
+    }
+   },
+   "say": {
+    "walked": [
+     "Walked an old pilgrim home at his pace",
+     "Harun the caravan master",
+     1
+    ],
+    "camel": [
+     "Paid a camel for old Shuayb",
+     "the camel drivers",
+     1
+    ]
+   }
+  },
+  {
+   "id": "lost_night",
+   "town": "safira",
+   "main": true,
+   "title": "Lost at night",
+   "kicker": "Chapter 2 · Lost at night",
+   "button": "Amina's grandson is lost in the dunes",
+   "hours": [
+    1080,
+    1320
+   ],
+   "after": [
+    "slow_pilgrim_done"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Amina's grandson went after a strayed goat at sunset and hasn't come back. It is dark, and the dunes all look the same.",
+     "choices": [
+      {
+       "label": "Go now with a lantern",
+       "go": "b"
+      },
+      {
+       "label": "Leave it to Harun's men",
+       "go": "wait",
+       "fx": {
+        "flag": "safira_done"
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "Out in the dunes the lantern shows only sand. Then you remember what Harun said at supper: find the one star that never moves, low in the north, and keep it on your right to walk back east.",
+     "choices": [
+      {
+       "label": "Follow the still star",
+       "go": "found",
+       "fx": {
+        "trust": 10,
+        "flag": [
+         "night_found",
+         "safira_done"
+        ],
+        "say": "found",
+        "count": {
+         "stars": 1
+        }
+       }
+      },
+      {
+       "label": "Keep searching the hollows",
+       "go": "lost",
+       "fx": {
+        "minutes": 180,
+        "trust": 3,
+        "flag": "safira_done"
+       }
+      }
+     ]
+    },
+    "found": {
+     "text": "With the star on your right you find the boy asleep against the goat in a hollow, and you walk him home by the same star. Amina doesn't say anything. She just holds his face in her hands.",
+     "end": true
+    },
+    "lost": {
+     "text": "You walk in circles until near midnight, when you hear camel bells - the boy found his own way back by following them. Harun's men find you.",
+     "end": true
+    },
+    "wait": {
+     "text": "Harun's men go out with torches and bring the boy back near midnight.",
+     "end": true
+    }
+   },
+   "say": {
+    "found": [
+     "Found Amina's grandson by the stars",
+     "Amina of the caravanserai",
+     1
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,98 @@
+{
+ "version": "LOCK 61 V1 (9 Nov 2026) - side mission: A ring found in the masjid",
+ "builds_on": "LOCK 34 runner; LOCK 3 and LOCK 6 regulars; River Market places (LOCK 1). Each mission is its own LOCK and queue line.",
+ "design_reference_not_shown": "Bukhari 2426",
+ "missions": [
+  {
+   "id": "ring_masjid",
+   "lock": 61,
+   "place": "masjid",
+   "hours": [
+    420,
+    1200
+   ],
+   "side": true,
+   "title": "A ring found in the masjid",
+   "kicker": "River Market · A ring found in the masjid",
+   "button": "Something is shining under a prayer mat",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Under a prayer mat you find a silver ring with a worn stone. Nobody is near.",
+     "choices": [
+      {
+       "label": "Ask Yunus to announce it after each prayer",
+       "go": "announce",
+       "fx": {
+        "flag": "ring_announced"
+       }
+      },
+      {
+       "label": "Keep it",
+       "go": "keep",
+       "fx": {
+        "coins": 8,
+        "flag": "ring_kept"
+       }
+      }
+     ]
+    },
+    "announce": {
+     "text": "Yunus calls it out after Asr: a ring found in the masjid; its owner can ask the muezzin.",
+     "end": true
+    },
+    "keep": {
+     "text": "You sell the ring to Karim for eight coins.",
+     "end": true
+    }
+   },
+   "say": {}
+  },
+  {
+   "id": "ring_owner",
+   "lock": 61,
+   "place": "masjid",
+   "hours": [
+    420,
+    1200
+   ],
+   "side": false,
+   "title": "The ring's owner",
+   "kicker": "River Market · The ring's owner",
+   "button": "Umm Salim is asking about a ring",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Umm Salim the widow has heard the announcement. The ring was her late husband's - she lost it the day she came to pray for him.",
+     "choices": [
+      {
+       "label": "Give it to her",
+       "go": "b",
+       "fx": {
+        "trust": 6,
+        "say": "returned"
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "She holds it to her lips and can't speak. Later Salma tells everyone who found it.",
+     "end": true
+    }
+   },
+   "say": {
+    "returned": [
+     "Returned Umm Salim's ring",
+     "Salma the baker",
+     1
+    ]
+   },
+   "after": [
+    "ring_announced"
+   ],
+   "after_days": {
+    "ring_announced": 3
+   }
+  }
+ ]
+}

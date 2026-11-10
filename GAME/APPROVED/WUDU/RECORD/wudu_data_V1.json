@@ -1,0 +1,44 @@
+{
+ "version": "LOCK 74 V1 (9 Nov 2026) - Wudu",
+ "builds_on": "LOCK 2 prayer, LOCK 3 Idris, LOCK 6 regulars, LOCK 34 runner. Private counters go to the Journal; worship never earns trust.",
+ "goals": [],
+ "design_reference_not_shown": {
+  "wudu_lesson": "Quran 5:6"
+ },
+ "missions": [
+  {
+   "id": "wudu_lesson",
+   "lock": 74,
+   "place": "masjid",
+   "hours": [
+    300,
+    1260
+   ],
+   "title": "Wudu",
+   "kicker": "Worship · Wudu",
+   "button": "Idris will show you wudu",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": [
+      "At the fountain in the masjid courtyard Idris rolls up his sleeves. “Intention first, in the heart. Then wash: hands, mouth, nose, face, arms to the elbows. Wipe your head and ears. Wash your feet to the ankles.”",
+      "“Allah wants to make you clean, not to make it hard for you.”"
+     ],
+     "choices": [
+      {
+       "label": "Make wudu with him",
+       "fx": {
+        "minutes": 5,
+        "flag": "wudu_learned",
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "met_teacher"
+   ]
+  }
+ ]
+}

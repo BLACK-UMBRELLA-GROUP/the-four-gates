@@ -1,0 +1,102 @@
+{
+ "version": "LOCK 18 V1 (9 Nov 2026) - the calendar",
+ "builds_on": "LOCK 2 clock (48 real minutes a day, weekdays, the inn), LOCK 8 prayer record. Founder 9 Nov: \"A · Real calendar + rest (Recommended)\". Placeholders: {n}, {d}, {m}, {w}, {c}.",
+ "months": [
+  [
+   "Muharram",
+   30
+  ],
+  [
+   "Safar",
+   29
+  ],
+  [
+   "Rabi al-Awwal",
+   30
+  ],
+  [
+   "Rabi al-Thani",
+   29
+  ],
+  [
+   "Jumada al-Ula",
+   30
+  ],
+  [
+   "Jumada al-Akhirah",
+   29
+  ],
+  [
+   "Rajab",
+   30
+  ],
+  [
+   "Sha'ban",
+   29
+  ],
+  [
+   "Ramadan",
+   30
+  ],
+  [
+   "Shawwal",
+   29
+  ],
+  [
+   "Dhu al-Qa'dah",
+   30
+  ],
+  [
+   "Dhu al-Hijjah",
+   29
+  ]
+ ],
+ "numbers": {
+  "start_month": 7,
+  "start_day": 1,
+  "rest_days": [
+   3,
+   7
+  ],
+  "wake_minute": 280
+ },
+ "hud_date": "{w} {d} {m}",
+ "inn_button": "Rest for days",
+ "panel": {
+  "kicker": "The inn",
+  "title": "Rest for days",
+  "today": "Today is {w} {d} {m}.",
+  "coming": "Coming up",
+  "events": [
+   [
+    "Ramadan begins",
+    8,
+    1
+   ],
+   [
+    "Eid al-Fitr",
+    9,
+    1
+   ],
+   [
+    "The Day of Arafah",
+    11,
+    9
+   ],
+   [
+    "Eid al-Adha",
+    11,
+    10
+   ]
+  ],
+  "zakat": "Your zakat year ends",
+  "in_days": "{d} {m} · in {n} days",
+  "today_tag": "today",
+  "rest": "Rest {n} days · {c} coins",
+  "not_enough": "not enough coins for {n} days",
+  "note": "Days you rest are not counted in your prayer record.",
+  "not_now": "Not now"
+ },
+ "rested_toast": "You rest for {n} days. You wake before Fajr on {w} {d} {m}.",
+ "rested_status": "rested · not counted"
+}

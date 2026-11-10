@@ -1,0 +1,45 @@
+{
+ "version": "LOCK 22 V1 (9 Nov 2026) - wealth: zakat",
+ "builds_on": "LOCK 3 people (Umm Salim, Faris, Yusuf), LOCK 18 calendar (zakat year = 354 days from arrival), LOCK 8 private record. Placeholders: {c}, {t}, {n}.",
+ "numbers": {
+  "threshold": 100,
+  "share": 40
+ },
+ "masjid_button": "Your zakat year has ended",
+ "panel": {
+  "kicker": "The masjid · your zakat year",
+  "title": "Zakat",
+  "due": "A lunar year has passed since you came to Ilmara. You held {c} coins, which reaches the threshold of {t}. One fortieth is due: {n} coins. It was never yours to keep.",
+  "none": "A lunar year has passed since you came to Ilmara. You held {c} coins, less than the threshold of {t}. No zakat is due this year.",
+  "not_enough": "You do not have {n} coins with you now.",
+  "to_map": "Back to the market map"
+ },
+ "options": [
+  {
+   "id": "idris",
+   "label": "Give it through Idris for the poor",
+   "out": "Idris writes nothing down. “It will reach the poor of River Market before Friday.”"
+  },
+  {
+   "id": "widow",
+   "label": "Give it to Umm Salim, the widow",
+   "out": "Umm Salim cannot speak. She presses your hand to her forehead and goes inside."
+  },
+  {
+   "id": "boy",
+   "label": "Give it to Faris, the orphan from the quay",
+   "out": "Faris stares at the coins, then runs off towards the cobbler's."
+  },
+  {
+   "id": "father",
+   "label": "Give it to Yusuf, in debt to the healer",
+   "out": "Yusuf pays the healer that same afternoon. His son Ali is well again."
+  }
+ ],
+ "record": {
+  "title": "Zakat",
+  "paid": "paid · {n} coins",
+  "due": "due · {n} coins",
+  "none": "not due this year"
+ }
+}

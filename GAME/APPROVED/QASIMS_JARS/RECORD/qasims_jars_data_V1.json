@@ -1,0 +1,46 @@
+{
+ "version": "LOCK 12 V1 (8 Nov 2026) - temptations: Qasim's jars",
+ "builds_on": "LOCK 2 clock (Isha, Fajr), LOCK 3 What people say, LOCK 11 night hours and build-up. Placeholders: {n}.",
+ "numbers": {
+  "open_from": 1170,
+  "open_until": 285,
+  "pay": 20,
+  "talk_from_runs": 2,
+  "seen_from_runs": 4,
+  "seen_trust": -5,
+  "smuggler_from_runs": 10,
+  "smuggler_trust": -10
+ },
+ "quay_button": "A boatman waves from the dark",
+ "offer": {
+  "kicker": "The quay · after dark",
+  "title": "Qasim the boatman",
+  "text": "A flat boat with no lamp. Qasim lifts the cloth: clay jars sealed with pitch. “Wine from the far bank. The judge has forbidden it inside the walls, so it pays. Carry six jars to the back lanes tonight: twenty coins.”",
+  "carry": "Carry the jars",
+  "no": "Walk away"
+ },
+ "done": {
+  "kicker": "The back lanes",
+  "title": "Twenty coins",
+  "text": "You carry the jars through the dark lanes to a door that opens before you knock. Qasim counts twenty coins into your hand. “Same time tomorrow.”",
+  "runs": "Nights carrying for Qasim: {n}",
+  "to_map": "Back to the market map"
+ },
+ "say": {
+  "talk": [
+   "Jars at the quay after dark",
+   "the night watch",
+   0
+  ],
+  "seen": [
+   "Carries wine for Qasim",
+   "Salma the baker",
+   -1
+  ],
+  "smuggler": [
+   "A wine smuggler",
+   "the whole market",
+   -1
+  ]
+ }
+}

@@ -1,0 +1,78 @@
+---
+id: DOC-TFG-0172
+type: SPEC
+status: CURRENT
+feature: SIDE_GOODS_IN_TRUST
+purpose: LOCK 54 - River Market side mission - goods left in trust
+links: [AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0173]
+owner: THE FOUR GATES chat
+---
+
+# SIDE GOODS IN TRUST SPEC — CURRENT VERSION V1 (LOCK 54)
+
+| Field | Value |
+|---|---|
+| Locked | 9 Nov 2026 under the Founder's blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now" - record `LOCK_RECORD.md` beside this file |
+| Words and numbers | `side_goods_in_trust_data_V1.json` beside this file (exported from the prototype's own data object) |
+| Builds on | LOCK 34 runner and the River Market places and regulars. Queue line 61 comes after line 60 |
+| Masters | `../MASTERS/sc01`-`sc06` at 1920 × 1080 |
+| Prototype | "The Four Gates Prototype" V92 |
+| ROADMAP | No row; noted for Fable |
+
+## 1. Rules over everything
+
+| Rule | Meaning in this LOCK |
+|---|---|
+| The game never plays God | Every consequence comes from a person who saw or was told |
+| Trust is per place | Trust effects apply to the town the mission is in (LOCK 34) |
+| Design reference (not shown in the game) | Quran 4:58 |
+| Scholar check | Set aside by the Founder 9 Nov ("Lock all 100 now") - a post-build action: none |
+
+
+
+## Mission `goods_in_trust` - Goods left in trust (side mission)
+
+Button `button`, shown when: River Market place `inn`; 06:00-20:00; once.
+
+| Scene | Choices → next scene · effects |
+|---|---|
+| `a` | `Count it, sew it up and keep it safe` → `kept` · flag `trust_kept`<br>`Take one coin - he won't notice` → `took` · coins +1; flag `trust_took` |
+| `kept` | End: Back; mission done |
+| `took` | End: Back; mission done |
+
+## Mission `goods_returned` - Ghalib comes back (scene)
+
+Button `button`, shown when: River Market place `inn`; 06:00-20:00; after `goods_in_trust_given`; 7 days after `goods_in_trust_given`; once.
+
+| Scene | Choices → next scene · effects |
+|---|---|
+| `a` | `Watch him count` → `b` · trust +8; say `kept`<br>`Watch him count` → `c` · trust -12; say `took` |
+| `b` | End: Back; mission done |
+| `c` | End: Back; mission done |
+
+What people say lines (`say`): `kept` (good, Ghalib the trader); `took` (bad, Ghalib the trader) - shown in River Market What people say.
+
+## Masters
+
+- `sc01_goods_in_trust__a.png`
+- `sc02_goods_in_trust__kept.png`
+- `sc03_goods_in_trust__took.png`
+- `sc04_goods_returned__a.png`
+- `sc05_goods_returned__b.png`
+- `sc06_goods_returned__c.png`
+
+Trust, coins and the clock are set for each picture; other buttons come from earlier LOCKs.
+
+## Not in this LOCK (do not build)
+
+Anything not written above.
+
+## Build rules
+
+Words and numbers only from `side_goods_in_trust_data_V1.json` (copied byte for byte to `SOURCE/data/side_goods_in_trust.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+
+## Version history
+
+| Date | Version | Change |
+|---|---|---|
+| 2026-11-09 | V1 | LOCK 54 under the Founder's blanket LOCK (9 Nov) |

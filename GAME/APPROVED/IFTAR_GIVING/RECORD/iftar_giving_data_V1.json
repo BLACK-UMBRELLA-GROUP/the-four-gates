@@ -1,0 +1,47 @@
+{
+ "version": "LOCK 20 V1 (9 Nov 2026) - wealth: iftar for the fasting",
+ "builds_on": "LOCK 3 (giving in secret), LOCK 9 (meals for the poor, 10,000), LOCK 19 (Ramadan, iftar at the masjid). Placeholders: {n}, {m}.",
+ "numbers": {
+  "from": 960,
+  "until": 1090,
+  "trust_per_day": 1
+ },
+ "masjid_button": "Pay for iftar",
+ "panel": {
+  "kicker": "The masjid · before Maghrib",
+  "title": "Iftar for the fasting",
+  "intro": "Idris lays mats across the courtyard. Dates, water and lentil soup for anyone breaking their fast: travellers, the poor, the boys from the quay.",
+  "pay": "Pay · {n} coins",
+  "not_enough": "not enough coins",
+  "secret_label": "Ask Idris to keep it quiet",
+  "secret_on": "Idris will say only that the food is from “someone”.",
+  "secret_locked": "(You can give in secret once you have read the scholar's first page.)",
+  "back": "Back to the market map",
+  "done_public": "As the dates go round, Idris says: “Tonight's iftar is from the foreigner at the inn.”",
+  "done_secret": "As the dates go round, Idris says only: “Tonight's iftar is from someone who fasts with you.”",
+  "counter": "Meals for the poor: {n} / {m}"
+ },
+ "options": [
+  {
+   "id": "dates",
+   "name": "Dates and water for twenty",
+   "line": "Enough for everyone on the courtyard mats.",
+   "meals": 20,
+   "cost": 4
+  },
+  {
+   "id": "soup",
+   "name": "Soup and bread for fifty",
+   "line": "A full meal for the whole masjid tonight.",
+   "meals": 50,
+   "cost": 15
+  }
+ ],
+ "say": {
+  "feeds": [
+   "Feeds the fasting",
+   "Idris the imam",
+   1
+  ]
+ }
+}

@@ -1,0 +1,240 @@
+{
+ "version": "LOCK 49 V1 (9 Nov 2026) - the finale, the hard year: the hoarders and the bread lines",
+ "builds_on": "LOCK 9 Salma's oven and meals, LOCK 34 runner, LOCK 48 (chapter 4 done). Design reference (not shown): Muslim 1605 (no one hoards but a sinner).",
+ "missions": [
+  {
+   "id": "hoarders",
+   "place": "board",
+   "main": true,
+   "title": "The hoarders",
+   "kicker": "The hard year · The hoarders",
+   "button": "Jalal the grain merchant wants a word",
+   "hours": [
+    480,
+    1080
+   ],
+   "after": [
+    "chapter4_done"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "No rain since autumn and bread costs three times what it did. Jalal the grain merchant has three storehouses full and is waiting for prices to climb further. He offers you a share: buy grain now and sell it in a month.",
+     "choices": [
+      {
+       "label": "Refuse, and tell Qadi Ibrahim",
+       "go": "qadi",
+       "fx": {
+        "trust": 10,
+        "flag": [
+         "hoard_exposed",
+         "hoarders_done"
+        ],
+        "say": "exposed"
+       }
+      },
+      {
+       "label": "Refuse quietly",
+       "go": "quiet",
+       "fx": {
+        "flag": "hoarders_done"
+       }
+      },
+      {
+       "label": "Buy a share · 30 coins",
+       "need_coins": 30,
+       "go": "buy",
+       "fx": {
+        "coins": -30,
+        "flag": [
+         "hoarded",
+         "hoarders_done"
+        ]
+       }
+      }
+     ]
+    },
+    "qadi": {
+     "text": "Qadi Ibrahim orders Jalal's storehouses opened and the grain sold at last year's price. Jalal doesn't speak to you again.",
+     "end": true
+    },
+    "quiet": {
+     "text": "Jalal shrugs. “Someone else will.”",
+     "end": true
+    },
+    "buy": {
+     "text": "Jalal writes your name in his book. “A month,” he says. “You'll double it.”",
+     "end": true
+    }
+   },
+   "say": {
+    "exposed": [
+     "Told the qadi about Jalal's grain",
+     "River Market",
+     1
+    ]
+   }
+  },
+  {
+   "id": "hoard_profit",
+   "place": "board",
+   "title": "Jalal pays out",
+   "kicker": "The hard year · Jalal",
+   "button": "Jalal has your share",
+   "main": true,
+   "after": [
+    "hoarded"
+   ],
+   "after_days": {
+    "hoarded": 30
+   },
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Jalal counts out sixty coins. Behind him there is a bread line round the square.",
+     "choices": [
+      {
+       "label": "Take the sixty",
+       "go": "took",
+       "fx": {
+        "coins": 60,
+        "trust": -15,
+        "say": "profited"
+       }
+      },
+      {
+       "label": "Give it all to Salma's oven",
+       "go": "gave",
+       "fx": {
+        "count": {
+         "meals": 300
+        },
+        "trust": 5,
+        "say": "gave"
+       }
+      }
+     ]
+    },
+    "took": {
+     "text": "Word gets around fast in a hungry town.",
+     "end": true
+    },
+    "gave": {
+     "text": "Salma bakes through the night with the flour it buys.",
+     "end": true
+    }
+   },
+   "say": {
+    "profited": [
+     "Got rich on the hungry year",
+     "the bread line",
+     -1
+    ],
+    "gave": [
+     "Gave the hoard money to the oven",
+     "Salma the baker",
+     0
+    ]
+   }
+  },
+  {
+   "id": "bread_lines",
+   "place": "board",
+   "main": true,
+   "title": "The bread lines",
+   "kicker": "The hard year · The bread lines",
+   "button": "The bread line reaches the square",
+   "hours": [
+    360,
+    1080
+   ],
+   "after": [
+    "hoarders_done"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The bread line stretches round the square. Salma's oven runs day and night, and her flour is nearly gone. People are pushing.",
+     "choices": [
+      {
+       "label": "Buy flour for Salma's oven · 40 coins",
+       "need_coins": 40,
+       "go": "flour",
+       "fx": {
+        "coins": -40,
+        "count": {
+         "meals": 400
+        },
+        "trust": 8,
+        "flag": "bread_done",
+        "say": "flour"
+       }
+      },
+      {
+       "label": "Stand in the line and keep order",
+       "go": "order",
+       "fx": {
+        "minutes": 180,
+        "trust": 5,
+        "flag": "bread_done",
+        "say": "order"
+       }
+      },
+      {
+       "label": "Push to the front for your own bread",
+       "go": "self",
+       "fx": {
+        "trust": -5,
+        "flag": "bread_done",
+        "say": "pushed"
+       }
+      }
+     ]
+    },
+    "flour": {
+     "text": "Four sacks of flour arrive by cart. Salma doesn't stop working, but she nods at you over the oven.",
+     "end": true
+    },
+    "order": {
+     "text": "You walk the line, helping the old ones to the front and calming the shouting. By sunset everyone in the line has eaten.",
+     "end": true
+    },
+    "self": {
+     "text": "You get your loaf. An old woman behind you doesn't.",
+     "end": true
+    }
+   },
+   "say": {
+    "flour": [
+     "Bought flour for the bread line",
+     "Salma the baker",
+     1
+    ],
+    "order": [
+     "Kept the bread line fair",
+     "River Market",
+     1
+    ],
+    "pushed": [
+     "Pushed in the bread line",
+     "River Market",
+     -1
+    ]
+   }
+  }
+ ],
+ "chapters": [
+  {
+   "n": 5,
+   "name": "The hard year",
+   "missions": [
+    "hoarders",
+    "bread_lines",
+    "rain_prayer",
+    "riot",
+    "last_page",
+    "your_choice"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,311 @@
+{
+ "version": "LOCK 92 V1 (9 Nov 2026) - A shelf for the House of Learning",
+ "builds_on": "LOCK 5 (clothes and bags), LOCK 9 (secret giving after page 1), LOCK 23 Saeed, LOCK 34 runner, LOCK 36 roads. Founder 8 Nov picks: animals, land and buildings, businesses, waqf; marriage and family (scholar check set aside 9 Nov).",
+ "goals": [
+  {
+   "id": "waqf",
+   "label": "Endowments (waqf)",
+   "m": 4
+  }
+ ],
+ "design_reference_not_shown": {
+  "waqf_library": "Bukhari 2737 (keep the land, give its yield)",
+  "waqf_guesthouse": "",
+  "waqf_hospital": "",
+  "waqf_well": ""
+ },
+ "missions": [
+  {
+   "id": "waqf_library",
+   "lock": 92,
+   "hours": [
+    480,
+    1080
+   ],
+   "title": "A shelf for the House of Learning",
+   "kicker": "Owning · Waqf",
+   "button": "Endow a shelf of books · 200 coins",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The librarian explains: give the money once and it buys books that are never sold, only read, for as long as the House stands.",
+     "choices": [
+      {
+       "label": "Endow it in your name · 200 coins",
+       "need_coins": 200,
+       "go": "named",
+       "fx": {
+        "coins": -200,
+        "trust": 5,
+        "count": {
+         "waqf": 1
+        },
+        "say": "named"
+       }
+      },
+      {
+       "label": "Endow it with no name · 200 coins",
+       "need_coins": 200,
+       "if": [
+        "sirr"
+       ],
+       "go": "secret",
+       "fx": {
+        "coins": -200,
+        "count": {
+         "waqf": 1
+        }
+       }
+      },
+      {
+       "label": "Not now",
+       "go": "no"
+      }
+     ]
+    },
+    "named": {
+     "text": "A small plaque goes on the shelf with your name.",
+     "end": true
+    },
+    "secret": {
+     "text": "The plaque says only: given for the sake of Allah.",
+     "end": true
+    },
+    "no": {
+     "text": "“Whenever you are ready.”",
+     "end": true
+    }
+   },
+   "place": "centre",
+   "after": [
+    "library_met"
+   ],
+   "say": {
+    "named": [
+     "Endowed books for the House of Learning",
+     "the scholars",
+     1
+    ]
+   }
+  },
+  {
+   "id": "waqf_guesthouse",
+   "lock": 92,
+   "hours": [
+    480,
+    1080
+   ],
+   "title": "A room for travellers",
+   "kicker": "Owning · Waqf",
+   "button": "Endow a free room for travellers · 250 coins",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The innkeeper has a back room. Endow it, and any traveller with no coins sleeps there free, forever.",
+     "choices": [
+      {
+       "label": "Endow it in your name · 250 coins",
+       "need_coins": 250,
+       "go": "named",
+       "fx": {
+        "coins": -250,
+        "trust": 5,
+        "count": {
+         "waqf": 1
+        },
+        "say": "named"
+       }
+      },
+      {
+       "label": "Endow it with no name · 250 coins",
+       "need_coins": 250,
+       "if": [
+        "sirr"
+       ],
+       "go": "secret",
+       "fx": {
+        "coins": -250,
+        "count": {
+         "waqf": 1
+        }
+       }
+      },
+      {
+       "label": "Not now",
+       "go": "no"
+      }
+     ]
+    },
+    "named": {
+     "text": "The innkeeper paints your name above the door.",
+     "end": true
+    },
+    "secret": {
+     "text": "The innkeeper paints: for travellers, for the sake of Allah.",
+     "end": true
+    },
+    "no": {
+     "text": "“The room will wait.”",
+     "end": true
+    }
+   },
+   "place": "inn",
+   "after": [
+    "chapter2_done"
+   ],
+   "say": {
+    "named": [
+     "Gave the inn a free room for travellers",
+     "the inn",
+     1
+    ]
+   }
+  },
+  {
+   "id": "waqf_hospital",
+   "lock": 92,
+   "hours": [
+    480,
+    1080
+   ],
+   "title": "A bed in the hospital",
+   "kicker": "Owning · Waqf",
+   "button": "Endow a hospital bed · 150 coins",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Rahma says a bed costs 150 coins to endow: the bed, its linen, and the food for whoever lies in it, for as long as the hospital stands.",
+     "choices": [
+      {
+       "label": "Endow it in your name · 150 coins",
+       "need_coins": 150,
+       "go": "named",
+       "fx": {
+        "coins": -150,
+        "trust": 5,
+        "count": {
+         "waqf": 1
+        },
+        "say": "named"
+       }
+      },
+      {
+       "label": "Endow it with no name · 150 coins",
+       "need_coins": 150,
+       "if": [
+        "sirr"
+       ],
+       "go": "secret",
+       "fx": {
+        "coins": -150,
+        "count": {
+         "waqf": 1
+        }
+       }
+      },
+      {
+       "label": "Not now",
+       "go": "no"
+      }
+     ]
+    },
+    "named": {
+     "text": "Your name is carved on the bed's headboard.",
+     "end": true
+    },
+    "secret": {
+     "text": "The headboard says only: for the sake of Allah.",
+     "end": true
+    },
+    "no": {
+     "text": "“Come back whenever.”",
+     "end": true
+    }
+   },
+   "town": "shifara",
+   "after": [
+    "shifara_done"
+   ],
+   "say": {
+    "named": [
+     "Endowed a bed at the hospital",
+     "Rahma the physician",
+     1
+    ]
+   }
+  },
+  {
+   "id": "waqf_well",
+   "lock": 92,
+   "hours": [
+    300,
+    900
+   ],
+   "title": "A well for Birana",
+   "kicker": "Owning · Waqf",
+   "button": "Endow a new well · 120 coins",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Thabit has found water under the south palms. A new well, endowed, would belong to no one and serve everyone.",
+     "choices": [
+      {
+       "label": "Endow it in your name · 120 coins",
+       "need_coins": 120,
+       "go": "named",
+       "fx": {
+        "coins": -120,
+        "trust": 5,
+        "count": {
+         "waqf": 1
+        },
+        "say": "named"
+       }
+      },
+      {
+       "label": "Endow it with no name · 120 coins",
+       "need_coins": 120,
+       "if": [
+        "sirr"
+       ],
+       "go": "secret",
+       "fx": {
+        "coins": -120,
+        "count": {
+         "waqf": 1
+        }
+       }
+      },
+      {
+       "label": "Not now",
+       "go": "no"
+      }
+     ]
+    },
+    "named": {
+     "text": "Thabit carves your name on the well's rim.",
+     "end": true
+    },
+    "secret": {
+     "text": "Thabit carves: dug for the sake of Allah.",
+     "end": true
+    },
+    "no": {
+     "text": "“The water isn't going anywhere.”",
+     "end": true
+    }
+   },
+   "town": "birana",
+   "after": [
+    "birana_done"
+   ],
+   "say": {
+    "named": [
+     "Endowed a well for Birana",
+     "the women at the wells",
+     1
+    ]
+   }
+  }
+ ]
+}

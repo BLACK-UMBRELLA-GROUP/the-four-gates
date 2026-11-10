@@ -1,0 +1,162 @@
+{
+ "version": "LOCK 30 V1 (9 Nov 2026) - settings: the real-life prayer reminder",
+ "builds_on": "LOCK 2 (\"C · Game clock + real reminder (Recommended)\", parked 6 Nov), LOCK 2 V5 and LOCK 29 (the Settings screen). Placeholders: {prayer}, {city}, {times}.",
+ "numbers": {
+  "fajr_angle": 18,
+  "isha_angle": 17,
+  "sun_angle": 0.833,
+  "late_minutes": 15,
+  "check_seconds": 30
+ },
+ "settings": {
+  "reminder": "Real-life prayer reminder",
+  "off": "Off",
+  "on": "On",
+  "city": "Your city",
+  "asr": "Asr time",
+  "asr_standard": "Standard",
+  "asr_hanafi": "Hanafi",
+  "today": "Today in {city}: {times}",
+  "method": "Times by the Muslim World League method (Fajr 18°, Isha 17°). Your city is chosen from the list - the game never asks for your location, and nothing leaves your device."
+ },
+ "banner": {
+  "text": "It is time for {prayer} in {city}.",
+  "pray": "Pause and pray",
+  "later": "Later"
+ },
+ "prayers": [
+  "Fajr",
+  "Dhuhr",
+  "Asr",
+  "Maghrib",
+  "Isha"
+ ],
+ "cities": [
+  [
+   "London",
+   51.5074,
+   -0.1278,
+   "Europe/London"
+  ],
+  [
+   "Birmingham",
+   52.4862,
+   -1.8904,
+   "Europe/London"
+  ],
+  [
+   "Manchester",
+   53.4808,
+   -2.2426,
+   "Europe/London"
+  ],
+  [
+   "Bradford",
+   53.796,
+   -1.7594,
+   "Europe/London"
+  ],
+  [
+   "Glasgow",
+   55.8642,
+   -4.2518,
+   "Europe/London"
+  ],
+  [
+   "Dublin",
+   53.3498,
+   -6.2603,
+   "Europe/Dublin"
+  ],
+  [
+   "Paris",
+   48.8566,
+   2.3522,
+   "Europe/Paris"
+  ],
+  [
+   "Istanbul",
+   41.0082,
+   28.9784,
+   "Europe/Istanbul"
+  ],
+  [
+   "Cairo",
+   30.0444,
+   31.2357,
+   "Africa/Cairo"
+  ],
+  [
+   "Makkah",
+   21.3891,
+   39.8579,
+   "Asia/Riyadh"
+  ],
+  [
+   "Madinah",
+   24.5247,
+   39.5692,
+   "Asia/Riyadh"
+  ],
+  [
+   "Dubai",
+   25.2048,
+   55.2708,
+   "Asia/Dubai"
+  ],
+  [
+   "Karachi",
+   24.8607,
+   67.0011,
+   "Asia/Karachi"
+  ],
+  [
+   "Lahore",
+   31.5204,
+   74.3587,
+   "Asia/Karachi"
+  ],
+  [
+   "Dhaka",
+   23.8103,
+   90.4125,
+   "Asia/Dhaka"
+  ],
+  [
+   "Kuala Lumpur",
+   3.139,
+   101.6869,
+   "Asia/Kuala_Lumpur"
+  ],
+  [
+   "Jakarta",
+   -6.2088,
+   106.8456,
+   "Asia/Jakarta"
+  ],
+  [
+   "Toronto",
+   43.6532,
+   -79.3832,
+   "America/Toronto"
+  ],
+  [
+   "New York",
+   40.7128,
+   -74.006,
+   "America/New_York"
+  ],
+  [
+   "Chicago",
+   41.8781,
+   -87.6298,
+   "America/Chicago"
+  ],
+  [
+   "Sydney",
+   -33.8688,
+   151.2093,
+   "Australia/Sydney"
+  ]
+ ]
+}

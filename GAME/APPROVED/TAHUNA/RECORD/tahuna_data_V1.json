@@ -1,0 +1,322 @@
+{
+ "version": "LOCK 45 V1 (9 Nov 2026) - Tahuna, the mill: the miller's debt, the enemy's son, and chapter 3 ends",
+ "builds_on": "LOCK 10 Karim, LOCK 41 Khattab, LOCK 34 runner. Design references (not shown): Bukhari 2078 (the man who forgave debtors); Quran 2:280; Quran 41:34; Quran 21:107.",
+ "towns": {
+  "tahuna": {
+   "name": "Tahuna",
+   "gate": "mercy",
+   "start_trust": 10,
+   "inn": 2,
+   "kicker": "Tahuna · the mill",
+   "text": "A stone water mill turns at the edge of a fast stream. Farmers from three valleys bring their grain here and wait their turn on the bank.",
+   "work": {
+    "label": "Carry sacks at the mill · 5 coins",
+    "hours": [
+     360,
+     1080
+    ],
+    "minutes": 90,
+    "coins": 5,
+    "trust": 1
+   },
+   "masjids": [
+    "tahuna"
+   ],
+   "bg": "river_night"
+  }
+ },
+ "masjids": {
+  "tahuna": {
+   "button": "Go to the millstream masjid",
+   "kicker": "Tahuna · the millstream masjid",
+   "title": "The millstream masjid",
+   "text": "You can hear the mill wheel through the wall all through the prayer.",
+   "first": "The miller's wife sends bread to the masjid door for travellers."
+  }
+ },
+ "people": [
+  {
+   "id": "man",
+   "town": "tahuna",
+   "name": "Ma'n",
+   "role": "the miller",
+   "hours": [
+    300,
+    1140
+   ],
+   "prays": true,
+   "lines": {
+    "wary": "Ma'n is white with flour. “Wait your turn.”",
+    "friendly": "“The flood took half my wheel. I'll build it back.”",
+    "warm": "“Your grain goes to the front of the line. Don't argue.”"
+   },
+   "memory": [
+    [
+     "debt_paid",
+     "“You paid my debt to Karim. I'll grind your grain free for the rest of my life.”"
+    ],
+    [
+     "debt_seized",
+     "Ma'n turns his back on you."
+    ]
+   ]
+  },
+  {
+   "id": "hafsa",
+   "town": "tahuna",
+   "name": "Hafsa",
+   "role": "the miller's wife",
+   "hours": [
+    360,
+    1080
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "“Flour's a coin a bag.”",
+    "friendly": "“Ma'n doesn't sleep since the flood.”",
+    "warm": "“Come and eat with us on Friday.”"
+   },
+   "memory": []
+  },
+  {
+   "id": "rami",
+   "town": "tahuna",
+   "name": "Rami",
+   "role": "Khattab's son",
+   "hours": [
+    420,
+    1080
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "Rami hauls sacks and keeps to himself.",
+    "friendly": "“My father sells salt in Wadira. He talks about you. Not always kindly.”",
+    "warm": "“My father says he owes you an apology. He's working up to it.”"
+   },
+   "memory": [
+    [
+     "enemy_helped",
+     "“You carried me to the cart. My father cried when he heard who it was.”"
+    ]
+   ]
+  }
+ ],
+ "missions": [
+  {
+   "id": "millers_debt",
+   "town": "tahuna",
+   "main": true,
+   "title": "The miller's debt",
+   "kicker": "Chapter 3 · The miller's debt",
+   "button": "Karim's letter for Ma'n",
+   "hours": [
+    360,
+    1080
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Karim the money-changer from River Market has asked you to collect 30 coins Ma'n owes him; you keep five. But the spring flood smashed half the mill wheel, and Ma'n has nothing. “Take my flour sacks,” he says, “if you must.”",
+     "choices": [
+      {
+       "label": "Pay his debt to Karim yourself · 30 coins",
+       "need_coins": 30,
+       "go": "paid",
+       "fx": {
+        "coins": -30,
+        "trust": 10,
+        "flag": [
+         "debt_paid",
+         "tahuna_debt"
+        ],
+        "say": "paid"
+       }
+      },
+      {
+       "label": "Write to Karim asking him to wait",
+       "go": "time",
+       "fx": {
+        "trust": 5,
+        "flag": [
+         "debt_time",
+         "tahuna_debt"
+        ],
+        "say": "time"
+       }
+      },
+      {
+       "label": "Take his flour sacks for Karim",
+       "go": "seized",
+       "fx": {
+        "coins": 5,
+        "trust": -10,
+        "flag": [
+         "debt_seized",
+         "tahuna_debt"
+        ],
+        "say": "seized"
+       }
+      }
+     ]
+    },
+    "paid": {
+     "text": "You send Karim thirty coins of your own with a note: paid in full. Ma'n reads the receipt three times.",
+     "end": true
+    },
+    "time": {
+     "text": "Karim writes back: “For you, he can have until the wheel turns again.”",
+     "end": true
+    },
+    "seized": {
+     "text": "You load the sacks onto a cart. Hafsa watches from the door with her arms folded.",
+     "end": true
+    }
+   },
+   "say": {
+    "paid": [
+     "Paid the miller's debt",
+     "the farmers on the bank",
+     1
+    ],
+    "time": [
+     "Got the miller more time",
+     "the farmers on the bank",
+     1
+    ],
+    "seized": [
+     "Took the miller's flour after the flood",
+     "the farmers on the bank",
+     -1
+    ]
+   }
+  },
+  {
+   "id": "enemy_son",
+   "town": "tahuna",
+   "main": true,
+   "title": "The enemy's son",
+   "kicker": "Chapter 3 · The enemy's son",
+   "button": "A young man has collapsed at the mill",
+   "hours": [
+    360,
+    1080
+   ],
+   "after": [
+    "tahuna_debt"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "A young man has collapsed by the millstones with a crushed foot. Someone says his name: Rami, son of Khattab - the salt merchant who shouted at you in Wadira. He needs carrying to the carter and the carter wants paying.",
+     "choices": [
+      {
+       "label": "Carry him and pay the carter · 8 coins",
+       "need_coins": 8,
+       "go": "help",
+       "fx": {
+        "coins": -8,
+        "trust": 10,
+        "flag": [
+         "enemy_helped",
+         "tahuna_done"
+        ],
+        "say": "helped"
+       }
+      },
+      {
+       "label": "Carry him; let someone else pay",
+       "go": "carry",
+       "fx": {
+        "trust": 6,
+        "flag": [
+         "enemy_helped",
+         "tahuna_done"
+        ]
+       }
+      },
+      {
+       "label": "Leave him to the millers",
+       "go": "leave",
+       "fx": {
+        "flag": "tahuna_done"
+       }
+      }
+     ]
+    },
+    "help": {
+     "text": "You get Rami on your shoulder and onto the cart, and pay the carter to go fast to Shifara's hospital. Rami holds your sleeve the whole way to the cart.",
+     "end": true
+    },
+    "carry": {
+     "text": "You carry Rami to the cart. Hafsa pays the carter.",
+     "end": true
+    },
+    "leave": {
+     "text": "The millers carry him between them.",
+     "end": true
+    }
+   },
+   "say": {
+    "helped": [
+     "Carried Khattab's son to the cart",
+     "the millers",
+     1
+    ]
+   }
+  },
+  {
+   "id": "mercy_home",
+   "place": "masjid",
+   "main": true,
+   "title": "Mercy shown",
+   "kicker": "Chapter 3 · Mercy shown",
+   "button": "Idris wants to hear about the south road",
+   "after": [
+    "nahla_done",
+    "tinara_done",
+    "tahuna_done"
+   ],
+   "hours": [
+    420,
+    1200
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": [
+      "Idris hears about the sick boy, the donkey, Sumayya, Usama, the miller and Khattab's son.",
+      "“Mercy is easy to the ones we love,” he says. “The test is the rest.” He looks west. “The paper-makers of Waraka and the star-watchers of Najmara. The Gate of Knowledge.”"
+     ],
+     "choices": [
+      {
+       "label": "Ask about the road west",
+       "go": "b",
+       "fx": {
+        "flag": "chapter3_done"
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "The next morning the Gate of Knowledge is opened for you.",
+     "end": true
+    }
+   }
+  }
+ ],
+ "chapters": [
+  {
+   "n": 3,
+   "name": "The Gate of Mercy",
+   "missions": [
+    "sick_child",
+    "overloaded_donkey",
+    "widow_harvest",
+    "orphan_share",
+    "millers_debt",
+    "enemy_son",
+    "mercy_home"
+   ]
+  }
+ ]
+}

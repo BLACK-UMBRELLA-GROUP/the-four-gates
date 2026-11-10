@@ -1,0 +1,151 @@
+{
+ "version": "LOCK 64 V1 (9 Nov 2026) - the scholar's notebook, chapter 1: Intention and foundations",
+ "builds_on": "LOCK 3 (page 1, read with Idris), LOCK 34 runner, LOCK 51 (the last page). Every reference checked on sunnah.com; the game never shows the reference.",
+ "words": {
+  "find_button": "{p} has found a page",
+  "find_kicker": "The scholar's notebook · a page found",
+  "find_title": "A page in the scholar's hand",
+  "take": "Take the page to Idris",
+  "read_button": "Read the scholar's page with Idris",
+  "read_kicker": "The scholar's notebook · page {n} of 100",
+  "read_turn": "Close the notebook",
+  "idris": "Idris: “{t}”",
+  "story": "Idris turns back through the pages. “{t}”",
+  "hours": [
+   420,
+   1140
+  ]
+ },
+ "chapter": {
+  "n": 1,
+  "title": "Intention and foundations",
+  "story": "The scholar was a bookbinder's son who learned to read from the scraps on his father's floor."
+ },
+ "pages": [
+  {
+   "n": 2,
+   "chapter": 1,
+   "ref": "Nawawi 40, no. 1",
+   "saying": "Deeds are judged by their intentions, and each person gets what they intended.",
+   "idris": "Two men can give the same coin. Only one of them gave it for Allah.",
+   "person": "Salma",
+   "found": "Salma hands you a loaf wrapped in an old page. “Look at the writing on this.”",
+   "after": [
+    "sirr"
+   ],
+   "place": "board"
+  },
+  {
+   "n": 3,
+   "chapter": 1,
+   "ref": "Nawawi 40, no. 2",
+   "saying": "Islam is the five pillars; faith is belief in Allah, His angels, books, messengers, the Last Day and decree; excellence is to worship Allah as though you see Him.",
+   "idris": "Read it slowly. The whole religion is in this one page.",
+   "person": "Rashid",
+   "found": "Rashid found a folded page in a crack while mending a wall. “It's in a scholar's hand. You'll know who wants it.”",
+   "after": [
+    "sirr",
+    "page_2_found"
+   ],
+   "place": "spice"
+  },
+  {
+   "n": 4,
+   "chapter": 1,
+   "ref": "Nawawi 40, no. 3",
+   "saying": "Islam is built on five: the testimony of faith, prayer, zakat, Hajj and the fast of Ramadan.",
+   "idris": "Five pillars. A house with one missing still leans.",
+   "person": "Layla",
+   "found": "Children are flying a kite made from an old page. Layla buys it from them for a date and gives it to you.",
+   "after": [
+    "sirr",
+    "page_3_found"
+   ],
+   "place": "weaver"
+  },
+  {
+   "n": 5,
+   "chapter": 1,
+   "ref": "Nawawi 40, no. 5",
+   "saying": "Whoever brings into this religion something that is not part of it - it is rejected.",
+   "idris": "Be careful of new things sold as old truths. You met Fuad.",
+   "person": "Jamal",
+   "found": "Jamal found a page pressed inside a second-hand book.",
+   "after": [
+    "sirr",
+    "page_4_found"
+   ],
+   "place": "quay"
+  },
+  {
+   "n": 6,
+   "chapter": 1,
+   "ref": "Nawawi 40, no. 6",
+   "saying": "The lawful is clear and the unlawful is clear, and between them are doubtful things; whoever avoids the doubtful keeps his faith safe. In the body is a piece of flesh: if it is sound the whole body is sound - the heart.",
+   "idris": "When you're unsure, step back. The heart knows before the mind does.",
+   "person": "Abbas",
+   "found": "Abbas has been using a page to wrap spices and has only just noticed the writing.",
+   "after": [
+    "sirr",
+    "page_5_found"
+   ],
+   "place": "gate"
+  },
+  {
+   "n": 7,
+   "chapter": 1,
+   "ref": "Nawawi 40, no. 7",
+   "saying": "The religion is sincerity: to Allah, His Book, His Messenger, the leaders of the Muslims and all the people.",
+   "idris": "Sincere advice is a gift. Even when it isn't welcome.",
+   "person": "Karim",
+   "found": "Karim pulls a damp page from the bottom of a basket and dries it for you.",
+   "after": [
+    "sirr",
+    "page_6_found"
+   ],
+   "place": "scales"
+  },
+  {
+   "n": 8,
+   "chapter": 1,
+   "ref": "Nawawi 40, no. 9",
+   "saying": "Avoid what I forbid you, and do what I command you as much as you are able.",
+   "idris": "As much as you are able. Not more. Not less.",
+   "person": "The innkeeper",
+   "found": "The innkeeper found a page under a loose floor tile.",
+   "after": [
+    "sirr",
+    "page_7_found"
+   ],
+   "place": "inn"
+  },
+  {
+   "n": 9,
+   "chapter": 1,
+   "ref": "Nawawi 40, no. 10",
+   "saying": "Allah is good and accepts only what is good; a man with unlawful food and clothing raises his hands to the sky - how can he be answered?",
+   "idris": "What you eat reaches your prayers. Remember the honest coin.",
+   "person": "Yunus the muezzin",
+   "found": "Yunus the muezzin was given a debt note - and the scholar's page is written on the back of it.",
+   "after": [
+    "sirr",
+    "page_8_found"
+   ],
+   "place": "masjid"
+  },
+  {
+   "n": 10,
+   "chapter": 1,
+   "ref": "Nawawi 40, no. 11",
+   "saying": "Leave what makes you doubt for what does not make you doubt.",
+   "idris": "One line. You could live a whole life by it.",
+   "person": "Faris",
+   "found": "Faris's little one folded a page into a paper boat. Faris dried it out for you.",
+   "after": [
+    "sirr",
+    "page_9_found"
+   ],
+   "place": "quay"
+  }
+ ]
+}

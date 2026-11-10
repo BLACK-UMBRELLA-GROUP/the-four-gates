@@ -1,0 +1,127 @@
+{
+ "version": "LOCK 54 V1 (9 Nov 2026) - side mission: Goods left in trust",
+ "builds_on": "LOCK 34 runner; LOCK 3 and LOCK 6 regulars; River Market places (LOCK 1). Each mission is its own LOCK and queue line.",
+ "design_reference_not_shown": "Quran 4:58",
+ "missions": [
+  {
+   "id": "goods_in_trust",
+   "lock": 54,
+   "place": "inn",
+   "hours": [
+    360,
+    1200
+   ],
+   "side": true,
+   "title": "Goods left in trust",
+   "kicker": "River Market · Goods left in trust",
+   "button": "Ghalib asks you to keep something for him",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Ghalib the trader is leaving for a week and asks you to keep a cloth bag for him. In your room the stitching splits: gold rings and coins spill onto the bed. Nobody knows what is in it but Ghalib.",
+     "choices": [
+      {
+       "label": "Count it, sew it up and keep it safe",
+       "go": "kept",
+       "fx": {
+        "flag": "trust_kept"
+       }
+      },
+      {
+       "label": "Take one coin - he won't notice",
+       "go": "took",
+       "fx": {
+        "coins": 1,
+        "flag": "trust_took"
+       }
+      }
+     ]
+    },
+    "kept": {
+     "text": "You count everything twice, sew the bag shut and keep it under your mattress all week.",
+     "end": true,
+     "fx_end": {
+      "flag": "goods_in_trust_given"
+     }
+    },
+    "took": {
+     "text": "You put one coin in your purse and sew the bag shut.",
+     "end": true,
+     "fx_end": {
+      "flag": "goods_in_trust_given"
+     }
+    }
+   },
+   "say": {}
+  },
+  {
+   "id": "goods_returned",
+   "lock": 54,
+   "place": "inn",
+   "hours": [
+    360,
+    1200
+   ],
+   "side": false,
+   "title": "Ghalib comes back",
+   "kicker": "River Market · Ghalib comes back",
+   "button": "Ghalib is back for his bag",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Ghalib opens the bag on the table and counts every coin and ring, as traders do.",
+     "choices": [
+      {
+       "label": "Watch him count",
+       "go": "b",
+       "if": [
+        "trust_kept"
+       ],
+       "fx": {
+        "trust": 8,
+        "say": "kept"
+       }
+      },
+      {
+       "label": "Watch him count",
+       "go": "c",
+       "if": [
+        "trust_took"
+       ],
+       "fx": {
+        "trust": -12,
+        "say": "took"
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "“All of it,” he says. “And you sewed the seam better than my wife.” He tells everyone at the inn.",
+     "end": true
+    },
+    "c": {
+     "text": "Ghalib counts twice. He looks at you for a long moment, takes his bag and leaves without a word.",
+     "end": true
+    }
+   },
+   "say": {
+    "kept": [
+     "Kept Ghalib's bag safe",
+     "Ghalib the trader",
+     1
+    ],
+    "took": [
+     "A coin went missing from Ghalib's bag",
+     "Ghalib the trader",
+     -1
+    ]
+   },
+   "after": [
+    "goods_in_trust_given"
+   ],
+   "after_days": {
+    "goods_in_trust_given": 7
+   }
+  }
+ ]
+}

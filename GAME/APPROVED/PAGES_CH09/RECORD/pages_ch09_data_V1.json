@@ -1,0 +1,165 @@
+{
+ "version": "LOCK 72 V1 (9 Nov 2026) - the scholar's notebook, chapter 9: Knowledge and patience",
+ "builds_on": "LOCK 3 (page 1, read with Idris), LOCK 34 runner, LOCK 51 (the last page). Every reference checked on sunnah.com; the game never shows the reference.",
+ "words": {
+  "find_button": "{p} has found a page",
+  "find_kicker": "The scholar's notebook · a page found",
+  "find_title": "A page in the scholar's hand",
+  "take": "Take the page to Idris",
+  "read_button": "Read the scholar's page with Idris",
+  "read_kicker": "The scholar's notebook · page {n} of 100",
+  "read_turn": "Close the notebook",
+  "idris": "Idris: “{t}”",
+  "story": "Idris turns back through the pages. “{t}”",
+  "hours": [
+   420,
+   1140
+  ]
+ },
+ "chapter": {
+  "n": 9,
+  "title": "Knowledge and patience",
+  "story": "His caravan was robbed on the road to Ilmara and his notebook scattered to the wind. He never stopped teaching."
+ },
+ "pages": [
+  {
+   "n": 81,
+   "chapter": 9,
+   "ref": "Bukhari 5728",
+   "saying": "If you hear of plague in a land, do not enter it; if it breaks out where you are, do not leave.",
+   "idris": "You stayed in Shifara. That was knowledge and courage together.",
+   "person": "Yunus the muezzin",
+   "found": "Yunus the muezzin found a page lining an old hat bought from a pedlar.",
+   "after": [
+    "chapter4_done"
+   ],
+   "place": "masjid"
+  },
+  {
+   "n": 82,
+   "chapter": 9,
+   "ref": "Bukhari 110",
+   "saying": "Whoever lies about me deliberately, let him take his seat in the Fire.",
+   "idris": "Fuad's strips of paper. A false saying is no small thing.",
+   "person": "Fuad",
+   "found": "Fuad hands you a loaf wrapped in an old page. “Look at the writing on this.”",
+   "after": [
+    "chapter4_done",
+    "page_81_found"
+   ],
+   "town": "waraka"
+  },
+  {
+   "n": 83,
+   "chapter": 9,
+   "ref": "Bukhari 5027",
+   "saying": "The best of you are those who learn the Quran and teach it.",
+   "idris": "Teach what you learn. Even one verse to one child.",
+   "person": "Hilal",
+   "found": "Hilal found a folded page in a crack while mending a wall. “It's in a scholar's hand. You'll know who wants it.”",
+   "after": [
+    "chapter4_done",
+    "page_82_found"
+   ],
+   "town": "najmara"
+  },
+  {
+   "n": 84,
+   "chapter": 9,
+   "ref": "Muslim 2674",
+   "saying": "Whoever calls to guidance gets the reward of all who follow it, and whoever calls to misguidance carries the sins of all who follow it.",
+   "idris": "What you start, others carry on. Start well.",
+   "person": "Malik",
+   "found": "Children are flying a kite made from an old page. Malik buys it from them for a date and gives it to you.",
+   "after": [
+    "chapter4_done",
+    "page_83_found"
+   ],
+   "town": "shifara"
+  },
+  {
+   "n": 85,
+   "chapter": 9,
+   "ref": "Bukhari 6094",
+   "saying": "Truthfulness leads to righteousness, and righteousness leads to Paradise; a man keeps telling the truth until he is written as truthful.",
+   "idris": "Written as truthful. That's a name worth earning.",
+   "person": "Layla",
+   "found": "Layla found a page pressed inside a second-hand book.",
+   "after": [
+    "chapter4_done",
+    "page_84_found"
+   ],
+   "place": "weaver"
+  },
+  {
+   "n": 86,
+   "chapter": 9,
+   "ref": "Muslim 2605",
+   "saying": "He is not a liar who makes peace between people by passing on good words.",
+   "idris": "Adil and Hamza drink tea together now. Good words, not false ones.",
+   "person": "Zaynab",
+   "found": "Zaynab has been using a page to wrap spices and has only just noticed the writing.",
+   "after": [
+    "chapter4_done",
+    "page_85_found"
+   ],
+   "town": "waraka"
+  },
+  {
+   "n": 87,
+   "chapter": 9,
+   "ref": "Bukhari 2426",
+   "saying": "Of a found purse: announce it for a year; if the owner comes, give it back.",
+   "idris": "Umm Salim's ring. Announced, and returned.",
+   "person": "Kamil",
+   "found": "Kamil pulls a damp page from the bottom of a basket and dries it for you.",
+   "after": [
+    "chapter4_done",
+    "page_86_found"
+   ],
+   "town": "najmara"
+  },
+  {
+   "n": 88,
+   "chapter": 9,
+   "ref": "Bukhari 2463",
+   "saying": "No one should stop his neighbour from fixing a beam into his wall.",
+   "idris": "Nadir's beam rests on Saif's wall now. And they speak.",
+   "person": "Shakir",
+   "found": "Shakir found a page under a loose floor tile.",
+   "after": [
+    "chapter4_done",
+    "page_87_found"
+   ],
+   "town": "shifara"
+  },
+  {
+   "n": 89,
+   "chapter": 9,
+   "ref": "Bukhari 2358",
+   "saying": "Three people Allah will not look at on the Day of Resurrection - among them a man who had spare water on the road and kept it from a traveller.",
+   "idris": "The water seller at the gate. Water is the first right of a traveller.",
+   "person": "The innkeeper",
+   "found": "The innkeeper was given a debt note - and the scholar's page is written on the back of it.",
+   "after": [
+    "chapter4_done",
+    "page_88_found"
+   ],
+   "place": "inn"
+  },
+  {
+   "n": 90,
+   "chapter": 9,
+   "ref": "Bukhari 6018",
+   "saying": "Whoever believes in Allah and the Last Day should not harm his neighbour, should honour his guest, and should speak good or keep quiet.",
+   "idris": "Tamim slept on your blanket. You honoured a guest.",
+   "person": "Yaqub",
+   "found": "Yaqub's little one folded a page into a paper boat. Yaqub dried it out for you.",
+   "after": [
+    "chapter4_done",
+    "page_89_found"
+   ],
+   "town": "waraka"
+  }
+ ]
+}

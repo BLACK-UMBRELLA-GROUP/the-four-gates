@@ -1,0 +1,40 @@
+{
+ "version": "LOCK 17 V1 (9 Nov 2026) - character: harm in the road",
+ "builds_on": "LOCK 1 market places, LOCK 2 clock, LOCK 8 private record. Placeholders: {n}.",
+ "numbers": {
+  "from": 390,
+  "until": 1170,
+  "minutes": 5
+ },
+ "places": [
+  "weaver",
+  "spice",
+  "quay",
+  "board",
+  "gate",
+  "scales",
+  "masjid"
+ ],
+ "harms": [
+  {
+   "bar": "A thorn branch lies across the path",
+   "move": "Move the thorns",
+   "done": "You drag the thorn branch to the side and press it into the wall where no foot will find it. Nobody notices."
+  },
+  {
+   "bar": "Broken pot shards on the steps",
+   "move": "Pick up the shards",
+   "done": "You gather the sharp pieces into your scarf and drop them in the rubbish pit. Nobody notices."
+  },
+  {
+   "bar": "A loose rope stretched low across the way",
+   "move": "Take up the rope",
+   "done": "You untie the rope and coil it by the nearest door. Nobody notices."
+  }
+ ],
+ "panel": {
+  "kicker": "On the way",
+  "count": "Harm you have moved from the road: {n}",
+  "to_map": "Back to the market map"
+ }
+}

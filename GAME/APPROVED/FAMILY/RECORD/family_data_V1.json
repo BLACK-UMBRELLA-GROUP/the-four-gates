@@ -1,0 +1,164 @@
+{
+ "version": "LOCK 94 V1 (9 Nov 2026) - Expecting",
+ "builds_on": "LOCK 5 (clothes and bags), LOCK 9 (secret giving after page 1), LOCK 23 Saeed, LOCK 34 runner, LOCK 36 roads. Founder 8 Nov picks: animals, land and buildings, businesses, waqf; marriage and family (scholar check set aside 9 Nov).",
+ "design_reference_not_shown": {
+  "expecting": "",
+  "baby_born": "",
+  "aqiqah": "Bukhari 5472"
+ },
+ "missions": [
+  {
+   "id": "expecting",
+   "lock": 94,
+   "hours": [
+    480,
+    1140
+   ],
+   "title": "Expecting",
+   "kicker": "Family · A child",
+   "button": "Good news at home",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "There is news at home that makes you sit down on the doorstep for a long time. A child is coming.",
+     "choices": [
+      {
+       "label": "Tell Idris",
+       "fx": {
+        "flag": "expecting",
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "place": "quay",
+   "after": [
+    "married"
+   ],
+   "after_days": {
+    "married": 300
+   }
+  },
+  {
+   "id": "baby_born",
+   "lock": 94,
+   "hours": [
+    300,
+    1260
+   ],
+   "title": "A daughter",
+   "kicker": "Family · A child",
+   "button": "The midwife is at your door",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The midwife comes out smiling. A daughter, small and loud and perfect. Salma is already at the door with bread.",
+     "choices": [
+      {
+       "label": "Name her Khadija",
+       "go": "b",
+       "fx": {
+        "flag": [
+         "baby_born",
+         "baby_khadija"
+        ]
+       }
+      },
+      {
+       "label": "Name her Ruqayya",
+       "go": "b",
+       "fx": {
+        "flag": [
+         "baby_born",
+         "baby_ruqayya"
+        ]
+       }
+      },
+      {
+       "label": "Name her Asma",
+       "go": "b",
+       "fx": {
+        "flag": [
+         "baby_born",
+         "baby_asma"
+        ]
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "Idris says the adhan softly into her right ear, the first words she will ever hear.",
+     "end": true
+    }
+   },
+   "place": "quay",
+   "after": [
+    "expecting"
+   ],
+   "after_days": {
+    "expecting": 270
+   }
+  },
+  {
+   "id": "aqiqah",
+   "lock": 94,
+   "hours": [
+    420,
+    1080
+   ],
+   "title": "The aqiqah",
+   "kicker": "Family · The aqiqah",
+   "button": "Saeed has a sheep for the aqiqah",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "On the seventh day: the aqiqah. A sheep from Saeed, her head shaved and its weight in silver given away, and the meat shared with the neighbours.",
+     "choices": [
+      {
+       "label": "The aqiqah · 15 coins",
+       "need_coins": 15,
+       "go": "b",
+       "fx": {
+        "coins": -15,
+        "count": {
+         "meals": 30
+        },
+        "say": "aqiqah"
+       }
+      },
+      {
+       "label": "A smaller aqiqah · 8 coins",
+       "need_coins": 8,
+       "go": "b",
+       "fx": {
+        "coins": -8,
+        "count": {
+         "meals": 15
+        }
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "The whole quay eats. Your daughter sleeps through all of it.",
+     "end": true
+    }
+   },
+   "place": "gate",
+   "after": [
+    "baby_born"
+   ],
+   "after_days": {
+    "baby_born": 7
+   },
+   "say": {
+    "aqiqah": [
+     "Shared the aqiqah with the whole quay",
+     "the quay",
+     1
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,46 @@
+{
+  "version": "LOCK 9 V1 (8 Nov 2026) - feeding the poor",
+  "builds_on": "LOCK 3 (page 1: giving in secret), LOCK 6 (Salma), LOCK 7 (Salma's hours). Placeholders: {n}, {m}.",
+  "numbers": {
+    "goal_meals": 10000,
+    "trust_per_day": 1
+  },
+  "place_button": "Feed the poor",
+  "panel": {
+    "kicker": "River Market · Salma's oven",
+    "title": "Bread for the poor",
+    "intro": "Salma bakes extra loaves and hands them out at the oven door to anyone hungry.",
+    "pay": "Pay · {n} coins",
+    "not_enough": "not enough coins",
+    "secret_label": "Ask Salma to keep it quiet",
+    "secret_on": "Salma will say the bread is from “someone”.",
+    "secret_locked": "(You can give in secret once you have read the scholar's first page.)",
+    "back": "Back to the market map",
+    "done_public": "Salma calls it out as she hands out the bread: “From the foreigner at the inn!”",
+    "done_secret": "Salma hands out the bread and says only: “From someone who cares.”",
+    "counter": "Meals for the poor: {n} / {m}"
+  },
+  "options": [
+    {
+      "id": "ten",
+      "name": "Ten loaves",
+      "line": "Enough for the families on one lane.",
+      "meals": 10,
+      "cost": 5
+    },
+    {
+      "id": "fifty",
+      "name": "Fifty loaves",
+      "line": "Bread for every hungry door in River Market today.",
+      "meals": 50,
+      "cost": 20
+    }
+  ],
+  "say": {
+    "feeds": [
+      "Feeds the poor",
+      "Salma the baker",
+      1
+    ]
+  }
+}

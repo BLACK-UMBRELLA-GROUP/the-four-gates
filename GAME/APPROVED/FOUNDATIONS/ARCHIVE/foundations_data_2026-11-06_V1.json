@@ -1,0 +1,332 @@
+{
+  "version": "LOCK 1 V1 (6 Nov 2026)",
+  "units": "metres; x east, z south, origin at the north-west corner of River Market (160 x 90 m)",
+  "numbers": {
+    "start_trust": 20,
+    "gate_trust": 100,
+    "gate_needs_lesson": true,
+    "trust_min": 0,
+    "trust_max": 100,
+    "start_coins": 0
+  },
+  "places": {
+    "gate": {
+      "name": "Khurasan Gate",
+      "line": "The gatekeepers watch the road east.",
+      "x": 127.2,
+      "z": 6.4
+    },
+    "board": {
+      "name": "Task board",
+      "line": "Jobs posted by the people of the market.",
+      "x": 84.8,
+      "z": 33.6
+    },
+    "scales": {
+      "name": "Market scales",
+      "line": "Where goods are weighed in front of everyone.",
+      "x": 104,
+      "z": 44
+    },
+    "quay": {
+      "name": "Quay",
+      "line": "Boats unload spice and cloth from the river.",
+      "x": 52.8,
+      "z": 73.6
+    },
+    "spice": {
+      "name": "Spice row",
+      "line": "Sacks of pepper, cumin and saffron.",
+      "x": 149.6,
+      "z": 28
+    },
+    "weaver": {
+      "name": "Weaver’s lane",
+      "line": "Looms clatter behind every door.",
+      "x": 41.6,
+      "z": 38.4
+    },
+    "centre": {
+      "name": "To the central square",
+      "line": "The heart of the round city.",
+      "x": 4.8,
+      "z": 38.4
+    }
+  },
+  "street_points": {
+    "gate": {
+      "x": 127.2,
+      "z": 6.4
+    },
+    "a1": {
+      "x": 120,
+      "z": 19.2
+    },
+    "sq": {
+      "x": 94.4,
+      "z": 38.4
+    },
+    "board": {
+      "x": 84.8,
+      "z": 33.6
+    },
+    "scales": {
+      "x": 104,
+      "z": 44
+    },
+    "a2": {
+      "x": 70.4,
+      "z": 56
+    },
+    "quay": {
+      "x": 52.8,
+      "z": 73.6
+    },
+    "pier": {
+      "x": 100,
+      "z": 73.6
+    },
+    "sp1": {
+      "x": 136,
+      "z": 24
+    },
+    "spice": {
+      "x": 149.6,
+      "z": 28
+    },
+    "weaver": {
+      "x": 41.6,
+      "z": 38.4
+    },
+    "centre": {
+      "x": 4.8,
+      "z": 38.4
+    }
+  },
+  "streets": [
+    [
+      "gate",
+      "a1"
+    ],
+    [
+      "a1",
+      "sq"
+    ],
+    [
+      "sq",
+      "board"
+    ],
+    [
+      "sq",
+      "scales"
+    ],
+    [
+      "sq",
+      "a2"
+    ],
+    [
+      "a2",
+      "quay"
+    ],
+    [
+      "quay",
+      "pier"
+    ],
+    [
+      "a1",
+      "sp1"
+    ],
+    [
+      "sp1",
+      "spice"
+    ],
+    [
+      "sq",
+      "weaver"
+    ],
+    [
+      "weaver",
+      "centre"
+    ]
+  ],
+  "street_width": 4.8,
+  "square": {
+    "centre": "sq",
+    "radius": 9.6
+  },
+  "start_place": "quay",
+  "tasks": [
+    {
+      "id": "spice",
+      "title": "Carry spice to the river quay",
+      "place": "Spice seller",
+      "pay_shown": 6,
+      "story": "Halfway to the quay the sack tears and a handful of pepper spills into the dust. Nobody saw.",
+      "honest": {
+        "choice": "Tell the spice seller what happened",
+        "coins": 4,
+        "trust": 15,
+        "result": "She pays you anyway. “You told me straight. Come back tomorrow.”"
+      },
+      "quick": {
+        "choice": "Top the sack up with sand",
+        "coins": 6,
+        "trust": -10,
+        "result": "The cook finds sand in the pepper. Word travels round the market."
+      },
+      "amends": {
+        "title": "Make it right with the spice seller",
+        "story": "Buy fresh pepper for the cook and tell the spice seller what you did.",
+        "cost": 6,
+        "trust": "trust actually lost on the quick way + honest trust",
+        "result": "She nods. \"It takes more to own up than to hide it.\" Trust comes back."
+      }
+    },
+    {
+      "id": "purse",
+      "title": "Look for a lost purse",
+      "place": "Weaver’s lane",
+      "pay_shown": 3,
+      "story": "You find the purse under a stall: twenty coins inside, and the weaver’s mark sewn on it.",
+      "honest": {
+        "choice": "Return it to the weaver",
+        "coins": 3,
+        "trust": 20,
+        "result": "The weaver gives you a small reward and tells everyone who found it."
+      },
+      "quick": {
+        "choice": "Keep the twenty coins",
+        "coins": 20,
+        "trust": -20,
+        "result": "The weaver asks around. Someone saw you by that stall."
+      },
+      "amends": {
+        "title": "Return the weaver’s purse",
+        "story": "Take the twenty coins back to the weaver and own up.",
+        "cost": 20,
+        "trust": "trust actually lost on the quick way + honest trust",
+        "result": "The weaver is angry, then grateful. People hear you put it right."
+      }
+    },
+    {
+      "id": "scales_help",
+      "title": "Help the scale-keeper",
+      "place": "Market scales",
+      "pay_shown": 5,
+      "story": "A trader slips you five coins to look away while he weighs grain with a light weight.",
+      "honest": {
+        "choice": "Refuse and tell the scale-keeper",
+        "coins": 5,
+        "trust": 20,
+        "result": "The scale-keeper checks the weight. It is light. He pays you for your eyes."
+      },
+      "quick": {
+        "choice": "Take the five coins and look away",
+        "coins": 5,
+        "trust": -15,
+        "result": "Buyers start to grumble that the grain is short. The scale-keeper stops trusting you."
+      },
+      "amends": {
+        "title": "Own up to the scale-keeper",
+        "story": "Hand back the five coins and point out the trader’s light weight.",
+        "cost": 5,
+        "trust": "trust actually lost on the quick way + honest trust",
+        "result": "The scale-keeper checks the weight and thanks you for coming back."
+      }
+    }
+  ],
+  "daily_job": {
+    "title": "Unload a boat at the quay",
+    "coins": 2,
+    "trust": 5,
+    "per_day": 1,
+    "done_label": "come back tomorrow",
+    "toast": "Hard work on the quay. +5 trust."
+  },
+  "lesson": {
+    "title": "The market scales",
+    "topic": "Weighing and fair measures",
+    "story": "One of these three weights is false. Put each on the scale against the checked weight. Which one is light?",
+    "options": [
+      "Weight 1",
+      "Weight 2",
+      "Weight 3"
+    ],
+    "false_weight_index": 1,
+    "trust": 25,
+    "win": "You found the false weight. You can now take scale-keeper tasks in every quarter.",
+    "level_text": "The scale stays level: weight {n} is true.",
+    "tip_text": "The scale tips toward the checked weight: weight {n} is light.",
+    "answer_button": "Weight {n} is the false one",
+    "wrong": "Not that one. Look again."
+  },
+  "gate": {
+    "open": "The gatekeepers open the Khurasan Gate. The road east is yours.",
+    "needs_trust": "The gatekeepers want to hear the market speak for you first (trust {trust} / 100).",
+    "needs_lesson": "The gatekeepers ask: can you weigh fairly? Learn the market scales first.",
+    "goal_line": "The Khurasan Gate needs 100 trust and the market scales lesson."
+  },
+  "goal": {
+    "title": "Be trusted by all four quarters of the round city and open all four gates.",
+    "line": "Open all four gates. Each one leads out to a region beyond the walls.",
+    "gates": [
+      [
+        "Khurasan Gate",
+        "River Market trust"
+      ],
+      [
+        "Basra Gate",
+        "Basra quarter trust"
+      ],
+      [
+        "Kufa Gate",
+        "Kufa quarter trust"
+      ],
+      [
+        "Syrian Gate",
+        "Syrian quarter trust"
+      ]
+    ]
+  },
+  "city_map": {
+    "title": "The round city",
+    "line": "Four gates, four quarters. Your first area is the market by the river.",
+    "gate_tags": {
+      "Khurasan Gate": "100 trust + scales lesson",
+      "Basra Gate": "locked",
+      "Kufa Gate": "locked",
+      "Syrian Gate": "locked"
+    },
+    "gate_messages": [
+      "The Khurasan Gate opens when River Market trusts you fully.",
+      "The Basra Gate opens after the Khurasan Gate.",
+      "The Kufa Gate comes later in the game.",
+      "The Syrian Gate comes later in the game."
+    ],
+    "gate_open_message": "The road east leads to the first region beyond the walls."
+  },
+  "title_screen": {
+    "title": "THE FOUR GATES",
+    "line": "Earn the trust of four quarters. Open four gates.",
+    "buttons": [
+      "Begin",
+      "Settings"
+    ],
+    "settings_toast": "Settings come in the menus row of the roadmap."
+  },
+  "other_text": {
+    "centre_exit": "The central square comes later in the game.",
+    "scales_after_lesson": "You check the scales. Every weight is true today.",
+    "night": "Night falls. The lanterns are lit.",
+    "day": "Morning. The stalls open.",
+    "talk": "Talking to townspeople is the Characters row of the roadmap.",
+    "not_now": "‹ Not now",
+    "honest_label": "You chose the honest way",
+    "quick_label": "You chose the quick way",
+    "done_honest": "done honestly",
+    "done_quick": "done the quick way",
+    "put_right": "Put it right",
+    "put_right_done": "put right",
+    "need_coins": "need {n} coins"
+  }
+}

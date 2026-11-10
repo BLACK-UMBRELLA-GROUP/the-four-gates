@@ -1,0 +1,66 @@
+{
+ "version": "LOCK 97 V1 (9 Nov 2026) - the stars of Najmara",
+ "builds_on": "LOCK 26 (the first three Names), LOCK 15 (the first fountain), LOCK 40 and 47 (two stars), LOCK 34 runner, LOCK 36 roads.",
+ "words": {
+  "button": "Hilal is showing the stars tonight",
+  "kicker": "Najmara · the stars",
+  "text": "Hilal points: “{ar} - {en}. {line}”",
+  "done": "Find it again yourself",
+  "hours": [
+   1200,
+   1380
+  ]
+ },
+ "stars": [
+  {
+   "ar": "al-Jady",
+   "en": "the Pole Star",
+   "line": "It never moves. Find it and you know where north is, every night of your life."
+  },
+  {
+   "ar": "Banat Na'sh",
+   "en": "the seven stars of the Bier",
+   "line": "They wheel round the Pole Star like daughters round a bier. Follow their edge and they point to al-Jady."
+  },
+  {
+   "ar": "ath-Thurayya",
+   "en": "the Pleiades",
+   "line": "A little cluster, like a bunch of grapes. When it rises before dawn, the farmers know the hot season is coming."
+  },
+  {
+   "ar": "Suhayl",
+   "en": "Canopus",
+   "line": "Low in the south. When Suhayl rises, the worst of the summer heat is over."
+  },
+  {
+   "ar": "ash-Shi'ra",
+   "en": "Sirius",
+   "line": "The brightest star in the night. It is named in the Quran: He is the Lord of ash-Shi'ra."
+  },
+  {
+   "ar": "ad-Dabaran",
+   "en": "Aldebaran",
+   "line": "The follower. It chases the Pleiades across the sky and never catches them."
+  },
+  {
+   "ar": "al-Jawza'",
+   "en": "Orion",
+   "line": "A giant striding across the winter sky. Its belt of three stars points the way east and west."
+  },
+  {
+   "ar": "an-Nasr al-Waqi'",
+   "en": "Vega",
+   "line": "The swooping eagle - a summer star, high overhead in the evening."
+  },
+  {
+   "ar": "an-Nasr at-Ta'ir",
+   "en": "Altair",
+   "line": "The flying eagle, with a star on each wing."
+  },
+  {
+   "ar": "as-Simak",
+   "en": "Spica and Arcturus",
+   "line": "Two bright stars of spring. Caravans heading south-west once steered by them."
+  }
+ ]
+}

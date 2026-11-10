@@ -1,0 +1,218 @@
+{
+  "version": "LOCK 3 V1 (7 Nov 2026) - chapter 1: the open purse, hadith page 1, the bread grab, What people say",
+  "builds_on": "LOCK 1 V2 (foundations.json) and LOCK 2 V3 (identity.json). Placeholders: {n} number, {teacher} teacher name, {word} learned-word display, {ar}/{en} word parts.",
+  "numbers": {
+    "gift_trust": 2,
+    "crowd_base": 4,
+    "crowd_per_gift": 4,
+    "grab_ask_minute": 970,
+    "next_morning_minute": 420
+  },
+  "teacher": "Idris",
+  "words": {
+    "sirr": {
+      "ar": "Sirran",
+      "en": "in secret"
+    }
+  },
+  "places": {
+    "inn": "People are waiting at the door",
+    "board": "Something happens at the oven"
+  },
+  "purse": {
+    "kicker": "Chapter 1 · The open purse",
+    "title": "People at the inn door",
+    "intro": "Word has spread: a foreigner with a heavy purse is at the inn. Nadir, the innkeeper’s son, knows a little of your language and explains for them.",
+    "only_public": "You can only give where people can see, for now.",
+    "give": "Give {n} coins",
+    "give_secret": "In secret",
+    "given_public": "given in front of everyone",
+    "given_secret": "given in secret",
+    "not_enough": "not enough coins",
+    "ask_baker": "Ask Salma the baker about them",
+    "take_page": "Take the page to {teacher}",
+    "end_day": "End the day",
+    "not_now": "‹ Not now",
+    "people": [
+      {
+        "id": "father",
+        "name": "Yusuf, a father with a sick son",
+        "ask": "His son Ali has a fever. Rania the healer wants ten coins.",
+        "cost": 10,
+        "honest": true,
+        "hidden": false
+      },
+      {
+        "id": "boy",
+        "name": "Faris, a boy with bare feet",
+        "ask": "The orphan from the quay points at your shoes, then at his feet. Three coins buys a pair.",
+        "cost": 3,
+        "honest": true,
+        "hidden": false
+      },
+      {
+        "id": "fire",
+        "name": "Tariq, who says he lost everything",
+        "ask": "He says his house burned down last week, and asks for twenty coins.",
+        "cost": 20,
+        "honest": false,
+        "hidden": false
+      },
+      {
+        "id": "widow",
+        "name": "Umm Salim, a widow",
+        "ask": "She would never ask. Salma says she has hardly eaten in days. Eight coins feeds her for a month.",
+        "cost": 8,
+        "honest": true,
+        "hidden": true
+      }
+    ],
+    "baker": {
+      "title": "Salma the baker",
+      "lines": [
+        "Salma knows everyone on the street. She nods at Yusuf and at Faris. About Tariq and his burned house she only shrugs.",
+        "Then she says quietly: Umm Salim, the widow at the end of the lane, has hardly eaten in days. She would never come and ask.",
+        "She wraps your bread in an old page covered in writing you cannot read."
+      ],
+      "back": "Back to the people"
+    },
+    "morning": {
+      "kicker": "Chapter 1 · The open purse · next morning",
+      "title": "What the street saw",
+      "crowd": "By morning word has spread. {n} people are waiting at the inn door.",
+      "quiet": "The inn door is quiet this morning.",
+      "none": "Nobody is waiting any more. People say the foreigner keeps his purse shut.",
+      "father_public": "Yusuf walks past with Ali, who is on his feet again. He tells the whole street who paid.",
+      "father_secret": "Yusuf tells everyone Rania was paid by someone he never saw. He does not know it was you.",
+      "boy": "Faris runs past the quay in new shoes.",
+      "fire": "Salma shakes her head: Tariq’s house never burned. He tries it on every new traveller - and now he is telling everyone how easy you were.",
+      "widow_secret": "Warm bread has been left at your door. You never find out who left it.",
+      "widow_public": "Umm Salim keeps her eyes down when she sees you. Half the street watched her take your coins.",
+      "to_rep": "What people say",
+      "to_map": "Back to the market map"
+    }
+  },
+  "page": {
+    "kicker": "The scholar’s pages · page 1 of 100",
+    "title": "A page wrapped round bread",
+    "story": "{teacher} holds the page up to the light and goes quiet. He knows the hand: the scholar people still tell stories about, who travelled the land collecting the sayings of the Prophet, peace be upon him. They say he paid a whole street’s debts at night, and nobody knew until he died.",
+    "hadith": "{teacher} reads it with you, word by word. The Prophet, peace be upon him, said seven people will be shaded by Allah on the day there is no shade but His - among them, one who gives in charity {word}, so secretly that the left hand does not know what the right hand has given.",
+    "source": "Sahih al-Bukhari 1423",
+    "learned": "New word: {ar} = {en} · New: you can give in secret",
+    "back": "Back to the people"
+  },
+  "grab": {
+    "see": {
+      "kicker": "Chapter 1 · Something you see",
+      "title": "At the oven",
+      "text": "Mid-morning in the square. Faris, the orphan boy from the quay, slips a loaf off Salma’s tray and runs. Salma is turned away. Nobody else is close.",
+      "next": "Walk on"
+    },
+    "ask": {
+      "kicker": "Chapter 1 · Being asked",
+      "title": "Salma stops you",
+      "text": "That afternoon Salma stops you, flour on her hands. Nadir translates: “You were in the square this morning. Did you see who took my bread?”"
+    },
+    "answers": {
+      "truth": {
+        "button": "Tell the truth: it was Faris",
+        "trust": 3,
+        "coins": 0,
+        "out": "Salma thanks you and chases Faris away from her oven. Faris will not look at you now.",
+        "say": [
+          "Tells the truth",
+          "Salma the baker",
+          1
+        ]
+      },
+      "lie": {
+        "button": "Lie: “I didn’t see anything”",
+        "trust": -5,
+        "coins": 0,
+        "out": "Faris tells the other quay boys the foreigner covered for him. By evening Salma has heard. “You looked me in the eye,” she says.",
+        "say": [
+          "Bends the truth",
+          "Salma the baker",
+          -1
+        ]
+      },
+      "quiet": {
+        "button": "Say nothing",
+        "trust": 0,
+        "coins": 0,
+        "out": "Salma sighs and goes back to her oven.",
+        "say": null
+      },
+      "pay": {
+        "button": "Pay for the loaf yourself (1 coin)",
+        "trust": 2,
+        "coins": -1,
+        "out": "Salma takes the coin, puzzled. A few days later Faris starts carrying wood for her oven - someone told him who paid.",
+        "say": [
+          "Paid for a hungry boy’s bread",
+          "Salma the baker",
+          1
+        ]
+      }
+    },
+    "after": {
+      "kicker": "Chapter 1 · Later",
+      "title": "What came of it",
+      "note": "A lie only gets out through people - here, because Faris talks.",
+      "to_rep": "What people say",
+      "to_map": "Back to the market map"
+    }
+  },
+  "rep": {
+    "kicker": "What people say about you",
+    "title": "River Market · trust {n} / 100",
+    "empty": "Nobody in River Market talks about you yet. To them you are just “the foreigner”.",
+    "secret_note": "Gifts nobody saw are not here. Only you know about them.",
+    "towns_note": "The towns beyond the gates have not heard of you yet.",
+    "tone": {
+      "1": "good",
+      "-1": "bad",
+      "0": "mixed"
+    },
+    "task_honest": "Does honest work",
+    "task_quick": "Takes the quick way",
+    "task_amended": "Cut a corner, then put it right",
+    "boat": [
+      "Works hard on the quay",
+      "Jamal and the boatmen",
+      1
+    ],
+    "learned": [
+      "Can read a scale",
+      "Old Musa, the scale-keeper",
+      1
+    ],
+    "masjid": [
+      "Comes to the masjid",
+      "Yunus the muezzin",
+      1
+    ],
+    "gives": [
+      "Gives freely",
+      "the street",
+      1
+    ],
+    "fooled": [
+      "Easy to fool",
+      "Tariq, to anyone who listens",
+      -1
+    ],
+    "widow_public": [
+      "Gave to Umm Salim in front of everyone",
+      "the women at the well",
+      -1
+    ],
+    "shut": [
+      "Keeps the purse shut",
+      "the street",
+      -1
+    ],
+    "to_map": "Back to the market map",
+    "to_goal": "Goal"
+  }
+}

@@ -1,0 +1,194 @@
+{
+ "version": "LOCK 91 V1 (9 Nov 2026) - A stall of your own",
+ "builds_on": "LOCK 5 (clothes and bags), LOCK 9 (secret giving after page 1), LOCK 23 Saeed, LOCK 34 runner, LOCK 36 roads. Founder 8 Nov picks: animals, land and buildings, businesses, waqf; marriage and family (scholar check set aside 9 Nov).",
+ "design_reference_not_shown": {
+  "rent_stall": "",
+  "stall_week": "Quran 83:1-3",
+  "buy_boat": "",
+  "boat_week": "Ibn Majah 2443"
+ },
+ "missions": [
+  {
+   "id": "rent_stall",
+   "lock": 91,
+   "hours": [
+    480,
+    1080
+   ],
+   "title": "A stall of your own",
+   "kicker": "Owning · A stall",
+   "button": "There's an empty stall on the spice row",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The stall next to Rashid's is empty. The market owner wants 80 coins for the year.",
+     "choices": [
+      {
+       "label": "Rent it · 80 coins",
+       "need_coins": 80,
+       "fx": {
+        "coins": -80,
+        "flag": "own_stall",
+        "done": true
+       }
+      },
+      {
+       "label": "Not now",
+       "fx": {}
+      }
+     ]
+    }
+   },
+   "place": "spice",
+   "after": [
+    "chapter1_done"
+   ],
+   "not": [
+    "own_stall"
+   ]
+  },
+  {
+   "id": "stall_week",
+   "lock": 91,
+   "hours": [
+    480,
+    1080
+   ],
+   "title": "Your stall's week",
+   "kicker": "Owning · Your stall",
+   "button": "Your stall's week is done",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "A good week at the stall. Weighing out the last sacks, you notice a thumb on the scale would make every measure a little lighter - and nobody checks.",
+     "choices": [
+      {
+       "label": "Weigh honestly",
+       "fx": {
+        "coins": 12,
+        "done": true
+       }
+      },
+      {
+       "label": "Thumb on the scale",
+       "fx": {
+        "coins": 18,
+        "trust": -3,
+        "count": {
+         "cheats": 1
+        },
+        "say": "short",
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "place": "spice",
+   "after": [
+    "own_stall"
+   ],
+   "after_days": {
+    "own_stall": 7
+   },
+   "repeat_days": 7,
+   "say": {
+    "short": [
+     "Gives short measure",
+     "Nasir the inspector",
+     -1
+    ]
+   }
+  },
+  {
+   "id": "buy_boat",
+   "lock": 91,
+   "hours": [
+    420,
+    1020
+   ],
+   "title": "A fishing boat",
+   "kicker": "Owning · A boat",
+   "button": "Ziyad has a sound boat · 100 coins",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Ziyad taps a hull. “Sound. I checked every plank myself.” Hind's cousin will fish it for a share of the catch.",
+     "choices": [
+      {
+       "label": "Buy it · 100 coins",
+       "need_coins": 100,
+       "fx": {
+        "coins": -100,
+        "flag": "own_boat",
+        "done": true
+       }
+      },
+      {
+       "label": "Not now",
+       "fx": {}
+      }
+     ]
+    }
+   },
+   "town": "sahila",
+   "after": [
+    "sahila_boat_done"
+   ],
+   "not": [
+    "own_boat"
+   ]
+  },
+  {
+   "id": "boat_week",
+   "lock": 91,
+   "hours": [
+    420,
+    1020
+   ],
+   "title": "The week's catch",
+   "kicker": "Owning · Your boat",
+   "button": "Your boat's catch is sold",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The catch is sold. Your fisherman is waiting for his share.",
+     "choices": [
+      {
+       "label": "Pay him first, then take yours",
+       "fx": {
+        "coins": 10,
+        "trust": 1,
+        "done": true
+       }
+      },
+      {
+       "label": "Take yours; pay him next week",
+       "fx": {
+        "coins": 15,
+        "trust": -2,
+        "say": "late",
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "town": "sahila",
+   "after": [
+    "own_boat"
+   ],
+   "after_days": {
+    "own_boat": 7
+   },
+   "repeat_days": 7,
+   "say": {
+    "late": [
+     "Pays their fisherman late",
+     "the shore",
+     -1
+    ]
+   }
+  }
+ ]
+}

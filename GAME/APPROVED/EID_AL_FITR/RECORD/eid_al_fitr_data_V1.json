@@ -1,0 +1,45 @@
+{
+ "version": "LOCK 21 V1 (9 Nov 2026) - worship: the last ten nights and Eid al-Fitr",
+ "builds_on": "LOCK 18 calendar, LOCK 19 Ramadan (masjid, private record). Placeholders: {n}.",
+ "numbers": {
+  "ramadan": 8,
+  "shawwal": 9,
+  "last_ten_from": 21,
+  "night_from": 1380,
+  "night_until": 285,
+  "night_minutes": 60,
+  "fitr_from_day": 28,
+  "fitr_cost": 2,
+  "eid_from": 390,
+  "eid_until": 540
+ },
+ "night_button": "Stand in prayer through the night",
+ "night_toast": "You pray in the dark masjid until your legs ache. Nobody knows which of these nights is the Night of Power. You seek it anyway.",
+ "fitr_button": "Give zakat al-fitr",
+ "fitr": {
+  "kicker": "The masjid · end of Ramadan",
+  "title": "Zakat al-fitr",
+  "text": "Idris weighs a measure of dates into the sack for the poor. “Before the Eid prayer,” he says, “so that every home in River Market can eat on Eid.”",
+  "pay": "Give a measure of dates · {n} coins",
+  "not_enough": "not enough coins",
+  "given": "Your measure is in the sack.",
+  "to_map": "Back to the market map"
+ },
+ "eid_line": "Eid Mubarak · no fasting today",
+ "eid_button": "Pray the Eid prayer",
+ "eid": {
+  "kicker": "1 Shawwal",
+  "title": "Eid al-Fitr",
+  "text": "The whole of River Market prays in the open ground by the masjid. Afterwards Rashid hugs you, Salma's children run past in new clothes, and Yunus the muezzin presses sweets into your hand: “Eid Mubarak!”",
+  "to_map": "Back to the market map"
+ },
+ "record": {
+  "nights": "Nights stood in the last ten",
+  "fitr": "Zakat al-fitr",
+  "eid": "Eid prayer",
+  "yes_fitr": "given",
+  "yes_eid": "prayed",
+  "no": "not yet",
+  "count": "{n}"
+ }
+}

@@ -1,0 +1,74 @@
+{
+ "version": "LOCK 52 V1 (9 Nov 2026) - side mission: Two brothers not speaking",
+ "builds_on": "LOCK 34 runner; LOCK 3 and LOCK 6 regulars; River Market places (LOCK 1). Each mission is its own LOCK and queue line.",
+ "design_reference_not_shown": "Muslim 2605, Bukhari 2692 (making peace)",
+ "missions": [
+  {
+   "id": "brothers",
+   "lock": 52,
+   "place": "spice",
+   "hours": [
+    480,
+    1080
+   ],
+   "side": true,
+   "title": "Two brothers not speaking",
+   "kicker": "River Market · Two brothers not speaking",
+   "button": "Adil is complaining about his brother",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Adil and Hamza haven't spoken since their father died and left them his shop. Adil tells you Hamza cheated him. Later Hamza tells you Adil is a fool. Each one asks: “What did he say about me?”",
+     "choices": [
+      {
+       "label": "Tell each one the other still cares for him",
+       "go": "peace",
+       "fx": {
+        "trust": 5,
+        "flag": "brothers_peace",
+        "say": "peace"
+       }
+      },
+      {
+       "label": "Tell each exactly what the other said",
+       "go": "worse",
+       "fx": {
+        "trust": -2,
+        "say": "worse"
+       }
+      },
+      {
+       "label": "Stay out of it",
+       "go": "out"
+      }
+     ]
+    },
+    "peace": {
+     "text": "You tell Adil his brother misses their father's shop with him in it. You tell Hamza his brother speaks of him every day - which is true, in its way. A week later they are drinking tea together outside the shop.",
+     "end": true
+    },
+    "worse": {
+     "text": "Each brother hears every word. Now they don't even walk on the same side of the street.",
+     "end": true
+    },
+    "out": {
+     "text": "The brothers go on not speaking.",
+     "end": true
+    }
+   },
+   "say": {
+    "peace": [
+     "Brought Adil and Hamza back together",
+     "the spice row",
+     1
+    ],
+    "worse": [
+     "Carried words between the brothers",
+     "the spice row",
+     -1
+    ]
+   },
+   "min_trust": 30
+  }
+ ]
+}

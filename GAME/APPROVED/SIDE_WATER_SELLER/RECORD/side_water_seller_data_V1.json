@@ -1,0 +1,74 @@
+{
+ "version": "LOCK 58 V1 (9 Nov 2026) - side mission: The overcharging water seller",
+ "builds_on": "LOCK 34 runner; LOCK 3 and LOCK 6 regulars; River Market places (LOCK 1). Each mission is its own LOCK and queue line.",
+ "design_reference_not_shown": "Bukhari 2358",
+ "missions": [
+  {
+   "id": "water_seller",
+   "lock": 58,
+   "place": "gate",
+   "hours": [
+    600,
+    1020
+   ],
+   "side": true,
+   "title": "The overcharging water seller",
+   "kicker": "River Market · The overcharging water seller",
+   "button": "A water seller is charging travellers double",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "It is the hottest part of the day. A water seller at the gate is charging travellers off the road four times the usual price - a woman with a baby can't pay.",
+     "choices": [
+      {
+       "label": "Fetch Nasir the market inspector",
+       "go": "nasir",
+       "fx": {
+        "trust": 6,
+        "say": "reported"
+       }
+      },
+      {
+       "label": "Buy water for the woman · 2 coins",
+       "need_coins": 2,
+       "go": "buy",
+       "fx": {
+        "coins": -2,
+        "trust": 3,
+        "say": "bought"
+       }
+      },
+      {
+       "label": "Not your business",
+       "go": "out"
+      }
+     ]
+    },
+    "nasir": {
+     "text": "Nasir the inspector checks the seller's cups and prices and fines him on the spot. The price goes back to normal.",
+     "end": true
+    },
+    "buy": {
+     "text": "The woman drinks and gives the rest to the baby.",
+     "end": true
+    },
+    "out": {
+     "text": "The woman sits in the shade of the gate and waits.",
+     "end": true
+    }
+   },
+   "say": {
+    "reported": [
+     "Reported the water seller's prices",
+     "Nasir the inspector",
+     1
+    ],
+    "bought": [
+     "Bought water for a stranger at the gate",
+     "the gate",
+     1
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "version": "LOCK 96 V1 (9 Nov 2026) - a dry fountain in every town",
+ "builds_on": "LOCK 26 (the first three Names), LOCK 15 (the first fountain), LOCK 40 and 47 (two stars), LOCK 34 runner, LOCK 36 roads.",
+ "words": {
+  "button": "A dry fountain · {n} coins",
+  "kicker": "{town} · the dry fountain",
+  "title": "A dry fountain",
+  "text": "The town fountain has been dry since its pipe cracked. The mason says {n} coins would mend it.",
+  "named": "Mend it with your name carved",
+  "secret": "Mend it with no name",
+  "later": "Not now",
+  "done_named": "The mason carves your name on the basin. By evening, children are splashing in it.",
+  "done_secret": "The mason carves only: for the sake of Allah. By evening, children are splashing in it.",
+  "cost": 45,
+  "trust": 5,
+  "say": [
+   "Mended {town}'s fountain",
+   "the town",
+   1
+  ]
+ },
+ "fountains": [
+  {
+   "town": "jisra",
+   "after": "met_jisra"
+  },
+  {
+   "town": "sahila",
+   "after": "sahila_boat_done"
+  },
+  {
+   "town": "sukara",
+   "after": "sukara_chosen"
+  },
+  {
+   "town": "safira",
+   "after": "slow_pilgrim_done"
+  },
+  {
+   "town": "wadira",
+   "after": "sandstorm_done"
+  },
+  {
+   "town": "birana",
+   "after": "dry_well_done"
+  },
+  {
+   "town": "nahla",
+   "after": "sick_child_done"
+  },
+  {
+   "town": "tinara",
+   "after": "widow_done"
+  },
+  {
+   "town": "tahuna",
+   "after": "tahuna_debt"
+  },
+  {
+   "town": "waraka",
+   "after": "copyist_done"
+  },
+  {
+   "town": "najmara",
+   "after": "qibla_done"
+  },
+  {
+   "town": "shifara",
+   "after": "fever_done"
+  }
+ ]
+}

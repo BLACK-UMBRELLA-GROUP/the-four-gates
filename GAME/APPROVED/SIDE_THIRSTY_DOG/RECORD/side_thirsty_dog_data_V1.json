@@ -1,0 +1,49 @@
+{
+ "version": "LOCK 59 V1 (9 Nov 2026) - side mission: A thirsty dog",
+ "builds_on": "LOCK 34 runner; LOCK 3 and LOCK 6 regulars; River Market places (LOCK 1). Each mission is its own LOCK and queue line.",
+ "design_reference_not_shown": "Bukhari 2363",
+ "missions": [
+  {
+   "id": "thirsty_dog",
+   "lock": 59,
+   "place": "quay",
+   "hours": [
+    600,
+    1080
+   ],
+   "side": true,
+   "title": "A thirsty dog",
+   "kicker": "River Market · A thirsty dog",
+   "button": "A dog is panting by the well",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "A thin dog lies by the quay well with its tongue out, too weak to stand. The bucket is too deep for it. People step round it.",
+     "choices": [
+      {
+       "label": "Draw water and give it a drink",
+       "go": "drink",
+       "fx": {
+        "minutes": 10,
+        "flag": "dog_watered"
+       }
+      },
+      {
+       "label": "Walk on",
+       "go": "on"
+      }
+     ]
+    },
+    "drink": {
+     "text": "You draw a bucket and tip some into the hollow of a stone. The dog drinks and drinks, then lies down in the shade. Nobody sees. It doesn't matter.",
+     "end": true
+    },
+    "on": {
+     "text": "The dog is still there at sunset.",
+     "end": true
+    }
+   },
+   "say": {}
+  }
+ ]
+}

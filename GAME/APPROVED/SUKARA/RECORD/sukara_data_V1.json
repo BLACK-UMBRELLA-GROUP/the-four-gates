@@ -1,0 +1,285 @@
+{
+ "version": "LOCK 38 V1 (9 Nov 2026) - Sukara and the two offers",
+ "builds_on": "LOCK 16 riba refused, LOCK 31 partnership, LOCK 34 runner. Design reference (not shown): Quran 2:275-279 (riba forbidden; you may have your principal).",
+ "numbers": {
+  "stake": 60,
+  "partner_back": 90,
+  "riba_back": 72,
+  "partner_days": 14,
+  "riba_days": 30
+ },
+ "towns": {
+  "sukara": {
+   "name": "Sukara",
+   "gate": "trust",
+   "start_trust": 10,
+   "inn": 3,
+   "kicker": "Sukara · the sugar presses",
+   "bg": "market_day",
+   "text": "Oxen walk in slow circles turning the stone presses, and the air is sweet with boiling cane. Everyone here is either rich from sugar or owes someone who is.",
+   "masjids": [
+    "sukara"
+   ],
+   "work": {
+    "label": "Feed cane into the press · 5 coins",
+    "hours": [
+     360,
+     1020
+    ],
+    "minutes": 90,
+    "coins": 5,
+    "trust": 1
+   }
+  }
+ },
+ "masjids": {
+  "sukara": {
+   "button": "Go to the press-men's masjid",
+   "kicker": "Sukara · the press-men's masjid",
+   "title": "The press-men's masjid",
+   "text": "A plain brick masjid between two presses. The men come in sticky to the elbows and wash at the long trough.",
+   "first": "The muezzin, a thin old man, hands you a cup of cane juice after the prayer. “For the traveller.”"
+  }
+ },
+ "people": [
+  {
+   "id": "murad",
+   "town": "sukara",
+   "name": "Murad",
+   "role": "the press owner",
+   "hours": [
+    360,
+    1080
+   ],
+   "prays": true,
+   "lines": {
+    "wary": "Murad shouts at the ox driver and then at you. “No work today. Come back tomorrow.”",
+    "friendly": "“My father built this press. If I can't mend the great stone before harvest, I lose it.”",
+    "warm": "“Partner, sit. The cane is good this year.”"
+   },
+   "memory": [
+    [
+     "sukara_partner",
+     "“Half the profit is yours, half is mine - and if the harvest fails, half the loss too. That is a real partnership.”"
+    ],
+    [
+     "sukara_riba",
+     "“I pay Sakhr every month and the debt never shrinks. Some of it, he says, is yours.”"
+    ]
+   ]
+  },
+  {
+   "id": "sakhr",
+   "town": "sukara",
+   "name": "Sakhr",
+   "role": "the money lender",
+   "hours": [
+    480,
+    1140
+   ],
+   "lines": {
+    "wary": "Sakhr smiles with all his teeth. “A traveller with coins. Welcome.”",
+    "friendly": "“Money that sleeps in a purse is lazy money. I make it work.”",
+    "warm": "Sakhr no longer smiles at you. “You cost me a good arrangement.”"
+   },
+   "memory": [
+    [
+     "sukara_refused",
+     "“You took back only what you gave. Strange. Most people take everything.”"
+    ]
+   ]
+  },
+  {
+   "id": "nuha",
+   "town": "sukara",
+   "name": "Nuha",
+   "role": "the sweet seller",
+   "hours": [
+    540,
+    1080
+   ],
+   "lines": {
+    "wary": "Nuha sells sugar knots from a tray. “One coin for three.”",
+    "friendly": "“Half the press-men are in debt to Sakhr. Their wives buy sweets on credit from me. It all goes round.”",
+    "warm": "“Take some for the road. No coin from you.”"
+   },
+   "memory": []
+  }
+ ],
+ "missions": [
+  {
+   "id": "sukara_offers",
+   "town": "sukara",
+   "main": true,
+   "title": "Sukara's two offers",
+   "kicker": "Chapter 1 · Sukara's two offers",
+   "button": "Murad's press has cracked",
+   "hours": [
+    420,
+    1080
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": [
+      "The great press stone has split. Murad needs coins to mend it before harvest or he loses the press. Two men speak to you that afternoon.",
+      "Sakhr the lender: “Give me 60 coins. I lend them to Murad, and in a month you get 72 back. It cannot fail - he must pay.” Murad: “Put 60 in my press as a partner. After the harvest you get your 60 back and half of what it earns - if it earns. If the harvest fails, we both lose.”"
+     ],
+     "choices": [
+      {
+       "label": "Partner with Murad · 60 coins",
+       "go": "partner",
+       "need_coins": 60,
+       "fx": {
+        "coins": -60,
+        "trust": 5,
+        "flag": [
+         "sukara_partner",
+         "sukara_chosen"
+        ],
+        "say": "partner"
+       }
+      },
+      {
+       "label": "Lend through Sakhr · 60 coins",
+       "go": "riba",
+       "need_coins": 60,
+       "fx": {
+        "coins": -60,
+        "flag": [
+         "sukara_riba",
+         "sukara_chosen"
+        ]
+       }
+      },
+      {
+       "label": "Keep your coins",
+       "go": "none",
+       "fx": {
+        "flag": "sukara_chosen"
+       }
+      }
+     ]
+    },
+    "partner": {
+     "text": "Murad grips your hand. The stone-cutters start the next morning.",
+     "end": true
+    },
+    "riba": {
+     "text": "Sakhr counts your coins into his box. “A month. Seventy-two.”",
+     "end": true
+    },
+    "none": {
+     "text": "Murad borrows from Sakhr instead. You hear the press is turning again, slowly.",
+     "end": true
+    }
+   },
+   "say": {
+    "partner": [
+     "Put money into Murad's press as a partner",
+     "the press-men",
+     1
+    ]
+   }
+  },
+  {
+   "id": "sukara_share",
+   "town": "sukara",
+   "title": "Harvest share",
+   "kicker": "Sukara · Murad's press",
+   "button": "Murad has your share",
+   "main": true,
+   "after": [
+    "sukara_partner"
+   ],
+   "after_days": {
+    "sukara_partner": 14
+   },
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The harvest was good. Murad counts out your 60 and then your half of the profit, 30 more. “Come back next year, partner.”",
+     "choices": [
+      {
+       "label": "Take 90 coins",
+       "go": "b",
+       "fx": {
+        "coins": 90
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "The press-men nod to you as you leave.",
+     "end": true
+    }
+   }
+  },
+  {
+   "id": "sukara_due",
+   "town": "sukara",
+   "title": "Sakhr pays",
+   "kicker": "Sukara · Sakhr",
+   "button": "Sakhr has your money",
+   "main": true,
+   "after": [
+    "sukara_riba"
+   ],
+   "after_days": {
+    "sukara_riba": 30
+   },
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Sakhr counts out 72 coins. Behind him, Murad is hauling cane himself - he has sold his ox to pay.",
+     "choices": [
+      {
+       "label": "Take all 72",
+       "go": "took",
+       "fx": {
+        "coins": 72,
+        "trust": -10,
+        "say": "took"
+       }
+      },
+      {
+       "label": "Take only your 60; give Murad the rest",
+       "go": "refused",
+       "fx": {
+        "coins": 60,
+        "trust": 5,
+        "flag": "sukara_refused",
+        "say": "refused"
+       }
+      }
+     ]
+    },
+    "took": {
+     "text": "Sakhr smiles. Murad doesn't look up.",
+     "end": true
+    },
+    "refused": {
+     "text": "You hand twelve coins to Murad. He stares at them, then at you.",
+     "end": true
+    }
+   },
+   "say": {
+    "took": [
+     "Lives off Murad's debt",
+     "the press-men",
+     -1
+    ],
+    "refused": [
+     "Took back only what was lent",
+     "Murad the press owner",
+     1
+    ]
+   }
+  }
+ ],
+ "say_partner": [
+  "Put money into Murad's press as a partner",
+  "the press-men",
+  1
+ ]
+}

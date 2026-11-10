@@ -1,0 +1,369 @@
+{
+ "version": "LOCK 42 V1 (9 Nov 2026) - Birana, the wells: the dry well, the long wait, and chapter 2 ends",
+ "builds_on": "LOCK 34 runner, LOCKs 40-41. Design references (not shown): Quran 2:153, 2:155-157; Abu Dawud 3580 (the briber and the bribe-taker).",
+ "towns": {
+  "birana": {
+   "name": "Birana",
+   "gate": "patience",
+   "start_trust": 10,
+   "inn": 2,
+   "kicker": "Birana · the wells",
+   "text": "A green dot on the stony plain: palm trees round a cluster of old wells. This year the water is low and the women queue before dawn.",
+   "work": {
+    "label": "Draw water for the queue · 3 coins",
+    "hours": [
+     300,
+     720
+    ],
+    "minutes": 60,
+    "coins": 3,
+    "trust": 1
+   },
+   "masjids": [
+    "birana"
+   ],
+   "bg": "street_day"
+  }
+ },
+ "masjids": {
+  "birana": {
+   "button": "Go to the well masjid",
+   "kicker": "Birana · the well masjid",
+   "title": "The well masjid",
+   "text": "A palm-trunk roof over a floor of packed earth, with the wells just outside the door.",
+   "first": "An old man fills your cup from the well before you leave. “Pray for rain for us, traveller.”"
+  }
+ },
+ "people": [
+  {
+   "id": "thabit",
+   "town": "birana",
+   "name": "Thabit",
+   "role": "the well digger",
+   "hours": [
+    300,
+    1080
+   ],
+   "prays": true,
+   "lines": {
+    "wary": "Thabit doesn't look up from the rope. “Busy.”",
+    "friendly": "“Water is always there. The question is how deep and how patient you are.”",
+    "warm": "“You dug with me. That makes you Birana's.”"
+   },
+   "memory": [
+    [
+     "well_dug",
+     "“Four days in the sand. Most men give up on the second.”"
+    ]
+   ]
+  },
+  {
+   "id": "safiyya",
+   "town": "birana",
+   "name": "Safiyya",
+   "role": "the water carrier",
+   "hours": [
+    300,
+    900
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "“Queue's that way.”",
+    "friendly": "“I carry forty jars a day. My grandmother carried sixty.”",
+    "warm": "“The north well is sweet again. The children call it your well. I told them not to.”"
+   },
+   "memory": []
+  },
+  {
+   "id": "wahb",
+   "town": "birana",
+   "name": "Wahb",
+   "role": "the governor's clerk",
+   "hours": [
+    480,
+    900
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "Wahb stamps papers without looking up.",
+    "friendly": "“Permits, permits. Everyone wants to go somewhere.”",
+    "warm": "Wahb is polite to you now, and careful."
+   },
+   "memory": [
+    [
+     "reported_wahb",
+     "Wahb's hands shake as he stamps. “The qadi has been asking questions. Thanks to you.”"
+    ],
+    [
+     "bribed",
+     "“Ten coins and everything is easy,” Wahb says, and winks."
+    ]
+   ]
+  }
+ ],
+ "missions": [
+  {
+   "id": "dry_well",
+   "town": "birana",
+   "main": true,
+   "title": "The dry well",
+   "kicker": "Chapter 2 · The dry well",
+   "button": "Thabit is digging the old well deeper",
+   "hours": [
+    300,
+    900
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The north well has gone dry. Thabit thinks there is water further down, but it means days of digging in the heat with no promise. Most men have given up.",
+     "choices": [
+      {
+       "label": "Dig with him",
+       "go": "b",
+       "fx": {
+        "minutes": 480
+       }
+      },
+      {
+       "label": "Pay a labourer to dig · 20 coins",
+       "need_coins": 20,
+       "go": "pay",
+       "fx": {
+        "coins": -20,
+        "trust": 3,
+        "flag": "dry_well_done"
+       }
+      },
+      {
+       "label": "Leave it to Thabit",
+       "go": "leave",
+       "fx": {
+        "flag": "dry_well_done"
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "Three days on there is nothing but damp sand. Thabit sits down, wipes his face and says, “Again tomorrow.”",
+     "choices": [
+      {
+       "label": "Dig one more day",
+       "go": "water",
+       "fx": {
+        "minutes": 480,
+        "trust": 10,
+        "flag": [
+         "well_dug",
+         "dry_well_done"
+        ],
+        "say": "dug"
+       }
+      },
+      {
+       "label": "Give up",
+       "go": "gave",
+       "fx": {
+        "flag": "dry_well_done"
+       }
+      }
+     ]
+    },
+    "water": {
+     "text": "Late on the fourth afternoon the sand turns dark and cold, and then the water comes - slowly, then fast. Thabit doesn't cheer. He goes and prays two rak'ahs on the wet sand.",
+     "end": true
+    },
+    "gave": {
+     "text": "You leave Thabit in the hole. A week later you hear he found water on the fifth day.",
+     "end": true
+    },
+    "pay": {
+     "text": "Thabit hires a young man with your coins. They dig together for days.",
+     "end": true
+    },
+    "leave": {
+     "text": "Thabit nods and goes back down the rope.",
+     "end": true
+    }
+   },
+   "say": {
+    "dug": [
+     "Dug the north well with Thabit",
+     "the women at the wells",
+     1
+    ]
+   }
+  },
+  {
+   "id": "long_wait",
+   "town": "birana",
+   "main": true,
+   "title": "The long wait",
+   "kicker": "Chapter 2 · The long wait",
+   "button": "Wahb has your travel permit",
+   "hours": [
+    480,
+    900
+   ],
+   "after": [
+    "dry_well_done"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "To take the north road onward you need a permit stamped by the governor's clerk. Wahb looks at your paper, then at you. “It can take a while. Or - for ten coins - it could be ready today.”",
+     "choices": [
+      {
+       "label": "Wait for the permit",
+       "go": "wait",
+       "fx": {
+        "flag": "permit_waiting"
+       }
+      },
+      {
+       "label": "Pay the ten coins",
+       "need_coins": 10,
+       "go": "bribe",
+       "fx": {
+        "coins": -10,
+        "trust": -8,
+        "flag": [
+         "bribed",
+         "birana_done"
+        ],
+        "say": "bribe"
+       }
+      },
+      {
+       "label": "Report him to the qadi",
+       "go": "report",
+       "fx": {
+        "trust": 5,
+        "flag": [
+         "reported_wahb",
+         "permit_waiting"
+        ],
+        "say": "reported"
+       }
+      }
+     ]
+    },
+    "wait": {
+     "text": "“Come back in five days,” Wahb says, and puts your paper at the bottom of the pile.",
+     "end": true
+    },
+    "bribe": {
+     "text": "The paper is stamped before the coins have stopped rolling. A farmer behind you watches every coin.",
+     "end": true
+    },
+    "report": {
+     "text": "The qadi listens, writes something down, and tells you to wait like everyone else.",
+     "end": true
+    }
+   },
+   "say": {
+    "bribe": [
+     "Paid Wahb to jump the queue",
+     "the farmers waiting for permits",
+     -1
+    ],
+    "reported": [
+     "Reported the clerk who asks for coins",
+     "the farmers waiting for permits",
+     1
+    ]
+   }
+  },
+  {
+   "id": "permit_ready",
+   "town": "birana",
+   "title": "Your permit",
+   "kicker": "Birana · the governor's clerk",
+   "button": "Your permit is stamped",
+   "main": true,
+   "after": [
+    "permit_waiting"
+   ],
+   "after_days": {
+    "permit_waiting": 5
+   },
+   "hours": [
+    480,
+    900
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Five days later Wahb hands you the stamped paper without looking up.",
+     "choices": [
+      {
+       "label": "Take it",
+       "go": "b",
+       "fx": {
+        "flag": "birana_done"
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "The north road is open to you.",
+     "end": true
+    }
+   }
+  },
+  {
+   "id": "patience_home",
+   "place": "masjid",
+   "main": true,
+   "title": "Patience kept",
+   "kicker": "Chapter 2 · Patience kept",
+   "button": "Idris wants to hear about the north road",
+   "after": [
+    "safira_done",
+    "wadira_done",
+    "birana_done"
+   ],
+   "hours": [
+    420,
+    1200
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": [
+      "Idris listens to all of it: the slow pilgrim, the star, the storm, Khattab, the well and the permit.",
+      "“Patience isn't sitting still,” he says. “It's digging one more day.” He nods toward the south gate. “Nahla's beekeepers have a sick child and too few hands. The Gate of Mercy is yours.”"
+     ],
+     "choices": [
+      {
+       "label": "Ask about the road south",
+       "go": "b",
+       "fx": {
+        "flag": "chapter2_done"
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "The next morning the Gate of Mercy is opened for you.",
+     "end": true
+    }
+   }
+  }
+ ],
+ "chapters": [
+  {
+   "n": 2,
+   "name": "The Gate of Patience",
+   "missions": [
+    "slow_pilgrim",
+    "lost_night",
+    "sandstorm",
+    "cheated_public",
+    "dry_well",
+    "long_wait",
+    "patience_home"
+   ]
+  }
+ ]
+}

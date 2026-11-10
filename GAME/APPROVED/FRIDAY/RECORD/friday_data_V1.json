@@ -1,0 +1,41 @@
+{
+ "version": "LOCK 76 V1 (9 Nov 2026) - Friday done properly",
+ "builds_on": "LOCK 2 prayer, LOCK 3 Idris, LOCK 6 regulars, LOCK 34 runner. Private counters go to the Journal; worship never earns trust.",
+ "goals": [],
+ "design_reference_not_shown": {
+  "friday_proper": "Bukhari 934"
+ },
+ "missions": [
+  {
+   "id": "friday_proper",
+   "lock": 76,
+   "place": "masjid",
+   "hours": [
+    540,
+    735
+   ],
+   "title": "Friday done properly",
+   "kicker": "Worship · Friday",
+   "button": "Idris is early for Friday prayer",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Idris is already in the masjid, washed and in his best robe, though the prayer is hours away. “Bathe on Friday, wear your best, come early, and when the imam speaks, be silent - even telling your neighbour to hush spoils it.”",
+     "choices": [
+      {
+       "label": "Sit near the front and wait with him",
+       "fx": {
+        "flag": "friday_learned",
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "rows_learned"
+   ],
+   "friday": true
+  }
+ ]
+}

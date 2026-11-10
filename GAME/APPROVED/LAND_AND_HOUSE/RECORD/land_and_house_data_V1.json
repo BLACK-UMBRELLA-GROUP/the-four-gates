@@ -1,0 +1,173 @@
+{
+ "version": "LOCK 90 V1 (9 Nov 2026) - The house by the canal",
+ "builds_on": "LOCK 5 (clothes and bags), LOCK 9 (secret giving after page 1), LOCK 23 Saeed, LOCK 34 runner, LOCK 36 roads. Founder 8 Nov picks: animals, land and buildings, businesses, waqf; marriage and family (scholar check set aside 9 Nov).",
+ "design_reference_not_shown": {
+  "buy_house": "Quran 2:282 (write it down, with witnesses)",
+  "sleep_home": "",
+  "buy_orchard": "Bukhari 2320 (whoever plants a tree)",
+  "orchard_harvest": "Quran 6:141 (give its due on harvest day)"
+ },
+ "missions": [
+  {
+   "id": "buy_house",
+   "lock": 90,
+   "hours": [
+    480,
+    1080
+   ],
+   "title": "The house by the canal",
+   "kicker": "Owning · A house",
+   "button": "There's a house for sale by the canal",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "A narrow house by the canal, two rooms and a roof to sleep on in summer. The widow selling it wants 300 coins and a buyer who will look after her husband's fig tree.",
+     "choices": [
+      {
+       "label": "Buy it · 300 coins",
+       "need_coins": 300,
+       "go": "b",
+       "fx": {
+        "coins": -300,
+        "flag": "own_house"
+       }
+      },
+      {
+       "label": "Not now",
+       "go": "no"
+      }
+     ]
+    },
+    "b": {
+     "text": "The qadi writes the sale in his book with two witnesses. The key is heavy and cold. The fig tree is yours to water.",
+     "end": true
+    },
+    "no": {
+     "text": "The widow nods. “It will still be here.”",
+     "end": true
+    }
+   },
+   "place": "quay",
+   "after": [
+    "chapter1_done"
+   ],
+   "not": [
+    "own_house"
+   ]
+  },
+  {
+   "id": "sleep_home",
+   "lock": 90,
+   "hours": [
+    1140,
+    270
+   ],
+   "title": "Home",
+   "kicker": "Owning · Your house",
+   "button": "Go home to sleep",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "You water the fig tree, lock the door and sleep in your own house.",
+     "choices": [
+      {
+       "label": "Sleep",
+       "fx": {
+        "sleep": true,
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "place": "quay",
+   "after": [
+    "own_house"
+   ],
+   "repeat": "daily"
+  },
+  {
+   "id": "buy_orchard",
+   "lock": 90,
+   "hours": [
+    420,
+    1020
+   ],
+   "title": "An orchard",
+   "kicker": "Owning · Land",
+   "button": "An apricot orchard is for sale · 150 coins",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "A small orchard by the stream, twenty trees. Sumayya says she'll look after it with her pickers - paid on time, she adds, looking at you.",
+     "choices": [
+      {
+       "label": "Buy it · 150 coins",
+       "need_coins": 150,
+       "fx": {
+        "coins": -150,
+        "flag": "own_orchard",
+        "done": true
+       }
+      },
+      {
+       "label": "Not now",
+       "fx": {}
+      }
+     ]
+    }
+   },
+   "town": "tinara",
+   "after": [
+    "tinara_done"
+   ],
+   "not": [
+    "own_orchard"
+   ]
+  },
+  {
+   "id": "orchard_harvest",
+   "lock": 90,
+   "hours": [
+    420,
+    1020
+   ],
+   "title": "The harvest",
+   "kicker": "Owning · Your orchard",
+   "button": "Your apricots are picked",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Sumayya's pickers have brought in your apricots and been paid. After the buyer, 25 coins are yours. The poor of the town are waiting at the orchard wall for the gleanings.",
+     "choices": [
+      {
+       "label": "Leave the gleanings for them",
+       "fx": {
+        "coins": 25,
+        "count": {
+         "meals": 20
+        },
+        "done": true
+       }
+      },
+      {
+       "label": "Sell every last apricot",
+       "fx": {
+        "coins": 30,
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "town": "tinara",
+   "after": [
+    "own_orchard"
+   ],
+   "after_days": {
+    "own_orchard": 30
+   },
+   "repeat_days": 30
+  }
+ ]
+}

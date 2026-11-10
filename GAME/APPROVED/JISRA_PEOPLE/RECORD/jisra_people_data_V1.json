@@ -1,0 +1,209 @@
+{
+ "version": "LOCK 35 V1 (9 Nov 2026) - Jisra's people, work and What Jisra says",
+ "builds_on": "LOCK 32 Jisra and the toll, LOCK 33 Jisra's masjid, LOCK 34 runner. Design reference (not shown): Muslim 102 (whoever cheats is not of us).",
+ "towns": {
+  "jisra": {
+   "name": "Jisra",
+   "gate": "trust",
+   "road": 90,
+   "start_trust": 10,
+   "inn": 2,
+   "kicker": "Jisra · the bridge of boats",
+   "text": "The river road crosses here on a bridge of boats.",
+   "bg": "river_night",
+   "work": {
+    "label": "Carry fish baskets for Umm Hani · 4 coins",
+    "hours": [
+     360,
+     720
+    ],
+    "minutes": 60,
+    "coins": 4,
+    "trust": 1
+   }
+  }
+ },
+ "people": [
+  {
+   "id": "hamid",
+   "town": "jisra",
+   "name": "Hamid",
+   "role": "the toll keeper",
+   "hours": [
+    360,
+    1140
+   ],
+   "lines": {
+    "wary": "Hamid counts coins and does not look up. “Toll is at the near end. Everyone pays.”",
+    "friendly": "“The river is high this week. Mind the third boat - it rolls.”",
+    "warm": "“Sit, sit. The boatmen say you are worth knowing. Tea?”"
+   },
+   "memory": [
+    [
+     "toll:speak",
+     "He does not meet your eye. “One coin. Everyone. I heard you the first time.”"
+    ],
+    [
+     "toll:pay",
+     "“You paid for that family. Generous. Foolish, but generous.”"
+    ]
+   ]
+  },
+  {
+   "id": "rafiq",
+   "town": "jisra",
+   "name": "Rafiq",
+   "role": "the bridge master",
+   "hours": [
+    300,
+    1200
+   ],
+   "prays": true,
+   "lines": {
+    "wary": "Rafiq is retying a rope between two boats. “Walk in the middle. Don't stop on the joins.”",
+    "friendly": "“Every boat on this bridge belongs to a different family. I keep them roped together - and the families too, some days.”",
+    "warm": "“When the flood comes, I'll want strong hands on the ropes. Yours, if you're here.”"
+   },
+   "memory": [
+    [
+     "rope_told",
+     "“A boat nearly drifted last month on a bad rope. You stopped the next one. I won't forget it.”"
+    ],
+    [
+     "rope_hid",
+     "Rafiq holds up a frayed end. “Snapped in the night. Bashir says he sold it through you.” He walks away."
+    ]
+   ]
+  },
+  {
+   "id": "umm_hani",
+   "town": "jisra",
+   "name": "Umm Hani",
+   "role": "the fish seller",
+   "hours": [
+    360,
+    780
+   ],
+   "lines": {
+    "wary": "Umm Hani guts a fish without stopping. “Buying or watching?”",
+    "friendly": "“My baskets are heavy and my sons are lazy. You can carry, I can pay.”",
+    "warm": "“You eat with us on Friday. No argument.”"
+   },
+   "memory": [
+    [
+     "toll:quiet",
+     "“You watched Hamid take three coins from that family and said nothing. Nobody here did either.”"
+    ]
+   ]
+  },
+  {
+   "id": "bashir",
+   "town": "jisra",
+   "name": "Bashir",
+   "role": "the rope maker",
+   "hours": [
+    420,
+    1080
+   ],
+   "lines": {
+    "wary": "Bashir twists fibre between his palms. “Rope? I have rope.”",
+    "friendly": "“Good palm fibre from the south. Twice the price of the market rope and worth three times.”",
+    "warm": "“Watch my stall for an hour if you like. I trust your counting.”"
+   },
+   "memory": [
+    [
+     "rope_told",
+     "“You lost me a sale. You also kept me from a drowned boatman on my conscience. We are even.”"
+    ],
+    [
+     "rope_hid",
+     "“Three coins each. Don't tell me where they came from.”"
+    ]
+   ]
+  }
+ ],
+ "missions": [
+  {
+   "id": "weak_rope",
+   "town": "jisra",
+   "side": true,
+   "title": "The weak rope",
+   "kicker": "Jisra · Bashir's stall",
+   "button": "Watch Bashir's stall",
+   "hours": [
+    600,
+    960
+   ],
+   "min_trust": 15,
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": [
+      "Bashir has to fetch fibre from the far bank. “Watch the stall. Six coins a coil. That one on the end is the old one - it frays a little. Sell it if you can.”",
+      "A boatman comes up and points at the old coil. “For my mooring. It has to hold in a flood.”"
+     ],
+     "choices": [
+      {
+       "label": "Tell him it frays",
+       "go": "told",
+       "fx": {
+        "trust": 5,
+        "flag": "rope_told",
+        "say": "told"
+       }
+      },
+      {
+       "label": "Sell it to him",
+       "go": "sold",
+       "fx": {
+        "coins": 3,
+        "flag": "rope_hid",
+        "say": "hid"
+       }
+      }
+     ]
+    },
+    "told": {
+     "text": "The boatman looks at the frayed end, nods slowly and buys a new coil instead. When Bashir comes back he frowns at the old coil still on the end.",
+     "end": true
+    },
+    "sold": {
+     "text": "The boatman pays six coins and carries it off. Bashir comes back pleased and gives you three of them.",
+     "end": true
+    }
+   },
+   "say": {
+    "told": [
+     "Told a boatman the rope was weak",
+     "the boatmen",
+     1
+    ],
+    "hid": [
+     "Sold a bad rope for Bashir",
+     "Rafiq the bridge master",
+     -1
+    ]
+   }
+  }
+ ],
+ "town_says": [
+  {
+   "town": "jisra",
+   "if": "toll:speak",
+   "line": [
+    "Spoke up to Hamid at the toll",
+    "the boatmen",
+    1
+   ]
+  },
+  {
+   "town": "jisra",
+   "if": "toll:pay",
+   "line": [
+    "Paid a poor family's toll",
+    "the family with the donkey",
+    1
+   ]
+  }
+ ]
+}

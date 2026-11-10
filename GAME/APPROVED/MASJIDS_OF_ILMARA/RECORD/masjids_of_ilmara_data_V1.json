@@ -1,0 +1,362 @@
+{
+ "version": "LOCK 102 V1 (9 Nov 2026) - the masjids of Ilmara (to reach 50)",
+ "ilmara": {
+  "towns": {
+   "centre": {
+    "name": "Centre",
+    "gate": "ilmara",
+    "start_trust": null,
+    "inn": null,
+    "kicker": "Ilmara · Centre",
+    "text": "The great masjid, the house of learning and the governor's palace. The heart of the city.",
+    "masjids": [
+     "ilmara_centre_1",
+     "ilmara_centre_2",
+     "ilmara_centre_3",
+     "ilmara_centre_4",
+     "ilmara_centre_5",
+     "ilmara_centre_6",
+     "ilmara_centre_7",
+     "ilmara_centre_8"
+    ],
+    "walk": 20
+   },
+   "north": {
+    "name": "North",
+    "gate": "ilmara",
+    "start_trust": null,
+    "inn": null,
+    "kicker": "Ilmara · North",
+    "text": "Gardens, orchards and the caravanserai where travellers rest.",
+    "masjids": [
+     "ilmara_north_1",
+     "ilmara_north_2",
+     "ilmara_north_3",
+     "ilmara_north_4",
+     "ilmara_north_5",
+     "ilmara_north_6",
+     "ilmara_north_7",
+     "ilmara_north_8"
+    ],
+    "walk": 30
+   },
+   "west": {
+    "name": "West",
+    "gate": "ilmara",
+    "start_trust": null,
+    "inn": null,
+    "kicker": "Ilmara · West",
+    "text": "Craftspeople: paper makers, bookbinders and potters.",
+    "masjids": [
+     "ilmara_west_1",
+     "ilmara_west_2",
+     "ilmara_west_3",
+     "ilmara_west_4",
+     "ilmara_west_5",
+     "ilmara_west_6",
+     "ilmara_west_7",
+     "ilmara_west_8"
+    ],
+    "walk": 30
+   },
+   "south": {
+    "name": "South",
+    "gate": "ilmara",
+    "start_trust": null,
+    "inn": null,
+    "kicker": "Ilmara · South",
+    "text": "Homes, wells, and the animal market where farmers bring their goods.",
+    "masjids": [
+     "ilmara_south_1",
+     "ilmara_south_2",
+     "ilmara_south_3",
+     "ilmara_south_4",
+     "ilmara_south_5",
+     "ilmara_south_6",
+     "ilmara_south_7",
+     "ilmara_south_8"
+    ],
+    "walk": 30
+   },
+   "east_lanes": {
+    "name": "East · the back lanes",
+    "gate": "ilmara",
+    "start_trust": null,
+    "inn": null,
+    "kicker": "Ilmara · East · the back lanes",
+    "text": "The narrow lanes behind River Market, where the tanners, boatbuilders and rope-makers work.",
+    "masjids": [
+     "ilmara_east_lanes_1",
+     "ilmara_east_lanes_2",
+     "ilmara_east_lanes_3",
+     "ilmara_east_lanes_4",
+     "ilmara_east_lanes_5"
+    ],
+    "walk": 10
+   }
+  },
+  "masjids": {
+   "ilmara_centre_1": {
+    "button": "Go to The Great Masjid",
+    "kicker": "Ilmara · Centre",
+    "title": "The Great Masjid",
+    "text": "Cool stone, worn mats, and the smell of rosewater.",
+    "first": "An old man nods to you after the prayer. “New face. Welcome.”"
+   },
+   "ilmara_centre_2": {
+    "button": "Go to The Governor's masjid",
+    "kicker": "Ilmara · Centre",
+    "title": "The Governor's masjid",
+    "text": "A small courtyard with a lemon tree and a fountain.",
+    "first": "A boy brings you water from the fountain after the prayer."
+   },
+   "ilmara_centre_3": {
+    "button": "Go to The masjid of the House of Learning",
+    "kicker": "Ilmara · Centre",
+    "title": "The masjid of the House of Learning",
+    "text": "Old wooden pillars, painted green and gold long ago.",
+    "first": "The imam asks your name and says it in his du'a."
+   },
+   "ilmara_centre_4": {
+    "button": "Go to The Judges' masjid",
+    "kicker": "Ilmara · Centre",
+    "title": "The Judges' masjid",
+    "text": "A single room, spotless, with a carpet that must be a hundred years old.",
+    "first": "Someone moves to make room for you in the front row."
+   },
+   "ilmara_centre_5": {
+    "button": "Go to The Silk Market masjid",
+    "kicker": "Ilmara · Centre",
+    "title": "The Silk Market masjid",
+    "text": "High windows and pigeons in the rafters.",
+    "first": "The muezzin asks where you're from and is delighted by the answer."
+   },
+   "ilmara_centre_6": {
+    "button": "Go to The Perfumers' masjid",
+    "kicker": "Ilmara · Centre",
+    "title": "The Perfumers' masjid",
+    "text": "A neighbourhood masjid where everyone knows everyone.",
+    "first": "An old man nods to you after the prayer. “New face. Welcome.”"
+   },
+   "ilmara_centre_7": {
+    "button": "Go to The Old Friday masjid",
+    "kicker": "Ilmara · Centre",
+    "title": "The Old Friday masjid",
+    "text": "Tiled in blue and white, with a clock made by a scholar.",
+    "first": "A boy brings you water from the fountain after the prayer."
+   },
+   "ilmara_centre_8": {
+    "button": "Go to The masjid of the Two Minarets",
+    "kicker": "Ilmara · Centre",
+    "title": "The masjid of the Two Minarets",
+    "text": "Plain whitewashed walls and a mihrab of carved wood.",
+    "first": "The imam asks your name and says it in his du'a."
+   },
+   "ilmara_north_1": {
+    "button": "Go to The Caravanserai masjid",
+    "kicker": "Ilmara · North",
+    "title": "The Caravanserai masjid",
+    "text": "Cool stone, worn mats, and the smell of rosewater.",
+    "first": "Someone moves to make room for you in the front row."
+   },
+   "ilmara_north_2": {
+    "button": "Go to The Orchard masjid",
+    "kicker": "Ilmara · North",
+    "title": "The Orchard masjid",
+    "text": "A small courtyard with a lemon tree and a fountain.",
+    "first": "The muezzin asks where you're from and is delighted by the answer."
+   },
+   "ilmara_north_3": {
+    "button": "Go to The Gardeners' masjid",
+    "kicker": "Ilmara · North",
+    "title": "The Gardeners' masjid",
+    "text": "Old wooden pillars, painted green and gold long ago.",
+    "first": "An old man nods to you after the prayer. “New face. Welcome.”"
+   },
+   "ilmara_north_4": {
+    "button": "Go to The North Gate masjid",
+    "kicker": "Ilmara · North",
+    "title": "The North Gate masjid",
+    "text": "A single room, spotless, with a carpet that must be a hundred years old.",
+    "first": "A boy brings you water from the fountain after the prayer."
+   },
+   "ilmara_north_5": {
+    "button": "Go to The Pomegranate masjid",
+    "kicker": "Ilmara · North",
+    "title": "The Pomegranate masjid",
+    "text": "High windows and pigeons in the rafters.",
+    "first": "The imam asks your name and says it in his du'a."
+   },
+   "ilmara_north_6": {
+    "button": "Go to The Wellhead masjid",
+    "kicker": "Ilmara · North",
+    "title": "The Wellhead masjid",
+    "text": "A neighbourhood masjid where everyone knows everyone.",
+    "first": "Someone moves to make room for you in the front row."
+   },
+   "ilmara_north_7": {
+    "button": "Go to The Rose Garden masjid",
+    "kicker": "Ilmara · North",
+    "title": "The Rose Garden masjid",
+    "text": "Tiled in blue and white, with a clock made by a scholar.",
+    "first": "The muezzin asks where you're from and is delighted by the answer."
+   },
+   "ilmara_north_8": {
+    "button": "Go to The Travellers' masjid",
+    "kicker": "Ilmara · North",
+    "title": "The Travellers' masjid",
+    "text": "Plain whitewashed walls and a mihrab of carved wood.",
+    "first": "An old man nods to you after the prayer. “New face. Welcome.”"
+   },
+   "ilmara_west_1": {
+    "button": "Go to The Bookbinders' masjid",
+    "kicker": "Ilmara · West",
+    "title": "The Bookbinders' masjid",
+    "text": "Cool stone, worn mats, and the smell of rosewater.",
+    "first": "A boy brings you water from the fountain after the prayer."
+   },
+   "ilmara_west_2": {
+    "button": "Go to The Potters' masjid",
+    "kicker": "Ilmara · West",
+    "title": "The Potters' masjid",
+    "text": "A small courtyard with a lemon tree and a fountain.",
+    "first": "The imam asks your name and says it in his du'a."
+   },
+   "ilmara_west_3": {
+    "button": "Go to The Copyists' masjid",
+    "kicker": "Ilmara · West",
+    "title": "The Copyists' masjid",
+    "text": "Old wooden pillars, painted green and gold long ago.",
+    "first": "Someone moves to make room for you in the front row."
+   },
+   "ilmara_west_4": {
+    "button": "Go to The Ink-makers' masjid",
+    "kicker": "Ilmara · West",
+    "title": "The Ink-makers' masjid",
+    "text": "A single room, spotless, with a carpet that must be a hundred years old.",
+    "first": "The muezzin asks where you're from and is delighted by the answer."
+   },
+   "ilmara_west_5": {
+    "button": "Go to The West Gate masjid",
+    "kicker": "Ilmara · West",
+    "title": "The West Gate masjid",
+    "text": "High windows and pigeons in the rafters.",
+    "first": "An old man nods to you after the prayer. “New face. Welcome.”"
+   },
+   "ilmara_west_6": {
+    "button": "Go to The Lamp-makers' masjid",
+    "kicker": "Ilmara · West",
+    "title": "The Lamp-makers' masjid",
+    "text": "A neighbourhood masjid where everyone knows everyone.",
+    "first": "A boy brings you water from the fountain after the prayer."
+   },
+   "ilmara_west_7": {
+    "button": "Go to The Kiln masjid",
+    "kicker": "Ilmara · West",
+    "title": "The Kiln masjid",
+    "text": "Tiled in blue and white, with a clock made by a scholar.",
+    "first": "The imam asks your name and says it in his du'a."
+   },
+   "ilmara_west_8": {
+    "button": "Go to The Scribes' masjid",
+    "kicker": "Ilmara · West",
+    "title": "The Scribes' masjid",
+    "text": "Plain whitewashed walls and a mihrab of carved wood.",
+    "first": "Someone moves to make room for you in the front row."
+   },
+   "ilmara_south_1": {
+    "button": "Go to The Animal Market masjid",
+    "kicker": "Ilmara · South",
+    "title": "The Animal Market masjid",
+    "text": "Cool stone, worn mats, and the smell of rosewater.",
+    "first": "The muezzin asks where you're from and is delighted by the answer."
+   },
+   "ilmara_south_2": {
+    "button": "Go to The Shepherds' masjid",
+    "kicker": "Ilmara · South",
+    "title": "The Shepherds' masjid",
+    "text": "A small courtyard with a lemon tree and a fountain.",
+    "first": "An old man nods to you after the prayer. “New face. Welcome.”"
+   },
+   "ilmara_south_3": {
+    "button": "Go to The South Gate masjid",
+    "kicker": "Ilmara · South",
+    "title": "The South Gate masjid",
+    "text": "Old wooden pillars, painted green and gold long ago.",
+    "first": "A boy brings you water from the fountain after the prayer."
+   },
+   "ilmara_south_4": {
+    "button": "Go to The Wool masjid",
+    "kicker": "Ilmara · South",
+    "title": "The Wool masjid",
+    "text": "A single room, spotless, with a carpet that must be a hundred years old.",
+    "first": "The imam asks your name and says it in his du'a."
+   },
+   "ilmara_south_5": {
+    "button": "Go to The Saddlers' masjid",
+    "kicker": "Ilmara · South",
+    "title": "The Saddlers' masjid",
+    "text": "High windows and pigeons in the rafters.",
+    "first": "Someone moves to make room for you in the front row."
+   },
+   "ilmara_south_6": {
+    "button": "Go to The Millers' masjid",
+    "kicker": "Ilmara · South",
+    "title": "The Millers' masjid",
+    "text": "A neighbourhood masjid where everyone knows everyone.",
+    "first": "The muezzin asks where you're from and is delighted by the answer."
+   },
+   "ilmara_south_7": {
+    "button": "Go to The Courtyard masjid",
+    "kicker": "Ilmara · South",
+    "title": "The Courtyard masjid",
+    "text": "Tiled in blue and white, with a clock made by a scholar.",
+    "first": "An old man nods to you after the prayer. “New face. Welcome.”"
+   },
+   "ilmara_south_8": {
+    "button": "Go to The Widows' masjid",
+    "kicker": "Ilmara · South",
+    "title": "The Widows' masjid",
+    "text": "Plain whitewashed walls and a mihrab of carved wood.",
+    "first": "A boy brings you water from the fountain after the prayer."
+   },
+   "ilmara_east_lanes_1": {
+    "button": "Go to The Tanners' masjid",
+    "kicker": "Ilmara · East · the back lanes",
+    "title": "The Tanners' masjid",
+    "text": "Cool stone, worn mats, and the smell of rosewater.",
+    "first": "The imam asks your name and says it in his du'a."
+   },
+   "ilmara_east_lanes_2": {
+    "button": "Go to The Boatbuilders' masjid",
+    "kicker": "Ilmara · East · the back lanes",
+    "title": "The Boatbuilders' masjid",
+    "text": "A small courtyard with a lemon tree and a fountain.",
+    "first": "Someone moves to make room for you in the front row."
+   },
+   "ilmara_east_lanes_3": {
+    "button": "Go to The Ropewalk masjid",
+    "kicker": "Ilmara · East · the back lanes",
+    "title": "The Ropewalk masjid",
+    "text": "Old wooden pillars, painted green and gold long ago.",
+    "first": "The muezzin asks where you're from and is delighted by the answer."
+   },
+   "ilmara_east_lanes_4": {
+    "button": "Go to The Canal masjid",
+    "kicker": "Ilmara · East · the back lanes",
+    "title": "The Canal masjid",
+    "text": "A single room, spotless, with a carpet that must be a hundred years old.",
+    "first": "An old man nods to you after the prayer. “New face. Welcome.”"
+   },
+   "ilmara_east_lanes_5": {
+    "button": "Go to The Fishmongers' masjid",
+    "kicker": "Ilmara · East · the back lanes",
+    "title": "The Fishmongers' masjid",
+    "text": "High windows and pigeons in the rafters.",
+    "first": "A boy brings you water from the fountain after the prayer."
+   }
+  },
+  "map_title": "Inside the walls",
+  "note": "Inside the walls you can walk at any hour."
+ }
+}

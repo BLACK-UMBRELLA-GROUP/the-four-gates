@@ -1,0 +1,288 @@
+{
+ "version": "LOCK 44 V1 (9 Nov 2026) - Tinara, the orchards: the widow's harvest and the orphan's share",
+ "builds_on": "LOCK 34 runner, LOCK 43. Design references (not shown): Ibn Majah 2443 (pay the worker before his sweat dries); Quran 4:10 (those who consume orphans' wealth unjustly).",
+ "towns": {
+  "tinara": {
+   "name": "Tinara",
+   "gate": "mercy",
+   "start_trust": 10,
+   "inn": 2,
+   "kicker": "Tinara · the orchards",
+   "text": "Apricot and pomegranate orchards fill the valley, walled with mud and shaded by walnut trees. At harvest the whole town climbs ladders.",
+   "work": {
+    "label": "Pick apricots · 5 coins",
+    "hours": [
+     360,
+     1020
+    ],
+    "minutes": 90,
+    "coins": 5,
+    "trust": 1
+   },
+   "masjids": [
+    "tinara"
+   ],
+   "bg": "market_day"
+  }
+ },
+ "masjids": {
+  "tinara": {
+   "button": "Go to the orchard masjid",
+   "kicker": "Tinara · the orchard masjid",
+   "title": "The orchard masjid",
+   "text": "A masjid under a walnut tree so big its roots lift the floor tiles.",
+   "first": "Someone has left a bowl of apricots by the door for anyone who prays."
+  }
+ },
+ "people": [
+  {
+   "id": "sumayya",
+   "town": "tinara",
+   "name": "Sumayya",
+   "role": "a widow with an orchard",
+   "hours": [
+    360,
+    1080
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "Sumayya is counting baskets and frowning.",
+    "friendly": "“My husband planted these trees. I'll keep them standing.”",
+    "warm": "“Eat. You're too thin for a traveller.”"
+   },
+   "memory": [
+    [
+     "widow_lent",
+     "“The buyer came. Here - I wanted to give it back with my own hands.”"
+    ]
+   ]
+  },
+  {
+   "id": "hakam",
+   "town": "tinara",
+   "name": "Hakam",
+   "role": "a landowner",
+   "hours": [
+    420,
+    1080
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "Hakam looks at your clothes, then away.",
+    "friendly": "“Orchards are hard work. Very little profit.”",
+    "warm": "Hakam is very polite to you, and very careful."
+   },
+   "memory": [
+    [
+     "orphan_helped",
+     "Hakam's smile is thin. “The qadi has my accounts now. I hope you're satisfied.”"
+    ]
+   ]
+  },
+  {
+   "id": "usama",
+   "town": "tinara",
+   "name": "Usama",
+   "role": "a boy selling pomegranates",
+   "hours": [
+    420,
+    1020
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "“Pomegranates! One coin for two!”",
+    "friendly": "“My father planted the orchard by the stream. One day I'll work it myself.”",
+    "warm": "“The qadi keeps my box for me. I'm going to buy a donkey when I'm grown.”"
+   },
+   "memory": []
+  }
+ ],
+ "missions": [
+  {
+   "id": "widow_harvest",
+   "town": "tinara",
+   "main": true,
+   "title": "The widow's harvest",
+   "kicker": "Chapter 3 · The widow's harvest",
+   "button": "Sumayya needs help with her pickers",
+   "hours": [
+    360,
+    1020
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Sumayya's husband died in the spring. She hired six pickers for her apricots, but the buyer won't pay her until next month, and the pickers want their wages tonight. She asks to borrow from you.",
+     "choices": [
+      {
+       "label": "Lend her the wages · 18 coins",
+       "need_coins": 18,
+       "go": "lend",
+       "fx": {
+        "coins": -18,
+        "trust": 8,
+        "flag": [
+         "widow_lent",
+         "widow_done"
+        ],
+        "say": "lent"
+       }
+      },
+      {
+       "label": "Pick with them so she needs fewer",
+       "go": "pick",
+       "fx": {
+        "minutes": 240,
+        "trust": 5,
+        "flag": "widow_done",
+        "say": "picked"
+       }
+      },
+      {
+       "label": "Tell the pickers to wait a month",
+       "go": "wait",
+       "fx": {
+        "trust": -4,
+        "flag": "widow_done",
+        "say": "waited"
+       }
+      }
+     ]
+    },
+    "lend": {
+     "text": "Sumayya pays the pickers before the sun goes down. They go home singing. She swears to repay you when the buyer comes.",
+     "end": true
+    },
+    "pick": {
+     "text": "You pick until your arms ache. With you on a ladder she lets two pickers go and pays the other four tonight.",
+     "end": true
+    },
+    "wait": {
+     "text": "The pickers grumble. Two don't come back the next day.",
+     "end": true
+    }
+   },
+   "say": {
+    "lent": [
+     "Paid Sumayya's pickers on time",
+     "the pickers",
+     1
+    ],
+    "picked": [
+     "Picked apricots for the widow",
+     "the pickers",
+     1
+    ],
+    "waited": [
+     "Made the pickers wait for their wages",
+     "the pickers",
+     -1
+    ]
+   }
+  },
+  {
+   "id": "widow_repay",
+   "town": "tinara",
+   "title": "Sumayya repays",
+   "kicker": "Tinara · Sumayya's orchard",
+   "button": "Sumayya has your coins",
+   "main": true,
+   "after": [
+    "widow_lent"
+   ],
+   "after_days": {
+    "widow_lent": 30
+   },
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The buyer has paid at last. Sumayya counts eighteen coins into your hand, one by one.",
+     "choices": [
+      {
+       "label": "Take them",
+       "go": "b",
+       "fx": {
+        "coins": 18
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "“A debt paid is a weight gone,” she says.",
+     "end": true
+    }
+   }
+  },
+  {
+   "id": "orphan_share",
+   "town": "tinara",
+   "main": true,
+   "title": "The orphan's share",
+   "kicker": "Chapter 3 · The orphan's share",
+   "button": "Usama is selling fruit alone",
+   "hours": [
+    420,
+    1020
+   ],
+   "after": [
+    "widow_done"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Usama, about twelve, sells pomegranates at the gate. His father left him an orchard, but his uncle Hakam manages it and says there was “no profit this year” - while Hakam's own house has a new roof.",
+     "choices": [
+      {
+       "label": "Ask Hakam to show the accounts to the qadi",
+       "go": "qadi",
+       "fx": {
+        "trust": 10,
+        "flag": [
+         "orphan_helped",
+         "tinara_done"
+        ],
+        "say": "qadi"
+       }
+      },
+      {
+       "label": "Buy all of Usama's fruit · 8 coins",
+       "need_coins": 8,
+       "go": "buy",
+       "fx": {
+        "coins": -8,
+        "trust": 3,
+        "flag": "tinara_done"
+       }
+      },
+      {
+       "label": "It's a family matter",
+       "go": "leave",
+       "fx": {
+        "flag": "tinara_done"
+       }
+      }
+     ]
+    },
+    "qadi": {
+     "text": "Hakam goes red, then pale. Before the qadi he “finds” that the orchard made a profit after all. Usama's share is counted into a box that the qadi keeps until he is grown.",
+     "end": true
+    },
+    "buy": {
+     "text": "Usama goes home early with an empty basket and eight coins.",
+     "end": true
+    },
+    "leave": {
+     "text": "Usama is still at the gate when you pass again at sunset.",
+     "end": true
+    }
+   },
+   "say": {
+    "qadi": [
+     "Stood up for Usama's share",
+     "the orchard families",
+     1
+    ]
+   }
+  }
+ ]
+}

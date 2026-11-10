@@ -1,0 +1,59 @@
+{
+ "version": "LOCK 39 V1 (9 Nov 2026) - chapter 1 ends: trust kept",
+ "builds_on": "LOCK 3 Idris, LOCKs 32-38. Design reference (not shown): Quran 4:58 (render trusts to whom they are due).",
+ "missions": [
+  {
+   "id": "trust_home",
+   "place": "masjid",
+   "main": true,
+   "title": "Trust kept",
+   "kicker": "Chapter 1 · Trust kept",
+   "button": "Idris wants to hear about your road",
+   "after": [
+    "sahila_boat_done",
+    "sukara_chosen"
+   ],
+   "hours": [
+    420,
+    1200
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": [
+      "Idris pours tea and listens while you tell him about Jisra, Sahila and Sukara - all of it, the parts you are proud of and the parts you are not.",
+      "“Trust is not a gate you pass once,” he says. “It is a road you keep walking. The north gate is the Gate of Patience. The caravanserai at Safira needs someone who can wait.”"
+     ],
+     "choices": [
+      {
+       "label": "Ask about the road north",
+       "go": "b",
+       "fx": {
+        "flag": "chapter1_done"
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "The next morning the gatekeepers at the north gate open it for you.",
+     "end": true
+    }
+   }
+  }
+ ],
+ "chapters": [
+  {
+   "n": 1,
+   "name": "The Gate of Trust",
+   "missions": [
+    "purse",
+    "grab",
+    "sealed_purse",
+    "gate_opens",
+    "sahila_boat",
+    "sukara_offers",
+    "trust_home"
+   ]
+  }
+ ]
+}

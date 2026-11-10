@@ -1,0 +1,29 @@
+{
+ "version": "LOCK 29 V1 (9 Nov 2026) - menus: pause, save and settings",
+ "builds_on": "LOCK 1 title screen (Settings button), LOCK 18 date on the clock. Founder 9 Nov via Fable (AD-AIOS-137): the game keeps a settings button. Placeholders: {d}.",
+ "pause": {
+  "title": "Paused",
+  "resume": "Resume",
+  "save": "Save game",
+  "saved": "Saved · {d}",
+  "settings": "Settings",
+  "quit": "Save and quit to title",
+  "hint": "Esc opens and closes this menu."
+ },
+ "title_continue": "Continue · {d}",
+ "settings": {
+  "title": "Settings",
+  "text_size": "Text size",
+  "normal": "Normal",
+  "large": "Large",
+  "walk": "Walking speed",
+  "fast": "Fast",
+  "later": "Sound and the real-life prayer reminder come in later settings.",
+  "back": "Back"
+ },
+ "numbers": {
+  "large_text_percent": 115,
+  "walk_normal": 110,
+  "walk_fast": 220
+ }
+}

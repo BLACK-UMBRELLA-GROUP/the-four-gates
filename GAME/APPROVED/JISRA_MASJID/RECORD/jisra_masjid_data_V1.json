@@ -1,0 +1,20 @@
+{
+ "version": "LOCK 33 V1 (9 Nov 2026) - Jisra's masjid and the masjids you have prayed in",
+ "builds_on": "LOCK 2 prayer (congregation until 5 minutes after the iqamah), LOCK 8 All your prayers, LOCK 32 Jisra. Founder 8 Nov: \"lets add somewhere in game as again side mission masjids vistied max 50\". Placeholders: {n}, {m}.",
+ "numbers": {
+  "goal_masjids": 50
+ },
+ "jisra_button": "Go to the boatmen's masjid",
+ "masjid": {
+  "kicker": "Jisra · the boatmen's masjid",
+  "title": "The boatmen's masjid",
+  "text": "A small masjid of reed and timber at the far end of the bridge. The floor moves gently with the river. The imam, Uthman, was a boatman himself.",
+  "first": "After the prayer the imam, Uthman, asks where you are from. “Whoever prays with us is no stranger here.”",
+  "back": "Back to the bridge"
+ },
+ "counter": "Masjids you have prayed in: {n} / {m}",
+ "masjids": {
+  "river_market": "River Market masjid",
+  "jisra": "The boatmen's masjid, Jisra"
+ }
+}

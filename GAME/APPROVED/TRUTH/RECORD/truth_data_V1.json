@@ -1,0 +1,65 @@
+{
+ "version": "LOCK 87 V1 (9 Nov 2026) - The truth comes out",
+ "builds_on": "LOCK 2 prayer, LOCK 3 Idris, LOCK 6 regulars, LOCK 34 runner. Private counters go to the Journal; worship never earns trust.",
+ "goals": [],
+ "design_reference_not_shown": {
+  "truth_found": "Bukhari 6094"
+ },
+ "missions": [
+  {
+   "id": "truth_found",
+   "lock": 87,
+   "place": "masjid",
+   "hours": [
+    420,
+    1200
+   ],
+   "title": "The truth comes out",
+   "kicker": "Character · The truth",
+   "button": "Idris wants a quiet word",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Idris is quiet for a moment. “People have been comparing what you told them. Truth comes out, traveller. It always does. A man who is known to lie isn't believed even when he tells the truth.”",
+     "choices": [
+      {
+       "label": "Listen",
+       "fx": {
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "min_count": {
+    "lies": 2
+   }
+  }
+ ],
+ "truth": {
+  "lie_choices": [
+   {
+    "mission": "sahila_boat",
+    "scene": "b",
+    "label": "“She's sound”"
+   },
+   {
+    "mission": "sahila_found",
+    "scene": "a",
+    "label": "Say you didn't know"
+   },
+   {
+    "mission": "spilled_spice",
+    "scene": "b",
+    "label": "Say it was Faris"
+   }
+  ],
+  "found_out_at": 2,
+  "line": [
+   "Has been caught lying",
+   "people who compare notes",
+   -1
+  ],
+  "idris_line": "Idris is quiet for a moment. “People have been comparing what you told them. Truth comes out, traveller. It always does.”"
+ }
+}

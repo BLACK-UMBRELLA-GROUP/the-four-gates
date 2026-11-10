@@ -1,0 +1,296 @@
+{
+ "version": "LOCK 48 V1 (9 Nov 2026) - Shifara, the hospital: the fever, the doctor's secret, and chapter 4 ends",
+ "builds_on": "LOCK 34 runner, LOCK 45 Rami. Design references (not shown): Bukhari 5728 (plague: do not enter, do not leave); Muslim 2699 (whoever covers a Muslim's fault); Quran 20:114.",
+ "towns": {
+  "shifara": {
+   "name": "Shifara",
+   "gate": "knowledge",
+   "start_trust": 10,
+   "inn": 2,
+   "kicker": "Shifara · the hospital",
+   "text": "Shifara is built round a hospital with a fountain courtyard, where anyone is treated free, rich or poor.",
+   "work": {
+    "label": "Wash bandages at the hospital · 3 coins",
+    "hours": [
+     360,
+     900
+    ],
+    "minutes": 60,
+    "coins": 3,
+    "trust": 1
+   },
+   "masjids": [
+    "shifara"
+   ],
+   "bg": "street_day"
+  }
+ },
+ "masjids": {
+  "shifara": {
+   "button": "Go to the hospital masjid",
+   "kicker": "Shifara · the hospital masjid",
+   "title": "The hospital masjid",
+   "text": "A quiet room off the courtyard where the physicians pray between rounds.",
+   "first": "A physician in a stained apron prays beside you, then hurries back to the wards."
+  }
+ },
+ "people": [
+  {
+   "id": "rahma",
+   "town": "shifara",
+   "name": "Rahma",
+   "role": "the physician",
+   "hours": [
+    360,
+    1260
+   ],
+   "prays": true,
+   "lines": {
+    "wary": "Rahma walks past at speed. “Not now.”",
+    "friendly": "“Rich or poor, the fever doesn't ask. Neither do we.”",
+    "warm": "“You have steady hands. Have you thought of learning medicine?”"
+   },
+   "memory": [
+    [
+     "fever_stayed",
+     "“You stayed in the wards when you could have run. I won't forget it.”"
+    ]
+   ]
+  },
+  {
+   "id": "shakir",
+   "town": "shifara",
+   "name": "Shakir",
+   "role": "a talker",
+   "hours": [
+    480,
+    1200
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "Shakir leans in. “Heard the news?”",
+    "friendly": "“Everyone in this town has a secret. I just like to know them.”",
+    "warm": "Shakir has stopped asking you things."
+   },
+   "memory": [
+    [
+     "secret_told",
+     "Shakir winks at you. “Got any more?”"
+    ]
+   ]
+  },
+  {
+   "id": "malik",
+   "town": "shifara",
+   "name": "Malik",
+   "role": "a patient's father",
+   "hours": [
+    480,
+    1140
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "Malik sits by the fountain, waiting.",
+    "friendly": "“My son is getting better. They feed him, they wash him, they ask nothing.”",
+    "warm": "“When he's well we'll walk to Ilmara to thank you.”"
+   },
+   "memory": []
+  }
+ ],
+ "missions": [
+  {
+   "id": "fever",
+   "town": "shifara",
+   "main": true,
+   "title": "The fever",
+   "kicker": "Chapter 4 · The fever",
+   "button": "The governor has shut the town",
+   "hours": [
+    360,
+    1200
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Fever has broken out in Shifara. The governor shuts the town: nobody in and nobody out until it passes. You are inside. Rahma needs hands in the wards. Some travellers are planning to slip out over the wall tonight.",
+     "choices": [
+      {
+       "label": "Stay and help in the wards",
+       "go": "stay",
+       "fx": {
+        "minutes": 480,
+        "trust": 10,
+        "flag": [
+         "fever_stayed",
+         "fever_done"
+        ],
+        "say": "stayed"
+       }
+      },
+      {
+       "label": "Stay at the inn and wait",
+       "go": "wait",
+       "fx": {
+        "flag": "fever_done"
+       }
+      },
+      {
+       "label": "Slip out over the wall",
+       "go": "flee",
+       "fx": {
+        "trust": -10,
+        "flag": "fever_done",
+        "say": "fled"
+       }
+      }
+     ]
+    },
+    "stay": {
+     "text": "You carry water and wash bandages until you can't stand. Weeks later the fever passes and the gates open again. Rahma says the town lost fewer than she feared.",
+     "end": true
+    },
+    "wait": {
+     "text": "You stay at the inn and pray for the town. Weeks later the gates open again.",
+     "end": true
+    },
+    "flee": {
+     "text": "You get over the wall in the dark. Two days later you hear one of the travellers who went with you carried the fever to Najmara.",
+     "end": true
+    }
+   },
+   "say": {
+    "stayed": [
+     "Stayed in Shifara and worked in the wards",
+     "Rahma the physician",
+     1
+    ],
+    "fled": [
+     "Ran from Shifara over the wall",
+     "the whole town",
+     -1
+    ]
+   }
+  },
+  {
+   "id": "doctor_secret",
+   "town": "shifara",
+   "main": true,
+   "title": "The doctor's secret",
+   "kicker": "Chapter 4 · The doctor's secret",
+   "button": "Shakir wants to ask you something",
+   "hours": [
+    480,
+    1200
+   ],
+   "after": [
+    "fever_done"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Shakir corners you. He has heard that Rahma treated the governor's son for something shameful, and that you were in the room. “Just tell me what it was.”",
+     "choices": [
+      {
+       "label": "Say nothing about it",
+       "go": "keep",
+       "fx": {
+        "trust": 6,
+        "flag": [
+         "secret_kept",
+         "shifara_done"
+        ],
+        "say": "kept"
+       }
+      },
+      {
+       "label": "Tell him",
+       "go": "tell",
+       "fx": {
+        "trust": -10,
+        "flag": [
+         "secret_told",
+         "shifara_done"
+        ],
+        "say": "told"
+       }
+      }
+     ]
+    },
+    "keep": {
+     "text": "“What happens in the wards stays in the wards.” Shakir shrugs and goes looking for someone else.",
+     "end": true
+    },
+    "tell": {
+     "text": "By evening the whole town knows. The governor's son doesn't leave his house for a month. Rahma stops speaking to you.",
+     "end": true
+    }
+   },
+   "say": {
+    "kept": [
+     "Keeps what they see in the wards to themselves",
+     "Rahma the physician",
+     1
+    ],
+    "told": [
+     "Spread the governor's son's secret",
+     "the hospital",
+     -1
+    ]
+   }
+  },
+  {
+   "id": "knowledge_home",
+   "place": "masjid",
+   "main": true,
+   "title": "Knowledge carried",
+   "kicker": "Chapter 4 · Knowledge carried",
+   "button": "Idris wants to hear about the west road",
+   "after": [
+    "waraka_done",
+    "najmara_done",
+    "shifara_done"
+   ],
+   "hours": [
+    420,
+    1200
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": [
+      "Idris listens to all of it - the copy, the charms, the qibla, Kamil, the fever and Shakir.",
+      "“Knowledge isn't what you carry,” he says. “It's what you do when it's heavy.” Then he goes quiet. “No rain since autumn. This will be a hard year for Ilmara. Stay close.”"
+     ],
+     "choices": [
+      {
+       "label": "Stay in Ilmara",
+       "go": "b",
+       "fx": {
+        "flag": "chapter4_done"
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "All four gates are open. And the sky over Ilmara stays clear and dry.",
+     "end": true
+    }
+   }
+  }
+ ],
+ "chapters": [
+  {
+   "n": 4,
+   "name": "The Gate of Knowledge",
+   "missions": [
+    "copyist",
+    "fake_hadith",
+    "qibla",
+    "student",
+    "fever",
+    "doctor_secret",
+    "knowledge_home"
+   ]
+  }
+ ]
+}

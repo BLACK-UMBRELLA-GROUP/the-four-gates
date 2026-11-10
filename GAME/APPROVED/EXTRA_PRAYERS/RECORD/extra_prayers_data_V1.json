@@ -1,0 +1,121 @@
+{
+ "version": "LOCK 77 V1 (9 Nov 2026) - The extra prayers, Duha, The night prayer",
+ "builds_on": "LOCK 2 prayer, LOCK 3 Idris, LOCK 6 regulars, LOCK 34 runner. Private counters go to the Journal; worship never earns trust.",
+ "goals": [
+  {
+   "id": "extra_prayers",
+   "label": "Duha prayers",
+   "m": 1000
+  },
+  {
+   "id": "night_prayers",
+   "label": "Night prayers",
+   "m": 1000
+  }
+ ],
+ "design_reference_not_shown": {
+  "extra_lesson": "Bukhari 1178, 1145",
+  "duha": "",
+  "night_prayer": ""
+ },
+ "missions": [
+  {
+   "id": "extra_lesson",
+   "lock": 77,
+   "place": "masjid",
+   "hours": [
+    480,
+    1200
+   ],
+   "title": "The extra prayers",
+   "kicker": "Worship · The extra prayers",
+   "button": "Idris prays two more rak'ahs",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "After the prayer Idris stays and prays two more rak'ahs. “The duha prayer in the morning, the night prayer before Fajr. Extra prayers fill the gaps in the obligatory ones. Start small and keep it up.”",
+     "choices": [
+      {
+       "label": "Ask him how",
+       "fx": {
+        "flag": "extra_learned",
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "rows_learned"
+   ]
+  },
+  {
+   "id": "duha",
+   "lock": 77,
+   "place": "masjid",
+   "hours": [
+    480,
+    690
+   ],
+   "title": "Duha",
+   "kicker": "Worship · Duha",
+   "button": "Pray two rak'ahs of duha",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The masjid is quiet in the late morning. You pray two rak'ahs on your own.",
+     "choices": [
+      {
+       "label": "Finish",
+       "fx": {
+        "minutes": 10,
+        "count": {
+         "extra_prayers": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "extra_learned"
+   ],
+   "repeat": "daily"
+  },
+  {
+   "id": "night_prayer",
+   "lock": 77,
+   "place": "inn",
+   "hours": [
+    1380,
+    270
+   ],
+   "title": "The night prayer",
+   "kicker": "Worship · The night prayer",
+   "button": "Get up for the night prayer",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The inn is dark and the whole market is asleep. You wash and pray in the corner of your room.",
+     "choices": [
+      {
+       "label": "Finish",
+       "fx": {
+        "minutes": 20,
+        "count": {
+         "night_prayers": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "extra_learned"
+   ],
+   "repeat": "daily"
+  }
+ ]
+}

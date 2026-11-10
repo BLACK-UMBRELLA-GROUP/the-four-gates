@@ -1,0 +1,66 @@
+{
+ "version": "LOCK 62 V1 (9 Nov 2026) - side mission: A cheat at archery",
+ "builds_on": "LOCK 34 runner; LOCK 3 and LOCK 6 regulars; River Market places (LOCK 1). Each mission is its own LOCK and queue line.",
+ "design_reference_not_shown": "Abu Dawud 2574",
+ "missions": [
+  {
+   "id": "archery",
+   "lock": 62,
+   "place": "gate",
+   "hours": [
+    480,
+    900
+   ],
+   "side": true,
+   "title": "A cheat at archery",
+   "kicker": "River Market · A cheat at archery",
+   "button": "There's an archery contest outside the gate",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Outside the gate young men shoot at a straw target for a prize of five coins. You see Mundhir's friend nudge the target closer each time Mundhir shoots.",
+     "choices": [
+      {
+       "label": "Say what you saw",
+       "go": "speak",
+       "fx": {
+        "trust": 5,
+        "say": "spoke"
+       }
+      },
+      {
+       "label": "Enter the contest yourself, fairly",
+       "go": "shoot",
+       "fx": {
+        "minutes": 60
+       }
+      },
+      {
+       "label": "Let it go",
+       "go": "out"
+      }
+     ]
+    },
+    "speak": {
+     "text": "The judge moves the target back to its mark and makes everyone shoot again. Mundhir comes third. He doesn't speak to you.",
+     "end": true
+    },
+    "shoot": {
+     "text": "You shoot as straight as you can and miss twice. Mundhir wins - with help. You know, and he knows you know.",
+     "end": true
+    },
+    "out": {
+     "text": "Mundhir wins the five coins.",
+     "end": true
+    }
+   },
+   "say": {
+    "spoke": [
+     "Called out a cheat at the archery",
+     "the young men at the gate",
+     1
+    ]
+   }
+  }
+ ]
+}

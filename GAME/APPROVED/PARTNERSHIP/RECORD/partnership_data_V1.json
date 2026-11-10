@@ -1,0 +1,61 @@
+{
+ "version": "LOCK 31 V1 (9 Nov 2026) - wealth: a partnership with Layla",
+ "builds_on": "LOCK 5 Layla's loom, LOCK 6 Layla, LOCK 7 her hours, LOCK 3 What people say, LOCK 16 riba refused. Placeholders: {n}, {m}.",
+ "numbers": {
+  "min_trust": 40,
+  "capital": 60,
+  "share_percent": 50,
+  "fixed_ask": 5,
+  "riba_trust": -3,
+  "week_days": 7,
+  "profits": [
+   10,
+   6,
+   0,
+   12
+  ]
+ },
+ "ask_button": "Layla wants a second loom",
+ "share_button": "Layla has your share",
+ "ask": {
+  "kicker": "Weaver's lane",
+  "title": "A second loom",
+  "text": "Layla points at an empty corner. “Another loom there and my niece could weave beside me. Sixty coins. I cannot borrow it - but I could take a partner.”",
+  "partner": "Put in {n} coins · share the profit half and half",
+  "fixed": "Put in {n} coins · ask {m} coins every week, whatever happens",
+  "no": "Not now",
+  "not_enough": "not enough coins"
+ },
+ "riba": {
+  "kicker": "Weaver's lane",
+  "title": "Whatever happens?",
+  "text": "Layla stops the loom. “Five every week even when the river floods my dye pits? That is not a partner. That is a lender taking interest. No.”",
+  "to_map": "Back to the market map"
+ },
+ "agreed": {
+  "kicker": "Weaver's lane",
+  "title": "Partners",
+  "text": "You shake hands over the empty corner. “Half of what the loom earns is yours, and half of what it loses is yours too,” Layla says. “That is a partnership.”",
+  "to_map": "Back to the market map"
+ },
+ "week": {
+  "kicker": "Weaver's lane · week {n}",
+  "title": "Your share",
+  "good": "Layla counts the week's profit from the second loom: {m} coins. She pushes half across to you: {n} coins.",
+  "none": "A bad week. The river flooded the dye pits and the loom earned nothing. “Nothing for me, nothing for you,” Layla says. “That is what sharing means.”",
+  "to_map": "Back to the market map"
+ },
+ "running": "Partner in Layla's second loom · next share in {n} days",
+ "say": {
+  "partner": [
+   "Took a fair share in Layla's loom",
+   "Layla the weaver",
+   1
+  ],
+  "riba": [
+   "Wanted a sure profit from Layla",
+   "Layla the weaver",
+   -1
+  ]
+ }
+}

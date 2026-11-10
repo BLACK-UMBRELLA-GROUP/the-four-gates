@@ -1,0 +1,151 @@
+{
+ "version": "LOCK 73 V1 (9 Nov 2026) - the scholar's notebook, chapter 10: The heart",
+ "builds_on": "LOCK 3 (page 1, read with Idris), LOCK 34 runner, LOCK 51 (the last page). Every reference checked on sunnah.com; the game never shows the reference.",
+ "words": {
+  "find_button": "{p} has found a page",
+  "find_kicker": "The scholar's notebook · a page found",
+  "find_title": "A page in the scholar's hand",
+  "take": "Take the page to Idris",
+  "read_button": "Read the scholar's page with Idris",
+  "read_kicker": "The scholar's notebook · page {n} of 100",
+  "read_turn": "Close the notebook",
+  "idris": "Idris: “{t}”",
+  "story": "Idris turns back through the pages. “{t}”",
+  "hours": [
+   420,
+   1140
+  ]
+ },
+ "chapter": {
+  "n": 10,
+  "title": "The heart",
+  "story": "He died in Ilmara with no notebook and no money, and asked only that his pages be given back to the people."
+ },
+ "pages": [
+  {
+   "n": 91,
+   "chapter": 10,
+   "ref": "Bukhari 6114",
+   "saying": "The strong man is not the one who wrestles others down; he is the one who controls himself when angry.",
+   "idris": "Khattab shouted and you stayed calm. That was strength.",
+   "person": "Faris",
+   "found": "Faris found a page lining an old hat bought from a pedlar.",
+   "after": [
+    "hoarders_done"
+   ],
+   "place": "quay"
+  },
+  {
+   "n": 92,
+   "chapter": 10,
+   "ref": "Abu Dawud 4800",
+   "saying": "I guarantee a house on the edge of Paradise for whoever gives up arguing even when he is right.",
+   "idris": "Even when you're right. Especially then.",
+   "person": "Salma",
+   "found": "Salma hands you a loaf wrapped in an old page. “Look at the writing on this.”",
+   "after": [
+    "hoarders_done",
+    "page_91_found"
+   ],
+   "place": "board"
+  },
+  {
+   "n": 93,
+   "chapter": 10,
+   "ref": "Bukhari 3559",
+   "saying": "The best of you are those with the best character.",
+   "idris": "Not the richest, not the cleverest. The kindest.",
+   "person": "Rashid",
+   "found": "Rashid found a folded page in a crack while mending a wall. “It's in a scholar's hand. You'll know who wants it.”",
+   "after": [
+    "hoarders_done",
+    "page_92_found"
+   ],
+   "place": "spice"
+  },
+  {
+   "n": 94,
+   "chapter": 10,
+   "ref": "Tirmidhi 2004",
+   "saying": "What brings people into Paradise most is fear of Allah and good character.",
+   "idris": "Two things. Both of them in your hands.",
+   "person": "Layla",
+   "found": "Children are flying a kite made from an old page. Layla buys it from them for a date and gives it to you.",
+   "after": [
+    "hoarders_done",
+    "page_93_found"
+   ],
+   "place": "weaver"
+  },
+  {
+   "n": 95,
+   "chapter": 10,
+   "ref": "Muslim 2626",
+   "saying": "Do not think little of any kindness, even meeting your brother with a cheerful face.",
+   "idris": "Smile at Rashid tomorrow. It counts.",
+   "person": "Jamal",
+   "found": "Jamal found a page pressed inside a second-hand book.",
+   "after": [
+    "hoarders_done",
+    "page_94_found"
+   ],
+   "place": "quay"
+  },
+  {
+   "n": 96,
+   "chapter": 10,
+   "ref": "Bukhari 5971",
+   "saying": "A man asked who most deserves his good company. Your mother, he was told - three times - then your father.",
+   "idris": "Write to your mother, traveller. Tonight.",
+   "person": "Abbas",
+   "found": "Abbas has been using a page to wrap spices and has only just noticed the writing.",
+   "after": [
+    "hoarders_done",
+    "page_95_found"
+   ],
+   "place": "gate"
+  },
+  {
+   "n": 97,
+   "chapter": 10,
+   "ref": "Bukhari 2587",
+   "saying": "Fear Allah and be fair between your children.",
+   "idris": "Fairness starts at home before it reaches the market.",
+   "person": "Karim",
+   "found": "Karim pulls a damp page from the bottom of a basket and dries it for you.",
+   "after": [
+    "hoarders_done",
+    "page_96_found"
+   ],
+   "place": "scales"
+  },
+  {
+   "n": 98,
+   "chapter": 10,
+   "ref": "Bukhari 2449",
+   "saying": "Whoever has wronged his brother should put it right today, before a day when there is no money, only deeds.",
+   "idris": "If there's someone you wronged on your road, go back to them. Today.",
+   "person": "The innkeeper",
+   "found": "The innkeeper found a page under a loose floor tile.",
+   "after": [
+    "hoarders_done",
+    "page_97_found"
+   ],
+   "place": "inn"
+  },
+  {
+   "n": 99,
+   "chapter": 10,
+   "ref": "Bukhari 5376",
+   "saying": "Say Allah's name, eat with your right hand, and eat from what is in front of you.",
+   "idris": "The last lesson is the smallest - how to eat. Even that is worship.",
+   "person": "Yunus the muezzin",
+   "found": "Yunus the muezzin was given a debt note - and the scholar's page is written on the back of it.",
+   "after": [
+    "hoarders_done",
+    "page_98_found"
+   ],
+   "place": "masjid"
+  }
+ ]
+}

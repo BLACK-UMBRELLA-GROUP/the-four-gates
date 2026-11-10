@@ -1,0 +1,163 @@
+{
+ "version": "LOCK 79 V1 (9 Nov 2026) - Al-Fatiha, Al-Ikhlas, Al-Falaq, An-Nas",
+ "builds_on": "LOCK 2 prayer, LOCK 3 Idris, LOCK 6 regulars, LOCK 34 runner. Private counters go to the Journal; worship never earns trust.",
+ "goals": [
+  {
+   "id": "surahs",
+   "label": "Surahs learned with Idris",
+   "m": 4
+  }
+ ],
+ "design_reference_not_shown": {
+  "surah_fatiha": "Quran 1",
+  "surah_ikhlas": "Quran 112",
+  "surah_falaq": "Quran 113",
+  "surah_nas": "Quran 114"
+ },
+ "missions": [
+  {
+   "id": "surah_fatiha",
+   "lock": 79,
+   "place": "masjid",
+   "hours": [
+    420,
+    1200
+   ],
+   "title": "Al-Fatiha",
+   "kicker": "Quran with Idris · Al-Fatiha",
+   "button": "Learn Al-Fatiha with Idris",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": [
+      "Idris recites slowly and has you repeat each verse until it is right.",
+      "“The Opening. Praise to Allah, Lord of all the worlds, the Most Merciful, Master of the Day of Judgement. You alone we worship and You alone we ask for help. Guide us on the straight path. You say it in every rak'ah - so learn what it means.”"
+     ],
+     "choices": [
+      {
+       "label": "Recite it back",
+       "fx": {
+        "flag": "surah_1",
+        "count": {
+         "surahs": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "wudu_learned"
+   ]
+  },
+  {
+   "id": "surah_ikhlas",
+   "lock": 79,
+   "place": "masjid",
+   "hours": [
+    420,
+    1200
+   ],
+   "title": "Al-Ikhlas",
+   "kicker": "Quran with Idris · Al-Ikhlas",
+   "button": "Learn Al-Ikhlas with Idris",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "“Sincerity. Say: He is Allah, the One; Allah, the Eternal Refuge. He neither begets nor is born, and there is none like Him. Four short lines - and the whole of who Allah is.”",
+     "choices": [
+      {
+       "label": "Recite it back",
+       "fx": {
+        "flag": "surah_2",
+        "count": {
+         "surahs": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "surah_1"
+   ],
+   "after_days": {
+    "surah_1": 1
+   }
+  },
+  {
+   "id": "surah_falaq",
+   "lock": 79,
+   "place": "masjid",
+   "hours": [
+    420,
+    1200
+   ],
+   "title": "Al-Falaq",
+   "kicker": "Quran with Idris · Al-Falaq",
+   "button": "Learn Al-Falaq with Idris",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "“The Daybreak. Say: I seek refuge in the Lord of daybreak from the harm of what He created, from the dark when it settles, from those who blow on knots, and from the envier when he envies. Say it before you sleep.”",
+     "choices": [
+      {
+       "label": "Recite it back",
+       "fx": {
+        "flag": "surah_3",
+        "count": {
+         "surahs": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "surah_2"
+   ],
+   "after_days": {
+    "surah_2": 1
+   }
+  },
+  {
+   "id": "surah_nas",
+   "lock": 79,
+   "place": "masjid",
+   "hours": [
+    420,
+    1200
+   ],
+   "title": "An-Nas",
+   "kicker": "Quran with Idris · An-Nas",
+   "button": "Learn An-Nas with Idris",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "“Mankind. Say: I seek refuge in the Lord of people, the King of people, the God of people, from the whisperer who withdraws, who whispers in people's hearts. The last surah of the Quran - and the shortest road to safety.”",
+     "choices": [
+      {
+       "label": "Recite it back",
+       "fx": {
+        "flag": "surah_4",
+        "count": {
+         "surahs": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "surah_3"
+   ],
+   "after_days": {
+    "surah_3": 1
+   }
+  }
+ ]
+}

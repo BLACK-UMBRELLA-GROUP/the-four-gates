@@ -1,0 +1,68 @@
+{
+ "version": "LOCK 56 V1 (9 Nov 2026) - side mission: A lost child at Friday prayer",
+ "builds_on": "LOCK 34 runner; LOCK 3 and LOCK 6 regulars; River Market places (LOCK 1). Each mission is its own LOCK and queue line.",
+ "design_reference_not_shown": "Quran 5:2",
+ "missions": [
+  {
+   "id": "lost_child",
+   "lock": 56,
+   "place": "masjid",
+   "hours": [
+    735,
+    840
+   ],
+   "side": true,
+   "title": "A lost child at Friday prayer",
+   "kicker": "River Market · A lost child at Friday prayer",
+   "button": "A small boy is crying by the masjid door",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "After Friday prayer the masjid courtyard is packed. A small boy is crying by the door - he has lost his father in the crowd.",
+     "choices": [
+      {
+       "label": "Take him to the imam to call out for his father",
+       "go": "imam",
+       "fx": {
+        "trust": 4,
+        "say": "found"
+       }
+      },
+      {
+       "label": "Lift him onto your shoulders to look",
+       "go": "shoulders",
+       "fx": {
+        "trust": 4,
+        "say": "found"
+       }
+      },
+      {
+       "label": "Someone else will help",
+       "go": "out"
+      }
+     ]
+    },
+    "imam": {
+     "text": "Yunus the muezzin calls out from the steps. A man pushes through the crowd, white in the face, and scoops the boy up.",
+     "end": true
+    },
+    "shoulders": {
+     "text": "From your shoulders the boy spots his father's red turban and shouts. The man comes running.",
+     "end": true
+    },
+    "out": {
+     "text": "When you look back, an old woman is holding the boy's hand.",
+     "end": true
+    }
+   },
+   "say": {
+    "found": [
+     "Found a lost boy's father at Friday prayer",
+     "the masjid",
+     1
+    ]
+   },
+   "friday": true
+  }
+ ]
+}

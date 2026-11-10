@@ -1,0 +1,879 @@
+{
+ "version": "LOCK 95 V1 (9 Nov 2026) - the Names of Allah in the towns (96 more)",
+ "builds_on": "LOCK 26 (the first three Names), LOCK 15 (the first fountain), LOCK 40 and 47 (two stars), LOCK 34 runner, LOCK 36 roads.",
+ "words": {
+  "button": "Read the calligraphy",
+  "kicker": "The Names of Allah · {town}",
+  "text": "{where}",
+  "meaning": "{tr} - {en}.",
+  "idris": "You remember how Idris taught you to read the old script. You say the Name quietly to yourself.",
+  "done": "Say it, and remember it",
+  "note": "The list follows the well-known list of 99 Names narrated by at-Tirmidhi, as commonly given, including Al-Ahad."
+ },
+ "names": [
+  {
+   "id": "rahman",
+   "town": "jisra",
+   "n": 1,
+   "ar": "الرَّحْمَٰن",
+   "tr": "Ar-Rahman",
+   "en": "The Most Merciful",
+   "where": "Carved over the masjid door in Jisra."
+  },
+  {
+   "id": "rahim",
+   "town": "jisra",
+   "n": 2,
+   "ar": "الرَّحِيم",
+   "tr": "Ar-Rahim",
+   "en": "The Especially Merciful",
+   "where": "Painted round the rim of the fountain in Jisra."
+  },
+  {
+   "id": "malik",
+   "town": "jisra",
+   "n": 3,
+   "ar": "المَلِك",
+   "tr": "Al-Malik",
+   "en": "The King",
+   "where": "Cut into the stone of the town gate in Jisra."
+  },
+  {
+   "id": "quddus",
+   "town": "jisra",
+   "n": 4,
+   "ar": "القُدُّوس",
+   "tr": "Al-Quddus",
+   "en": "The Most Holy",
+   "where": "Inlaid in tiles above a merchant's door in Jisra."
+  },
+  {
+   "id": "mumin",
+   "town": "jisra",
+   "n": 5,
+   "ar": "المُؤْمِن",
+   "tr": "Al-Mu'min",
+   "en": "The Giver of Safety",
+   "where": "Written along a beam in the inn in Jisra."
+  },
+  {
+   "id": "muhaymin",
+   "town": "jisra",
+   "n": 6,
+   "ar": "المُهَيْمِن",
+   "tr": "Al-Muhaymin",
+   "en": "The Guardian over All",
+   "where": "Stitched into a banner in the masjid in Jisra."
+  },
+  {
+   "id": "aziz",
+   "town": "jisra",
+   "n": 7,
+   "ar": "العَزِيز",
+   "tr": "Al-Aziz",
+   "en": "The Almighty",
+   "where": "Carved on the lintel of the school in Jisra."
+  },
+  {
+   "id": "jabbar",
+   "town": "jisra",
+   "n": 8,
+   "ar": "الجَبَّار",
+   "tr": "Al-Jabbar",
+   "en": "The Compeller, Who Mends What Is Broken",
+   "where": "Set in coloured glass in the masjid window in Jisra."
+  },
+  {
+   "id": "mutakabbir",
+   "town": "sahila",
+   "n": 1,
+   "ar": "المُتَكَبِّر",
+   "tr": "Al-Mutakabbir",
+   "en": "The Supremely Great",
+   "where": "Carved over the masjid door in Sahila."
+  },
+  {
+   "id": "khaliq",
+   "town": "sahila",
+   "n": 2,
+   "ar": "الخَالِق",
+   "tr": "Al-Khaliq",
+   "en": "The Creator",
+   "where": "Painted round the rim of the fountain in Sahila."
+  },
+  {
+   "id": "bari",
+   "town": "sahila",
+   "n": 3,
+   "ar": "البَارِئ",
+   "tr": "Al-Bari'",
+   "en": "The Maker from Nothing",
+   "where": "Cut into the stone of the town gate in Sahila."
+  },
+  {
+   "id": "musawwir",
+   "town": "sahila",
+   "n": 4,
+   "ar": "المُصَوِّر",
+   "tr": "Al-Musawwir",
+   "en": "The Shaper of Forms",
+   "where": "Inlaid in tiles above a merchant's door in Sahila."
+  },
+  {
+   "id": "ghaffar",
+   "town": "sahila",
+   "n": 5,
+   "ar": "الغَفَّار",
+   "tr": "Al-Ghaffar",
+   "en": "The Ever-Forgiving",
+   "where": "Written along a beam in the inn in Sahila."
+  },
+  {
+   "id": "qahhar",
+   "town": "sahila",
+   "n": 6,
+   "ar": "القَهَّار",
+   "tr": "Al-Qahhar",
+   "en": "The Overpowering",
+   "where": "Stitched into a banner in the masjid in Sahila."
+  },
+  {
+   "id": "wahhab",
+   "town": "sahila",
+   "n": 7,
+   "ar": "الوَهَّاب",
+   "tr": "Al-Wahhab",
+   "en": "The Giver of Gifts",
+   "where": "Carved on the lintel of the school in Sahila."
+  },
+  {
+   "id": "fattah",
+   "town": "sahila",
+   "n": 8,
+   "ar": "الفَتَّاح",
+   "tr": "Al-Fattah",
+   "en": "The Opener",
+   "where": "Set in coloured glass in the masjid window in Sahila."
+  },
+  {
+   "id": "alim",
+   "town": "sukara",
+   "n": 1,
+   "ar": "العَلِيم",
+   "tr": "Al-Alim",
+   "en": "The All-Knowing",
+   "where": "Carved over the masjid door in Sukara."
+  },
+  {
+   "id": "qabid",
+   "town": "sukara",
+   "n": 2,
+   "ar": "القَابِض",
+   "tr": "Al-Qabid",
+   "en": "The One Who Withholds",
+   "where": "Painted round the rim of the fountain in Sukara."
+  },
+  {
+   "id": "basit",
+   "town": "sukara",
+   "n": 3,
+   "ar": "البَاسِط",
+   "tr": "Al-Basit",
+   "en": "The One Who Extends",
+   "where": "Cut into the stone of the town gate in Sukara."
+  },
+  {
+   "id": "khafid",
+   "town": "sukara",
+   "n": 4,
+   "ar": "الخَافِض",
+   "tr": "Al-Khafid",
+   "en": "The One Who Lowers",
+   "where": "Inlaid in tiles above a merchant's door in Sukara."
+  },
+  {
+   "id": "rafi",
+   "town": "sukara",
+   "n": 5,
+   "ar": "الرَّافِع",
+   "tr": "Ar-Rafi'",
+   "en": "The One Who Raises",
+   "where": "Written along a beam in the inn in Sukara."
+  },
+  {
+   "id": "muizz",
+   "town": "sukara",
+   "n": 6,
+   "ar": "المُعِزّ",
+   "tr": "Al-Mu'izz",
+   "en": "The Giver of Honour",
+   "where": "Stitched into a banner in the masjid in Sukara."
+  },
+  {
+   "id": "mudhill",
+   "town": "sukara",
+   "n": 7,
+   "ar": "المُذِلّ",
+   "tr": "Al-Mudhill",
+   "en": "The One Who Humbles",
+   "where": "Carved on the lintel of the school in Sukara."
+  },
+  {
+   "id": "sami",
+   "town": "sukara",
+   "n": 8,
+   "ar": "السَّمِيع",
+   "tr": "As-Sami'",
+   "en": "The All-Hearing",
+   "where": "Set in coloured glass in the masjid window in Sukara."
+  },
+  {
+   "id": "basir",
+   "town": "safira",
+   "n": 1,
+   "ar": "البَصِير",
+   "tr": "Al-Basir",
+   "en": "The All-Seeing",
+   "where": "Carved over the masjid door in Safira."
+  },
+  {
+   "id": "hakam",
+   "town": "safira",
+   "n": 2,
+   "ar": "الحَكَم",
+   "tr": "Al-Hakam",
+   "en": "The Judge",
+   "where": "Painted round the rim of the fountain in Safira."
+  },
+  {
+   "id": "adl",
+   "town": "safira",
+   "n": 3,
+   "ar": "العَدْل",
+   "tr": "Al-Adl",
+   "en": "The Just",
+   "where": "Cut into the stone of the town gate in Safira."
+  },
+  {
+   "id": "latif",
+   "town": "safira",
+   "n": 4,
+   "ar": "اللَّطِيف",
+   "tr": "Al-Latif",
+   "en": "The Subtle, the Kind",
+   "where": "Inlaid in tiles above a merchant's door in Safira."
+  },
+  {
+   "id": "khabir",
+   "town": "safira",
+   "n": 5,
+   "ar": "الخَبِير",
+   "tr": "Al-Khabir",
+   "en": "The All-Aware",
+   "where": "Written along a beam in the inn in Safira."
+  },
+  {
+   "id": "halim",
+   "town": "safira",
+   "n": 6,
+   "ar": "الحَلِيم",
+   "tr": "Al-Halim",
+   "en": "The Forbearing",
+   "where": "Stitched into a banner in the masjid in Safira."
+  },
+  {
+   "id": "azim",
+   "town": "safira",
+   "n": 7,
+   "ar": "العَظِيم",
+   "tr": "Al-Azim",
+   "en": "The Magnificent",
+   "where": "Carved on the lintel of the school in Safira."
+  },
+  {
+   "id": "ghafur",
+   "town": "safira",
+   "n": 8,
+   "ar": "الغَفُور",
+   "tr": "Al-Ghafur",
+   "en": "The Forgiving",
+   "where": "Set in coloured glass in the masjid window in Safira."
+  },
+  {
+   "id": "shakur",
+   "town": "wadira",
+   "n": 1,
+   "ar": "الشَّكُور",
+   "tr": "Ash-Shakur",
+   "en": "The Appreciative",
+   "where": "Carved over the masjid door in Wadira."
+  },
+  {
+   "id": "aliyy",
+   "town": "wadira",
+   "n": 2,
+   "ar": "العَلِيّ",
+   "tr": "Al-Aliyy",
+   "en": "The Most High",
+   "where": "Painted round the rim of the fountain in Wadira."
+  },
+  {
+   "id": "kabir",
+   "town": "wadira",
+   "n": 3,
+   "ar": "الكَبِير",
+   "tr": "Al-Kabir",
+   "en": "The Most Great",
+   "where": "Cut into the stone of the town gate in Wadira."
+  },
+  {
+   "id": "hafiz",
+   "town": "wadira",
+   "n": 4,
+   "ar": "الحَفِيظ",
+   "tr": "Al-Hafiz",
+   "en": "The Preserver",
+   "where": "Inlaid in tiles above a merchant's door in Wadira."
+  },
+  {
+   "id": "muqit",
+   "town": "wadira",
+   "n": 5,
+   "ar": "المُقِيت",
+   "tr": "Al-Muqit",
+   "en": "The Nourisher",
+   "where": "Written along a beam in the inn in Wadira."
+  },
+  {
+   "id": "jalil",
+   "town": "wadira",
+   "n": 6,
+   "ar": "الجَلِيل",
+   "tr": "Al-Jalil",
+   "en": "The Majestic",
+   "where": "Stitched into a banner in the masjid in Wadira."
+  },
+  {
+   "id": "karim",
+   "town": "wadira",
+   "n": 7,
+   "ar": "الكَرِيم",
+   "tr": "Al-Karim",
+   "en": "The Most Generous",
+   "where": "Carved on the lintel of the school in Wadira."
+  },
+  {
+   "id": "raqib",
+   "town": "wadira",
+   "n": 8,
+   "ar": "الرَّقِيب",
+   "tr": "Ar-Raqib",
+   "en": "The Watchful",
+   "where": "Set in coloured glass in the masjid window in Wadira."
+  },
+  {
+   "id": "mujib",
+   "town": "birana",
+   "n": 1,
+   "ar": "المُجِيب",
+   "tr": "Al-Mujib",
+   "en": "The One Who Answers",
+   "where": "Carved over the masjid door in Birana."
+  },
+  {
+   "id": "wasi",
+   "town": "birana",
+   "n": 2,
+   "ar": "الوَاسِع",
+   "tr": "Al-Wasi'",
+   "en": "The All-Encompassing",
+   "where": "Painted round the rim of the fountain in Birana."
+  },
+  {
+   "id": "hakim",
+   "town": "birana",
+   "n": 3,
+   "ar": "الحَكِيم",
+   "tr": "Al-Hakim",
+   "en": "The All-Wise",
+   "where": "Cut into the stone of the town gate in Birana."
+  },
+  {
+   "id": "wadud",
+   "town": "birana",
+   "n": 4,
+   "ar": "الوَدُود",
+   "tr": "Al-Wadud",
+   "en": "The Loving",
+   "where": "Inlaid in tiles above a merchant's door in Birana."
+  },
+  {
+   "id": "majid",
+   "town": "birana",
+   "n": 5,
+   "ar": "المَجِيد",
+   "tr": "Al-Majid",
+   "en": "The Glorious",
+   "where": "Written along a beam in the inn in Birana."
+  },
+  {
+   "id": "baith",
+   "town": "birana",
+   "n": 6,
+   "ar": "البَاعِث",
+   "tr": "Al-Ba'ith",
+   "en": "The Resurrector",
+   "where": "Stitched into a banner in the masjid in Birana."
+  },
+  {
+   "id": "shahid",
+   "town": "birana",
+   "n": 7,
+   "ar": "الشَّهِيد",
+   "tr": "Ash-Shahid",
+   "en": "The Witness",
+   "where": "Carved on the lintel of the school in Birana."
+  },
+  {
+   "id": "haqq",
+   "town": "birana",
+   "n": 8,
+   "ar": "الحَقّ",
+   "tr": "Al-Haqq",
+   "en": "The Truth",
+   "where": "Set in coloured glass in the masjid window in Birana."
+  },
+  {
+   "id": "wakil",
+   "town": "nahla",
+   "n": 1,
+   "ar": "الوَكِيل",
+   "tr": "Al-Wakil",
+   "en": "The Trustee",
+   "where": "Carved over the masjid door in Nahla."
+  },
+  {
+   "id": "qawiyy",
+   "town": "nahla",
+   "n": 2,
+   "ar": "القَوِيّ",
+   "tr": "Al-Qawiyy",
+   "en": "The Strong",
+   "where": "Painted round the rim of the fountain in Nahla."
+  },
+  {
+   "id": "matin",
+   "town": "nahla",
+   "n": 3,
+   "ar": "المَتِين",
+   "tr": "Al-Matin",
+   "en": "The Firm",
+   "where": "Cut into the stone of the town gate in Nahla."
+  },
+  {
+   "id": "waliyy",
+   "town": "nahla",
+   "n": 4,
+   "ar": "الوَلِيّ",
+   "tr": "Al-Waliyy",
+   "en": "The Protecting Friend",
+   "where": "Inlaid in tiles above a merchant's door in Nahla."
+  },
+  {
+   "id": "hamid",
+   "town": "nahla",
+   "n": 5,
+   "ar": "الحَمِيد",
+   "tr": "Al-Hamid",
+   "en": "The Praiseworthy",
+   "where": "Written along a beam in the inn in Nahla."
+  },
+  {
+   "id": "muhsi",
+   "town": "nahla",
+   "n": 6,
+   "ar": "المُحْصِي",
+   "tr": "Al-Muhsi",
+   "en": "The One Who Counts All Things",
+   "where": "Stitched into a banner in the masjid in Nahla."
+  },
+  {
+   "id": "mubdi",
+   "town": "nahla",
+   "n": 7,
+   "ar": "المُبْدِئ",
+   "tr": "Al-Mubdi'",
+   "en": "The Originator",
+   "where": "Carved on the lintel of the school in Nahla."
+  },
+  {
+   "id": "muid",
+   "town": "nahla",
+   "n": 8,
+   "ar": "المُعِيد",
+   "tr": "Al-Mu'id",
+   "en": "The Restorer",
+   "where": "Set in coloured glass in the masjid window in Nahla."
+  },
+  {
+   "id": "muhyi",
+   "town": "tinara",
+   "n": 1,
+   "ar": "المُحْيِي",
+   "tr": "Al-Muhyi",
+   "en": "The Giver of Life",
+   "where": "Carved over the masjid door in Tinara."
+  },
+  {
+   "id": "mumit",
+   "town": "tinara",
+   "n": 2,
+   "ar": "المُمِيت",
+   "tr": "Al-Mumit",
+   "en": "The Bringer of Death",
+   "where": "Painted round the rim of the fountain in Tinara."
+  },
+  {
+   "id": "hayy",
+   "town": "tinara",
+   "n": 3,
+   "ar": "الحَيّ",
+   "tr": "Al-Hayy",
+   "en": "The Ever-Living",
+   "where": "Cut into the stone of the town gate in Tinara."
+  },
+  {
+   "id": "qayyum",
+   "town": "tinara",
+   "n": 4,
+   "ar": "القَيُّوم",
+   "tr": "Al-Qayyum",
+   "en": "The Self-Sustaining",
+   "where": "Inlaid in tiles above a merchant's door in Tinara."
+  },
+  {
+   "id": "wajid",
+   "town": "tinara",
+   "n": 5,
+   "ar": "الوَاجِد",
+   "tr": "Al-Wajid",
+   "en": "The One Who Lacks Nothing",
+   "where": "Written along a beam in the inn in Tinara."
+  },
+  {
+   "id": "maajid",
+   "town": "tinara",
+   "n": 6,
+   "ar": "المَاجِد",
+   "tr": "Al-Maajid",
+   "en": "The Noble",
+   "where": "Stitched into a banner in the masjid in Tinara."
+  },
+  {
+   "id": "wahid",
+   "town": "tinara",
+   "n": 7,
+   "ar": "الوَاحِد",
+   "tr": "Al-Wahid",
+   "en": "The One",
+   "where": "Carved on the lintel of the school in Tinara."
+  },
+  {
+   "id": "ahad",
+   "town": "tinara",
+   "n": 8,
+   "ar": "الأَحَد",
+   "tr": "Al-Ahad",
+   "en": "The Unique",
+   "where": "Set in coloured glass in the masjid window in Tinara."
+  },
+  {
+   "id": "samad",
+   "town": "tahuna",
+   "n": 1,
+   "ar": "الصَّمَد",
+   "tr": "As-Samad",
+   "en": "The Eternal Refuge",
+   "where": "Carved over the masjid door in Tahuna."
+  },
+  {
+   "id": "qadir",
+   "town": "tahuna",
+   "n": 2,
+   "ar": "القَادِر",
+   "tr": "Al-Qadir",
+   "en": "The All-Able",
+   "where": "Painted round the rim of the fountain in Tahuna."
+  },
+  {
+   "id": "muqtadir",
+   "town": "tahuna",
+   "n": 3,
+   "ar": "المُقْتَدِر",
+   "tr": "Al-Muqtadir",
+   "en": "The All-Powerful",
+   "where": "Cut into the stone of the town gate in Tahuna."
+  },
+  {
+   "id": "muqaddim",
+   "town": "tahuna",
+   "n": 4,
+   "ar": "المُقَدِّم",
+   "tr": "Al-Muqaddim",
+   "en": "The One Who Brings Forward",
+   "where": "Inlaid in tiles above a merchant's door in Tahuna."
+  },
+  {
+   "id": "muakhkhir",
+   "town": "tahuna",
+   "n": 5,
+   "ar": "المُؤَخِّر",
+   "tr": "Al-Mu'akhkhir",
+   "en": "The One Who Delays",
+   "where": "Written along a beam in the inn in Tahuna."
+  },
+  {
+   "id": "awwal",
+   "town": "tahuna",
+   "n": 6,
+   "ar": "الأَوَّل",
+   "tr": "Al-Awwal",
+   "en": "The First",
+   "where": "Stitched into a banner in the masjid in Tahuna."
+  },
+  {
+   "id": "akhir",
+   "town": "tahuna",
+   "n": 7,
+   "ar": "الآخِر",
+   "tr": "Al-Akhir",
+   "en": "The Last",
+   "where": "Carved on the lintel of the school in Tahuna."
+  },
+  {
+   "id": "zahir",
+   "town": "tahuna",
+   "n": 8,
+   "ar": "الظَّاهِر",
+   "tr": "Az-Zahir",
+   "en": "The Manifest",
+   "where": "Set in coloured glass in the masjid window in Tahuna."
+  },
+  {
+   "id": "batin",
+   "town": "waraka",
+   "n": 1,
+   "ar": "البَاطِن",
+   "tr": "Al-Batin",
+   "en": "The Hidden",
+   "where": "Carved over the masjid door in Waraka."
+  },
+  {
+   "id": "wali",
+   "town": "waraka",
+   "n": 2,
+   "ar": "الوَالِي",
+   "tr": "Al-Wali",
+   "en": "The Governor",
+   "where": "Painted round the rim of the fountain in Waraka."
+  },
+  {
+   "id": "mutaali",
+   "town": "waraka",
+   "n": 3,
+   "ar": "المُتَعَالِي",
+   "tr": "Al-Muta'ali",
+   "en": "The Most Exalted",
+   "where": "Cut into the stone of the town gate in Waraka."
+  },
+  {
+   "id": "barr",
+   "town": "waraka",
+   "n": 4,
+   "ar": "البَرّ",
+   "tr": "Al-Barr",
+   "en": "The Source of Goodness",
+   "where": "Inlaid in tiles above a merchant's door in Waraka."
+  },
+  {
+   "id": "tawwab",
+   "town": "waraka",
+   "n": 5,
+   "ar": "التَّوَّاب",
+   "tr": "At-Tawwab",
+   "en": "The Accepter of Repentance",
+   "where": "Written along a beam in the inn in Waraka."
+  },
+  {
+   "id": "muntaqim",
+   "town": "waraka",
+   "n": 6,
+   "ar": "المُنْتَقِم",
+   "tr": "Al-Muntaqim",
+   "en": "The One Who Avenges Wrong",
+   "where": "Stitched into a banner in the masjid in Waraka."
+  },
+  {
+   "id": "afuww",
+   "town": "waraka",
+   "n": 7,
+   "ar": "العَفُوّ",
+   "tr": "Al-Afuww",
+   "en": "The Pardoner",
+   "where": "Carved on the lintel of the school in Waraka."
+  },
+  {
+   "id": "rauf",
+   "town": "waraka",
+   "n": 8,
+   "ar": "الرَّؤُوف",
+   "tr": "Ar-Ra'uf",
+   "en": "The Most Kind",
+   "where": "Set in coloured glass in the masjid window in Waraka."
+  },
+  {
+   "id": "malikmulk",
+   "town": "najmara",
+   "n": 1,
+   "ar": "مَالِكُ المُلْك",
+   "tr": "Malik al-Mulk",
+   "en": "The Owner of All Sovereignty",
+   "where": "Carved over the masjid door in Najmara."
+  },
+  {
+   "id": "dhuljalaliwikram",
+   "town": "najmara",
+   "n": 2,
+   "ar": "ذُو الجَلَالِ وَالإِكْرَام",
+   "tr": "Dhul-Jalali wal-Ikram",
+   "en": "The Lord of Majesty and Generosity",
+   "where": "Painted round the rim of the fountain in Najmara."
+  },
+  {
+   "id": "muqsit",
+   "town": "najmara",
+   "n": 3,
+   "ar": "المُقْسِط",
+   "tr": "Al-Muqsit",
+   "en": "The Equitable",
+   "where": "Cut into the stone of the town gate in Najmara."
+  },
+  {
+   "id": "jami",
+   "town": "najmara",
+   "n": 4,
+   "ar": "الجَامِع",
+   "tr": "Al-Jami'",
+   "en": "The Gatherer",
+   "where": "Inlaid in tiles above a merchant's door in Najmara."
+  },
+  {
+   "id": "ghaniyy",
+   "town": "najmara",
+   "n": 5,
+   "ar": "الغَنِيّ",
+   "tr": "Al-Ghaniyy",
+   "en": "The Self-Sufficient",
+   "where": "Written along a beam in the inn in Najmara."
+  },
+  {
+   "id": "mughni",
+   "town": "najmara",
+   "n": 6,
+   "ar": "المُغْنِي",
+   "tr": "Al-Mughni",
+   "en": "The Enricher",
+   "where": "Stitched into a banner in the masjid in Najmara."
+  },
+  {
+   "id": "mani",
+   "town": "najmara",
+   "n": 7,
+   "ar": "المَانِع",
+   "tr": "Al-Mani'",
+   "en": "The Withholder of Harm",
+   "where": "Carved on the lintel of the school in Najmara."
+  },
+  {
+   "id": "darr",
+   "town": "najmara",
+   "n": 8,
+   "ar": "الضَّارّ",
+   "tr": "Ad-Darr",
+   "en": "The One Who Lets Harm Reach, by His Wisdom",
+   "where": "Set in coloured glass in the masjid window in Najmara."
+  },
+  {
+   "id": "nafi",
+   "town": "shifara",
+   "n": 1,
+   "ar": "النَّافِع",
+   "tr": "An-Nafi'",
+   "en": "The Giver of Benefit",
+   "where": "Carved over the masjid door in Shifara."
+  },
+  {
+   "id": "nur",
+   "town": "shifara",
+   "n": 2,
+   "ar": "النُّور",
+   "tr": "An-Nur",
+   "en": "The Light",
+   "where": "Painted round the rim of the fountain in Shifara."
+  },
+  {
+   "id": "hadi",
+   "town": "shifara",
+   "n": 3,
+   "ar": "الهَادِي",
+   "tr": "Al-Hadi",
+   "en": "The Guide",
+   "where": "Cut into the stone of the town gate in Shifara."
+  },
+  {
+   "id": "badi",
+   "town": "shifara",
+   "n": 4,
+   "ar": "البَدِيع",
+   "tr": "Al-Badi'",
+   "en": "The Incomparable Originator",
+   "where": "Inlaid in tiles above a merchant's door in Shifara."
+  },
+  {
+   "id": "baqi",
+   "town": "shifara",
+   "n": 5,
+   "ar": "البَاقِي",
+   "tr": "Al-Baqi",
+   "en": "The Everlasting",
+   "where": "Written along a beam in the inn in Shifara."
+  },
+  {
+   "id": "warith",
+   "town": "shifara",
+   "n": 6,
+   "ar": "الوَارِث",
+   "tr": "Al-Warith",
+   "en": "The Inheritor",
+   "where": "Stitched into a banner in the masjid in Shifara."
+  },
+  {
+   "id": "rashid",
+   "town": "shifara",
+   "n": 7,
+   "ar": "الرَّشِيد",
+   "tr": "Ar-Rashid",
+   "en": "The Guide to What Is Right",
+   "where": "Carved on the lintel of the school in Shifara."
+  },
+  {
+   "id": "sabur",
+   "town": "shifara",
+   "n": 8,
+   "ar": "الصَّبُور",
+   "tr": "As-Sabur",
+   "en": "The Most Patient",
+   "where": "Set in coloured glass in the masjid window in Shifara."
+  }
+ ]
+}

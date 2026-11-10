@@ -1,0 +1,172 @@
+{
+ "version": "LOCK 88 V1 (9 Nov 2026) - Saeed's animals",
+ "builds_on": "LOCK 5 (clothes and bags), LOCK 9 (secret giving after page 1), LOCK 23 Saeed, LOCK 34 runner, LOCK 36 roads. Founder 8 Nov picks: animals, land and buildings, businesses, waqf; marriage and family (scholar check set aside 9 Nov).",
+ "numbers": {
+  "donkey_factor": 0.75,
+  "camel_factor": 0.6,
+  "horse_factor": 0.5,
+  "unfed_days": 3
+ },
+ "design_reference_not_shown": {
+  "buy_animal": "Abu Dawud 2548",
+  "feed_animal": "Abu Dawud 2548",
+  "animal_neglected": ""
+ },
+ "missions": [
+  {
+   "id": "buy_animal",
+   "lock": 88,
+   "hours": [
+    420,
+    1080
+   ],
+   "title": "Saeed's animals",
+   "kicker": "Owning · Animals",
+   "button": "Saeed has animals for sale",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Saeed the herder has brought animals to the gate: a grey donkey, a young camel and a bay mare. “A donkey gets you there a quarter faster, a camel faster still, the mare fastest of all. Feed them every day - an animal can't ask.”",
+     "choices": [
+      {
+       "label": "The donkey · 40 coins",
+       "need_coins": 40,
+       "unless": [
+        "own_donkey"
+       ],
+       "go": "b",
+       "fx": {
+        "coins": -40,
+        "flag": [
+         "own_donkey",
+         "own_any"
+        ]
+       }
+      },
+      {
+       "label": "The camel · 120 coins",
+       "need_coins": 120,
+       "unless": [
+        "own_camel"
+       ],
+       "go": "b",
+       "fx": {
+        "coins": -120,
+        "flag": [
+         "own_camel",
+         "own_any"
+        ]
+       }
+      },
+      {
+       "label": "The mare · 200 coins",
+       "need_coins": 200,
+       "unless": [
+        "own_horse"
+       ],
+       "go": "b",
+       "fx": {
+        "coins": -200,
+        "flag": [
+         "own_horse",
+         "own_any"
+        ]
+       }
+      },
+      {
+       "label": "Not today",
+       "go": "no"
+      }
+     ]
+    },
+    "b": {
+     "text": "Saeed hands you the halter. “The stable at the inn will keep it. Feed it every day.”",
+     "end": true
+    },
+    "no": {
+     "text": "Saeed shrugs. “They'll be here.”",
+     "end": true
+    }
+   },
+   "place": "gate",
+   "repeat": "daily"
+  },
+  {
+   "id": "feed_animal",
+   "lock": 88,
+   "hours": [
+    300,
+    1200
+   ],
+   "title": "Feeding your animal",
+   "kicker": "Owning · The stable",
+   "button": "Feed your animal · 1 coin",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "You fill the trough with barley and fresh water and rub your animal's neck while it eats.",
+     "choices": [
+      {
+       "label": "Done",
+       "fx": {
+        "coins": -1,
+        "minutes": 10,
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "place": "inn",
+   "after": [
+    "own_any"
+   ],
+   "repeat": "daily"
+  },
+  {
+   "id": "animal_neglected",
+   "lock": 88,
+   "hours": [
+    300,
+    1200
+   ],
+   "title": "The stable boy",
+   "kicker": "Owning · The stable",
+   "button": "The stable boy wants a word",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The stable boy is angry. “Three days and nobody fed your animal. I gave it my own barley.”",
+     "choices": [
+      {
+       "label": "Pay him back and feed it · 3 coins",
+       "fx": {
+        "coins": -3,
+        "trust": -3,
+        "say": "neglect",
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "place": "inn",
+   "after": [
+    "own_any"
+   ],
+   "stale": {
+    "mission": "feed_animal",
+    "days": 3,
+    "flag": "own_any"
+   },
+   "repeat": "daily",
+   "say": {
+    "neglect": [
+     "Forgets to feed their animal",
+     "the stable boy at the inn",
+     -1
+    ]
+   }
+  }
+ ]
+}

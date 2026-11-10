@@ -1,0 +1,103 @@
+{
+ "version": "LOCK 24 V1 (9 Nov 2026) - lifetime goals: pilgrims you send",
+ "builds_on": "LOCK 3 giving in secret and What people say, LOCK 10 Abbas the caravan master, LOCK 18 calendar (Shawwal 9, Dhu al-Qa'dah 10, Dhu al-Hijjah 11). Placeholders: {n}, {m}, {name}.",
+ "numbers": {
+  "from": 420,
+  "until": 1080,
+  "umrah_cost": 40,
+  "hajj_cost": 120,
+  "umrah_days": 30,
+  "hajj_book_from_month": 9,
+  "hajj_book_until_month": 10,
+  "hajj_book_until_day": 25,
+  "hajj_back_month": 11,
+  "hajj_back_day": 25,
+  "return_trust": 2,
+  "goal_umrah": 1000,
+  "goal_hajj": 100
+ },
+ "gate_button": "Abbas takes pilgrims",
+ "panel": {
+  "kicker": "The Gate of Trust · the pilgrim caravan",
+  "title": "Abbas the caravan master",
+  "text": "Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+  "send": "Send him · {n} coins",
+  "not_enough": "not enough coins",
+  "away": "on the road · home in {n} days",
+  "home": "came home",
+  "hajj_closed": "Hajj names: 1 Shawwal - 25 Dhu al-Qa'dah",
+  "secret_label": "Ask Abbas not to say who paid",
+  "secret_locked": "(You can give in secret once you have read the scholar's first page.)",
+  "counter": "Umrah trips paid: {n} / {m}",
+  "counter_hajj": "Hajj trips paid: {n} / {m}",
+  "back": "Back to the market map"
+ },
+ "pilgrims": [
+  {
+   "id": "musa",
+   "name": "Old Musa",
+   "kind": "umrah",
+   "line": "Has weighed other men's goods for fifty years and never seen the Kaaba.",
+   "say": [
+    "Sent Old Musa on Umrah",
+    "Old Musa, the scale-keeper",
+    1
+   ],
+   "say_secret": [
+    "Someone sent Old Musa on Umrah",
+    "Old Musa, the scale-keeper",
+    0
+   ]
+  },
+  {
+   "id": "yunus",
+   "name": "Yunus the muezzin",
+   "kind": "umrah",
+   "line": "Calls the adhan five times a day and dreams of hearing it in Makkah.",
+   "say": [
+    "Sent Yunus on Umrah",
+    "Yunus the muezzin",
+    1
+   ],
+   "say_secret": [
+    "Someone sent Yunus on Umrah",
+    "Yunus the muezzin",
+    0
+   ]
+  },
+  {
+   "id": "jamal",
+   "name": "Jamal the boat master",
+   "kind": "umrah",
+   "line": "Has carried pilgrims across the river every year and never gone himself.",
+   "say": [
+    "Sent Jamal on Umrah",
+    "Jamal the boat master",
+    1
+   ],
+   "say_secret": [
+    "Someone sent Jamal on Umrah",
+    "Jamal the boat master",
+    0
+   ]
+  },
+  {
+   "id": "idris",
+   "name": "Idris the imam",
+   "kind": "hajj",
+   "line": "Has taught the rites of Hajj for forty years and never performed it.",
+   "say": [
+    "Sent Idris on Hajj",
+    "Idris the imam",
+    1
+   ],
+   "say_secret": [
+    "Someone sent Idris on Hajj",
+    "Idris the imam",
+    0
+   ]
+  }
+ ],
+ "kind_umrah": "Umrah",
+ "kind_hajj": "Hajj"
+}

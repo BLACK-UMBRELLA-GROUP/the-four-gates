@@ -1,0 +1,67 @@
+{
+ "version": "LOCK 53 V1 (9 Nov 2026) - side mission: The neighbour's wall",
+ "builds_on": "LOCK 34 runner; LOCK 3 and LOCK 6 regulars; River Market places (LOCK 1). Each mission is its own LOCK and queue line.",
+ "design_reference_not_shown": "Bukhari 2463",
+ "missions": [
+  {
+   "id": "neighbours_wall",
+   "lock": 53,
+   "place": "weaver",
+   "hours": [
+    480,
+    1080
+   ],
+   "side": true,
+   "title": "The neighbour's wall",
+   "kicker": "River Market · The neighbour's wall",
+   "button": "Nadir and Saif are arguing over a wall",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Nadir wants to rest a roof beam on the wall he shares with Saif, to shade his loom. Saif says the wall is his and refuses. They ask you to decide.",
+     "choices": [
+      {
+       "label": "Ask Saif gently to let the beam rest",
+       "go": "beam",
+       "fx": {
+        "trust": 5,
+        "flag": "wall_settled",
+        "say": "settled"
+       }
+      },
+      {
+       "label": "Side with Saif - it is his wall",
+       "go": "saif",
+       "fx": {
+        "trust": 0
+       }
+      },
+      {
+       "label": "Refuse to decide",
+       "go": "out"
+      }
+     ]
+    },
+    "beam": {
+     "text": "“A wall that holds up your neighbour's roof is a good wall,” you say. Saif grumbles, then helps Nadir lift the beam into place.",
+     "end": true
+    },
+    "saif": {
+     "text": "Saif smiles. Nadir works in the sun all summer.",
+     "end": true
+    },
+    "out": {
+     "text": "They go to the qadi. It takes a month.",
+     "end": true
+    }
+   },
+   "say": {
+    "settled": [
+     "Settled Nadir and Saif's wall",
+     "the weavers' lane",
+     1
+    ]
+   }
+  }
+ ]
+}

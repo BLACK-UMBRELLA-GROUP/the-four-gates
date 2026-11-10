@@ -1,0 +1,130 @@
+{
+ "version": "LOCK 36 V1 (9 Nov 2026) - the road map and the gates at night",
+ "builds_on": "LOCK 2 world (four gates, three towns each), LOCK 32 the road east, LOCK 34 towns. Placeholders: {name}, {n}, {gate}.",
+ "numbers": {
+  "gates_close": 1200,
+  "gates_open": 280
+ },
+ "words": {
+  "map_button": "Road map",
+  "kicker": "The roads from Ilmara",
+  "title": "Road map",
+  "ilmara": "Ilmara · River Market",
+  "here": "you are here",
+  "go": "Go · {n} min",
+  "closed": "not open yet",
+  "gate_closed": "The {gate} is closed",
+  "night": "The roads are dark and the gates of Ilmara are shut from {a} until {b}. Rest at an inn and set out after Fajr.",
+  "back": "Back"
+ },
+ "gates": [
+  {
+   "id": "trust",
+   "name": "Gate of Trust",
+   "dir": "east",
+   "opens": "gate_opened"
+  },
+  {
+   "id": "patience",
+   "name": "Gate of Patience",
+   "dir": "north",
+   "opens": "chapter1_done"
+  },
+  {
+   "id": "mercy",
+   "name": "Gate of Mercy",
+   "dir": "south",
+   "opens": "chapter2_done"
+  },
+  {
+   "id": "knowledge",
+   "name": "Gate of Knowledge",
+   "dir": "west",
+   "opens": "chapter3_done"
+  }
+ ],
+ "roads": [
+  {
+   "town": "jisra",
+   "gate": "trust",
+   "minutes": 90
+  },
+  {
+   "town": "sahila",
+   "gate": "trust",
+   "minutes": 150,
+   "opens": "met_jisra"
+  },
+  {
+   "town": "sukara",
+   "gate": "trust",
+   "minutes": 210,
+   "opens": "sahila_boat_done"
+  },
+  {
+   "town": "safira",
+   "gate": "patience",
+   "minutes": 120
+  },
+  {
+   "town": "wadira",
+   "gate": "patience",
+   "minutes": 210,
+   "opens": "safira_done"
+  },
+  {
+   "town": "birana",
+   "gate": "patience",
+   "minutes": 270,
+   "opens": "wadira_done"
+  },
+  {
+   "town": "nahla",
+   "gate": "mercy",
+   "minutes": 100
+  },
+  {
+   "town": "tinara",
+   "gate": "mercy",
+   "minutes": 170,
+   "opens": "nahla_done"
+  },
+  {
+   "town": "tahuna",
+   "gate": "mercy",
+   "minutes": 230,
+   "opens": "tinara_done"
+  },
+  {
+   "town": "waraka",
+   "gate": "knowledge",
+   "minutes": 110
+  },
+  {
+   "town": "najmara",
+   "gate": "knowledge",
+   "minutes": 180,
+   "opens": "waraka_done"
+  },
+  {
+   "town": "shifara",
+   "gate": "knowledge",
+   "minutes": 240,
+   "opens": "najmara_done"
+  }
+ ],
+ "names": {
+  "jisra": "Jisra",
+  "sahila": "Sahila",
+  "sukara": "Sukara",
+  "safira": "Safira",
+  "wadira": "Wadira",
+  "birana": "Birana",
+  "nahla": "Nahla",
+  "tinara": "Tinara",
+  "tahuna": "Tahuna",
+  "waraka": "Waraka",
+  "najmara": "Najmara",
+  "shifara": "Shifara"
+ }
+}

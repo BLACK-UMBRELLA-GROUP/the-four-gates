@@ -1,0 +1,80 @@
+{
+ "version": "LOCK 28 V1 (9 Nov 2026) - the regulars remember",
+ "builds_on": "LOCK 6 talking (tier line, fact line), LOCKs 9-25 (what each regular saw or heard). One extra line: the first memory in each list that is true.",
+ "memories": {
+  "salma": [
+   [
+    "jars_seen",
+    "“I saw the jars at the quay at night. I said nothing. Others will.”"
+   ],
+   [
+    "fountain_named",
+    "“My children drink from your fountain every morning.”"
+   ],
+   [
+    "feeds",
+    "“Half this street has eaten your bread. They know who paid.”"
+   ]
+  ],
+  "rashid": [
+   [
+    "loan_riba",
+    "“Thirty-six for thirty. I have not forgotten.”"
+   ],
+   [
+    "loan_demand",
+    "“I still owe Mansur because of you.”"
+   ],
+   [
+    "dice_seen",
+    "“They say you dice behind the blue cloth. Is that where my customers' coins go?”"
+   ],
+   [
+    "loan_forgive",
+    "“Ten coins you let go. I tell everyone who buys pepper.”"
+   ],
+   [
+    "loan_wait",
+    "“You waited for me. If you ever need time, I will wait for you.”"
+   ]
+  ],
+  "layla": [
+   [
+    "school",
+    "“Faris showed me his slate. He can write his name now.”"
+   ],
+   [
+    "fountain_named",
+    "“I wash my threads at your fountain. The colours have never been brighter.”"
+   ]
+  ],
+  "jamal": [
+   [
+    "jars_seen",
+    "“Qasim's boat ties up at my quay at night. I know what it carries, and who carries it.”"
+   ],
+   [
+    "umrah_jamal",
+    "“I saw the Kaaba. Because of you. I will never forget it.”"
+   ],
+   [
+    "umrah_jamal_secret",
+    "“Someone sent me to Makkah. Allah knows who. I pray for them every night.”"
+   ]
+  ],
+  "musa": [
+   [
+    "umrah_musa",
+    "“Fifty years at the scales, and then the Kaaba. I pray for you every night.”"
+   ],
+   [
+    "umrah_musa_secret",
+    "“Someone paid for my Umrah. I will never know who. Allah knows.”"
+   ],
+   [
+    "name_hasib",
+    "“You read the word on my beam. Al-Hasib. Then you understand my work.”"
+   ]
+  ]
+ }
+}

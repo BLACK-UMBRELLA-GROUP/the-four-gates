@@ -1,0 +1,87 @@
+{
+ "version": "LOCK 60 V1 (9 Nov 2026) - side mission: The spilled spice",
+ "builds_on": "LOCK 34 runner; LOCK 3 and LOCK 6 regulars; River Market places (LOCK 1). Each mission is its own LOCK and queue line.",
+ "design_reference_not_shown": "Quran 4:135",
+ "missions": [
+  {
+   "id": "spilled_spice",
+   "lock": 60,
+   "place": "spice",
+   "hours": [
+    480,
+    1080
+   ],
+   "side": true,
+   "title": "The spilled spice",
+   "kicker": "River Market · The spilled spice",
+   "button": "Old Sulayman knocked over a sack",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Old Sulayman, half blind, knocks over a sack of saffron at Rashid's stall and shuffles on without noticing. You are the only one who saw.",
+     "choices": [
+      {
+       "label": "Remember it",
+       "go": "b",
+       "fx": {
+        "flag": "saw_spice"
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "Later, Rashid has Faris the orphan boy by the ear. “You! You were hanging round my stall!” He turns to you. “You were here. Was it him?”",
+     "choices": [
+      {
+       "label": "Tell the truth: it was Sulayman, by accident",
+       "go": "truth",
+       "fx": {
+        "trust": 6,
+        "say": "truth"
+       }
+      },
+      {
+       "label": "Say it was Faris",
+       "go": "lie",
+       "fx": {
+        "trust": -8,
+        "say": "lie"
+       }
+      },
+      {
+       "label": "Say you didn't see",
+       "go": "silent",
+       "fx": {
+        "trust": -2
+       }
+      }
+     ]
+    },
+    "truth": {
+     "text": "Rashid lets go of Faris's ear. He goes to find Sulayman, who is so upset that Rashid ends up comforting him. Faris looks at you like you've given him a coin.",
+     "end": true
+    },
+    "lie": {
+     "text": "Rashid makes Faris sweep his stall for a week. The next day Sulayman comes to apologise for the saffron.",
+     "end": true
+    },
+    "silent": {
+     "text": "Rashid lets Faris go with a cuff and a warning. Faris doesn't come near the spice row for a week.",
+     "end": true
+    }
+   },
+   "say": {
+    "truth": [
+     "Spoke up for Faris at the spice row",
+     "Faris and Rashid",
+     1
+    ],
+    "lie": [
+     "Blamed Faris for the saffron",
+     "the spice row",
+     -1
+    ]
+   }
+  }
+ ]
+}

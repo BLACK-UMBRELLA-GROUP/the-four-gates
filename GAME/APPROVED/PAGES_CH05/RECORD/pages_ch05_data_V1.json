@@ -1,0 +1,165 @@
+{
+ "version": "LOCK 68 V1 (9 Nov 2026) - the scholar's notebook, chapter 5: Neighbours and community",
+ "builds_on": "LOCK 3 (page 1, read with Idris), LOCK 34 runner, LOCK 51 (the last page). Every reference checked on sunnah.com; the game never shows the reference.",
+ "words": {
+  "find_button": "{p} has found a page",
+  "find_kicker": "The scholar's notebook · a page found",
+  "find_title": "A page in the scholar's hand",
+  "take": "Take the page to Idris",
+  "read_button": "Read the scholar's page with Idris",
+  "read_kicker": "The scholar's notebook · page {n} of 100",
+  "read_turn": "Close the notebook",
+  "idris": "Idris: “{t}”",
+  "story": "Idris turns back through the pages. “{t}”",
+  "hours": [
+   420,
+   1140
+  ]
+ },
+ "chapter": {
+  "n": 5,
+  "title": "Neighbours and community",
+  "story": "In every town he stayed, he swept the masjid and asked the oldest neighbour for her stories."
+ },
+ "pages": [
+  {
+   "n": 41,
+   "chapter": 5,
+   "ref": "Nawawi 40, no. 27",
+   "saying": "Righteousness is good character, and sin is what wavers in your heart and you would hate people to find out.",
+   "idris": "If you'd hide it from Rashid, you already know what it is.",
+   "person": "Zaynab",
+   "found": "Zaynab found a page lining an old hat bought from a pedlar.",
+   "after": [
+    "chapter3_done"
+   ],
+   "town": "waraka"
+  },
+  {
+   "n": 42,
+   "chapter": 5,
+   "ref": "Nawawi 40, no. 28",
+   "saying": "Hold fast to my way and the way of the rightly guided after me; beware of newly invented matters.",
+   "idris": "The old road is safer than a short cut nobody has walked.",
+   "person": "Kamil",
+   "found": "Kamil hands you a loaf wrapped in an old page. “Look at the writing on this.”",
+   "after": [
+    "chapter3_done",
+    "page_41_found"
+   ],
+   "town": "najmara"
+  },
+  {
+   "n": 43,
+   "chapter": 5,
+   "ref": "Nawawi 40, no. 29",
+   "saying": "A man asked for a deed to take him to Paradise; he was told the pillars, then the gates of good - fasting, charity, night prayer - and finally to guard his tongue.",
+   "idris": "Of all of it, the tongue was left for last. Think about why.",
+   "person": "Shakir",
+   "found": "Shakir found a folded page in a crack while mending a wall. “It's in a scholar's hand. You'll know who wants it.”",
+   "after": [
+    "chapter3_done",
+    "page_42_found"
+   ],
+   "town": "shifara"
+  },
+  {
+   "n": 44,
+   "chapter": 5,
+   "ref": "Nawawi 40, no. 30",
+   "saying": "Allah has set duties - do not neglect them; limits - do not cross them; and He was silent about some things out of mercy, not forgetfulness - do not dig into them.",
+   "idris": "Not every question needs answering. Some silence is a mercy.",
+   "person": "Zaynab",
+   "found": "Children are flying a kite made from an old page. Zaynab buys it from them for a date and gives it to you.",
+   "after": [
+    "chapter3_done",
+    "page_43_found"
+   ],
+   "town": "waraka"
+  },
+  {
+   "n": 45,
+   "chapter": 5,
+   "ref": "Nawawi 40, no. 31",
+   "saying": "Detach yourself from the world and Allah will love you; detach yourself from what people own and people will love you.",
+   "idris": "Want less of what Jalal has. You'll sleep better than Jalal.",
+   "person": "Kamil",
+   "found": "Kamil found a page pressed inside a second-hand book.",
+   "after": [
+    "chapter3_done",
+    "page_44_found"
+   ],
+   "town": "najmara"
+  },
+  {
+   "n": 46,
+   "chapter": 5,
+   "ref": "Nawawi 40, no. 32",
+   "saying": "There should be no harm, and no harming in return.",
+   "idris": "Four words in Arabic. A whole court of law in them.",
+   "person": "Shakir",
+   "found": "Shakir has been using a page to wrap spices and has only just noticed the writing.",
+   "after": [
+    "chapter3_done",
+    "page_45_found"
+   ],
+   "town": "shifara"
+  },
+  {
+   "n": 47,
+   "chapter": 5,
+   "ref": "Nawawi 40, no. 33",
+   "saying": "If people were given whatever they claimed, they would claim others' wealth and blood; the claimant must bring proof, and the one who denies takes an oath.",
+   "idris": "Khattab shouted. Proof is what settled it.",
+   "person": "Zaynab",
+   "found": "Zaynab pulls a damp page from the bottom of a basket and dries it for you.",
+   "after": [
+    "chapter3_done",
+    "page_46_found"
+   ],
+   "town": "waraka"
+  },
+  {
+   "n": 48,
+   "chapter": 5,
+   "ref": "Nawawi 40, no. 34",
+   "saying": "Whoever sees a wrong, let him change it with his hand; if he cannot, with his tongue; if he cannot, with his heart - and that is the weakest of faith.",
+   "idris": "Hamid's toll. You had all three choices that day.",
+   "person": "Kamil",
+   "found": "Kamil found a page under a loose floor tile.",
+   "after": [
+    "chapter3_done",
+    "page_47_found"
+   ],
+   "town": "najmara"
+  },
+  {
+   "n": 49,
+   "chapter": 5,
+   "ref": "Nawawi 40, no. 35",
+   "saying": "Do not envy, cheat, hate or turn your backs on each other; be brothers. A Muslim does not wrong, abandon or despise his brother. Allah looks at your hearts and deeds.",
+   "idris": "The heart, again. He keeps coming back to the heart.",
+   "person": "Shakir",
+   "found": "Shakir was given a debt note - and the scholar's page is written on the back of it.",
+   "after": [
+    "chapter3_done",
+    "page_48_found"
+   ],
+   "town": "shifara"
+  },
+  {
+   "n": 50,
+   "chapter": 5,
+   "ref": "Nawawi 40, no. 36",
+   "saying": "Whoever removes a hardship from a believer, Allah removes one of his hardships on the Day of Resurrection; whoever covers a Muslim's fault, Allah covers his; whoever takes a path to knowledge, Allah eases his path to Paradise.",
+   "idris": "Rahma's ward. Kamil's term. All of it in one page.",
+   "person": "Zaynab",
+   "found": "Zaynab's little one folded a page into a paper boat. Zaynab dried it out for you.",
+   "after": [
+    "chapter3_done",
+    "page_49_found"
+   ],
+   "town": "waraka"
+  }
+ ]
+}

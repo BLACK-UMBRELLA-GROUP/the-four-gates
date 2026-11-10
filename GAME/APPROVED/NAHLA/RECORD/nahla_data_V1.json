@@ -1,0 +1,257 @@
+{
+ "version": "LOCK 43 V1 (9 Nov 2026) - Nahla, the beekeepers: the sick child and the overloaded donkey",
+ "builds_on": "LOCK 34 runner, LOCK 36 (Gate of Mercy opens after chapter 2). Design references (not shown): Quran 16:69 (honey, healing); Abu Dawud 2548 (fear Allah regarding animals that cannot speak).",
+ "towns": {
+  "nahla": {
+   "name": "Nahla",
+   "gate": "mercy",
+   "start_trust": 10,
+   "inn": 2,
+   "kicker": "Nahla · the beekeepers",
+   "text": "Hives of clay and straw stand in rows on the hillside, and the bees are everywhere. Nahla's honey goes to every pharmacy in Ilmara.",
+   "work": {
+    "label": "Carry honey jars down the hill · 4 coins",
+    "hours": [
+     420,
+     960
+    ],
+    "minutes": 60,
+    "coins": 4,
+    "trust": 1
+   },
+   "masjids": [
+    "nahla"
+   ],
+   "bg": "market_day"
+  }
+ },
+ "masjids": {
+  "nahla": {
+   "button": "Go to the hillside masjid",
+   "kicker": "Nahla · the hillside masjid",
+   "title": "The hillside masjid",
+   "text": "A white masjid among the hives. Bees drift in through the window and nobody minds.",
+   "first": "A beekeeper gives you a piece of comb wrapped in a leaf after the prayer."
+  }
+ },
+ "people": [
+  {
+   "id": "dawud",
+   "town": "nahla",
+   "name": "Dawud",
+   "role": "the beekeeper",
+   "hours": [
+    300,
+    1080
+   ],
+   "prays": true,
+   "lines": {
+    "wary": "Dawud waves smoke at a hive. “Stand still. They don't know you.”",
+    "friendly": "“The bee takes from a hundred flowers and harms none of them. Learn from that.”",
+    "warm": "“Take a jar. No, take two.”"
+   },
+   "memory": [
+    [
+     "sick_sat",
+     "“You sat with that boy all night. The bees know you now.”"
+    ]
+   ]
+  },
+  {
+   "id": "umm_yahya",
+   "town": "nahla",
+   "name": "Umm Yahya",
+   "role": "a mother",
+   "hours": [
+    360,
+    1080
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "Umm Yahya hurries past with a basket.",
+    "friendly": "“Yahya is running again. Thank Allah.”",
+    "warm": "“Yahya asks every day when the traveller is coming back.”"
+   },
+   "memory": [
+    [
+     "sick_sat",
+     "“You stayed. I'll never forget you stayed.”"
+    ]
+   ]
+  },
+  {
+   "id": "ayyub",
+   "town": "nahla",
+   "name": "Ayyub",
+   "role": "the carter",
+   "hours": [
+    420,
+    1020
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "Ayyub loads jars and doesn't stop to talk.",
+    "friendly": "“Two donkeys now. Business is good.”",
+    "warm": "“My donkey walks faster for you than for me.”"
+   },
+   "memory": [
+    [
+     "donkey_helped",
+     "“You grabbed my stick. I was angry. Then I looked at her legs.”"
+    ]
+   ]
+  }
+ ],
+ "missions": [
+  {
+   "id": "sick_child",
+   "town": "nahla",
+   "main": true,
+   "title": "The sick child",
+   "kicker": "Chapter 3 · The sick child",
+   "button": "Umm Yahya is crying at her door",
+   "hours": [
+    360,
+    1080
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Umm Yahya's little son has had a fever for three days and won't eat. The healer lives in Shifara, far off. Dawud says honey in warm water helps, and that the boy needs someone with him while she sees to her other children.",
+     "choices": [
+      {
+       "label": "Sit with the boy through the night",
+       "go": "sit",
+       "fx": {
+        "minutes": 600,
+        "trust": 8,
+        "flag": [
+         "sick_sat",
+         "sick_child_done"
+        ],
+        "say": "sat"
+       }
+      },
+      {
+       "label": "Buy honey and herbs for her · 12 coins",
+       "need_coins": 12,
+       "go": "buy",
+       "fx": {
+        "coins": -12,
+        "trust": 5,
+        "flag": "sick_child_done",
+        "say": "bought"
+       }
+      },
+      {
+       "label": "Wish her well and go",
+       "go": "go",
+       "fx": {
+        "flag": "sick_child_done"
+       }
+      }
+     ]
+    },
+    "sit": {
+     "text": "You sit by his bed, wiping his forehead and spooning honey water into him. Near Fajr the fever breaks and he asks for bread.",
+     "end": true
+    },
+    "buy": {
+     "text": "Dawud sells you his best honey and a twist of herbs. Umm Yahya presses your hand without a word.",
+     "end": true
+    },
+    "go": {
+     "text": "The next morning you hear the fever broke in the night.",
+     "end": true
+    }
+   },
+   "say": {
+    "sat": [
+     "Sat all night with a sick child",
+     "Umm Yahya",
+     1
+    ],
+    "bought": [
+     "Bought honey for a sick child",
+     "Dawud the beekeeper",
+     1
+    ]
+   }
+  },
+  {
+   "id": "overloaded_donkey",
+   "town": "nahla",
+   "main": true,
+   "title": "The overloaded donkey",
+   "kicker": "Chapter 3 · The overloaded donkey",
+   "button": "Ayyub's donkey has fallen",
+   "hours": [
+    420,
+    1020
+   ],
+   "after": [
+    "sick_child_done"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "On the hill road Ayyub's donkey has fallen under a load of honey jars twice its size. Ayyub is beating it to make it stand.",
+     "choices": [
+      {
+       "label": "Stop him and help unload half",
+       "go": "help",
+       "fx": {
+        "minutes": 60,
+        "trust": 6,
+        "flag": [
+         "donkey_helped",
+         "nahla_done"
+        ],
+        "say": "helped"
+       }
+      },
+      {
+       "label": "Pay for a second donkey · 6 coins",
+       "need_coins": 6,
+       "go": "hire",
+       "fx": {
+        "coins": -6,
+        "trust": 4,
+        "flag": [
+         "donkey_helped",
+         "nahla_done"
+        ]
+       }
+      },
+      {
+       "label": "Walk on",
+       "go": "walk",
+       "fx": {
+        "flag": "nahla_done"
+       }
+      }
+     ]
+    },
+    "help": {
+     "text": "You catch Ayyub's arm. He glares - then sees the donkey's legs shaking and lowers the stick. You carry half the jars between you and the donkey walks the rest.",
+     "end": true
+    },
+    "hire": {
+     "text": "Ayyub hires a second donkey with your coins and splits the load. Both walk easily.",
+     "end": true
+    },
+    "walk": {
+     "text": "Behind you, the beating goes on for a while, then stops.",
+     "end": true
+    }
+   },
+   "say": {
+    "helped": [
+     "Stopped a man beating his donkey",
+     "the hill road",
+     1
+    ]
+   }
+  }
+ ]
+}
