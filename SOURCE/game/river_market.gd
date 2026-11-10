@@ -1,5 +1,5 @@
 extends Node3D
-## LOCK 1: world, movement, market tasks, scales lesson and gate progression.
+## River Market arrival, movement, tasks, scales lesson and gate progression.
 
 const Foundations = preload("res://game/foundations.gd")
 const MarketWorld = preload("res://game/market_world.gd")
@@ -18,6 +18,12 @@ var destination := ""
 var route: Array[Vector3] = []
 var capture_runner: RefCounted
 var progress := TaskProgress.new()
+var arrival_beat := 0
+var arrival_reply := ""
+var arrival_fair = null
+var paid_nights := 0
+var day := 0
+var minute_of_day := 0
 
 func _ready() -> void:
 	data = Foundations.load_data()
@@ -35,6 +41,9 @@ func _ready() -> void:
 	add_child(ui)
 	ui.setup(data, progress, identity)
 	ui.begin_requested.connect(begin_game)
+	ui.arrival_choice_requested.connect(choose_arrival)
+	ui.arrival_continue_requested.connect(continue_arrival)
+	ui.arrival_walk_requested.connect(walk_from_arrival)
 	ui.screen_requested.connect(show_screen)
 	ui.wait_requested.connect(toggle_night)
 	ui.use_requested.connect(use_place)
@@ -59,6 +68,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-identity" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_identity.gd").new()
+		capture_runner.run(self)
+	elif "--capture-arrival" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_arrival.gd").new()
 		capture_runner.run(self)
 
 func _process(_delta: float) -> void:
@@ -95,13 +107,75 @@ func update_state() -> void:
 	ui.refresh(player.position, current_place, night)
 
 func begin_game() -> void:
+	progress.setup(data)
+	world.reset_gate()
+	arrival_beat = 0
+	arrival_reply = ""
+	arrival_fair = null
+	paid_nights = 0
+	var start: PackedStringArray = str(identity.arrival.start_time).split(" ")
+	day = int(start[1])
+	minute_of_day = _minutes(start[-1])
 	player.position = world.point(data.start_place)
 	player.velocity = Vector3.ZERO
 	player.yaw = 0
+	player.pitch = 0
 	player.update_camera()
 	route.clear()
+	destination = ""
 	player.test_move_axis = Vector2.ZERO
+	_set_night(false)
+	_show_arrival()
+
+func choose_arrival(index: int) -> void:
+	var beats: Array = identity.arrival.beats
+	if ui.screen != "arrival" or arrival_beat >= beats.size() or not arrival_reply.is_empty():
+		return
+	var choices: Array = beats[arrival_beat].choices
+	if index < 0 or index >= choices.size():
+		return
+	var choice: Dictionary = choices[index]
+	var effect: Dictionary = choice.effect
+	var coin_change := int(effect.get("coins", 0))
+	progress.coins += coin_change
+	if coin_change < 0:
+		paid_nights += 1
+	if effect.has("fair"):
+		arrival_fair = effect.fair
+	if effect.has("time"):
+		minute_of_day = int(effect.time)
+	arrival_reply = choice.reply
+	_show_arrival()
+
+func continue_arrival() -> void:
+	if ui.screen != "arrival" or arrival_reply.is_empty():
+		return
+	arrival_beat += 1
+	arrival_reply = ""
+	var beats: Array = identity.arrival.beats
+	if arrival_beat < beats.size():
+		# The sunset backdrop begins with the prompt. Its choice applies the time jump.
+		for choice: Dictionary in beats[arrival_beat].choices:
+			if choice.effect.has("time"):
+				_set_night(true)
+				break
+	_show_arrival()
+
+func walk_from_arrival() -> void:
+	if ui.screen != "arrival" or arrival_beat != identity.arrival.beats.size():
+		return
+	player.position = world.point("inn")
+	player.velocity = Vector3.ZERO
 	show_screen("market_map")
+
+func _show_arrival() -> void:
+	ui.arrival_beat = arrival_beat
+	ui.arrival_reply = arrival_reply
+	ui.arrival_fair = arrival_fair is bool and arrival_fair
+	show_screen("arrival")
+
+func _minutes(time: String) -> int:
+	return int(time.get_slice(":", 0)) * 60 + int(time.get_slice(":", 1))
 
 func show_screen(screen: String) -> void:
 	ui.show_screen(screen)
@@ -110,12 +184,31 @@ func show_screen(screen: String) -> void:
 	update_state()
 
 func toggle_night() -> void:
-	night = not night
+	_set_night(not night)
 	if not night:
 		progress.morning()
-	world.set_night(night)
 	update_state()
 	ui.show_toast(data.other_text.night if night else data.other_text.day)
+
+func _set_night(value: bool) -> void:
+	night = value
+	world.set_night(night)
+
+func _rest_at_inn() -> void:
+	var cost := int(identity.arrival.inn_night)
+	var message: String = identity.inn.broom
+	if paid_nights > 0:
+		paid_nights -= 1
+		message = str(identity.inn.paid).format({"n": paid_nights})
+	elif progress.coins >= cost:
+		progress.coins -= cost
+		message = str(identity.inn.coins).format({"n": cost})
+	day += 1
+	minute_of_day = _minutes(str(identity.inn.wakes_at).get_slice(" ", 0))
+	progress.morning()
+	_set_night(true)
+	update_state()
+	ui.show_toast(message, ui.screen == "market_map")
 
 func use_place() -> void:
 	update_state()
@@ -134,7 +227,8 @@ func use_place() -> void:
 			update_state()
 			ui.show_toast(message)
 		"centre": ui.show_toast(data.other_text.centre_exit)
-		"inn", "masjid": ui.show_toast(data.ui.not_built)
+		"inn": _rest_at_inn()
+		"masjid": ui.show_toast(data.ui.not_built)
 		_: pass
 
 func show_goal() -> void:
@@ -149,7 +243,8 @@ func answer_weight() -> void:
 		return
 	if progress.answer_weight():
 		show_screen("game")
-		ui.show_toast(data.lesson.win)
+		var cheated: bool = arrival_fair is bool and not arrival_fair
+		ui.show_toast(identity.arrival.cheat_found_after_lesson if cheated else data.lesson.win, cheated)
 	else:
 		ui.show_toast(data.lesson.wrong)
 
@@ -187,6 +282,8 @@ func do_daily_job() -> void:
 		ui.show_toast(data.daily_job.toast)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if ui.screen == "arrival":
+		return
 	if event.is_action_pressed("close"):
 		if ui.screen == "city_map": show_screen("market_map")
 		elif ui.screen == "world_map": show_screen("city_map")

@@ -65,16 +65,13 @@ func _run() -> void:
 		settings_button.pressed.emit()
 		await frames(1)
 	check(visible_text().contains(data.title_screen.settings_toast), "Settings button shows its approved temporary toast")
-	var begin_button: Button = find_button(app.ui, data.ui.buttons.begin)
-	check(begin_button != null, "Begin is a real button")
-	if begin_button != null:
-		begin_button.pressed.emit()
-	else:
-		app.begin_game()
-	await frames(4)
+	await press_button(data.ui.buttons.begin, "Begin is a real button")
+	check(app.ui.screen == "arrival", "Begin opens the locked arrival")
+	check(horizontal_distance(app.player.global_position, app.world.point(data.start_place)) < 0.02, "arrival starts at the quay")
+	await place_at_quay()
 	var spawn: Vector3 = app.world.point(data.start_place)
-	check(app.ui.screen == "market_map", "Begin opens the market map until arrival is built")
-	check(horizontal_distance(app.player.global_position, spawn) < 0.02, "Begin spawns at the quay")
+	check(app.ui.screen == "market_map", "market fixture opens the market map")
+	check(horizontal_distance(app.player.global_position, spawn) < 0.02, "market fixture starts at the quay")
 	check(is_zero_approx(app.player.yaw), "spawn faces north")
 	check(app.world.places.size() == data.places.size(), "one trigger exists for every approved place")
 	for id: String in data.places:
@@ -104,6 +101,7 @@ func _run() -> void:
 	await check_task_economics()
 	await check_lesson_and_gate()
 	await check_identity_maps_and_places()
+	await check_arrival_and_inn()
 	finish()
 
 
@@ -317,7 +315,7 @@ func check_route_and_boundaries() -> void:
 func check_production_map_route() -> void:
 	# This street interior is closer to the board vertex across a house than
 	# either endpoint of the street the player is actually standing on.
-	app.begin_game()
+	await place_at_quay()
 	var start := Vector3(68.0, 0.0, data.street_points.weaver.z)
 	app.player.global_position = start
 	app.player.velocity = Vector3.ZERO
@@ -341,7 +339,7 @@ func check_production_map_route() -> void:
 	await frames(3)
 	check(app.route.is_empty(), "production map route completes when within the approved use radius")
 	check(app.current_place == "board", "production map route activates the actual task-board bar")
-	app.begin_game()
+	await place_at_quay()
 
 
 func fixture_box(size: Vector3, at: Vector3) -> StaticBody3D:
@@ -504,6 +502,19 @@ func press_button(label: String, description: String) -> bool:
 	button.pressed.emit()
 	await frames(2)
 	return true
+
+
+func place_at_quay() -> void:
+	# Keep the earlier route and wallet fixtures isolated from arrival rewards.
+	app.player.position = app.world.point(data.start_place)
+	app.player.velocity = Vector3.ZERO
+	app.player.yaw = 0.0
+	app.player.pitch = 0.0
+	app.player.update_camera()
+	app.route.clear()
+	app.player.test_move_axis = Vector2.ZERO
+	app.show_screen("market_map")
+	await frames(3)
 
 
 func reset_tasks() -> void:
@@ -815,14 +826,13 @@ func tap_map(at: Vector2) -> void:
 func check_identity_maps_and_places() -> void:
 	app.progress.setup(data)
 	check(app.identity == identity and app.ui.identity == identity, "runtime and UI share the complete approved identity data")
-	check(app.progress.coins == 0 and app.progress.trust == 20, "line 5 preserves LOCK 1 starting coins and trust")
-	check(data.keys.wait_day_night == "T", "line 5 retains the LOCK 1 T binding")
+	check(app.progress.coins == 0 and app.progress.trust == 20, "map fixture starts with the LOCK 1 baseline wallet")
+	check(data.keys.wait_day_night == "T", "the LOCK 1 T binding still switches day and night")
 	if app.night:
 		app.toggle_night()
-	app.begin_game()
-	await frames(2)
-	check(not visible_text().contains(identity.clock.wait_button), "line 5 does not introduce the later clock wait control")
-	check(not visible_text().contains(identity.clock.weekdays_from_day1[0]), "line 5 does not introduce the clock HUD")
+	await place_at_quay()
+	check(not visible_text().contains(identity.clock.wait_button), "the clock wait control is still deferred")
+	check(not visible_text().contains(identity.clock.weekdays_from_day1[0]), "the clock HUD is still deferred")
 	for id: String in identity.layout_additions:
 		var addition: Dictionary = identity.layout_additions[id]
 		check(data.places.has(id) and data.street_points.has(id), "runtime layout includes the new place and street point: " + id)
@@ -844,6 +854,9 @@ func check_identity_maps_and_places() -> void:
 			print("IDENTITY ROUTE DIAGNOSTIC ", id, " position=", app.player.global_position, " route=", app.route)
 		if id != "quay":
 			check(visible_text().contains(identity.layout_additions[id].name) and visible_text().contains(identity.layout_additions[id].line), "new-place bar uses its locked name and line: " + id)
+		if id == "inn":
+			check(find_button(app.ui, identity.inn.action) != null, "the Inn now offers its approved rest action")
+		if id == "masjid":
 			check(find_button(app.ui, data.ui.not_built) != null, "new-place action uses the approved not-built label: " + id)
 			var wallet := Vector2i(app.progress.coins, app.progress.trust)
 			await press_button(data.ui.not_built, "new-place placeholder action is a real button: " + id)
@@ -880,6 +893,141 @@ func check_identity_maps_and_places() -> void:
 	check(app.ui.screen == "title", "world Title navigation works")
 	check(FileAccess.get_file_as_bytes("res://data/foundations.json") == runtime_baseline, "all identity tests preserve approved foundations bytes")
 	check(FileAccess.get_file_as_bytes("res://data/identity.json") == FileAccess.get_file_as_bytes("res://../GAME/APPROVED/IDENTITY/RECORD/identity_data_V3.json"), "all identity tests preserve the immutable identity bytes")
+
+
+func check_arrival_and_inn() -> void:
+	var arrival: Dictionary = identity.arrival
+	await press_button(data.ui.buttons.begin, "title starts a new arrival after a market session")
+	check_arrival_start()
+	check(app.progress.tasks.is_empty() and not app.progress.lesson_done and not app.progress.gate_open, "Begin clears the previous market progress")
+	check(not app.world.gate_open and app.world.gate_body.collision_layer != 0, "Begin closes the previous session's physical gate")
+	for key: Key in [KEY_M, KEY_G, KEY_T, KEY_E, KEY_ESCAPE]:
+		key_event(key, true)
+		key_event(key, false)
+	await frames(2)
+	check(app.ui.screen == "arrival" and app.arrival_beat == 0 and app.minute_of_day == 390 and not app.night, "market shortcuts cannot leave or change the opening arrival beat")
+	await play_arrival(1, 0)
+	await press_button(arrival.buttons[0], "the end screen offers a usable meeting button")
+	check(app.ui.screen == "arrival" and app.arrival_beat == arrival.beats.size() and visible_text().contains(data.ui.not_built), "meeting shows the approved interim toast on the end screen")
+	check(app.progress.coins == 118 and app.paid_nights == 1, "meeting leaves the arrival wallet and night credit intact")
+	await press_button(arrival.buttons[2], "Arrive again restarts the arrival from its end screen")
+	check_arrival_start()
+	await play_arrival(0, 1)
+	await walk_from_arrival(198)
+	await check_inn_rest()
+	await check_arrival_lesson(false)
+
+	app.show_screen("title")
+	await press_button(data.ui.buttons.begin, "Begin can start a new arrival after the lesson")
+	check_arrival_start()
+	await play_arrival(1, 0)
+	await walk_from_arrival(118)
+	await check_arrival_lesson(true)
+
+
+func check_arrival_start() -> void:
+	check(app.ui.screen == "arrival" and app.arrival_beat == 0 and app.arrival_reply.is_empty(), "arrival starts at the first beat before its reply")
+	check(app.progress.coins == 0 and app.arrival_fair == null and app.paid_nights == 0, "arrival resets the wallet, changer and prepaid nights")
+	check_wallet(int(data.numbers.start_trust), 0, "arrival shows the initial wallet and trust")
+	check(app.day == 1 and app.minute_of_day == 390, "arrival resets to day 1 at 06:30")
+	check(not app.player.enabled, "arrival pauses the player controller")
+
+
+func play_arrival(changer: int, quay_choice: int) -> void:
+	var arrival: Dictionary = identity.arrival
+	var fair := changer == 0
+	var changed_coins := 200 if fair else 120
+	var end_coins := 198 if fair else 118
+	var selections := [quay_choice, changer, 0, 0]
+	for index in range(arrival.beats.size()):
+		var beat: Dictionary = arrival.beats[index]
+		var choice: Dictionary = beat.choices[selections[index]]
+		check(app.ui.screen == "arrival" and app.arrival_beat == index, "arrival opens beat %d in order" % index)
+		check(visible_text().contains(beat.text), "beat %d displays the complete locked text" % index)
+		for option: Dictionary in beat.choices:
+			var button := find_button(app.ui, option.label)
+			check(button != null and button.is_visible_in_tree() and not button.disabled, "arrival choice is visible and usable: " + str(option.label))
+		if index == 3:
+			check(app.minute_of_day == 390 and not visible_text().contains("18:15"), "the sunset prompt precedes the time jump and clock display")
+		await press_button(choice.label, "the player can select the locked arrival choice")
+		check(visible_text().contains(choice.reply), "the choice displays its complete locked reply")
+		check(app.arrival_beat == index, "the reply stays on its beat until Continue")
+		match index:
+			0:
+				check(app.progress.coins == 0 and app.arrival_fair == null, "the quay choice grants no coins and sets no changer")
+			1:
+				check(app.progress.coins == changed_coins and app.arrival_fair == fair, "changer sets %d coins and records its fairness" % changed_coins)
+				check_wallet(int(data.numbers.start_trust), changed_coins, "changer reply shows the new balance")
+			2:
+				check(app.progress.coins == end_coins and app.paid_nights == 1, "inn choice leaves %d coins and credits one night" % end_coins)
+			3:
+				check(app.day == 1 and app.minute_of_day == 1095, "Follow them jumps to 18:15 on day 1")
+		await press_button(arrival.continue, "each arrival reply offers Continue")
+	check(app.arrival_beat == arrival.beats.size(), "continuing from the sunset reply opens the ending")
+	var ending: String = arrival.end_fair if fair else arrival.end_cheated
+	check(visible_text().contains(ending), "arrival ending matches the chosen changer")
+	var ending_coins: String = str(arrival.coins_line).format({"n": end_coins}).to_upper()
+	check(has_visible_label(app.ui, ending_coins), "arrival ending shows the exact balance")
+	for label: String in arrival.buttons:
+		var button := find_button(app.ui, label)
+		check(button != null and button.is_visible_in_tree() and not button.disabled, "arrival ending shows its usable button: " + label)
+
+
+func walk_from_arrival(expected_coins: int) -> void:
+	await press_button(identity.arrival.buttons[1], "Walk River Market opens the playable map")
+	check(app.ui.screen == "market_map" and app.player.enabled and app.current_place == "inn", "Walk River Market begins the market session at the Inn")
+	check(horizontal_distance(app.player.global_position, app.world.point("inn")) < 0.02, "the real player spawns at the Inn")
+	check_wallet(int(data.numbers.start_trust), expected_coins, "walking retains the arrival balance")
+	check(app.paid_nights == 1 and app.minute_of_day == 1095, "walking carries the paid night and arrival time into the market")
+	check(not visible_text().contains(identity.clock.wait_button) and not visible_text().contains("18:15"), "market retains the LOCK 1 controls with the clock deferred")
+
+
+func check_inn_rest() -> void:
+	var inn: Dictionary = identity.inn
+	var cost: int = identity.arrival.inn_night
+	var balance: int = app.progress.coins
+	app.progress.daily_count = int(data.daily_job.per_day)
+	await press_button(inn.action, "Inn rest action is a real market-map button")
+	check(app.progress.coins == balance and app.paid_nights == 0, "the prepaid night is used before charging an affordable balance")
+	check(visible_text().contains(inn.paid.format({"n": 0})), "prepaid rest shows the locked room toast")
+	check(app.day == 2 and app.minute_of_day == 280 and app.night and app.world.night, "prepaid rest wakes before dawn at 04:40 on day 2")
+	check(app.progress.daily_count == 0, "rest renews the daily boat job on the next day")
+	key_event(KEY_E, true)
+	key_event(KEY_E, false)
+	await frames(2)
+	check(app.progress.coins == balance - cost and app.paid_nights == 0, "without a credit E at the Inn charges exactly one night")
+	check(visible_text().contains(inn.coins.format({"n": cost})), "paid rest shows the locked charge toast")
+	check(app.day == 3 and app.minute_of_day == 280, "paid rest wakes at 04:40 on day 3")
+	app.progress.coins = 0
+	await frames(2)
+	await press_button(inn.action, "the Inn still offers rest with an empty wallet")
+	check(app.progress.coins == 0 and app.paid_nights == 0, "stable rest keeps an empty wallet at zero")
+	check(visible_text().contains(inn.broom), "stable rest shows the locked broom toast")
+	check(app.day == 4 and app.minute_of_day == 280, "stable rest wakes at 04:40 on day 4")
+	check(app.ui.screen == "market_map" and app.current_place == "inn", "rest keeps the player at the Inn")
+
+
+func check_arrival_lesson(cheated: bool) -> void:
+	app.player.position = app.world.point("scales")
+	app.player.velocity = Vector3.ZERO
+	app.show_screen("market_map")
+	await press_button(data.ui.place_actions.scales, "scales place action opens the lesson after arrival")
+	var before := Vector2i(app.progress.trust, app.progress.coins)
+	var false_index: int = data.lesson.false_weight_index
+	var true_index: int = (false_index + 1) % data.lesson.options.size()
+	await press_button(data.lesson.options[true_index], "a true weight can be tried after arrival")
+	await press_button(data.lesson.answer_button.format({"n": true_index + 1}), "a true weight can be submitted after arrival")
+	check(visible_text().contains(data.lesson.wrong) and not visible_text().contains(identity.arrival.cheat_found_after_lesson), "a wrong answer never reveals the cheat")
+	check(app.ui.screen == "lesson" and not app.progress.lesson_done and Vector2i(app.progress.trust, app.progress.coins) == before, "a wrong answer changes neither lesson completion nor wallet")
+	await press_button(data.lesson.options[false_index], "the light weight can be tried after arrival")
+	await press_button(data.lesson.answer_button.format({"n": false_index + 1}), "the light weight can be submitted after arrival")
+	var expected: String = identity.arrival.cheat_found_after_lesson if cheated else data.lesson.win
+	var other: String = data.lesson.win if cheated else identity.arrival.cheat_found_after_lesson
+	check(visible_text().contains(expected) and not visible_text().contains(other), "only the smiling changer replaces the lesson's normal win toast")
+	check(app.ui.screen == "game" and app.current_place == "scales", "passing the lesson returns to the street at the scales")
+	check(app.progress.lesson_done and app.progress.trust == before.x + int(data.lesson.trust) and app.progress.coins == before.y, "the lesson still awards only its locked trust")
+	await press_button(data.ui.place_actions.scales_after_lesson, "returning to the completed scales uses the check action")
+	check(visible_text().contains(data.other_text.scales_after_lesson) and not visible_text().contains(identity.arrival.cheat_found_after_lesson), "checking the scales never repeats the cheat toast")
 
 
 func finish() -> void:

@@ -23,21 +23,27 @@ line 19 and records the exact Godot version below; gameplay is built only from L
 ## Play the current greybox
 
 Import `SOURCE/project.godot` in Godot 4.7.2 and press Run, or run `godot --path SOURCE` from the repository root.
-The Ilmara title opens first. Begin opens the River Market map with the player at the quay.
+The Ilmara title opens first. Begin starts the four arrival beats at the quay with zero coins.
+The open scale gives 200 coins and the smiling changer gives 120. Paying for the first night leaves 198 or 118.
+The sunset choice moves the stored time to 18:15. Walk River Market opens the map at the Inn, Arrive again
+restarts the arrival, and Meet the old man shows the interim placeholder message.
 The game uses placeholder shapes.
 LOCK 1 parts 1–3 provide the street layout, collision, capsule player, camera, maps, day/night switch and task board.
 Use E at the board to take the three tasks, choose the honest or quick way, earn coins/trust, put quick choices right
-and unload a boat once each day. Amends return the trust actually lost plus the honest reward. Only night turning
-to day restores the daily job. Coins start at 0 and trust at 20 / 100; trust stays within 0–100.
+and unload a boat once each day. Amends return the trust actually lost plus the honest reward. Resting at the Inn
+or switching night to day restores the daily job. Trust starts at 20 / 100 and stays within 0–100.
 Use E at Market scales to try the three weights against the checked weight and name the light one. A correct answer
-adds 25 trust once; later visits check the scales. Ask the gatekeepers with 100 trust and the lesson complete to swing
-the gate open permanently. Three honest tasks plus the lesson give exactly 100 trust and 12 coins. G or the trust bar
+adds 25 trust once; later visits check the scales. Passing after using the smiling changer reveals the cheat at
+the scales. Ask the gatekeepers with 100 trust and the lesson complete to swing the gate open for the session.
+Three honest tasks plus the lesson give exactly 100 trust and add 12 coins to the arrival wallet. G or the trust bar
 opens the four-gate goal panel. The city map marks the open Gate of Trust green. There is no shop yet.
 
 WASD moves, mouse turns the third-person camera, Shift runs, E uses the nearby place, M opens/closes the market map,
 G opens the goal panel, T switches day/night, and Esc closes panels or releases the mouse. Click the world
 to capture the mouse again. Map place markers choose a walking route along the approved streets; the player moves
-physically. The Inn and Masjid have walking routes and show the placeholder action. Open City map from the market
+physically. Use Rest until morning at the Inn to spend the prepaid night, pay two coins, or sweep the stable if
+the wallet falls short. Each route wakes at 04:40 the next day. The Masjid action shows the placeholder message.
+Open City map from the market
 map and tap any of Ilmara's five parts for its description. The Inn marker or River Market button returns to the
 market map. Open World map from the city map and tap one of the twelve placeholder towns for its description.
 
@@ -70,13 +76,16 @@ regression checks. An in-memory fixture completes tasks, amends, the daily job, 
 another session on the same progress object. It checks cleared progress, replayed rewards and replacement wallet
 limits without loading game scenes or content files.
 
-`godot --path SOURCE -- --capture-foundations` records native 1920×1080 viewport PNGs and
+The following historical commands use the source revisions that generated their evidence. Begin at those
+revisions opens the market directly.
+
+At source revision `6e04efc`, `godot --path SOURCE -- --capture-foundations` records native 1920×1080 viewport PNGs and
 `MEASUREMENTS.json` under `GAME/APPROVED/FOUNDATIONS/BUILT/V1/`. It measures day and night using three seconds of
 warm-up and rendered frames over ten seconds per mode, with vsync disabled. Captures include f01–f05 states,
 three world views and temporary action/toast states. `BUILD.json` records the source commit and honest visual differences.
 Run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd` after native capture to create the five side-by-side PNGs, with the approved master on the left and actual game on the right.
 
-`godot --path SOURCE -- --capture-tasks` captures the six part-2 master states f06–f11 plus gameplay checks and
+At source revision `9309960`, `godot --path SOURCE -- --capture-tasks` captures the six part-2 master states f06–f11 plus gameplay checks and
 `PART2_MEASUREMENTS.json` in that same evidence folder. It preserves the earlier part-1 captures. Run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --tasks` for the six additional comparison
 PNGs. f11's master retains 31 coins / 0 trust after the job; the game applies the approved +2 coins / +5 trust and
@@ -96,7 +105,7 @@ ignored key releases/repeats and shortcut suppression during capture, using a sm
 load the playable game, render screenshots or measure frame rate; mouse dispatch and flight still need the native
 look-test control check.
 
-`godot --path SOURCE -- --capture-gate` captures part-3 states f12–f20, a wrong answer and six numbered playthrough
+At source revision `3a35ea6`, `godot --path SOURCE -- --capture-gate` captures part-3 states f12–f20, a wrong answer and six numbered playthrough
 screenshots. The master-state fixtures are disclosed separately from the continuous playthrough, which begins at the
 quay and walks to the board, scales and gate through production map routes. All GUI choices use viewport mouse hits.
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --gate` makes the nine master comparisons.
@@ -106,10 +115,17 @@ Append `--masters-only` after `--capture-gate` for a short independent refresh o
 `PART3_MASTERS_MEASUREMENTS.json` and preserves the full playthrough receipt and its six numbered screenshots.
 
 Use the original LOCK 1 source commit to reproduce the retired f02 and f20 city maps.
-`godot --path SOURCE -- --capture-identity` records the six line 5 states and `CHECKS.json` under
+At source revision `262da0b`, `godot --path SOURCE -- --capture-identity` records the six line 5 states and `CHECKS.json` under
 `GAME/APPROVED/IDENTITY/BUILT/V1/`. The native run uses map clicks and walks the player through the Inn, Masjid,
 honest tasks, scales lesson and gate. Run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --identity`
 to put each of the six approved masters beside the corresponding native capture.
 Append `--masters-only` to the native command for a shorter capture. This sets up the player at the gate
 for g14 and verifies the gate's prerequisites, hinge and collision through the real use action.
+
+`godot --path SOURCE -- --capture-arrival` records the 13 line 6 states and `CHECKS.json` under
+`GAME/APPROVED/IDENTITY/BUILT/V1/ARRIVAL/`. It uses viewport clicks for both arrival branches and walks the
+player to the scales. The stable case seeds a zero wallet after using the prepaid night.
+Append `--masters-only` to place the player at the scales for g30, then use the live lesson controls.
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --arrival` puts each approved
+master on the left of its native capture. The line 6 receipt lives alongside those pairs in `ARRIVAL/BUILD.json`.

@@ -1,8 +1,11 @@
 extends CanvasLayer
-## Interface from LOCK 1 masters. Only placement, colour and drawing measurements
+## Interface from approved masters. Only placement, colour and drawing measurements
 ## live here; all displayed content is read from the approved data dictionary.
 
 signal begin_requested
+signal arrival_choice_requested(index: int)
+signal arrival_continue_requested
+signal arrival_walk_requested
 signal screen_requested(screen: String)
 signal wait_requested
 signal use_requested
@@ -38,6 +41,9 @@ var title_font := SystemFont.new()
 var progress: RefCounted
 var task_id := ""
 var result: Dictionary = {}
+var arrival_beat := 0
+var arrival_reply := ""
+var arrival_fair := false
 var _last_coins := -1
 var _last_trust := -1
 var _last_daily_count := -1
@@ -103,6 +109,9 @@ func show_screen(value: String) -> void:
 	match screen:
 		"title":
 			_build_title()
+		"arrival":
+			_build_hud()
+			_build_arrival()
 		"game", "market_map":
 			_build_hud()
 			_build_place_bar()
@@ -155,23 +164,25 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool) ->
 	if rebuild and screen != "title":
 		show_screen(screen)
 
-func show_toast(value: String) -> void:
+func show_toast(value: String, compact: bool = false) -> void:
 	if not is_instance_valid(toast_label):
 		return
-	if screen in ["city_map", "world_map"]:
+	var use_compact := compact or screen in ["city_map", "world_map"]
+	toast_label.clip_text = use_compact
+	toast_label.text = value
+	if use_compact:
 		var width := minf(1800, font.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, 20).x + 44)
 		toast_panel.position = Vector2((1920 - width) / 2.0, 900)
 		toast_panel.size = Vector2(width, 48)
 		toast_label.position = Vector2(20, 0)
-		toast_label.size = Vector2(width - 40, 48)
 		toast_label.add_theme_font_size_override("font_size", 20)
+		toast_label.size = Vector2(width - 40, 48)
 	else:
 		toast_panel.position = Vector2(460, 844)
 		toast_panel.size = Vector2(1000, 68)
 		toast_label.position = Vector2(20, 10)
-		toast_label.size = Vector2(960, 48)
 		toast_label.add_theme_font_size_override("font_size", 25)
-	toast_label.text = value
+		toast_label.size = Vector2(960, 48)
 	_toast_seconds = 3.5
 	toast_panel.show()
 
@@ -205,6 +216,53 @@ func _build_title() -> void:
 	_button(data.ui.buttons.begin, Vector2(830, 680), Vector2(107, 56), func(): begin_requested.emit(), true)
 	_button(data.ui.buttons.settings, Vector2(960, 680), Vector2(130, 56), func(): show_toast(data.title_screen.settings_toast))
 
+func _build_arrival() -> void:
+	var arrival: Dictionary = identity.arrival
+	var done: bool = arrival_beat == arrival.beats.size()
+	var beat: Dictionary = {} if done else arrival.beats[arrival_beat]
+	var line: String = (arrival.end_fair if arrival_fair else arrival.end_cheated) if done else beat.text
+	var line_width := 1120.0
+	var line_height := font.get_multiline_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, line_width, 23).y
+	var reply_height := 0.0
+	if not arrival_reply.is_empty():
+		reply_height = bold_font.get_multiline_string_size(arrival_reply, HORIZONTAL_ALIGNMENT_LEFT, line_width, 23).y
+	var buttons_height: float = 56.0 if done or not arrival_reply.is_empty() else 70.0 * beat.choices.size() - 14.0
+	var extra_height := 44.0 if done else (reply_height + 16.0 if reply_height > 0.0 else 0.0)
+	var height := 138.0 + line_height + extra_height + buttons_height
+	var origin := Vector2(366, 583 - height / 2.0)
+	var panel := _panel(origin, Vector2(1188, height), Color("1b130be8"))
+	_heading(panel, arrival.kicker, arrival.title_done if done else arrival.title_running)
+	var body := _label(panel, "", Vector2(34, 111), Vector2(line_width, line_height), 23, PAPER)
+	body.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	body.text = line
+	var y := 125.0 + line_height
+	if done:
+		var coins: String = str(arrival.coins_line).format({"n": progress.coins})
+		_label(panel, coins.to_upper(), Vector2(34, y), Vector2(line_width, 28), 16, Color("e9bd70"))
+		y += 38.0
+		var x := origin.x + 34.0
+		x += _arrival_button(arrival.buttons[0], Vector2(x, origin.y + y), func(): show_toast(data.ui.not_built), true) + 12.0
+		x += _arrival_button(arrival.buttons[1], Vector2(x, origin.y + y), func(): arrival_walk_requested.emit()) + 12.0
+		_arrival_button(arrival.buttons[2], Vector2(x, origin.y + y), func(): begin_requested.emit())
+	elif not arrival_reply.is_empty():
+		var reply := _label(panel, "", Vector2(34, y), Vector2(line_width, reply_height), 23, PAPER, true)
+		reply.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		reply.text = arrival_reply
+		_arrival_button(arrival.continue, origin + Vector2(34, y + reply_height + 16.0), func(): arrival_continue_requested.emit(), true)
+	else:
+		for index in range(beat.choices.size()):
+			var choose := _button(beat.choices[index].label, origin + Vector2(34, y), Vector2(line_width, 56), func(): arrival_choice_requested.emit(index))
+			choose.alignment = HORIZONTAL_ALIGNMENT_LEFT
+			for state in ["normal", "hover", "pressed"]:
+				choose.get_theme_stylebox(state).content_margin_left = 22.0
+			y += 70.0
+
+func _arrival_button(value: String, at: Vector2, callback: Callable, primary: bool = false) -> float:
+	var face := bold_font if primary else font
+	var width := face.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 44.0
+	_button(value, at, Vector2(width, 56), callback, primary)
+	return width
+
 func _build_hud() -> void:
 	var coin_text: String = str(data.ui.hud.coins).format({"n": progress.coins})
 	var coin_width := bold_font.get_string_size(coin_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
@@ -224,6 +282,8 @@ func _build_hud() -> void:
 	fill.size = Vector2(315 * float(progress.trust) / float(data.numbers.trust_max), 10)
 	fill.color = GOLD
 	track.add_child(fill)
+	if screen == "arrival":
+		return
 	var hit := Button.new()
 	hit.flat = true
 	hit.position = Vector2.ZERO
@@ -405,7 +465,9 @@ func _build_place_bar() -> void:
 	var name_value: String = place.name
 	var line_value: String = str(data.ui.place_bar.format).format({"name": "", "line": place.line})
 	var action: String = data.ui.place_actions.get(place_id, data.ui.not_built)
-	if place_id == "scales" and progress.lesson_done:
+	if place_id == "inn":
+		action = identity.inn.action
+	elif place_id == "scales" and progress.lesson_done:
 		action = data.ui.place_actions.scales_after_lesson
 	var name_width := bold_font.get_string_size(name_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var line_width := font.get_string_size(line_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
@@ -457,7 +519,7 @@ func _button(value: String, at: Vector2, extent: Vector2, callback: Callable, pr
 	button.add_theme_color_override("font_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_hover_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_pressed_color", INK if primary else PAPER)
-	var task_panel := screen in ["board", "task", "result", "lesson", "goal"]
+	var task_panel := screen in ["arrival", "board", "task", "result", "lesson", "goal"]
 	var background := Color("1b130bf2") if task_panel else Color("191c19")
 	button.add_theme_stylebox_override("normal", _style(GOLD if primary else background))
 	button.add_theme_stylebox_override("hover", _style(GOLD.lightened(0.12) if primary else (background.lightened(0.1) if task_panel else Color("312b20"))))

@@ -17,6 +17,8 @@ The scales lesson awards trust once. The Gate of Trust swings open and stays ope
 100 trust and the lesson complete. G or the trust bar opens the four-gate goal panel. The city map marks the open gate green.
 LOCK 2 part 1 adds the Ilmara title, the five-part city map, a world map with twelve placeholder towns,
 and walkable routes to the Inn and Masjid.
+LOCK 2 part 2 adds the arrival at the quay, two money-changers, overnight rest at the Inn and a discovery at
+the scales for travellers who used the smiling changer. Rest also makes the daily job available again.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 
@@ -30,7 +32,7 @@ See [ROADMAP.md](ROADMAP.md) for the planned game.
 
 1. Install Godot 4 (the exact version is recorded in [SOURCE/README.md](SOURCE/README.md)).
 2. Open Godot, choose **Import**, and pick `SOURCE/project.godot`.
-3. Press **Run**, then **Begin** to open the River Market map at the quay.
+3. Press **Run**, then **Begin** to play the arrival. Choose **Walk River Market** at the end to start at the Inn.
 
 WASD moves, mouse looks, Shift runs, E uses a nearby place, M opens the map, G opens the goal panel,
 T switches day/night, and Esc closes maps or releases the mouse. Map markers choose a physical walking route.

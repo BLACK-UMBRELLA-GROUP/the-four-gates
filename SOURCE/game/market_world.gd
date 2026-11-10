@@ -8,6 +8,7 @@ var night := false
 var gate_body: StaticBody3D
 var gate_hinge: Node3D
 var gate_open := false
+var gate_tween: Tween
 var sun: DirectionalLight3D
 var environment: Environment
 var house_count := 0
@@ -151,7 +152,19 @@ func open_gate() -> void:
 	gate_open = true
 	gate_body.collision_layer = 0
 	gate_body.collision_mask = 0
-	create_tween().tween_property(gate_hinge, "rotation:y", -PI / 2.0, 0.8)
+	gate_tween = create_tween()
+	gate_tween.tween_property(gate_hinge, "rotation:y", -PI / 2.0, 0.8)
+
+
+func reset_gate() -> void:
+	if not gate_open:
+		return
+	if gate_tween != null:
+		gate_tween.kill()
+	gate_open = false
+	gate_body.collision_layer = 1
+	gate_body.collision_mask = 1
+	gate_hinge.rotation.y = 0.0
 
 
 func _build_houses() -> void:
