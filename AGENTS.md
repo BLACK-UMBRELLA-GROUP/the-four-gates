@@ -10,11 +10,13 @@ is what agents read here.
 These rules sit above every other instruction in this tree. Where any older
 document, overlay or AD says otherwise, this block wins.
 
-> **BUILD FREEZE — Founder, 24 Oct 2026. LIFTED FOR ZYRA on 29 Oct 2026** ("so i wanna
-> do freeze lift do it"). ZYRA builds again - only from LOCKed designs (rule 11) and
-> work Shakeel names. AZMARA, SELAH and WAFA stay frozen until Shakeel lifts each in
-> writing. Allowed while frozen: review, documentation, and fixes Shakeel approves one
-> by one. Tracked as OA-AIOS-406.
+> **BUILD FREEZE — Founder, 24 Oct 2026; updated 3 Nov 2026.** Builds come only from LOCKed
+> designs (rule 11) and work Shakeel names. **Building: THE FOUR GATES** (2 Nov) and **SELAH**
+> (3 Nov: "work on SELAH to change as much as we can" - its own identity). **ZYRA: new design
+> paused** (3 Nov) - only lines already WAITING (44, 73) finish; no new ZYRA lines until Shakeel
+> restarts it. **AZMARA and WAFA stay frozen** until Shakeel lifts each in writing. At most two
+> businesses are worked at a time (Mac memory, Founder 3 Nov). Allowed while frozen: review,
+> documentation, and fixes Shakeel approves one by one. Tracked as OA-AIOS-406, AD-AIOS-123.
 
 1. **Only the Founder (Shakeel) approves.** Agreement between AIs is never
    approval. His direct instruction in conversation is approval.
@@ -33,10 +35,10 @@ document, overlay or AD says otherwise, this block wins.
 3. **Never touch `PRIVATE — API KEYS — DO NOT SYNC`** — never open, list,
    copy or quote it, wherever it lives. Never put keys, tokens or
    credentials in a conversation.
-4. **Never delete.** Move unwanted files to `~/_to_delete/<WHAT>_<date>/` on the Mac,
-   or `BLACK UMBRELLA GROUP/tmp/_to_delete/<BUSINESS>_<date>/` for repo files;
-   **never a `_to_delete` inside a business repo** (S22). The Founder empties it.
-   If the folder is missing, create it.
+4. **Never delete.** Move unwanted files to `~/_to_delete/<WHAT>_<date>/` on the Mac -
+   the ONE delete folder (Founder, 10 Nov: "I DONT WANNA HAVE TO DELETE 2 FODLERS");
+   **never a `_to_delete` or `tmp/_to_delete` inside any repo** (S22, S25). The Founder
+   empties it. If the folder is missing, create it.
 5. **Findings become actions** — every finding gets an OA number or a
    written refusal.
 6. **One CURRENT_VERSION per document system.** Register entries append
