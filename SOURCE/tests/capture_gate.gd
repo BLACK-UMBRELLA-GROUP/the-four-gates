@@ -112,7 +112,7 @@ func run(app: Node3D) -> void:
 	await click(app, app.data.ui.buttons.city_map)
 	await shot(app, "f20_city_map__gate_open__build.png")
 	app.ui.map.city_gate_requested.emit(0)
-	helper.check(app.ui.toast_label.text == app.data.city_map.gate_open_message, "native open city gate uses its approved message")
+	helper.check(app.ui.toast_label.text == app.data.gate.open, "native open city gate uses its approved message")
 	finish(app, "PART3_MEASUREMENTS.json")
 
 func finish(app: Node3D, receipt: String) -> void:

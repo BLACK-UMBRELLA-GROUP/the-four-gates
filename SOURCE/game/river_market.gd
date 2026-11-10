@@ -8,6 +8,7 @@ const MarketUI = preload("res://game/market_ui.gd")
 const TaskProgress = preload("res://game/task_progress.gd")
 
 var data: Dictionary
+var identity: Dictionary
 var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
@@ -20,6 +21,7 @@ var progress := TaskProgress.new()
 
 func _ready() -> void:
 	data = Foundations.load_data()
+	identity = Foundations.load_identity()
 	Foundations.configure_input(data)
 	progress.setup(data)
 	world = MarketWorld.new()
@@ -31,7 +33,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress)
+	ui.setup(data, progress, identity)
 	ui.begin_requested.connect(begin_game)
 	ui.screen_requested.connect(show_screen)
 	ui.wait_requested.connect(toggle_night)
@@ -54,6 +56,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-gate" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_gate.gd").new()
+		capture_runner.run(self)
+	elif "--capture-identity" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_identity.gd").new()
 		capture_runner.run(self)
 
 func _process(_delta: float) -> void:
@@ -96,7 +101,7 @@ func begin_game() -> void:
 	player.update_camera()
 	route.clear()
 	player.test_move_axis = Vector2.ZERO
-	show_screen("game")
+	show_screen("market_map")
 
 func show_screen(screen: String) -> void:
 	ui.show_screen(screen)
@@ -129,6 +134,7 @@ func use_place() -> void:
 			update_state()
 			ui.show_toast(message)
 		"centre": ui.show_toast(data.other_text.centre_exit)
+		"inn", "masjid": ui.show_toast(data.ui.not_built)
 		_: pass
 
 func show_goal() -> void:
@@ -183,6 +189,7 @@ func do_daily_job() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("close"):
 		if ui.screen == "city_map": show_screen("market_map")
+		elif ui.screen == "world_map": show_screen("city_map")
 		elif ui.screen == "market_map": show_screen("game")
 		elif ui.screen in ["board", "task", "result", "lesson", "goal"]: show_screen("game")
 		else: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

@@ -13,8 +13,10 @@ a period when a city's libraries, markets and workshops were the centre of the k
 LOCK 1 parts 1–3 are playable in Godot: River Market streets and collision, a third-person capsule player,
 place actions, market/city maps, day/night lighting, three tasks with honest and quick choices, live coins/trust,
 amends and a daily boat job. The job becomes available again when night turns to day. Placeholder shapes; gameplay first.
-The scales lesson awards trust once. The Khurasan Gate swings open and stays open when the player asks with
-100 trust and the lesson complete. G or the trust bar opens the four-gate goal panel; maps show the first gate open.
+The scales lesson awards trust once. The Gate of Trust swings open and stays open when the player asks with
+100 trust and the lesson complete. G or the trust bar opens the four-gate goal panel. The city map marks the open gate green.
+LOCK 2 part 1 adds the Ilmara title, the five-part city map, a world map with twelve placeholder towns,
+and walkable routes to the Inn and Masjid.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 
@@ -28,7 +30,7 @@ See [ROADMAP.md](ROADMAP.md) for the planned game.
 
 1. Install Godot 4 (the exact version is recorded in [SOURCE/README.md](SOURCE/README.md)).
 2. Open Godot, choose **Import**, and pick `SOURCE/project.godot`.
-3. Press **Run**, then **Begin** to start at the quay.
+3. Press **Run**, then **Begin** to open the River Market map at the quay.
 
 WASD moves, mouse looks, Shift runs, E uses a nearby place, M opens the map, G opens the goal panel,
 T switches day/night, and Esc closes maps or releases the mouse. Map markers choose a physical walking route.

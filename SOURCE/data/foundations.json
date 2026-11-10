@@ -11,7 +11,7 @@
   },
   "places": {
     "gate": {
-      "name": "Khurasan Gate",
+      "name": "Gate of Trust",
       "line": "The gatekeepers watch the road east.",
       "x": 127.2,
       "z": 6.4
@@ -48,7 +48,7 @@
     },
     "centre": {
       "name": "To the central square",
-      "line": "The heart of the round city.",
+      "line": "The heart of Ilmara.",
       "x": 4.8,
       "z": 38.4
     }
@@ -261,49 +261,32 @@
     "wrong": "Not that one. Look again."
   },
   "gate": {
-    "open": "The gatekeepers open the Khurasan Gate. The road east is yours.",
+    "open": "The gatekeepers open the Gate of Trust. The road east is yours.",
     "needs_trust": "The gatekeepers want to hear the market speak for you first (trust {trust} / 100).",
     "needs_lesson": "The gatekeepers ask: can you weigh fairly? Learn the market scales first.",
-    "goal_line": "The Khurasan Gate needs 100 trust and the market scales lesson."
+    "goal_line": "The Gate of Trust needs 100 trust and the market scales lesson."
   },
   "goal": {
-    "title": "Be trusted by all four quarters of the round city and open all four gates.",
-    "line": "Open all four gates. Each one leads out to a region beyond the walls.",
+    "title": "Be trusted by all four quarters of Ilmara and open all four gates.",
+    "line": "Open all four gates. Each one leads out to the open field and its towns.",
     "gates": [
       [
-        "Khurasan Gate",
+        "Gate of Trust",
         "River Market trust"
       ],
       [
-        "Basra Gate",
-        "Basra quarter trust"
+        "Gate of Patience",
+        "North trust"
       ],
       [
-        "Kufa Gate",
-        "Kufa quarter trust"
+        "Gate of Mercy",
+        "South trust"
       ],
       [
-        "Syrian Gate",
-        "Syrian quarter trust"
+        "Gate of Knowledge",
+        "West trust"
       ]
     ]
-  },
-  "city_map": {
-    "title": "The round city",
-    "line": "Four gates, four quarters. Your first area is the market by the river.",
-    "gate_tags": {
-      "Khurasan Gate": "100 trust + scales lesson",
-      "Basra Gate": "locked",
-      "Kufa Gate": "locked",
-      "Syrian Gate": "locked"
-    },
-    "gate_messages": [
-      "The Khurasan Gate opens when River Market trusts you fully.",
-      "The Basra Gate opens after the Khurasan Gate.",
-      "The Kufa Gate comes later in the game.",
-      "The Syrian Gate comes later in the game."
-    ],
-    "gate_open_message": "The road east leads to the first region beyond the walls."
   },
   "title_screen": {
     "title": "THE FOUR GATES",

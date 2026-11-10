@@ -1,11 +1,22 @@
 extends RefCounted
-## Single runtime content loader. The approved bytes remain unchanged.
+## Locked JSON content and the line-5 layout overlay.
 
 static func load_data() -> Dictionary:
 	var file := FileAccess.open("res://data/foundations.json", FileAccess.READ)
 	assert(file != null, "Approved foundations data is required")
 	var parsed = JSON.parse_string(file.get_as_text())
 	assert(parsed is Dictionary, "Approved foundations data must be an object")
+	var identity := load_identity()
+	for id: String in identity.layout_additions:
+		var place: Dictionary = identity.layout_additions[id]
+		parsed.places[id] = place.duplicate(true)
+		parsed.street_points[id] = {"x": place.x, "z": place.z}
+		parsed.streets.append([place.street, id])
+	return parsed
+
+static func load_identity() -> Dictionary:
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/identity.json"))
+	assert(parsed is Dictionary, "Approved identity data must be an object")
 	return parsed
 
 static func configure_input(data: Dictionary) -> void:

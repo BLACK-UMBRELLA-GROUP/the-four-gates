@@ -21,6 +21,7 @@ const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
 var data: Dictionary = {}
+var identity: Dictionary = {}
 var screen := "title"
 var player_position := Vector3.ZERO
 var place_id := ""
@@ -43,8 +44,9 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary) -> void:
 	data = source
+	identity = identity_value
 	progress = progress_value
 	font.font_names = PackedStringArray(["Arial", "Helvetica", "sans-serif"])
 	bold_font.font_names = font.font_names
@@ -57,9 +59,12 @@ func setup(source: Dictionary, progress_value: RefCounted) -> void:
 	add_child(root)
 	map = MapCanvas.new()
 	map.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	map.configure(data)
+	map.configure(data, identity)
 	map.destination_requested.connect(func(id: String): destination_requested.emit(id))
-	map.city_gate_requested.connect(func(index: int): show_toast(data.city_map.gate_open_message if index == 0 and progress.gate_open else data.city_map.gate_messages[index]))
+	map.city_gate_requested.connect(func(index: int): show_city_gate(index))
+	map.city_part_requested.connect(func(part: String): show_toast(identity.city.parts[part].name + ": " + identity.city.parts[part].line))
+	map.town_requested.connect(func(index: int): show_toast(identity.world.town_toast.format({"town": identity.world.towns_placeholder[index].name})))
+	map.city_requested.connect(func(): screen_requested.emit("city_map"))
 	map.market_requested.connect(func(): screen_requested.emit("market_map"))
 	root.add_child(map)
 	content = Control.new()
@@ -88,7 +93,7 @@ func show_screen(value: String) -> void:
 	for child in content.get_children():
 		content.remove_child(child)
 		child.queue_free()
-	map.visible = screen == "market_map" or screen == "city_map"
+	map.visible = screen in ["market_map", "city_map", "world_map"]
 	map.mode = screen
 	map.night = night
 	map.player_position = player_position
@@ -107,8 +112,13 @@ func show_screen(value: String) -> void:
 			else:
 				_button(data.ui.buttons.map, Vector2(42, 974), Vector2(138, 55), func(): screen_requested.emit("market_map"))
 		"city_map":
-			_button(data.ui.buttons.title_back, Vector2(42, 983), Vector2(105, 55), func(): screen_requested.emit("title"))
-			_button(data.ui.buttons.goal, Vector2(170, 983), Vector2(93, 55), func(): goal_requested.emit())
+			_button(identity.ui.world_map, Vector2(42, 983), Vector2(158, 55), func(): screen_requested.emit("world_map"))
+			_button(identity.ui.river_market, Vector2(223, 983), Vector2(176, 55), func(): screen_requested.emit("market_map"))
+			_button(identity.ui.goal, Vector2(422, 983), Vector2(93, 55), func(): goal_requested.emit())
+		"world_map":
+			_button(identity.ui.title_back, Vector2(42, 983), Vector2(105, 55), func(): screen_requested.emit("title"))
+			_button(identity.ui.city_map, Vector2(170, 983), Vector2(138, 55), func(): screen_requested.emit("city_map"))
+			_button(identity.ui.river_market, Vector2(331, 983), Vector2(176, 55), func(): screen_requested.emit("market_map"))
 		"board":
 			_build_hud()
 			_build_board()
@@ -148,6 +158,19 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool) ->
 func show_toast(value: String) -> void:
 	if not is_instance_valid(toast_label):
 		return
+	if screen in ["city_map", "world_map"]:
+		var width := minf(1800, font.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, 20).x + 44)
+		toast_panel.position = Vector2((1920 - width) / 2.0, 900)
+		toast_panel.size = Vector2(width, 48)
+		toast_label.position = Vector2(20, 0)
+		toast_label.size = Vector2(width - 40, 48)
+		toast_label.add_theme_font_size_override("font_size", 20)
+	else:
+		toast_panel.position = Vector2(460, 844)
+		toast_panel.size = Vector2(1000, 68)
+		toast_label.position = Vector2(20, 10)
+		toast_label.size = Vector2(960, 48)
+		toast_label.add_theme_font_size_override("font_size", 25)
 	toast_label.text = value
 	_toast_seconds = 3.5
 	toast_panel.show()
@@ -172,13 +195,15 @@ func _build_title() -> void:
 	var title_x: float = (1920 - title_width + 14) / 2.0
 	for glyph in title_value:
 		var glyph_width := title_font.get_string_size(glyph, HORIZONTAL_ALIGNMENT_LEFT, -1, 112).x
-		var letter := _label(content, glyph, Vector2(title_x, 390), Vector2(glyph_width + 2, 150), 112, Color("ffda87"), true)
+		var letter := _label(content, glyph, Vector2(title_x, 360), Vector2(glyph_width + 2, 150), 112, Color("ffda87"), true)
 		letter.add_theme_font_override("font", title_font)
 		title_x += glyph_width + 14
-	var subtitle := _label(content, str(data.title_screen.line), Vector2(380, 564), Vector2(1160, 52), 28, PAPER)
+	var city_name := _label(content, str(identity.city.name), Vector2(380, 534), Vector2(1160, 52), 28, PAPER)
+	city_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	var subtitle := _label(content, str(data.title_screen.line), Vector2(380, 594), Vector2(1160, 52), 28, PAPER)
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_button(data.ui.buttons.begin, Vector2(830, 650), Vector2(107, 56), func(): begin_requested.emit(), true)
-	_button(data.ui.buttons.settings, Vector2(960, 650), Vector2(130, 56), func(): show_toast(data.title_screen.settings_toast))
+	_button(data.ui.buttons.begin, Vector2(830, 680), Vector2(107, 56), func(): begin_requested.emit(), true)
+	_button(data.ui.buttons.settings, Vector2(960, 680), Vector2(130, 56), func(): show_toast(data.title_screen.settings_toast))
 
 func _build_hud() -> void:
 	var coin_text: String = str(data.ui.hud.coins).format({"n": progress.coins})
@@ -379,7 +404,7 @@ func _build_place_bar() -> void:
 	var place: Dictionary = data.places[place_id]
 	var name_value: String = place.name
 	var line_value: String = str(data.ui.place_bar.format).format({"name": "", "line": place.line})
-	var action: String = data.ui.place_actions[place_id]
+	var action: String = data.ui.place_actions.get(place_id, data.ui.not_built)
 	if place_id == "scales" and progress.lesson_done:
 		action = data.ui.place_actions.scales_after_lesson
 	var name_width := bold_font.get_string_size(name_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
@@ -440,3 +465,13 @@ func _button(value: String, at: Vector2, extent: Vector2, callback: Callable, pr
 	button.pressed.connect(callback)
 	content.add_child(button)
 	return button
+
+func show_city_gate(index: int) -> void:
+	if index != 0:
+		show_toast(data.ui.not_built)
+	elif progress.gate_open:
+		show_toast(data.gate.open)
+	elif progress.trust < int(data.numbers.gate_trust):
+		show_toast(data.gate.needs_trust.format({"trust": progress.trust}))
+	else:
+		show_toast(data.gate.needs_lesson)

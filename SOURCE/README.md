@@ -23,7 +23,8 @@ line 19 and records the exact Godot version below; gameplay is built only from L
 ## Play the current greybox
 
 Import `SOURCE/project.godot` in Godot 4.7.2 and press Run, or run `godot --path SOURCE` from the repository root.
-The title opens first; Begin starts at the quay in River Market. These are placeholder shapes; gameplay first.
+The Ilmara title opens first. Begin opens the River Market map with the player at the quay.
+The game uses placeholder shapes.
 LOCK 1 parts 1–3 provide the street layout, collision, capsule player, camera, maps, day/night switch and task board.
 Use E at the board to take the three tasks, choose the honest or quick way, earn coins/trust, put quick choices right
 and unload a boat once each day. Amends return the trust actually lost plus the honest reward. Only night turning
@@ -31,23 +32,26 @@ to day restores the daily job. Coins start at 0 and trust at 20 / 100; trust sta
 Use E at Market scales to try the three weights against the checked weight and name the light one. A correct answer
 adds 25 trust once; later visits check the scales. Ask the gatekeepers with 100 trust and the lesson complete to swing
 the gate open permanently. Three honest tasks plus the lesson give exactly 100 trust and 12 coins. G or the trust bar
-opens the four-gate goal panel; the city map marks the opened Khurasan Gate green. There is no shop yet.
+opens the four-gate goal panel. The city map marks the open Gate of Trust green. There is no shop yet.
 
 WASD moves, mouse turns the third-person camera, Shift runs, E uses the nearby place, M opens/closes the market map,
 G opens the goal panel, T switches day/night, and Esc closes panels or releases the mouse. Click the world
 to capture the mouse again. Map place markers choose a walking route along the approved streets; the player moves
-physically. City map opens from the market map; its River Market area returns to the market map.
+physically. The Inn and Masjid have walking routes and show the placeholder action. Open City map from the market
+map and tap any of Ilmara's five parts for its description. The Inn marker or River Market button returns to the
+market map. Open World map from the city map and tap one of the twelve placeholder towns for its description.
 
-The unchanged locked `GAME/APPROVED/FOUNDATIONS/RECORD/foundations_data_V2.json` is copied to
-`SOURCE/data/foundations.json`. One loader reads it and configures runtime bindings from its keys. Content and gameplay
-settings stay in portable JSON. No art assets, plugins, packages or exports were added.
+`SOURCE/data/foundations.json` applies the line 5 names and map changes to the approved foundations V2 data.
+`SOURCE/data/identity.json` is a byte-for-byte copy of the approved identity V3 data. The loader adds the locked Inn
+and Masjid street points and routes from that copy. Content and gameplay settings stay in portable JSON.
 
 ## Checks and evidence
 
 Run the GDScript integration suite from the root of a complete checkout:
 `godot --headless --path SOURCE --script res://tests/run_tests.gd`
 
-The suite compares the runtime data byte for byte with the approved `foundations_data_V2.json` under `GAME/`.
+The suite uses the approved `foundations_data_V2.json` and `identity_data_V3.json` under `GAME/APPROVED/`.
+It checks the scoped foundations changes and compares the runtime identity file byte for byte with the approved copy.
 For a fixture containing only `SOURCE/`, use the independent player movement, progress restart and look-test
 controller checks below.
 
@@ -100,3 +104,12 @@ The plain runner also checks wrong answers, repeat lesson rewards, both gate pre
 
 Append `--masters-only` after `--capture-gate` for a short independent refresh of f12–f20 fixtures. It writes
 `PART3_MASTERS_MEASUREMENTS.json` and preserves the full playthrough receipt and its six numbered screenshots.
+
+Use the original LOCK 1 source commit to reproduce the retired f02 and f20 city maps.
+`godot --path SOURCE -- --capture-identity` records the six line 5 states and `CHECKS.json` under
+`GAME/APPROVED/IDENTITY/BUILT/V1/`. The native run uses map clicks and walks the player through the Inn, Masjid,
+honest tasks, scales lesson and gate. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --identity`
+to put each of the six approved masters beside the corresponding native capture.
+Append `--masters-only` to the native command for a shorter capture. This sets up the player at the gate
+for g14 and verifies the gate's prerequisites, hinge and collision through the real use action.

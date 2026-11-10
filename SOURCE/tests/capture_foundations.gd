@@ -89,7 +89,7 @@ func run(app: Node3D) -> void:
 	app.show_screen("city_map")
 	await capture(app, "f02_city_map__gate_closed__build.png")
 	for index in range(app.data.goal.gates.size()):
-		app.ui.show_toast(app.data.city_map.gate_messages[index])
+		app.ui.show_city_gate(index)
 		await capture(app, "city_gate_message_%s__build.png" % index)
 	app.show_screen("game")
 	await action(app, "goal")

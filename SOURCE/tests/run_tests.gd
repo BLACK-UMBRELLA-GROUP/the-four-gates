@@ -5,6 +5,8 @@ var checks := 0
 var failures := 0
 var app
 var data: Dictionary
+var identity: Dictionary
+var runtime_baseline: PackedByteArray
 
 
 func _initialize() -> void:
@@ -27,7 +29,16 @@ func frames(count: int) -> void:
 func _run() -> void:
 	var runtime := FileAccess.get_file_as_bytes("res://data/foundations.json")
 	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/FOUNDATIONS/RECORD/foundations_data_V2.json")
-	check(not runtime.is_empty() and runtime == approved, "runtime data is the byte-identical LOCK 1 V2 file")
+	runtime_baseline = runtime
+	var identity_bytes := FileAccess.get_file_as_bytes("res://data/identity.json")
+	var locked_identity := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/IDENTITY/RECORD/identity_data_V3.json")
+	check(not identity_bytes.is_empty() and identity_bytes == locked_identity, "identity runtime is the byte-identical LOCK 2 V3 file")
+	identity = JSON.parse_string(identity_bytes.get_string_from_utf8())
+	var expected: Dictionary = renamed_foundations(JSON.parse_string(approved.get_string_from_utf8()))
+	expected.goal.gates = JSON.parse_string(identity.renames_in_foundations_data[5][1])
+	expected.erase("city_map")
+	check(not runtime.is_empty() and JSON.parse_string(runtime.get_string_from_utf8()) == expected, "foundations contains exactly the line-5 transformations and no later-line changes")
+	check_retired_content()
 	var parsed = JSON.parse_string(runtime.get_string_from_utf8())
 	if not parsed is Dictionary:
 		check(false, "approved data parses as a dictionary")
@@ -42,9 +53,11 @@ func _run() -> void:
 	app = scene.instantiate()
 	root.add_child(app)
 	await frames(3)
+	data = app.data
 	check(app.ui.screen == "title", "launch opens the title")
 	check(visible_text().replace("\n", "").contains(data.title_screen.title), "title uses approved title text")
 	check(visible_text().contains(data.title_screen.line), "title uses approved subtitle")
+	check(visible_text().contains(identity.city.name), "title uses the locked city name")
 	check(visible_text().contains(data.ui.buttons.begin), "title has Begin")
 	check(visible_text().contains(data.ui.buttons.settings), "title has Settings")
 	var settings_button: Button = find_button(app.ui, data.ui.buttons.settings)
@@ -60,6 +73,7 @@ func _run() -> void:
 		app.begin_game()
 	await frames(4)
 	var spawn: Vector3 = app.world.point(data.start_place)
+	check(app.ui.screen == "market_map", "Begin opens the market map until arrival is built")
 	check(horizontal_distance(app.player.global_position, spawn) < 0.02, "Begin spawns at the quay")
 	check(is_zero_approx(app.player.yaw), "spawn faces north")
 	check(app.world.places.size() == data.places.size(), "one trigger exists for every approved place")
@@ -89,6 +103,7 @@ func _run() -> void:
 	await check_ui_states()
 	await check_task_economics()
 	await check_lesson_and_gate()
+	await check_identity_maps_and_places()
 	finish()
 
 
@@ -203,7 +218,7 @@ func check_data_driven_bindings() -> void:
 	foundations.configure_input(data)
 	for action: String in expected:
 		check(has_binding(action, label_key(expected[action])), "approved binding is restored after the isolated alternate-data test: " + action)
-	check(FileAccess.get_file_as_bytes("res://data/foundations.json") == FileAccess.get_file_as_bytes("res://../GAME/APPROVED/FOUNDATIONS/RECORD/foundations_data_V2.json"), "binding test preserves byte-identical approved runtime data")
+	check(FileAccess.get_file_as_bytes("res://data/foundations.json") == runtime_baseline, "binding test preserves the approved transformed runtime bytes")
 
 
 func check_input_and_camera() -> void:
@@ -426,12 +441,13 @@ func check_ui_states() -> void:
 		app.show_screen("city_map")
 	await frames(2)
 	check(app.ui.screen == "city_map", "city map opens")
-	check(app.ui.map.mode == "city_map" and app.ui.map.data.city_map.title == data.city_map.title, "city map drawing receives the approved title")
-	check(app.ui.map.data.city_map.line == data.city_map.line, "city map drawing receives the approved line")
-	for index in range(data.city_map.gate_messages.size()):
+	check(app.ui.map.mode == "city_map" and app.ui.map.identity.city.name == identity.city.name, "city map drawing receives the approved title")
+	check(app.ui.map.identity.city.map_title_line == identity.city.map_title_line, "city map drawing receives the approved line")
+	for index in range(data.goal.gates.size()):
 		app.ui.map.city_gate_requested.emit(index)
 		await frames(1)
-		check(visible_text().contains(data.city_map.gate_messages[index]), "city gate tap is wired to its approved message: " + str(index))
+		var message: String = data.gate.needs_trust.format({"trust": app.progress.trust}) if index == 0 else data.ui.not_built
+		check(visible_text().contains(message), "city gate tap is wired to its approved message: " + str(index))
 	key_event(KEY_ESCAPE, true)
 	key_event(KEY_ESCAPE, false)
 	await frames(2)
@@ -615,7 +631,7 @@ func check_task_economics() -> void:
 	check_economy_permutations_and_bounds()
 	app.show_screen("game")
 	check(app.world.gate_body.collision_layer != 0, "task progress never opens the still-temporary gate")
-	check(FileAccess.get_file_as_bytes("res://data/foundations.json") == FileAccess.get_file_as_bytes("res://../GAME/APPROVED/FOUNDATIONS/RECORD/foundations_data_V2.json"), "all task and daily tests preserve byte-identical locked runtime data")
+	check(FileAccess.get_file_as_bytes("res://data/foundations.json") == runtime_baseline, "all task and daily tests preserve the approved transformed runtime bytes")
 
 
 func check_economy_permutations_and_bounds() -> void:
@@ -720,7 +736,7 @@ func check_lesson_and_gate() -> void:
 	check(app.ui.map.gate_open, "maps receive the persistent open gate state")
 	app.show_screen("city_map")
 	app.ui.map.city_gate_requested.emit(0)
-	check(visible_text().contains(data.city_map.gate_open_message), "open city gate has approved region message")
+	check(visible_text().contains(data.gate.open), "open city gate uses the approved open-gate message")
 	app.show_goal()
 	check(visible_text().contains(data.ui.goal.open), "goal shows first gate open")
 	await press_button(data.ui.buttons.back_to_market, "goal Back to market button works")
@@ -735,6 +751,135 @@ func check_lesson_and_gate() -> void:
 	app.progress.try_weight(int(data.lesson.false_weight_index))
 	app.progress.answer_weight()
 	check(app.progress.trust == 100 and app.progress.coins == 0, "all quick plus amends plus lesson is 100 trust / 0 coins")
+
+
+func renamed_foundations(value: Variant) -> Variant:
+	# Only the five text rows belong to this line; later numeric/control rows do not.
+	if value is String:
+		var renamed: String = value
+		for index in range(5):
+			var row: Array = identity.renames_in_foundations_data[index]
+			renamed = renamed.replace(row[0], row[1])
+		return renamed
+	if value is Array:
+		var result: Array = []
+		for item in value:
+			result.append(renamed_foundations(item))
+		return result
+	if value is Dictionary:
+		var result: Dictionary = {}
+		for key in value:
+			result[renamed_foundations(key)] = renamed_foundations(value[key])
+		return result
+	return value
+
+
+func check_retired_content() -> void:
+	# The only exemption is the historical rename list in the immutable identity.
+	var retired: Array[String] = [str(identity.renames_in_foundations_data[0][0]).get_slice(" ", 0), str(identity.renames_in_foundations_data[1][0]).trim_prefix("The heart of the ").trim_suffix(".")]
+	var live_identity := identity.duplicate(true)
+	live_identity.erase("renames_in_foundations_data")
+	check_no_retired(JSON.stringify(live_identity), retired, "identity outside its sole exempt historical list")
+	check_no_retired(runtime_baseline.get_string_from_utf8(), retired, "transformed foundations")
+	check_source_content("res://", retired)
+
+
+func check_no_retired(value: String, retired: Array[String], context: String) -> void:
+	for word in retired:
+		check(not value.to_lower().replace("-", " ").contains(word.to_lower()), "retired content is absent from " + context)
+
+
+func check_source_content(folder: String, retired: Array[String]) -> void:
+	var directory := DirAccess.open(folder)
+	check(directory != null, "source validation can open " + folder)
+	if directory == null:
+		return
+	for filename in directory.get_files():
+		if filename.get_extension() in ["gd", "tscn", "tres"]:
+			check_no_retired(FileAccess.get_file_as_string(folder.path_join(filename)), retired, folder.path_join(filename))
+	for child in directory.get_directories():
+		if child.begins_with("."):
+			continue
+		check_source_content(folder.path_join(child), retired)
+
+
+func tap_map(at: Vector2) -> void:
+	var event := InputEventMouseButton.new()
+	event.button_index = MOUSE_BUTTON_LEFT
+	event.pressed = true
+	event.position = at
+	app.ui.map._gui_input(event)
+	await frames(2)
+
+
+func check_identity_maps_and_places() -> void:
+	app.progress.setup(data)
+	check(app.identity == identity and app.ui.identity == identity, "runtime and UI share the complete approved identity data")
+	check(app.progress.coins == 0 and app.progress.trust == 20, "line 5 preserves LOCK 1 starting coins and trust")
+	check(data.keys.wait_day_night == "T", "line 5 retains the LOCK 1 T binding")
+	if app.night:
+		app.toggle_night()
+	app.begin_game()
+	await frames(2)
+	check(not visible_text().contains(identity.clock.wait_button), "line 5 does not introduce the later clock wait control")
+	check(not visible_text().contains(identity.clock.weekdays_from_day1[0]), "line 5 does not introduce the clock HUD")
+	for id: String in identity.layout_additions:
+		var addition: Dictionary = identity.layout_additions[id]
+		check(data.places.has(id) and data.street_points.has(id), "runtime layout includes the new place and street point: " + id)
+		check(data.streets.has([addition.street, id]) or data.streets.has([id, addition.street]), "new place joins its locked street: " + id)
+		check(app.world.point(id).is_equal_approx(Vector3(addition.x, 0.0, addition.z)), "new place is at its exact locked position: " + id)
+	# Drive the production routing and physical capsule in both new corridors.
+	for id: String in ["inn", "masjid", "quay"]:
+		var before: Vector3 = app.player.global_position
+		app.walk_to_place(id)
+		check(app.player.global_position.is_equal_approx(before), "new-place route never teleports: " + id)
+		var arrived := false
+		for index in range(Engine.physics_ticks_per_second * 60):
+			await frames(1)
+			if app.route.is_empty() and app.current_place == id:
+				arrived = true
+				break
+		check(arrived, "production capsule reaches the place along the unobstructed streets: " + id)
+		if not arrived:
+			print("IDENTITY ROUTE DIAGNOSTIC ", id, " position=", app.player.global_position, " route=", app.route)
+		if id != "quay":
+			check(visible_text().contains(identity.layout_additions[id].name) and visible_text().contains(identity.layout_additions[id].line), "new-place bar uses its locked name and line: " + id)
+			check(find_button(app.ui, data.ui.not_built) != null, "new-place action uses the approved not-built label: " + id)
+			var wallet := Vector2i(app.progress.coins, app.progress.trust)
+			await press_button(data.ui.not_built, "new-place placeholder action is a real button: " + id)
+			check(app.ui.screen == "market_map" and visible_text().contains(data.ui.not_built) and Vector2i(app.progress.coins, app.progress.trust) == wallet, "new-place action stays deferred without side effects: " + id)
+	app.show_screen("city_map")
+	await frames(2)
+	var parts: Dictionary = {"centre": Vector2(960, 547), "east": Vector2(1200, 547), "north": Vector2(960, 300), "west": Vector2(700, 547), "south": Vector2(960, 790)}
+	for id: String in parts:
+		await tap_map(parts[id])
+		check(visible_text().contains(identity.city.parts[id].name) and visible_text().contains(identity.city.parts[id].line), "tapping city part shows its complete locked line: " + id)
+		check_no_retired(visible_text(), [str(identity.renames_in_foundations_data[0][0]).get_slice(" ", 0), str(identity.renames_in_foundations_data[1][0]).trim_prefix("The heart of the ").trim_suffix(".")], "visible city text")
+	await tap_map(Vector2(1248, 652))
+	check(app.ui.screen == "market_map", "Your inn marker opens River Market")
+	app.show_screen("city_map")
+	await press_button(identity.ui.world_map, "city map has a usable World map button")
+	check(app.ui.screen == "world_map", "city navigation opens world map")
+	await frames(2)
+	check(app.ui.map.identity.world.towns_placeholder.size() == 12, "world map receives all twelve locked placeholder towns")
+	for town: Dictionary in identity.world.towns_placeholder:
+		await tap_map(Vector2(town.x, town.y) * 4.8)
+		check(visible_text().contains(identity.world.town_toast.format({"town": town.name})), "world town tap shows its exact locked placeholder toast: " + str(town.name))
+	await tap_map(Vector2(960, 540))
+	check(app.ui.screen == "city_map", "tapping the central world city opens the city map")
+	await press_button(identity.ui.river_market, "city map has a usable River Market button")
+	check(app.ui.screen == "market_map", "city River Market navigation works")
+	app.show_screen("world_map")
+	await press_button(identity.ui.city_map, "world map has a usable City map button")
+	check(app.ui.screen == "city_map", "world City map navigation works")
+	app.show_screen("world_map")
+	await press_button(identity.ui.river_market, "world map has a usable River Market button")
+	check(app.ui.screen == "market_map", "world River Market navigation works")
+	app.show_screen("world_map")
+	await press_button(identity.ui.title_back, "world map has a usable Title button")
+	check(app.ui.screen == "title", "world Title navigation works")
+	check(FileAccess.get_file_as_bytes("res://data/foundations.json") == runtime_baseline, "all identity tests preserve approved foundations bytes")
+	check(FileAccess.get_file_as_bytes("res://data/identity.json") == FileAccess.get_file_as_bytes("res://../GAME/APPROVED/IDENTITY/RECORD/identity_data_V3.json"), "all identity tests preserve the immutable identity bytes")
 
 
 func finish() -> void:

@@ -1,0 +1,455 @@
+{
+  "version": "LOCK 2 V3 (6 Nov 2026) - why the traveller came (to help with his wealth and to seek knowledge) and a bigger purse (200 / 120 coins). V2: Friday prayer away from the masjid is Dhuhr",
+  "builds_on": "LOCK 1 V2 (foundations_data_V2.json). This file adds the identity and lists the LOCK 1 words it renames.",
+  "renames_in_foundations_data": [
+    [
+      "Khurasan Gate",
+      "Gate of Trust"
+    ],
+    [
+      "The heart of the round city.",
+      "The heart of Ilmara."
+    ],
+    [
+      "Be trusted by all four quarters of the round city and open all four gates.",
+      "Be trusted by all four quarters of Ilmara and open all four gates."
+    ],
+    [
+      "Open all four gates. Each one leads out to a region beyond the walls.",
+      "Open all four gates. Each one leads out to the open field and its towns."
+    ],
+    [
+      "The Khurasan Gate needs 100 trust and the market scales lesson.",
+      "The Gate of Trust needs 100 trust and the market scales lesson."
+    ],
+    [
+      "goal.gates",
+      "[[\"Gate of Trust\",\"River Market trust\"],[\"Gate of Patience\",\"North trust\"],[\"Gate of Mercy\",\"South trust\"],[\"Gate of Knowledge\",\"West trust\"]]"
+    ],
+    [
+      "city_map (whole section)",
+      "replaced by city and world below; the old round-city map (masters f02, f20) is retired"
+    ],
+    [
+      "numbers.start_coins = 0",
+      "the arrival sets the coins (200 or 120, minus the first night at the inn)"
+    ],
+    [
+      "keys.wait_day_night = T and the night/day switch",
+      "replaced by the clock: T = \"Wait until next prayer\"; day and night follow the clock"
+    ],
+    [
+      "ui.buttons.wait_night / wait_day",
+      "ui.buttons.wait_prayer"
+    ]
+  ],
+  "identity": {
+    "player": "A boy or girl from a far-away, richer land - better off, not very rich - who comes to help poorer people with their wealth and to seek knowledge, learning how to help well; dressed differently; does not speak the language",
+    "choose": [
+      "Boy",
+      "Girl"
+    ]
+  },
+  "city": {
+    "name": "Ilmara",
+    "say": "IL-mah-rah",
+    "meaning": "say it IL-mah-rah · made up, from ‘ilm (“knowledge”)",
+    "gates": {
+      "north": "Gate of Patience",
+      "east": "Gate of Trust",
+      "south": "Gate of Mercy",
+      "west": "Gate of Knowledge"
+    },
+    "parts": {
+      "centre": {
+        "name": "Centre",
+        "line": "The great masjid, the house of learning and the governor’s palace. The heart of the city."
+      },
+      "east": {
+        "name": "East · River Market",
+        "line": "Docks, traders and the inn. You land here and take a room on the edge of the market, inside the walls."
+      },
+      "north": {
+        "name": "North",
+        "line": "Gardens, orchards and the caravanserai where travellers rest."
+      },
+      "west": {
+        "name": "West",
+        "line": "Craftspeople: paper makers, bookbinders and potters."
+      },
+      "south": {
+        "name": "South",
+        "line": "Homes, wells, and the animal market where farmers bring their goods."
+      }
+    },
+    "map_title_line": "Walls, four gates, five parts. Tap a part.",
+    "inn_label": "Your inn · tap"
+  },
+  "world": {
+    "title": "The open field",
+    "line": "{n} small towns without walls · main and side quests",
+    "city_label": "the city · tap",
+    "you_land": "You land here",
+    "towns_placeholder": [
+      {
+        "name": "Fishing village",
+        "x": 318,
+        "y": 40
+      },
+      {
+        "name": "Date-palm village",
+        "x": 350,
+        "y": 170
+      },
+      {
+        "name": "Mill town",
+        "x": 300,
+        "y": 205
+      },
+      {
+        "name": "Caravan stop",
+        "x": 40,
+        "y": 60
+      },
+      {
+        "name": "Shepherds’ hamlet",
+        "x": 62,
+        "y": 172
+      },
+      {
+        "name": "Pottery village",
+        "x": 130,
+        "y": 28
+      },
+      {
+        "name": "Orchard town",
+        "x": 250,
+        "y": 22
+      },
+      {
+        "name": "Well town",
+        "x": 30,
+        "y": 125
+      },
+      {
+        "name": "Bridge town",
+        "x": 372,
+        "y": 104
+      },
+      {
+        "name": "Marsh village",
+        "x": 240,
+        "y": 200
+      },
+      {
+        "name": "Quarry village",
+        "x": 160,
+        "y": 196
+      },
+      {
+        "name": "Herb village",
+        "x": 95,
+        "y": 108
+      }
+    ],
+    "towns_note": "Placeholder names and positions on a 400 x 225 map; real towns are designed later",
+    "town_toast": "{town}: a small town for main and side quests (designed later)."
+  },
+  "layout_additions": {
+    "inn": {
+      "name": "Inn",
+      "line": "Your room by the quay. Bread included.",
+      "x": 36.8,
+      "z": 66.4,
+      "street": "quay"
+    },
+    "masjid": {
+      "name": "Masjid",
+      "line": "The adhan is called from its roof five times a day.",
+      "x": 68.8,
+      "z": 23.2,
+      "street": "sq"
+    }
+  },
+  "arrival": {
+    "start_time": "day 1 (Thursday) 06:30",
+    "inn_night": 2,
+    "title_running": "You arrive",
+    "title_done": "Your first day",
+    "kicker": "Arrival · River Market quay · Rich in the wrong coins",
+    "beats": [
+      {
+        "text": "Dawn. The boat bumps against the River Market quay. You carry a travel bag, a book from home and a heavy purse of foreign silver. The crowd shouts in words you do not know.",
+        "choices": [
+          {
+            "label": "Step off into the crowd",
+            "effect": {},
+            "reply": "Porters, sacks, goats. Nobody looks at you twice - except at your clothes."
+          },
+          {
+            "label": "Wait until the crowd thins",
+            "effect": {},
+            "reply": "The quay quietens. A boy points you towards two money-changers."
+          }
+        ]
+      },
+      {
+        "text": "A trader holds up your silver coin and shakes his head. Two money-changers sit by the quay. One works slowly at a scale everyone can watch. The other waves you over eagerly with a wide smile.",
+        "choices": [
+          {
+            "label": "Go to the one with the open scale",
+            "effect": {
+              "coins": 200,
+              "fair": true
+            },
+            "reply": "He weighs every coin in front of you and counts two hundred local coins into your hand."
+          },
+          {
+            "label": "Go to the smiling one",
+            "effect": {
+              "coins": 120,
+              "fair": false
+            },
+            "reply": "He counts fast and presses coins into your hand. One hundred and twenty. You cannot tell if that is right."
+          }
+        ]
+      },
+      {
+        "text": "At the inn by the quay, the innkeeper holds up two fingers, points at a room, then at the bread on the table.",
+        "choices": [
+          {
+            "label": "Pay for one night",
+            "effect": {
+              "coins": -2
+            },
+            "reply": "A small room with a window over the water. It is yours."
+          }
+        ]
+      },
+      {
+        "text": "At sunset a voice rises over the rooftops from the masjid nearby. People stop what they are doing and walk towards it.",
+        "choices": [
+          {
+            "label": "Follow them",
+            "effect": {
+              "time": 1095
+            },
+            "reply": "Inside, an old man with dates in his pocket notices you."
+          }
+        ]
+      }
+    ],
+    "end_fair": "Your silver was changed fairly. Two hundred coins: enough to live on for months, and to help people here.",
+    "end_cheated": "Something about the smiling changer bothers you. Later, at the market scales, you may find out you were cheated.",
+    "coins_line": "Coins: {n}",
+    "buttons": [
+      "Meet the old man",
+      "Walk River Market",
+      "Arrive again"
+    ],
+    "continue": "Continue",
+    "cheat_found_after_lesson": "Now you can read a scale - and you realise the smiling money-changer gave you 120 coins for silver worth 200.",
+    "effect_time_note": "effect.time = minutes after midnight the clock jumps to (1095 = 18:15, Maghrib)"
+  },
+  "inn": {
+    "action": "Rest until morning",
+    "wakes_at": "04:40 the next day",
+    "paid": "You sleep in your paid room ({n} nights left). Morning comes.",
+    "coins": "You pay {n} coins and sleep. Morning comes.",
+    "broom": "You cannot pay, so you sweep the stable for a straw bed. Morning comes."
+  },
+  "clock": {
+    "day_length_real_minutes": 48,
+    "start": "06:30 on day 1",
+    "weekdays_from_day1": [
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday"
+    ],
+    "prayers": [
+      {
+        "name": "Fajr",
+        "begins": "04:45",
+        "ends": "06:05",
+        "iqamah_minutes_after_adhan": 20
+      },
+      {
+        "name": "Dhuhr",
+        "begins": "12:05",
+        "ends": "15:30",
+        "iqamah_minutes_after_adhan": 15
+      },
+      {
+        "name": "Asr",
+        "begins": "15:30",
+        "ends": "18:10",
+        "iqamah_minutes_after_adhan": 15
+      },
+      {
+        "name": "Maghrib",
+        "begins": "18:10",
+        "ends": "19:30",
+        "iqamah_minutes_after_adhan": 5
+      },
+      {
+        "name": "Isha",
+        "begins": "19:30",
+        "ends": "04:45",
+        "iqamah_minutes_after_adhan": 15
+      }
+    ],
+    "friday": {
+      "replaces": "Dhuhr",
+      "name": "Friday prayer",
+      "iqamah_minutes_after_adhan": 30,
+      "away_rule": "Friday prayer is only prayed in congregation at the masjid. Away from it, or after its congregation time, the prayer is Dhuhr"
+    },
+    "congregation_rule": "At the masjid from the adhan until 5 minutes after the iqamah",
+    "night": "before 05:30 and from 18:40",
+    "prayer_takes_minutes": 10,
+    "missed_rule": "A prayer not prayed before its time ends is missed; a prayer whose time ended before the game started is not counted",
+    "hud_line1": "{weekday} · {hh:mm}",
+    "hud_next": "{prayer} in {h} h {m} min",
+    "hud_now": "{prayer} now · {h} h {m} min left",
+    "hud_done": "{prayer} · {status}",
+    "duration_format": "\"{h} h {m} min\", or \"{m} min\" under an hour",
+    "status": {
+      "jamaah": "prayed in congregation",
+      "alone": "prayed on your own",
+      "missed": "missed",
+      "madeup": "made up",
+      "dhuhr_fri": "missed Friday prayer · prayed Dhuhr"
+    },
+    "adhan_toast": "Adhan: {prayer} has begun.",
+    "pray_congregation": "Pray with the congregation",
+    "pray_friday": "Pray Friday prayer with the congregation",
+    "pray_here": "Pray {prayer} here",
+    "make_up": "Make up {prayer}",
+    "toast_congregation": "You prayed {prayer} in congregation.",
+    "toast_alone": "You prayed {prayer} on your own.",
+    "toast_madeup": "You made up {prayer}.",
+    "masjid_after_prayed": "You have prayed {prayer}. The masjid is quiet.",
+    "masjid_next": "{prayer} begins in {duration}.",
+    "masjid_actions": {
+      "none_yet": "Sit a while",
+      "after_meeting": "Look inside"
+    },
+    "record": {
+      "title": "Your prayers",
+      "kicker": "{weekday} · day {n}",
+      "row": "{hh:mm} · {status}",
+      "now": "now · {duration} left",
+      "later": "at {hh:mm}",
+      "not_counted": "not counted",
+      "note": "Only you see this. Prayer gives no coins and no trust.",
+      "back": "Back to the market"
+    },
+    "wait_button": "Wait until next prayer",
+    "keys": {
+      "pray": "P"
+    },
+    "real_reminder": "parked - not in this LOCK (Founder: \"No no no setting no nothing\")",
+    "pray_here_friday": "Pray Dhuhr here",
+    "toast_alone_friday": "You prayed Dhuhr on your own.",
+    "status_note": "dhuhr_fri: a man who prays Dhuhr on a Friday instead of Friday prayer in congregation"
+  },
+  "teacher": {
+    "name": "Idris, the imam",
+    "who": "The masjid’s imam: warm, fatherly, a little slow on his feet, always with dates in his pocket.",
+    "how": "Teaches through sharing and stories, told with his hands while you learn the words.",
+    "when": "After Maghrib",
+    "beats": [
+      {
+        "text": "After Maghrib the imam sees you sitting alone. He sits beside you, opens a cloth of dates and says softly: {bismillah}",
+        "choices": [
+          {
+            "label": "Repeat it and take a date",
+            "learns": "bismillah",
+            "reply": "He nods, pleased, and takes one too."
+          },
+          {
+            "label": "Take a date",
+            "learns": null,
+            "reply": "He smiles and says the word again as you eat."
+          }
+        ]
+      },
+      {
+        "text": "He pours you water from a clay jug.",
+        "choices": [
+          {
+            "label": "Say thank you in your language",
+            "learns": null,
+            "reply": "He tilts his head, then teaches you his way of saying it."
+          },
+          {
+            "label": "Bow your head",
+            "learns": null,
+            "reply": "He pats your shoulder and teaches you the word anyway."
+          }
+        ]
+      },
+      {
+        "text": "He says it slowly so you can copy him: {shukran}",
+        "choices": [
+          {
+            "label": "Copy him",
+            "learns": "shukran",
+            "reply": "“Shukran,” you say. He laughs - your accent is terrible, and he loves it."
+          }
+        ]
+      },
+      {
+        "text": "With his hands he tells a story: a traveller, a long road, a light at the end. Then he points to the floor: {laylan}",
+        "choices": [
+          {
+            "label": "Nod",
+            "learns": "laylan",
+            "reply": "After Isha. He wants to tell you more stories."
+          }
+        ]
+      }
+    ],
+    "end": "New: come back to the imam after Isha for a story.",
+    "title_before": "An old man",
+    "kicker": "The masjid, River Market · {when} · words you know: {n}",
+    "words_you_know": "Words you know: {n}",
+    "new_word": "New word · {ar} = {en}",
+    "buttons": {
+      "continue": "Continue",
+      "leave": "‹ Leave",
+      "back": "Back to the market",
+      "again": "Meet him again"
+    }
+  },
+  "language": {
+    "rule": "A word the traveller has not learned shows in the town's language, in a different colour; once learned it shows in English with the town word after it in brackets",
+    "words": {
+      "bismillah": {
+        "ar": "Bismillah",
+        "en": "In the name of God"
+      },
+      "shukran": {
+        "ar": "Shukran",
+        "en": "Thank you"
+      },
+      "laylan": {
+        "ar": "Ba‘d al-‘isha",
+        "en": "After Isha"
+      }
+    }
+  },
+  "ui": {
+    "world_map": "World map",
+    "city_map": "City map",
+    "river_market": "River Market",
+    "goal": "Goal",
+    "title_back": "‹ Title",
+    "your_prayers": "Your prayers",
+    "wait_prayer": "Wait until next prayer"
+  }
+}
