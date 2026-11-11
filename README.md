@@ -40,6 +40,8 @@ in today’s record.
 LOCK 9 lets you pay Salma to bake ten or fifty loaves for people who are hungry. Choose **Feed the poor** at
 the Task board while she is at her oven. The panel counts meals toward 10,000. Reading the first scholar’s page
 unlocks secret payments.
+LOCK 10 adds Karim's sealed-purse job at the Quay. With enough River Market trust during his opening hours,
+accept the purse, decide what to do with the fallen coin and deliver the purse to Abbas at the Gate of Trust.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

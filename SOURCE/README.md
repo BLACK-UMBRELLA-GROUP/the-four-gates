@@ -223,3 +223,12 @@ quiet** to pay without adding trust or a reputation line. Both choices count tow
 Run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --feeding` to place each master
 beside its native capture. Both commands accept `--feeding-output=/absolute/path`. See `LINE16_CHECKS.json` and
 `BUILD.json` for the fixtures, checks, provenance and visual differences.
+
+LOCK 10 offers **Karim has a job for you** at the Quay from 06:30 to 18:10 with River Market trust of at least 40,
+outside the Friday prayer closure. After the coin choice, the map returns to the Task board with the purse.
+At the Gate of Trust choose **Give the purse to Abbas**. The outcome appears in **What people say**.
+
+`godot --path SOURCE -- --capture-sealed-purse` records the ten native LOCK 10 states under
+`GAME/APPROVED/SEALED_PURSE/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --sealed-purse`
+to pair the captures with their masters. Both commands accept `--sealed-purse-output=/absolute/path`.

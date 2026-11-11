@@ -47,6 +47,10 @@ signal greeting_requested
 signal tip_requested
 signal feeding_requested
 signal feeding_paid(id: String)
+signal sealed_purse_offered
+signal sealed_purse_accepted
+signal sealed_purse_coin_chosen(keep: bool)
+signal sealed_purse_delivered
 
 const MapCanvas = preload("res://game/map_canvas.gd")
 const LessonCanvas = preload("res://game/lesson_canvas.gd")
@@ -55,6 +59,7 @@ const MarketStall = preload("res://game/market_stall.gd")
 const Talking = preload("res://game/talking.gd")
 const MarketDay = preload("res://game/market_day.gd")
 const Feeding = preload("res://game/feeding.gd")
+const SealedPurse = preload("res://game/sealed_purse.gd")
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
@@ -63,7 +68,8 @@ const GRAB_SCREENS := ["grab_see", "grab_ask", "grab_after"]
 const PRAYER_TOTAL_ROWS := [
 	"on_time", "jamaah", "alone_masjid", "alone_elsewhere", "friday", "dhuhr_fri", "madeup", "missed",
 ]
-const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_morning", "reputation"] + GRAB_SCREENS
+const SEALED_PURSE_SCREENS := ["sealed_purse_offer", "sealed_purse_coin", "sealed_purse_delivery"]
+const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_morning", "reputation"] + GRAB_SCREENS + SEALED_PURSE_SCREENS
 var data: Dictionary = {}
 var identity: Dictionary = {}
 var chapter: Dictionary
@@ -74,7 +80,9 @@ var market_stall: MarketStall
 var talking: Talking
 var market_day: MarketDay
 var feeding: Feeding
+var sealed_purse: SealedPurse
 var _feeding_available := false
+var _sealed_offer_available := false
 var _regular_status := MarketDay.Status.OPEN
 var _can_feed := false
 var _board_prompt := BreadGrab.Prompt.NONE
@@ -126,7 +134,7 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
@@ -137,6 +145,7 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	market_day = market_day_value
 	prayer_record = prayer_record_value
 	feeding = feeding_value
+	sealed_purse = sealed_purse_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -218,16 +227,9 @@ func _rebuild_screen() -> void:
 			_build_hud()
 			var place_x := 203.0
 			var separate_board_row := _board_prompt != BreadGrab.Prompt.NONE or _feeding_available
-			var nav_y := 974.0
-			if separate_board_row:
-				nav_y = 814.0 if _board_prompt == BreadGrab.Prompt.WAIT else 890.0
 			if screen == "market_map":
 				place_x = 732.0
-			if separate_board_row:
-				_build_prayer_buttons(place_x, 0.0, nav_y)
-				place_x = 42.0
-			if _build_place_bar(place_x, separate_board_row):
-				nav_y = 890.0
+			var nav_y := _build_place_bar(place_x, separate_board_row)
 			if screen == "market_map":
 				_button(data.ui.buttons.city_map, Vector2(42, nav_y), Vector2(138, 55), func(): screen_requested.emit("city_map"))
 				_button(data.ui.buttons.wait_prayer, Vector2(203, nav_y), Vector2(265, 55), func(): wait_requested.emit())
@@ -290,6 +292,9 @@ func _rebuild_screen() -> void:
 		"feeding":
 			_build_hud()
 			_build_feeding()
+		"sealed_purse_offer", "sealed_purse_coin", "sealed_purse_delivery":
+			_build_hud()
+			_build_sealed_purse()
 		"stall_change":
 			_build_hud()
 			_build_stall_change()
@@ -328,6 +333,10 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	var feeding_available := place_value == "board" and salma_present
 	if feeding_available != _feeding_available:
 		_feeding_available = feeding_available
+		rebuild = rebuild or screen in ["game", "market_map"]
+	var sealed_offer_available := place_value == "quay" and sealed_purse.offer_available()
+	if sealed_offer_available != _sealed_offer_available:
+		_sealed_offer_available = sealed_offer_available
 		rebuild = rebuild or screen in ["game", "market_map"]
 	var can_feed := place_value == "quay" and market_stall.count("bread") > 0
 	if can_feed != _can_feed:
@@ -1034,6 +1043,33 @@ func _build_stall() -> void:
 	_stall_panel_back(panel, stall.back, y + 14.0)
 
 
+func _build_sealed_purse() -> void:
+	var copy := sealed_purse.data
+	match screen:
+		"sealed_purse_offer":
+			_sealed_purse_panel(copy.offer, copy.offer.text,
+				copy.offer.accept, func(): sealed_purse_accepted.emit(),
+				copy.offer.refuse, func(): screen_requested.emit("market_map"))
+		"sealed_purse_coin":
+			_sealed_purse_panel(copy.coin, copy.coin.text,
+				copy.coin.back_in, func(): sealed_purse_coin_chosen.emit(false),
+				copy.coin.keep, func(): sealed_purse_coin_chosen.emit(true))
+		"sealed_purse_delivery":
+			var whole := sealed_purse.state == SealedPurse.State.DELIVERED_WHOLE
+			var story: String = copy.deliver.honest if whole else copy.deliver.kept
+			_sealed_purse_panel(copy.deliver, story,
+				copy.deliver.to_rep, func(): screen_requested.emit("reputation"),
+				copy.deliver.to_map, func(): screen_requested.emit("market_map"))
+
+
+func _sealed_purse_panel(copy: Dictionary, story: String, primary: String, primary_action: Callable, secondary: String, secondary_action: Callable) -> void:
+	var panel := _chapter_panel(copy.kicker, copy.title, true)
+	var y := 111.0 + _story_text(panel, story, 111.0) + 16.0
+	var x := 34.0 + _chapter_button(panel, primary, Vector2(34, y), primary_action, true)
+	_chapter_button(panel, secondary, Vector2(x, y), secondary_action)
+	_chapter_finish(panel, y)
+
+
 func _build_feeding() -> void:
 	var copy: Dictionary = feeding.data.panel
 	var panel := _chapter_panel(copy.kicker, copy.title, true)
@@ -1240,6 +1276,9 @@ func reputation_lines() -> Array:
 	if answer != null:
 		lines.append(answer)
 	lines.append_array(market_stall.trade_reputation_lines())
+	var purse_line: Variant = sealed_purse.reputation_line()
+	if purse_line != null:
+		lines.append(purse_line)
 	var feeding_line: Variant = feeding.reputation_line()
 	if feeding_line != null:
 		lines.append(feeding_line)
@@ -1316,15 +1355,26 @@ func _build_prayer_buttons(x: float, place_width: float, row_y: float = 973.0) -
 		at.x += _arrival_button(_make_up_label, at, func(): make_up_requested.emit()) + 22.0
 	return x if separate_row else at.x
 
-# Returns whether navigation moved above a wide place bar.
-func _build_place_bar(x: float, separate_board_row: bool) -> bool:
+# Returns the navigation row's vertical position.
+func _build_place_bar(x: float, separate_board_row: bool) -> float:
+	var carrying := sealed_purse.is_carrying()
+	var deliver := place_id == "gate" and carrying
+	var label_size := 23 if deliver else 24
+	var carrying_text: String = sealed_purse.data.carrying if carrying else ""
+	var carrying_width := font.get_string_size(carrying_text, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0 if carrying else 0.0
 	if place_id.is_empty() or not data.places.has(place_id):
 		var idle: String = data.ui.place_bar.idle
 		var idle_width: float = font.get_string_size(idle, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
-		x = _build_prayer_buttons(x, idle_width + 36)
-		var idle_panel := _panel(Vector2(x, 965), Vector2(idle_width + 36, 73), Color("191c19"))
+		var idle_total := idle_width + carrying_width + 36.0
+		var idle_wrap := carrying and x + idle_total + _prayer_buttons_width(_prayer_label) > 1878.0
+		var idle_nav := 890.0 if idle_wrap else 974.0
+		var prayer_x := _build_prayer_buttons(x, 0.0 if idle_wrap else idle_total, idle_nav if idle_wrap else 973.0)
+		x = 42.0 if idle_wrap else prayer_x
+		var idle_panel := _panel(Vector2(x, 965), Vector2(idle_total, 73), Color("191c19"))
 		_label(idle_panel, idle, Vector2(18, 15), Vector2(idle_width + 4, 42), 24, PAPER)
-		return false
+		if carrying:
+			_label(idle_panel, carrying_text, Vector2(idle_width + 36.0, 15), Vector2(carrying_width, 42), 24, PAPER)
+		return idle_nav
 	var place: Dictionary = data.places[place_id]
 	var name_value: String = place.name
 	var place_line: String = _masjid_line if place_id == "masjid" and not _masjid_line.is_empty() else place.line
@@ -1343,8 +1393,8 @@ func _build_place_bar(x: float, separate_board_row: bool) -> bool:
 		action = masjid_actions.after_meeting if idris_met else masjid_actions.none_yet
 		if not _prayer_label.is_empty():
 			action = _prayer_label
-	var name_width := bold_font.get_string_size(name_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
-	var line_width := font.get_string_size(line_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+	var name_width := bold_font.get_string_size(name_value, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x
+	var line_width := font.get_string_size(line_value, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x
 	var shop_notice := ""
 	if _regular_status != MarketDay.Status.OPEN and place_id in ["spice", "weaver"]:
 		var copy: Dictionary = market_day.data.text
@@ -1353,6 +1403,8 @@ func _build_place_bar(x: float, separate_board_row: bool) -> bool:
 		else:
 			shop_notice = copy.stall_closed_night if place_id == "spice" else copy.loom_closed_night
 	var action_width := _button_width(action, true) + 2.0 if shop_notice.is_empty() else font.get_string_size(shop_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+	if deliver:
+		action_width -= 12.0
 	var extra_text := ""
 	var extra_action: Callable
 	var extra_primary := false
@@ -1380,22 +1432,42 @@ func _build_place_bar(x: float, separate_board_row: bool) -> bool:
 			talk_notice = market_day.talk_notice(talking.regular_at(place_id).id, _regular_status)
 			talk_width = font.get_string_size(talk_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 18.0
 	var feeding_width := _button_width(feeding.data.place_button) + 18.0 if _feeding_available else 0.0
-	var total_width := name_width + line_width + action_width + feeding_width + extra_width + talk_width + 55.0
-	var wrap := not talk_text.is_empty() and not separate_board_row and x + total_width + _prayer_buttons_width(_prayer_label) > 1878.0
-	if wrap:
-		_build_prayer_buttons(x, 0.0, 890.0)
-		x = 42.0
-	elif not separate_board_row:
-		x = _build_prayer_buttons(x, total_width)
+	var purse_text := ""
+	var purse_action: Callable
+	if deliver:
+		purse_text = sealed_purse.data.gate_button
+		purse_action = func(): sealed_purse_delivered.emit()
+	elif _sealed_offer_available:
+		purse_text = sealed_purse.data.quay_button
+		purse_action = func(): sealed_purse_offered.emit()
+	var purse_width := _button_width(purse_text, deliver) + 18.0 if not purse_text.is_empty() else 0.0
+	if deliver:
+		purse_width -= 16.0
+	var total_width := name_width + line_width + action_width + feeding_width + extra_width + purse_width + talk_width + 55.0
+	var carrying_footer := carrying and (place_id == "board" or total_width + carrying_width > 1836.0)
+	var inline_carrying_width := 0.0 if carrying_footer else carrying_width
+	var wrap := (not talk_text.is_empty() or purse_width > 0.0 or carrying) and x + total_width + inline_carrying_width + _prayer_buttons_width(_prayer_label) > 1878.0
 	var waiting := _board_prompt == BreadGrab.Prompt.WAIT
 	var bar_y := 891.0 if waiting else 965.0
-	var width := total_width
+	var nav_y := 814.0 if waiting else 890.0
+	if carrying_footer:
+		bar_y -= 50.0
+		nav_y -= 50.0
+	if wrap or separate_board_row or carrying_footer:
+		_build_prayer_buttons(x, 0.0, nav_y)
+		x = 42.0
+	else:
+		x = _build_prayer_buttons(x, total_width + inline_carrying_width)
+	var width := total_width + inline_carrying_width
 	if waiting:
 		width = maxf(width, font.get_string_size(chapter.grab.wait_line, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 36.0)
-	var panel := _panel(Vector2(x, bar_y), Vector2(width, 147.0 if waiting else 73.0), Color("191c19"))
-	_label(panel, name_value, Vector2(18, 15), Vector2(name_width + 4, 42), 24, PAPER, true)
-	_label(panel, line_value, Vector2(18 + name_width, 15), Vector2(line_width + 4, 42), 24, PAPER)
-	var action_x := x + total_width - action_width - feeding_width - extra_width - talk_width - 17.0
+	if carrying_footer:
+		width = maxf(width, carrying_width + 18.0)
+	var height := (147.0 if waiting else 73.0) + (50.0 if carrying_footer else 0.0)
+	var panel := _panel(Vector2(x, bar_y), Vector2(width, height), Color("191c19"))
+	_label(panel, name_value, Vector2(18, 15), Vector2(name_width + 4, 42), label_size, PAPER, true)
+	_label(panel, line_value, Vector2(18 + name_width, 15), Vector2(line_width + 4, 42), label_size, PAPER)
+	var action_x := x + total_width - action_width - feeding_width - extra_width - purse_width - talk_width - 17.0
 	if shop_notice.is_empty():
 		_button(action, Vector2(action_x, bar_y + 8.0), Vector2(action_width, 56), func(): use_requested.emit(), true)
 	else:
@@ -1406,14 +1478,21 @@ func _build_place_bar(x: float, separate_board_row: bool) -> bool:
 		extra_x += feeding_width
 	if not extra_text.is_empty():
 		_button(extra_text, Vector2(extra_x, bar_y + 8.0), Vector2(extra_width - 18.0, 56), extra_action, extra_primary)
-	var talk_x := extra_x + extra_width
+	extra_x += extra_width
+	if purse_width > 0.0:
+		_button(purse_text, Vector2(extra_x, bar_y + 8.0), Vector2(purse_width - 18.0, 56), purse_action, deliver)
+	var talk_x := extra_x + purse_width
 	if not talk_notice.is_empty():
 		_label(panel, talk_notice, Vector2(talk_x - x, 15), Vector2(talk_width - 14.0, 42), 24, PAPER)
 	elif not talk_text.is_empty():
 		_button(talk_text, Vector2(talk_x, bar_y + 8.0), Vector2(talk_width - 18.0, 56), func(): talk_requested.emit())
+	if carrying_footer:
+		_label(panel, carrying_text, Vector2(18, 73), Vector2(carrying_width, 42), label_size, PAPER)
+	elif carrying:
+		_label(panel, carrying_text, Vector2(total_width + 2.0, 15), Vector2(carrying_width - 18.0, 42), label_size, PAPER)
 	if waiting:
-		_label(panel, chapter.grab.wait_line, Vector2(18, 87), Vector2(width - 36, 42), 24, PAPER)
-	return wrap
+		_label(panel, chapter.grab.wait_line, Vector2(18, 87 + (50 if carrying_footer else 0)), Vector2(width - 36, 42), 24, PAPER)
+	return nav_y if wrap or separate_board_row or carrying_footer else 974.0
 
 func _style(background: Color, border: Color = Color("886125")) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()

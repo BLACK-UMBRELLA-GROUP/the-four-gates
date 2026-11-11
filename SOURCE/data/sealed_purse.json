@@ -1,0 +1,49 @@
+{
+  "version": "LOCK 10 V1 (8 Nov 2026) - chapter 1: the sealed purse",
+  "builds_on": "LOCK 1 (trust, gate), LOCK 2 (quay, money-changers), LOCK 7 (hours). Placeholders: {n}.",
+  "numbers": {
+    "offer_from_trust": 40,
+    "fee": 4,
+    "kept_coin": 1,
+    "honest_trust": 5,
+    "kept_trust": -8
+  },
+  "quay_button": "Karim has a job for you",
+  "gate_button": "Give the purse to Abbas",
+  "offer": {
+    "kicker": "Chapter 1 · The sealed purse",
+    "title": "Karim the money-changer",
+    "text": "Karim has heard you are honest. He holds out a heavy purse sewn shut with a wax seal: “Take this to Abbas, the caravan master at the Gate of Trust. Four coins for your trouble.”",
+    "accept": "Carry the purse",
+    "refuse": "Not today"
+  },
+  "coin": {
+    "kicker": "Chapter 1 · On the way",
+    "title": "A coin on the stones",
+    "text": "Halfway up the street the seam splits a little. One silver coin drops and rolls to your foot. Nobody is looking.",
+    "back_in": "Push it back into the purse",
+    "keep": "Keep it"
+  },
+  "carrying": "You are carrying Karim's sealed purse to the Gate of Trust.",
+  "deliver": {
+    "kicker": "Chapter 1 · The Gate of Trust",
+    "title": "Abbas the caravan master",
+    "honest": "Abbas cuts the seal and counts in front of you. Every coin is there. He nods slowly: “Karim chose well.” You go back and Karim pays you four coins.",
+    "kept": "Abbas cuts the seal and counts. He counts again. “One short.” By evening Karim has heard. He pays you nothing and says nothing.",
+    "to_rep": "What people say",
+    "to_map": "Back to the market map"
+  },
+  "say": {
+    "honest": [
+      "Carries a purse honestly",
+      "Karim the money-changer",
+      1
+    ],
+    "kept": [
+      "Came up one coin short",
+      "Karim and Abbas",
+      -1
+    ]
+  },
+  "deen": "Allah commands you to render trusts to whom they are due (Quran 4:58)"
+}

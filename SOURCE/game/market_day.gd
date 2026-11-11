@@ -18,9 +18,13 @@ func status(regular_id: String) -> Status:
 	var hours: Dictionary = data.hours.get(regular_id, {})
 	if hours.is_empty():
 		return Status.OPEN
+	return status_during(int(hours.open), int(hours.close))
+
+
+func status_during(opens: int, closes: int) -> Status:
 	if _clock.is_friday_prayer_window(int(data.friday.closed_until_minutes_after_iqamah)):
 		return Status.FRIDAY_PRAYER
-	if _clock.minute_of_day < int(hours.open) or _clock.minute_of_day >= int(hours.close):
+	if _clock.minute_of_day < opens or _clock.minute_of_day >= closes:
 		return Status.OUTSIDE_HOURS
 	return Status.OPEN
 

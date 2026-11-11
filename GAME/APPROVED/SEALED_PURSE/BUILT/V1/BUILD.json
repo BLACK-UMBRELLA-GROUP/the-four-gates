@@ -1,0 +1,215 @@
+{
+  "line": 17,
+  "lock": "LOCK 10 V1",
+  "brief": "DOC-TFG-0041",
+  "tested_base_commit_sha": "814f81e2f9c89fc5f042eb24c4fd06785cfbfd4d",
+  "capture_source": "The line 17 source worktree on the tested base. The Codex daily task note records the single commit containing this source and evidence.",
+  "godot_version": "4.7.2-stable (official)",
+  "godot_version_full": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T16:14:23Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Real native Godot viewport. Viewport clicks exercise the fair arrival, offer, refusal, coin choices, delivery, and reputation.",
+  "fixture": "Passive clock ticks are paused. Fair arrival provides the wallet. Trust is set to 45 or 30 through TaskProgress. The harness places the player at the quay on Saturday day 3 at 10:00 and at the gate for delivery. The coin choice moves the player to the Task board through gameplay.",
+  "source_sha256": {
+    "SOURCE/data/chapter1.json": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0",
+    "SOURCE/data/clothes.json": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e",
+    "SOURCE/data/feeding.json": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7",
+    "SOURCE/data/foundations.json": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/data/market_day.json": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05",
+    "SOURCE/data/market_stall.json": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604",
+    "SOURCE/data/prayer_record.json": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9",
+    "SOURCE/data/sealed_purse.json": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a",
+    "SOURCE/data/talking.json": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4",
+    "SOURCE/game/bread_grab.gd": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468",
+    "SOURCE/game/feeding.gd": "a818d69fb277ed6125f20d06a47e997c03c25dee99094de4651a2acb11df6b80",
+    "SOURCE/game/foundations.gd": "e53a373c44d7c770103f6248bae35dbcc49007a99b5323195c2464ba59b89791",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+    "SOURCE/game/market_day.gd": "3cb77474a4fd5fffb10caa13954c0369a3759235cd60449a258fa202ce702b38",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_stall.gd": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56",
+    "SOURCE/game/market_ui.gd": "de2f750808359be66cd1221879623db268297efc2b0b158d414d3adc4100befb",
+    "SOURCE/game/market_world.gd": "4ab39fafbcc1f9210937c8d199b3fad8507b65cfdb556c81e4b9f86b3c649fb0",
+    "SOURCE/game/open_purse.gd": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9",
+    "SOURCE/game/prayer_clock.gd": "20a417baf9e0e102b366a8d1f2c2a0fa464cfbbe2d55c7dfd1ab38712a701b45",
+    "SOURCE/game/river_market.gd": "a8278ff9cb1ed0cbf8017b464a55438781aec91eaad0bbe7e8db2924cc20d3a2",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/game/sealed_purse.gd": "e3b46ae422a91cd824057e43881c80bb254dac24da5031163ac093d491bef7ab",
+    "SOURCE/game/talking.gd": "546458aedd4c3c74f06e498f2160c8622fc5524a3f9d9ab49ec6cd0891bd0f86",
+    "SOURCE/game/task_progress.gd": "ec252cac5837000910f107051f4d63d16a77f3327c83f316f7e31d5dcf16cbc2",
+    "SOURCE/main.tscn": "109e5b49d1caed038c97365a9c4fb995c5541bfd0b30d9ef1568af98bb815a94",
+    "SOURCE/project.godot": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/capture_sealed_purse.gd": "0f4c3bb3e7ac20b85b6bfdf029a67e237fcfe84bbcb6cf594d4a97d0d7ced5d9",
+    "SOURCE/tests/capture_tasks.gd": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003"
+  },
+  "test_and_comparison_source_sha256": {
+    "SOURCE/tests/create_comparisons.gd": "56f79ce2d73e0779aa861fa69441e2858cf4d205ccf4938218b610a359394211",
+    "SOURCE/tests/run_tests.gd": "9a4469ae69f4d6fb07e8afbd97dbc23b4feb26e2c14e599e0a7396da3378daeb"
+  },
+  "approved_inputs_sha256": {
+    "GAME/APPROVED/SEALED_PURSE/BRIEFS/BUILD_BRIEF_2026-11-08_SEALED_PURSE.md": "f8e4a087ee32b0a4508539896c17225a34a608ea1f35b7160afe9b731a92ff99",
+    "GAME/APPROVED/SEALED_PURSE/MASTERS/h01_quay__karim_has_a_job.png": "065505776d2779ea6b1199b41afc9502519e414856aaa695cf49497a193bbd3a",
+    "GAME/APPROVED/SEALED_PURSE/MASTERS/h02_sealed__offer.png": "369cbeda6de3ad59e0e0f27d348730b2d08c4fcf4ac7aa749a8f89825a4c6301",
+    "GAME/APPROVED/SEALED_PURSE/MASTERS/h03_sealed__coin_on_the_stones.png": "63b921bcd11ea39fa3a7bd80c14a0e032886f1b69941199bc7f552378cebdbd6",
+    "GAME/APPROVED/SEALED_PURSE/MASTERS/h04_square__carrying.png": "8d848cd8ebed5dcde7a87a15af64244f97df341091f7ecce7238dbe19bfcbea7",
+    "GAME/APPROVED/SEALED_PURSE/MASTERS/h05_gate__give_the_purse.png": "1ce09a642113c8a002380e6ae5fe229f3490d08c4b28dd86777d922d7408db69",
+    "GAME/APPROVED/SEALED_PURSE/MASTERS/h06_sealed__delivered_whole.png": "0e266686f66aff4259163f3f74e472b79be3300c3a4832e0db0393cee40967ed",
+    "GAME/APPROVED/SEALED_PURSE/MASTERS/h07_people_say__honest.png": "73d40c1a457e79d65a1b6b535c21236b72fe42c3a0d93d114ac7750cb86a1c25",
+    "GAME/APPROVED/SEALED_PURSE/MASTERS/h08_sealed__one_short.png": "17ed06bb2e7e95cf41f53fb1ae1cd1b5d844c80d891be72645aa97755a0dba8e",
+    "GAME/APPROVED/SEALED_PURSE/MASTERS/h09_people_say__one_short.png": "72ce3d8ff2bf92017d7365c9c4556cd64cee5f976b822a518b5e324c4d5601af",
+    "GAME/APPROVED/SEALED_PURSE/MASTERS/h10_quay__trust_too_low.png": "38366d268e17eb5ee423bd77dcd15d52a436145657ca5cc4598029572c127f6b",
+    "GAME/APPROVED/SEALED_PURSE/RECORD/LOCK_RECORD.md": "367c550f7370332fa5da33ba200a322be493d7f65465b065c3323657b4d52d44",
+    "GAME/APPROVED/SEALED_PURSE/RECORD/SEALED_PURSE_SPEC_CURRENT_VERSION_V1.md": "f5f97d98ac8a4d51c73888732a15b6268f1fcee4d0f4bbedcca10441f61c5a2d",
+    "GAME/APPROVED/SEALED_PURSE/RECORD/sealed_purse_data_V1.json": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a",
+    "GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md": "f2abfee4dcc542086c5dcd23242a52986a6d29f28935f48b88e1bbbc6fbfdae6"
+  },
+  "spec_at_base_sha256": "08d4144151458a1311bab03f3cafb28d4aef41eee26e1b4dd12be24ad155770c",
+  "spec_clarifications_used": "The 11 Nov designer working copy specifies a later non-Friday for the master setups and DOC-TFG-0321 as the reputation order. The designer's working edit was left in place.",
+  "tests": {
+    "headless_baseline_passed": 2443,
+    "headless_passed": 2585,
+    "sealed_purse_native_passed": 203,
+    "feeding_native_regression_passed": 210
+  },
+  "png_verification": "Lossless IDAT recompression. Godot decoded the original and compressed files, checked original dimensions and byte-identical pixels, and matched both halves of every comparison to the master and capture.",
+  "png_bytes_before": 10701842,
+  "png_bytes_after": 10507496,
+  "native_checks": {
+    "bytes": 25839,
+    "sha256": "d918c633f1c97b982d3a4dc65b67b8c9527830cce6e00d068a578fa16e22c006"
+  },
+  "files": {
+    "h01_quay__karim_has_a_job__build.png": {
+      "bytes": 171688,
+      "sha256": "71c321c69e7e5eb8cac9dec5441520e07dec055e0f33158a59561ec369f63b91",
+      "width": 1920,
+      "height": 1080
+    },
+    "h01_quay__karim_has_a_job__master_beside_build.png": {
+      "bytes": 358884,
+      "sha256": "c37fe1019b489f39fef4d1447b5ebe79be98d9372b957dd83625d28252f65ccb",
+      "width": 3840,
+      "height": 1080
+    },
+    "h02_sealed__offer__build.png": {
+      "bytes": 178992,
+      "sha256": "3ddb56950ebec61137d0d2e1510af770df61b67b656eaf4dac564edd99df2da1",
+      "width": 1920,
+      "height": 1080
+    },
+    "h02_sealed__offer__master_beside_build.png": {
+      "bytes": 565487,
+      "sha256": "9d54d2124cc4e1e0fafb776a8bda976d030fca21619375d57ce08f2244171c23",
+      "width": 3840,
+      "height": 1080
+    },
+    "h03_sealed__coin_on_the_stones__build.png": {
+      "bytes": 262581,
+      "sha256": "f83dc138ee788083834918d91662b93fa045bfd74944f74c209a7e211ca2ea12",
+      "width": 1920,
+      "height": 1080
+    },
+    "h03_sealed__coin_on_the_stones__master_beside_build.png": {
+      "bytes": 1012986,
+      "sha256": "d8b2ee52ceaa13c80665f3a34d0221cecf617943e1ae9a214d8d3fc0e64e4b02",
+      "width": 3840,
+      "height": 1080
+    },
+    "h04_square__carrying__build.png": {
+      "bytes": 172995,
+      "sha256": "4a5c9c53738240d5389e55fca23d53cab57b4a105c7c22a2b7afe8ebd7498408",
+      "width": 1920,
+      "height": 1080
+    },
+    "h04_square__carrying__master_beside_build.png": {
+      "bytes": 376525,
+      "sha256": "67937c9f387f19882b9bb440a072053c2a232e5690f9f9fc34ac49d0891002aa",
+      "width": 3840,
+      "height": 1080
+    },
+    "h05_gate__give_the_purse__build.png": {
+      "bytes": 173236,
+      "sha256": "9a7066ec09f57c87425157e0222e58ac8aac4ca3b253cba872965679c84a34ed",
+      "width": 1920,
+      "height": 1080
+    },
+    "h05_gate__give_the_purse__master_beside_build.png": {
+      "bytes": 366454,
+      "sha256": "c4f57fcd96fd0211d15ba89a01c989969e15ca816d2268a14c52eb06f15919e9",
+      "width": 3840,
+      "height": 1080
+    },
+    "h06_sealed__delivered_whole__build.png": {
+      "bytes": 355106,
+      "sha256": "6f919b089747bd715464eec75e00b090915c35fbdc24bd8e4703ba1d2e691c4f",
+      "width": 1920,
+      "height": 1080
+    },
+    "h06_sealed__delivered_whole__master_beside_build.png": {
+      "bytes": 1777691,
+      "sha256": "259b98523c70f50bcdf24c4355e048f3b61c27e37ce042fee7d799a35b5ee377",
+      "width": 3840,
+      "height": 1080
+    },
+    "h07_people_say__honest__build.png": {
+      "bytes": 118425,
+      "sha256": "5c1392112b687aad25ab328f9e420e5d89fe70ca74af8cf9d36ebdfb29c94948",
+      "width": 1920,
+      "height": 1080
+    },
+    "h07_people_say__honest__master_beside_build.png": {
+      "bytes": 961940,
+      "sha256": "160e42ff1a761fe08f75c5ae202ab359806cad370a47bd169008b51a7d937f9e",
+      "width": 3840,
+      "height": 1080
+    },
+    "h08_sealed__one_short__build.png": {
+      "bytes": 321370,
+      "sha256": "33eec19642c5ae60febf6a31319d4f520881ee3134a14fbe4a4930109a11d9e5",
+      "width": 1920,
+      "height": 1080
+    },
+    "h08_sealed__one_short__master_beside_build.png": {
+      "bytes": 1740029,
+      "sha256": "61228cad94a7aa872830c7d5d0c5f090c36fe0191879cd93ab4acd349990343d",
+      "width": 3840,
+      "height": 1080
+    },
+    "h09_people_say__one_short__build.png": {
+      "bytes": 117935,
+      "sha256": "4fad908f5a1ea0ac9c3e30f60a4d46361b1748c07d045582921edc520697e0d5",
+      "width": 1920,
+      "height": 1080
+    },
+    "h09_people_say__one_short__master_beside_build.png": {
+      "bytes": 955083,
+      "sha256": "b55ddf486ba1763b7247a9372308de765705bef02c90dd837cc2daa755be8341",
+      "width": 3840,
+      "height": 1080
+    },
+    "h10_quay__trust_too_low__build.png": {
+      "bytes": 170042,
+      "sha256": "8e54e8fd55ee51ea1762b12ff16a58bba4cd944d9b1e6cde4b775056e31724f6",
+      "width": 1920,
+      "height": 1080
+    },
+    "h10_quay__trust_too_low__master_beside_build.png": {
+      "bytes": 350047,
+      "sha256": "f7548adbe64536150f3e20885dbf88074856a63288f26bbc9d5bf23ec3e81bef",
+      "width": 3840,
+      "height": 1080
+    }
+  },
+  "visual_differences": {
+    "all": "Saturday replaces Thursday in the 10:00 HUD. Clock and wallet type and alignment, HUD edges and the trust bar treatment differ. The coin and trust numbers match the pictured fixtures.",
+    "h01_h04_h05_h10": "Live map uses different marker and gate rings, label outlines and slight type and palette differences. It also shows the inherited Make up Dhuhr action. The bottom toolbar and bar widths, button spacing and canal-label coverage differ. h10 places navigation above the quay bar. The h04 carrying line is below the board actions and the h05 line sits inline beside the gate actions.",
+    "h02_h03_h06_h08": "Daylight runtime greybox and named capsules at the quay and gate replace the detailed prototype views. World framing and lighting differ. The panels use live font metrics, padding, opacity and button widths. The offer line wraps after Abbas in the runtime.",
+    "h07_h09": "The market-lane greybox replaces the detailed storefront backdrop. Panel bounds, letter spacing, typography and button widths differ. The locked speaker, outcome and good/bad labels match."
+  },
+  "pre_release_scholar_review": "Pending under OA-AIOS-432. DOC-TFG-0320 row 1 covers the underlying Friday timing. Quran 4:58 on rendering trusts and the inherited LOCK 7 application of Quran 62:9 to Friday trade closure have no dedicated checklist row."
+}

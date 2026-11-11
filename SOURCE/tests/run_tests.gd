@@ -138,6 +138,7 @@ func _run() -> void:
 	await check_talking_runtime()
 	check_market_day_runtime()
 	await check_feeding_runtime()
+	await check_sealed_purse_runtime()
 	finish()
 
 
@@ -2298,4 +2299,100 @@ func check_feeding_runtime() -> void:
 	check(find_button(app.ui, feeding.place_button) == null, "feeding is offered only at the square")
 	reset_at_market_place("board", 100)
 	check(app.feeding.meals_given == 0 and app.ui.reputation_lines().is_empty(), "a new playthrough resets feeding and its reputation")
+	app.set_process(true)
+
+
+func check_sealed_purse_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/SEALED_PURSE/RECORD/sealed_purse_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/sealed_purse.json")
+	var purse: Dictionary = app.sealed_purse.data
+	check(not approved.is_empty() and runtime == approved, "sealed purse copies LOCK 10 byte for byte")
+	check(purse == JSON.parse_string(runtime.get_string_from_utf8()), "sealed purse uses the locked runtime data")
+	var threshold := int(purse.numbers.offer_from_trust)
+	var wallet := 198
+	app.set_process(false)
+	reset_at_market_place("quay", wallet)
+	app.progress.apply_trust(threshold - 1 - app.progress.trust)
+	app.update_state()
+	check(find_button(app.ui, purse.quay_button) == null, "Karim has no job at trust 39")
+	app.show_sealed_purse_offer()
+	check(app.ui.screen == "market_map", "a direct request cannot bypass the trust threshold")
+	app.progress.apply_trust(1)
+	app.update_state()
+	check(find_button(app.ui, purse.quay_button) != null, "Karim offers the job at trust 40")
+
+	var availability := [
+		[3, 389, false], [3, 390, true], [3, 1089, true], [3, 1090, false],
+		[2, 724, true], [2, 725, false], [2, 759, false], [2, 760, true], [3, 725, true],
+	]
+	for slot: Array in availability:
+		set_market_day_time(slot[0], slot[1])
+		var offered := find_button(app.ui, purse.quay_button) != null
+		check(offered == slot[2], "Karim's hours and Friday closure at day %d, minute %d" % [slot[0], slot[1]])
+		if not slot[2]:
+			app.show_sealed_purse_offer()
+			check(app.ui.screen == "market_map", "a direct request respects Karim's availability")
+	set_market_day_time(3, 1089)
+	await press_button(purse.quay_button, "Karim can offer just before closing")
+	set_market_day_time(3, 1090)
+	await press_button(purse.offer.accept, "a pending offer can be clicked after closing")
+	check(app.ui.screen == "market_map" and not app.sealed_purse.is_carrying(), "acceptance checks the current time before taking the job")
+
+	for keep: bool in [false, true]:
+		reset_at_market_place("quay", wallet)
+		app.progress.apply_trust(threshold - app.progress.trust)
+		app.update_state()
+		await press_button(purse.quay_button, "the quay opens Karim's job")
+		check(app.ui.screen == "sealed_purse_offer" and visible_text().contains(purse.offer.text), "the offer uses the locked copy")
+		await press_button(purse.offer.refuse, "refuse Karim's offer")
+		check(app.ui.screen == "market_map" and app.current_place == "quay", "refusal returns to the quay map")
+		check_wallet(threshold, wallet, "refusal changes neither coins nor trust")
+		await press_button(purse.quay_button, "refusal leaves the offer available")
+		await press_button(purse.offer.accept, "accept the sealed purse")
+		check(app.ui.screen == "sealed_purse_coin" and visible_text().contains(purse.coin.text), "accepting immediately opens the locked coin choice")
+		check(not app.sealed_purse.offer_available() and app.ui.reputation_lines().is_empty(), "acceptance consumes the offer without creating reputation")
+		await press_button(purse.coin.keep if keep else purse.coin.back_in, "make the coin choice")
+		check(app.ui.screen == "market_map" and app.current_place == "board", "both choices return to the map at the Task board")
+		var carry_wallet := wallet + (int(purse.numbers.kept_coin) if keep else 0)
+		check_wallet(threshold, carry_wallet, "only keeping the coin adds a coin")
+		app.choose_sealed_purse_coin(true)
+		check_wallet(threshold, carry_wallet, "the coin choice cannot be repeated")
+		for place: String in data.places:
+			move_market_fixture(place)
+			check(visible_text().contains(purse.carrying), "the carrying line shows at " + place)
+			check((find_button(app.ui, purse.gate_button) != null) == (place == "gate"), "delivery is available only at the gate")
+		move_market_fixture("quay")
+		check(find_button(app.ui, purse.quay_button) == null, "there is no second offer while carrying")
+		app.deliver_sealed_purse()
+		check_wallet(threshold, carry_wallet, "a direct request cannot deliver away from the gate")
+		move_market_fixture("gate")
+		app.show_screen("game")
+		await press_button(purse.gate_button, "the gate can receive the purse from the street")
+		var story: String = purse.deliver.kept if keep else purse.deliver.honest
+		var outcome: Array = purse.say.kept if keep else purse.say.honest
+		check(app.ui.screen == "sealed_purse_delivery" and visible_text().contains(story), "Abbas reports the locked outcome")
+		var final_wallet := carry_wallet + (0 if keep else int(purse.numbers.fee))
+		var final_trust := threshold + int(purse.numbers.kept_trust if keep else purse.numbers.honest_trust)
+		check_wallet(final_trust, final_wallet, "whole and short deliveries apply their locked rewards")
+		check(not app.sealed_purse.is_carrying() and not visible_text().contains(purse.carrying), "delivery clears the carrying line")
+		if keep:
+			await press_button(purse.deliver.to_map, "the short delivery can return directly to the gate map")
+			check(app.ui.screen == "market_map" and app.current_place == "gate", "delivery's map button returns to the gate")
+			await press_button(app.chapter.purse.morning.to_rep, "the market map opens the short delivery reputation")
+		else:
+			await press_button(purse.deliver.to_rep, "the delivery opens What people say")
+		check(app.ui.screen == "reputation" and app.ui.reputation_lines() == [outcome] and visible_text().contains(outcome[0]), "the reputation page shows one locked delivery line")
+		await press_button(purse.deliver.to_map, "reputation returns to the market map")
+		app.deliver_sealed_purse()
+		check_wallet(final_trust, final_wallet, "delivery cannot pay twice")
+		check(find_button(app.ui, purse.gate_button) == null, "there is no delivery button after handing the purse over")
+		set_market_day_time(4, 600)
+		move_market_fixture("quay")
+		check(find_button(app.ui, purse.quay_button) == null, "the completed job stays done the following day")
+		app.market_stall.fed_faris = true
+		var option: Dictionary = app.feeding.data.options[0]
+		check(app.feeding.pay(option.id, false), "fixture adds a public feeding line")
+		check(app.ui.reputation_lines() == [app.market_stall.data.say.fed, outcome, app.feeding.data.say.feeds], "the sealed purse follows trade and precedes feeding")
+	reset_at_market_place("quay", wallet)
+	check(app.ui.reputation_lines().is_empty() and not app.sealed_purse.is_carrying(), "a new playthrough clears the sealed-purse outcome")
 	app.set_process(true)

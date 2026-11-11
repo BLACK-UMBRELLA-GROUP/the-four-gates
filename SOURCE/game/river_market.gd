@@ -13,6 +13,7 @@ const MarketStall = preload("res://game/market_stall.gd")
 const Talking = preload("res://game/talking.gd")
 const MarketDay = preload("res://game/market_day.gd")
 const Feeding = preload("res://game/feeding.gd")
+const SealedPurse = preload("res://game/sealed_purse.gd")
 
 var data: Dictionary
 var identity: Dictionary
@@ -22,6 +23,7 @@ var bread_grab := BreadGrab.new()
 var market_stall := MarketStall.new()
 var talking := Talking.new()
 var feeding := Feeding.new()
+var sealed_purse := SealedPurse.new()
 var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
@@ -65,17 +67,25 @@ func _ready() -> void:
 	market_stall.setup(Foundations.load_market_stall(), Foundations.load_clothes(), progress, clock)
 	talking.setup(Foundations.load_talking(), progress, bread_grab, market_stall)
 	feeding.setup(Foundations.load_feeding(), progress, clock)
+	# LOCK 10's hours match the clock data's 06:30 start and 18:10 Maghrib.
+	var karim_opens := _minutes(str(identity.clock.start).get_slice(" ", 0))
+	var maghrib: Array = identity.clock.prayers.filter(func(prayer): return prayer.name == "Maghrib")
+	var karim_closes := _minutes(maghrib[0].begins)
+	sealed_purse.setup(Foundations.load_sealed_purse(), progress, market_day, karim_opens, karim_closes)
 	world = MarketWorld.new()
 	add_child(world)
 	world.setup(data)
 	world.setup_chapter_people(chapter, talking.data.people)
+	world.setup_sealed_purse_people(
+		str(sealed_purse.data.offer.title).get_slice(" ", 0),
+		str(sealed_purse.data.deliver.title).get_slice(" ", 0))
 	player = MarketPlayer.new()
 	add_child(player)
 	player.setup(data)
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -123,6 +133,10 @@ func _ready() -> void:
 	ui.tip_requested.connect(ask_regular)
 	ui.feeding_requested.connect(show_feeding)
 	ui.feeding_paid.connect(pay_for_feeding)
+	ui.sealed_purse_offered.connect(show_sealed_purse_offer)
+	ui.sealed_purse_accepted.connect(accept_sealed_purse)
+	ui.sealed_purse_coin_chosen.connect(choose_sealed_purse_coin)
+	ui.sealed_purse_delivered.connect(deliver_sealed_purse)
 	show_screen("title")
 	update_state()
 	if "--capture-foundations" in OS.get_cmdline_user_args():
@@ -169,6 +183,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-feeding" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_feeding.gd").new()
+		capture_runner.run(self)
+	elif "--capture-sealed-purse" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_sealed_purse.gd").new()
 		capture_runner.run(self)
 
 func _process(delta: float) -> void:
@@ -219,6 +236,7 @@ func begin_game() -> void:
 	market_stall.reset()
 	talking.reset()
 	feeding.reset()
+	sealed_purse.reset()
 	world.stop_faris_run()
 	world.set_inn_people_waiting(true)
 	world.reset_gate()
@@ -349,6 +367,14 @@ func _minutes(time: String) -> int:
 func show_screen(screen: String) -> void:
 	if screen == "feeding" or screen in MarketUI.GRAB_SCREENS:
 		world.oven_camera.make_current()
+	elif screen == "sealed_purse_offer":
+		world.sealed_purse_offer_camera.make_current()
+	elif screen == "sealed_purse_coin":
+		world.sealed_purse_coin_camera.make_current()
+	elif screen == "sealed_purse_delivery":
+		world.sealed_purse_delivery_camera.make_current()
+	elif screen == "reputation" and ui.screen == "sealed_purse_delivery":
+		world.sealed_purse_reputation_camera.make_current()
 	elif screen != "reputation" or ui.screen != "grab_after":
 		player.camera.make_current()
 	ui.show_screen(screen)
@@ -492,6 +518,30 @@ func show_feeding() -> void:
 func pay_for_feeding(id: String) -> void:
 	if ui.screen == "feeding" and feeding.pay(id, known_words.has("sirr")):
 		show_screen("feeding")
+
+
+func show_sealed_purse_offer() -> void:
+	if current_place == "quay" and ui.screen in ["game", "market_map"] and sealed_purse.offer_available():
+		_stop_travel()
+		show_screen("sealed_purse_offer")
+
+
+func accept_sealed_purse() -> void:
+	if ui.screen == "sealed_purse_offer":
+		show_screen("sealed_purse_coin" if sealed_purse.accept() else "market_map")
+
+
+func choose_sealed_purse_coin(keep: bool) -> void:
+	if ui.screen == "sealed_purse_coin" and sealed_purse.choose_coin(keep):
+		player.position = world.point("board")
+		_stop_travel()
+		show_screen("market_map")
+
+
+func deliver_sealed_purse() -> void:
+	if current_place == "gate" and ui.screen in ["game", "market_map"] and sealed_purse.deliver():
+		_stop_travel()
+		show_screen("sealed_purse_delivery")
 
 
 func show_stall() -> void:
@@ -651,7 +701,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("close"):
 			show_screen("title" if ui.screen == "all_prayers_title" else "prayer_record")
 		return
-	if ui.screen in ["arrival", "stall_change"]:
+	if ui.screen in ["arrival", "stall_change", "sealed_purse_coin"]:
 		return
 	if ui.screen == "idris":
 		if event.is_action_pressed("close"):
@@ -667,6 +717,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				leave_bread_grab()
 			else:
 				show_screen("market_map")
+		return
+	if ui.screen in ["sealed_purse_offer", "sealed_purse_delivery"]:
+		if event.is_action_pressed("close"):
+			show_screen("market_map")
 		return
 	if event.is_action_pressed("close"):
 		if ui.screen == "prayer_record": close_prayer_record()
