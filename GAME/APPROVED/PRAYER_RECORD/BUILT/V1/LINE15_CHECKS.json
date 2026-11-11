@@ -1,0 +1,882 @@
+{
+	"checks": [
+		{
+			"description": "runtime and locked prayer record bytes match",
+			"passed": true
+		},
+		{
+			"description": "Your prayers sits between Begin and Settings",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: r01_title__your_prayers_button__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: r01_title__your_prayers_button__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Your prayers",
+			"passed": true
+		},
+		{
+			"description": "title opens private totals with no HUD",
+			"passed": true
+		},
+		{
+			"description": "title shows the locked empty message",
+			"passed": true
+		},
+		{
+			"description": "Title button visibility matches the entry point",
+			"passed": true
+		},
+		{
+			"description": "Today button visibility matches the entry point",
+			"passed": true
+		},
+		{
+			"description": "Market button visibility matches the entry point",
+			"passed": true
+		},
+		{
+			"description": "locked totals kicker is visible",
+			"passed": true
+		},
+		{
+			"description": "locked totals title is visible",
+			"passed": true
+		},
+		{
+			"description": "locked privacy note is visible",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: r02_all_prayers__empty_from_title__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: r02_all_prayers__empty_from_title__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Title",
+			"passed": true
+		},
+		{
+			"description": "empty totals return to title",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Your prayers",
+			"passed": true
+		},
+		{
+			"description": "Escape from title totals returns to title",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray Isha here",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray Asr here",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Make up Fajr",
+			"passed": true
+		},
+		{
+			"description": "ordinary history reaches the later non-Friday at 10:00",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: City map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: World map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Title",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Your prayers",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: on_time",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: on_time = 4",
+			"passed": true
+		},
+		{
+			"description": "locked indent: on_time",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: jamaah",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: jamaah = 2",
+			"passed": true
+		},
+		{
+			"description": "locked indent: jamaah",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: alone_masjid",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: alone_masjid = 1",
+			"passed": true
+		},
+		{
+			"description": "locked indent: alone_masjid",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: alone_elsewhere",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: alone_elsewhere = 1",
+			"passed": true
+		},
+		{
+			"description": "locked indent: alone_elsewhere",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: friday",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: friday = 0",
+			"passed": true
+		},
+		{
+			"description": "locked indent: friday",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: dhuhr_fri",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: dhuhr_fri = 0",
+			"passed": true
+		},
+		{
+			"description": "locked indent: dhuhr_fri",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: madeup",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: madeup = 1",
+			"passed": true
+		},
+		{
+			"description": "locked indent: madeup",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: missed",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: missed = 1",
+			"passed": true
+		},
+		{
+			"description": "locked indent: missed",
+			"passed": true
+		},
+		{
+			"description": "nonempty totals omit the empty message",
+			"passed": true
+		},
+		{
+			"description": "Title button visibility matches the entry point",
+			"passed": true
+		},
+		{
+			"description": "Today button visibility matches the entry point",
+			"passed": true
+		},
+		{
+			"description": "Market button visibility matches the entry point",
+			"passed": true
+		},
+		{
+			"description": "locked totals kicker is visible",
+			"passed": true
+		},
+		{
+			"description": "locked totals title is visible",
+			"passed": true
+		},
+		{
+			"description": "locked privacy note is visible",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: r03_all_prayers__from_title__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: r03_all_prayers__from_title__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Title",
+			"passed": true
+		},
+		{
+			"description": "title shortcut does not change the session",
+			"passed": true
+		},
+		{
+			"description": "street view opens from the market map",
+			"passed": true
+		},
+		{
+			"description": "native clock opens today’s record",
+			"passed": true
+		},
+		{
+			"description": "today shows the made-up Fajr",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: r04_today__all_prayers_button__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: r04_today__all_prayers_button__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: All your prayers",
+			"passed": true
+		},
+		{
+			"description": "today opens private totals with HUD",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: on_time",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: on_time = 4",
+			"passed": true
+		},
+		{
+			"description": "locked indent: on_time",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: jamaah",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: jamaah = 2",
+			"passed": true
+		},
+		{
+			"description": "locked indent: jamaah",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: alone_masjid",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: alone_masjid = 1",
+			"passed": true
+		},
+		{
+			"description": "locked indent: alone_masjid",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: alone_elsewhere",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: alone_elsewhere = 1",
+			"passed": true
+		},
+		{
+			"description": "locked indent: alone_elsewhere",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: friday",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: friday = 0",
+			"passed": true
+		},
+		{
+			"description": "locked indent: friday",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: dhuhr_fri",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: dhuhr_fri = 0",
+			"passed": true
+		},
+		{
+			"description": "locked indent: dhuhr_fri",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: madeup",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: madeup = 1",
+			"passed": true
+		},
+		{
+			"description": "locked indent: madeup",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: missed",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: missed = 1",
+			"passed": true
+		},
+		{
+			"description": "locked indent: missed",
+			"passed": true
+		},
+		{
+			"description": "nonempty totals omit the empty message",
+			"passed": true
+		},
+		{
+			"description": "Title button visibility matches the entry point",
+			"passed": true
+		},
+		{
+			"description": "Today button visibility matches the entry point",
+			"passed": true
+		},
+		{
+			"description": "Market button visibility matches the entry point",
+			"passed": true
+		},
+		{
+			"description": "locked totals kicker is visible",
+			"passed": true
+		},
+		{
+			"description": "locked totals title is visible",
+			"passed": true
+		},
+		{
+			"description": "locked privacy note is visible",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: r05_all_prayers__from_market__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: r05_all_prayers__from_market__build.png",
+			"passed": true
+		},
+		{
+			"description": "totals use the night backdrop while the live clock stays at 10:00",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Today’s prayers",
+			"passed": true
+		},
+		{
+			"description": "today’s record restores the live daytime lighting",
+			"passed": true
+		},
+		{
+			"description": "Today’s prayers returns to the current day",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: All your prayers",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market",
+			"passed": true
+		},
+		{
+			"description": "Back to the market returns to the street",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray Friday prayer with the congregation",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "native clock opens today’s record",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: All your prayers",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: on_time",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: on_time = 6",
+			"passed": true
+		},
+		{
+			"description": "locked indent: on_time",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: jamaah",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: jamaah = 3",
+			"passed": true
+		},
+		{
+			"description": "locked indent: jamaah",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: alone_masjid",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: alone_masjid = 1",
+			"passed": true
+		},
+		{
+			"description": "locked indent: alone_masjid",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: alone_elsewhere",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: alone_elsewhere = 2",
+			"passed": true
+		},
+		{
+			"description": "locked indent: alone_elsewhere",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: friday",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: friday = 1",
+			"passed": true
+		},
+		{
+			"description": "locked indent: friday",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: dhuhr_fri",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: dhuhr_fri = 1",
+			"passed": true
+		},
+		{
+			"description": "locked indent: dhuhr_fri",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: madeup",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: madeup = 1",
+			"passed": true
+		},
+		{
+			"description": "locked indent: madeup",
+			"passed": true
+		},
+		{
+			"description": "locked row in order: missed",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned count: missed = 1",
+			"passed": true
+		},
+		{
+			"description": "locked indent: missed",
+			"passed": true
+		},
+		{
+			"description": "nonempty totals omit the empty message",
+			"passed": true
+		},
+		{
+			"description": "Title button visibility matches the entry point",
+			"passed": true
+		},
+		{
+			"description": "Today button visibility matches the entry point",
+			"passed": true
+		},
+		{
+			"description": "Market button visibility matches the entry point",
+			"passed": true
+		},
+		{
+			"description": "locked totals kicker is visible",
+			"passed": true
+		},
+		{
+			"description": "locked totals title is visible",
+			"passed": true
+		},
+		{
+			"description": "locked privacy note is visible",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: r06_all_prayers__fridays__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: r06_all_prayers__fridays__build.png",
+			"passed": true
+		},
+		{
+			"description": "Escape from market totals returns to today",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: All your prayers",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market",
+			"passed": true
+		},
+		{
+			"description": "Back to the market also returns to the map",
+			"passed": true
+		},
+		{
+			"description": "prayers, making up Fajr and viewing totals never award coins or trust",
+			"passed": true
+		},
+		{
+			"description": "all six locked states captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Passive ticks are paused. The harness stages times and locations and excludes intervening prayer windows via skip_to; no totals or UI values are injected. The ordinary history ends Saturday day 3 at 10:00 with Fajr made up. Friday histories use days 9 and 16, displayed Saturday day 17 at 10:00.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Real Godot viewport with native game rendering. Viewport clicks exercise the arrival, market maps, clock, prayers and record controls.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "r01_title__your_prayers_button__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "r02_all_prayers__empty_from_title__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "r03_all_prayers__from_title__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "r04_today__all_prayers_button__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "r05_all_prayers__from_market__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "r06_all_prayers__fridays__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"r01_title__your_prayers_button__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 390,
+			"night": false,
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"rendered_night": false,
+			"screen": "title",
+			"tasks": {},
+			"totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"trust": 20
+		},
+		"r02_all_prayers__empty_from_title__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 390,
+			"night": false,
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"rendered_night": true,
+			"screen": "all_prayers_title",
+			"tasks": {},
+			"totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"trust": 20
+		},
+		"r03_all_prayers__from_title__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"rendered_night": true,
+			"screen": "all_prayers_title",
+			"tasks": {},
+			"totals": {
+				"alone_elsewhere": 1,
+				"alone_masjid": 1,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 2,
+				"madeup": 1,
+				"missed": 1,
+				"on_time": 4
+			},
+			"trust": 20
+		},
+		"r04_today__all_prayers_button__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"rendered_night": false,
+			"screen": "prayer_record",
+			"tasks": {},
+			"totals": {
+				"alone_elsewhere": 1,
+				"alone_masjid": 1,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 2,
+				"madeup": 1,
+				"missed": 1,
+				"on_time": 4
+			},
+			"trust": 20
+		},
+		"r05_all_prayers__from_market__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"rendered_night": true,
+			"screen": "all_prayers",
+			"tasks": {},
+			"totals": {
+				"alone_elsewhere": 1,
+				"alone_masjid": 1,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 2,
+				"madeup": 1,
+				"missed": 1,
+				"on_time": 4
+			},
+			"trust": 20
+		},
+		"r06_all_prayers__fridays__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 17,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"rendered_night": true,
+			"screen": "all_prayers",
+			"tasks": {},
+			"totals": {
+				"alone_elsewhere": 2,
+				"alone_masjid": 1,
+				"dhuhr_fri": 1,
+				"friday": 1,
+				"jamaah": 3,
+				"madeup": 1,
+				"missed": 1,
+				"on_time": 6
+			},
+			"trust": 20
+		}
+	},
+	"timestamp_utc": "2026-11-11T15:50:28Z"
+}

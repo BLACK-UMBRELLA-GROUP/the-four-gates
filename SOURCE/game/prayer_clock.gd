@@ -29,6 +29,7 @@ var _fraction := 0.0
 var _first_counted: int
 var _oldest_unfinished: int
 var _completed: Dictionary = {}
+var _alone_at_masjid: Dictionary = {}
 
 
 func _init(source: Dictionary) -> void:
@@ -60,6 +61,7 @@ func reset() -> void:
 	_time = _start
 	_fraction = 0.0
 	_completed.clear()
+	_alone_at_masjid.clear()
 	_first_counted = _latest_started()
 	if _ends(_first_counted) < _start:
 		_first_counted += 1
@@ -128,6 +130,8 @@ func pray(at_masjid: bool) -> String:
 	if _is_friday_slot(prayer) and not congregation:
 		status = "dhuhr_fri"
 		toast = _data.toast_alone_friday
+	if not congregation:
+		_alone_at_masjid[prayer] = at_masjid
 	var name: String = _scheduled_name(prayer) if congregation else _prayer(prayer).name
 	_complete(prayer, status)
 	return toast.format({"prayer": name})
@@ -194,6 +198,29 @@ func record() -> Dictionary:
 		"kicker": str(_data.record.kicker).format({"weekday": _weekday(day), "n": day}),
 		"rows": rows,
 	}
+
+
+func totals() -> Dictionary:
+	var counts := {
+		"on_time": 0, "jamaah": 0, "alone_masjid": 0, "alone_elsewhere": 0,
+		"friday": 0, "dhuhr_fri": 0, "madeup": 0, "missed": 0,
+	}
+	for prayer in range(_first_counted, _latest_started() + 1):
+		var status := _record_status(prayer)
+		match status:
+			"jamaah":
+				counts.jamaah += 1
+				if _is_friday_slot(prayer):
+					counts.friday += 1
+			"alone", "dhuhr_fri":
+				var row := "alone_masjid" if _alone_at_masjid.get(prayer, false) else "alone_elsewhere"
+				counts[row] += 1
+				if status == "dhuhr_fri":
+					counts.dhuhr_fri += 1
+			"madeup", "missed":
+				counts[status] += 1
+	counts.on_time = counts.jamaah + counts.alone_masjid + counts.alone_elsewhere
+	return counts
 
 
 func _advance(target: int, announce: bool) -> void:

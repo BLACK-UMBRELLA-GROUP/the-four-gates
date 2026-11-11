@@ -1,0 +1,169 @@
+{
+  "line": 15,
+  "lock": "LOCK 8 V1",
+  "brief": "DOC-TFG-0035",
+  "tested_base_commit_sha": "96cc5bcee80232cfa7fa1cd45f37d528c861f051",
+  "capture_source": "Line 15 worktree on the tested base. The daily task note identifies the single commit containing the tested source and evidence.",
+  "godot_version": "4.7.2-stable (official)",
+  "build_mode": "Native Godot project debug run without export",
+  "timestamp_utc": "2026-11-11T15:50:28Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Real Godot viewport with native game rendering. Viewport clicks exercise the arrival, market maps, clock, prayers and record controls.",
+  "fixture": "Passive ticks are paused. The harness stages times and locations and excludes intervening prayer windows via skip_to; no totals or UI values are injected. The ordinary history ends Saturday day 3 at 10:00 with Fajr made up. Friday histories use days 9 and 16, displayed Saturday day 17 at 10:00.",
+  "source_sha256": {
+    "SOURCE/data/chapter1.json": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0",
+    "SOURCE/data/clothes.json": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e",
+    "SOURCE/data/foundations.json": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/data/market_day.json": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05",
+    "SOURCE/data/market_stall.json": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604",
+    "SOURCE/data/prayer_record.json": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9",
+    "SOURCE/data/talking.json": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4",
+    "SOURCE/game/bread_grab.gd": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468",
+    "SOURCE/game/foundations.gd": "1ec3858cecca3d05c8b7523d01a8ddcf99bb23d64446464b53e0490c457294ef",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+    "SOURCE/game/market_day.gd": "aa22429adc0288f1e0a98450e2a38fb32bf11ee455edd42466357897e51783cf",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_stall.gd": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56",
+    "SOURCE/game/market_ui.gd": "aad14cf3660bee462040c01cdeb2ad7f0c3ac46b5449ef94c1eab77b8a65e259",
+    "SOURCE/game/market_world.gd": "eaf1865a7fbde3193e796882c9c7c93a1979e2a4db7c51b7c7d2604e32f7eb2f",
+    "SOURCE/game/open_purse.gd": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9",
+    "SOURCE/game/prayer_clock.gd": "20a417baf9e0e102b366a8d1f2c2a0fa464cfbbe2d55c7dfd1ab38712a701b45",
+    "SOURCE/game/river_market.gd": "d6357c033c50c2d454581b90107efa568fac27e4350dc2d92ea76e9d4e7ed4d2",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/game/talking.gd": "546458aedd4c3c74f06e498f2160c8622fc5524a3f9d9ab49ec6cd0891bd0f86",
+    "SOURCE/game/task_progress.gd": "ec252cac5837000910f107051f4d63d16a77f3327c83f316f7e31d5dcf16cbc2",
+    "SOURCE/project.godot": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/capture_market_day.gd": "8dd6701b8c4ff833a82844e4f09aa6f4b44eee9f000a045209521e27ebf1a03a",
+    "SOURCE/tests/capture_prayer_record.gd": "45078ab03379b2eec2c354bdee8084edfe7f9911b72be12811a7aa1614907363",
+    "SOURCE/tests/capture_tasks.gd": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003",
+    "SOURCE/tests/create_comparisons.gd": "a2c8609b79da80029bce5b514ce1b20f875d5ea9907d073ff21e1f170ab907cb",
+    "SOURCE/tests/run_tests.gd": "70844e76090d982967b7a4ac212c1e7e3c1d14290ea987ac4f0c565cc011f53a"
+  },
+  "approved_inputs_sha256": {
+    "GAME/APPROVED/PRAYER_RECORD/BRIEFS/BUILD_BRIEF_2026-11-08_PRAYER_RECORD.md": "23f89b0b70b2277c7b1d864d6d1a517191dd2ce5f6eec444af39a3c809554129",
+    "GAME/APPROVED/PRAYER_RECORD/MASTERS/r01_title__your_prayers_button.png": "a1023e17789e647e1a9ff696649bb6f617ab99c1e7de0cf7d068c35601b21b67",
+    "GAME/APPROVED/PRAYER_RECORD/MASTERS/r02_all_prayers__empty_from_title.png": "e530549033ebd5491ba9d9b23ca6adaece8a60e9bb257e3b9036627de764843b",
+    "GAME/APPROVED/PRAYER_RECORD/MASTERS/r03_all_prayers__from_title.png": "b62225f782386fdb1017e34ad63384e03d7cf292cb3a1d5d2610e7c42e6ffb52",
+    "GAME/APPROVED/PRAYER_RECORD/MASTERS/r04_today__all_prayers_button.png": "094d8c973a79a3d710cbca50aa4cc7a2f32172752439b1c8a7939505f36fba7f",
+    "GAME/APPROVED/PRAYER_RECORD/MASTERS/r05_all_prayers__from_market.png": "fac1412c705303f87d94b13b0708d781260539083deb61f2a962bf4a7406cf0f",
+    "GAME/APPROVED/PRAYER_RECORD/MASTERS/r06_all_prayers__fridays.png": "fcce293b3ceae10a2b058baac718e7f876af040bb1d5ebfd70826ef4eb8bb7a9",
+    "GAME/APPROVED/PRAYER_RECORD/RECORD/LOCK_RECORD.md": "f372c045e98f59878073b29b19f7457d2fbabcacf54abadcbf7a2bf006516e48",
+    "GAME/APPROVED/PRAYER_RECORD/RECORD/PRAYER_RECORD_SPEC_CURRENT_VERSION_V1.md": "9c1208e50dad3e322ac79e44ed96ba129c83308ae963848e3acb036f39bda93c",
+    "GAME/APPROVED/PRAYER_RECORD/RECORD/prayer_record_data_V1.json": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9"
+  },
+  "tests": {
+    "headless_passed": 2373,
+    "native_line_15_passed": 166,
+    "native_line_14_regression_passed": 140,
+    "native_approval_requests": 0
+  },
+  "native_checks": {
+    "file": "LINE15_CHECKS.json",
+    "bytes": 18977,
+    "sha256": "6ab84bafb1ee5c559c525ec1c02abbcedc48fc7de449339a62276834ccaa1cf9"
+  },
+  "visual_differences": {
+    "all": "Native placeholder streets, capsule characters and world labels replace the rendered street art. Godot fonts, fills and antialiasing differ slightly. Locked panel copy, controls, indent, row order and demonstrated counts match.",
+    "r01": "The existing daylight Quay scene replaces the lantern-lit gate art. The existing title lettering is narrower and a few pixels lower.",
+    "r02_r03_r05_r06": "The live Quay or Inn camera with night lighting replaces the fixed moonlit street. World labels and capsules show around and faintly through the panel. The kicker and note are slightly narrower.",
+    "r04": "The existing daylight Inn camera and today-panel styling remain. The kicker and note are tighter. Saturday day 3 supplies the allowed later non-Friday made-up Fajr at 10:00.",
+    "r05_r06": "HUD uses Saturday days 3 and 17 at 10:00. Existing HUD box positions, fills and rectangular trust fill differ slightly."
+  },
+  "compression": {
+    "method": "Lossless PNG IDAT recompression",
+    "uncompressed_evidence_bytes": 6777707,
+    "final_evidence_bytes": 6663264,
+    "verified": "Godot decoded all 12 full-size final PNGs pixel-identically to their originals. The comparison halves match the approved master and the final native capture pixel for pixel."
+  },
+  "images": {
+    "r01_title__your_prayers_button__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 253567,
+      "sha256": "47b6949f8099369daec36de297b007956f46698958d59243dd90aad3ad28a9e1",
+      "raw_bytes": 259116
+    },
+    "r01_title__your_prayers_button__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 1708255,
+      "sha256": "29df04eff59aa2ea04930db7d9e1ca97a7c447bb05e7f7b0a56118c89cb2e5ba",
+      "raw_bytes": 1711235
+    },
+    "r02_all_prayers__empty_from_title__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 154698,
+      "sha256": "0d56358b0821735380f9155d82bdf628fb613bb2e07092d94dc1b5bbd7a4599f",
+      "raw_bytes": 164628
+    },
+    "r02_all_prayers__empty_from_title__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 858592,
+      "sha256": "c879b39d64f3dcbfa6bdbfe45f480adf1c4eb319d00233ff704b940c063868c2",
+      "raw_bytes": 870834
+    },
+    "r03_all_prayers__from_title__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 106046,
+      "sha256": "9fa3204249d99eeca855dcb50e9bbcbac2a2dc6ff5ef2f5d2f331fce3f2fb053",
+      "raw_bytes": 112860
+    },
+    "r03_all_prayers__from_title__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 735212,
+      "sha256": "50f9a0a544cea68dec73a3c2868ca5ab10edb245ae18327a1f1a0db5ece0a9a7",
+      "raw_bytes": 750910
+    },
+    "r04_today__all_prayers_button__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 136857,
+      "sha256": "aba4352becec65b19064a2f40d1fcf2c77af24d6be446903b9f21f9b0d1f085f",
+      "raw_bytes": 138836
+    },
+    "r04_today__all_prayers_button__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 942293,
+      "sha256": "27deac0cdafa2c11fb6041715b50f975a6dbf4815ff25a8d3f6a5ec887af186a",
+      "raw_bytes": 947516
+    },
+    "r05_all_prayers__from_market__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 134391,
+      "sha256": "a11a9ea667f591f4c8b61d3e599810c5d115d2dbe9ba6c24f1ce4d77b133acb7",
+      "raw_bytes": 143177
+    },
+    "r05_all_prayers__from_market__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 758084,
+      "sha256": "05d06aa3701aaae008e25b686bcf454776e07d3ab4cb84ae2c3c795c0c8e4d2f",
+      "raw_bytes": 774199
+    },
+    "r06_all_prayers__fridays__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 133315,
+      "sha256": "0580d01a32cc7c59fabd71b06b28b63ec0b006bf611994313cbc0d49fe000f02",
+      "raw_bytes": 142201
+    },
+    "r06_all_prayers__fridays__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 741954,
+      "sha256": "8386010fcfbcfb5d06c19d5a9f683cc36b9caed765c428c483438206c958aa80",
+      "raw_bytes": 762195
+    }
+  }
+}

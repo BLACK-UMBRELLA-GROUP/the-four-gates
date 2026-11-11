@@ -72,7 +72,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record())
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -159,9 +159,12 @@ func _ready() -> void:
 	elif "--capture-market-day" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_market_day.gd").new()
 		capture_runner.run(self)
+	elif "--capture-prayer-record" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_prayer_record.gd").new()
+		capture_runner.run(self)
 
 func _process(delta: float) -> void:
-	if ui.screen not in ["title", "arrival"]:
+	if ui.screen not in ["title", "arrival", "all_prayers_title"]:
 		clock.advance_seconds(delta)
 	update_state()
 
@@ -196,7 +199,7 @@ func update_state() -> void:
 	if day != _daily_job_day:
 		_daily_job_day = day
 		progress.morning()
-	var world_night: bool = night or (ui.screen == "arrival" and _arrival_sunset)
+	var world_night: bool = night or ui.screen in ["all_prayers", "all_prayers_title"] or (ui.screen == "arrival" and _arrival_sunset)
 	if world.night != world_night:
 		world.set_night(world_night)
 	ui.refresh(player.position, current_place, night, _salma_available())
@@ -350,7 +353,7 @@ func wait_until_next_prayer() -> void:
 
 func _show_adhan(message: String) -> void:
 	if _prayer_adhan == null:
-		ui.show_toast(message, ui.screen == "market_map")
+		ui.show_toast(message, ui.screen in ["market_map", "all_prayers"])
 	else:
 		_prayer_adhan = message
 
@@ -622,6 +625,10 @@ func do_daily_job() -> void:
 		ui.show_toast(data.daily_job.toast)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if ui.screen in ["all_prayers", "all_prayers_title"]:
+		if event.is_action_pressed("close"):
+			show_screen("title" if ui.screen == "all_prayers_title" else "prayer_record")
+		return
 	if ui.screen in ["arrival", "stall_change"]:
 		return
 	if ui.screen == "idris":

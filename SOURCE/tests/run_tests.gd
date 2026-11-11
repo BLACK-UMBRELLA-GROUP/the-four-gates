@@ -38,6 +38,9 @@ func _run() -> void:
 	var identity_bytes := FileAccess.get_file_as_bytes("res://data/identity.json")
 	var locked_identity := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/IDENTITY/RECORD/identity_data_V3.json")
 	check(not identity_bytes.is_empty() and identity_bytes == locked_identity, "identity runtime is the byte-identical LOCK 2 V3 file")
+	var prayer_record_bytes := FileAccess.get_file_as_bytes("res://data/prayer_record.json")
+	var locked_prayer_record := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/PRAYER_RECORD/RECORD/prayer_record_data_V1.json")
+	check(not prayer_record_bytes.is_empty() and prayer_record_bytes == locked_prayer_record, "prayer record runtime is the byte-identical LOCK 8 V1 file")
 	identity = JSON.parse_string(identity_bytes.get_string_from_utf8())
 	var expected: Dictionary = renamed_foundations(JSON.parse_string(approved.get_string_from_utf8()))
 	expected.goal.gates = JSON.parse_string(identity.renames_in_foundations_data[5][1])
@@ -76,6 +79,12 @@ func _run() -> void:
 		settings_button.pressed.emit()
 		await frames(1)
 	check(visible_text().contains(data.title_screen.settings_toast), "Settings button shows its approved temporary toast")
+	var prayer_record: Dictionary = app.ui.prayer_record
+	await press_button(prayer_record.title_button, "title offers a usable Your prayers button")
+	check(app.ui.screen == "all_prayers_title" and has_visible_label(app.ui, prayer_record.panel.empty), "title opens the totals with the exact empty copy before any prayer status")
+	check(not has_visible_label(app.ui, prayer_record.rows.on_time), "empty totals hide the count rows")
+	await press_button(prayer_record.panel.back_title, "empty totals offer a usable Title button")
+	check(app.ui.screen == "title", "title totals return to the title")
 	await press_button(data.ui.buttons.begin, "Begin is a real button")
 	check(app.ui.screen == "arrival", "Begin opens the locked arrival")
 	check(horizontal_distance(app.player.global_position, app.world.point(data.start_place)) < 0.02, "arrival starts at the quay")
@@ -104,6 +113,7 @@ func _run() -> void:
 		finish()
 		return
 	check_prayer_clock()
+	check_prayer_totals()
 	if "--clock-only" in OS.get_cmdline_user_args():
 		await check_prayer_runtime()
 		finish()
@@ -1160,6 +1170,54 @@ func check_prayer_clock() -> void:
 	check(clock.make_up_label() == "Make up Asr", "making up a prior-day prayer advances to the next outstanding slot")
 
 
+func check_prayer_totals() -> void:
+	var clock := PrayerClock.new(identity.clock)
+	var empty := {
+		"on_time": 0, "jamaah": 0, "alone_masjid": 0, "alone_elsewhere": 0,
+		"friday": 0, "dhuhr_fri": 0, "madeup": 0, "missed": 0,
+	}
+	check(clock.totals() == empty, "totals exclude day 1 Fajr and upcoming prayers")
+	clock.advance_to(1, 12 * 60 + 5, false)
+	check(clock.totals() == empty, "a current prayer has no count until it is prayed or missed")
+	clock.pray(true)
+	clock.advance_to(1, 15 * 60 + 51, false)
+	clock.pray(true)
+	clock.advance_to(1, 18 * 60 + 10, false)
+	clock.pray(false)
+	check(clock.totals() == {
+		"on_time": 3, "jamaah": 1, "alone_masjid": 1, "alone_elsewhere": 1,
+		"friday": 0, "dhuhr_fri": 0, "madeup": 0, "missed": 0,
+	}, "on-time totals distinguish congregation and both places of solo prayer")
+	clock.advance_to(2, 6 * 60 + 5, false)
+	check(clock.totals().missed == 2, "totals include expired prayers from today and the previous day")
+	clock.make_up()
+	var counts := clock.totals()
+	check(counts.madeup == 1 and counts.missed == 1 and counts.on_time == 3, "make-up moves exactly one prayer from missed without increasing the on-time count")
+	clock.advance_to(2, 12 * 60 + 5, false)
+	clock.pray(true)
+	var after_friday := clock.totals()
+	check(after_friday.on_time == 4 and after_friday.jamaah == 2 and after_friday.friday == 1, "Friday congregation contributes to Friday, congregation, and on-time totals")
+	clock.pray(true)
+	check(clock.totals() == after_friday, "a repeat attempt leaves the prayer totals unchanged")
+	clock.skip_to(9, 12 * 60 + 41)
+	check(clock.totals() == after_friday, "totals exclude skipped windows and retain older records across weeks")
+	clock.pray(true)
+	counts = clock.totals()
+	check(counts.on_time == 5 and counts.alone_masjid == 2 and counts.dhuhr_fri == 1, "Friday Dhuhr at the masjid counts as on-time solo prayer and Friday Dhuhr")
+	clock.skip_to(16, 12 * 60 + 5)
+	clock.pray(false)
+	check(clock.totals() == {
+		"on_time": 6, "jamaah": 2, "alone_masjid": 2, "alone_elsewhere": 2,
+		"friday": 1, "dhuhr_fri": 2, "madeup": 1, "missed": 1,
+	}, "Friday Dhuhr elsewhere counts in its place and Friday rows alongside prior prayers")
+	clock.reset()
+	check(clock.totals() == empty, "reset clears all prayer totals")
+	clock.advance_to(1, 15 * 60 + 51, false)
+	clock.pray(false)
+	counts = clock.totals()
+	check(counts.alone_masjid == 0 and counts.alone_elsewhere == 1, "reset clears the location of a prayer repeated in a new game")
+
+
 func check_prayer_runtime() -> void:
 	var source: Dictionary = identity.clock
 	app.clock.reset()
@@ -1187,13 +1245,33 @@ func check_prayer_runtime() -> void:
 	key_event(KEY_P, false)
 	await frames(2)
 	check(app.clock.record().rows[1].status == "dhuhr_fri" and visible_text().contains(source.toast_alone_friday), "P prays Dhuhr away from the Masjid on Friday")
+	var counts: Dictionary = app.clock.totals()
+	check(counts.alone_elsewhere == 1 and counts.dhuhr_fri == 1, "runtime prayer records Friday Dhuhr away from the masjid in both totals")
 	check(Vector2i(app.progress.coins, app.progress.trust) == wallet, "praying alone leaves coins and trust untouched")
 	app.player.position = app.world.point("masjid")
 	app.clock.advance_to(2, 15 * 60 + 31, false)
 	app.update_state()
 	await press_button(source.pray_congregation, "the Masjid offers a real congregation button")
 	check(app.clock.record().rows[2].status == "jamaah" and visible_text().contains(source.toast_congregation.format({"prayer": "Asr"})), "congregation button records Asr with the exact toast")
+	counts = app.clock.totals()
+	check(counts.jamaah == 1 and counts.friday == 0, "Asr congregation on a Friday is not counted as Friday prayer")
 	check(Vector2i(app.progress.coins, app.progress.trust) == wallet, "praying in congregation leaves coins and trust untouched")
+	var prayer_record: Dictionary = app.ui.prayer_record
+	await press_control(app.ui.clock_panel.get_child(-1), "clock remains usable after prayer")
+	await press_button(prayer_record.record_button, "today’s record offers a usable All your prayers button")
+	check(app.ui.screen == "all_prayers" and has_visible_label(app.ui, prayer_record.panel.title), "today’s record opens the populated totals")
+	var panel_text := visible_text()
+	var previous := -1
+	for row: String in ["on_time", "jamaah", "alone_masjid", "alone_elsewhere", "friday", "dhuhr_fri", "madeup", "missed"]:
+		var at := panel_text.find(prayer_record.rows[row])
+		check(at > previous, "totals show the locked row in order: " + row)
+		previous = at
+	await press_button(prayer_record.panel.today, "market totals offer a usable Today’s prayers button")
+	check(app.ui.screen == "prayer_record", "market totals return to today’s record")
+	await press_button(prayer_record.record_button, "today’s record can reopen the totals")
+	await press_button(prayer_record.panel.back_market, "market totals offer a usable Back to the market button")
+	check(app.ui.screen == "market_map", "market totals return to the originating market view")
+	check(Vector2i(app.progress.coins, app.progress.trust) == wallet, "viewing prayer totals leaves coins and trust untouched")
 
 
 func check_idris_count(expected: int) -> void:

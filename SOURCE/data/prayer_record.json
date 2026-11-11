@@ -1,0 +1,26 @@
+{
+  "version": "LOCK 8 V1 (8 Nov 2026) - all your prayers",
+  "builds_on": "LOCK 2 V3 prayer record (statuses jamaah, alone, dhuhr_fri, missed, madeup). Adds where a prayer alone was prayed. Placeholders: {n}.",
+  "title_button": "Your prayers",
+  "record_button": "All your prayers",
+  "panel": {
+    "kicker": "Your prayers · since you arrived",
+    "title": "All your prayers",
+    "back_title": "‹ Title",
+    "back_market": "Back to the market",
+    "today": "Today’s prayers",
+    "note": "Only you see this. Prayer gives no coins and no trust.",
+    "empty": "No prayer times have passed yet."
+  },
+  "rows": {
+    "on_time": "Prayed on time",
+    "jamaah": "In congregation at the masjid",
+    "alone_masjid": "On your own at the masjid",
+    "alone_elsewhere": "On your own, away from the masjid",
+    "friday": "Friday prayers in congregation",
+    "dhuhr_fri": "Fridays you prayed Dhuhr instead",
+    "madeup": "Made up later",
+    "missed": "Missed (not made up yet)"
+  },
+  "count": "{n}"
+}

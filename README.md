@@ -35,6 +35,8 @@ LOCK 6 lets you talk to five River Market regulars. Their dialogue follows trust
 The third different salam greeting adds one trust and a line in What people say.
 LOCK 7 gives the regulars opening hours. The place bar shows when they are away and when the stall and loom
 are shut for Friday prayer. The bread grab starts while Salma is at the oven.
+LOCK 8 adds private all-time prayer totals. Choose **Your prayers** on the title screen or **All your prayers**
+in today’s record.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

@@ -207,3 +207,9 @@ The scales lesson stays open, and Salma must be present to start the bread grab.
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --market-day` to pair each master with
 its native capture. Both commands accept `--market-day-output=/absolute/path`.
 See `LINE14_CHECKS.json` and `BUILD.json` for the checks, fixture, provenance and visual differences.
+
+`godot --path SOURCE -- --capture-prayer-record` captures the six LOCK 8 states in
+`GAME/APPROVED/PRAYER_RECORD/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --prayer-record`
+to pair each master with its native capture. Both commands accept `--prayer-record-output=/absolute/path`.
+`LINE15_CHECKS.json` records the native checks and the setup for each screen.

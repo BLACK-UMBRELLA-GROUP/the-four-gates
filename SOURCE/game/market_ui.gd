@@ -57,10 +57,14 @@ const GOLD := Color("f8ae36")
 const INK := Color("30200e")
 const BAG_ENTRY_SCREENS := ["game", "market_map", "stall", "loom"]
 const GRAB_SCREENS := ["grab_see", "grab_ask", "grab_after"]
+const PRAYER_TOTAL_ROWS := [
+	"on_time", "jamaah", "alone_masjid", "alone_elsewhere", "friday", "dhuhr_fri", "madeup", "missed",
+]
 const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_morning", "reputation"] + GRAB_SCREENS
 var data: Dictionary = {}
 var identity: Dictionary = {}
 var chapter: Dictionary
+var prayer_record: Dictionary
 var open_purse: RefCounted
 var bread_grab: BreadGrab
 var market_stall: MarketStall
@@ -84,6 +88,7 @@ var _following_toast := ""
 var font := SystemFont.new()
 var bold_font := SystemFont.new()
 var title_font := SystemFont.new()
+var _prayer_caption_font := FontVariation.new()
 var progress: RefCounted
 var clock: RefCounted
 var clock_panel: Panel
@@ -93,6 +98,7 @@ var _clock_hit: Button
 var _record_kicker: Label
 var _record_names: Array[Label] = []
 var _record_values: Array[Label] = []
+var _shown_prayer_totals: Dictionary
 var _clock_day := -1
 var _clock_minute := -1
 var _prayer_label := ""
@@ -115,7 +121,7 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
@@ -124,6 +130,7 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	market_stall = stall_value
 	talking = talking_value
 	market_day = market_day_value
+	prayer_record = prayer_record_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -133,6 +140,8 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	bold_font.font_weight = 700
 	title_font.font_names = PackedStringArray(["Times New Roman", "Times", "serif"])
 	title_font.font_weight = 700
+	_prayer_caption_font.base_font = font
+	_prayer_caption_font.spacing_glyph = 2
 	root = Control.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -230,6 +239,12 @@ func _rebuild_screen() -> void:
 		"prayer_record":
 			_build_hud()
 			_build_prayer_record()
+		"all_prayers", "all_prayers_title":
+			if screen == "all_prayers":
+				_build_hud()
+			else:
+				_add_title_shade()
+			_build_prayer_totals()
 		"board":
 			_build_hud()
 			_build_board()
@@ -326,7 +341,9 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	map.night = night
 	if map.visible:
 		map.queue_redraw()
-	if rebuild and screen != "title":
+	if screen == "all_prayers" and clock_changed:
+		rebuild = rebuild or clock.totals() != _shown_prayer_totals
+	if rebuild and screen not in ["title", "all_prayers_title"]:
 		_rebuild_screen()
 	elif clock_changed:
 		_update_clock_hud()
@@ -365,12 +382,15 @@ func _process(delta: float) -> void:
 			else:
 				show_toast(_following_toast, screen == "market_map")
 
-func _build_title() -> void:
+func _add_title_shade() -> void:
 	var shade := ColorRect.new()
 	shade.color = Color(0, 0, 0, 0.24)
 	shade.size = Vector2(1920, 1080)
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	content.add_child(shade)
+
+func _build_title() -> void:
+	_add_title_shade()
 	# The title master's wide letter spacing is part of its placement.
 	var title_value: String = data.title_screen.title
 	var title_width := 0.0
@@ -386,8 +406,9 @@ func _build_title() -> void:
 	city_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var subtitle := _label(content, str(data.title_screen.line), Vector2(380, 594), Vector2(1160, 52), 28, PAPER)
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_button(data.ui.buttons.begin, Vector2(830, 680), Vector2(107, 56), func(): begin_requested.emit(), true)
-	_button(data.ui.buttons.settings, Vector2(960, 680), Vector2(130, 56), func(): show_toast(data.title_screen.settings_toast))
+	_button(data.ui.buttons.begin, Vector2(729, 680), Vector2(107, 56), func(): begin_requested.emit(), true)
+	_button(prayer_record.title_button, Vector2(859, 680), Vector2(179, 56), func(): screen_requested.emit("all_prayers_title"))
+	_button(data.ui.buttons.settings, Vector2(1061, 680), Vector2(130, 56), func(): show_toast(data.title_screen.settings_toast))
 
 func _build_arrival() -> void:
 	var arrival: Dictionary = identity.arrival
@@ -552,7 +573,7 @@ func _build_hud() -> void:
 	fill.size = Vector2(315 * float(progress.trust) / float(data.numbers.trust_max), 10)
 	fill.color = GOLD
 	track.add_child(fill)
-	if screen in ["arrival", "idris", "purse_salma", "purse_page", "stall_change"] or screen in GRAB_SCREENS:
+	if screen in ["arrival", "idris", "purse_salma", "purse_page", "stall_change", "all_prayers"] or screen in GRAB_SCREENS:
 		return
 	var hit := Button.new()
 	hit.flat = true
@@ -568,7 +589,7 @@ func _build_clock_hud() -> void:
 	_clock_prayer = _label(clock_panel, "", Vector2(14, 40), Vector2(257, 34), 24, Color("ffd27e"), true)
 	_clock_time.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_clock_prayer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	if screen not in ["arrival", "idris", "prayer_record", "purse_salma", "purse_page", "stall_change"] and screen not in GRAB_SCREENS:
+	if screen not in ["arrival", "idris", "prayer_record", "all_prayers", "purse_salma", "purse_page", "stall_change"] and screen not in GRAB_SCREENS:
 		_clock_hit = Button.new()
 		_clock_hit.flat = true
 		_clock_hit.modulate = Color(1, 1, 1, 0)
@@ -610,7 +631,47 @@ func _build_prayer_record() -> void:
 		_record_values.append(value)
 	_label(panel, str(record_copy.note).to_upper(), Vector2(34, 397), Vector2(1122, 28), 16, Color("e9bd70"))
 	_button(record_copy.back, Vector2(399, 762), Vector2(247, 56), func(): record_closed.emit(), true)
+	_button(prayer_record.record_button, Vector2(659, 762), Vector2(209, 56), func(): screen_requested.emit("all_prayers"))
 	_update_prayer_record()
+
+func _build_prayer_totals() -> void:
+	_shown_prayer_totals = clock.totals()
+	var copy: Dictionary = prayer_record.panel
+	var empty: bool = int(_shown_prayer_totals.on_time) + int(_shown_prayer_totals.madeup) + int(_shown_prayer_totals.missed) == 0
+	var top := 443.0 if empty else 283.0
+	var panel := _panel(Vector2(365, top), Vector2(1190, 281 if empty else 600), Color("1b130be6"))
+	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
+	style.set_corner_radius_all(18)
+	_prayer_totals_caption(panel, copy.kicker, 26)
+	var title := _label(panel, copy.title, Vector2(34, 53), Vector2(1122, 48), 36, Color("ffd27e"), true)
+	title.add_theme_font_override("font", title_font)
+	if empty:
+		_label(panel, copy.empty, Vector2(34, 110), Vector2(1122, 36), 23, PAPER)
+	else:
+		for index in PRAYER_TOTAL_ROWS.size():
+			var row: String = PRAYER_TOTAL_ROWS[index]
+			var y := 113.0 + index * 45.3
+			var indented := index >= 1 and index <= 3
+			var line := ColorRect.new()
+			line.position = Vector2(34, y)
+			line.size = Vector2(1122, 1)
+			line.color = Color("88612555")
+			line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			panel.add_child(line)
+			_label(panel, prayer_record.rows[row], Vector2(64 if indented else 34, y), Vector2(960, 45), 23, PAPER, not indented)
+			var value := _label(panel, str(prayer_record.count).format({"n": _shown_prayer_totals[row]}), Vector2(1000, y), Vector2(156, 45), 23, Color("ffd27e"))
+			value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	var footer := 197.0 if empty else 517.0
+	_prayer_totals_caption(panel, copy.note, footer - 40)
+	if screen == "all_prayers_title":
+		_button(copy.back_title, Vector2(34, footer), Vector2(109, 56), func(): screen_requested.emit("title"), true, panel)
+	else:
+		_button(copy.back_market, Vector2(34, footer), Vector2(247, 56), func(): record_closed.emit(), true, panel)
+		_button(copy.today, Vector2(294, footer), Vector2(210, 56), func(): screen_requested.emit("prayer_record"), false, panel)
+
+func _prayer_totals_caption(panel: Panel, value: String, y: float) -> void:
+	var caption := _label(panel, value.to_upper(), Vector2(34, y), Vector2(1122, 28), 16, Color("e9bd70"))
+	caption.add_theme_font_override("font", _prayer_caption_font)
 
 func _update_prayer_record() -> void:
 	var record_values: Dictionary = clock.record()
@@ -1320,7 +1381,7 @@ func _button(value: String, at: Vector2, extent: Vector2, callback: Callable, pr
 	button.add_theme_color_override("font_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_hover_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_pressed_color", INK if primary else PAPER)
-	var task_panel := parent != null or screen in ["arrival", "idris", "board", "task", "result", "lesson", "goal", "prayer_record"]
+	var task_panel := parent != null or screen in ["title", "arrival", "idris", "board", "task", "result", "lesson", "goal", "prayer_record"]
 	var background := Color("1b130bf2") if task_panel else Color("191c19")
 	button.add_theme_stylebox_override("normal", _style(GOLD if primary else background))
 	button.add_theme_stylebox_override("hover", _style(GOLD.lightened(0.12) if primary else (background.lightened(0.1) if task_panel else Color("312b20"))))
