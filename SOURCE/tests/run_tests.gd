@@ -140,6 +140,7 @@ func _run() -> void:
 	await check_feeding_runtime()
 	await check_sealed_purse_runtime()
 	await check_dice_house_runtime()
+	await check_qasims_jars_runtime()
 	finish()
 
 
@@ -2528,3 +2529,113 @@ func check_dice_house_talk(dice: Dictionary) -> void:
 	check(app.sealed_purse.accept() and app.sealed_purse.choose_coin(false) and app.sealed_purse.deliver(), "fixture adds the locked sealed-purse outcome")
 	app.market_stall.fed_faris = true
 	check(app.ui.reputation_lines() == [app.market_stall.data.say.fed, dice.say.gambler, app.sealed_purse.data.say.honest], "dice talk follows the market stall and precedes the sealed purse")
+
+
+func check_qasims_jars_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/QASIMS_JARS/RECORD/qasims_jars_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/qasims_jars.json")
+	var jars: Dictionary = app.qasims_jars.data
+	check(not locked.is_empty() and locked == runtime, "Qasim's jars copy LOCK 12 byte for byte")
+	check(jars == JSON.parse_string(runtime.get_string_from_utf8()), "the jars use the locked runtime data")
+	app.set_process(false)
+	reset_at_market_place("quay", 198)
+	app.progress.apply_trust(45 - app.progress.trust)
+	for slot: Array in [[3, 1169, false], [3, 1170, true], [3, 1439, true], [4, 0, true], [4, 284, true], [4, 285, false]]:
+		set_market_day_time(slot[0], slot[1])
+		check((find_button(app.ui, jars.quay_button) != null) == slot[2], "Qasim's boatman at day %d, minute %d" % [slot[0], slot[1]])
+		if not slot[2]:
+			app.show_qasims_offer()
+			check(app.ui.screen == "market_map", "a direct request cannot open the offer during the day")
+
+	set_market_day_time(3, 1170)
+	move_market_fixture("inn")
+	check(find_button(app.ui, jars.quay_button) == null, "the boatman button appears only at the Quay")
+	app.show_qasims_offer()
+	check(app.ui.screen == "market_map", "a direct request away from the Quay cannot open the offer")
+	move_market_fixture("quay")
+	app.show_screen("game")
+	await press_button(jars.quay_button, "the Quay street bar opens the offer")
+	check(app.ui.screen == "qasims_offer" and visible_text().contains(jars.offer.text), "Qasim's offer tells the player it is wine in the locked words")
+	check(has_visible_label(app.ui, jars.offer.title) and has_visible_label(app.ui, str(jars.offer.kicker).to_upper()), "the offer uses the locked title and kicker")
+	await press_button(jars.offer.no, "Walk away is a real button")
+	check(app.ui.screen == "market_map" and app.current_place == "quay" and app.day == 3 and app.minute_of_day == 1170, "walking away returns to the Quay map without advancing time")
+	check(app.qasims_jars.runs == 0 and app.ui.reputation_lines().is_empty(), "walking away adds no run or talk")
+	check_wallet(45, 198, "walking away changes neither trust nor coins")
+	await press_button(jars.quay_button, "walking away leaves the offer available that night")
+	await press_button(jars.offer.carry, "Carry the jars is a real button")
+	check(app.ui.screen == "qasims_done" and visible_text().contains(jars.done.text), "carrying opens the locked result story")
+	check(has_visible_label(app.ui, jars.done.title) and has_visible_label(app.ui, str(jars.done.kicker).to_upper()), "the result uses the locked title and kicker")
+	check(has_visible_label(app.ui, str(jars.done.runs).format({"n": 1}).to_upper()), "the result displays the first night's count")
+	check(app.day == 3 and app.minute_of_day == 1170 and app.qasims_jars.runs == 1, "carrying marks one run without advancing the clock")
+	check_wallet(45, 218, "the first run pays twenty coins and leaves trust unchanged")
+	check(app.ui.reputation_lines().is_empty(), "one run creates no What people say line")
+	app.answer_qasims_offer(true)
+	await press_button(jars.done.to_map, "the result has a usable map button")
+	check(app.ui.screen == "market_map" and app.current_place == "quay", "the result returns to the market map at the Quay")
+	for slot: Array in [[3, 1439], [4, 0], [4, 284], [4, 285]]:
+		set_market_day_time(slot[0], slot[1])
+		check(find_button(app.ui, jars.quay_button) == null, "a run prevents another offer on the same evening or after midnight: %s" % [slot])
+		app.show_qasims_offer()
+		app.answer_qasims_offer(true)
+		check(app.ui.screen == "market_map" and app.qasims_jars.runs == 1, "the finished run cannot be repeated by a direct action")
+		check_wallet(45, 218, "rejected runs change neither trust nor coins")
+	set_market_day_time(4, 1170)
+	check(find_button(app.ui, jars.quay_button) != null, "the offer returns when the next night opens")
+	await check_qasims_jars_talk(jars)
+	reset_at_market_place("quay", 198)
+	check(app.qasims_jars.runs == 0 and app.ui.reputation_lines().is_empty(), "a new playthrough clears the jar runs and talk")
+	app.progress.apply_trust(3 - app.progress.trust)
+	for day in range(3, 7):
+		set_market_day_time(day, 1170)
+		app.show_qasims_offer()
+		app.answer_qasims_offer(true)
+		app.leave_qasims_done()
+	check(app.qasims_jars.runs == 4 and app.progress.trust == 0, "the fourth jar run clamps trust to zero")
+	app.set_process(true)
+
+
+func check_qasims_jars_talk(jars: Dictionary) -> void:
+	var expected_trust := 45
+	var expected_line: Array = []
+	for run in range(2, 12):
+		# Take run two just before dawn on day 5, then run three that evening.
+		var day := run + 2
+		var minute := 284 if run == 2 else 1200
+		if run == 2:
+			day += 1
+		set_market_day_time(day, minute)
+		app.show_qasims_offer()
+		app.answer_qasims_offer(true)
+		match run:
+			2:
+				expected_line = jars.say.talk
+			4:
+				expected_line = jars.say.seen
+				expected_trust += int(jars.numbers.seen_trust)
+			10:
+				expected_line = jars.say.smuggler
+				expected_trust += int(jars.numbers.smuggler_trust)
+		check(app.ui.screen == "qasims_done" and app.qasims_jars.runs == run and app.dice_house.nights == 0, "jar run %d counts once and does not count toward dice" % run)
+		check(app.day == day and app.minute_of_day == minute, "jar run %d leaves the clock unchanged" % run)
+		check_wallet(expected_trust, 198 + int(jars.numbers.pay) * run, "jar run %d pays once and applies only its threshold penalty" % run)
+		app.leave_qasims_done()
+		check(find_button(app.ui, jars.quay_button) == null and app.ui.reputation_lines() == [expected_line], "run %d removes the button and contributes only the highest jars line" % run)
+		if run in [2, 4, 10]:
+			await press_button(app.chapter.purse.morning.to_rep, "open What people say after %d jar runs" % run)
+			check(app.ui.screen == "reputation" and has_visible_label(app.ui, "“%s”" % expected_line[0]) and has_visible_label(app.ui, str(expected_line[1]).to_upper()) and has_visible_label(app.ui, app.chapter.rep.tone[str(int(expected_line[2]))]), "run %d renders the locked quote, source and tone" % run)
+			await press_button(app.chapter.rep.to_map, "return to the Quay after checking the jars line")
+
+	move_market_fixture("inn")
+	var dice: Dictionary = app.dice_house.data
+	await press_button(dice.inn_invite, "the dice invitation still works after jar runs")
+	await press_button(dice.invite.go, "the invitation opens the dice house")
+	app.leave_dice_house()
+	set_market_day_time(14, 1200)
+	await press_button(dice.inn_button, "a later night still opens the dice house")
+	app.leave_dice_house()
+	check(app.dice_house.nights == 2 and app.qasims_jars.runs == 11, "dice visits leave the jar run count unchanged")
+	check_wallet(expected_trust, 198 + int(jars.numbers.pay) * 11, "the first two dice visits after jar runs leave trust and coins unchanged")
+	set_market_day_time(15, 600)
+	app.progress.apply_trust(int(app.sealed_purse.data.numbers.offer_from_trust) - app.progress.trust)
+	check(app.sealed_purse.accept() and app.sealed_purse.choose_coin(false) and app.sealed_purse.deliver(), "fixture adds the sealed-purse reputation line")
+	check(app.ui.reputation_lines() == [dice.say.talk, jars.say.smuggler, app.sealed_purse.data.say.honest], "the single jars line follows the dice line and precedes the sealed purse")

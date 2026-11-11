@@ -15,6 +15,7 @@ const MarketDay = preload("res://game/market_day.gd")
 const Feeding = preload("res://game/feeding.gd")
 const SealedPurse = preload("res://game/sealed_purse.gd")
 const DiceHouse = preload("res://game/dice_house.gd")
+const QasimsJars = preload("res://game/qasims_jars.gd")
 
 var data: Dictionary
 var identity: Dictionary
@@ -26,6 +27,7 @@ var talking := Talking.new()
 var feeding := Feeding.new()
 var sealed_purse := SealedPurse.new()
 var dice_house := DiceHouse.new()
+var qasims_jars := QasimsJars.new()
 var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
@@ -75,6 +77,7 @@ func _ready() -> void:
 	var karim_closes := _minutes(maghrib[0].begins)
 	sealed_purse.setup(Foundations.load_sealed_purse(), progress, market_day, karim_opens, karim_closes)
 	dice_house.setup(Foundations.load_dice_house(), progress, clock)
+	qasims_jars.setup(Foundations.load_qasims_jars(), progress, clock)
 	world = MarketWorld.new()
 	add_child(world)
 	world.setup(data)
@@ -88,7 +91,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -144,6 +147,9 @@ func _ready() -> void:
 	ui.dice_invitation_answered.connect(answer_dice_invitation)
 	ui.dice_bet_placed.connect(bet_at_dice_house)
 	ui.dice_house_left.connect(leave_dice_house)
+	ui.qasims_offer_opened.connect(show_qasims_offer)
+	ui.qasims_offer_answered.connect(answer_qasims_offer)
+	ui.qasims_done_left.connect(leave_qasims_done)
 	show_screen("title")
 	update_state()
 	if "--capture-foundations" in OS.get_cmdline_user_args():
@@ -197,6 +203,9 @@ func _ready() -> void:
 	elif "--capture-dice-house" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_dice_house.gd").new()
 		capture_runner.run(self)
+	elif "--capture-qasims-jars" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_qasims_jars.gd").new()
+		capture_runner.run(self)
 
 func _process(delta: float) -> void:
 	if ui.screen not in ["title", "arrival", "all_prayers_title"]:
@@ -248,6 +257,7 @@ func begin_game() -> void:
 	feeding.reset()
 	sealed_purse.reset()
 	dice_house.reset()
+	qasims_jars.reset()
 	world.stop_faris_run()
 	world.set_inn_people_waiting(true)
 	world.reset_gate()
@@ -380,6 +390,10 @@ func show_screen(screen: String) -> void:
 		world.oven_camera.make_current()
 	elif screen in MarketUI.DICE_HOUSE_SCREENS:
 		world.dice_house_camera.make_current()
+	elif screen == "qasims_offer":
+		world.qasims_offer_camera.make_current()
+	elif screen == "qasims_done":
+		world.qasims_done_camera.make_current()
 	elif screen == "sealed_purse_offer":
 		world.sealed_purse_offer_camera.make_current()
 	elif screen == "sealed_purse_coin":
@@ -584,6 +598,22 @@ func leave_dice_house() -> void:
 		show_screen("market_map")
 
 
+func show_qasims_offer() -> void:
+	if current_place == "quay" and ui.screen in ["game", "market_map"] and qasims_jars.can_carry():
+		_stop_travel()
+		show_screen("qasims_offer")
+
+
+func answer_qasims_offer(carry: bool) -> void:
+	if ui.screen == "qasims_offer":
+		show_screen("qasims_done" if carry and qasims_jars.carry() else "market_map")
+
+
+func leave_qasims_done() -> void:
+	if ui.screen == "qasims_done":
+		show_screen("market_map")
+
+
 func show_stall() -> void:
 	if current_place != "spice" or ui.screen not in ["game", "market_map"]:
 		return
@@ -758,7 +788,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				show_screen("market_map")
 		return
-	if ui.screen in MarketUI.DICE_HOUSE_SCREENS:
+	if ui.screen in MarketUI.DICE_HOUSE_SCREENS or ui.screen in MarketUI.QASIMS_JARS_SCREENS:
 		if event.is_action_pressed("close"):
 			show_screen("market_map")
 		return

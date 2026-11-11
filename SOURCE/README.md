@@ -242,3 +242,12 @@ dismisses the invitation without moving the clock. Repeated nights add a single 
 `GAME/APPROVED/DICE_HOUSE/BUILT/V1/`. Run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --dice-house`
 to pair the captures with their masters. Both commands accept `--dice-house-output=/absolute/path`.
+
+LOCK 12 adds **A boatman waves from the dark** at the Quay from 19:30 through 04:44. Carrying the jars pays
+twenty coins once per night. After midnight the run still belongs to the previous evening. Walking away leaves the
+offer open. Repeated runs change **What people say** and can lower River Market trust.
+
+`godot --path SOURCE -- --capture-qasims-jars` records all nine LOCK 12 states under
+`GAME/APPROVED/QASIMS_JARS/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --qasims-jars`
+to pair the captures with their masters. Both commands accept `--qasims-jars-output=/absolute/path`.

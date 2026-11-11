@@ -1,0 +1,206 @@
+{
+  "line": 19,
+  "lock": "LOCK 12 V1",
+  "brief": "DOC-TFG-0047",
+  "tested_base_commit_sha": "148fbeaeda1267b78e8dd9275e2bd02f26d5955b",
+  "capture_source": "Line 19 candidate on the tested base. The 11 Nov Codex daily task note records the single commit containing source and evidence.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T16:38:14Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Real native Godot viewport. Viewport-local clicks exercise arrival, the route to the Quay, both offer choices, return to the Quay map and What people say.",
+  "fixture": "Passive clock ticks are paused. The fair arrival supplies 198 coins and the harness sets starting trust to 45. q01 uses Saturday at 10:00. q02–q06 use the same evening at 20:00. The remaining runs are made on later nights using the live offer. q07–q09 show the accumulated wallet and the existing daylight lane towards the square the following morning. Position and camera fixtures frame that lane and return the player to the Quay for the next run.",
+  "source_sha256": {
+    "SOURCE/data/chapter1.json": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0",
+    "SOURCE/data/clothes.json": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e",
+    "SOURCE/data/dice_house.json": "d769f3698748af05e5498e13de397a701c0aebf740eae006f4547e2b53e21c80",
+    "SOURCE/data/feeding.json": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7",
+    "SOURCE/data/foundations.json": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/data/market_day.json": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05",
+    "SOURCE/data/market_stall.json": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604",
+    "SOURCE/data/prayer_record.json": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9",
+    "SOURCE/data/qasims_jars.json": "c7a2c0a56d676ef6606769f94075ec537707875eecf8767d8dac43fda2c34bfb",
+    "SOURCE/data/sealed_purse.json": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a",
+    "SOURCE/data/talking.json": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4",
+    "SOURCE/game/bread_grab.gd": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468",
+    "SOURCE/game/dice_house.gd": "3cb3a93728a73c7a1970da154d1aa27719afa19b4c95aeec099acf11738f3e22",
+    "SOURCE/game/feeding.gd": "a818d69fb277ed6125f20d06a47e997c03c25dee99094de4651a2acb11df6b80",
+    "SOURCE/game/foundations.gd": "670faeaf0c7d9ed8e0fe2b57885c7ca00b75d8904feee3283d023c641be9ff93",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+    "SOURCE/game/market_day.gd": "3cb77474a4fd5fffb10caa13954c0369a3759235cd60449a258fa202ce702b38",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_stall.gd": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56",
+    "SOURCE/game/market_ui.gd": "debb9941707bc47a54faf3a494c7489d06b0f19530ea7dc21f5efdb770614f39",
+    "SOURCE/game/market_world.gd": "404d804e7baefad10b22b02623ed7f80c3ee7e928a39c428aedf84ff464fb7ee",
+    "SOURCE/game/open_purse.gd": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9",
+    "SOURCE/game/prayer_clock.gd": "6ba6f3202bc7759ee63b1aa5defce6d4c19f9485bddcb832b9518d48193a3c23",
+    "SOURCE/game/qasims_jars.gd": "4cd3760752d0bc0fb821bbd32888bfc20cb923611e158b6d4a795319806eb011",
+    "SOURCE/game/river_market.gd": "caa396e0d2866345dc6b1443595c36b6e908f6cb97a2b50b7bca0b3a827e6b58",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/game/sealed_purse.gd": "e3b46ae422a91cd824057e43881c80bb254dac24da5031163ac093d491bef7ab",
+    "SOURCE/game/talking.gd": "546458aedd4c3c74f06e498f2160c8622fc5524a3f9d9ab49ec6cd0891bd0f86",
+    "SOURCE/game/task_progress.gd": "ec252cac5837000910f107051f4d63d16a77f3327c83f316f7e31d5dcf16cbc2",
+    "SOURCE/main.tscn": "109e5b49d1caed038c97365a9c4fb995c5541bfd0b30d9ef1568af98bb815a94",
+    "SOURCE/project.godot": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45"
+  },
+  "test_and_comparison_source_sha256": {
+    "SOURCE/tests/capture_dice_house.gd": "57113257aa841a3fc76391cd0cbe19fe7fa08f061cfd2483305716302a93fc70",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/capture_open_purse.gd": "8bea68a179b553ee4f534002a9c495b51150d1e50348732cb0ff439498cd3da4",
+    "SOURCE/tests/capture_qasims_jars.gd": "cac0f3cf7550c0a8b0e6e4ae3d4de52fbdab8986784ad4397a88f79be790d494",
+    "SOURCE/tests/capture_tasks.gd": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003",
+    "SOURCE/tests/create_comparisons.gd": "724377b6a2aba5a1d1042017070654620565cfc9c3cad33865fcb978b01cf891",
+    "SOURCE/tests/run_tests.gd": "08caccca277aa039a3d838024777d937a5d2ec0819169a26acea68803229e5b5"
+  },
+  "approved_inputs_sha256": {
+    "GAME/APPROVED/QASIMS_JARS/BRIEFS/BUILD_BRIEF_2026-11-08_QASIMS_JARS.md": "9e56eefd5ce601d374c58a02fdf41dfa18fbe314ac49f079b4bc11aed603b76e",
+    "GAME/APPROVED/QASIMS_JARS/MASTERS/q01_quay__daytime_no_boat.png": "065505776d2779ea6b1199b41afc9502519e414856aaa695cf49497a193bbd3a",
+    "GAME/APPROVED/QASIMS_JARS/MASTERS/q02_quay__boatman_waves.png": "1c7921408d4be7d55e19a76e3841eafd87f8b554df48ab7e056cffe994c41aa4",
+    "GAME/APPROVED/QASIMS_JARS/MASTERS/q03_jars__qasims_offer.png": "6b14f7e414ea5356a5ed80ea32ff1f72abfd0d7b43342f7420f259c1fb9c9f4d",
+    "GAME/APPROVED/QASIMS_JARS/MASTERS/q04_jars__twenty_coins.png": "5df59d63931572cd722d85677ef40f118066ef81bc6ca676958d5210f154a0f9",
+    "GAME/APPROVED/QASIMS_JARS/MASTERS/q05_quay__no_boat_same_night.png": "8e310fc6564f568d03751959297846659796145fb1f9b86694a3ae5a65c9e83b",
+    "GAME/APPROVED/QASIMS_JARS/MASTERS/q06_quay__after_walk_away.png": "1c7921408d4be7d55e19a76e3841eafd87f8b554df48ab7e056cffe994c41aa4",
+    "GAME/APPROVED/QASIMS_JARS/MASTERS/q07_people_say__talk_2_runs.png": "7910764341adf37875d2c5185916197946fd0ac19d32de385ead090adbc6e614",
+    "GAME/APPROVED/QASIMS_JARS/MASTERS/q08_people_say__seen_4_runs.png": "2d62c6197a9e925e283e0ecadf6088d70383fdec5981fc9adec4822f58b17f5f",
+    "GAME/APPROVED/QASIMS_JARS/MASTERS/q09_people_say__smuggler_10_runs.png": "74f5a4dc084a95d4354af472c2b8c06376393bd0192605ce43821cb9b7d71d0e",
+    "GAME/APPROVED/QASIMS_JARS/RECORD/LOCK_RECORD.md": "7b5233e59fb6a02267fbfbcfd30b3016200a89a8abe21aef892fb9f05bc6d98f",
+    "GAME/APPROVED/QASIMS_JARS/RECORD/QASIMS_JARS_SPEC_CURRENT_VERSION_V1.md": "bc5af8226639fd98f129fde912da5411af82d06ebcc47c2bb8379586d3541e6c",
+    "GAME/APPROVED/QASIMS_JARS/RECORD/qasims_jars_data_V1.json": "c7a2c0a56d676ef6606769f94075ec537707875eecf8767d8dac43fda2c34bfb",
+    "GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md": "f2abfee4dcc542086c5dcd23242a52986a6d29f28935f48b88e1bbbc6fbfdae6"
+  },
+  "spec_at_base_sha256": "4b060a23c3375a1c1549d0000ff79e1b71c3762cbde2956658f814077988755d",
+  "spec_clarifications_used": "The 11 Nov designer working copy directs the daytime fixture to a later non-Friday and uses DOC-TFG-0321 row 13 for reputation order.",
+  "tests": {
+    "headless_passed": 2834,
+    "native_passed": 153,
+    "dice_house_native_regression_passed": 182
+  },
+  "png_verification": "Lossless IDAT recompression. Godot decoded original and final files, verified unchanged pixels and dimensions, and matched both comparison halves to the master and capture.",
+  "png_bytes_before": 8876687,
+  "png_bytes_after": 8719119,
+  "native_checks": {
+    "bytes": 20009,
+    "sha256": "d43dda090dee0d0258ae285bea2022a59440091197b6251ef2c0b9c36f7933b5"
+  },
+  "files": {
+    "q01_quay__daytime_no_boat__build.png": {
+      "bytes": 173114,
+      "sha256": "658ab6f94ffac42539c802cae7b127de7f870396b7050509052c5961f6a8bc32",
+      "width": 1920,
+      "height": 1080
+    },
+    "q01_quay__daytime_no_boat__master_beside_build.png": {
+      "bytes": 360700,
+      "sha256": "e154b0284b2b68f653471144f0e65c1b27974799f6c556add9b7f97cf8788328",
+      "width": 3840,
+      "height": 1080
+    },
+    "q02_quay__boatman_waves__build.png": {
+      "bytes": 234914,
+      "sha256": "cf7c29f7cf12f3c04d84eb9ebb8b5a32f6cae117edd92a3bd0b8927043639695",
+      "width": 1920,
+      "height": 1080
+    },
+    "q02_quay__boatman_waves__master_beside_build.png": {
+      "bytes": 481448,
+      "sha256": "8085c0649f6e8322d33cb3fd1bb100937c4f953c7e7af42625ccad15d7276240",
+      "width": 3840,
+      "height": 1080
+    },
+    "q03_jars__qasims_offer__build.png": {
+      "bytes": 142874,
+      "sha256": "e433d8054678b0306bbe908bb2a7f2029efc16796ef6f69d51f8abb2f4ecff81",
+      "width": 1920,
+      "height": 1080
+    },
+    "q03_jars__qasims_offer__master_beside_build.png": {
+      "bytes": 471304,
+      "sha256": "68d7a02e39ac7723df79d161ae40f3d7c9cd8d7a6243d453b12f08503b00075d",
+      "width": 3840,
+      "height": 1080
+    },
+    "q04_jars__twenty_coins__build.png": {
+      "bytes": 90572,
+      "sha256": "f56c0e3ddd4802681e2e358fe43d8c4034587160406e93b077f961afd0fa09fd",
+      "width": 1920,
+      "height": 1080
+    },
+    "q04_jars__twenty_coins__master_beside_build.png": {
+      "bytes": 697286,
+      "sha256": "b776c2169f9b475667f24381545440ed2de3a980ad8dd5ce924f2e71fab0b530",
+      "width": 3840,
+      "height": 1080
+    },
+    "q05_quay__no_boat_same_night__build.png": {
+      "bytes": 235131,
+      "sha256": "e756330028f0193a3fef36ed35dd7b15c8a7e594fbc2061b24756c642ea5305c",
+      "width": 1920,
+      "height": 1080
+    },
+    "q05_quay__no_boat_same_night__master_beside_build.png": {
+      "bytes": 475401,
+      "sha256": "cd1248807abb9cca509a790cadb4383e91ebf6e7a292f89290af07fee45ce946",
+      "width": 3840,
+      "height": 1080
+    },
+    "q06_quay__after_walk_away__build.png": {
+      "bytes": 234914,
+      "sha256": "cf7c29f7cf12f3c04d84eb9ebb8b5a32f6cae117edd92a3bd0b8927043639695",
+      "width": 1920,
+      "height": 1080
+    },
+    "q06_quay__after_walk_away__master_beside_build.png": {
+      "bytes": 481448,
+      "sha256": "8085c0649f6e8322d33cb3fd1bb100937c4f953c7e7af42625ccad15d7276240",
+      "width": 3840,
+      "height": 1080
+    },
+    "q07_people_say__talk_2_runs__build.png": {
+      "bytes": 358132,
+      "sha256": "7953071a94dcc2ff994083ed559186cccc11cec0e6d1f0ee48f4ae1ee20aba99",
+      "width": 1920,
+      "height": 1080
+    },
+    "q07_people_say__talk_2_runs__master_beside_build.png": {
+      "bytes": 1195255,
+      "sha256": "0406eecedc84c7fd75796d56c878326791c0a49449b94c0b2197edbc9364e7e6",
+      "width": 3840,
+      "height": 1080
+    },
+    "q08_people_say__seen_4_runs__build.png": {
+      "bytes": 358767,
+      "sha256": "db7355b22db14623addcbda670bbfeba2e9c5edbdc1fb484a65bb9f273b8aab6",
+      "width": 1920,
+      "height": 1080
+    },
+    "q08_people_say__seen_4_runs__master_beside_build.png": {
+      "bytes": 1188160,
+      "sha256": "ab0fd508c2edad754bc73f8edb3cefbf5c4e129da7d6d02af2eb21d1c386eb8a",
+      "width": 3840,
+      "height": 1080
+    },
+    "q09_people_say__smuggler_10_runs__build.png": {
+      "bytes": 354761,
+      "sha256": "9ab27baa7ea2514124bbbb008b61e64b83cd35efe7e96962bed8a25be5f98bce",
+      "width": 1920,
+      "height": 1080
+    },
+    "q09_people_say__smuggler_10_runs__master_beside_build.png": {
+      "bytes": 1184938,
+      "sha256": "6fbbb587c238cac2f53687486eed127e5b61cdc1b55af7a6c7a9faeec832de1d",
+      "width": 3840,
+      "height": 1080
+    }
+  },
+  "visual_differences": {
+    "all": "Live HUD uses current weekday and different type, box widths, alignment and trust bar styling.",
+    "q01_q02_q05_q06": "The live map uses different marker rims, an active Quay ring, gate styling, outlines, grid and lantern shading. Toolbar sizing and canal-label coverage differ. The inherited Make up Dhuhr button appears. The transient Isha call is excluded per spec.",
+    "q03_q04": "Existing plain block geometry, sky and warm lights provide the quay/canal and lane backgrounds. The master pictures include more detailed buildings, ground and a moonlit sky. Panel border, opacity, font metrics, letter spacing, padding and button widths differ slightly.",
+    "q07_q08_q09": "The existing daylight lane and player capsule replace the master's storefront. The live clock shows 10:00 the next day and a Dhuhr countdown. The earned wallets are 238, 278 and 398 rather than the masters' fixed 198. Reputation panel opacity, rule and type spacing, and button widths differ. Trust 45, 40 and 30 and the locked text, source and tone match."
+  },
+  "pre_release_scholar_review": "Pending under OA-AIOS-432. LOCK 12 §1 cites Jami at-Tirmidhi 1295 on carrying wine and Quran 5:90 on intoxicants. Review the portrayal of the prohibition and carrying wine for payment before public release. DOC-TFG-0320 has no dedicated LOCK 12 row at handover."
+}

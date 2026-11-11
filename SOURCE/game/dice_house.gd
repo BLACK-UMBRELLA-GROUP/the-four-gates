@@ -27,7 +27,7 @@ func reset() -> void:
 
 
 func is_open() -> bool:
-	return _clock.minute_of_day >= int(data.numbers.open_from) or _clock.minute_of_day < int(data.numbers.open_until)
+	return _clock.in_overnight_window(int(data.numbers.open_from), int(data.numbers.open_until))
 
 
 func inn_caption() -> String:
@@ -39,9 +39,7 @@ func inn_caption() -> String:
 func enter() -> bool:
 	if not is_open():
 		return false
-	var visit_night := _clock.day
-	if _clock.minute_of_day < int(data.numbers.open_until):
-		visit_night -= 1
+	var visit_night := _clock.evening_day(int(data.numbers.open_until))
 	if visit_night != _last_visit_night:
 		_last_visit_night = visit_night
 		nights += 1

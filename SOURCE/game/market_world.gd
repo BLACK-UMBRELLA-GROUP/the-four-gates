@@ -22,6 +22,8 @@ var layla: MeshInstance3D
 var talking_people: Dictionary = {}
 var oven_camera: Camera3D
 var dice_house_camera: Camera3D
+var qasims_offer_camera: Camera3D
+var qasims_done_camera: Camera3D
 var sealed_purse_offer_camera: Camera3D
 var sealed_purse_coin_camera: Camera3D
 var sealed_purse_delivery_camera: Camera3D
@@ -98,6 +100,14 @@ func setup(source: Dictionary) -> void:
 	world_environment.environment = environment
 	add_child(world_environment)
 	set_night(false)
+
+	var height_at_eye := Vector3.UP * float(data.camera.height_above_feet)
+	var pier := point("pier")
+	var quay_view := point("quay").lerp(pier, 0.25) + height_at_eye
+	quay_view.z = (float(quay.z_from) + float(quay.z_to)) / 2.0
+	qasims_offer_camera = _story_camera(quay_view, Vector3(pier.x, quay_view.y, quay_view.z))
+	var lane_view := point("a2") + height_at_eye
+	qasims_done_camera = _story_camera(lane_view, point("board") + height_at_eye)
 
 
 func point(id: String) -> Vector3:

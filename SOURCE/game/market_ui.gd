@@ -55,6 +55,9 @@ signal dice_door_opened
 signal dice_invitation_answered(follow: bool)
 signal dice_bet_placed(bet: int)
 signal dice_house_left
+signal qasims_offer_opened
+signal qasims_offer_answered(carry: bool)
+signal qasims_done_left
 
 const MapCanvas = preload("res://game/map_canvas.gd")
 const LessonCanvas = preload("res://game/lesson_canvas.gd")
@@ -65,6 +68,7 @@ const MarketDay = preload("res://game/market_day.gd")
 const Feeding = preload("res://game/feeding.gd")
 const SealedPurse = preload("res://game/sealed_purse.gd")
 const DiceHouse = preload("res://game/dice_house.gd")
+const QasimsJars = preload("res://game/qasims_jars.gd")
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
@@ -75,7 +79,8 @@ const PRAYER_TOTAL_ROWS := [
 ]
 const SEALED_PURSE_SCREENS := ["sealed_purse_offer", "sealed_purse_coin", "sealed_purse_delivery"]
 const DICE_HOUSE_SCREENS := ["dice_invite", "dice_house"]
-const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_morning", "reputation"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS
+const QASIMS_JARS_SCREENS := ["qasims_offer", "qasims_done"]
+const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_morning", "reputation"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS
 var data: Dictionary = {}
 var identity: Dictionary = {}
 var chapter: Dictionary
@@ -88,7 +93,9 @@ var market_day: MarketDay
 var feeding: Feeding
 var sealed_purse: SealedPurse
 var dice_house: DiceHouse
+var qasims_jars: QasimsJars
 var _dice_caption := ""
+var _qasims_caption := ""
 var _feeding_available := false
 var _sealed_offer_available := false
 var _regular_status := MarketDay.Status.OPEN
@@ -142,7 +149,7 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
@@ -155,6 +162,7 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	feeding = feeding_value
 	sealed_purse = sealed_purse_value
 	dice_house = dice_house_value
+	qasims_jars = qasims_jars_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -307,6 +315,9 @@ func _rebuild_screen() -> void:
 		"dice_invite", "dice_house":
 			_build_hud()
 			_build_dice_house()
+		"qasims_offer", "qasims_done":
+			_build_hud()
+			_build_qasims_jars()
 		"stall_change":
 			_build_hud()
 			_build_stall_change()
@@ -353,6 +364,10 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	var dice_caption := dice_house.inn_caption() if place_value == "inn" else ""
 	if dice_caption != _dice_caption:
 		_dice_caption = dice_caption
+		rebuild = rebuild or screen in ["game", "market_map"]
+	var qasims_caption := qasims_jars.quay_caption() if place_value == "quay" else ""
+	if qasims_caption != _qasims_caption:
+		_qasims_caption = qasims_caption
 		rebuild = rebuild or screen in ["game", "market_map"]
 	var can_feed := place_value == "quay" and market_stall.count("bread") > 0
 	if can_feed != _can_feed:
@@ -1116,6 +1131,24 @@ func _build_dice_house() -> void:
 	_chapter_finish(panel, y)
 
 
+func _build_qasims_jars() -> void:
+	var offer := screen == "qasims_offer"
+	var copy: Dictionary = qasims_jars.data.offer if offer else qasims_jars.data.done
+	var panel := _chapter_panel(copy.kicker, copy.title, true)
+	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
+	style.set_corner_radius_all(18)
+	var y := 111.0 + _story_text(panel, copy.text, 111.0) + 16.0
+	if offer:
+		var next_x := 34.0 + _chapter_button(panel, copy.carry, Vector2(34, y), func(): qasims_offer_answered.emit(true), true)
+		_chapter_button(panel, copy.no, Vector2(next_x, y), func(): qasims_offer_answered.emit(false))
+	else:
+		var runs: String = str(copy.runs).format({"n": qasims_jars.runs})
+		_spaced_caption(panel, runs, y)
+		y += 36.0
+		_chapter_button(panel, copy.to_map, Vector2(34, y), func(): qasims_done_left.emit())
+	_chapter_finish(panel, y)
+
+
 func _build_feeding() -> void:
 	var copy: Dictionary = feeding.data.panel
 	var panel := _chapter_panel(copy.kicker, copy.title, true)
@@ -1325,6 +1358,9 @@ func reputation_lines() -> Array:
 	var dice_line: Variant = dice_house.reputation_line()
 	if dice_line != null:
 		lines.append(dice_line)
+	var jars_line: Variant = qasims_jars.reputation_line()
+	if jars_line != null:
+		lines.append(jars_line)
 	var purse_line: Variant = sealed_purse.reputation_line()
 	if purse_line != null:
 		lines.append(purse_line)
@@ -1493,10 +1529,11 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if deliver:
 		purse_width -= 16.0
 	var dice_width := _button_width(_dice_caption) + 18.0 if not _dice_caption.is_empty() else 0.0
-	var total_width := name_width + line_width + action_width + feeding_width + dice_width + extra_width + purse_width + talk_width + 55.0
+	var jars_width := _button_width(_qasims_caption) + 18.0 if not _qasims_caption.is_empty() else 0.0
+	var total_width := name_width + line_width + action_width + feeding_width + dice_width + jars_width + extra_width + purse_width + talk_width + 55.0
 	var carrying_footer := carrying and (place_id == "board" or total_width + carrying_width > 1836.0)
 	var inline_carrying_width := 0.0 if carrying_footer else carrying_width
-	var wrap := (not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or carrying) and x + total_width + inline_carrying_width + _prayer_buttons_width(_prayer_label) > 1878.0
+	var wrap := (not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or jars_width > 0.0 or carrying) and x + total_width + inline_carrying_width + _prayer_buttons_width(_prayer_label) > 1878.0
 	var waiting := _board_prompt == BreadGrab.Prompt.WAIT
 	var bar_y := 891.0 if waiting else 965.0
 	var nav_y := 814.0 if waiting else 890.0
@@ -1517,7 +1554,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var panel := _panel(Vector2(x, bar_y), Vector2(width, height), Color("191c19"))
 	_label(panel, name_value, Vector2(18, 15), Vector2(name_width + 4, 42), label_size, PAPER, true)
 	_label(panel, line_value, Vector2(18 + name_width, 15), Vector2(line_width + 4, 42), label_size, PAPER)
-	var action_x := x + total_width - action_width - feeding_width - dice_width - extra_width - purse_width - talk_width - 17.0
+	var action_x := x + total_width - action_width - feeding_width - dice_width - jars_width - extra_width - purse_width - talk_width - 17.0
 	if shop_notice.is_empty():
 		_button(action, Vector2(action_x, bar_y + 8.0), Vector2(action_width, 56), func(): use_requested.emit(), true)
 	else:
@@ -1529,6 +1566,9 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if dice_width > 0.0:
 		_button(_dice_caption, Vector2(extra_x, bar_y + 8.0), Vector2(dice_width - 18.0, 56), func(): dice_door_opened.emit())
 		extra_x += dice_width
+	if jars_width > 0.0:
+		_button(_qasims_caption, Vector2(extra_x, bar_y + 8.0), Vector2(jars_width - 18.0, 56), func(): qasims_offer_opened.emit())
+		extra_x += jars_width
 	if not extra_text.is_empty():
 		_button(extra_text, Vector2(extra_x, bar_y + 8.0), Vector2(extra_width - 18.0, 56), extra_action, extra_primary)
 	extra_x += extra_width

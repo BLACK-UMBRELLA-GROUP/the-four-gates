@@ -68,6 +68,14 @@ func reset() -> void:
 	_oldest_unfinished = _first_counted
 
 
+func in_overnight_window(opens: int, closes: int) -> bool:
+	return minute_of_day >= opens or minute_of_day < closes
+
+
+func evening_day(closes: int) -> int:
+	return day - 1 if minute_of_day < closes else day
+
+
 func advance_seconds(seconds: float) -> void:
 	_fraction += maxf(seconds, 0.0) * _minutes_per_second
 	# Keep sub-minute precision across frames, including a floating-point sum

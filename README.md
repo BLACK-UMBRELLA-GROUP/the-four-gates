@@ -44,6 +44,8 @@ LOCK 10 adds Karim's sealed-purse job at the Quay. With enough River Market trus
 accept the purse, decide what to do with the fallen coin and deliver the purse to Abbas at the Gate of Trust.
 LOCK 11 adds Mansur's invitation at the Inn after Isha and the dice house behind the blue cloth. Wagers use fair odds.
 Returning on more nights changes what the market says and can lower River Market trust.
+LOCK 12 adds Qasim’s offer at the Quay between 19:30 and 04:44. Carry the jars for twenty coins once per
+night, or walk away. Repeat runs add a line in **What people say** and can lower River Market trust.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 
