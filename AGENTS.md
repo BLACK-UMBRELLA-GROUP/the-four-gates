@@ -80,6 +80,10 @@ retired" or "no Claude/Fable bootstrap is active" is superseded.
 <!-- BLACK-UMBRELLA-CORE-RULES v4 END -->
 
 
+## Backend readiness (AD-AIOS-142)
+
+Read `BLACK UMBRELLA GROUP/SYSTEM/DOCUMENTS/MASTER_STANDARDS/BACKEND_READINESS_STANDARD_CURRENT_VERSION_V1.md` (DOC-BUG-0057) when your trigger in its §2 may be met. A single-player game needs no server. Only an online feature the Founder LOCKs (accounts, cloud saves, leaderboards) starts a server plan. One server per business, never shared. AIs write plans only; every account, cost, key and live connection waits for the Founder's own yes.
+
 ## Locked design workflow (core rule 11, AD-AIOS-115; charters rule 11 - the same system as ZYRA)
 
 | Step | Who | Where |
@@ -103,7 +107,7 @@ This repository is public on GitHub under Apache 2.0. Every push is visible to a
 | B. Private material | Before every push | No business, pricing, legal, finance or personal documents in this repo - they live in BLACK UMBRELLA GROUP/BUSINESS/<NAME>/. If a task creates one here, move it there and leave nothing behind. Never anything from the keys folder. |
 | C. Roadmap | After a task that finishes a ROADMAP.md row | Tick the row (add "Done <date>" in its Intended result cell), close the matching GitHub roadmap issue with `gh issue close <n> --comment "Done in <commit>"`, and push. Never add new rows or change hours - that is Fable's job on the Founder's word. |
 | D. Release | When the app version in pubspec.yaml (or the repo's version file) changes | Create a GitHub pre-release with `gh release create v<version>-build<n> --target main --prerelease --notes "<one line per finished queue line>"`. No local git tag commands. |
-| E. Wording | Every document you write or edit | Neutral community wording only - never "Muslim" or "Islamic" (DOC-BUG-0038 table). App text members see is design: list it for the business chat, do not change it. |
+| E. Wording | Every document you write or edit | THE FOUR GATES only: the word rule is dropped (Founder, 6 Nov 2026: "Drop the word rule", reach "Game and docs"; AD-AIOS-128) - the words may appear in the game, its documents and README. Game text players see is design: list it for the business chat, do not change it. |
 | F. README | When a task changes what the app does or how to run it | Update the README in the same push. |
 
 Record A-F in the task note's Commit line ("public checks: A ok, B ok, C row n / none, D none, E ok, F none").
@@ -116,13 +120,18 @@ WAITING queue line.
 - THE FOUR GATES is a separate venture. Do not modify ZYRA, AZMARA, SELAH or WAFA from this work.
 - The game lives in `SOURCE/` (a Godot 4 project, GDScript, text scene files). Game design documents live in `GAME/`.
   Pre-change snapshots live in `ARCHIVE/`.
-- Wording rule (Founder, 1-2 Nov 2026): the setting is an old Arabian city in its golden age of learning. Never use the
-  words "Muslim" or "Islamic" anywhere in the game or its documents; values are taught indirectly through tasks and
-  choices (fair trade, honesty, property, right and wrong). See DOC-BUG-0038 for the wording table.
+- Wording (Founder, 6 Nov 2026, AD-AIOS-128): the setting is an old Arabian city in its golden age of learning, with
+  faith lived through play. The 1-2 Nov rule against the words "Muslim" and "Islamic" is dropped for this game and
+  its repo documents ("Drop the word rule", reach "Game and docs"); other businesses keep it. Any deen content needs a
+  scholar check before its LOCK.
 - Godot rules: keep scenes and resources in text formats (`.tscn`, `.tres`, `.gd`) so every file can be read and
   edited; no single file over 50 MB; imported art goes in `SOURCE/assets/` with its licence recorded in
   `SOURCE/assets/CREDITS.md`; only assets you may share publicly (own work, CC0, or a licence that allows public
   redistribution); never commit the `.godot/` cache or export builds.
+- Keep the game easy to move to another engine (Founder, 4 Nov 2026: Godot now, final engine check after the first
+  playable slice or when the gaming PC is ready): game content - quests, items, prices, dialogue, economy numbers - lives
+  in plain data files (JSON or CSV under `SOURCE/data/`), never hard-coded in scripts or scenes; all art and sound in
+  standard formats (glTF/.glb models, PNG textures, OGG/WAV audio), never Godot-only formats as the source copy.
 - Next read `MAP.md`: every document by ID and the task routes. Read it only down to "Route paths".
 - Group lessons every agent must read first:
   `../BLACK UMBRELLA GROUP/SYSTEM/DOCUMENTS/MASTER_GOVERNANCE/AGENT_LESSONS_LEARNED_CURRENT_VERSION_V2.md`
