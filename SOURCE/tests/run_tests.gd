@@ -6,6 +6,7 @@ const Ramadan = preload("res://game/ramadan.gd")
 const OpenPurse = preload("res://game/open_purse.gd")
 const TaskProgress = preload("res://game/task_progress.gd")
 const MarketStall = preload("res://game/market_stall.gd")
+const MarketDay = preload("res://game/market_day.gd")
 
 var checks := 0
 var failures := 0
@@ -157,6 +158,7 @@ func _run() -> void:
 	await check_pilgrims_runtime()
 	await check_qurans_school_runtime()
 	await check_names_of_allah_runtime()
+	check_regulars_at_prayer_runtime()
 	finish()
 
 
@@ -2139,7 +2141,8 @@ func check_market_day_runtime() -> void:
 			for minute: int in [724, 725, 759, 760]:
 				set_market_day_time(day, minute)
 				var friday_closed := day == 2 and minute >= 725 and minute < 760
-				check_market_place_hours(regular, friday_closed, friday_closed, market_day)
+				var at_dhuhr: bool = day == 3 and minute == 725 and regular.id in app.market_day.prayer_data.goers
+				check_market_place_hours(regular, friday_closed or at_dhuhr, friday_closed, market_day, at_dhuhr)
 	app.set_process(true)
 
 
@@ -2149,14 +2152,14 @@ func set_market_day_time(day: int, minute: int) -> void:
 	app.update_state()
 
 
-func check_market_place_hours(regular: Dictionary, away: bool, friday_closed: bool, market_day: Dictionary) -> void:
+func check_market_place_hours(regular: Dictionary, away: bool, friday_closed: bool, market_day: Dictionary, at_prayer: bool = false) -> void:
 	var caption: String = app.talking.data.talk_button.format({"name": regular.name})
 	var context := "%s on day %d at minute %d" % [regular.name, app.day, app.minute_of_day]
 	check((find_button(app.ui, caption) == null) == away, "talk action at " + context)
 	var copy: Dictionary = market_day.text
 	var night_notice: String = copy.closed_night.format({"name": regular.name})
 	var friday_notice: String = copy.closed_friday.format({"name": regular.name})
-	check(has_visible_label(app.ui, night_notice) == (away and not friday_closed), "hours notice at " + context)
+	check(has_visible_label(app.ui, night_notice) == (away and not friday_closed and not at_prayer), "hours notice at " + context)
 	check(has_visible_label(app.ui, friday_notice) == friday_closed, "Friday notice at " + context)
 	if away:
 		app.show_talking()
@@ -2174,7 +2177,7 @@ func check_market_place_hours(regular: Dictionary, away: bool, friday_closed: bo
 			var shop_button: String = app.market_stall.data.place.spice_button if stall else app.market_stall.clothes_data.place.weaver_button
 			var hours_notice: String = copy.stall_closed_night if stall else copy.loom_closed_night
 			check((find_button(app.ui, shop_button) == null) == away, "shop action at " + context)
-			check(has_visible_label(app.ui, hours_notice) == (away and not friday_closed), "shop hours notice at " + context)
+			check(has_visible_label(app.ui, hours_notice) == (away and not friday_closed and not at_prayer), "shop hours notice at " + context)
 			check(has_visible_label(app.ui, copy.shop_closed_friday) == friday_closed, "shop Friday notice at " + context)
 			if away:
 				app.use_place()
@@ -4427,3 +4430,96 @@ func check_names_of_allah_runtime() -> void:
 	app.begin_game()
 	check(not app.idris_met and app.names_of_allah.learned.is_empty(), "a new game clears this session's Names and Idris completion")
 	app.set_process(true)
+
+
+func check_regulars_at_prayer_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/REGULARS_AT_PRAYER/RECORD/regulars_at_prayer_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/regulars_at_prayer.json")
+	var copy: Dictionary = app.market_day.prayer_data
+	check(not approved.is_empty() and runtime == approved, "regulars at prayer uses the exact LOCK 27 V1 data")
+	check(copy == JSON.parse_string(runtime.get_string_from_utf8()), "the prayer attendance uses the locked runtime data")
+	app.set_process(false)
+	reset_at_market_place("spice", 198)
+	app.progress.apply_trust(45 - app.progress.trust)
+	app.idris_met = true
+	app.ui.idris_met = true
+	var reputation: Array = app.ui.reputation_lines()
+	var place_cases := [
+		[3, 724, ""], [3, 725, "Dhuhr"], [3, 749, "Dhuhr"], [3, 750, ""],
+		[3, 929, ""], [3, 930, "Asr"], [3, 940, "Asr"], [3, 954, "Asr"], [3, 955, ""],
+		[2, 929, ""], [2, 930, "Asr"], [2, 940, "Asr"], [2, 954, "Asr"], [2, 955, ""],
+	]
+	for regular: Dictionary in app.talking.data.people:
+		move_market_fixture(regular.place)
+		for fixture: Array in place_cases:
+			set_market_day_time(fixture[0], fixture[1])
+			var prayer: String = fixture[2] if regular.id in copy.goers else ""
+			check_regular_prayer_place(regular, prayer, copy)
+	for fixture: Array in place_cases:
+		move_market_fixture("masjid")
+		set_market_day_time(fixture[0], fixture[1])
+		check_masjid_prayer_attendance(fixture[2], copy)
+
+	# Player prayer completion must not bring the regulars back early.
+	set_market_day_time(2, 940)
+	check(not app.clock.pray(true).is_empty(), "the player can still pray during the Friday Asr window")
+	app.update_state()
+	check_masjid_prayer_attendance("Asr", copy)
+
+	move_market_fixture("spice")
+	set_market_day_time(2, 730)
+	var rashid: Dictionary = app.talking.regular_at("spice")
+	check_market_place_hours(rashid, true, true, app.market_day.data)
+	check(not has_visible_label(app.ui, str(copy.text.stall).format({"prayer": "Dhuhr"})),
+		"Friday Dhuhr uses the prior Friday stall closure")
+	check(find_button(app.ui, app.rashids_loan.data.ask_button) == null, "Friday Dhuhr still hides the loan")
+	move_market_fixture("masjid")
+	check_masjid_prayer_attendance("", copy)
+	set_market_day_time(2, 760)
+	check_masjid_prayer_attendance("", copy)
+
+	check_wallet(45, 198, "regulars attending prayer leaves trust and coins unchanged")
+	check(app.progress.daily_count == 0 and app.ui.reputation_lines() == reputation,
+		"regulars attending prayer leaves score and reputation unchanged")
+	app.set_process(true)
+
+
+func check_regular_prayer_place(regular: Dictionary, prayer: String, copy: Dictionary) -> void:
+	var context := "%s on day %d at minute %d" % [regular.name, app.day, app.minute_of_day]
+	var away := not prayer.is_empty()
+	var status := MarketDay.Status.AWAY_AT_PRAYER if away else MarketDay.Status.OPEN
+	check(app.market_day.status(regular.id) == status, "prayer attendance for " + context)
+	check((find_button(app.ui, app.talking.button_at(regular.place)) == null) == away, "prayer talk action for " + context)
+	for name: String in ["Dhuhr", "Asr"]:
+		var person: String = str(copy.text.person).format({"name": regular.name, "prayer": name})
+		check(has_visible_label(app.ui, person) == (prayer == name), "exact %s place notice for %s" % [name, context])
+	if away:
+		app.show_talking()
+		check(app.ui.screen == "market_map", "direct talk request is closed for " + context)
+	if regular.id != "rashid":
+		return
+	var stall: String = app.market_stall.data.place.spice_button
+	var loan: String = app.rashids_loan.data.ask_button
+	check((find_button(app.ui, stall) == null) == away, "prayer stall action for " + context)
+	check((find_button(app.ui, loan) == null) == away, "prayer loan bar for " + context)
+	for name: String in ["Dhuhr", "Asr"]:
+		var notice: String = str(copy.text.stall).format({"prayer": name})
+		check(has_visible_label(app.ui, notice) == (prayer == name), "exact %s stall notice for %s" % [name, context])
+	if away:
+		app.show_stall()
+		app.show_rashids_loan()
+		check(app.ui.screen == "market_map", "direct stall and loan requests are closed for " + context)
+
+
+func check_masjid_prayer_attendance(prayer: String, copy: Dictionary) -> void:
+	var context := "day %d at minute %d" % [app.day, app.minute_of_day]
+	var calligraphy := find_button(app.ui, app.names_of_allah.data.button)
+	check(calligraphy != null, "the Masjid keeps the calligraphy action on " + context)
+	for name: String in ["Dhuhr", "Asr"]:
+		var notice: String = str(copy.text.masjid).format({"prayer": name, "names": "Rashid, Jamal, Old Musa"})
+		var label := find_visible_label(app.ui, notice)
+		check((label != null) == (prayer == name), "exact %s Masjid notice and names on %s" % [name, context])
+		if label != null and calligraphy != null:
+			check(label.position.x >= 0 and label.global_position.y >= calligraphy.get_global_rect().end.y
+				and app.get_viewport().get_visible_rect().encloses(label.get_global_rect()),
+				"the Masjid notice fits below the calligraphy action on " + context)

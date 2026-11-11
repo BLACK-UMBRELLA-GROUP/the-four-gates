@@ -123,6 +123,10 @@ func _initialize() -> void:
 		var runner := load("res://tests/capture_names_of_allah.gd")
 		quit(0 if _compare_master_set("res://../GAME/APPROVED/NAMES_OF_ALLAH/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
 		return
+	if "--regulars-at-prayer" in OS.get_cmdline_user_args():
+		var runner := load("res://tests/capture_regulars_at_prayer.gd")
+		quit(0 if _compare_master_set("res://../GAME/APPROVED/REGULARS_AT_PRAYER/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
+		return
 	quit(0 if _compare_master_set(folder + "MASTERS/", folder + evidence, names) else 1)
 
 func _compare_master_set(masters: String, evidence: String, stems: Array) -> bool:

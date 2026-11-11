@@ -365,6 +365,16 @@ func is_friday_prayer_window(minutes_after_iqamah: int) -> bool:
 	return false
 
 
+func prayer_name_during_iqamah_window(prayers: Array, minutes_after_iqamah: int) -> String:
+	var slot := _latest_started()
+	var prayer := _prayer(slot)
+	var name: String = prayer.name
+	if _is_friday_slot(slot) or name.to_lower() not in prayers:
+		return ""
+	var adhan := _begins(slot)
+	return name if _time >= adhan and _time < adhan + int(prayer.iqamah) + minutes_after_iqamah else ""
+
+
 func _scheduled_name(prayer: int) -> String:
 	return _data.friday.name if _is_friday_slot(prayer) else _prayer(prayer).name
 

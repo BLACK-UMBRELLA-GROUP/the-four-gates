@@ -430,3 +430,14 @@ and a private count out of 99. Learning leaves coins, trust and reputation uncha
 Run `godot --path SOURCE -- --capture-names-of-allah` for the eight native viewport captures.
 Run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --names-of-allah`
 to put each master beside its capture. Both commands accept `--names-of-allah-output=/absolute/path`.
+
+## LOCK 27 Regulars at prayer
+
+Rashid, Jamal and Old Musa go to the Masjid from 12:05 through 12:29 for Dhuhr on days other than Friday,
+and from 15:30 through 15:54 for Asr every day. Their place bars show where they are and the Masjid
+lists the three names. Rashid's stall and loan controls return when he comes back. The existing
+Friday Dhuhr closure still applies.
+
+Run `godot --path SOURCE -- --capture-regulars-at-prayer` for the eight native viewport captures.
+Run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --regulars-at-prayer`
+to put each master beside its capture. Both commands accept `--regulars-at-prayer-output=/absolute/path`.

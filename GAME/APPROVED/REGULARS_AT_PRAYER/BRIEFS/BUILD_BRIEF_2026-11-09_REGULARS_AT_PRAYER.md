@@ -26,10 +26,14 @@ owner: THE FOUR GATES chat
 | 2 | Data | Copy `RECORD/regulars_at_prayer_data_V1.json` byte for byte to `SOURCE/data/regulars_at_prayer.json`; one loader reads it |
 | 3 | Rule | Spec §1 - add "away at prayer" after LOCK 7's night and Friday checks |
 | 4 | What shows | Spec §2 |
-| T | Tests | Goers away 12:05-12:29 and 15:30-15:54 on non-Fridays only; texts per place with the right prayer name; masjid line names in order; stall and loan hidden while away; Salma and Layla never away at prayer; Friday unchanged; nothing scored. Check the words. Add to `run_tests.gd`; the headless run must exit 0 with every earlier test passing |
+| T | Tests | Goers away 12:05-12:29 (Dhuhr, not on Fridays) and 15:30-15:54 (Asr, every day, Friday included); texts per place with the right prayer name; masjid line names in order; stall and loan hidden while away; Salma and Layla never away at prayer; Friday Dhuhr unchanged (LOCK 7, ra08); Friday 15:40 goers away for Asr; nothing scored. Check the words. Add to `run_tests.gd`; the headless run must exit 0 with every earlier test passing |
 | E | Evidence | Screenshots beside ra01-ra08 in `GAME/APPROVED/REGULARS_AT_PRAYER/BUILT/V1/` with a `BUILD.json`. No exports or compiled builds |
 | N | Task note | "Built from: <paths>", what matches, any difference, public checks A-F, the commit |
 | Q | Queue | Mark this line BUILT (or FAILED) in `GAME/APPROVED/BUILD_QUEUE.md` |
 
 Rules that always apply: text scene files only; no file over 50 MB; nothing from the keys folder; every word and number read
 from the data files at run time.
+
+## Answer note — 11 Nov 2026 (QUESTIONS row 12)
+
+Row T corrected to match spec §1 and the locked data: only Friday Dhuhr is left to LOCK 7. On Fridays the Asr window (15:30-15:54) applies like any day - goers away, stall shut for Asr, loan bar hidden, Masjid line shown. Add a Friday 15:40 test. See spec Clarifications row 12.

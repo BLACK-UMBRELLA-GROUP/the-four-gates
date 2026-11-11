@@ -186,6 +186,7 @@ var _adha_action := EidAlAdha.Action.NONE
 var _eid_line := ""
 var _sealed_offer_available := false
 var _regular_status := MarketDay.Status.OPEN
+var _attendance_prayer := ""
 var _can_feed := false
 var _board_prompt := BreadGrab.Prompt.NONE
 var language_words: Dictionary
@@ -493,8 +494,12 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	if clock_changed or place_changed:
 		var regular_id: String = talking.regular_at(place_value).get("id", "")
 		var availability := market_day.status(regular_id)
-		if availability != _regular_status:
+		var attendance := ""
+		if place_value == "masjid" or availability == MarketDay.Status.AWAY_AT_PRAYER:
+			attendance = market_day.prayer_attendance()
+		if availability != _regular_status or attendance != _attendance_prayer:
 			_regular_status = availability
+			_attendance_prayer = attendance
 			rebuild = rebuild or screen in ["game", "market_map"]
 	if screen == "reputation" or (place_value == "masjid" and screen in ["game", "market_map"]):
 		rebuild = rebuild or _last_idris_cool != idris_recovery.cool
@@ -2134,10 +2139,13 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var shop_notice := ""
 	if _regular_status != MarketDay.Status.OPEN and place_id in ["spice", "weaver"]:
 		var copy: Dictionary = market_day.data.text
-		if _regular_status == MarketDay.Status.FRIDAY_PRAYER:
-			shop_notice = copy.shop_closed_friday
-		else:
-			shop_notice = copy.stall_closed_night if place_id == "spice" else copy.loom_closed_night
+		match _regular_status:
+			MarketDay.Status.AWAY_AT_PRAYER:
+				shop_notice = str(market_day.prayer_data.text.stall).format({"prayer": _attendance_prayer})
+			MarketDay.Status.FRIDAY_PRAYER:
+				shop_notice = copy.shop_closed_friday
+			MarketDay.Status.OUTSIDE_HOURS:
+				shop_notice = copy.stall_closed_night if place_id == "spice" else copy.loom_closed_night
 	var action_width := _button_width(action, true) + 2.0 if shop_notice.is_empty() else font.get_string_size(shop_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	if deliver:
 		action_width -= 12.0
@@ -2312,19 +2320,28 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		bar_width = 1836.0 if extra_rows_height > 0.0 else maxf(bar_width, calligraphy_at.x + calligraphy_width)
 	var carrying_footer := carrying and (place_id == "board" or harm_row_height > 0.0 or extra_rows_height > 0.0 or bar_width + carrying_width > 1836.0)
 	var inline_carrying_width := 0.0 if carrying_footer else carrying_width
+	var attendance_notice := ""
+	if place_id == "masjid" and not _attendance_prayer.is_empty():
+		attendance_notice = market_day.masjid_attendance_notice(_attendance_prayer)
+	var attendance_height := 50.0 if not attendance_notice.is_empty() else 0.0
+	var compact_spice_bar := place_id == "spice" and _regular_status == MarketDay.Status.AWAY_AT_PRAYER \
+		and not carrying and not harm_available and ramadan_width == 0.0 and last_actions_width == 0.0
+	var compact_reduction := 24.0 if compact_spice_bar else 0.0
+	var caption_y := 15.0 - compact_reduction / 2.0
 	var prayer_width := _prayer_buttons_width("" if ramadan_width > 0.0 and place_id == "masjid" else _prayer_label)
 	var wrap := (harm_available or not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or calendar_width > 0.0 or jars_width > 0.0 or loan_width > 0.0 or not _jabirs_caption.is_empty() or carrying or ramadan_width > 0.0 or iftar_giving_width > 0.0 or last_actions_width > 0.0 or _calligraphy_available) and x + bar_width + inline_carrying_width + prayer_width > 1878.0
 	if cool_width > 0.0:
 		wrap = wrap or x + bar_width + inline_carrying_width + _prayer_buttons_width("") > 1878.0
-	var bar_y := (891.0 if waiting else 965.0) - harm_row_height - extra_rows_height
-	var nav_y := (814.0 if waiting else 890.0) - harm_row_height - extra_rows_height
+	var bar_y := (891.0 if waiting else 965.0) - harm_row_height - extra_rows_height - attendance_height + compact_reduction
+	var nav_y := (814.0 if waiting else 890.0) - harm_row_height - extra_rows_height - attendance_height + compact_reduction
 	if talk_footer:
 		bar_y -= 73.0
 		nav_y -= 73.0
 	if carrying_footer:
 		bar_y -= 50.0
 		nav_y -= 50.0
-	if wrap or separate_board_row or carrying_footer:
+	var separate_navigation := wrap or separate_board_row or carrying_footer or attendance_height > 0.0
+	if separate_navigation:
 		_build_prayer_buttons(x, 0.0, nav_y)
 		x = 42.0
 	else:
@@ -2336,15 +2353,17 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		width = maxf(width, carrying_width + 18.0)
 	if place_id == "board":
 		width = maxf(width, 1836.0)
-	var height := base_height + extra_rows_height + (50.0 if carrying_footer else 0.0)
-	var panel := _panel(Vector2(x, bar_y), Vector2(width, height), Color("191c19"))
-	_label(panel, name_value, Vector2(18, 15), Vector2(name_width + 4, 42), label_size, PAPER, true)
-	_label(panel, line_value, Vector2(18 + name_width, 15), Vector2(line_width + 4, 42), label_size, PAPER)
+	var height := base_height + extra_rows_height + (50.0 if carrying_footer else 0.0) - compact_reduction
+	if attendance_height > 0.0:
+		width = 1836.0
+	var panel := _panel(Vector2(x, bar_y), Vector2(width, height + attendance_height), Color("191c19"))
+	_label(panel, name_value, Vector2(18, caption_y), Vector2(name_width + 4, 42), label_size, PAPER, true)
+	_label(panel, line_value, Vector2(18 + name_width, caption_y), Vector2(line_width + 4, 42), label_size, PAPER)
 	var action_x := x + total_width - action_width - loan_width - fountain_width - feeding_width - iftar_giving_width - dice_width - calendar_width - jars_width - extra_width - purse_width - inline_talk_width - cool_width - 17.0
 	if shop_notice.is_empty():
 		_button(action, Vector2(action_x, bar_y + 8.0), Vector2(action_width, 56), func(): use_requested.emit(), true)
 	else:
-		_label(panel, shop_notice, Vector2(action_x - x, 15), Vector2(action_width + 4.0, 42), 24, PAPER)
+		_label(panel, shop_notice, Vector2(action_x - x, caption_y), Vector2(action_width + 4.0, 42), 24, PAPER)
 	var extra_x := action_x + action_width + 18.0
 	if loan_width > 0.0:
 		if _loan_offer == RashidsLoan.Offer.OWED:
@@ -2385,7 +2404,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		if harm_available and waiting:
 			talk_y += 74.0
 	if not talk_notice.is_empty():
-		_label(panel, talk_notice, Vector2(talk_x - x, talk_y + 15.0), Vector2(talk_width - 14.0, 42), 24, PAPER)
+		_label(panel, talk_notice, Vector2(talk_x - x, talk_y + caption_y), Vector2(talk_width - 14.0, 42), 24, PAPER)
 	elif not talk_text.is_empty():
 		_button(talk_text, Vector2(talk_x, bar_y + talk_y + 8.0), Vector2(talk_width - 18.0, 56), func(): talk_requested.emit())
 	if cool_width > 0.0:
@@ -2422,7 +2441,9 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		_label(panel, carrying_text, Vector2(bar_width + 2.0, 15), Vector2(carrying_width - 18.0, 42), label_size, PAPER)
 	if waiting:
 		_label(panel, chapter.grab.wait_line, Vector2(18, 87 + (50 if carrying_footer and not harm_available and ramadan_width == 0.0 and eid_width == 0.0 else 0)), Vector2(width - 36, 42), 24, PAPER)
-	return nav_y if wrap or separate_board_row or carrying_footer else 974.0
+	if attendance_height > 0.0:
+		_label(panel, attendance_notice, Vector2(18, height + 4.0), Vector2(width - 36.0, 42), label_size, PAPER)
+	return nav_y if separate_navigation else 974.0
 
 func _style(background: Color, border: Color = Color("886125")) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()

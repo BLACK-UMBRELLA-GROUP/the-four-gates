@@ -94,7 +94,7 @@ func _ready() -> void:
 	clock = PrayerClock.new(identity.clock, calendar)
 	ramadan = Ramadan.new(Foundations.load_ramadan(), clock)
 	eid_al_fitr = EidAlFitr.new(Foundations.load_eid_al_fitr(), clock)
-	market_day = MarketDay.new(Foundations.load_market_day(), clock)
+	market_day = MarketDay.new(Foundations.load_market_day(), clock, Foundations.load_regulars_at_prayer())
 	Foundations.configure_input(data)
 	progress.setup(data)
 	zakat = Zakat.new(Foundations.load_zakat(), clock, progress)
@@ -319,6 +319,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-names-of-allah" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_names_of_allah.gd").new()
+		capture_runner.run(self)
+	elif "--capture-regulars-at-prayer" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_regulars_at_prayer.gd").new()
 		capture_runner.run(self)
 
 func _process(delta: float) -> void:

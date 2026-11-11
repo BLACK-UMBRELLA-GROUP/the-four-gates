@@ -1,0 +1,21 @@
+{
+ "version": "LOCK 27 V1 (9 Nov 2026) - the market's day: the regulars go to prayer",
+ "builds_on": "LOCK 2 prayer times and iqamah, LOCK 6 regulars, LOCK 7 opening hours and Friday closing. Placeholders: {name}, {prayer}, {names}.",
+ "goers": [
+  "rashid",
+  "jamal",
+  "musa"
+ ],
+ "prayers": [
+  "dhuhr",
+  "asr"
+ ],
+ "numbers": {
+  "minutes_after_iqamah": 10
+ },
+ "text": {
+  "person": "{name} is at the masjid for {prayer}.",
+  "stall": "Rashid's stall is shut for {prayer}. Back after the prayer.",
+  "masjid": "At the masjid for {prayer}: {names}"
+ }
+}

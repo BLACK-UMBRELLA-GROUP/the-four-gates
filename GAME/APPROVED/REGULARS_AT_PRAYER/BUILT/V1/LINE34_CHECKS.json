@@ -1,0 +1,688 @@
+{
+	"checks": [
+		{
+			"description": "runtime data is byte-for-byte LOCK 27 V1",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Meet the old man",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Repeat it and take a date",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Say thank you in your language",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Copy him",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Nod",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Leave",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the real Idris meeting produce the locked map fixture",
+			"passed": true
+		},
+		{
+			"description": "live market map at spice on day 2 at 12:10",
+			"passed": true
+		},
+		{
+			"description": "spice: button Buy at the stall hidden",
+			"passed": true
+		},
+		{
+			"description": "spice: button Rashid needs a loan hidden",
+			"passed": true
+		},
+		{
+			"description": "spice: button Rashid has your money hidden",
+			"passed": true
+		},
+		{
+			"description": "spice: label Shut for Friday prayer. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits: Shut for Friday prayer.",
+			"passed": true
+		},
+		{
+			"description": "spice: button Talk to Rashid hidden",
+			"passed": true
+		},
+		{
+			"description": "spice: label Rashid is at Friday prayer. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits: Rashid is at Friday prayer.",
+			"passed": true
+		},
+		{
+			"description": "spice: label Rashid is at the masjid for Dhuhr. hidden",
+			"passed": true
+		},
+		{
+			"description": "Friday Dhuhr uses the earlier Friday rule",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ra08_spice__friday_unchanged__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ra08_spice__friday_unchanged__build.png",
+			"passed": true
+		},
+		{
+			"description": "live market map at spice on day 2 at 15:40",
+			"passed": true
+		},
+		{
+			"description": "spice: button Talk to Rashid hidden",
+			"passed": true
+		},
+		{
+			"description": "spice: label Rashid is at the masjid for Asr. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits: Rashid is at the masjid for Asr.",
+			"passed": true
+		},
+		{
+			"description": "spice: button Buy at the stall hidden",
+			"passed": true
+		},
+		{
+			"description": "spice: button Rashid needs a loan hidden",
+			"passed": true
+		},
+		{
+			"description": "spice: button Rashid has your money hidden",
+			"passed": true
+		},
+		{
+			"description": "spice: label Rashid's stall is shut for Asr. Back after the prayer. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits: Rashid's stall is shut for Asr. Back after the prayer.",
+			"passed": true
+		},
+		{
+			"description": "live market map at quay on day 2 at 15:40",
+			"passed": true
+		},
+		{
+			"description": "quay: button Talk to Jamal hidden",
+			"passed": true
+		},
+		{
+			"description": "quay: label Jamal is at the masjid for Asr. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits: Jamal is at the masjid for Asr.",
+			"passed": true
+		},
+		{
+			"description": "live market map at scales on day 2 at 15:40",
+			"passed": true
+		},
+		{
+			"description": "scales: button Talk to Old Musa hidden",
+			"passed": true
+		},
+		{
+			"description": "scales: label Old Musa is at the masjid for Asr. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits: Old Musa is at the masjid for Asr.",
+			"passed": true
+		},
+		{
+			"description": "live market map at masjid on day 2 at 15:40",
+			"passed": true
+		},
+		{
+			"description": "masjid: button Read the calligraphy shown",
+			"passed": true
+		},
+		{
+			"description": "button fits: Read the calligraphy",
+			"passed": true
+		},
+		{
+			"description": "masjid: label At the masjid for Asr: Rashid, Jamal, Old Musa shown",
+			"passed": true
+		},
+		{
+			"description": "label fits: At the masjid for Asr: Rashid, Jamal, Old Musa",
+			"passed": true
+		},
+		{
+			"description": "attendance follows the calligraphy button on the second row",
+			"passed": true
+		},
+		{
+			"description": "live market map at quay on day 3 at 15:40",
+			"passed": true
+		},
+		{
+			"description": "quay: button Talk to Jamal hidden",
+			"passed": true
+		},
+		{
+			"description": "quay: label Jamal is at the masjid for Asr. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits: Jamal is at the masjid for Asr.",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ra07_quay__jamal_at_asr__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ra07_quay__jamal_at_asr__build.png",
+			"passed": true
+		},
+		{
+			"description": "live market map at spice on day 8 at 12:15",
+			"passed": true
+		},
+		{
+			"description": "spice: button Talk to Rashid hidden",
+			"passed": true
+		},
+		{
+			"description": "spice: label Rashid is at the masjid for Dhuhr. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits: Rashid is at the masjid for Dhuhr.",
+			"passed": true
+		},
+		{
+			"description": "spice: button Buy at the stall hidden",
+			"passed": true
+		},
+		{
+			"description": "spice: button Rashid needs a loan hidden",
+			"passed": true
+		},
+		{
+			"description": "spice: button Rashid has your money hidden",
+			"passed": true
+		},
+		{
+			"description": "spice: label Rashid's stall is shut for Dhuhr. Back after the prayer. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits: Rashid's stall is shut for Dhuhr. Back after the prayer.",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ra01_spice__stall_shut_for_dhuhr__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ra01_spice__stall_shut_for_dhuhr__build.png",
+			"passed": true
+		},
+		{
+			"description": "live market map at quay on day 8 at 12:15",
+			"passed": true
+		},
+		{
+			"description": "quay: button Talk to Jamal hidden",
+			"passed": true
+		},
+		{
+			"description": "quay: label Jamal is at the masjid for Dhuhr. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits: Jamal is at the masjid for Dhuhr.",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ra02_quay__jamal_at_the_masjid__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ra02_quay__jamal_at_the_masjid__build.png",
+			"passed": true
+		},
+		{
+			"description": "live market map at scales on day 8 at 12:15",
+			"passed": true
+		},
+		{
+			"description": "scales: button Talk to Old Musa hidden",
+			"passed": true
+		},
+		{
+			"description": "scales: label Old Musa is at the masjid for Dhuhr. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits: Old Musa is at the masjid for Dhuhr.",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ra03_scales__musa_at_the_masjid__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ra03_scales__musa_at_the_masjid__build.png",
+			"passed": true
+		},
+		{
+			"description": "live market map at masjid on day 8 at 12:15",
+			"passed": true
+		},
+		{
+			"description": "masjid: button Read the calligraphy shown",
+			"passed": true
+		},
+		{
+			"description": "button fits: Read the calligraphy",
+			"passed": true
+		},
+		{
+			"description": "masjid: label At the masjid for Dhuhr: Rashid, Jamal, Old Musa shown",
+			"passed": true
+		},
+		{
+			"description": "label fits: At the masjid for Dhuhr: Rashid, Jamal, Old Musa",
+			"passed": true
+		},
+		{
+			"description": "attendance follows the calligraphy button on the second row",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ra04_masjid__at_the_masjid_for_dhuhr__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ra04_masjid__at_the_masjid_for_dhuhr__build.png",
+			"passed": true
+		},
+		{
+			"description": "live market map at board on day 8 at 12:15",
+			"passed": true
+		},
+		{
+			"description": "board: button Talk to Salma shown",
+			"passed": true
+		},
+		{
+			"description": "button fits: Talk to Salma",
+			"passed": true
+		},
+		{
+			"description": "board: label Salma is at the masjid for Dhuhr. hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ra05_board__salma_stays__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ra05_board__salma_stays__build.png",
+			"passed": true
+		},
+		{
+			"description": "live market map at weaver on day 8 at 12:15",
+			"passed": true
+		},
+		{
+			"description": "weaver: button Talk to Layla shown",
+			"passed": true
+		},
+		{
+			"description": "button fits: Talk to Layla",
+			"passed": true
+		},
+		{
+			"description": "weaver: label Layla is at the masjid for Dhuhr. hidden",
+			"passed": true
+		},
+		{
+			"description": "live market map at spice on day 8 at 12:15",
+			"passed": true
+		},
+		{
+			"description": "ra06 reopens in place as the live clock advances",
+			"passed": true
+		},
+		{
+			"description": "spice: button Buy at the stall shown",
+			"passed": true
+		},
+		{
+			"description": "button fits: Buy at the stall",
+			"passed": true
+		},
+		{
+			"description": "spice: button Rashid needs a loan shown",
+			"passed": true
+		},
+		{
+			"description": "button fits: Rashid needs a loan",
+			"passed": true
+		},
+		{
+			"description": "spice: button Talk to Rashid shown",
+			"passed": true
+		},
+		{
+			"description": "button fits: Talk to Rashid",
+			"passed": true
+		},
+		{
+			"description": "spice: label Rashid's stall is shut for Dhuhr. Back after the prayer. hidden",
+			"passed": true
+		},
+		{
+			"description": "spice: label Rashid is at the masjid for Dhuhr. hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ra06_spice__open_again_1231__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ra06_spice__open_again_1231__build.png",
+			"passed": true
+		},
+		{
+			"description": "all eight locked states have native captures",
+			"passed": true
+		},
+		{
+			"description": "observing attendance leaves coins, trust and reputation unchanged",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Passive clock ticks pause. The fair arrival supplies 198 coins, trust is set to 45 and the player is placed at the locked map markers. The clock advances through day 2 Friday, day 3 Saturday and day 8 Thursday (the first Thursday after arrival).",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport. Viewport-local clicks complete fair arrival and the Idris meeting before rendering the production market map and place bars.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "ra08_spice__friday_unchanged__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ra07_quay__jamal_at_asr__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ra01_spice__stall_shut_for_dhuhr__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ra02_quay__jamal_at_the_masjid__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ra03_scales__musa_at_the_masjid__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ra04_masjid__at_the_masjid_for_dhuhr__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ra05_board__salma_stays__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ra06_spice__open_again_1231__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"ra01_spice__stall_shut_for_dhuhr__build.png": {
+			"attendance": "Dhuhr",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 735,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"ra02_quay__jamal_at_the_masjid__build.png": {
+			"attendance": "Dhuhr",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 735,
+			"night": false,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"ra03_scales__musa_at_the_masjid__build.png": {
+			"attendance": "Dhuhr",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 735,
+			"night": false,
+			"place": "scales",
+			"player": [
+				104.0,
+				0.0,
+				44.0
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"ra04_masjid__at_the_masjid_for_dhuhr__build.png": {
+			"attendance": "Dhuhr",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 735,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"ra05_board__salma_stays__build.png": {
+			"attendance": "Dhuhr",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 735,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"ra06_spice__open_again_1231__build.png": {
+			"attendance": "",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 751,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"ra07_quay__jamal_at_asr__build.png": {
+			"attendance": "Asr",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 940,
+			"night": false,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"ra08_spice__friday_unchanged__build.png": {
+			"attendance": "",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 2,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 730,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		}
+	},
+	"timestamp_utc": "2026-11-11T20:08:11Z"
+}

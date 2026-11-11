@@ -81,6 +81,8 @@ year adds to the lifetime counters. The first public payment each day adds trust
 first scholar's page unlocks secret payments.
 LOCK 26 adds **Read the calligraphy** at the Masjid, Task board and Market scales after meeting Idris.
 The three Names have a private count out of 99. Learning a Name leaves coins, trust and reputation unchanged.
+LOCK 27 sends Rashid, Jamal and Old Musa to the Masjid during Dhuhr and Asr. Their places say where
+they are, and the Masjid lists who's there. The stall and loan controls return when Rashid comes back.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 
