@@ -291,6 +291,10 @@ func _is_friday_slot(prayer: int) -> bool:
 	return _weekday(_prayer_day(prayer)) == "Friday" and _prayer(prayer).name == _data.friday.replaces
 
 
+func is_friday() -> bool:
+	return _weekday(day) == "Friday"
+
+
 func _scheduled_name(prayer: int) -> String:
 	return _data.friday.name if _is_friday_slot(prayer) else _prayer(prayer).name
 

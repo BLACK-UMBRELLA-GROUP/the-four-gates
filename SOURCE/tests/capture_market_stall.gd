@@ -127,12 +127,12 @@ func capture_return_path(app: Node3D) -> void:
 	await click(app, coin_button(app))
 	helper.check(app.ui.screen == "bag" and has_label(app.ui, bag_item_label(0, 2)) and has_label(app.ui, bag_item_label(1, 1)), "bag shows both repeatable item counts")
 	await master_shot(app, 10)
-	await click(app, market.bag.wear)
-	helper.check(app.market_stall.wearing_clothes and has_label(app.ui, wearing_line(app)), "wearing local clothes adds the locked coins-line suffix")
+	await wear_outfit(app, "clothes")
+	helper.check(app.market_stall.worn_clothes == "clothes" and has_label(app.ui, app.market_stall.clothes_data.bag.wearing), "wearing local clothes marks the wardrobe row")
 	await master_shot(app, 11)
-	await click(app, market.bag.take_off)
-	helper.check(not app.market_stall.wearing_clothes and not has_label(app.ui, wearing_line(app)), "taking off clothes removes the suffix")
-	await click(app, market.bag.wear)
+	await wear_outfit(app, "traveller")
+	helper.check(app.market_stall.worn_clothes == "traveller", "the wardrobe switches back to the starting clothes")
+	await wear_outfit(app, "clothes")
 	await click(app, market.bag.back)
 	await click(app, app.chapter.purse.morning.to_rep)
 	helper.check(app.ui.screen == "reputation" and app.ui.reputation_lines() == [market.say.returned, market.say.fed, market.say.clothes], "returned change, bread and clothes appear in locked order")
@@ -270,9 +270,10 @@ func bag_item_label(index: int, count: int) -> String:
 	return "%s × %d" % [market.items[index].name, count]
 
 
-func wearing_line(app: Node3D) -> String:
-	var coins := str(market.bag.coins).format({"n": app.progress.coins})
-	return ("%s · %s · %s" % [coins, market.items[2].name, market.bag.wearing]).to_upper()
+func wear_outfit(app: Node3D, id: String) -> void:
+	var button := app.ui.find_child("Wear_" + id, true, false) as Button
+	if helper.check(button != null and button.is_visible_in_tree(), "the wardrobe offers Wear for " + id):
+		await hit(app, button.get_global_rect().get_center())
 
 
 func has_label(node: Node, value: String) -> bool:
@@ -297,7 +298,7 @@ func master_shot(app: Node3D, number: int) -> void:
 	state.place = app.current_place
 	state.change_state = app.market_stall.change_state
 	state.bag = {"bread": app.market_stall.count("bread"), "dates": app.market_stall.count("dates"), "clothes": app.market_stall.count("clothes")}
-	state.wearing_clothes = app.market_stall.wearing_clothes
+	state.wearing_clothes = app.market_stall.worn_clothes == "clothes"
 	if app.ui.screen == "reputation":
 		state.lines = app.ui.reputation_lines()
 

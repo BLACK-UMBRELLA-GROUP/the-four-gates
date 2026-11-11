@@ -39,7 +39,8 @@ signal bread_grab_answered(id: String)
 signal bag_requested
 signal purchase_requested(id: String)
 signal change_answered(give_back: bool)
-signal clothes_toggled
+signal loom_purchase_requested(id: String)
+signal wear_requested(id: String)
 signal bread_given
 
 const MapCanvas = preload("res://game/map_canvas.gd")
@@ -49,7 +50,7 @@ const MarketStall = preload("res://game/market_stall.gd")
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
-const BAG_ENTRY_SCREENS := ["game", "market_map", "stall"]
+const BAG_ENTRY_SCREENS := ["game", "market_map", "stall", "loom"]
 const GRAB_SCREENS := ["grab_see", "grab_ask", "grab_after"]
 const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_morning", "reputation"] + GRAB_SCREENS
 var data: Dictionary = {}
@@ -163,6 +164,8 @@ func show_screen(value: String) -> void:
 	_rebuild_screen()
 
 func _rebuild_screen() -> void:
+	var previous_wardrobe := content.find_child("WardrobeScroll", true, false) as ScrollContainer if screen == "bag" else null
+	var wardrobe_scroll := previous_wardrobe.scroll_vertical if previous_wardrobe != null else 0
 	clock_panel = null
 	_clock_hit = null
 	_record_names.clear()
@@ -254,9 +257,12 @@ func _rebuild_screen() -> void:
 		"stall_change":
 			_build_hud()
 			_build_stall_change()
+		"loom":
+			_build_hud()
+			_build_loom()
 		"bag":
 			_build_hud()
-			_build_bag()
+			_build_bag(wardrobe_scroll)
 	_last_coins = progress.coins
 	_last_trust = progress.trust
 	_last_daily_count = progress.daily_count
@@ -268,6 +274,8 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	var place_changed := place_id != place_value
 	var clock_changed: bool = _clock_day != clock.day or _clock_minute != clock.minute_of_day
 	var rebuild: bool = place_changed or _last_coins != progress.coins or _last_trust != progress.trust or _last_daily_count != progress.daily_count or _last_lesson != progress.lesson_done or _last_gate != progress.gate_open
+	if screen == "reputation" and market_stall.worn_clothes == "best":
+		rebuild = rebuild or _clock_day != clock.day
 	var prompt := bread_grab.board_prompt(salma_present) if place_value == "board" else BreadGrab.Prompt.NONE
 	if prompt != _board_prompt:
 		_board_prompt = prompt
@@ -777,10 +785,10 @@ func _chapter_button(panel: Panel, value: String, at: Vector2, callback: Callabl
 			button.get_theme_stylebox(state).content_margin_left = 22.0
 	return width + 12.0
 
-func _chapter_row_rule(panel: Panel, y: float) -> void:
+func _chapter_row_rule(panel: Panel, y: float, x: float = 34.0, width: float = 1120.0) -> void:
 	var rule := ColorRect.new()
-	rule.position = Vector2(34, y)
-	rule.size = Vector2(1120, 1)
+	rule.position = Vector2(x, y)
+	rule.size = Vector2(width, 1)
 	rule.color = Color("88612566")
 	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.add_child(rule)
@@ -939,31 +947,101 @@ func _build_stall_change() -> void:
 	_chapter_finish(panel, y)
 
 
-func _build_bag() -> void:
+func _build_loom() -> void:
+	var loom: Dictionary = market_stall.clothes_data.loom
+	var panel := _chapter_panel(loom.kicker, loom.title)
+	var y := 111.0 + _story_text(panel, loom.intro, 111.0) + 21.0
+	var row_has_buy_button := false
+	for index in market_stall.loom_items.size():
+		var item := market_stall.loom_items[index]
+		var id: String = item.id
+		var x := 34.0 + (index % 2) * 574.0
+		_chapter_row_rule(panel, y, x, 546.0)
+		_label(panel, item.name, Vector2(x, y + 8), Vector2(546, 30), 23, PAPER, true)
+		_label(panel, item.line, Vector2(x, y + 39), Vector2(546, 27), 19, PAPER)
+		var status := market_stall.loom_status(item)
+		if status.is_empty():
+			var caption: String = str(loom.buy).format({"n": int(item.price)})
+			var buy_width := bold_font.get_string_size(caption, HORIZONTAL_ALIGNMENT_LEFT, -1, 20).x + 32.0
+			var button := _button(caption, Vector2(x, y + 69), Vector2(buy_width, 39), func(): loom_purchase_requested.emit(id), true, panel)
+			button.add_theme_font_size_override("font_size", 20)
+			row_has_buy_button = true
+		else:
+			_label(panel, status, Vector2(x, y + 77), Vector2(546, 31), 20, Color("ffd27e"))
+		if index % 2 == 1 or index == market_stall.loom_items.size() - 1:
+			y += 116.0 if row_has_buy_button else 104.0
+			row_has_buy_button = false
+	_stall_panel_back(panel, loom.back, y + 12.0)
+
+
+func _build_bag(scroll_position: int) -> void:
 	var bag: Dictionary = market_stall.data.bag
-	var panel := _chapter_panel(bag.kicker, bag.title)
+	var wardrobe: Dictionary = market_stall.clothes_data.bag
+	var bag_id: String = market_stall.clothes_data.leather_bag.id
+	var bag_name: String = wardrobe.leather_bag if market_stall.count(bag_id) else wardrobe.pouch
+	var panel := _chapter_panel("%s · %s" % [bag.kicker, bag_name], bag.title)
 	var coins: String = str(bag.coins).format({"n": progress.coins})
+	var carrying: String = str(wardrobe.carrying).format({"n": market_stall.carried(), "m": market_stall.capacity()})
+	var y := _chapter_note(panel, "%s · %s" % [coins, carrying], 110.0)
+	var owned_clothes: Array[Dictionary] = []
+	for outfit: Dictionary in market_stall.clothes_data.clothes:
+		if market_stall.count(outfit.id) > 0:
+			owned_clothes.append(outfit)
 	var held_items: Array[Dictionary] = []
 	for item: Dictionary in market_stall.data.items:
-		if market_stall.count(item.id) > 0:
+		if item.id in ["bread", "dates"] and market_stall.count(item.id) > 0:
 			held_items.append(item)
-			if item.id == "clothes" and market_stall.wearing_clothes:
-				coins += " · " + item.name + " · " + bag.wearing
-	var y := _chapter_note(panel, coins, 110.0)
+	var rows_height := 102.0 + 84.0 * (owned_clothes.size() + held_items.size())
+	var rows := panel
+	var scroll: ScrollContainer
+	var row_y := y
+	if rows_height > 660.0:
+		scroll = ScrollContainer.new()
+		scroll.name = "WardrobeScroll"
+		scroll.position = Vector2(0, y)
+		scroll.size = Vector2(1172, 660)
+		scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		scroll.follow_focus = true
+		panel.add_child(scroll)
+		rows = Panel.new()
+		rows.custom_minimum_size = Vector2(1154, rows_height)
+		rows.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		rows.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+		scroll.add_child(rows)
+		scroll.set_deferred("scroll_vertical", scroll_position)
+		row_y = 0.0
+	row_y = _wardrobe_section(rows, wardrobe.clothes_title, row_y)
+	for outfit in owned_clothes:
+		var id: String = outfit.id
+		_stall_item_row(rows, outfit.name, outfit.line, row_y)
+		if id == market_stall.worn_clothes:
+			var status := _label(rows, wardrobe.wearing, Vector2(930, row_y + 14), Vector2(224, 56), 23, Color("ffd27e"))
+			status.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		else:
+			var width := _button_width(wardrobe.wear)
+			var button := _button(wardrobe.wear, Vector2(1154 - width, row_y + 14), Vector2(width, 56), func(): wear_requested.emit(id), false, rows)
+			button.name = "Wear_" + id
+		row_y += 84.0
+	row_y = _wardrobe_section(rows, wardrobe.things_title, row_y + 14.0)
 	if held_items.is_empty():
-		y += _story_text(panel, bag.empty, y) + 22.0
+		row_y += _story_text(rows, bag.empty, row_y) + 22.0
 	else:
 		for item in held_items:
-			var item_name: String = item.name
-			if not item.get("once", false):
-				item_name += " × %d" % market_stall.count(item.id)
-			_stall_item_row(panel, item_name, item.use, y)
-			if item.id == "clothes":
-				var caption: String = bag.take_off if market_stall.wearing_clothes else bag.wear
-				_stall_row_button(panel, caption, y, func(): clothes_toggled.emit(), not market_stall.wearing_clothes)
-			y += 84.0
-		y += 13.0
+			var item_name := "%s × %d" % [item.name, market_stall.count(item.id)]
+			_stall_item_row(rows, item_name, item.use, row_y)
+			row_y += 84.0
+	y = y + scroll.size.y if scroll != null else row_y
+	if market_stall.is_full():
+		y = _chapter_note(panel, wardrobe.full_note, y + 4.0)
+	else:
+		y += 14.0
 	_stall_panel_back(panel, bag.back, y)
+
+
+func _wardrobe_section(panel: Panel, caption: String, y: float) -> float:
+	var title := _label(panel, caption, Vector2(34, y), Vector2(1120, 38), 25, PAPER)
+	title.add_theme_font_override("font", title_font)
+	return y + 44.0
 
 
 func _stall_item_row(panel: Panel, item_name: String, detail: String, y: float) -> void:
@@ -1067,6 +1145,8 @@ func _build_place_bar(x: float) -> void:
 		action = identity.inn.action
 	elif place_id == "spice":
 		action = market_stall.data.place.spice_button
+	elif place_id == "weaver":
+		action = market_stall.clothes_data.place.weaver_button
 	elif place_id == "scales" and progress.lesson_done:
 		action = data.ui.place_actions.scales_after_lesson
 	elif place_id == "masjid":

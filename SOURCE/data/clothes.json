@@ -1,0 +1,116 @@
+{
+  "version": "LOCK 5 V1 (8 Nov 2026) - clothes and a bigger bag",
+  "builds_on": "LOCK 4 V1 (bag, Rashid's stall, local clothes). This LOCK replaces LOCK 4's wear toggle with the wardrobe and adds a carrying limit. Placeholders: {n}, {m}.",
+  "numbers": {
+    "pouch": 6,
+    "leather_bag": 12
+  },
+  "place": {
+    "weaver_button": "Visit Layla's loom"
+  },
+  "loom": {
+    "kicker": "River Market · weaver's lane",
+    "title": "Layla's loom",
+    "intro": "Layla weaves cloth and stitches leather. She measures you with her eyes.",
+    "buy": "Buy · {n} coins",
+    "owned": "yours",
+    "not_enough": "not enough coins",
+    "full": "your bag is full",
+    "back": "Back to the market map"
+  },
+  "clothes": [
+    {
+      "id": "traveller",
+      "name": "Traveller's clothes",
+      "line": "The clothes you arrived in, from home.",
+      "price": 0,
+      "start": true,
+      "seller": "none"
+    },
+    {
+      "id": "clothes",
+      "name": "Local clothes",
+      "line": "A robe and head cloth like everyone here wears.",
+      "price": 30,
+      "seller": "Rashid (LOCK 4)"
+    },
+    {
+      "id": "work",
+      "name": "Work clothes",
+      "line": "Rough cloth for the quay and the fields.",
+      "price": 12,
+      "seller": "Layla"
+    },
+    {
+      "id": "best",
+      "name": "Best clothes",
+      "line": "Clean white cloth for Fridays and Eid.",
+      "price": 25,
+      "seller": "Layla"
+    },
+    {
+      "id": "scholar",
+      "name": "Scholar's cloak",
+      "line": "Dark wool, worn by students of the House of Learning.",
+      "price": 60,
+      "seller": "Layla"
+    },
+    {
+      "id": "merchant",
+      "name": "Merchant's coat",
+      "line": "Fine cloth and a wide belt, like big traders wear.",
+      "price": 80,
+      "seller": "Layla"
+    },
+    {
+      "id": "silk",
+      "name": "Silk robe",
+      "line": "Shimmering silk from far away.",
+      "price": 200,
+      "seller": "Layla"
+    }
+  ],
+  "leather_bag": {
+    "id": "leather_bag",
+    "name": "Leather bag",
+    "line": "Holds twice as much as your pouch.",
+    "price": 20
+  },
+  "bag": {
+    "carrying": "Carrying {n} / {m}",
+    "pouch": "Pouch",
+    "leather_bag": "Leather bag",
+    "clothes_title": "Clothes",
+    "things_title": "Things",
+    "wear": "Wear",
+    "wearing": "wearing",
+    "full_note": "Your bag is full. Give something away or use it before you buy more."
+  },
+  "say": {
+    "work": [
+      "Not afraid of hard work",
+      "Jamal and the boatmen",
+      1
+    ],
+    "best_friday": [
+      "Dresses well for Friday prayer",
+      "Yunus the muezzin",
+      1
+    ],
+    "scholar": [
+      "Wears a scholar's cloak",
+      "Old Musa, the scale-keeper",
+      0
+    ],
+    "merchant": [
+      "Dresses like a big merchant",
+      "Rashid the spice seller",
+      0
+    ],
+    "silk": [
+      "Wears silk to show off",
+      "the street",
+      -1
+    ]
+  }
+}

@@ -42,8 +42,11 @@ Three honest tasks plus the lesson give exactly 100 trust and add 12 coins to th
 opens the four-gate goal panel. The city map marks the open Gate of Trust green.
 
 At Spice row, use **Buy at the stall** to buy bread, dates or local clothes. The first purchase opens
-**Your change**. Click the coins box on the market map or at the stall to open **What you carry**.
-Use **Wear them** or **Take them off** for the local clothes. At the Quay, **Give bread to Faris** appears
+**Your change**. At Weaver's lane, use **Visit Layla's loom** to buy clothes or the leather bag.
+Click the coins box to open **What you carry** and choose **Wear** on an owned outfit. The pouch holds six things
+and the leather bag holds twelve. Bread, dates and unworn outfits fill those spaces. Either shop can sell goods
+when there is space, and the leather bag upgrade can be bought even when the pouch is full.
+At the Quay, **Give bread to Faris** appears
 while the bag holds bread. **What people say** shows the resulting reputation lines.
 
 WASD moves, mouse turns the third-person camera, Shift runs, E uses the nearby place, M opens/closes the market map,
@@ -173,8 +176,15 @@ running in `GAME/APPROVED/CHAPTER_1/BUILT/V1/`. Run
 Both commands accept `--bread-grab-output=/absolute/path`. See `BUILD.json` under `line_10` and `LINE10_CHECKS.json`
 for capture setup, checks and hashes.
 
-`godot --path SOURCE -- --capture-market-stall` captures the 15 LOCK 4 masters and two street capsule views in
+At source revision `8c9b4d0`, `godot --path SOURCE -- --capture-market-stall` captures the 15 LOCK 4 masters and two street capsule views in
 `GAME/APPROVED/MARKET_STALL/BUILT/V1/`. Run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --market-stall` for the 15 comparisons.
 Both commands accept `--market-stall-output=/absolute/path`. See `BUILD.json` for capture fixtures,
 source provenance, differences and the final PNG hashes.
+Use a separate output folder when running the stall checks against the current wardrobe.
+
+`godot --path SOURCE -- --capture-clothes` captures the 15 LOCK 5 masters and Layla's street capsule in
+`GAME/APPROVED/CLOTHES/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --clothes` for the 15 comparisons.
+Both commands accept `--clothes-output=/absolute/path`. See `LINE12_CHECKS.json` for the viewport checks and fixtures,
+and `BUILD.json` for provenance, visual differences and verified PNG hashes.

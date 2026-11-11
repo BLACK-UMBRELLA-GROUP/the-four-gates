@@ -1,0 +1,315 @@
+{
+  "id": "DOC-TFG-0026",
+  "queue_line": 12,
+  "lock": "LOCK 5 V1",
+  "tested_base_commit_sha": "8c9b4d0a3f9ee06b7ff1f9788ecea6a14074a08a",
+  "capture_source": "The native run used the line 12 worktree on this tested base. The SHA-256 values identify the captured source. The daily task note records the commit containing the source and evidence.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native Godot debug viewport, forward_plus / metal on Apple M2 (Apple8)",
+  "timestamp_utc": "2026-11-11T15:17:57Z",
+  "method": "Native Godot viewport. Production GUI clicks buy and equip the items. The harness pauses passive clock ticks and stages player positions and camera direction. Street use opens the loom through the input action.",
+  "fixture": "Fair arrival in three independent sequences, with prayer history reset before staging Thursday day 8, Friday day 9 and Thursday day 15 at 10:00. Wallet is set to 161 after filling the pouch with four loaves, and to 186 after buying work clothes, two loaves and dates for w06–w07. A clean loom-only reputation sequence funds the five outfits in advance, leaving the fair arrival wallet (198) after the purchases.",
+  "locked_inputs_as_read_sha256": {
+    "GAME/APPROVED/CLOTHES/BRIEFS/BUILD_BRIEF_2026-11-08_CLOTHES.md": "00614e01dc933f7af6a566f3a2dec080ad0919cc83da8a13e8a0a1aaeeac634b",
+    "GAME/APPROVED/CLOTHES/MASTERS/w01_market_map__weaver_loom.png": "4e46539b1e63714a381aa925d2a6e4aa977a39c86242b5e4e1b26167087968ab",
+    "GAME/APPROVED/CLOTHES/MASTERS/w02_loom__start.png": "d5d29235182d72a941cf10e0c5de062d00134e2f064821c8ecab7fdca38e6ceb",
+    "GAME/APPROVED/CLOTHES/MASTERS/w03_loom__bought_work_and_best.png": "3976baa0095db3394be984b67b50f17e2b24dc3d2bfefcd90f3375f4c3d7382c",
+    "GAME/APPROVED/CLOTHES/MASTERS/w04_loom__bag_full.png": "67314bf3ea5d6d3fc0a5e2d0d05f954b0b4ec0b6bd6b7dd20681104be9afde24",
+    "GAME/APPROVED/CLOTHES/MASTERS/w05_loom__leather_bag_bought.png": "f78ebe4d8f90fb955f202492ea3690d543ac555c71c4359b2f74a08e6d97f4fc",
+    "GAME/APPROVED/CLOTHES/MASTERS/w06_bag__wardrobe_pouch.png": "e87e1ff660bd75446b19f9444c3dd6683ea298eaffe606f51b8ffda1150e1925",
+    "GAME/APPROVED/CLOTHES/MASTERS/w07_bag__wearing_work.png": "27d856de1088f8cd288f5f214350192b895dd31a0cb1dd52da91e0794d915701",
+    "GAME/APPROVED/CLOTHES/MASTERS/w08_bag__full.png": "783cc1e7777b632b23578e1056688f0a64dbdf652da07f7f729b344efbb24723",
+    "GAME/APPROVED/CLOTHES/MASTERS/w09_bag__leather_bag.png": "955fbc32cf717b03c956afbedcfadb8f44659a0bfac014a8522206c4b99de8de",
+    "GAME/APPROVED/CLOTHES/MASTERS/w10_stall__bag_full.png": "ef1d8efc72676024fcc649d4a8348d39c21d50b1880235a4f260c4df55d5a2d1",
+    "GAME/APPROVED/CLOTHES/MASTERS/w11_people_say__work_clothes.png": "c8414e2ef24ce21a47afaaadc63bf7290282c0debaf2e03f41c07b3d8cc267c7",
+    "GAME/APPROVED/CLOTHES/MASTERS/w12_people_say__best_on_friday.png": "49c5813d0d3ee728dcdd060c3370b6f7ffd19ff94354f5f2afff9271c77a262f",
+    "GAME/APPROVED/CLOTHES/MASTERS/w13_people_say__scholar_cloak.png": "defc98a75f0b645bd59ec4f88d45398961501292562ecb6ca9e0d4ec7b0e230d",
+    "GAME/APPROVED/CLOTHES/MASTERS/w14_people_say__merchant_coat.png": "4bd301dbd773496ade84a8688124b47fc588ec74939b4ea63bdf0288b7fef0c7",
+    "GAME/APPROVED/CLOTHES/MASTERS/w15_people_say__silk.png": "80fbb0ba00d4ecce399560691b6bfd653d374428d5466216d890bb01b4105506",
+    "GAME/APPROVED/CLOTHES/RECORD/CLOTHES_SPEC_CURRENT_VERSION_V1.md": "2c52e193f3142cf5bcca5d5aefc547a486ccbab8351c16e61be63e44fa11a355",
+    "GAME/APPROVED/CLOTHES/RECORD/LOCK_RECORD.md": "4052de66511ca6755aeab613dc6e165578e008c762a4c87a9f1d14d488a19c43",
+    "GAME/APPROVED/CLOTHES/RECORD/clothes_data_V1.json": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e",
+    "GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md": "f2abfee4dcc542086c5dcd23242a52986a6d29f28935f48b88e1bbbc6fbfdae6"
+  },
+  "spec_read": "The build uses the design chat's 11 November clarifications from the worktree. This line preserves the locked inputs.",
+  "captured_source_sha256": {
+    "SOURCE/data/chapter1.json": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0",
+    "SOURCE/data/clothes.json": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e",
+    "SOURCE/data/foundations.json": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/data/market_stall.json": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604",
+    "SOURCE/game/bread_grab.gd": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468",
+    "SOURCE/game/foundations.gd": "5c55b45f555b48edda1df3e93d9ef95dd2de42fdb0903ae264a50d042b5984bf",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_stall.gd": "99d8efe7125a01c2b3363cba649911a3858ab54787a0a325cb221a9e0d80fb9d",
+    "SOURCE/game/market_ui.gd": "28c4a38213ed59cece3d24a73abc73649a0336bb40ed464b928133c641ecc19a",
+    "SOURCE/game/market_world.gd": "9512f1e6ca55b2dcb6f2d6923f9347fa50f1f50630100a4613fc5db12d7cf87d",
+    "SOURCE/game/open_purse.gd": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9",
+    "SOURCE/game/prayer_clock.gd": "795dedbfb854c598637bde149e82fada2e63a3af04887002f0d0c16b4fb199be",
+    "SOURCE/game/river_market.gd": "be053a1968ea66047ecb01d2e236acc5e734d3e37056039679754a4915df50cc",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/game/task_progress.gd": "ec252cac5837000910f107051f4d63d16a77f3327c83f316f7e31d5dcf16cbc2",
+    "SOURCE/look_test/capture_helper.gd": "919939ac60ec7e8a269a90263272f6c9aa029a6a9de839a419a61af34d480fb8",
+    "SOURCE/project.godot": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45",
+    "SOURCE/tests/capture_clothes.gd": "a406a8d17b04c4b8a30b57864b96b4a83924826f66166a6f60eb8957dfd8979e",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/create_comparisons.gd": "9687a36ba5af4c93b1817cf151f19bf0a310c96906eb0a82d30576c66f473d41"
+  },
+  "tests": {
+    "headless": {
+      "passed": 1792,
+      "total": 1792,
+      "runner_sha256": "e668b5d6ebe026b4a51e0ea549ab462bcb6cd617319044a2386911d2746768ae"
+    },
+    "native_clothes": {
+      "passed": 201,
+      "total": 201,
+      "receipt": "LINE12_CHECKS.json"
+    },
+    "native_market_stall_regression": {
+      "passed": 147,
+      "total": 147,
+      "runner_sha256": "e6d105a7b695f92279c562e3063f798ef4bc842f3ebf0378c1179dbdb1285cd0",
+      "output": "Separate temporary output. The published LOCK 4 evidence is preserved."
+    },
+    "comparisons_verified_pixel_for_pixel": 15
+  },
+  "visual_differences": {
+    "shared": "Native fonts, tighter tracking in the uppercase labels, HUD sizes and bar ends, opacity, and panel/button corners differ from the prototype. Coins, trust and the locked feature wording and order match the pictured states.",
+    "w01": "Map marker rings, label outlines, gate shape and toolbar text-width spacing follow the live map. The longer bar overlaps more of the decorative canal label.",
+    "w02–w05": "The live Weaver's lane uses greybox geometry and visible Layla capsule and label through the panel. The two-column Buy buttons are slightly wider and some status baselines and panel edges differ by a few pixels.",
+    "w06–w09": "The same live lane, capsule and label show behind the wardrobe. Native text tracking, row-rule widths, and small button and panel offsets differ. A wardrobe with more outfits can scroll while Back stays visible.",
+    "w10": "The live Spice row has greybox geometry and player and Rashid capsules. The stall panel covers part of Rashid's label.",
+    "w11–w15": "The same Spice row backdrop shows Rashid's label above the panel. The native reputation panel is a little shorter and the primary button is wider. On w12 the Friday HUD at Spice row says Dhuhr under LOCK 2 while the Friday outfit line appears."
+  },
+  "compression": {
+    "method": "Lossless IDAT recompression. CRCs, inflated scanlines, image dimensions and final file hashes checked. A separate Godot decode verified the pixel data on both halves of all 15 comparisons.",
+    "bytes_before": 14861737,
+    "bytes_after": 14692052
+  },
+  "files": {
+    "layla_at_weavers_lane__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 92248,
+      "bytes": 89878,
+      "sha256": "5d455e00ff5e9240ae059ae0d80244266a1dbe497390acfe542d22dd39b7b99a"
+    },
+    "w01_market_map__weaver_loom__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 172800,
+      "bytes": 165885,
+      "sha256": "a9a84ca4eff17e15a37684c37df6f686a20400d40e9492c59a16735e4abeaf8a"
+    },
+    "w01_market_map__weaver_loom__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 369647,
+      "bytes": 345752,
+      "sha256": "64e3c29b540c818b8e9b1204fc3b81b0c14ebe354e43a100f24bd03a8985cc17"
+    },
+    "w02_loom__start__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 174426,
+      "bytes": 170394,
+      "sha256": "a7bb5a3e104308da4ecacf8baf5d38c4bc3fb94eb5924ac57d5be81376580e93"
+    },
+    "w02_loom__start__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 820786,
+      "bytes": 807414,
+      "sha256": "c585446cfc0e699458e440e029ee985bdb525f635762c0be01aacbbc8b42a277"
+    },
+    "w03_loom__bought_work_and_best__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 171917,
+      "bytes": 168222,
+      "sha256": "09656840324c9786d760d48f0dd3c4098761eb6f25aeb51d30b4212e005b758e"
+    },
+    "w03_loom__bought_work_and_best__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 827204,
+      "bytes": 814647,
+      "sha256": "55306159f6d2e478fa1e3e6ecdf1d6d987110237050ee040fd4a791cd344840b"
+    },
+    "w04_loom__bag_full__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 173976,
+      "bytes": 170235,
+      "sha256": "96098b62ff07511062b9cc254ee0a486a3866f067512b92194834faff75d9af3"
+    },
+    "w04_loom__bag_full__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 835381,
+      "bytes": 821959,
+      "sha256": "40ecac6b3c147e327165f94405afec204fd6dc9bd2790bf22f6c282e4efe5a6b"
+    },
+    "w05_loom__leather_bag_bought__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 167860,
+      "bytes": 164244,
+      "sha256": "f1073e1839c0a9368e7876b63837f546091eed4910f46b9bbde97d083a677a34"
+    },
+    "w05_loom__leather_bag_bought__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 818781,
+      "bytes": 806933,
+      "sha256": "7dcd4cd10d8163d120a376c6550fff9a549ec4f42073ae2c596f5d32a7ab3b71"
+    },
+    "w06_bag__wardrobe_pouch__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 149918,
+      "bytes": 147561,
+      "sha256": "db91527b9a6cec355b08de71713b9a841b73534a10d71d548b15fae38b7ffb84"
+    },
+    "w06_bag__wardrobe_pouch__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 757281,
+      "bytes": 752085,
+      "sha256": "8ea30ab4b09b637c7c1234a973cfc23b2d1bf4e744261501bb4018c4f2e9b02f"
+    },
+    "w07_bag__wearing_work__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 145484,
+      "bytes": 143693,
+      "sha256": "afbe2b9ab6e41286af51a839e6dde24dbab2ba977eb10e11308497860d29c55f"
+    },
+    "w07_bag__wearing_work__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 753725,
+      "bytes": 747611,
+      "sha256": "4a7b169d8b04116066db6f6200836eaf5c595b40545fabe5d5be0a232241c5c5"
+    },
+    "w08_bag__full__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 162076,
+      "bytes": 159366,
+      "sha256": "0e3828be2766f3370d4f8da5cc75ffe5eda7b5dc58a995eaafd6862ddc59ec82"
+    },
+    "w08_bag__full__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 786948,
+      "bytes": 776695,
+      "sha256": "f718eb5c443319ce5060879cbafe216f50bfde25236bd3afeab7d9836f6c33b6"
+    },
+    "w09_bag__leather_bag__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 144200,
+      "bytes": 142450,
+      "sha256": "b1847902122f90922f5d850d9ea74af41fa2e3784ca4df43f86090b175ffdb23"
+    },
+    "w09_bag__leather_bag__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 749165,
+      "bytes": 743641,
+      "sha256": "5404bceb0b19c5d381778ca2c7ddf4eb5471e3393dfab0ec62b04de13296efd9"
+    },
+    "w10_stall__bag_full__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 143181,
+      "bytes": 140166,
+      "sha256": "eb366b241320a6cf0c11f10aa97153fe2389e64f489df7140d5226cd7ce11335"
+    },
+    "w10_stall__bag_full__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 964309,
+      "bytes": 959368,
+      "sha256": "6b0e771eb007e883693b077294fdd679b91c9badd52f3a93014d82ef65688319"
+    },
+    "w11_people_say__work_clothes__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 130233,
+      "bytes": 128441,
+      "sha256": "36cbacdaa882392470ee9787362cde4de927e41383b4549fee6fee9ca6f2c5d0"
+    },
+    "w11_people_say__work_clothes__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 970765,
+      "bytes": 967791,
+      "sha256": "819ae63038782a3fe9ad69167be149766a632f786242c0ffbe1f0904d7d3e8db"
+    },
+    "w12_people_say__best_on_friday__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 128647,
+      "bytes": 126773,
+      "sha256": "e005fd7628a11bfbc2b03651f786add7c1468cd90509d5ad065a253a4e4b027d"
+    },
+    "w12_people_say__best_on_friday__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 973780,
+      "bytes": 969210,
+      "sha256": "74eba35fdf237eeb49e6f5ec4fc8146c62df41b6da62efba61e79d09fe646936"
+    },
+    "w13_people_say__scholar_cloak__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 128350,
+      "bytes": 126591,
+      "sha256": "a2ab6dc0f644fc6d084f5b70df00f0b7de30f19cb67f5ccb9b7090242bc23c2e"
+    },
+    "w13_people_say__scholar_cloak__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 969574,
+      "bytes": 966875,
+      "sha256": "a3600ecfe64fae4c9c04ea0c30370f5e25b3b14b63c9f7f1f158b39360612334"
+    },
+    "w14_people_say__merchant_coat__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 125764,
+      "bytes": 123125,
+      "sha256": "adb6be14388e965d03d39c968897c5eb0174dd59b86621b00047d1bf1b123d11"
+    },
+    "w14_people_say__merchant_coat__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 970985,
+      "bytes": 967800,
+      "sha256": "2a28215db2de78c4c160ed04bcd1dc2825e73ce06c31d1bea77e01dc594ae59b"
+    },
+    "w15_people_say__silk__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 123347,
+      "bytes": 121151,
+      "sha256": "9c2e2479d6abbd090a271e8aaec23af547af76ed39fc5e47e5713dbce0cb066b"
+    },
+    "w15_people_say__silk__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 958979,
+      "bytes": 956096,
+      "sha256": "9ed435d109bfe82a1e3c4d1f254a236f74747d07367fb20e20439e8a23f24223"
+    },
+    "LINE12_CHECKS.json": {
+      "bytes": 29161,
+      "sha256": "4aea4629ae0fc3e03569d6d5315b1fc50c9fd13dc6b343901ced00cc8a378bd2"
+    }
+  }
+}

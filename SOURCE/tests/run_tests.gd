@@ -124,6 +124,7 @@ func _run() -> void:
 	await check_open_purse_runtime()
 	await check_bread_grab_runtime()
 	await check_market_stall_runtime()
+	await check_clothes_runtime()
 	finish()
 
 
@@ -506,13 +507,12 @@ func check_ui_states() -> void:
 	await frames(2)
 	check(app.ui.screen == "goal" and visible_text().contains(data.goal.title), "G opens the approved goal panel")
 	app.show_screen("game")
-	for id: String in ["quay", "weaver"]:
-		app.player.global_position = app.world.point(id)
-		app.player.velocity = Vector3.ZERO
-		app.update_state()
-		app.ui.show_toast("")
-		app.use_place()
-		check(app.current_place == id and app.ui.screen == "game" and not visible_text().contains(data.ui.not_built), "Look around keeps the player in the world without a new action: " + id)
+	app.player.global_position = app.world.point("quay")
+	app.player.velocity = Vector3.ZERO
+	app.update_state()
+	app.ui.show_toast("")
+	app.use_place()
+	check(app.current_place == "quay" and app.ui.screen == "game" and not visible_text().contains(data.ui.not_built), "Look around keeps the player at the quay without a new action")
 	app.player.global_position = app.world.point("sq")
 	app.player.velocity = Vector3.ZERO
 	app.update_state()
@@ -521,7 +521,10 @@ func check_ui_states() -> void:
 
 
 func press_button(label: String, description: String) -> bool:
-	var button: Button = find_button(app.ui, label)
+	return await press_control(find_button(app.ui, label), description)
+
+
+func press_control(button: Button, description: String) -> bool:
 	check(button != null and button.is_visible_in_tree() and not button.disabled, description)
 	if button == null or button.disabled or not button.is_visible_in_tree():
 		return false
@@ -1757,14 +1760,13 @@ func check_market_stall_bag_and_feed(market: Dictionary) -> void:
 	check(app.market_stall.count("bread") == 2, "giving bread is rejected away from the Quay")
 	await press_button(market_coins_caption(), "open the bag with goods")
 	check(visible_text().contains("%s × 2" % market.items[0].name), "bag shows the repeatable item's count")
-	check(visible_text().contains(market.items[2].use), "bag shows the local clothes use line")
-	await press_button(market.bag.wear, "wear the local clothes")
-	var coins_line := ("%s · %s · %s" % [str(market.bag.coins).format({"n": app.progress.coins}), market.items[2].name, market.bag.wearing]).to_upper()
-	check(visible_text().contains(coins_line), "wearing is reflected in the bag's coins line")
+	check(visible_text().contains(market.items[2].line), "the wardrobe shows the local clothes description")
+	await press_wear("clothes")
+	check(app.market_stall.worn_clothes == "clothes" and find_button(app.ui, market.bag.wear) == null, "local clothes are marked worn in the wardrobe with the old toggle gone")
 	check(app.ui.reputation_lines() == [market.say.returned, market.say.clothes], "clothes reputation follows returned change")
-	await press_button(market.bag.take_off, "take off the local clothes")
-	check(not visible_text().contains(coins_line) and app.ui.reputation_lines() == [market.say.returned], "taking off removes both wearing indications")
-	await press_button(market.bag.wear, "put the clothes back on")
+	await press_wear("traveller")
+	check(app.market_stall.worn_clothes == "traveller" and app.ui.reputation_lines() == [market.say.returned], "switching back to the traveller's clothes clears the local clothes line")
+	await press_wear("clothes")
 	await press_button(market.bag.back, "close bag before going to the Quay")
 	move_market_fixture("quay")
 	check(find_button(app.ui, data.ui.place_actions.quay) != null, "bread keeps the regular Quay action visible")
@@ -1799,3 +1801,157 @@ func check_market_stall_reputation_order(market: Dictionary) -> void:
 	var back := find_button(app.ui, chapter.rep.to_map)
 	check(lines.size() > 9 and scrolls.size() == 1, "combined reputation lines are scrollable")
 	check(back != null and back.get_global_rect().end.y < 1080, "the back button remains visible under the full reputation list")
+
+
+func press_wear(id: String) -> void:
+	var button := app.ui.find_child("Wear_" + id, true, false) as Button
+	var bag: Dictionary = app.market_stall.clothes_data.bag
+	check(button != null and button.text == bag.wear, "wardrobe offers the locked Wear caption for " + id)
+	await press_control(button, "wear outfit from its wardrobe row: " + id)
+
+
+func check_clothes_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/CLOTHES/RECORD/clothes_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/clothes.json")
+	var shop: MarketStall = app.market_stall
+	var clothes := shop.clothes_data
+	check(not approved.is_empty() and approved == runtime, "clothes runtime copies the locked data byte for byte")
+	check(clothes == JSON.parse_string(runtime.get_string_from_utf8()), "the loom and wardrobe read the runtime data")
+	var loom: Dictionary = clothes.loom
+	var market := shop.data
+	var funds := int(clothes.leather_bag.price)
+	for item in shop.loom_items:
+		funds += int(item.price)
+	reset_at_market_place("weaver", funds)
+	var trust: int = app.progress.trust
+	check(shop.count("traveller") == 1 and shop.worn_clothes == "traveller", "the traveller starts with their own clothes on")
+	check(shop.capacity() == int(clothes.numbers.pouch) and shop.carried() == 0, "the starting pouch holds six and worn clothes take no space")
+	check(app.world.layla.mesh is CapsuleMesh and app.world.layla.get_child(0).text == str(loom.title).get_slice("'s", 0), "Layla has the locked name above her capsule")
+	check(shop.reputation_lines().is_empty(), "the traveller's clothes add no reputation")
+	move_market_fixture("quay")
+	app.show_loom()
+	check(app.ui.screen == "market_map" and find_button(app.ui, clothes.place.weaver_button) == null, "the loom action belongs only at weaver's lane")
+	move_market_fixture("weaver")
+	app.show_screen("game")
+	key_event(KEY_E, true)
+	key_event(KEY_E, false)
+	await frames(2)
+	check(app.ui.screen == "loom", "E at weaver's lane opens Layla's loom")
+	key_event(KEY_ESCAPE, true)
+	key_event(KEY_ESCAPE, false)
+	await frames(2)
+	check(app.ui.screen == "market_map", "Esc from the loom returns to the map")
+	await press_button(clothes.place.weaver_button, "the market map loom action replaces Look around")
+	check(app.ui.screen == "loom" and visible_text().contains(loom.intro), "the loom uses its locked heading and intro")
+	app.buy_loom_item("traveller")
+	app.buy_loom_item("clothes")
+	check_wallet(trust, funds, "the loom cannot sell the starting or stall outfits")
+	await check_loom_purchases(shop, trust)
+	await check_full_bag(shop, trust)
+	await check_outfit_reputation(shop)
+
+
+func check_loom_purchases(shop: MarketStall, trust: int) -> void:
+	var clothes := shop.clothes_data
+	var loom: Dictionary = clothes.loom
+	var wallet: int = app.progress.coins
+	for item in shop.loom_items:
+		if item.id in [clothes.leather_bag.id, "silk"]:
+			continue
+		var price := int(item.price)
+		var caption: String = loom.buy.format({"n": price})
+		await press_button(caption, "buy " + str(item.name) + " from Layla")
+		wallet -= price
+		check_wallet(trust, wallet, "Layla charges the locked price once")
+		check(shop.count(item.id) == 1 and shop.worn_clothes == "traveller", "the purchased outfit joins the wardrobe unworn")
+		check(find_button(app.ui, caption) == null and shop.loom_status(item) == loom.owned, "the purchased outfit shows yours")
+		app.buy_loom_item(item.id)
+		check(shop.count(item.id) == 1 and app.progress.coins == wallet, "duplicate loom purchases cannot charge or duplicate an outfit")
+	await press_button(loom.back, "the loom Back returns to the market map")
+	check(shop.carried() == shop.loom_items.size() - 2, "the four unworn loom outfits use space")
+
+
+func check_full_bag(shop: MarketStall, trust: int) -> void:
+	var clothes := shop.clothes_data
+	var market := shop.data
+	var bag: Dictionary = clothes.leather_bag
+	var bread: Dictionary = market.items[0]
+	var dates: Dictionary = market.items[1]
+	var local: Dictionary = market.items[2]
+	var silk: Dictionary = shop.loom_items.back()
+	app.progress.coins = int(bag.price) + 2 * int(bread.price) + int(dates.price) + int(local.price) + 2 * int(silk.price)
+	move_market_fixture("spice")
+	await press_button(market.place.spice_button, "open the stall with room in the pouch")
+	await press_button(market_buy_caption(market, int(bread.price)), "buy the first loaf")
+	await press_button(market.stall.change.keep, "resolve the first stall purchase")
+	await press_button(market_buy_caption(market, int(bread.price)), "buy the sixth carried thing")
+	var wallet: int = app.progress.coins
+	check(shop.is_full() and shop.carried() == int(clothes.numbers.pouch), "unworn outfits and bread fill the pouch")
+	for item: Dictionary in market.items:
+		check(shop.purchase_status(item) == clothes.loom.full and find_button(app.ui, market_buy_caption(market, int(item.price))) == null, "a full bag hides the affordable stall purchase")
+		app.buy_stall_item(item.id)
+	check_wallet(trust, wallet, "full stall transactions cannot change the wallet or trust")
+	await press_button(market_coins_caption(), "open a full wardrobe from the stall")
+	check(visible_text().contains(str(clothes.bag.full_note).to_upper()), "a full wardrobe shows its locked note")
+	await press_wear("work")
+	check(shop.is_full() and shop.carried() == int(clothes.numbers.pouch), "wearing at capacity swaps one outfit for another without increasing carried count")
+	await press_button(market.bag.back, "leave the full wardrobe")
+	move_market_fixture("weaver")
+	await press_button(clothes.place.weaver_button, "open the loom while the pouch is full")
+	var silk_caption: String = clothes.loom.buy.format({"n": int(silk.price)})
+	check(shop.loom_status(silk) == clothes.loom.full and find_button(app.ui, silk_caption) == null, "the full pouch blocks the affordable silk purchase")
+	app.buy_loom_item(silk.id)
+	check(shop.count(silk.id) == 0, "no outfit goes into a full pouch")
+	check_wallet(trust, wallet, "full loom transactions cannot change the wallet or trust")
+	var bag_caption: String = clothes.loom.buy.format({"n": int(bag.price)})
+	await press_button(bag_caption, "the full bag does not block the leather bag")
+	wallet -= int(bag.price)
+	check_wallet(trust, wallet, "the leather bag costs its locked price")
+	check(shop.count(bag.id) == 1 and shop.capacity() == int(clothes.numbers.leather_bag) and not shop.is_full(), "the leather bag expands capacity to twelve")
+	app.buy_loom_item(bag.id)
+	check_wallet(trust, wallet, "a duplicate leather bag purchase is rejected")
+	await press_button(silk_caption, "buy silk in the new space")
+	wallet -= int(silk.price)
+	check(shop.count(silk.id) == 1 and shop.worn_clothes == "work", "the silk purchase adds exactly one unworn outfit")
+	app.buy_loom_item(silk.id)
+	check_wallet(trust, wallet, "the affordable duplicate silk purchase cannot charge again")
+	await press_button(clothes.loom.back, "leave after the leather bag upgrade")
+	move_market_fixture("spice")
+	await press_button(market.place.spice_button, "reopen the stall after upgrading")
+	await press_button(market_buy_caption(market, int(dates.price)), "buy dates in the new space")
+	await press_button(market_buy_caption(market, int(local.price)), "buy the local outfit in the new space")
+	check(shop.carried() == shop.count("bread") + shop.count("dates") + 6, "carried count includes food and six unworn outfits only")
+	await press_button(market_coins_caption(), "open the wardrobe with all outfits and both things")
+	var scroll := app.ui.find_child("WardrobeScroll", true, false) as ScrollContainer
+	check(scroll != null and scroll.get_v_scroll_bar().max_value > scroll.size.y, "the long wardrobe can scroll")
+	var back := find_button(app.ui, market.bag.back)
+	check(back != null and back.get_global_rect().end.y < 1080, "the long wardrobe keeps Back in view")
+
+
+func check_outfit_reputation(shop: MarketStall) -> void:
+	var clothes := shop.clothes_data
+	var trust: int = app.progress.trust
+	var wallet: int = app.progress.coins
+	var carried := shop.carried()
+	for id: String in ["scholar", "merchant", "silk", "work"]:
+		await press_wear(id)
+		check(app.ui.reputation_lines() == [clothes.say[id]], "the worn outfit supplies its exact reputation line and tone")
+		check_wallet(trust, wallet, "wearing an outfit never changes coins or trust")
+		check(shop.carried() == carried, "outfit switches preserve carried count")
+	await press_wear("best")
+	check(app.ui.reputation_lines().is_empty(), "best clothes add no line outside Friday")
+	await press_button(shop.data.bag.back, "close the wardrobe before checking Friday")
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say while wearing best clothes")
+	app.clock.advance_to(9, 10 * 60, false)
+	app.update_state()
+	check(app.ui.reputation_lines() == [clothes.say.best_friday] and visible_text().contains(clothes.say.best_friday[0]), "Friday adds the locked line to the open reputation panel")
+	app.clock.advance_to(10, 10 * 60, false)
+	app.update_state()
+	check(app.ui.reputation_lines().is_empty() and not visible_text().contains(clothes.say.best_friday[0]), "the line leaves the panel when Friday ends")
+	check_wallet(trust, wallet, "the Friday outfit leaves coins and trust alone")
+	reset_at_market_place("weaver", 0)
+	check(shop.worn_clothes == "traveller" and shop.carried() == 0 and shop.capacity() == int(clothes.numbers.pouch), "beginning again clears purchases and restores the starting wardrobe")
+	await press_button(clothes.place.weaver_button, "open the loom with an empty wallet")
+	check(visible_text().contains(clothes.loom.not_enough) and find_button(app.ui, clothes.loom.buy.format({"n": int(clothes.leather_bag.price)})) == null, "unaffordable clothes and bag show the locked status")
+	app.buy_loom_item(clothes.leather_bag.id)
+	check(app.progress.coins == 0 and shop.capacity() == int(clothes.numbers.pouch), "an unaffordable leather bag cannot change the wallet or capacity")

@@ -1,0 +1,1389 @@
+{
+	"checks": [
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the Inn market map",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at weaver",
+			"passed": true
+		},
+		{
+			"description": "weaver's lane replaces Look around",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w01_market_map__weaver_loom__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w01_market_map__weaver_loom__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "the map action opens Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "the starting clothes are worn and take no space",
+			"passed": true
+		},
+		{
+			"description": "the 198-coin wallet cannot buy silk",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w02_loom__start__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w02_loom__start__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 12 coins",
+			"passed": true
+		},
+		{
+			"description": "buying work once charges its locked price",
+			"passed": true
+		},
+		{
+			"description": "buying work keeps the starting outfit worn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 25 coins",
+			"passed": true
+		},
+		{
+			"description": "buying best once charges its locked price",
+			"passed": true
+		},
+		{
+			"description": "buying best keeps the starting outfit worn",
+			"passed": true
+		},
+		{
+			"description": "bought outfits display their owned status",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w03_loom__bought_work_and_best__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w03_loom__bought_work_and_best__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at spice",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy at the stall",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 1 coin",
+			"passed": true
+		},
+		{
+			"description": "the first stall purchase still opens the change decision",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Keep it",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 1 coin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 1 coin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 1 coin",
+			"passed": true
+		},
+		{
+			"description": "the stall supplies the requested food",
+			"passed": true
+		},
+		{
+			"description": "four loaves and two unworn outfits fill the pouch",
+			"passed": true
+		},
+		{
+			"description": "the full pouch blocks a further stall purchase",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w10_stall__bag_full__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w10_stall__bag_full__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at weaver",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: 161 coins",
+			"passed": true
+		},
+		{
+			"description": "the coins button opens the wardrobe",
+			"passed": true
+		},
+		{
+			"description": "the full pouch shows the locked note",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w08_bag__full__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w08_bag__full__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "the map action opens Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "the loom distinguishes a full bag from unaffordable silk",
+			"passed": true
+		},
+		{
+			"description": "the full bag blocks an affordable outfit",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w04_loom__bag_full__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w04_loom__bag_full__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 20 coins",
+			"passed": true
+		},
+		{
+			"description": "the leather bag charges its locked price even at pouch capacity",
+			"passed": true
+		},
+		{
+			"description": "the leather bag expands capacity without changing the contents",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w05_loom__leather_bag_bought__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w05_loom__leather_bag_bought__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: 141 coins",
+			"passed": true
+		},
+		{
+			"description": "the coins button opens the wardrobe",
+			"passed": true
+		},
+		{
+			"description": "the leather bag shows the expanded capacity and clears the full note",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w09_bag__leather_bag__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w09_bag__leather_bag__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back",
+			"passed": true
+		},
+		{
+			"description": "Layla is a visible placeholder capsule",
+			"passed": true
+		},
+		{
+			"description": "the capsule has Layla's name label",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: layla_at_weavers_lane__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: layla_at_weavers_lane__build.png",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at weaver",
+			"passed": true
+		},
+		{
+			"description": "street use at weaver's lane opens Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the Inn market map",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at weaver",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "the map action opens Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 12 coins",
+			"passed": true
+		},
+		{
+			"description": "buying work once charges its locked price",
+			"passed": true
+		},
+		{
+			"description": "buying work keeps the starting outfit worn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at spice",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy at the stall",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 1 coin",
+			"passed": true
+		},
+		{
+			"description": "the first stall purchase still opens the change decision",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Keep it",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 1 coin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 2 coins",
+			"passed": true
+		},
+		{
+			"description": "the stall supplies the requested food",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at weaver",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: 186 coins",
+			"passed": true
+		},
+		{
+			"description": "the coins button opens the wardrobe",
+			"passed": true
+		},
+		{
+			"description": "the wardrobe and food show four carried things",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w06_bag__wardrobe_pouch__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w06_bag__wardrobe_pouch__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible Wear button for work",
+			"passed": true
+		},
+		{
+			"description": "the wardrobe shows work as worn",
+			"passed": true
+		},
+		{
+			"description": "swapping outfits does not change how much is carried",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w07_bag__wearing_work__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w07_bag__wearing_work__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the Inn market map",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at weaver",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "the map action opens Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 12 coins",
+			"passed": true
+		},
+		{
+			"description": "buying work once charges its locked price",
+			"passed": true
+		},
+		{
+			"description": "buying work keeps the starting outfit worn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 25 coins",
+			"passed": true
+		},
+		{
+			"description": "buying best once charges its locked price",
+			"passed": true
+		},
+		{
+			"description": "buying best keeps the starting outfit worn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 60 coins",
+			"passed": true
+		},
+		{
+			"description": "buying scholar once charges its locked price",
+			"passed": true
+		},
+		{
+			"description": "buying scholar keeps the starting outfit worn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 80 coins",
+			"passed": true
+		},
+		{
+			"description": "buying merchant once charges its locked price",
+			"passed": true
+		},
+		{
+			"description": "buying merchant keeps the starting outfit worn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 200 coins",
+			"passed": true
+		},
+		{
+			"description": "buying silk once charges its locked price",
+			"passed": true
+		},
+		{
+			"description": "buying silk keeps the starting outfit worn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at spice",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: 198 coins",
+			"passed": true
+		},
+		{
+			"description": "the coins button opens the wardrobe",
+			"passed": true
+		},
+		{
+			"description": "visible Wear button for work",
+			"passed": true
+		},
+		{
+			"description": "the wardrobe shows work as worn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "the worn outfit adds only its locked line: work",
+			"passed": true
+		},
+		{
+			"description": "the outfit leaves trust unchanged: work",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w11_people_say__work_clothes__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w11_people_say__work_clothes__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: 198 coins",
+			"passed": true
+		},
+		{
+			"description": "the coins button opens the wardrobe",
+			"passed": true
+		},
+		{
+			"description": "visible Wear button for best",
+			"passed": true
+		},
+		{
+			"description": "the wardrobe shows best as worn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back",
+			"passed": true
+		},
+		{
+			"description": "best clothes add no line on Thursday",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "the worn outfit adds only its locked line: best",
+			"passed": true
+		},
+		{
+			"description": "the outfit leaves trust unchanged: best",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w12_people_say__best_on_friday__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w12_people_say__best_on_friday__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: 198 coins",
+			"passed": true
+		},
+		{
+			"description": "the coins button opens the wardrobe",
+			"passed": true
+		},
+		{
+			"description": "visible Wear button for scholar",
+			"passed": true
+		},
+		{
+			"description": "the wardrobe shows scholar as worn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "the worn outfit adds only its locked line: scholar",
+			"passed": true
+		},
+		{
+			"description": "the outfit leaves trust unchanged: scholar",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w13_people_say__scholar_cloak__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w13_people_say__scholar_cloak__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: 198 coins",
+			"passed": true
+		},
+		{
+			"description": "the coins button opens the wardrobe",
+			"passed": true
+		},
+		{
+			"description": "visible Wear button for merchant",
+			"passed": true
+		},
+		{
+			"description": "the wardrobe shows merchant as worn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "the worn outfit adds only its locked line: merchant",
+			"passed": true
+		},
+		{
+			"description": "the outfit leaves trust unchanged: merchant",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w14_people_say__merchant_coat__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w14_people_say__merchant_coat__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: 198 coins",
+			"passed": true
+		},
+		{
+			"description": "the coins button opens the wardrobe",
+			"passed": true
+		},
+		{
+			"description": "visible Wear button for silk",
+			"passed": true
+		},
+		{
+			"description": "the wardrobe shows silk as worn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "the worn outfit adds only its locked line: silk",
+			"passed": true
+		},
+		{
+			"description": "the outfit leaves trust unchanged: silk",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: w15_people_say__silk__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: w15_people_say__silk__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "all 15 masters and the Layla street view were captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Fair arrival in three independent sequences, with prayer history reset before staging Thursday day 8, Friday day 9 and Thursday day 15 at 10:00. Wallet is set to 161 after filling the pouch with four loaves, and to 186 after buying work clothes, two loaves and dates for w06–w07. A clean loom-only reputation sequence funds the five outfits in advance, leaving the fair arrival wallet (198) after the purchases.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport. Production GUI clicks buy and equip the items. The harness pauses passive clock ticks and stages player positions and camera direction. Street use opens the loom through the input action.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "w01_market_map__weaver_loom__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w02_loom__start__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w03_loom__bought_work_and_best__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w10_stall__bag_full__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w08_bag__full__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w04_loom__bag_full__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w05_loom__leather_bag_bought__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w09_bag__leather_bag__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "layla_at_weavers_lane__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w06_bag__wardrobe_pouch__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w07_bag__wearing_work__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w11_people_say__work_clothes__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w12_people_say__best_on_friday__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w13_people_say__scholar_cloak__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w14_people_say__merchant_coat__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "w15_people_say__silk__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"layla_at_weavers_lane__build.png": {
+			"coins": 141,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"person": "Layla",
+			"person_position": [
+				41.5999984741211,
+				0.899999976158142,
+				40.2000007629395
+			],
+			"player": [
+				46.0999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "game",
+			"tasks": {},
+			"trust": 20
+		},
+		"w01_market_map__weaver_loom__build.png": {
+			"bread": 0,
+			"capacity": 6,
+			"carried": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"dates": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller"
+			],
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"w02_loom__start__build.png": {
+			"bread": 0,
+			"capacity": 6,
+			"carried": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"dates": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller"
+			],
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "loom",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"w03_loom__bought_work_and_best__build.png": {
+			"bread": 0,
+			"capacity": 6,
+			"carried": 2,
+			"coins": 161,
+			"daily_count": 0,
+			"dates": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller",
+				"work",
+				"best"
+			],
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "loom",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"w04_loom__bag_full__build.png": {
+			"bread": 4,
+			"capacity": 6,
+			"carried": 6,
+			"coins": 161,
+			"daily_count": 0,
+			"dates": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller",
+				"work",
+				"best"
+			],
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "loom",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"w05_loom__leather_bag_bought__build.png": {
+			"bread": 4,
+			"capacity": 12,
+			"carried": 6,
+			"coins": 141,
+			"daily_count": 0,
+			"dates": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller",
+				"work",
+				"best"
+			],
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "loom",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"w06_bag__wardrobe_pouch__build.png": {
+			"bread": 2,
+			"capacity": 6,
+			"carried": 4,
+			"coins": 186,
+			"daily_count": 0,
+			"dates": 1,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller",
+				"work"
+			],
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "bag",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"w07_bag__wearing_work__build.png": {
+			"bread": 2,
+			"capacity": 6,
+			"carried": 4,
+			"coins": 186,
+			"daily_count": 0,
+			"dates": 1,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller",
+				"work"
+			],
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "bag",
+			"tasks": {},
+			"trust": 20,
+			"worn": "work"
+		},
+		"w08_bag__full__build.png": {
+			"bread": 4,
+			"capacity": 6,
+			"carried": 6,
+			"coins": 161,
+			"daily_count": 0,
+			"dates": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller",
+				"work",
+				"best"
+			],
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "bag",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"w09_bag__leather_bag__build.png": {
+			"bread": 4,
+			"capacity": 12,
+			"carried": 6,
+			"coins": 141,
+			"daily_count": 0,
+			"dates": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller",
+				"work",
+				"best"
+			],
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "bag",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"w10_stall__bag_full__build.png": {
+			"bread": 4,
+			"capacity": 6,
+			"carried": 6,
+			"coins": 161,
+			"daily_count": 0,
+			"dates": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller",
+				"work",
+				"best"
+			],
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "stall",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"w11_people_say__work_clothes__build.png": {
+			"bread": 0,
+			"capacity": 6,
+			"carried": 5,
+			"coins": 198,
+			"daily_count": 0,
+			"dates": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				[
+					"Not afraid of hard work",
+					"Jamal and the boatmen",
+					1.0
+				]
+			],
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller",
+				"work",
+				"best",
+				"scholar",
+				"merchant",
+				"silk"
+			],
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 20,
+			"worn": "work"
+		},
+		"w12_people_say__best_on_friday__build.png": {
+			"bread": 0,
+			"capacity": 6,
+			"carried": 5,
+			"coins": 198,
+			"daily_count": 0,
+			"dates": 0,
+			"day": 9,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				[
+					"Dresses well for Friday prayer",
+					"Yunus the muezzin",
+					1.0
+				]
+			],
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller",
+				"work",
+				"best",
+				"scholar",
+				"merchant",
+				"silk"
+			],
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 20,
+			"worn": "best"
+		},
+		"w13_people_say__scholar_cloak__build.png": {
+			"bread": 0,
+			"capacity": 6,
+			"carried": 5,
+			"coins": 198,
+			"daily_count": 0,
+			"dates": 0,
+			"day": 15,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				[
+					"Wears a scholar's cloak",
+					"Old Musa, the scale-keeper",
+					0.0
+				]
+			],
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller",
+				"work",
+				"best",
+				"scholar",
+				"merchant",
+				"silk"
+			],
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 20,
+			"worn": "scholar"
+		},
+		"w14_people_say__merchant_coat__build.png": {
+			"bread": 0,
+			"capacity": 6,
+			"carried": 5,
+			"coins": 198,
+			"daily_count": 0,
+			"dates": 0,
+			"day": 15,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				[
+					"Dresses like a big merchant",
+					"Rashid the spice seller",
+					0.0
+				]
+			],
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller",
+				"work",
+				"best",
+				"scholar",
+				"merchant",
+				"silk"
+			],
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 20,
+			"worn": "merchant"
+		},
+		"w15_people_say__silk__build.png": {
+			"bread": 0,
+			"capacity": 6,
+			"carried": 5,
+			"coins": 198,
+			"daily_count": 0,
+			"dates": 0,
+			"day": 15,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				[
+					"Wears silk to show off",
+					"the street",
+					-1.0
+				]
+			],
+			"minute_of_day": 600,
+			"night": false,
+			"owned": [
+				"traveller",
+				"work",
+				"best",
+				"scholar",
+				"merchant",
+				"silk"
+			],
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 20,
+			"worn": "silk"
+		}
+	},
+	"timestamp_utc": "2026-11-11T15:17:57Z"
+}

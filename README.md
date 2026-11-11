@@ -28,6 +28,9 @@ The four answers affect coins, trust and what River Market says about the travel
 LOCK 4 opens Rashid’s stall at Spice row. Buy bread, dates or local clothes, and decide what to do with
 the extra change on the first purchase. Click the coins box to open the bag. Carry bread to the Quay
 to give it to Faris. What people say shows how River Market responds.
+LOCK 5 opens Layla’s loom at Weaver’s lane and adds a wardrobe to the bag. The pouch holds six things and the
+leather bag holds twelve. Bread, dates and unworn clothes count towards the limit. What people say can change
+with the clothes you wear.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 
