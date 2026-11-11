@@ -293,3 +293,16 @@ due visit. Each outcome adds its own line to **What people say**.
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --rashids-loan`
 to place each master beside its native capture. Both commands accept `--rashids-loan-output=/absolute/path`.
 See `LINE23_CHECKS.json` for the capture fixtures and `BUILD.json` for provenance and verified PNGs.
+
+### Harm in the road
+
+LOCK 17 shows one harmful thing each day in River Market. The place and harm follow the game day.
+At that place from 06:30 through 19:29, the bar describes the harm and offers its move button. Moving
+it takes five game minutes and adds one to the private count in the result panel. Coins, trust and
+**What people say** stay as they were.
+
+Run `godot --path SOURCE -- --capture-harm-in-the-road` for the nine native states in
+`GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --harm-in-the-road`
+to put each master beside its capture. Both commands accept `--harm-in-the-road-output=/absolute/path`.
+`LINE24_CHECKS.json` records the capture fixtures and `BUILD.json` records the source and image checks.

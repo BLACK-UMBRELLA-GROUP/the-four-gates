@@ -51,6 +51,7 @@ signal dry_fountain_requested
 signal dry_fountain_paid(choice: String)
 signal loan_requested
 signal loan_answered(choice: String)
+signal road_harm_requested
 signal sealed_purse_offered
 signal sealed_purse_accepted
 signal sealed_purse_coin_chosen(keep: bool)
@@ -80,6 +81,7 @@ const JabirsGoats = preload("res://game/jabirs_goats.gd")
 const IdrisRecovery = preload("res://game/idris_recovery.gd")
 const DryFountain = preload("res://game/dry_fountain.gd")
 const RashidsLoan = preload("res://game/rashids_loan.gd")
+const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
@@ -94,7 +96,7 @@ const QASIMS_JARS_SCREENS := ["qasims_offer", "qasims_done"]
 const JABIRS_GOATS_SCREENS := ["jabirs_offer", "jabirs_bought", "jabirs_told"]
 const DRY_FOUNTAIN_SCREENS := ["dry_fountain", "fountain_done"]
 const LOAN_SCREENS := ["loan_ask", "loan_lent", "loan_riba", "loan_due", "loan_after", "loan_last"]
-const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_refused", "purse_morning", "reputation"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS + DRY_FOUNTAIN_SCREENS + LOAN_SCREENS
+const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_refused", "purse_morning", "reputation", "harm_done"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS + DRY_FOUNTAIN_SCREENS + LOAN_SCREENS
 var data: Dictionary = {}
 var identity: Dictionary = {}
 var chapter: Dictionary
@@ -112,6 +114,8 @@ var jabirs_goats: JabirsGoats
 var idris_recovery: IdrisRecovery
 var dry_fountain: DryFountain
 var rashids_loan: RashidsLoan
+var harm_in_the_road: HarmInTheRoad
+var _road_harm: Dictionary = {}
 var _loan_offer := RashidsLoan.Offer.HIDDEN
 var _last_idris_cool := false
 var _dice_caption := ""
@@ -170,7 +174,7 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars, jabirs_goats_value: JabirsGoats, idris_recovery_value: IdrisRecovery, dry_fountain_value: DryFountain, rashids_loan_value: RashidsLoan) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars, jabirs_goats_value: JabirsGoats, idris_recovery_value: IdrisRecovery, dry_fountain_value: DryFountain, rashids_loan_value: RashidsLoan, harm_in_the_road_value: HarmInTheRoad) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
@@ -188,6 +192,7 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	idris_recovery = idris_recovery_value
 	dry_fountain = dry_fountain_value
 	rashids_loan = rashids_loan_value
+	harm_in_the_road = harm_in_the_road_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -340,6 +345,9 @@ func _rebuild_screen() -> void:
 		"loan_ask", "loan_lent", "loan_riba", "loan_due", "loan_after", "loan_last":
 			_build_hud()
 			_build_rashids_loan()
+		"harm_done":
+			_build_hud()
+			_build_road_harm_done()
 		"feeding":
 			_build_hud()
 			_build_feeding()
@@ -419,6 +427,11 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	if loan_offer != _loan_offer:
 		_loan_offer = loan_offer
 		rebuild = rebuild or screen in ["game", "market_map"]
+	if screen in ["game", "market_map"]:
+		var road_harm := harm_in_the_road.available_at(place_value)
+		if road_harm != _road_harm:
+			_road_harm = road_harm
+			rebuild = true
 	var can_feed := place_value == "quay" and market_stall.count("bread") > 0
 	if can_feed != _can_feed:
 		_can_feed = can_feed
@@ -1304,6 +1317,16 @@ func _build_rashids_loan() -> void:
 	_chapter_finish(panel, y)
 
 
+func _build_road_harm_done() -> void:
+	var copy: Dictionary = harm_in_the_road.data.panel
+	var harm := harm_in_the_road.moved_harm
+	var panel := _chapter_panel(copy.kicker, harm.move, true)
+	var y := 111.0 + _story_text(panel, harm.done, 111.0) + 16.0
+	_spaced_caption(panel, str(copy.count).format({"n": harm_in_the_road.count}), y)
+	_chapter_button(panel, copy.to_map, Vector2(34, y + 36.0), func(): screen_requested.emit("market_map"))
+	_chapter_finish(panel, y + 36.0)
+
+
 func _build_feeding() -> void:
 	var copy: Dictionary = feeding.data.panel
 	var panel := _chapter_panel(copy.kicker, copy.title, true)
@@ -1724,14 +1747,35 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		cool_width = font.get_string_size(cool_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0
 	var inline_talk_width := 0.0 if talk_footer else talk_width
 	var total_width := cool_width + name_width + line_width + action_width + loan_width + fountain_width + feeding_width + dice_width + jars_width + extra_width + purse_width + inline_talk_width + 55.0
-	var carrying_footer := carrying and (place_id == "board" or total_width + carrying_width > 1836.0)
-	var inline_carrying_width := 0.0 if carrying_footer else carrying_width
-	var wrap := (not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or jars_width > 0.0 or loan_width > 0.0 or not _jabirs_caption.is_empty() or carrying) and x + total_width + inline_carrying_width + _prayer_buttons_width(_prayer_label) > 1878.0
-	if cool_width > 0.0:
-		wrap = wrap or x + total_width + inline_carrying_width + _prayer_buttons_width("") > 1878.0
 	var waiting := _board_prompt == BreadGrab.Prompt.WAIT
-	var bar_y := 891.0 if waiting else 965.0
-	var nav_y := 814.0 if waiting else 890.0
+	var harm_available := not _road_harm.is_empty()
+	var harm_label_at := Vector2.ZERO
+	var harm_button_at := Vector2.ZERO
+	var harm_label_width := 0.0
+	var harm_button_width := 0.0
+	var harm_row_height := 0.0
+	if harm_available:
+		var inner_right := 1836.0 - 18.0
+		var previous_rows := (147.0 if waiting else 73.0) + (73.0 if talk_footer else 0.0)
+		harm_label_width = font.get_string_size(_road_harm.bar, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0
+		harm_button_width = _button_width(_road_harm.move)
+		harm_label_at = Vector2(total_width + 1.0, 0.0)
+		if waiting or talk_footer or harm_label_at.x + harm_label_width > inner_right:
+			harm_label_at = Vector2(18.0, previous_rows)
+		harm_button_at = harm_label_at + Vector2(harm_label_width, 0.0)
+		if harm_button_at.x + harm_button_width > inner_right:
+			harm_button_at = Vector2(18.0, previous_rows)
+		harm_row_height = 73.0 if harm_button_at.y > 0.0 else 0.0
+	var harm_bar_width := total_width
+	if harm_available:
+		harm_bar_width = 1836.0 if harm_row_height > 0.0 else harm_button_at.x + harm_button_width + 18.0
+	var carrying_footer := carrying and (place_id == "board" or harm_row_height > 0.0 or harm_bar_width + carrying_width > 1836.0)
+	var inline_carrying_width := 0.0 if carrying_footer else carrying_width
+	var wrap := (harm_available or not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or jars_width > 0.0 or loan_width > 0.0 or not _jabirs_caption.is_empty() or carrying) and x + harm_bar_width + inline_carrying_width + _prayer_buttons_width(_prayer_label) > 1878.0
+	if cool_width > 0.0:
+		wrap = wrap or x + harm_bar_width + inline_carrying_width + _prayer_buttons_width("") > 1878.0
+	var bar_y := (891.0 if waiting else 965.0) - harm_row_height
+	var nav_y := (814.0 if waiting else 890.0) - harm_row_height
 	if talk_footer:
 		bar_y -= 73.0
 		nav_y -= 73.0
@@ -1742,15 +1786,15 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		_build_prayer_buttons(x, 0.0, nav_y)
 		x = 42.0
 	else:
-		x = _build_prayer_buttons(x, total_width + inline_carrying_width)
-	var width := total_width + inline_carrying_width
+		x = _build_prayer_buttons(x, harm_bar_width + inline_carrying_width)
+	var width := harm_bar_width + inline_carrying_width
 	if waiting:
 		width = maxf(width, font.get_string_size(chapter.grab.wait_line, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 36.0)
 	if carrying_footer:
 		width = maxf(width, carrying_width + 18.0)
 	if place_id == "board":
 		width = maxf(width, 1836.0)
-	var height := (147.0 if waiting else 73.0) + (50.0 if carrying_footer else 0.0) + (73.0 if talk_footer else 0.0)
+	var height := (147.0 if waiting else 73.0) + (50.0 if carrying_footer else 0.0) + (73.0 if talk_footer else 0.0) + harm_row_height
 	var panel := _panel(Vector2(x, bar_y), Vector2(width, height), Color("191c19"))
 	_label(panel, name_value, Vector2(18, 15), Vector2(name_width + 4, 42), label_size, PAPER, true)
 	_label(panel, line_value, Vector2(18 + name_width, 15), Vector2(line_width + 4, 42), label_size, PAPER)
@@ -1787,19 +1831,27 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if purse_width > 0.0:
 		_button(purse_text, Vector2(extra_x, bar_y + 8.0), Vector2(purse_width - 18.0, 56), purse_action, deliver)
 	var talk_x := x + 18.0 if talk_footer else extra_x + purse_width
-	var talk_y := 73.0 + (50.0 if carrying_footer else 0.0) if talk_footer else 0.0
+	var talk_y := 0.0
+	if talk_footer:
+		talk_y = 73.0 + (50.0 if carrying_footer and not harm_available else 0.0)
+		if harm_available and waiting:
+			talk_y += 74.0
 	if not talk_notice.is_empty():
 		_label(panel, talk_notice, Vector2(talk_x - x, talk_y + 15.0), Vector2(talk_width - 14.0, 42), 24, PAPER)
 	elif not talk_text.is_empty():
 		_button(talk_text, Vector2(talk_x, bar_y + talk_y + 8.0), Vector2(talk_width - 18.0, 56), func(): talk_requested.emit())
 	if cool_width > 0.0:
 		_label(panel, cool_notice, Vector2(talk_x + talk_width - x, 15), Vector2(cool_width, 42), label_size, PAPER)
+	if harm_available:
+		_label(panel, _road_harm.bar, harm_label_at + Vector2(0, 15), Vector2(harm_label_width, 42), label_size, PAPER)
+		_button(_road_harm.move, harm_button_at + Vector2(x, bar_y + 8), Vector2(harm_button_width, 56), func(): road_harm_requested.emit())
 	if carrying_footer:
-		_label(panel, carrying_text, Vector2(18, 73), Vector2(carrying_width, 42), label_size, PAPER)
+		var carrying_y := height - 50.0 if harm_available else 73.0
+		_label(panel, carrying_text, Vector2(18, carrying_y), Vector2(carrying_width, 42), label_size, PAPER)
 	elif carrying:
-		_label(panel, carrying_text, Vector2(total_width + 2.0, 15), Vector2(carrying_width - 18.0, 42), label_size, PAPER)
+		_label(panel, carrying_text, Vector2(harm_bar_width + 2.0, 15), Vector2(carrying_width - 18.0, 42), label_size, PAPER)
 	if waiting:
-		_label(panel, chapter.grab.wait_line, Vector2(18, 87 + (50 if carrying_footer else 0)), Vector2(width - 36, 42), 24, PAPER)
+		_label(panel, chapter.grab.wait_line, Vector2(18, 87 + (50 if carrying_footer and not harm_available else 0)), Vector2(width - 36, 42), 24, PAPER)
 	return nav_y if wrap or separate_board_row or carrying_footer else 974.0
 
 func _style(background: Color, border: Color = Color("886125")) -> StyleBoxFlat:

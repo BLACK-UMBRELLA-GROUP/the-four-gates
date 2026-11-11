@@ -58,6 +58,8 @@ when the water returns. The square shows how many days the fountain has run.
 LOCK 16 adds **Rashid needs a loan** at Spice row when Rashid is at the stall and River Market trust is at
 least 30. Lend 30 coins without increase, then return after three calendar days. Give Rashid time for the last
 ten, let the ten go or collect all thirty. Rashid refuses interest, and the outcome appears in **What people say**.
+LOCK 17 adds one piece of harm on the road each day in River Market. Check the place bar between 06:30
+and 19:29. Moving it takes five game minutes, and only the result panel shows the private count.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

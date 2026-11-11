@@ -1,0 +1,519 @@
+{
+  "line": 24,
+  "lock": "LOCK 17 V1",
+  "brief": "DOC-TFG-0062",
+  "tested_base_commit_sha": "0781e3cc0ff0f0e3542ac8424b419e6b5ca8b3d2",
+  "capture_source": "Line 24 candidate over the tested base. The 11 November Codex task note identifies the containing source and evidence commit.",
+  "godot_version": "4.7.2-stable (official)",
+  "godot_binary_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T17:42:19Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Real native Godot viewport. Viewport clicks drive fair arrivals, physical routes to market places, the move buttons and the return to the map.",
+  "fixture": "Passive ticks are paused. Fair arrivals supply 198 coins, trust is set to 45, and the clock is advanced to the named capture minutes. p04/p05 use display days 2/3. p06 uses day 8 at the board while the harm is in Weaver's lane. p01/p02/p03 and p08 use day 22, a Thursday with the arrival day's rotation. p07 uses day 43, a fresh Thursday with the same rotation. p09 uses day 5 at the Gate of Trust with the count seeded to 6 as in the master.",
+  "approved_inputs": [
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BRIEFS/BUILD_BRIEF_2026-11-09_HARM_IN_THE_ROAD.md",
+      "bytes": 2278,
+      "sha256": "013fcc2e0fdf64656fdf6a16e618a8e6576cd5d6f7480a4d7908d266cfd2a48d"
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/RECORD/HARM_IN_THE_ROAD_SPEC_CURRENT_VERSION_V1.md",
+      "bytes": 4248,
+      "sha256": "fcabf8059d206fcc9e82c69350f08f0f75b8be46585b1e006689bb0759c1cabe",
+      "version_read": "Current working copy with the design chat's 11 November setup, day index and normal time clarifications."
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/RECORD/LOCK_RECORD.md",
+      "bytes": 693,
+      "sha256": "66450f477e9ec65f0e92ecf59a0ae5d26635d03403214eca27209f5a9c0d9153"
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/RECORD/harm_in_the_road_data_V1.json",
+      "bytes": 1052,
+      "sha256": "26dc6570e4646c6487c01cba4cfec9d7f9873735445cfffcb68736b1d4c945a1"
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/MASTERS/p01_weaver__thorn_branch_day0.png",
+      "bytes": 67324,
+      "sha256": "13a30289771314a135f66fd4b59982397cda6113c4243cf934517a7125d76464"
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/MASTERS/p02_harm__moved_the_thorns.png",
+      "bytes": 281083,
+      "sha256": "be3255395ea5cb98c3b109f8c329676eab91e5329a8e35d1c51e5994eb3a8e69"
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/MASTERS/p03_weaver__gone_after_moving.png",
+      "bytes": 63421,
+      "sha256": "48a01fab57cb86a86ea54bc784e46701fcf631fbf716ee872948185923132efb"
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/MASTERS/p04_spice__pot_shards_day1.png",
+      "bytes": 69226,
+      "sha256": "411bcbe27d668426720ff7f6ab076389b3baec82cf5612e1c50ca01e4e40e5a7"
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/MASTERS/p05_quay__low_rope_day2.png",
+      "bytes": 68260,
+      "sha256": "c5d7111b66e02625979899fe766e3abd1435335db81c80e0c750661d3523a7ab"
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/MASTERS/p06_board__nothing_elsewhere.png",
+      "bytes": 67848,
+      "sha256": "8f9f83ff9c2fa480858e52b438ee7624b4e14c9fbfbb5582dbc63812e4fbd8b2"
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/MASTERS/p07_weaver__nothing_at_night.png",
+      "bytes": 89453,
+      "sha256": "2f730dc93ae1466817965882d3cf0eda9a5875e368b866c4874e45cd041727e1"
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/MASTERS/p08_weaver__nothing_before_0630.png",
+      "bytes": 66452,
+      "sha256": "0bd4e74116b24e337be54e7c83604cabbc54a85253ef0985d1d9f876bcd57949"
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/MASTERS/p09_harm__count_7.png",
+      "bytes": 283216,
+      "sha256": "06412d2e007d34805fdc915ee1ce474cb13dc6c9721cf9edb6acd4e9d228cc87"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "SOURCE/project.godot",
+      "bytes": 1690,
+      "sha256": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45"
+    },
+    {
+      "path": "SOURCE/data/chapter1.json",
+      "bytes": 7699,
+      "sha256": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0"
+    },
+    {
+      "path": "SOURCE/data/clothes.json",
+      "bytes": 2888,
+      "sha256": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e"
+    },
+    {
+      "path": "SOURCE/data/dice_house.json",
+      "bytes": 1460,
+      "sha256": "d769f3698748af05e5498e13de397a701c0aebf740eae006f4547e2b53e21c80"
+    },
+    {
+      "path": "SOURCE/data/dry_fountain.json",
+      "bytes": 1373,
+      "sha256": "1eeaf232e9f43cbd9ddc411dae127dc34a0a6f89c6666819e416cf25ef79117f"
+    },
+    {
+      "path": "SOURCE/data/feeding.json",
+      "bytes": 1470,
+      "sha256": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7"
+    },
+    {
+      "path": "SOURCE/data/foundations.json",
+      "bytes": 11978,
+      "sha256": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf"
+    },
+    {
+      "path": "SOURCE/data/harm_in_the_road.json",
+      "bytes": 1052,
+      "sha256": "26dc6570e4646c6487c01cba4cfec9d7f9873735445cfffcb68736b1d4c945a1"
+    },
+    {
+      "path": "SOURCE/data/identity.json",
+      "bytes": 14838,
+      "sha256": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647"
+    },
+    {
+      "path": "SOURCE/data/idris_has_heard.json",
+      "bytes": 742,
+      "sha256": "392e1d296199d473dca7e3f8a166a91d9e28d0f2c23461203642483d3a3a527e"
+    },
+    {
+      "path": "SOURCE/data/jabirs_goats.json",
+      "bytes": 1857,
+      "sha256": "dd62e7b0f917e8db3c30c3b30435bb3098496598344252ffd8e98808f0ba2d99"
+    },
+    {
+      "path": "SOURCE/data/market_day.json",
+      "bytes": 1071,
+      "sha256": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05"
+    },
+    {
+      "path": "SOURCE/data/market_stall.json",
+      "bytes": 2593,
+      "sha256": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604"
+    },
+    {
+      "path": "SOURCE/data/prayer_record.json",
+      "bytes": 1009,
+      "sha256": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9"
+    },
+    {
+      "path": "SOURCE/data/qasims_jars.json",
+      "bytes": 1352,
+      "sha256": "c7a2c0a56d676ef6606769f94075ec537707875eecf8767d8dac43fda2c34bfb"
+    },
+    {
+      "path": "SOURCE/data/rashids_loan.json",
+      "bytes": 2776,
+      "sha256": "89d162d30ea41ef7c65d2de0bf07ea3fae81d02e4b424c1933991a6ceba2893f"
+    },
+    {
+      "path": "SOURCE/data/sealed_purse.json",
+      "bytes": 1902,
+      "sha256": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a"
+    },
+    {
+      "path": "SOURCE/data/talking.json",
+      "bytes": 3854,
+      "sha256": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4"
+    },
+    {
+      "path": "SOURCE/game/bread_grab.gd",
+      "bytes": 1345,
+      "sha256": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468"
+    },
+    {
+      "path": "SOURCE/game/dice_house.gd",
+      "bytes": 2080,
+      "sha256": "17513513173a8d6729b9600baa2ec0999571716df233128f1a44cb249e88e0d5"
+    },
+    {
+      "path": "SOURCE/game/dry_fountain.gd",
+      "bytes": 1322,
+      "sha256": "f49d81661ec0af2495bffe9e102cafc5c9545149a5f1cf87bed6f2bd10162e95"
+    },
+    {
+      "path": "SOURCE/game/feeding.gd",
+      "bytes": 1760,
+      "sha256": "a818d69fb277ed6125f20d06a47e997c03c25dee99094de4651a2acb11df6b80"
+    },
+    {
+      "path": "SOURCE/game/foundations.gd",
+      "bytes": 5356,
+      "sha256": "30f68a52231cce329bd17b4603a49d67ac1dc08cb102e873ef4a8eefd1170266"
+    },
+    {
+      "path": "SOURCE/game/harm_in_the_road.gd",
+      "bytes": 1017,
+      "sha256": "dd288040b79c39c00470cd4b6ce5ab23d8d49f11c9f9ac6e09e4875019f5c50e"
+    },
+    {
+      "path": "SOURCE/game/idris_recovery.gd",
+      "bytes": 1019,
+      "sha256": "6cb5d86d23ef6fab7fe1579c0bc80ee270008627f2493b5b33fab0dd4fa0635e"
+    },
+    {
+      "path": "SOURCE/game/jabirs_goats.gd",
+      "bytes": 1858,
+      "sha256": "5cae78452ff85fd392a85378fa044394810755b31f76dfc980a6c5c95c19f1d6"
+    },
+    {
+      "path": "SOURCE/game/lesson_canvas.gd",
+      "bytes": 1218,
+      "sha256": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c"
+    },
+    {
+      "path": "SOURCE/game/map_canvas.gd",
+      "bytes": 13421,
+      "sha256": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba"
+    },
+    {
+      "path": "SOURCE/game/market_day.gd",
+      "bytes": 1065,
+      "sha256": "3cb77474a4fd5fffb10caa13954c0369a3759235cd60449a258fa202ce702b38"
+    },
+    {
+      "path": "SOURCE/game/market_player.gd",
+      "bytes": 4286,
+      "sha256": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2"
+    },
+    {
+      "path": "SOURCE/game/market_stall.gd",
+      "bytes": 4413,
+      "sha256": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56"
+    },
+    {
+      "path": "SOURCE/game/market_ui.gd",
+      "bytes": 90152,
+      "sha256": "8fecae6687d110c4401899690bf2eab5c2d719b518b7bfc907d6ad460d3d0a2d"
+    },
+    {
+      "path": "SOURCE/game/market_world.gd",
+      "bytes": 16327,
+      "sha256": "e738fe12acf43d085617d73ebce56ce0e9a9e1bc10afc8f04631aa88da3ec7a0"
+    },
+    {
+      "path": "SOURCE/game/open_purse.gd",
+      "bytes": 3329,
+      "sha256": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9"
+    },
+    {
+      "path": "SOURCE/game/prayer_clock.gd",
+      "bytes": 11985,
+      "sha256": "6ba6f3202bc7759ee63b1aa5defce6d4c19f9485bddcb832b9518d48193a3c23"
+    },
+    {
+      "path": "SOURCE/game/qasims_jars.gd",
+      "bytes": 1521,
+      "sha256": "b136d4f3c187fc775c811e010de6c848e7ebc00b51b8464e7f77c0b8f1f40c6a"
+    },
+    {
+      "path": "SOURCE/game/rashids_loan.gd",
+      "bytes": 2586,
+      "sha256": "0ecd01729c296de41f7b4f9ce3404b88386fa6bb19d2d97b8959671d9836074a"
+    },
+    {
+      "path": "SOURCE/game/river_market.gd",
+      "bytes": 36345,
+      "sha256": "05079a143c2d4ba973c144b3ecc13cdbad80328160903ec7e10573548f07bf95"
+    },
+    {
+      "path": "SOURCE/game/river_market.tscn",
+      "bytes": 171,
+      "sha256": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe"
+    },
+    {
+      "path": "SOURCE/game/sealed_purse.gd",
+      "bytes": 1725,
+      "sha256": "e3b46ae422a91cd824057e43881c80bb254dac24da5031163ac093d491bef7ab"
+    },
+    {
+      "path": "SOURCE/game/talking.gd",
+      "bytes": 2568,
+      "sha256": "546458aedd4c3c74f06e498f2160c8622fc5524a3f9d9ab49ec6cd0891bd0f86"
+    },
+    {
+      "path": "SOURCE/game/task_progress.gd",
+      "bytes": 3214,
+      "sha256": "0777fd340c6c2f0a8ed3ed724307e07fc2fe8228d1539d3c8d6f12602654b777"
+    },
+    {
+      "path": "SOURCE/tests/capture_harm_in_the_road.gd",
+      "bytes": 9298,
+      "sha256": "b2b249800133580ae7753facd005a0e7b829266a8c734e725b07ba8ec2c896a1"
+    },
+    {
+      "path": "SOURCE/tests/capture_identity.gd",
+      "bytes": 10390,
+      "sha256": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32"
+    },
+    {
+      "path": "SOURCE/tests/capture_tasks.gd",
+      "bytes": 11310,
+      "sha256": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003"
+    },
+    {
+      "path": "SOURCE/tests/create_comparisons.gd",
+      "bytes": 7541,
+      "sha256": "f5d8d5ed7efbd79ed6f2cd7b93f3bd33b244c0159445ec3478bb44ba0f5cc454"
+    },
+    {
+      "path": "SOURCE/tests/run_tests.gd",
+      "bytes": 204642,
+      "sha256": "21a7f5c572c4a3f0bca94e01d3963532bf365818bbc13ef7bcb0424c60cb379a"
+    }
+  ],
+  "native_check_receipt": {
+    "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/LINE24_CHECKS.json",
+    "bytes": 22467,
+    "sha256": "8b4bfe94de2e9617d233253347df55f8d42521e3bd81044c84cfdc711db44ea6"
+  },
+  "tests": {
+    "tested_base_headless": "3391/3391",
+    "line_24_headless": "3483/3483",
+    "line_24_native": "180/180",
+    "sealed_purse_native_regression": "203/203"
+  },
+  "compression": {
+    "method": "Lossless PNG IDAT recompression. Godot decoded the final files at full size. The original pixels and both halves of each comparison were checked byte for byte.",
+    "original_total_bytes": 6705365,
+    "final_total_bytes": 6478768
+  },
+  "images": [
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p01_weaver__thorn_branch_day0__build.png",
+      "bytes": 173726,
+      "sha256": "f399cfa448bcfc43046811461078c924d8470682844aeda3c5987e48fa7b7dad",
+      "original_bytes": 180482,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p01_weaver__thorn_branch_day0__master_beside_build.png",
+      "bytes": 366760,
+      "sha256": "e0731298e7b00ecadc941cb367314bb53f527ec582cf4dfbf19a389112233824",
+      "original_bytes": 390905,
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p02_harm__moved_the_thorns__build.png",
+      "bytes": 280747,
+      "sha256": "d3647f126fd4cd49a795c1a9826876b2b35aea2f40405c34ef84b5bc43a3e444",
+      "original_bytes": 282594,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p02_harm__moved_the_thorns__master_beside_build.png",
+      "bytes": 984560,
+      "sha256": "3d4c33128cc33e3b8143637bfa84661ee57d401e528ad4d8cc7fd79946633022",
+      "original_bytes": 991341,
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p03_weaver__gone_after_moving__build.png",
+      "bytes": 174188,
+      "sha256": "488930e4abd541631c9f49a5f01883e2cd8cc7c36a59ac0c637ab85a6b3b25fb",
+      "original_bytes": 180829,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p03_weaver__gone_after_moving__master_beside_build.png",
+      "bytes": 356764,
+      "sha256": "6f67d482fa2d9b0dc0c678ab21ddc075a1dd45b58721f40116059380d4bdd5e9",
+      "original_bytes": 379646,
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p04_spice__pot_shards_day1__build.png",
+      "bytes": 170671,
+      "sha256": "18f24ac88440d342a23290c112c7194ce99678bf03676a57d0c169b8e51ab7e2",
+      "original_bytes": 177431,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p04_spice__pot_shards_day1__master_beside_build.png",
+      "bytes": 369405,
+      "sha256": "2b2d91160119a5d7b446c49141812a45143cdd2857374fb1f6b88172888706ad",
+      "original_bytes": 392317,
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p05_quay__low_rope_day2__build.png",
+      "bytes": 168677,
+      "sha256": "299c8f447ed4db45a8ecbf7e238913ebb6479a95ad9c0eb6ee1f1fa2dc9af1f2",
+      "original_bytes": 175609,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p05_quay__low_rope_day2__master_beside_build.png",
+      "bytes": 365028,
+      "sha256": "caf6cecda1b8bc541fb7cd0220486f944bdd6834570f0dcd89b9fa3c8d0550b0",
+      "original_bytes": 388368,
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p06_board__nothing_elsewhere__build.png",
+      "bytes": 169695,
+      "sha256": "2cad44bcaafb834c8e2339e0ac4c9517962ee0dacb0c8d4bf6f13c93fa93d348",
+      "original_bytes": 176578,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p06_board__nothing_elsewhere__master_beside_build.png",
+      "bytes": 365590,
+      "sha256": "554466e4a046476fed78d5967f49e7f936e1ff74ccb1a9bee99db7eebcd50ab5",
+      "original_bytes": 389090,
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p07_weaver__nothing_at_night__build.png",
+      "bytes": 235261,
+      "sha256": "7d0f6c7daf076a29112875479f96ffc0ee6020005df5b9b51371e6279d135627",
+      "original_bytes": 240918,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p07_weaver__nothing_at_night__master_beside_build.png",
+      "bytes": 483052,
+      "sha256": "c2b4663c6728e254b48a632c73fe713e1055c8b08789166e94d602e2c26e4d10",
+      "original_bytes": 504422,
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p08_weaver__nothing_before_0630__build.png",
+      "bytes": 176317,
+      "sha256": "50255178fa55f677be212e29a4a3f0ab54b4e34f0f8b3e3c4caaf3cd7840b1d5",
+      "original_bytes": 183177,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p08_weaver__nothing_before_0630__master_beside_build.png",
+      "bytes": 368033,
+      "sha256": "f809bee3f2f69f210d0a095703b4876202b2f822c4c32aa798beaed13d588084",
+      "original_bytes": 392607,
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p09_harm__count_7__build.png",
+      "bytes": 281600,
+      "sha256": "1101c96a3f368e2da503b9fafd643471cbb66a53bcd772e2ded618ffcc304a59",
+      "original_bytes": 283866,
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/HARM_IN_THE_ROAD/BUILT/V1/p09_harm__count_7__master_beside_build.png",
+      "bytes": 988694,
+      "sha256": "231512fda47f3fe667cf6147e57beb482b2be620d07e7538b02fbed963c918b3",
+      "original_bytes": 995185,
+      "dimensions": [
+        3840,
+        1080
+      ]
+    }
+  ]
+}

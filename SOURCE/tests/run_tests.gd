@@ -145,6 +145,7 @@ func _run() -> void:
 	await check_idris_recovery()
 	await check_dry_fountain_runtime()
 	await check_rashids_loan_runtime()
+	await check_harm_in_the_road_runtime()
 	finish()
 
 
@@ -3197,3 +3198,72 @@ func check_loan_repayment(loan: Dictionary, choice: String) -> void:
 			check(app.dice_house.enter(), "fixture adds the later Idris line")
 		var lines: Array = app.ui.reputation_lines()
 		check(lines.count(loan.say.demand) == 1 and lines.find(app.dry_fountain.data.say.named) + 1 == lines.find(loan.say.demand) and lines.find(loan.say.demand) + 1 == lines.find(app.idris_recovery.data.say.cool), "the loan line appears directly between the fountain and Idris")
+
+
+func check_harm_in_the_road_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/HARM_IN_THE_ROAD/RECORD/harm_in_the_road_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/harm_in_the_road.json")
+	var road: Dictionary = app.harm_in_the_road.data
+	check(not locked.is_empty() and runtime == locked, "runtime harm data copies LOCK 17 byte for byte")
+	check(road == JSON.parse_string(runtime.get_string_from_utf8()), "the road harm reads the approved runtime data")
+	app.set_process(false)
+	app.begin_game()
+	var opens := int(road.numbers.from)
+	var closes := int(road.numbers.until)
+	for day_index in range(road.places.size() * road.harms.size() + 1):
+		var place: String = road.places[day_index % road.places.size()]
+		var harm: Dictionary = road.harms[day_index % road.harms.size()]
+		app.clock.advance_to(day_index + 1, opens, false)
+		move_market_fixture(place)
+		check(has_visible_label(app.ui, harm.bar) and find_button(app.ui, harm.move) != null, "day index %d has the exact locked harm and action at its rotated place" % day_index)
+		move_market_fixture(road.places[(day_index + 1) % road.places.size()])
+		check(not visible_text().contains(harm.bar) and find_button(app.ui, harm.move) == null, "day index %d does not show the harm at another place" % day_index)
+		app.move_road_harm()
+		check(app.ui.screen == "market_map" and app.harm_in_the_road.count == 0 and app.minute_of_day == opens, "walking past or invoking the action elsewhere has no effect")
+
+	var day: int = app.day + 1
+	var place: String = road.places[(day - 1) % road.places.size()]
+	var harm: Dictionary = road.harms[(day - 1) % road.harms.size()]
+	set_market_day_time(day, opens - 1)
+	move_market_fixture(place)
+	check(not visible_text().contains(harm.bar) and find_button(app.ui, harm.move) == null, "harm is absent just before the daily opening")
+	app.move_road_harm()
+	check(app.harm_in_the_road.count == 0, "moving the harm before opening is rejected")
+	app.clock.advance_to(day, opens, false)
+	app.update_state()
+	check(has_visible_label(app.ui, harm.bar) and find_button(app.ui, harm.move) != null, "the bar updates as the same place reaches opening")
+	app.clock.advance_to(day, closes, false)
+	app.update_state()
+	check(not visible_text().contains(harm.bar) and find_button(app.ui, harm.move) == null, "the bar clears at the exclusive closing minute")
+	app.move_road_harm()
+	check(app.harm_in_the_road.count == 0, "moving the harm at closing is rejected")
+
+	set_market_day_time(day, closes - 1)
+	check(app.clock.record().rows[3].status == "now", "Maghrib is still available just before the late harm move")
+	check(has_visible_label(app.ui, harm.bar) and find_button(app.ui, harm.move) != null, "the harm is visible at the final minute")
+	app.show_screen("game")
+	check(has_visible_label(app.ui, harm.bar) and find_button(app.ui, harm.move) != null, "the walking view also has the locked harm words and move button")
+	var coins: int = app.progress.coins
+	var trust: int = app.progress.trust
+	var reputation: Array = app.ui.reputation_lines().duplicate(true)
+	await press_button(harm.move, "moving harm uses the real place-bar button")
+	check(app.ui.screen == "harm_done" and has_visible_label(app.ui, harm.move) and visible_text().contains(harm.done), "the result gives the locked harm title and story")
+	var count_line: String = road.panel.count.format({"n": 1}).to_upper()
+	check(has_visible_label(app.ui, road.panel.kicker.to_upper()) and has_visible_label(app.ui, count_line), "the result gives the locked kicker and private count")
+	check(app.day == day and app.minute_of_day == closes - 1 + int(road.numbers.minutes) and app.harm_in_the_road.count == 1, "moving harm takes five minutes and adds exactly one to the count")
+	check(app.clock.record().rows[3].status == "missed", "the normal advance marks the ended unprayed Maghrib as missed")
+	check(app.progress.coins == coins and app.progress.trust == trust and app.ui.reputation_lines() == reputation, "moving harm has no reward or reputation effect")
+	await press_button(road.panel.to_map, "the locked result button returns to the market map")
+	check(app.ui.screen == "market_map" and not visible_text().contains(count_line), "the count is private to the result panel")
+	set_market_day_time(day, closes - 2)
+	app.move_road_harm()
+	check(app.harm_in_the_road.count == 1 and find_button(app.ui, harm.move) == null and not visible_text().contains(harm.bar), "the harm stays gone at its place for the same day")
+
+	app.clock.advance_to(day + 1, opens, false)
+	move_market_fixture(road.places[day % road.places.size()])
+	var next_harm: Dictionary = road.harms[day % road.harms.size()]
+	await press_button(next_harm.move, "the next day has a fresh move button at its own place")
+	check(app.harm_in_the_road.count == 2, "the private count accumulates across market days")
+	app.begin_game()
+	check(app.harm_in_the_road.count == 0 and app.harm_in_the_road.done_day == -1, "starting a new playthrough clears the private harm record")
+	app.set_process(true)
