@@ -1,0 +1,39 @@
+{
+ "version": "LOCK 15 V1 (9 Nov 2026) - wealth: the dry fountain",
+ "builds_on": "LOCK 1 trust and coins, LOCK 2 clock, LOCK 3 public and secret giving and What people say. Placeholders: {n}.",
+ "numbers": {
+  "cost": 60,
+  "part": 20,
+  "public_trust": 5
+ },
+ "board_button": "The dry fountain",
+ "panel": {
+  "kicker": "River Market · the square",
+  "title": "The dry fountain",
+  "text": "A stone fountain with a carved basin, dry for three summers. Hasan the mason taps the cracked pipe: “Sixty coins and it runs again. The children carry water up from the river now.”",
+  "paid": "Paid so far: {n} of 60 coins",
+  "give_named": "Give {n} coins · carve my name",
+  "give_secret": "Give {n} coins · no name",
+  "give": "Give {n} coins",
+  "not_enough": "not enough coins",
+  "not_now": "Not now"
+ },
+ "done": {
+  "kicker": "River Market · the square",
+  "title": "Water again",
+  "text": "Hasan opens the pipe. Water fills the basin and spills over the lip. By noon women are filling jars and children splash their faces.",
+  "named": "Your name is cut into the stone.",
+  "secret": "Nobody knows who paid.",
+  "count": "Fountains repaired: {n}",
+  "to_rep": "What people say",
+  "to_map": "Back to the market map"
+ },
+ "running": "The fountain runs · {n} days",
+ "say": {
+  "named": [
+   "Paid for the fountain",
+   "the women at the fountain",
+   1
+  ]
+ }
+}

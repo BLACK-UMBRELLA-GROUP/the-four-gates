@@ -1,0 +1,1023 @@
+{
+	"checks": [
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival supplies the 198-coin fixture",
+			"passed": true
+		},
+		{
+			"description": "native map marker starts the route to board",
+			"passed": true
+		},
+		{
+			"description": "native physical street route reaches board",
+			"passed": true
+		},
+		{
+			"description": "the Task board is active on the market map",
+			"passed": true
+		},
+		{
+			"description": "button shown: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "button shown: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "the fountain fits before feeding in the square bar",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: o01_square__the_dry_fountain__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: o01_square__the_dry_fountain__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "the production panel is open: dry_fountain",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: RIVER MARKET · THE SQUARE",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: RIVER MARKET · THE SQUARE",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: A stone fountain with a carved basin, dry for three summers. Hasan the mason taps the cracked pipe: “Sixty coins and it runs again. The children carry water up from the river now.”",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: A stone fountain with a carved basin, dry for three summers. Hasan the mason taps the cracked pipe: “Sixty coins and it runs again. The children carry water up from the river now.”",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: PAID SO FAR: 0 OF 60 COINS",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: PAID SO FAR: 0 OF 60 COINS",
+			"passed": true
+		},
+		{
+			"description": "button shown: Give 20 coins · carve my name",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Give 20 coins · carve my name",
+			"passed": true
+		},
+		{
+			"description": "button shown: Give 20 coins · no name",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Give 20 coins · no name",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Give 20 coins",
+			"passed": true
+		},
+		{
+			"description": "button shown: Not now",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Not now",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: o02_fountain__name_or_no_name__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: o02_fountain__name_or_no_name__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give 20 coins · carve my name",
+			"passed": true
+		},
+		{
+			"description": "the production panel is open: dry_fountain",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: RIVER MARKET · THE SQUARE",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: RIVER MARKET · THE SQUARE",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: A stone fountain with a carved basin, dry for three summers. Hasan the mason taps the cracked pipe: “Sixty coins and it runs again. The children carry water up from the river now.”",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: A stone fountain with a carved basin, dry for three summers. Hasan the mason taps the cracked pipe: “Sixty coins and it runs again. The children carry water up from the river now.”",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: PAID SO FAR: 20 OF 60 COINS",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: PAID SO FAR: 20 OF 60 COINS",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Give 20 coins · carve my name",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Give 20 coins · no name",
+			"passed": true
+		},
+		{
+			"description": "button shown: Give 20 coins",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Give 20 coins",
+			"passed": true
+		},
+		{
+			"description": "cumulative payment and wallet match: 20",
+			"passed": true
+		},
+		{
+			"description": "attribution and trust match after paying 20",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: o03_fountain__paid_20__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: o03_fountain__paid_20__build.png",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Give 20 coins",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "button shown: Not now",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Not now",
+			"passed": true
+		},
+		{
+			"description": "the low wallet fixture keeps the first payment",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: o04_fountain__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: o04_fountain__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Not now",
+			"passed": true
+		},
+		{
+			"description": "the Task board is active on the market map",
+			"passed": true
+		},
+		{
+			"description": "button shown: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "button shown: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "the fountain fits before feeding in the square bar",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give 20 coins",
+			"passed": true
+		},
+		{
+			"description": "cumulative payment and wallet match: 40",
+			"passed": true
+		},
+		{
+			"description": "attribution and trust match after paying 40",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give 20 coins",
+			"passed": true
+		},
+		{
+			"description": "the production panel is open: fountain_done",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: RIVER MARKET · THE SQUARE",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: RIVER MARKET · THE SQUARE",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Water again",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Water again",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Hasan opens the pipe. Water fills the basin and spills over the lip. By noon women are filling jars and children splash their faces.",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Hasan opens the pipe. Water fills the basin and spills over the lip. By noon women are filling jars and children splash their faces.",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Your name is cut into the stone.",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Your name is cut into the stone.",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: FOUNTAINS REPAIRED: 1",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: FOUNTAINS REPAIRED: 1",
+			"passed": true
+		},
+		{
+			"description": "button shown: What people say",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: What people say",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "cumulative payment and wallet match: 60",
+			"passed": true
+		},
+		{
+			"description": "attribution and trust match after paying 60",
+			"passed": true
+		},
+		{
+			"description": "the last payment starts the fountain on the completion day",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: o05_fountain__water_again_named__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: o05_fountain__water_again_named__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "What people say opened from Water again",
+			"passed": true
+		},
+		{
+			"description": "What people say matches the locked attribution",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: “Paid for the fountain”",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: “Paid for the fountain”",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: THE WOMEN AT THE FOUNTAIN",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: THE WOMEN AT THE FOUNTAIN",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: good",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: good",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: o06_people_say__paid_for_the_fountain__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: o06_people_say__paid_for_the_fountain__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the Task board is active on the market map",
+			"passed": true
+		},
+		{
+			"description": "button hidden: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: The fountain runs · 0 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: The fountain runs · 0 days",
+			"passed": true
+		},
+		{
+			"description": "button shown: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "the fountain fits before feeding in the square bar",
+			"passed": true
+		},
+		{
+			"description": "the Task board is active on the market map",
+			"passed": true
+		},
+		{
+			"description": "button hidden: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: The fountain runs · 3 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: The fountain runs · 3 days",
+			"passed": true
+		},
+		{
+			"description": "button shown: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "the fountain fits before feeding in the square bar",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: o07_square__runs_3_days__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: o07_square__runs_3_days__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival supplies the 198-coin fixture",
+			"passed": true
+		},
+		{
+			"description": "native map marker starts the route to board",
+			"passed": true
+		},
+		{
+			"description": "native physical street route reaches board",
+			"passed": true
+		},
+		{
+			"description": "the Task board is active on the market map",
+			"passed": true
+		},
+		{
+			"description": "button shown: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "button shown: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "the fountain fits before feeding in the square bar",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give 20 coins · no name",
+			"passed": true
+		},
+		{
+			"description": "cumulative payment and wallet match: 20",
+			"passed": true
+		},
+		{
+			"description": "attribution and trust match after paying 20",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give 20 coins",
+			"passed": true
+		},
+		{
+			"description": "cumulative payment and wallet match: 40",
+			"passed": true
+		},
+		{
+			"description": "attribution and trust match after paying 40",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give 20 coins",
+			"passed": true
+		},
+		{
+			"description": "the production panel is open: fountain_done",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: RIVER MARKET · THE SQUARE",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: RIVER MARKET · THE SQUARE",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Water again",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Water again",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Hasan opens the pipe. Water fills the basin and spills over the lip. By noon women are filling jars and children splash their faces.",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Hasan opens the pipe. Water fills the basin and spills over the lip. By noon women are filling jars and children splash their faces.",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Nobody knows who paid.",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Nobody knows who paid.",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: FOUNTAINS REPAIRED: 1",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: FOUNTAINS REPAIRED: 1",
+			"passed": true
+		},
+		{
+			"description": "button shown: What people say",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: What people say",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "cumulative payment and wallet match: 60",
+			"passed": true
+		},
+		{
+			"description": "attribution and trust match after paying 60",
+			"passed": true
+		},
+		{
+			"description": "the last payment starts the fountain on the completion day",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: o08_fountain__water_again_no_name__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: o08_fountain__water_again_no_name__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "What people say opened from Water again",
+			"passed": true
+		},
+		{
+			"description": "What people say matches the locked attribution",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Nobody in River Market talks about you yet. To them you are just “the foreigner”.",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Nobody in River Market talks about you yet. To them you are just “the foreigner”.",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: o09_people_say__no_name_no_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: o09_people_say__no_name_no_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the Task board is active on the market map",
+			"passed": true
+		},
+		{
+			"description": "button hidden: The dry fountain",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: The fountain runs · 0 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: The fountain runs · 0 days",
+			"passed": true
+		},
+		{
+			"description": "button shown: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "the fountain fits before feeding in the square bar",
+			"passed": true
+		},
+		{
+			"description": "all nine master states were captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Passive clock ticks are paused. Fair arrival supplies 198 coins. Trust is seeded to 45 and the clock skips to Thursday day 8 at 10:00. The harness sets 15 coins for o04 and restores the 178-coin balance after Not now. The running fountain is captured Sunday day 11 at 10:00. A fresh arrival supplies the unnamed branch.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Real native Godot viewport. Viewport clicks drive both arrivals, the walk to the Task board, both payment branches and the return to the map.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "o01_square__the_dry_fountain__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "o02_fountain__name_or_no_name__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "o03_fountain__paid_20__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "o04_fountain__not_enough_coins__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "o05_fountain__water_again_named__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "o06_people_say__paid_for_the_fountain__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "o07_square__runs_3_days__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "o08_fountain__water_again_no_name__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "o09_people_say__no_name_no_line__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"o01_square__the_dry_fountain__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"days_running": 0,
+			"finished_day": -1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"named": false,
+			"night": false,
+			"paid": 0,
+			"place": "board",
+			"player": [
+				86.987419128418,
+				0.0,
+				34.7588691711426
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"o02_fountain__name_or_no_name__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"days_running": 0,
+			"finished_day": -1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"named": false,
+			"night": false,
+			"paid": 0,
+			"place": "board",
+			"player": [
+				86.987419128418,
+				0.0,
+				34.7588691711426
+			],
+			"screen": "dry_fountain",
+			"tasks": {},
+			"trust": 45
+		},
+		"o03_fountain__paid_20__build.png": {
+			"coins": 178,
+			"daily_count": 0,
+			"day": 8,
+			"days_running": 0,
+			"finished_day": -1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"named": true,
+			"night": false,
+			"paid": 20,
+			"place": "board",
+			"player": [
+				86.987419128418,
+				0.0,
+				34.7588691711426
+			],
+			"screen": "dry_fountain",
+			"tasks": {},
+			"trust": 45
+		},
+		"o04_fountain__not_enough_coins__build.png": {
+			"coins": 15,
+			"daily_count": 0,
+			"day": 8,
+			"days_running": 0,
+			"finished_day": -1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"named": true,
+			"night": false,
+			"paid": 20,
+			"place": "board",
+			"player": [
+				86.987419128418,
+				0.0,
+				34.7588691711426
+			],
+			"screen": "dry_fountain",
+			"tasks": {},
+			"trust": 45
+		},
+		"o05_fountain__water_again_named__build.png": {
+			"coins": 138,
+			"daily_count": 0,
+			"day": 8,
+			"days_running": 0,
+			"finished_day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"named": true,
+			"night": false,
+			"paid": 60,
+			"place": "board",
+			"player": [
+				86.987419128418,
+				0.0,
+				34.7588691711426
+			],
+			"screen": "fountain_done",
+			"tasks": {},
+			"trust": 50
+		},
+		"o06_people_say__paid_for_the_fountain__build.png": {
+			"coins": 138,
+			"daily_count": 0,
+			"day": 8,
+			"days_running": 0,
+			"finished_day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"named": true,
+			"night": false,
+			"paid": 60,
+			"place": "board",
+			"player": [
+				86.987419128418,
+				0.0,
+				34.7588691711426
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 50
+		},
+		"o07_square__runs_3_days__build.png": {
+			"coins": 138,
+			"daily_count": 0,
+			"day": 11,
+			"days_running": 3,
+			"finished_day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"named": true,
+			"night": false,
+			"paid": 60,
+			"place": "board",
+			"player": [
+				86.987419128418,
+				0.0,
+				34.7588691711426
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 50
+		},
+		"o08_fountain__water_again_no_name__build.png": {
+			"coins": 138,
+			"daily_count": 0,
+			"day": 8,
+			"days_running": 0,
+			"finished_day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"named": false,
+			"night": false,
+			"paid": 60,
+			"place": "board",
+			"player": [
+				86.987419128418,
+				0.0,
+				34.7588691711426
+			],
+			"screen": "fountain_done",
+			"tasks": {},
+			"trust": 45
+		},
+		"o09_people_say__no_name_no_line__build.png": {
+			"coins": 138,
+			"daily_count": 0,
+			"day": 8,
+			"days_running": 0,
+			"finished_day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"named": false,
+			"night": false,
+			"paid": 60,
+			"place": "board",
+			"player": [
+				86.987419128418,
+				0.0,
+				34.7588691711426
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 45
+		}
+	},
+	"timestamp_utc": "2026-11-11T17:17:41Z"
+}

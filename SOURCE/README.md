@@ -271,3 +271,14 @@ displays 0–100. His current line appears in **What people say** after the goat
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --idris-recovery`
 to pair each native frame with its master. Both commands accept `--idris-recovery-output=/absolute/path`.
 Use separate output folders when regenerating the earlier temptation captures against the current game.
+
+LOCK 15 offers **The dry fountain** at the Task board at any hour. The first of three 20-coin payments
+fixes whether your name appears. The final payment starts the fountain and records one repair. Named
+repairs add five trust once and a **What people say** line between the goats and Idris entries. The
+square replaces the repair button with the days since completion, starting at zero.
+
+`godot --path SOURCE -- --capture-dry-fountain` records nine native LOCK 15 states in
+`GAME/APPROVED/DRY_FOUNTAIN/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --dry-fountain`
+to pair each capture with its master. Both commands accept `--dry-fountain-output=/absolute/path`.
+See `LINE22_CHECKS.json` for the capture fixtures and `BUILD.json` for provenance and verified PNGs.

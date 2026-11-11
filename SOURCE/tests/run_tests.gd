@@ -143,6 +143,7 @@ func _run() -> void:
 	await check_qasims_jars_runtime()
 	await check_jabirs_goats_runtime()
 	await check_idris_recovery()
+	await check_dry_fountain_runtime()
 	finish()
 
 
@@ -2230,7 +2231,8 @@ func check_feeding_runtime() -> void:
 	var feed := find_button(app.ui, feeding.place_button)
 	var grab := find_button(app.ui, app.chapter.places.board)
 	var talk := find_button(app.ui, app.talking.button_at("board"))
-	check(feed != null and grab != null and talk != null and feed.position.x < grab.position.x and grab.position.x < talk.position.x, "feeding precedes the bread grab and Salma's talk button")
+	check(feed != null and grab != null and feed.position.y == grab.position.y and feed.position.x < grab.position.x, "feeding precedes the bread grab on the same row")
+	check(grab != null and talk != null and (grab.position.y < talk.position.y or (grab.position.y == talk.position.y and grab.position.x < talk.position.x)), "Salma's talk button comes after the bread grab in reading order")
 	await press_button(feeding.place_button, "the square offers feeding while Salma is present")
 	check(app.ui.screen == "feeding" and visible_text().contains(copy.intro), "feeding opens the locked oven introduction")
 	check(find_button(app.ui, copy.secret_label) == null and has_visible_label(app.ui, str(copy.secret_locked).to_upper()), "secrecy is locked until the first scholar page")
@@ -2768,7 +2770,7 @@ func check_jabirs_goats_talk(goats: Dictionary) -> void:
 		check(app.ui.reputation_lines() == lines, "deal %d shows the highest goat line, then Idris when cool" % deal)
 		if deal in [2, 4, 10]:
 			await press_button(app.chapter.purse.morning.to_rep, "open What people say after %d goat deals" % deal)
-			check_jabirs_reputation_row(expected_line)
+			check_reputation_row(expected_line)
 			await press_button(app.chapter.rep.to_map, "return to the gate after checking the goats line")
 
 	var dice: Dictionary = app.dice_house.data
@@ -2789,8 +2791,8 @@ func check_jabirs_goats_talk(goats: Dictionary) -> void:
 	check_wallet(told_trust, told_coins, "telling Saeed adds three trust without changing coins")
 	app.answer_jabirs_offer("tell")
 	await press_button(goats.told.to_rep, "the Tell Saeed result opens What people say")
-	check_jabirs_reputation_row(goats.say.fence)
-	check_jabirs_reputation_row(goats.say.told)
+	check_reputation_row(goats.say.fence)
+	check_reputation_row(goats.say.told)
 	check(app.ui.reputation_lines() == [dice.say.talk, jars.say.talk, goats.say.fence, goats.say.told, app.idris_recovery.data.say.cool], "both goat lines follow jars and precede Idris, with the deal before the report")
 	await press_button(app.chapter.rep.to_map, "return to the gate after telling Saeed")
 	for day in [16, 17, 30]:
@@ -2805,7 +2807,7 @@ func check_jabirs_goats_talk(goats: Dictionary) -> void:
 	check(app.ui.reputation_lines() == [dice.say.talk, jars.say.talk, goats.say.fence, goats.say.told, app.idris_recovery.data.say.warm, app.sealed_purse.data.say.honest], "the goat lines precede Idris and the sealed-purse outcome in What people say")
 
 
-func check_jabirs_reputation_row(line: Array) -> void:
+func check_reputation_row(line: Array) -> void:
 	check(app.ui.screen == "reputation" and has_visible_label(app.ui, "“%s”" % line[0]) and has_visible_label(app.ui, str(line[1]).to_upper()) and has_visible_label(app.ui, app.chapter.rep.tone[str(int(line[2]))]), "What people say renders the locked quote, source and tone: " + str(line[0]))
 
 
@@ -2944,3 +2946,115 @@ func check_cool_prayers(cool_line: String) -> void:
 	check(app.clock.record().rows[1].status == "alone", "Dhuhr away from the Masjid is recorded as before")
 	move_market_fixture("masjid")
 	check(app.idris_recovery.cool and Vector2i(app.progress.coins, app.progress.trust) == wallet, "prayers preserve Idris's state and the wallet")
+
+
+func check_dry_fountain_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/DRY_FOUNTAIN/RECORD/dry_fountain_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/dry_fountain.json")
+	var fountain: Dictionary = app.dry_fountain.data
+	check(not locked.is_empty() and locked == runtime, "the dry fountain copies LOCK 15 byte for byte")
+	check(fountain == JSON.parse_string(runtime.get_string_from_utf8()), "the dry fountain uses the locked runtime data")
+	app.set_process(false)
+	await check_named_fountain(fountain)
+	await check_secret_fountain(fountain)
+	reset_at_market_place("board", 198)
+	check(app.dry_fountain.paid == 0 and not app.dry_fountain.is_running() and app.ui.reputation_lines().is_empty(), "a new playthrough resets the fountain and its reputation")
+	app.set_process(true)
+
+
+func check_named_fountain(fountain: Dictionary) -> void:
+	var panel: Dictionary = fountain.panel
+	var done: Dictionary = fountain.done
+	var part := int(fountain.numbers.part)
+	var cost := int(fountain.numbers.cost)
+	var public_trust := int(fountain.numbers.public_trust)
+	var pay_named := str(panel.give_named).format({"n": part})
+	var pay_secret := str(panel.give_secret).format({"n": part})
+	var pay_more := str(panel.give).format({"n": part})
+	reset_at_market_place("board", 198)
+	app.progress.apply_trust(45 - app.progress.trust)
+	app.update_state()
+	var repair := find_button(app.ui, fountain.board_button)
+	var feed := find_button(app.ui, app.feeding.data.place_button)
+	check(repair != null and feed != null and repair.global_position.x < feed.global_position.x, "the square bar places the fountain before feeding")
+	await press_button(fountain.board_button, "the square opens the dry fountain panel")
+	check(app.ui.screen == "dry_fountain" and visible_text().contains(panel.text), "the dry fountain opens with the locked introduction")
+	check(has_visible_label(app.ui, panel.title) and visible_text().to_lower().contains(str(panel.kicker).to_lower()), "the dry fountain shows the locked title and kicker")
+	check(visible_text().to_lower().contains(str(panel.paid).format({"n": 0}).to_lower()), "the first panel displays zero paid")
+	check(find_button(app.ui, pay_secret) != null and find_button(app.ui, pay_more) == null, "the first payment offers both name choices")
+	check(not app.dry_fountain.pay(""), "a first payment must choose name or no name")
+	await press_button(pay_named, "the named payment is a usable button")
+	check_wallet(45, 198 - part, "the first payment costs one part and leaves trust unchanged")
+	check(app.dry_fountain.paid == part and app.dry_fountain.named and not app.dry_fountain.is_running(), "the first payment fixes the name choice without completing the fountain")
+	check(visible_text().to_lower().contains(str(panel.paid).format({"n": part}).to_lower()), "the panel displays the first payment total")
+	check(find_button(app.ui, pay_named) == null and find_button(app.ui, pay_secret) == null, "the first payment removes both name choices")
+	check(not app.dry_fountain.pay("secret") and app.dry_fountain.paid == part and app.dry_fountain.named, "a later payment cannot switch to no name")
+	await press_button(panel.not_now, "Not now returns to the square map")
+	check(app.ui.screen == "market_map" and app.current_place == "board", "leaving the panel keeps the square selected")
+	set_market_day_time(4, 1200)
+	await press_button(fountain.board_button, "the fountain is available at night with the earlier payment saved")
+	await press_button(pay_more, "the second payment uses the single continuation button")
+	check_wallet(45, 198 - part * 2, "the second payment costs one part and leaves trust unchanged")
+	check(app.dry_fountain.paid == part * 2 and app.dry_fountain.reputation_line() == null, "a partial payment has no reputation reward")
+	set_market_day_time(5, 600)
+	await press_button(pay_more, "the third payment completes the fountain")
+	check_wallet(45 + public_trust, 198 - cost, "named completion charges the final part and awards trust once")
+	check(app.ui.screen == "fountain_done" and app.dry_fountain.paid == cost and app.dry_fountain.is_running(), "the fountain starts at the full cost")
+	check(app.dry_fountain.finished_day == 5 and app.dry_fountain.days_running() == 0, "the running count starts at zero on the finishing day")
+	check(visible_text().contains(done.text) and visible_text().contains(done.named) and not visible_text().contains(done.secret), "the completion panel displays the story and the named outcome")
+	check(visible_text().to_lower().contains(str(done.count).format({"n": 1}).to_lower()), "the completion panel counts one repaired fountain")
+	check(not app.dry_fountain.pay("") and not app.dry_fountain.pay("named"), "the repaired fountain refuses further payments")
+	check_wallet(45 + public_trust, 198 - cost, "repeat attempts change neither coins nor trust")
+	await press_button(done.to_rep, "the named completion opens What people say")
+	check_reputation_row(fountain.say.named)
+	check(app.ui.reputation_lines() == [fountain.say.named], "named completion adds exactly one fountain line")
+	await press_button(app.chapter.rep.to_map, "What people say returns to the market map")
+	check(has_visible_label(app.ui, str(fountain.running).format({"n": 0})), "the square displays zero days on completion day")
+	set_market_day_time(8, 600)
+	check(has_visible_label(app.ui, str(fountain.running).format({"n": 3})), "the square counts three days from completion")
+	check(find_button(app.ui, fountain.board_button) == null, "the payment button stays gone on later days")
+	app.show_screen("game")
+	check(find_button(app.ui, fountain.board_button) == null and has_visible_label(app.ui, str(fountain.running).format({"n": 3})), "the street bar also shows the running status in place of the button")
+	move_market_fixture("gate")
+	for day in range(8, 12):
+		set_market_day_time(day, 960)
+		check(app.jabirs_goats.buy(), "fixture adds a goat deal on day %d" % day)
+	set_market_day_time(12, 960)
+	check(app.jabirs_goats.tell_saeed(), "fixture adds the goat report")
+	check(app.ui.reputation_lines() == [app.jabirs_goats.data.say.seen, app.jabirs_goats.data.say.told, fountain.say.named, app.idris_recovery.data.say.cool], "the fountain line follows both goat lines and precedes Idris")
+
+
+func check_secret_fountain(fountain: Dictionary) -> void:
+	var panel: Dictionary = fountain.panel
+	var done: Dictionary = fountain.done
+	var part := int(fountain.numbers.part)
+	var cost := int(fountain.numbers.cost)
+	var pay_named := str(panel.give_named).format({"n": part})
+	var pay_secret := str(panel.give_secret).format({"n": part})
+	var pay_more := str(panel.give).format({"n": part})
+	reset_at_market_place("board", part - 1)
+	var trust: int = app.progress.trust
+	await press_button(fountain.board_button, "the fountain panel opens with an insufficient balance")
+	check(has_visible_label(app.ui, panel.not_enough) and find_button(app.ui, pay_named) == null and find_button(app.ui, pay_secret) == null, "an unaffordable first payment replaces both choices with the locked status")
+	check(not app.dry_fountain.pay("named") and not app.dry_fountain.pay("secret") and app.dry_fountain.paid == 0, "an unaffordable attempt neither pays nor fixes the name choice")
+	check_wallet(trust, part - 1, "an insufficient first payment preserves the wallet")
+	app.progress.coins = cost
+	app.update_state()
+	await press_button(pay_secret, "no name is a usable first-payment button")
+	check_wallet(trust, cost - part, "the first secret payment charges one part")
+	check(not app.dry_fountain.pay("named") and not app.dry_fountain.named and app.dry_fountain.paid == part, "the unnamed choice cannot switch to named")
+	app.progress.coins = part - 1
+	app.update_state()
+	check(has_visible_label(app.ui, panel.not_enough) and find_button(app.ui, pay_more) == null, "the partially paid panel also blocks an unaffordable payment")
+	check(not app.dry_fountain.pay("") and app.dry_fountain.paid == part, "an unaffordable continuation keeps the earlier payment")
+	check_wallet(trust, part - 1, "an insufficient continuation preserves the wallet")
+	app.progress.coins = cost - part
+	app.update_state()
+	await press_button(pay_more, "continue a secret repair with the same payment control")
+	check_wallet(trust, part, "the second secret payment charges one part")
+	await press_button(pay_more, "the exact remaining balance completes the repair")
+	check_wallet(trust, 0, "secret completion charges the final part without awarding trust")
+	check(app.ui.screen == "fountain_done" and app.dry_fountain.is_running() and app.dry_fountain.paid == cost, "secret completion repairs the fountain at the full cost")
+	check(visible_text().contains(done.secret) and not visible_text().contains(done.named), "the completion panel uses the secret outcome")
+	await press_button(done.to_rep, "the secret completion also opens What people say")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines().is_empty() and visible_text().contains(app.chapter.rep.empty), "secret completion leaves the empty reputation panel")

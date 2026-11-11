@@ -18,6 +18,7 @@ const DiceHouse = preload("res://game/dice_house.gd")
 const QasimsJars = preload("res://game/qasims_jars.gd")
 const JabirsGoats = preload("res://game/jabirs_goats.gd")
 const IdrisRecovery = preload("res://game/idris_recovery.gd")
+const DryFountain = preload("res://game/dry_fountain.gd")
 
 var data: Dictionary
 var identity: Dictionary
@@ -32,6 +33,7 @@ var dice_house := DiceHouse.new()
 var qasims_jars := QasimsJars.new()
 var jabirs_goats := JabirsGoats.new()
 var idris_recovery := IdrisRecovery.new()
+var dry_fountain := DryFountain.new()
 var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
@@ -84,6 +86,7 @@ func _ready() -> void:
 	dice_house.setup(Foundations.load_dice_house(), progress, clock)
 	qasims_jars.setup(Foundations.load_qasims_jars(), progress, clock)
 	jabirs_goats.setup(Foundations.load_jabirs_goats(), progress, clock)
+	dry_fountain.setup(Foundations.load_dry_fountain(), progress, clock)
 	world = MarketWorld.new()
 	add_child(world)
 	world.setup(data)
@@ -97,7 +100,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -145,6 +148,8 @@ func _ready() -> void:
 	ui.tip_requested.connect(ask_regular)
 	ui.feeding_requested.connect(show_feeding)
 	ui.feeding_paid.connect(pay_for_feeding)
+	ui.dry_fountain_requested.connect(show_dry_fountain)
+	ui.dry_fountain_paid.connect(pay_for_dry_fountain)
 	ui.sealed_purse_offered.connect(show_sealed_purse_offer)
 	ui.sealed_purse_accepted.connect(accept_sealed_purse)
 	ui.sealed_purse_coin_chosen.connect(choose_sealed_purse_coin)
@@ -221,6 +226,9 @@ func _ready() -> void:
 	elif "--capture-idris-recovery" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_idris_recovery.gd").new()
 		capture_runner.run(self)
+	elif "--capture-dry-fountain" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_dry_fountain.gd").new()
+		capture_runner.run(self)
 
 func _process(delta: float) -> void:
 	if ui.screen not in ["title", "arrival", "all_prayers_title"]:
@@ -275,6 +283,7 @@ func begin_game() -> void:
 	dice_house.reset()
 	qasims_jars.reset()
 	jabirs_goats.reset()
+	dry_fountain.reset()
 	world.stop_faris_run()
 	world.set_inn_people_waiting(true)
 	world.reset_gate()
@@ -405,6 +414,8 @@ func _minutes(time: String) -> int:
 func show_screen(screen: String) -> void:
 	if screen == "feeding" or screen in MarketUI.GRAB_SCREENS:
 		world.oven_camera.make_current()
+	elif screen in MarketUI.DRY_FOUNTAIN_SCREENS or (screen == "reputation" and ui.screen == "fountain_done"):
+		world.qasims_done_camera.make_current()
 	elif screen in MarketUI.DICE_HOUSE_SCREENS:
 		world.dice_house_camera.make_current()
 	elif screen == "qasims_offer":
@@ -569,6 +580,17 @@ func show_feeding() -> void:
 func pay_for_feeding(id: String) -> void:
 	if ui.screen == "feeding" and feeding.pay(id, known_words.has("sirr")):
 		show_screen("feeding")
+
+
+func show_dry_fountain() -> void:
+	if current_place == "board" and ui.screen in ["game", "market_map"] and not dry_fountain.is_running():
+		_stop_travel()
+		show_screen("dry_fountain")
+
+
+func pay_for_dry_fountain(choice: String) -> void:
+	if ui.screen == "dry_fountain" and dry_fountain.pay(choice):
+		show_screen("fountain_done" if dry_fountain.is_running() else "dry_fountain")
 
 
 func show_sealed_purse_offer() -> void:
@@ -851,7 +873,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif ui.screen == "city_map": show_screen("market_map")
 		elif ui.screen == "world_map": show_screen("city_map")
 		elif ui.screen == "market_map": show_screen("game")
-		elif ui.screen in ["purse", "purse_morning", "reputation", "stall", "loom", "bag", "talk", "feeding"]: show_screen("market_map")
+		elif ui.screen in ["purse", "purse_morning", "reputation", "stall", "loom", "bag", "talk", "feeding"] or ui.screen in MarketUI.DRY_FOUNTAIN_SCREENS: show_screen("market_map")
 		elif ui.screen in ["board", "task", "result", "lesson", "goal"]: show_screen("game")
 		else: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	elif event.is_action_pressed("market_map") and ui.screen != "title":

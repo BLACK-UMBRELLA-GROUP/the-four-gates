@@ -1,0 +1,493 @@
+{
+  "line": 22,
+  "lock": "LOCK 15 V1",
+  "brief": "DOC-TFG-0056",
+  "tested_base_commit_sha": "8a6d9dcd552ca44a6b50e7916ed3f1861994d8a6",
+  "capture_source": "Line 22 candidate over the tested base. The 11 November Codex task note identifies the containing source and evidence commit.",
+  "godot_version": "4.7.2-stable (official)",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T17:17:41Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Real native Godot viewport. Viewport clicks drive both arrivals, the walk to the Task board, both payment branches and the return to the map.",
+  "fixture": "Passive clock ticks are paused. Fair arrival supplies 198 coins. Trust is seeded to 45 and the clock skips to Thursday day 8 at 10:00. The harness sets 15 coins for o04 and restores the 178-coin balance after Not now. The running fountain is captured Sunday day 11 at 10:00. A fresh arrival supplies the unnamed branch.",
+  "design_inputs": [
+    {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/BRIEFS/BUILD_BRIEF_2026-11-09_DRY_FOUNTAIN.md",
+      "bytes": 2305,
+      "sha256": "083430e856c42d43a773d8a7d7e44a0ef07ea72944140e7aebd3fb1ab8d74d0c"
+    },
+    {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/RECORD/DRY_FOUNTAIN_SPEC_CURRENT_VERSION_V1.md",
+      "bytes": 4599,
+      "sha256": "029dd15d6d2a6829275d10dd2819a922e5a62640d9c44ca19a9f4ee0233f7647"
+    },
+    {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/RECORD/LOCK_RECORD.md",
+      "bytes": 689,
+      "sha256": "cb85207c3bae0c2fab2f06e0452ab10aff8464952065df72584607c9b56f94b3"
+    },
+    {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/RECORD/dry_fountain_data_V1.json",
+      "bytes": 1373,
+      "sha256": "1eeaf232e9f43cbd9ddc411dae127dc34a0a6f89c6666819e416cf25ef79117f"
+    },
+    {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/MASTERS/o01_square__the_dry_fountain.png",
+      "bytes": 68243,
+      "sha256": "7027ccc4c8402c5d4207f68236d64a10c86fe68076b590116719a77cfb462a9e"
+    },
+    {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/MASTERS/o02_fountain__name_or_no_name.png",
+      "bytes": 326897,
+      "sha256": "d5fd69ba36f7e3b623bebadbca712659a7af127a81f1ab7e4d9f041865aa83c7"
+    },
+    {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/MASTERS/o03_fountain__paid_20.png",
+      "bytes": 327264,
+      "sha256": "787888867b4399236ed5a49969c4d76e6c6d182b4ca1c6bb6f2f552ab2929d84"
+    },
+    {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/MASTERS/o04_fountain__not_enough_coins.png",
+      "bytes": 331428,
+      "sha256": "1e15cc3346c6e4834085d32be447af995d8b3a2201b723692a1d38e6a1d23b6f"
+    },
+    {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/MASTERS/o05_fountain__water_again_named.png",
+      "bytes": 324722,
+      "sha256": "c0b8f027eaa192cd4a8dda7d527212d1527f3a928d2f64739ae721b647d90baf"
+    },
+    {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/MASTERS/o06_people_say__paid_for_the_fountain.png",
+      "bytes": 321347,
+      "sha256": "cef92b3c38a9c09be8ce2632b78729b6f95d943a0e825bf4f18878c762ac1df1"
+    },
+    {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/MASTERS/o07_square__runs_3_days.png",
+      "bytes": 69062,
+      "sha256": "bd0aa63d95d80d31b8ee3b46bed8c5c88f4c3cce7a5efefa15af15620d6c44c3"
+    },
+    {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/MASTERS/o08_fountain__water_again_no_name.png",
+      "bytes": 321808,
+      "sha256": "2afa7acfea87d79b49ffc459d446c5b9370cbcc58f311234b978d63828228fdd"
+    },
+    {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/MASTERS/o09_people_say__no_name_no_line.png",
+      "bytes": 327599,
+      "sha256": "30783f57098de360ca2a6310a69f4bd7f7af97b526aa84ebe5b2b83c8d3e73bd"
+    },
+    {
+      "path": "GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md",
+      "bytes": 1995,
+      "sha256": "f2abfee4dcc542086c5dcd23242a52986a6d29f28935f48b88e1bbbc6fbfdae6"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "SOURCE/data/chapter1.json",
+      "bytes": 7699,
+      "sha256": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0"
+    },
+    {
+      "path": "SOURCE/data/clothes.json",
+      "bytes": 2888,
+      "sha256": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e"
+    },
+    {
+      "path": "SOURCE/data/dice_house.json",
+      "bytes": 1460,
+      "sha256": "d769f3698748af05e5498e13de397a701c0aebf740eae006f4547e2b53e21c80"
+    },
+    {
+      "path": "SOURCE/data/dry_fountain.json",
+      "bytes": 1373,
+      "sha256": "1eeaf232e9f43cbd9ddc411dae127dc34a0a6f89c6666819e416cf25ef79117f"
+    },
+    {
+      "path": "SOURCE/data/feeding.json",
+      "bytes": 1470,
+      "sha256": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7"
+    },
+    {
+      "path": "SOURCE/data/foundations.json",
+      "bytes": 11978,
+      "sha256": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf"
+    },
+    {
+      "path": "SOURCE/data/identity.json",
+      "bytes": 14838,
+      "sha256": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647"
+    },
+    {
+      "path": "SOURCE/data/idris_has_heard.json",
+      "bytes": 742,
+      "sha256": "392e1d296199d473dca7e3f8a166a91d9e28d0f2c23461203642483d3a3a527e"
+    },
+    {
+      "path": "SOURCE/data/jabirs_goats.json",
+      "bytes": 1857,
+      "sha256": "dd62e7b0f917e8db3c30c3b30435bb3098496598344252ffd8e98808f0ba2d99"
+    },
+    {
+      "path": "SOURCE/data/market_day.json",
+      "bytes": 1071,
+      "sha256": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05"
+    },
+    {
+      "path": "SOURCE/data/market_stall.json",
+      "bytes": 2593,
+      "sha256": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604"
+    },
+    {
+      "path": "SOURCE/data/prayer_record.json",
+      "bytes": 1009,
+      "sha256": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9"
+    },
+    {
+      "path": "SOURCE/data/qasims_jars.json",
+      "bytes": 1352,
+      "sha256": "c7a2c0a56d676ef6606769f94075ec537707875eecf8767d8dac43fda2c34bfb"
+    },
+    {
+      "path": "SOURCE/data/sealed_purse.json",
+      "bytes": 1902,
+      "sha256": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a"
+    },
+    {
+      "path": "SOURCE/data/talking.json",
+      "bytes": 3854,
+      "sha256": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4"
+    },
+    {
+      "path": "SOURCE/game/bread_grab.gd",
+      "bytes": 1345,
+      "sha256": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468"
+    },
+    {
+      "path": "SOURCE/game/dice_house.gd",
+      "bytes": 2080,
+      "sha256": "17513513173a8d6729b9600baa2ec0999571716df233128f1a44cb249e88e0d5"
+    },
+    {
+      "path": "SOURCE/game/dry_fountain.gd",
+      "bytes": 1322,
+      "sha256": "f49d81661ec0af2495bffe9e102cafc5c9545149a5f1cf87bed6f2bd10162e95"
+    },
+    {
+      "path": "SOURCE/game/feeding.gd",
+      "bytes": 1760,
+      "sha256": "a818d69fb277ed6125f20d06a47e997c03c25dee99094de4651a2acb11df6b80"
+    },
+    {
+      "path": "SOURCE/game/foundations.gd",
+      "bytes": 4871,
+      "sha256": "ee933d996b2e29b20f28707d5b0a5ef27297238ab07fc6e43bb0557bdd5dcfd5"
+    },
+    {
+      "path": "SOURCE/game/idris_recovery.gd",
+      "bytes": 1019,
+      "sha256": "6cb5d86d23ef6fab7fe1579c0bc80ee270008627f2493b5b33fab0dd4fa0635e"
+    },
+    {
+      "path": "SOURCE/game/jabirs_goats.gd",
+      "bytes": 1858,
+      "sha256": "5cae78452ff85fd392a85378fa044394810755b31f76dfc980a6c5c95c19f1d6"
+    },
+    {
+      "path": "SOURCE/game/lesson_canvas.gd",
+      "bytes": 1218,
+      "sha256": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c"
+    },
+    {
+      "path": "SOURCE/game/map_canvas.gd",
+      "bytes": 13421,
+      "sha256": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba"
+    },
+    {
+      "path": "SOURCE/game/market_day.gd",
+      "bytes": 1065,
+      "sha256": "3cb77474a4fd5fffb10caa13954c0369a3759235cd60449a258fa202ce702b38"
+    },
+    {
+      "path": "SOURCE/game/market_player.gd",
+      "bytes": 4286,
+      "sha256": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2"
+    },
+    {
+      "path": "SOURCE/game/market_stall.gd",
+      "bytes": 4413,
+      "sha256": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56"
+    },
+    {
+      "path": "SOURCE/game/market_ui.gd",
+      "bytes": 83728,
+      "sha256": "cdb96718a06401b0d28761d1a4c549b974bba9bab9c1cbf027aebacdb6f9da72"
+    },
+    {
+      "path": "SOURCE/game/market_world.gd",
+      "bytes": 16355,
+      "sha256": "77a47e0747cc22b29f02292f4d0bfa0f1ff70c40fd30ed82f97113da555d22f1"
+    },
+    {
+      "path": "SOURCE/game/open_purse.gd",
+      "bytes": 3329,
+      "sha256": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9"
+    },
+    {
+      "path": "SOURCE/game/prayer_clock.gd",
+      "bytes": 11985,
+      "sha256": "6ba6f3202bc7759ee63b1aa5defce6d4c19f9485bddcb832b9518d48193a3c23"
+    },
+    {
+      "path": "SOURCE/game/qasims_jars.gd",
+      "bytes": 1521,
+      "sha256": "b136d4f3c187fc775c811e010de6c848e7ebc00b51b8464e7f77c0b8f1f40c6a"
+    },
+    {
+      "path": "SOURCE/game/river_market.gd",
+      "bytes": 34250,
+      "sha256": "120fe31febb3114cbe1cca68062e0de52bfea70d05954c98ed8a5d5d90279650"
+    },
+    {
+      "path": "SOURCE/game/river_market.tscn",
+      "bytes": 171,
+      "sha256": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe"
+    },
+    {
+      "path": "SOURCE/game/sealed_purse.gd",
+      "bytes": 1725,
+      "sha256": "e3b46ae422a91cd824057e43881c80bb254dac24da5031163ac093d491bef7ab"
+    },
+    {
+      "path": "SOURCE/game/talking.gd",
+      "bytes": 2568,
+      "sha256": "546458aedd4c3c74f06e498f2160c8622fc5524a3f9d9ab49ec6cd0891bd0f86"
+    },
+    {
+      "path": "SOURCE/game/task_progress.gd",
+      "bytes": 3214,
+      "sha256": "0777fd340c6c2f0a8ed3ed724307e07fc2fe8228d1539d3c8d6f12602654b777"
+    },
+    {
+      "path": "SOURCE/main.tscn",
+      "bytes": 54,
+      "sha256": "109e5b49d1caed038c97365a9c4fb995c5541bfd0b30d9ef1568af98bb815a94"
+    },
+    {
+      "path": "SOURCE/project.godot",
+      "bytes": 1690,
+      "sha256": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45"
+    },
+    {
+      "path": "SOURCE/tests/capture_dry_fountain.gd",
+      "bytes": 10209,
+      "sha256": "281128079dc7ed8fffa3ed9cdf623cf014bde3ee0175d4ad318e98fd08c9245c"
+    },
+    {
+      "path": "SOURCE/tests/capture_feeding.gd",
+      "bytes": 11457,
+      "sha256": "ba73712f611de91c22267b9826d7742c358e522226af69386527d239c43c2f4f"
+    },
+    {
+      "path": "SOURCE/tests/capture_foundations.gd",
+      "bytes": 6104,
+      "sha256": "9438293266619c670d86a24a005ede07624529debf5856290ff40a858e48f27d"
+    },
+    {
+      "path": "SOURCE/tests/capture_gate.gd",
+      "bytes": 8746,
+      "sha256": "5fa04d7873b38e2c806a286189c8646bd462d623052b651d342ecae8471e3f38"
+    },
+    {
+      "path": "SOURCE/tests/capture_identity.gd",
+      "bytes": 10390,
+      "sha256": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32"
+    },
+    {
+      "path": "SOURCE/tests/capture_tasks.gd",
+      "bytes": 11310,
+      "sha256": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003"
+    },
+    {
+      "path": "SOURCE/tests/create_comparisons.gd",
+      "bytes": 7017,
+      "sha256": "72df4857c1b07c187841712f712213a471f7c96cc733135376b6dd17f81d4e40"
+    },
+    {
+      "path": "SOURCE/tests/run_tests.gd",
+      "bytes": 190046,
+      "sha256": "a6a5b1e9053dd26e767487100b3c225a37f13ffd646bac966a9d1461f5816472"
+    }
+  ],
+  "checks": {
+    "headless_passed": 3237,
+    "headless_failed": 0,
+    "native_passed": 190,
+    "native_failed": 0,
+    "feeding_native_regression_passed": 210,
+    "native_receipt": {
+      "path": "GAME/APPROVED/DRY_FOUNTAIN/BUILT/V1/LINE22_CHECKS.json",
+      "bytes": 24223,
+      "sha256": "73c676b048eef12f65438b3f2c285668aa9fe832902306c6f08bf899bf677a2a"
+    },
+    "idris_native_regression_passed": 117
+  },
+  "visual_comparison": [
+    "All nine states show the locked strings, controls and wallet and trust values. Captures use days 8 and 11 with the master's Thursday and Sunday times.",
+    "o01 and o07 use the existing Godot map grid, roads, text outlines, scale, gate icon and distinct player and place markers. The Godot HUD has slightly different type, offsets, trust fill and borders. The square has an opaque bar which covers the canal caption, and Make up Dhuhr is present above it. Actions have different widths and gaps. Salma remains in the second row.",
+    "o02–o06 and o08–o09 use the existing greybox lane camera, with block walls, flat ground, blue sky and different lighting and framing. The master depicts storefronts, awnings, lanterns, paving and an arch. The live panels use shared fonts, corner radii, opacity, text wrapping, padding and button widths. In o04 the low-funds label is vertically centered with Not now. In o06 and o09 the shared reputation footer and headings have tighter letter spacing, and in o06 the quote, source, divider and good tag use the shared row spacing."
+  ],
+  "png_verification": {
+    "method": "Lossless IDAT recompression. Reopened all final PNGs with Godot, verified pixel equality to the original captures and comparison PNGs, and compared each pair half to its input.",
+    "bytes_before": 12172979,
+    "bytes_after": 12060840,
+    "files": [
+      {
+        "file": "o01_square__the_dry_fountain__build.png",
+        "bytes": 168535,
+        "raw_bytes": 176006,
+        "width": 1920,
+        "height": 1080,
+        "sha256": "86e7744ea82bfaf6b3ed2f2f8f8bcefb2e7cf7b2b6c30e5aa10fddb729f07c0e"
+      },
+      {
+        "file": "o01_square__the_dry_fountain__master_beside_build.png",
+        "bytes": 363224,
+        "raw_bytes": 388538,
+        "width": 3840,
+        "height": 1080,
+        "sha256": "78c72afae1b6dffde76361210f91d2fe8b05c1154e79c84a232c3a32cf1986f9"
+      },
+      {
+        "file": "o02_fountain__name_or_no_name__build.png",
+        "bytes": 413974,
+        "raw_bytes": 417127,
+        "width": 1920,
+        "height": 1080,
+        "sha256": "f07fd33447d30ad044f259dc05c813f271f1798ce90e86dcd54f4dfd08173bb3"
+      },
+      {
+        "file": "o02_fountain__name_or_no_name__master_beside_build.png",
+        "bytes": 1270280,
+        "raw_bytes": 1278683,
+        "width": 3840,
+        "height": 1080,
+        "sha256": "7dae03e55e9b5c6f127163040a2e7140a328e4c4338fec4e90b346381c3de3e5"
+      },
+      {
+        "file": "o03_fountain__paid_20__build.png",
+        "bytes": 377158,
+        "raw_bytes": 379219,
+        "width": 1920,
+        "height": 1080,
+        "sha256": "d917270bb85355ec2be02da82e64c0c96c26be1dd3d8fe8ee4e8cae299a4d44e"
+      },
+      {
+        "file": "o03_fountain__paid_20__master_beside_build.png",
+        "bytes": 1222702,
+        "raw_bytes": 1225878,
+        "width": 3840,
+        "height": 1080,
+        "sha256": "d2acd93736ef7ac7e3c704487fd71ece4644f37a326fa456b4c0e08cfa9e137b"
+      },
+      {
+        "file": "o04_fountain__not_enough_coins__build.png",
+        "bytes": 371552,
+        "raw_bytes": 373705,
+        "width": 1920,
+        "height": 1080,
+        "sha256": "9f0b0099748355193c92179cd0bce59bc11a9a6e0592778424ca26c7f6cf81a4"
+      },
+      {
+        "file": "o04_fountain__not_enough_coins__master_beside_build.png",
+        "bytes": 1225533,
+        "raw_bytes": 1228486,
+        "width": 3840,
+        "height": 1080,
+        "sha256": "64e9f67b0b195fa22965031213da1d30c359099d3aa0aa67775dc7e5f2ed05d2"
+      },
+      {
+        "file": "o05_fountain__water_again_named__build.png",
+        "bytes": 341142,
+        "raw_bytes": 343517,
+        "width": 1920,
+        "height": 1080,
+        "sha256": "684ccb2e30582b0c29ba73ab30297013ab6b31d5b0045f2ff11c1a2865cb6847"
+      },
+      {
+        "file": "o05_fountain__water_again_named__master_beside_build.png",
+        "bytes": 1169139,
+        "raw_bytes": 1174990,
+        "width": 3840,
+        "height": 1080,
+        "sha256": "74e4908661de3d31dd4ae5c71f97ab0c8cc94c25f87f07f0fb346faa624902ca"
+      },
+      {
+        "file": "o06_people_say__paid_for_the_fountain__build.png",
+        "bytes": 334513,
+        "raw_bytes": 336573,
+        "width": 1920,
+        "height": 1080,
+        "sha256": "c5694e8264f2a224fa9cdb752f9a7546791d25d7801f654cc0e8355a83842a42"
+      },
+      {
+        "file": "o06_people_say__paid_for_the_fountain__master_beside_build.png",
+        "bytes": 1156005,
+        "raw_bytes": 1159520,
+        "width": 3840,
+        "height": 1080,
+        "sha256": "349a258fb0a4a95c63459d38f5a8930186cc72b85e8d69031b86a9e73742b206"
+      },
+      {
+        "file": "o07_square__runs_3_days__build.png",
+        "bytes": 169383,
+        "raw_bytes": 176979,
+        "width": 1920,
+        "height": 1080,
+        "sha256": "cb16c256271308f0958c8ea54ee4c2b181cdaadca0cb8a500339eec51403cf8d"
+      },
+      {
+        "file": "o07_square__runs_3_days__master_beside_build.png",
+        "bytes": 366294,
+        "raw_bytes": 390748,
+        "width": 3840,
+        "height": 1080,
+        "sha256": "e8a14005a1593d46e6e6b62412f89138dffdcb7bcd39fa89be591cceb2de35b9"
+      },
+      {
+        "file": "o08_fountain__water_again_no_name__build.png",
+        "bytes": 362599,
+        "raw_bytes": 364517,
+        "width": 1920,
+        "height": 1080,
+        "sha256": "086279ddade4786e0ad1eff895d449097feffbbf98acb97718e2d772daad1fb4"
+      },
+      {
+        "file": "o08_fountain__water_again_no_name__master_beside_build.png",
+        "bytes": 1189503,
+        "raw_bytes": 1193423,
+        "width": 3840,
+        "height": 1080,
+        "sha256": "6a4b4d427cbb9c28b56721e25df41b2eaf6a77fbf949241adec81ad02f1cb02c"
+      },
+      {
+        "file": "o09_people_say__no_name_no_line__build.png",
+        "bytes": 358852,
+        "raw_bytes": 360865,
+        "width": 1920,
+        "height": 1080,
+        "sha256": "3e1ce58a3f5a97fa037f35d84d0c12ba2357d8bfa76ec075d0829f9d19e775f2"
+      },
+      {
+        "file": "o09_people_say__no_name_no_line__master_beside_build.png",
+        "bytes": 1200452,
+        "raw_bytes": 1204205,
+        "width": 3840,
+        "height": 1080,
+        "sha256": "657405c4a5fcb56f60894940eabcc1d76c0a8cb4da5bc7252e72e9c9a57a7106"
+      }
+    ]
+  }
+}

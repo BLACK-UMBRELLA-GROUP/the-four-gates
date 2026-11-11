@@ -168,7 +168,9 @@ func check_bar_order(app: Node3D) -> void:
 	helper.check(feed != null and grab != null and talk != null, "daytime board shows feeding, bread grab and Salma's talk controls")
 	if feed != null and grab != null and talk != null:
 		var feed_rect := feed.get_global_rect()
-		helper.check(feed_rect.position.x < grab.get_global_rect().position.x and feed_rect.position.x < talk.get_global_rect().position.x, "feeding sits before bread grab and Salma's talk")
+		var talk_at := talk.get_global_rect().position
+		var talk_after_feed := talk_at.y > feed_rect.position.y or (talk_at.y == feed_rect.position.y and talk_at.x > feed_rect.position.x)
+		helper.check(feed_rect.position.x < grab.get_global_rect().position.x and talk_after_feed, "feeding sits before bread grab and Salma's talk in reading order")
 		helper.check(app.get_viewport().get_visible_rect().encloses(feed_rect), "feeding button fits in the native viewport")
 
 

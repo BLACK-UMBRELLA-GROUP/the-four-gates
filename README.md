@@ -52,6 +52,9 @@ Saeed affect River Market trust and **What people say**.
 LOCK 14 lets Idris hear about the dice house, jars and goats. When a temptation costs trust, he holds back
 the unread scholar’s page. Earn ten net trust after the latest temptation to read with him again. Prayer
 remains available throughout.
+LOCK 15 opens **The dry fountain** at the Task board. Repair it with three 20-coin payments. Choose whether
+to name yourself with the first payment. A named repair adds five trust and a **What people say** line
+when the water returns. The square shows how many days the fountain has run.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 
