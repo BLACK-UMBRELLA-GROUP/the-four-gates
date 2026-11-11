@@ -43,10 +43,12 @@ func enter() -> bool:
 	if visit_night != _last_visit_night:
 		_last_visit_night = visit_night
 		nights += 1
+		var trust_hit := 0
 		if nights == int(data.numbers.seen_from_visits):
-			_progress.apply_trust(int(data.numbers.seen_trust))
+			trust_hit = int(data.numbers.seen_trust)
 		elif nights == int(data.numbers.gambler_from_visits):
-			_progress.apply_trust(int(data.numbers.gambler_trust))
+			trust_hit = int(data.numbers.gambler_trust)
+		_progress.apply_temptation(trust_hit)
 	return true
 
 

@@ -195,11 +195,15 @@ func capture_talk(app: Node3D, index: int, line: Array, trust: int) -> void:
 	await click(app, app.chapter.purse.morning.to_rep)
 	await app.get_tree().physics_frame
 	helper.check(not app.night and app.minute_of_day == MORNING, "the reputation view uses the next morning's daylight")
-	helper.check(app.ui.screen == "reputation" and app.ui.reputation_lines() == [line], "What people say has only the highest reached dice line")
+	var lines := [line]
+	if app.dice_house.nights >= int(app.dice_house.data.numbers.seen_from_visits):
+		lines.append(app.idris_recovery.data.say.cool)
+	helper.check(app.ui.screen == "reputation" and app.ui.reputation_lines() == lines, "What people say preserves the expected dice line and adds Idris after a trust hit")
 	helper.check(app.progress.trust == trust, "the rumor threshold has the exact trust result")
 	expect_label(app, "“%s”" % line[0])
 	expect_label(app, str(line[1]).to_upper())
-	expect_label(app, app.chapter.rep.tone[str(int(line[2]))])
+	var tone: String = app.chapter.rep.tone[str(int(line[2]))]
+	helper.check(count_labels(app.ui, tone) == lines.size(), "each dice and Idris row displays its matching tone")
 	await capture_state(app, index)
 	await click(app, app.chapter.rep.to_map)
 	app.player.position = app.world.point("inn")

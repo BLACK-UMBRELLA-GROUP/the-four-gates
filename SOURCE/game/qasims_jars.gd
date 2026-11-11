@@ -38,10 +38,12 @@ func carry() -> bool:
 	_last_run_night = _clock.evening_day(int(data.numbers.open_until))
 	runs += 1
 	_progress.coins += int(data.numbers.pay)
+	var trust_hit := 0
 	if runs == int(data.numbers.seen_from_runs):
-		_progress.apply_trust(int(data.numbers.seen_trust))
+		trust_hit = int(data.numbers.seen_trust)
 	elif runs == int(data.numbers.smuggler_from_runs):
-		_progress.apply_trust(int(data.numbers.smuggler_trust))
+		trust_hit = int(data.numbers.smuggler_trust)
+	_progress.apply_temptation(trust_hit)
 	return true
 
 

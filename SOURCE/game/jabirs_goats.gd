@@ -43,10 +43,12 @@ func buy() -> bool:
 	last_deal_day = _clock.day
 	deals += 1
 	_progress.coins += int(data.numbers.butcher_pays) - int(data.numbers.price)
+	var trust_hit := 0
 	if deals == int(data.numbers.seen_from_deals):
-		_progress.apply_trust(int(data.numbers.seen_trust))
+		trust_hit = int(data.numbers.seen_trust)
 	elif deals == int(data.numbers.fence_from_deals):
-		_progress.apply_trust(int(data.numbers.fence_trust))
+		trust_hit = int(data.numbers.fence_trust)
+	_progress.apply_temptation(trust_hit)
 	return true
 
 

@@ -2,6 +2,9 @@ extends RefCounted
 ## LOCK 1 task rewards and amends; content and limits come from approved data.
 
 var data: Dictionary = {}
+signal trust_changed(amount: int)
+signal temptation_taken(trust_hit: bool)
+
 var trust: int = 0
 var coins: int = 0
 var tasks: Dictionary = {}
@@ -108,7 +111,14 @@ func morning() -> void:
 func apply_trust(amount: int) -> int:
 	var before := trust
 	trust = clampi(trust + amount, int(data.numbers.trust_min), int(data.numbers.trust_max))
+	trust_changed.emit(amount)
 	return trust - before
+
+
+func apply_temptation(trust_hit: int) -> void:
+	if trust_hit != 0:
+		apply_trust(trust_hit)
+	temptation_taken.emit(trust_hit != 0)
 
 
 func _task(id: String) -> Dictionary:

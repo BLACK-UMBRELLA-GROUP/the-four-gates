@@ -49,6 +49,9 @@ night, or walk away. Repeat runs add a line in **What people say** and can lower
 LOCK 13 adds Jabir’s offer at the Gate of Trust from 15:00 through 17:59. Buy the stolen goats for a
 twenty-coin profit once per day, walk away, or tell Saeed to end the offer. Repeated deals and telling
 Saeed affect River Market trust and **What people say**.
+LOCK 14 lets Idris hear about the dice house, jars and goats. When a temptation costs trust, he holds back
+the unread scholar’s page. Earn ten net trust after the latest temptation to read with him again. Prayer
+remains available throughout.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

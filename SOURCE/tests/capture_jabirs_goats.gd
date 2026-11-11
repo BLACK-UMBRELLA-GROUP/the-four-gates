@@ -227,7 +227,10 @@ func capture_talk(app: Node3D, index: int, line: Array, trust: int) -> void:
 
 
 func expect_reputation(app: Node3D, line: Array, trust: int) -> void:
-	helper.check(app.ui.screen == "reputation" and app.ui.reputation_lines() == [line], "What people say displays only the expected goats line")
+	var lines := [line]
+	if app.jabirs_goats.deals >= int(app.jabirs_goats.data.numbers.seen_from_deals):
+		lines.append(app.idris_recovery.data.say.cool)
+	helper.check(app.ui.screen == "reputation" and app.ui.reputation_lines() == lines, "What people say preserves the expected goats line and adds Idris after a trust hit")
 	helper.check(app.progress.trust == trust, "the reputation view has the exact locked trust result")
 	expect_label(app, "“%s”" % line[0])
 	expect_label(app, str(line[1]).to_upper())

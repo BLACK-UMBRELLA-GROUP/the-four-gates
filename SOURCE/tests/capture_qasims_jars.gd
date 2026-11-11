@@ -174,7 +174,10 @@ func capture_talk(app: Node3D, index: int, line: Array, trust: int) -> void:
 	await click(app, app.chapter.purse.morning.to_rep)
 	await app.get_tree().physics_frame
 	helper.check(not app.night and app.minute_of_day == MORNING, "the reputation view uses the next morning's daylight")
-	helper.check(app.ui.screen == "reputation" and app.ui.reputation_lines() == [line], "What people say shows only the highest reached jars line")
+	var lines := [line]
+	if app.qasims_jars.runs >= int(app.qasims_jars.data.numbers.seen_from_runs):
+		lines.append(app.idris_recovery.data.say.cool)
+	helper.check(app.ui.screen == "reputation" and app.ui.reputation_lines() == lines, "What people say preserves the expected jars line and adds Idris after a trust hit")
 	helper.check(app.progress.trust == trust, "the rumor threshold has the exact trust result")
 	expect_label(app, "“%s”" % line[0])
 	expect_label(app, str(line[1]).to_upper())

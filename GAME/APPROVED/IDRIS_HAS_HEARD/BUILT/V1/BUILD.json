@@ -1,0 +1,460 @@
+{
+  "line": 21,
+  "lock": "LOCK 14 V1",
+  "brief": "DOC-TFG-0053",
+  "tested_base_commit_sha": "ae710e5d12fc4bf0c771329a572959c758d4632c",
+  "capture_source": "Line 21 working candidate on the tested base. The 11 November Codex task note identifies the single containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T17:06:15Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Real native Godot viewport. Viewport-local input exercises fair arrival, the first Idris meeting, market routes, the dice invitation and door, the open purse, What people say and Dhuhr.",
+  "fixture": "Passive clock ticks are paused. Fair arrival supplies 198 coins. Trust is seeded through the normal mutation path at 45, and four real dice nights reduce it to 40. The baseline is Saturday day 3 at 10:00, cool scenes are Wednesday day 7 at 10:00 or 13:05 for Dhuhr, and warm scenes are Thursday day 8 at 10:00. Ten fixture trust points are applied through the same mutation path to reproduce the master’s warm state without adding unrelated reputation lines.",
+  "design_inputs": [
+    {
+      "path": "GAME/APPROVED/IDRIS_HAS_HEARD/BRIEFS/BUILD_BRIEF_2026-11-08_IDRIS_HAS_HEARD.md",
+      "bytes": 2878,
+      "sha256": "626e618fc57e4d914e626e414dd1d9a54fceaa3c4f32b3a0c303ee0da0841aa1"
+    },
+    {
+      "path": "GAME/APPROVED/IDRIS_HAS_HEARD/MASTERS/i01_masjid__before_any_talk.png",
+      "bytes": 62596,
+      "sha256": "f9644bf16c94ca1de8c6950645332e8d57ab748f908cef4b8d92a9bd7aefb447"
+    },
+    {
+      "path": "GAME/APPROVED/IDRIS_HAS_HEARD/MASTERS/i02_masjid__idris_does_not_smile.png",
+      "bytes": 65123,
+      "sha256": "fc3c89d7d4a8b874b04f663eb4d5fc04bc56be84acf27632b23ac58a14fa4809"
+    },
+    {
+      "path": "GAME/APPROVED/IDRIS_HAS_HEARD/MASTERS/i03_purse__take_the_page.png",
+      "bytes": 254697,
+      "sha256": "82c98ed8d6c43a0b5207ce1d0431269d5561f7311dcb9f1bf4e1481ecd1292ae"
+    },
+    {
+      "path": "GAME/APPROVED/IDRIS_HAS_HEARD/MASTERS/i04_idris__page_refused.png",
+      "bytes": 285245,
+      "sha256": "939981dae063712c81094f43e9726d5caf6067da3004c3abcc5e369fcd43b465"
+    },
+    {
+      "path": "GAME/APPROVED/IDRIS_HAS_HEARD/MASTERS/i05_people_say__idris_has_heard.png",
+      "bytes": 315290,
+      "sha256": "8bf419e29a7e0669f78284ea27a6e820264be26a03c7b3c08cadc3a4d2857ca7"
+    },
+    {
+      "path": "GAME/APPROVED/IDRIS_HAS_HEARD/MASTERS/i06_people_say__says_you_have_changed.png",
+      "bytes": 317540,
+      "sha256": "ec972bdcc9b41faa70faf5b2fa078cd2ceff3da423216ebd5132ccf58bdb4800"
+    },
+    {
+      "path": "GAME/APPROVED/IDRIS_HAS_HEARD/MASTERS/i07_page_1__read_after_warming.png",
+      "bytes": 330745,
+      "sha256": "890d6eb206b88d187290e62f73e4f22a63ac3e6f24af5c2bb164f71d46f1a3b8"
+    },
+    {
+      "path": "GAME/APPROVED/IDRIS_HAS_HEARD/MASTERS/i08_masjid__cool_but_can_pray.png",
+      "bytes": 65864,
+      "sha256": "65971178b608d47ba39374a50abb0e130b0ada0945b1af63f4278b16aa86f4e8"
+    },
+    {
+      "path": "GAME/APPROVED/IDRIS_HAS_HEARD/RECORD/IDRIS_HAS_HEARD_SPEC_CURRENT_VERSION_V1.md",
+      "bytes": 5692,
+      "sha256": "805faa426eb56c376854aea6f5a5979c2cf2ab4d040fd2a7d22cb54898d007a2"
+    },
+    {
+      "path": "GAME/APPROVED/IDRIS_HAS_HEARD/RECORD/LOCK_RECORD.md",
+      "bytes": 746,
+      "sha256": "432a3007762c00db71f068ac9605f8d3b915b4b06269fff7343a4bb0fe58cc12"
+    },
+    {
+      "path": "GAME/APPROVED/IDRIS_HAS_HEARD/RECORD/idris_has_heard_data_V1.json",
+      "bytes": 742,
+      "sha256": "392e1d296199d473dca7e3f8a166a91d9e28d0f2c23461203642483d3a3a527e"
+    },
+    {
+      "path": "GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md",
+      "bytes": 1995,
+      "sha256": "f2abfee4dcc542086c5dcd23242a52986a6d29f28935f48b88e1bbbc6fbfdae6"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "SOURCE/data/chapter1.json",
+      "bytes": 7699,
+      "sha256": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0"
+    },
+    {
+      "path": "SOURCE/data/clothes.json",
+      "bytes": 2888,
+      "sha256": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e"
+    },
+    {
+      "path": "SOURCE/data/dice_house.json",
+      "bytes": 1460,
+      "sha256": "d769f3698748af05e5498e13de397a701c0aebf740eae006f4547e2b53e21c80"
+    },
+    {
+      "path": "SOURCE/data/feeding.json",
+      "bytes": 1470,
+      "sha256": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7"
+    },
+    {
+      "path": "SOURCE/data/foundations.json",
+      "bytes": 11978,
+      "sha256": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf"
+    },
+    {
+      "path": "SOURCE/data/identity.json",
+      "bytes": 14838,
+      "sha256": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647"
+    },
+    {
+      "path": "SOURCE/data/idris_has_heard.json",
+      "bytes": 742,
+      "sha256": "392e1d296199d473dca7e3f8a166a91d9e28d0f2c23461203642483d3a3a527e"
+    },
+    {
+      "path": "SOURCE/data/jabirs_goats.json",
+      "bytes": 1857,
+      "sha256": "dd62e7b0f917e8db3c30c3b30435bb3098496598344252ffd8e98808f0ba2d99"
+    },
+    {
+      "path": "SOURCE/data/market_day.json",
+      "bytes": 1071,
+      "sha256": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05"
+    },
+    {
+      "path": "SOURCE/data/market_stall.json",
+      "bytes": 2593,
+      "sha256": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604"
+    },
+    {
+      "path": "SOURCE/data/prayer_record.json",
+      "bytes": 1009,
+      "sha256": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9"
+    },
+    {
+      "path": "SOURCE/data/qasims_jars.json",
+      "bytes": 1352,
+      "sha256": "c7a2c0a56d676ef6606769f94075ec537707875eecf8767d8dac43fda2c34bfb"
+    },
+    {
+      "path": "SOURCE/data/sealed_purse.json",
+      "bytes": 1902,
+      "sha256": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a"
+    },
+    {
+      "path": "SOURCE/data/talking.json",
+      "bytes": 3854,
+      "sha256": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4"
+    },
+    {
+      "path": "SOURCE/game/bread_grab.gd",
+      "bytes": 1345,
+      "sha256": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468"
+    },
+    {
+      "path": "SOURCE/game/dice_house.gd",
+      "bytes": 2080,
+      "sha256": "17513513173a8d6729b9600baa2ec0999571716df233128f1a44cb249e88e0d5"
+    },
+    {
+      "path": "SOURCE/game/feeding.gd",
+      "bytes": 1760,
+      "sha256": "a818d69fb277ed6125f20d06a47e997c03c25dee99094de4651a2acb11df6b80"
+    },
+    {
+      "path": "SOURCE/game/foundations.gd",
+      "bytes": 4635,
+      "sha256": "7c0a7fce4daeb1078f2f6e575c9a42ca1dbf03e25eff5d37c5a5f478c8ffcd60"
+    },
+    {
+      "path": "SOURCE/game/idris_recovery.gd",
+      "bytes": 1019,
+      "sha256": "6cb5d86d23ef6fab7fe1579c0bc80ee270008627f2493b5b33fab0dd4fa0635e"
+    },
+    {
+      "path": "SOURCE/game/jabirs_goats.gd",
+      "bytes": 1858,
+      "sha256": "5cae78452ff85fd392a85378fa044394810755b31f76dfc980a6c5c95c19f1d6"
+    },
+    {
+      "path": "SOURCE/game/lesson_canvas.gd",
+      "bytes": 1218,
+      "sha256": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c"
+    },
+    {
+      "path": "SOURCE/game/map_canvas.gd",
+      "bytes": 13421,
+      "sha256": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba"
+    },
+    {
+      "path": "SOURCE/game/market_day.gd",
+      "bytes": 1065,
+      "sha256": "3cb77474a4fd5fffb10caa13954c0369a3759235cd60449a258fa202ce702b38"
+    },
+    {
+      "path": "SOURCE/game/market_player.gd",
+      "bytes": 4286,
+      "sha256": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2"
+    },
+    {
+      "path": "SOURCE/game/market_stall.gd",
+      "bytes": 4413,
+      "sha256": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56"
+    },
+    {
+      "path": "SOURCE/game/market_ui.gd",
+      "bytes": 80223,
+      "sha256": "42cc8ce14fac6f78b0d2611ef0daa6a3bcd6eb0e93552c6315beaf3416caa10c"
+    },
+    {
+      "path": "SOURCE/game/market_world.gd",
+      "bytes": 16355,
+      "sha256": "77a47e0747cc22b29f02292f4d0bfa0f1ff70c40fd30ed82f97113da555d22f1"
+    },
+    {
+      "path": "SOURCE/game/open_purse.gd",
+      "bytes": 3329,
+      "sha256": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9"
+    },
+    {
+      "path": "SOURCE/game/prayer_clock.gd",
+      "bytes": 11985,
+      "sha256": "6ba6f3202bc7759ee63b1aa5defce6d4c19f9485bddcb832b9518d48193a3c23"
+    },
+    {
+      "path": "SOURCE/game/qasims_jars.gd",
+      "bytes": 1521,
+      "sha256": "b136d4f3c187fc775c811e010de6c848e7ebc00b51b8464e7f77c0b8f1f40c6a"
+    },
+    {
+      "path": "SOURCE/game/river_market.gd",
+      "bytes": 33206,
+      "sha256": "79b0064232ef8f29c9679860779fdbbbfc89dd623b1a4a78c3cb23ebbd73f0b2"
+    },
+    {
+      "path": "SOURCE/game/river_market.tscn",
+      "bytes": 171,
+      "sha256": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe"
+    },
+    {
+      "path": "SOURCE/game/sealed_purse.gd",
+      "bytes": 1725,
+      "sha256": "e3b46ae422a91cd824057e43881c80bb254dac24da5031163ac093d491bef7ab"
+    },
+    {
+      "path": "SOURCE/game/talking.gd",
+      "bytes": 2568,
+      "sha256": "546458aedd4c3c74f06e498f2160c8622fc5524a3f9d9ab49ec6cd0891bd0f86"
+    },
+    {
+      "path": "SOURCE/game/task_progress.gd",
+      "bytes": 3214,
+      "sha256": "0777fd340c6c2f0a8ed3ed724307e07fc2fe8228d1539d3c8d6f12602654b777"
+    },
+    {
+      "path": "SOURCE/main.tscn",
+      "bytes": 54,
+      "sha256": "109e5b49d1caed038c97365a9c4fb995c5541bfd0b30d9ef1568af98bb815a94"
+    },
+    {
+      "path": "SOURCE/project.godot",
+      "bytes": 1690,
+      "sha256": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45"
+    },
+    {
+      "path": "SOURCE/tests/capture_idris_recovery.gd",
+      "bytes": 11995,
+      "sha256": "6b5ca269d02d8d8699b4787ff0fb8a3b378859507251a703dc5300e1a856f79a"
+    },
+    {
+      "path": "SOURCE/tests/capture_identity.gd",
+      "bytes": 10390,
+      "sha256": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32"
+    },
+    {
+      "path": "SOURCE/tests/capture_tasks.gd",
+      "bytes": 11310,
+      "sha256": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003"
+    },
+    {
+      "path": "SOURCE/tests/create_comparisons.gd",
+      "bytes": 6761,
+      "sha256": "05e30e062a9aa09ba07afbc23e1ed98f6a754133301cd412a4b4bd43c1ae75ae"
+    },
+    {
+      "path": "SOURCE/tests/run_tests.gd",
+      "bytes": 180759,
+      "sha256": "756796b11b9302c32f5ac2a8957d8be08b144b92f7e3419738359ae5153113fb"
+    },
+    {
+      "path": "SOURCE/tests/capture_dice_house.gd",
+      "bytes": 11346,
+      "sha256": "28ade5c6f8fefc6e9825680d35bdff3e3746f3947d629c6563512e40888c30ee"
+    },
+    {
+      "path": "SOURCE/tests/capture_qasims_jars.gd",
+      "bytes": 9953,
+      "sha256": "89588b50aa1470de923ac10be4e3adce1c1cf7379a3b50a25a73db03f11611a1"
+    },
+    {
+      "path": "SOURCE/tests/capture_jabirs_goats.gd",
+      "bytes": 12170,
+      "sha256": "f339f4eadd9571026273699aef8521f563def360cb3cf9429180cff22b259875"
+    }
+  ],
+  "tests": {
+    "base_headless_passed": 3002,
+    "headless_passed": 3152,
+    "headless_total": 3152,
+    "native_passed": 117,
+    "native_total": 117,
+    "native_approval_requests": 0,
+    "prior_native_regressions": {
+      "dice-house": {
+        "passed": 182,
+        "captures": 12
+      },
+      "qasims-jars": {
+        "passed": 153,
+        "captures": 9
+      },
+      "jabirs-goats": {
+        "passed": 229,
+        "captures": 12
+      }
+    }
+  },
+  "comparison": [
+    "All eight states show the approved wording, actions and trust values. The HUD uses the live non-Friday weekday and differs in font, weight, offsets and trust fill.",
+    "i01, i02 and i08 show the live player marker, gate symbol, grid, map type and outlines. Make up Dhuhr is an existing control and changes the Masjid bar and canal-label clearance. i02 and i08 wrap navigation above the bar as pictured. The live adhan toast in i08 partly covers the make-up caption. The toast ignores pointer input, and the Dhuhr control stays visible and works.",
+    "i03 to i07 show native greybox blocks, flat ground and blue sky with different camera framing from the pictured storefronts, paving, lanterns and arch. The native refusal frame shows Inn capsules and the edge of a name label. Native panels differ in opacity, type, line wrapping, spacing, button widths and border weight. i05 and i06 differ in reputation divider and label spacing. i07 uses the native page treatment for the source and learned word."
+  ],
+  "viewport_checks": {
+    "path": "GAME/APPROVED/IDRIS_HAS_HEARD/BUILT/V1/LINE21_CHECKS.json",
+    "bytes": 17812,
+    "sha256": "50f3397fc1f1258f4a89d1c63a309a3327aae392bb6fe24ef91ff412f1d112e9"
+  },
+  "png_evidence": {
+    "method": "Lossless PNG optimization. Verified dimensions and exact RGBA pixels after reopening all PNGs. Verified the comparison halves against the locked masters and native captures.",
+    "original_png_bytes": 7391677,
+    "compressed_png_bytes": 6723211,
+    "files": [
+      {
+        "file": "i01_masjid__before_any_talk__build.png",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 164538,
+        "sha256": "ec78e830b2b576cccad8f7f47eca3f46813516f6c618a415a1731d8d35e769d5"
+      },
+      {
+        "file": "i01_masjid__before_any_talk__master_beside_build.png",
+        "width": 3840,
+        "height": 1080,
+        "bytes": 323484,
+        "sha256": "b1c6cc8a01f9512fa7fa5a299e535093fe99bd1428b299ee18690377f35df589"
+      },
+      {
+        "file": "i02_masjid__idris_does_not_smile__build.png",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 172993,
+        "sha256": "21aa73419ff4819d7c5a1bd687d6047daa42b92fc20432e5d2573f239cbe7e84"
+      },
+      {
+        "file": "i02_masjid__idris_does_not_smile__master_beside_build.png",
+        "width": 3840,
+        "height": 1080,
+        "bytes": 338492,
+        "sha256": "eb333db1409dd6b82201ff5add406d24b9b20286f96bda2c0aba7e937ead089b"
+      },
+      {
+        "file": "i03_purse__take_the_page__build.png",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 232072,
+        "sha256": "a8c769c5a6ca51d78c021fa5378fa8323a9ef68499afb3cbb04c9f2c262a3d35"
+      },
+      {
+        "file": "i03_purse__take_the_page__master_beside_build.png",
+        "width": 3840,
+        "height": 1080,
+        "bytes": 798859,
+        "sha256": "8cc7b71506cf313b1a76ddb7d398fdc2975ec23e97b40d3d97a5975c00885d7b"
+      },
+      {
+        "file": "i04_idris__page_refused__build.png",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 153055,
+        "sha256": "5059b01e10bf79fb9cfae62bc683c944ed7907b86659bbca162e58051d61a7da"
+      },
+      {
+        "file": "i04_idris__page_refused__master_beside_build.png",
+        "width": 3840,
+        "height": 1080,
+        "bytes": 765424,
+        "sha256": "1934f7b46324735a4e5093c877d103606390f17e2158288943d047b1285bae08"
+      },
+      {
+        "file": "i05_people_say__idris_has_heard__build.png",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 172838,
+        "sha256": "e3457d967ea24580ff8ddee94e64907fc29d5af868d60ce8087671bad8830112"
+      },
+      {
+        "file": "i05_people_say__idris_has_heard__master_beside_build.png",
+        "width": 3840,
+        "height": 1080,
+        "bytes": 863879,
+        "sha256": "11a846e573ef1f2d02510dc607cfb2232cda35aefab13a492476794963253c5d"
+      },
+      {
+        "file": "i06_people_say__says_you_have_changed__build.png",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 164978,
+        "sha256": "f9d56aa6d44cf51fb2e7f596b057b896593722df05a2dcecd63dca4c1141773a"
+      },
+      {
+        "file": "i06_people_say__says_you_have_changed__master_beside_build.png",
+        "width": 3840,
+        "height": 1080,
+        "bytes": 857200,
+        "sha256": "5cd4035003412219ea180f956641ca15cfdb6a8eceede4c6d8c87fd024cfd5f1"
+      },
+      {
+        "file": "i07_page_1__read_after_warming__build.png",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 219416,
+        "sha256": "ce1b145317e4cee4119c0374019cf38f9e87d8935135b63cec4eb3020a019f86"
+      },
+      {
+        "file": "i07_page_1__read_after_warming__master_beside_build.png",
+        "width": 3840,
+        "height": 1080,
+        "bytes": 968651,
+        "sha256": "e5f95bdf365ab1425316a83d2376cece55c992714ed74e1fb9456cd13612958a"
+      },
+      {
+        "file": "i08_masjid__cool_but_can_pray__build.png",
+        "width": 1920,
+        "height": 1080,
+        "bytes": 179403,
+        "sha256": "b9e1c6e578a5a274e930b61d521753b69297022f6a3cbdf763df45ec419bd5a6"
+      },
+      {
+        "file": "i08_masjid__cool_but_can_pray__master_beside_build.png",
+        "width": 3840,
+        "height": 1080,
+        "bytes": 347929,
+        "sha256": "ebd474ab9d3c82d0ac3b7a8979a164541ee70dee28675b7d306519447275dc10"
+      }
+    ]
+  }
+}

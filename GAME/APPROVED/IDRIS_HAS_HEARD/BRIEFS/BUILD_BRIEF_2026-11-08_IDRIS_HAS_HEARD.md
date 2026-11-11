@@ -34,3 +34,7 @@ owner: THE FOUR GATES chat
 
 Rules that always apply: text scene files only; no file over 50 MB; nothing from the keys folder; every word and number read
 from the data files at run time.
+
+## Answer note — 11 Nov 2026 (QUESTIONS row 10)
+
+Warming uses Idris's private uncapped trust tally (spec Clarifications, row 10): gains cut off by the 100 cap still count toward cool point + 10. Add tests for 100 → 95 → +5 → +5 (warms) and for a temptation at the cap while cool (needs 10 fresh points).

@@ -260,3 +260,14 @@ Saeed ends the offer. Repeated purchases and telling Saeed change trust and **Wh
 `GAME/APPROVED/JABIRS_GOATS/BUILT/V1/`. Run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --jabirs-goats`
 to pair the captures with their masters. Both commands accept `--jabirs-goats-output=/absolute/path`.
+
+LOCK 14 adds Idris’s response to the six temptation trust hits. When he cools, he tells the player to come
+back before he reads the first scholar’s page. Every prayer remains available. He warms at ten net trust
+above the last hit or any later temptation while cool. Idris counts full trust changes, and the HUD still
+displays 0–100. His current line appears in **What people say** after the goat lines and before the sealed purse.
+
+`godot --path SOURCE -- --capture-idris-recovery` records the eight LOCK 14 states in
+`GAME/APPROVED/IDRIS_HAS_HEARD/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --idris-recovery`
+to pair each native frame with its master. Both commands accept `--idris-recovery-output=/absolute/path`.
+Use separate output folders when regenerating the earlier temptation captures against the current game.

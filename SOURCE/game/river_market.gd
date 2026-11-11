@@ -17,6 +17,7 @@ const SealedPurse = preload("res://game/sealed_purse.gd")
 const DiceHouse = preload("res://game/dice_house.gd")
 const QasimsJars = preload("res://game/qasims_jars.gd")
 const JabirsGoats = preload("res://game/jabirs_goats.gd")
+const IdrisRecovery = preload("res://game/idris_recovery.gd")
 
 var data: Dictionary
 var identity: Dictionary
@@ -30,6 +31,7 @@ var sealed_purse := SealedPurse.new()
 var dice_house := DiceHouse.new()
 var qasims_jars := QasimsJars.new()
 var jabirs_goats := JabirsGoats.new()
+var idris_recovery := IdrisRecovery.new()
 var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
@@ -68,6 +70,7 @@ func _ready() -> void:
 	market_day = MarketDay.new(Foundations.load_market_day(), clock)
 	Foundations.configure_input(data)
 	progress.setup(data)
+	idris_recovery.setup(Foundations.load_idris_recovery(), progress)
 	open_purse.setup(chapter, progress, clock)
 	bread_grab.setup(chapter, progress, clock)
 	market_stall.setup(Foundations.load_market_stall(), Foundations.load_clothes(), progress, clock)
@@ -94,7 +97,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -215,6 +218,9 @@ func _ready() -> void:
 	elif "--capture-jabirs-goats" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_jabirs_goats.gd").new()
 		capture_runner.run(self)
+	elif "--capture-idris-recovery" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_idris_recovery.gd").new()
+		capture_runner.run(self)
 
 func _process(delta: float) -> void:
 	if ui.screen not in ["title", "arrival", "all_prayers_title"]:
@@ -259,6 +265,7 @@ func update_state() -> void:
 
 func begin_game() -> void:
 	progress.setup(data)
+	idris_recovery.reset(progress.trust)
 	open_purse.reset()
 	bread_grab.reset()
 	market_stall.reset()
@@ -485,6 +492,9 @@ func ask_salma() -> void:
 
 func read_page_one() -> void:
 	if ui.screen in ["purse", "purse_salma"] and open_purse.salma_asked and not open_purse.page_read:
+		if idris_recovery.cool:
+			show_screen("purse_refused")
+			return
 		open_purse.page_read = true
 		known_words["sirr"] = true
 		_set_purse_scene_place("masjid")
@@ -812,6 +822,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if ui.screen == "idris":
 		if event.is_action_pressed("close"):
 			leave_idris()
+		return
+	if ui.screen == "purse_refused":
+		if event.is_action_pressed("close"):
+			show_screen("market_map")
 		return
 	if ui.screen in ["purse_salma", "purse_page"]:
 		if event.is_action_pressed("close"):

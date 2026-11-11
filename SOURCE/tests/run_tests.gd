@@ -142,6 +142,7 @@ func _run() -> void:
 	await check_dice_house_runtime()
 	await check_qasims_jars_runtime()
 	await check_jabirs_goats_runtime()
+	await check_idris_recovery()
 	finish()
 
 
@@ -2494,6 +2495,7 @@ func check_dice_house_runtime() -> void:
 		app.open_dice_house()
 		app.leave_dice_house()
 	check(app.dice_house.nights == 4 and app.progress.trust == 0, "the fourth-night penalty clamps trust to zero")
+	check(app.idris_recovery.cool_point == -2, "the fourth-night hit counts in full for Idris even at the display floor")
 	app.set_process(true)
 
 
@@ -2520,7 +2522,10 @@ func check_dice_house_talk(dice: Dictionary) -> void:
 		app.open_dice_house()
 		check(app.dice_house.nights == visit and app.progress.trust == expected_trust, "reentry on night %d cannot repeat a penalty" % visit)
 		app.leave_dice_house()
-		check(app.ui.reputation_lines() == [expected_line], "night %d contributes only the highest locked dice line" % visit)
+		var lines := [expected_line]
+		if visit >= int(dice.numbers.seen_from_visits):
+			lines.append(app.idris_recovery.data.say.cool)
+		check(app.ui.reputation_lines() == lines, "night %d contributes the highest locked dice line, then Idris when cool" % visit)
 		if visit in [2, 4, 10]:
 			await press_button(app.chapter.purse.morning.to_rep, "open What people say after %d nights" % visit)
 			check(app.ui.screen == "reputation" and has_visible_label(app.ui, "“%s”" % expected_line[0]) and has_visible_label(app.ui, str(expected_line[1]).to_upper()) and has_visible_label(app.ui, app.chapter.rep.tone[str(int(expected_line[2]))]), "night %d renders the locked quote, source and tone" % visit)
@@ -2529,7 +2534,7 @@ func check_dice_house_talk(dice: Dictionary) -> void:
 	app.progress.apply_trust(int(app.sealed_purse.data.numbers.offer_from_trust) - app.progress.trust)
 	check(app.sealed_purse.accept() and app.sealed_purse.choose_coin(false) and app.sealed_purse.deliver(), "fixture adds the locked sealed-purse outcome")
 	app.market_stall.fed_faris = true
-	check(app.ui.reputation_lines() == [app.market_stall.data.say.fed, dice.say.gambler, app.sealed_purse.data.say.honest], "dice talk follows the market stall and precedes the sealed purse")
+	check(app.ui.reputation_lines() == [app.market_stall.data.say.fed, dice.say.gambler, app.idris_recovery.data.say.warm, app.sealed_purse.data.say.honest], "dice talk and Idris follow the market stall and precedes the sealed purse")
 
 
 func check_qasims_jars_runtime() -> void:
@@ -2620,7 +2625,10 @@ func check_qasims_jars_talk(jars: Dictionary) -> void:
 		check(app.day == day and app.minute_of_day == minute, "jar run %d leaves the clock unchanged" % run)
 		check_wallet(expected_trust, 198 + int(jars.numbers.pay) * run, "jar run %d pays once and applies only its threshold penalty" % run)
 		app.leave_qasims_done()
-		check(find_button(app.ui, jars.quay_button) == null and app.ui.reputation_lines() == [expected_line], "run %d removes the button and contributes only the highest jars line" % run)
+		var lines := [expected_line]
+		if run >= int(jars.numbers.seen_from_runs):
+			lines.append(app.idris_recovery.data.say.cool)
+		check(find_button(app.ui, jars.quay_button) == null and app.ui.reputation_lines() == lines, "run %d removes the button and contributes the highest jars line, then Idris when cool" % run)
 		if run in [2, 4, 10]:
 			await press_button(app.chapter.purse.morning.to_rep, "open What people say after %d jar runs" % run)
 			check(app.ui.screen == "reputation" and has_visible_label(app.ui, "“%s”" % expected_line[0]) and has_visible_label(app.ui, str(expected_line[1]).to_upper()) and has_visible_label(app.ui, app.chapter.rep.tone[str(int(expected_line[2]))]), "run %d renders the locked quote, source and tone" % run)
@@ -2639,7 +2647,7 @@ func check_qasims_jars_talk(jars: Dictionary) -> void:
 	set_market_day_time(15, 600)
 	app.progress.apply_trust(int(app.sealed_purse.data.numbers.offer_from_trust) - app.progress.trust)
 	check(app.sealed_purse.accept() and app.sealed_purse.choose_coin(false) and app.sealed_purse.deliver(), "fixture adds the sealed-purse reputation line")
-	check(app.ui.reputation_lines() == [dice.say.talk, jars.say.smuggler, app.sealed_purse.data.say.honest], "the single jars line follows the dice line and precedes the sealed purse")
+	check(app.ui.reputation_lines() == [dice.say.talk, jars.say.smuggler, app.idris_recovery.data.say.warm, app.sealed_purse.data.say.honest], "the single jars line follows dice and precedes Idris and the sealed purse")
 
 
 func check_jabirs_goats_runtime() -> void:
@@ -2754,7 +2762,10 @@ func check_jabirs_goats_talk(goats: Dictionary) -> void:
 		check(app.dice_house.nights == 0 and app.qasims_jars.runs == 0, "deal %d does not count as a dice visit or a jar run" % deal)
 		check_wallet(expected_trust, 198 + 20 * deal, "deal %d pays once and applies only its threshold penalty" % deal)
 		app.leave_jabirs_result(false)
-		check(app.ui.reputation_lines() == [expected_line], "deal %d shows only the highest reached goat line" % deal)
+		var lines := [expected_line]
+		if deal >= int(goats.numbers.seen_from_deals):
+			lines.append(app.idris_recovery.data.say.cool)
+		check(app.ui.reputation_lines() == lines, "deal %d shows the highest goat line, then Idris when cool" % deal)
 		if deal in [2, 4, 10]:
 			await press_button(app.chapter.purse.morning.to_rep, "open What people say after %d goat deals" % deal)
 			check_jabirs_reputation_row(expected_line)
@@ -2780,7 +2791,7 @@ func check_jabirs_goats_talk(goats: Dictionary) -> void:
 	await press_button(goats.told.to_rep, "the Tell Saeed result opens What people say")
 	check_jabirs_reputation_row(goats.say.fence)
 	check_jabirs_reputation_row(goats.say.told)
-	check(app.ui.reputation_lines() == [dice.say.talk, jars.say.talk, goats.say.fence, goats.say.told], "both goat lines follow jars and the highest deal line comes before the report")
+	check(app.ui.reputation_lines() == [dice.say.talk, jars.say.talk, goats.say.fence, goats.say.told, app.idris_recovery.data.say.cool], "both goat lines follow jars and precede Idris, with the deal before the report")
 	await press_button(app.chapter.rep.to_map, "return to the gate after telling Saeed")
 	for day in [16, 17, 30]:
 		set_market_day_time(day, 960)
@@ -2791,8 +2802,145 @@ func check_jabirs_goats_talk(goats: Dictionary) -> void:
 		check_wallet(told_trust, told_coins, "the report's trust reward cannot be collected again")
 	app.progress.apply_trust(int(app.sealed_purse.data.numbers.offer_from_trust) - app.progress.trust)
 	check(app.sealed_purse.accept() and app.sealed_purse.choose_coin(false) and app.sealed_purse.deliver(), "fixture adds the following sealed-purse line")
-	check(app.ui.reputation_lines() == [dice.say.talk, jars.say.talk, goats.say.fence, goats.say.told, app.sealed_purse.data.say.honest], "the goat lines precede the sealed-purse outcome in What people say")
+	check(app.ui.reputation_lines() == [dice.say.talk, jars.say.talk, goats.say.fence, goats.say.told, app.idris_recovery.data.say.warm, app.sealed_purse.data.say.honest], "the goat lines precede Idris and the sealed-purse outcome in What people say")
 
 
 func check_jabirs_reputation_row(line: Array) -> void:
 	check(app.ui.screen == "reputation" and has_visible_label(app.ui, "“%s”" % line[0]) and has_visible_label(app.ui, str(line[1]).to_upper()) and has_visible_label(app.ui, app.chapter.rep.tone[str(int(line[2]))]), "What people say renders the locked quote, source and tone: " + str(line[0]))
+
+
+func check_idris_recovery() -> void:
+	var runtime := FileAccess.get_file_as_bytes("res://data/idris_has_heard.json")
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/IDRIS_HAS_HEARD/RECORD/idris_has_heard_data_V1.json")
+	check(not runtime.is_empty() and runtime == approved, "Idris runtime is the byte-identical LOCK 14 V1 file")
+	app.set_process(false)
+	check_idris_hits("dice night", app.dice_house.enter, 1200)
+	check_idris_hits("jar run", app.qasims_jars.carry, 1200)
+	check_idris_hits("goat deal", app.jabirs_goats.buy, 900)
+	check_idris_cap()
+	await check_idris_refusal_and_prayer()
+	app.begin_game()
+	check(not app.idris_recovery.cool and app.idris_recovery.reputation_line() == null, "starting over clears Idris's cool point and reputation")
+	app.set_process(true)
+
+
+func check_idris_hits(activity: String, take_temptation: Callable, minute: int) -> void:
+	app.begin_game()
+	app.progress.coins = 198
+	var recovery = app.idris_recovery
+	var copy: Dictionary = recovery.data
+	check(recovery.reputation_line() == null, "Idris has no reputation line before " + activity)
+	for count in range(1, 11):
+		set_market_day_time(count + 2, minute)
+		check(take_temptation.call(), "%s %d is a valid temptation" % [activity, count])
+		if count in [4, 10]:
+			var post_hit: int = app.progress.trust
+			check(recovery.cool and recovery.cool_point == post_hit, "%s %d cools at its post-hit trust" % [activity, count])
+			check(recovery.reputation_line() == copy.say.cool, "%s %d sets the cool reputation line" % [activity, count])
+			app.progress.apply_trust(int(copy.numbers.warm_gain) - 1)
+			take_temptation.call()
+			check(recovery.cool and recovery.cool_point == post_hit and app.progress.trust == post_hit + 9, "%s %d cannot hit or reset twice on the same day" % [activity, count])
+			app.progress.apply_trust(1)
+			check(not recovery.cool and recovery.reputation_line() == copy.say.warm, "%s %d warms at exactly ten net trust" % [activity, count])
+		else:
+			check(not recovery.cool, "%s %d without a hit cannot make a warm Idris cool" % [activity, count])
+
+
+func cool_idris_with_dice(start_trust: int) -> void:
+	reset_at_market_place("inn", 198)
+	app.progress.apply_trust(start_trust - app.progress.trust)
+	for day in range(3, 7):
+		set_market_day_time(day, 1200)
+		check(app.dice_house.enter(), "fixture visits the dice house on day %d" % day)
+
+
+func check_idris_cap() -> void:
+	cool_idris_with_dice(100)
+	var recovery = app.idris_recovery
+	check(recovery.cool and app.progress.trust == 95 and recovery.cool_point == 95, "the hit takes 100 to 95 and cools at 95")
+	set_market_day_time(7, 600)
+	check(app.progress.do_daily_job() and app.progress.trust == 100 and recovery.cool, "the first real +5 reaches displayed 100 and leaves Idris cool")
+	set_market_day_time(8, 600)
+	check(app.progress.do_daily_job() and app.progress.trust == 100 and not recovery.cool, "the second real +5 warms Idris while the display stays at 100")
+	app.update_state()
+	check(has_visible_label(app.ui, data.ui.hud.trust_value.format({"n": 100})), "the HUD displays capped trust after Idris warms")
+
+	cool_idris_with_dice(100)
+	app.progress.apply_trust(7)
+	check(app.progress.trust == 100 and recovery.cool, "overflow is private and a gain of seven is short of warming")
+	set_market_day_time(7, 1200)
+	check(app.qasims_jars.carry() and recovery.cool_point == 102, "a new temptation at the cap resets the cool point to the full tally")
+	app.progress.apply_trust(5)
+	check(app.progress.trust == 100 and recovery.cool, "five fresh points at the reset cap leave Idris cool")
+	app.progress.apply_trust(-3)
+	app.progress.apply_trust(7)
+	check(recovery.cool and recovery.cool_point == 102, "losses count in full and nine fresh net points leave Idris cool")
+	app.progress.apply_trust(1)
+	check(app.progress.trust == 100 and not recovery.cool, "the reset at 100 takes exactly ten fresh net points")
+
+
+func check_idris_refusal_and_prayer() -> void:
+	cool_idris_with_dice(45)
+	set_market_day_time(7, 600)
+	var copy: Dictionary = app.idris_recovery.data
+	var chapter: Dictionary = app.chapter
+	var take_page: String = str(chapter.purse.take_page).format({"teacher": chapter.teacher})
+	await press_button(chapter.places.inn, "the open purse remains available while Idris is cool")
+	await press_button(chapter.purse.ask_baker, "Salma still shows the page while Idris is cool")
+	await press_button(take_page, "Salma's page route reaches the cool Idris")
+	check(app.ui.screen == "purse_refused" and visible_text().contains(copy.page_refused.text), "the refusal uses the locked copy")
+	check(not app.open_purse.page_read and not app.known_words.has("sirr") and not app.open_purse.give("father", true), "refusal gives no page, no word and no secret giving")
+	await press_button(copy.page_refused.to_map, "refusal returns to the market map")
+	check(app.ui.screen == "market_map" and app.current_place == "inn" and not app.open_purse.done, "the refusal leaves the purse at the Inn")
+	await press_button(chapter.places.inn, "the player can revisit the open purse")
+	check(find_button(app.ui, chapter.purse.give_secret) == null, "no secret buttons appear after refusal")
+	await press_button(take_page, "the door list also checks whether Idris is cool")
+	check(app.ui.screen == "purse_refused", "the door list refuses the unread page while Idris is cool")
+	await press_button(copy.page_refused.to_map, "the second refusal also returns to the map")
+
+	await check_cool_prayers(copy.masjid_line)
+	app.progress.apply_trust(int(copy.numbers.warm_gain))
+	app.update_state()
+	check(not app.idris_recovery.cool and not has_visible_label(app.ui, copy.masjid_line), "warming removes the cool line from the Masjid bar")
+	move_market_fixture("inn")
+	await press_button(chapter.places.inn, "the player returns to the waiting purse")
+	await press_button(take_page, "the previously refused page opens after warming")
+	check(app.ui.screen == "purse_page" and app.open_purse.page_read and app.known_words.has("sirr"), "warming restores reading and learning the word")
+	await press_button(chapter.page.back, "the player returns from the read page")
+	check(find_button(app.ui, chapter.purse.give_secret) != null, "reading after warming unlocks secret giving")
+	for day in range(11, 17):
+		set_market_day_time(day, 1200)
+		app.dice_house.enter()
+	check(app.idris_recovery.cool and app.open_purse.page_read and app.known_words.has("sirr"), "a new hit cools again while preserving the page and word already learned")
+	check(app.open_purse.give("father", true), "cooling again preserves secret giving already unlocked")
+
+
+func check_cool_prayers(cool_line: String) -> void:
+	move_market_fixture("masjid")
+	var prayer_data: Dictionary = identity.clock
+	var wallet := Vector2i(app.progress.coins, app.progress.trust)
+	check(has_visible_label(app.ui, cool_line), "the Masjid bar shows the locked cool line")
+	set_market_day_time(7, 13 * 60 + 5)
+	await press_button(prayer_data.pray_here.format({"prayer": "Dhuhr"}), "Dhuhr alone at the Masjid remains available while cool")
+	check(app.clock.record().rows[1].status == "alone", "solo Dhuhr is recorded as before")
+	for index in range(prayer_data.prayers.size()):
+		var prayer: Dictionary = prayer_data.prayers[index]
+		var time: PackedStringArray = str(prayer.begins).split(":")
+		set_market_day_time(8, int(time[0]) * 60 + int(time[1]))
+		await press_button(prayer_data.pray_congregation, "%s congregation stays available while cool" % prayer.name)
+		check(app.clock.record().rows[index].status == "jamaah", "%s congregation is recorded while cool" % prayer.name)
+	app.clock.reset()
+	app.clock.skip_to(9, 4 * 60 + 45)
+	app.clock.advance_to(9, 12 * 60 + 8, false)
+	app.update_state()
+	await press_button(prayer_data.pray_friday, "Friday prayer stays available while cool")
+	check(app.clock.record().rows[1].status == "jamaah" and app.clock.totals().friday == 1, "Friday prayer is recorded as before")
+	await press_button(prayer_data.make_up.format({"prayer": "Fajr"}), "the Masjid bar keeps the make-up button while cool")
+	check(app.clock.record().rows[0].status == "madeup", "make-up is recorded as before")
+	move_market_fixture("inn")
+	set_market_day_time(10, 13 * 60 + 5)
+	check(not has_visible_label(app.ui, cool_line), "the cool line only appears at the Masjid")
+	await press_button(prayer_data.pray_here.format({"prayer": "Dhuhr"}), "prayer away from the Masjid stays available while cool")
+	check(app.clock.record().rows[1].status == "alone", "Dhuhr away from the Masjid is recorded as before")
+	move_market_fixture("masjid")
+	check(app.idris_recovery.cool and Vector2i(app.progress.coins, app.progress.trust) == wallet, "prayers preserve Idris's state and the wallet")

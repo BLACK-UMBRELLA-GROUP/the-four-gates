@@ -1,0 +1,752 @@
+{
+	"checks": [
+		{
+			"description": "runtime recovery data matches the locked bytes",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Meet the old man",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Repeat it and take a date",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Say thank you in your language",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Copy him",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Nod",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and first meeting reach the Masjid with the live wallet",
+			"passed": true
+		},
+		{
+			"description": "visible button fits in the viewport: Look inside",
+			"passed": true
+		},
+		{
+			"description": "the Masjid and reputation are neutral before the talk",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: i01_masjid__before_any_talk__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: i01_masjid__before_any_talk__build.png",
+			"passed": true
+		},
+		{
+			"description": "native map marker starts the route to inn",
+			"passed": true
+		},
+		{
+			"description": "native physical street route reaches inn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: A man whispers at the inn door",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow him",
+			"passed": true
+		},
+		{
+			"description": "a distinct dice night counts once: 1",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "a distinct dice night counts once: 2",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "a distinct dice night counts once: 3",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "a distinct dice night counts once: 4",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "native map marker starts the route to masjid",
+			"passed": true
+		},
+		{
+			"description": "native physical street route reaches masjid",
+			"passed": true
+		},
+		{
+			"description": "the dice hit cools Idris at the post-hit trust",
+			"passed": true
+		},
+		{
+			"description": "visible button fits in the viewport: Look inside",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: Idris nods to you, but he does not smile.",
+			"passed": true
+		},
+		{
+			"description": "the cool note follows the Masjid button",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: i02_masjid__idris_does_not_smile__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: i02_masjid__idris_does_not_smile__build.png",
+			"passed": true
+		},
+		{
+			"description": "native map marker starts the route to inn",
+			"passed": true
+		},
+		{
+			"description": "native physical street route reaches inn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: People are waiting at the door",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask Salma the baker about them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the people",
+			"passed": true
+		},
+		{
+			"description": "Salma’s visit leaves four people and the page action at the Inn",
+			"passed": true
+		},
+		{
+			"description": "visible button fits in the viewport: Take the page to Idris",
+			"passed": true
+		},
+		{
+			"description": "the unopened page still hides In secret",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: i03_purse__take_the_page__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: i03_purse__take_the_page__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the page to Idris",
+			"passed": true
+		},
+		{
+			"description": "the page action opens Idris’s refusal",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: THE MASJID",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: Idris",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: Idris looks at the page, then at you, and gives it back. “I have heard where you go at night and what you carry. Come back when the market speaks differently of you, and we will read it together.”",
+			"passed": true
+		},
+		{
+			"description": "visible button fits in the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "refusal leaves the page unread, the word unknown and secret giving unavailable",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: i04_idris__page_refused__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: i04_idris__page_refused__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "Back to the market map keeps the open purse and wallet intact",
+			"passed": true
+		},
+		{
+			"description": "native map marker starts the route to masjid",
+			"passed": true
+		},
+		{
+			"description": "native physical street route reaches masjid",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "What people say shows the dice line followed by exactly the correct Idris line",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: “Seen at the dice house”",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: YUNUS THE MUEZZIN",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: bad",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: “Idris has heard the talk”",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: IDRIS THE IMAM",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: bad",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: i05_people_say__idris_has_heard__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: i05_people_say__idris_has_heard__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Wait until next prayer",
+			"passed": true
+		},
+		{
+			"description": "the later non-Friday 13:05 fixture offers ordinary Dhuhr",
+			"passed": true
+		},
+		{
+			"description": "visible button fits in the viewport: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: Idris nods to you, but he does not smile.",
+			"passed": true
+		},
+		{
+			"description": "the cool note follows the Masjid button",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: i08_masjid__cool_but_can_pray__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: i08_masjid__cool_but_can_pray__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "the live Dhuhr button completes prayer while Idris remains cool",
+			"passed": true
+		},
+		{
+			"description": "the locked gain warms Idris",
+			"passed": true
+		},
+		{
+			"description": "the Masjid note disappears on warming",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "What people say shows the dice line followed by exactly the correct Idris line",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: “Seen at the dice house”",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: YUNUS THE MUEZZIN",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: bad",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: “Says you have changed”",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: IDRIS THE IMAM",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: good",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: i06_people_say__says_you_have_changed__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: i06_people_say__says_you_have_changed__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "native map marker starts the route to inn",
+			"passed": true
+		},
+		{
+			"description": "native physical street route reaches inn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: People are waiting at the door",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the page to Idris",
+			"passed": true
+		},
+		{
+			"description": "the warmed Idris reads page one and teaches sirr",
+			"passed": true
+		},
+		{
+			"description": "visible locked label fits in the viewport: A page wrapped round bread",
+			"passed": true
+		},
+		{
+			"description": "visible button fits in the viewport: Back to the people",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: i07_page_1__read_after_warming__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: i07_page_1__read_after_warming__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the people",
+			"passed": true
+		},
+		{
+			"description": "visible button fits in the viewport: In secret",
+			"passed": true
+		},
+		{
+			"description": "all eight LOCK 14 master states were captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Passive clock ticks are paused. Fair arrival supplies 198 coins. Trust is seeded through the normal mutation path at 45, and four real dice nights reduce it to 40. The baseline is Saturday day 3 at 10:00, cool scenes are Wednesday day 7 at 10:00 or 13:05 for Dhuhr, and warm scenes are Thursday day 8 at 10:00. Ten fixture trust points are applied through the same mutation path to reproduce the master’s warm state without adding unrelated reputation lines.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Real native Godot viewport. Viewport-local input exercises fair arrival, the first Idris meeting, market routes, the dice invitation and door, the open purse, What people say and Dhuhr.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "i01_masjid__before_any_talk__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "i02_masjid__idris_does_not_smile__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "i03_purse__take_the_page__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "i04_idris__page_refused__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "i05_people_say__idris_has_heard__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "i08_masjid__cool_but_can_pray__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "i06_people_say__says_you_have_changed__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "i07_page_1__read_after_warming__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"i01_masjid__before_any_talk__build.png": {
+			"coins": 198,
+			"cool": false,
+			"cool_point": 0,
+			"daily_count": 0,
+			"day": 3,
+			"dice_nights": 0,
+			"gate_open": false,
+			"knows_sirr": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer": "",
+			"screen": "market_map",
+			"tasks": {},
+			"toast": "",
+			"trust": 45
+		},
+		"i02_masjid__idris_does_not_smile__build.png": {
+			"coins": 198,
+			"cool": true,
+			"cool_point": 40,
+			"daily_count": 0,
+			"day": 7,
+			"dice_nights": 4,
+			"gate_open": false,
+			"knows_sirr": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": false,
+			"place": "masjid",
+			"player": [
+				70.9083099365234,
+				0.0,
+				24.4767036437988
+			],
+			"prayer": "",
+			"screen": "market_map",
+			"tasks": {},
+			"toast": "",
+			"trust": 40
+		},
+		"i03_purse__take_the_page__build.png": {
+			"coins": 198,
+			"cool": true,
+			"cool_point": 40,
+			"daily_count": 0,
+			"day": 7,
+			"dice_nights": 4,
+			"gate_open": false,
+			"knows_sirr": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": false,
+			"place": "inn",
+			"player": [
+				39.0653686523438,
+				0.0,
+				67.3723373413086
+			],
+			"prayer": "",
+			"screen": "purse",
+			"tasks": {},
+			"toast": "",
+			"trust": 40
+		},
+		"i04_idris__page_refused__build.png": {
+			"coins": 198,
+			"cool": true,
+			"cool_point": 40,
+			"daily_count": 0,
+			"day": 7,
+			"dice_nights": 4,
+			"gate_open": false,
+			"knows_sirr": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": false,
+			"place": "inn",
+			"player": [
+				39.0653686523438,
+				0.0,
+				67.3723373413086
+			],
+			"prayer": "",
+			"screen": "purse_refused",
+			"tasks": {},
+			"toast": "",
+			"trust": 40
+		},
+		"i05_people_say__idris_has_heard__build.png": {
+			"coins": 198,
+			"cool": true,
+			"cool_point": 40,
+			"daily_count": 0,
+			"day": 7,
+			"dice_nights": 4,
+			"gate_open": false,
+			"knows_sirr": false,
+			"lesson_done": false,
+			"lines": [
+				[
+					"Seen at the dice house",
+					"Yunus the muezzin",
+					-1.0
+				],
+				[
+					"Idris has heard the talk",
+					"Idris the imam",
+					-1.0
+				]
+			],
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": false,
+			"place": "masjid",
+			"player": [
+				70.9084548950195,
+				0.0,
+				24.4767894744873
+			],
+			"prayer": "",
+			"screen": "reputation",
+			"tasks": {},
+			"toast": "",
+			"trust": 40
+		},
+		"i06_people_say__says_you_have_changed__build.png": {
+			"coins": 198,
+			"cool": false,
+			"cool_point": 40,
+			"daily_count": 0,
+			"day": 8,
+			"dice_nights": 4,
+			"gate_open": false,
+			"knows_sirr": false,
+			"lesson_done": false,
+			"lines": [
+				[
+					"Seen at the dice house",
+					"Yunus the muezzin",
+					-1.0
+				],
+				[
+					"Says you have changed",
+					"Idris the imam",
+					1.0
+				]
+			],
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": false,
+			"place": "masjid",
+			"player": [
+				70.9084548950195,
+				0.0,
+				24.4767894744873
+			],
+			"prayer": "",
+			"screen": "reputation",
+			"tasks": {},
+			"toast": "",
+			"trust": 50
+		},
+		"i07_page_1__read_after_warming__build.png": {
+			"coins": 198,
+			"cool": false,
+			"cool_point": 40,
+			"daily_count": 0,
+			"day": 8,
+			"dice_nights": 4,
+			"gate_open": false,
+			"knows_sirr": true,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": true,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer": "",
+			"screen": "purse_page",
+			"tasks": {},
+			"toast": "",
+			"trust": 50
+		},
+		"i08_masjid__cool_but_can_pray__build.png": {
+			"coins": 198,
+			"cool": true,
+			"cool_point": 40,
+			"daily_count": 0,
+			"day": 7,
+			"dice_nights": 4,
+			"gate_open": false,
+			"knows_sirr": false,
+			"lesson_done": false,
+			"minute_of_day": 785,
+			"night": false,
+			"page_read": false,
+			"place": "masjid",
+			"player": [
+				70.9084548950195,
+				0.0,
+				24.4767894744873
+			],
+			"prayer": "Pray Dhuhr here",
+			"screen": "market_map",
+			"tasks": {},
+			"toast": "Adhan: Dhuhr has begun.",
+			"trust": 40
+		}
+	},
+	"timestamp_utc": "2026-11-11T17:06:15Z"
+}

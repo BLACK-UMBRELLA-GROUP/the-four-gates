@@ -1,0 +1,26 @@
+{
+ "version": "LOCK 14 V1 (8 Nov 2026) - temptations: Idris has heard",
+ "builds_on": "LOCK 2 Idris, LOCK 3 page 1, LOCK 11-13 temptation talk. Placeholders: {n}.",
+ "numbers": {
+  "warm_gain": 10
+ },
+ "masjid_line": "Idris nods to you, but he does not smile.",
+ "page_refused": {
+  "kicker": "The masjid",
+  "title": "Idris",
+  "text": "Idris looks at the page, then at you, and gives it back. “I have heard where you go at night and what you carry. Come back when the market speaks differently of you, and we will read it together.”",
+  "to_map": "Back to the market map"
+ },
+ "say": {
+  "cool": [
+   "Idris has heard the talk",
+   "Idris the imam",
+   -1
+  ],
+  "warm": [
+   "Says you have changed",
+   "Idris the imam",
+   1
+  ]
+ }
+}
