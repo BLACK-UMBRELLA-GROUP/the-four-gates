@@ -1,0 +1,192 @@
+{
+  "towns": {
+    "fixture_town": {
+      "name": "Fixture town",
+      "gate": "fixture_gate",
+      "start_trust": 10,
+      "inn": 2,
+      "kicker": "The fixture town",
+      "text": "The keeper stands by the post.",
+      "work": {
+        "label": "Do the fixture work",
+        "name": "Fixture keeper",
+        "hours": [500, 720],
+        "minutes": 20,
+        "coins": 4,
+        "trust": 8
+      },
+      "masjids": [
+        {
+          "id": "fixture_masjid",
+          "button": "Visit the fixture masjid",
+          "kicker": "Fixture town · masjid",
+          "title": "The fixture masjid",
+          "text": "The keeper stands at the door.",
+          "first": "The keeper welcomes you.",
+          "back": "Back to the fixture town"
+        }
+      ]
+    },
+    "fixture_other_town": {
+      "name": "Other fixture town",
+      "start_trust": 18
+    }
+  },
+  "people": [
+    {
+      "id": "fixture_keeper",
+      "town": "fixture_town",
+      "name": "Fixture keeper",
+      "role": "the keeper",
+      "hours": [520, 1000],
+      "prays": true,
+      "lines": {
+        "wary": "The keeper watches.",
+        "friendly": ["The keeper nods."],
+        "warm": "The keeper welcomes you."
+      },
+      "memory": [
+        {"flag": "fixture_ready", "text": "You kept the first marker."},
+        {"flag": "fixture_second", "text": "You kept the second marker."}
+      ]
+    },
+    {
+      "id": "fixture_other",
+      "town": "fixture_other_town",
+      "name": "Fixture neighbour",
+      "role": "the neighbour",
+      "hours": [520, 1000],
+      "prays": false,
+      "lines": {"wary": "The neighbour waits."}
+    }
+  ],
+  "missions": [
+    {
+      "id": "fixture_main",
+      "title": "The first fixture story",
+      "kicker": "Fixture town",
+      "button": "Open the fixture story",
+      "town": "fixture_town",
+      "main": true,
+      "start": "beginning",
+      "scenes": {
+        "beginning": {
+          "kicker": "Fixture town · a story",
+          "title": "A first marker",
+          "text": ["A small marker is on the post.", "The keeper points at it."],
+          "choices": [
+            {
+              "label": "Keep the first marker",
+              "need_coins": 2,
+              "go": "ending",
+              "fx": {
+                "coins": -2,
+                "trust": 25,
+                "trust_rm": 3,
+                "flag": ["fixture_ready", "fixture_second"],
+                "unflag": "fixture_banned",
+                "say": "first",
+                "count": {"meals": 3, "qurans": 2, "children": 1, "fixture_markers": 4},
+                "minutes": 15
+              }
+            },
+            {
+              "label": "Leave the post",
+              "fx": {}
+            }
+          ]
+        },
+        "ending": {
+          "kicker": "Fixture town · a story",
+          "title": "The marker kept",
+          "text": "The keeper smiles.",
+          "end": true
+        }
+      },
+      "say": {"first": ["You kept the first marker.", "Fixture keeper", 1]}
+    },
+    {
+      "id": "fixture_conditions",
+      "title": "The guarded fixture errand",
+      "button": "Offer to keep a marker",
+      "town": "fixture_town",
+      "side": true,
+      "hours": [600, 700],
+      "min_trust": 45,
+      "after": ["fixture_ready", "gate_opened", "toll:speak"],
+      "not": ["fixture_banned"],
+      "after_days": {"fixture_ready": 1, "gate_opened": 1, "toll:speak": 1},
+      "start": "ask",
+      "scenes": {
+        "ask": {
+          "kicker": "Fixture town · an errand",
+          "title": "More markers",
+          "text": "The keeper offers a second marker.",
+          "choices": [
+            {
+              "label": "Use the earned markers",
+              "need_coins": 7,
+              "min_trust": 60,
+              "if": ["fixture_ready", "fixture_second"],
+              "unless": "fixture_banned",
+              "fx": [
+                {"say": ["You kept the first marker.", "Fixture keeper", 1], "trust": 100},
+                {"count": ["fixture_markers", 2], "done": true}
+              ]
+            },
+            {"label": "Leave the offer"}
+          ]
+        }
+      }
+    },
+    {
+      "id": "fixture_daily",
+      "title": "The daily fixture errand",
+      "button": "Run the daily fixture errand",
+      "town": "fixture_town",
+      "repeat": "daily",
+      "side": true,
+      "start": "ask",
+      "scenes": {
+        "ask": {
+          "kicker": "Fixture town · daily",
+          "title": "A daily errand",
+          "text": "The keeper asks you to check the post.",
+          "choices": [{"label": "Finish the fixture errand", "fx": {"done": true}}]
+        }
+      }
+    },
+    {
+      "id": "fixture_market",
+      "title": "The quay fixture story",
+      "button": "Look at the fixture notice",
+      "place": "quay",
+      "start": "notice",
+      "scenes": {
+        "notice": {
+          "kicker": "The quay",
+          "title": "A fixture notice",
+          "text": "A small notice stands beside the road.",
+          "choices": [
+            {
+              "label": "Put up the notice",
+              "fx": {"flag": "fixture_banned", "trust": -1, "say": 0}
+            },
+            {
+              "label": "Take down the notice",
+              "fx": {"unflag": "fixture_banned"}
+            }
+          ]
+        }
+      },
+      "say": [["A notice stood at the quay.", "Quay keeper", 0]]
+    }
+  ],
+  "chapters": [
+    {"n": 3, "name": "Third fixture chapter", "missions": ["reserved_fixture"]},
+    {"n": 2, "name": "Old fixture chapter", "missions": ["fixture_market"]}
+  ],
+  "town_says": {
+    "fixture_town": [["The post stands.", "Fixture keeper", 0]]
+  }
+}

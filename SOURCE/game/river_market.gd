@@ -32,6 +32,7 @@ const RashidsLoan = preload("res://game/rashids_loan.gd")
 const Partnership = preload("res://game/partnership.gd")
 const GateOfTrust = preload("res://game/gate_of_trust.gd")
 const JisraMasjid = preload("res://game/jisra_masjid.gd")
+const SceneRunner = preload("res://game/scene_runner.gd")
 const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
 
 const MarketSave = preload("res://game/market_save.gd")
@@ -77,6 +78,14 @@ var rashids_loan := RashidsLoan.new()
 var partnership := Partnership.new()
 var gate_of_trust := GateOfTrust.new()
 var jisra_masjid: JisraMasjid
+var scene_runner: SceneRunner
+var runner_person: Dictionary = {}
+var runner_masjid: Dictionary = {}
+var runner_masjid_first := false
+var _runner_town := ""
+var _runner_origin := "market_map"
+var _runner_mission_id := ""
+var _runner_scene_id := ""
 var _gate_return_screen := "market_map"
 var harm_in_the_road := HarmInTheRoad.new()
 var world: Node3D
@@ -129,6 +138,8 @@ func _ready() -> void:
 		return
 	if "--capture-jisra-masjid" in capture_args and not _set_capture_storage("--jisra-masjid-user-dir="):
 		return
+	if "--capture-scene-runner" in capture_args and not _set_capture_storage("--scene-runner-user-dir="):
+		return
 	menus = Foundations.load_menus()
 	reminder = Foundations.load_prayer_reminder()
 	data = Foundations.load_data()
@@ -143,6 +154,7 @@ func _ready() -> void:
 	progress.setup(data)
 	gate_of_trust.setup(Foundations.load_gate_of_trust(), progress)
 	jisra_masjid = JisraMasjid.new(Foundations.load_jisra_masjid())
+	scene_runner = SceneRunner.new(SceneRunner.load_content())
 	zakat = Zakat.new(Foundations.load_zakat(), clock, progress)
 	pilgrims = Pilgrims.new(Foundations.load_pilgrims(), clock, progress)
 	idris_recovery.setup(Foundations.load_idris_recovery(), progress)
@@ -186,6 +198,7 @@ func _ready() -> void:
 	ui.partnership = partnership
 	ui.gate_of_trust = gate_of_trust
 	ui.jisra_masjid = jisra_masjid
+	ui.scene_runner = scene_runner
 	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road, ramadan, iftar_giving, eid_al_fitr, zakat, eid_al_adha, pilgrims, qurans_school, names_of_allah)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
@@ -207,6 +220,7 @@ func _ready() -> void:
 	ui.idris_leave_requested.connect(leave_idris)
 	ui.idris_replay_requested.connect(replay_idris)
 	ui.screen_requested.connect(show_screen)
+	ui.runner_requested.connect(_runner_action)
 	ui.wait_requested.connect(wait_until_next_prayer)
 	ui.pray_requested.connect(pray_here)
 	ui.make_up_requested.connect(make_up_prayer)
@@ -364,6 +378,9 @@ func _ready() -> void:
 	elif "--capture-jisra-masjid" in capture_args:
 		capture_runner = load("res://tests/capture_jisra_masjid.gd").new()
 		capture_runner.run(self)
+	elif "--capture-scene-runner" in capture_args:
+		capture_runner = load("res://tests/capture_scene_runner.gd").new()
+		capture_runner.run(self)
 	elif "--capture-partnership" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_partnership.gd").new()
 		capture_runner.run(self)
@@ -458,7 +475,9 @@ func _physics_process(_delta: float) -> void:
 func update_state() -> void:
 	if not is_instance_valid(player) or not is_instance_valid(ui):
 		return
-	current_place = "jisra" if gate_of_trust.in_jisra else _nearest_market_place()
+	var town := runner_town_id()
+	current_place = town if not town.is_empty() else _nearest_market_place()
+	scene_runner.observe_builtin_flags(self)
 	if day != _daily_job_day:
 		_daily_job_day = day
 		progress.morning()
@@ -681,7 +700,7 @@ func continue_game() -> void:
 		show_screen("title")
 		return
 	MarketSave.restore(self, saved)
-	show_screen("jisra" if gate_of_trust.in_jisra else "market_map")
+	show_screen(_runner_hub())
 
 
 func begin_game() -> void:
@@ -702,6 +721,8 @@ func begin_game() -> void:
 	partnership.reset()
 	gate_of_trust.reset()
 	jisra_masjid.reset()
+	scene_runner.reset()
+	restore_runner_town("")
 	harm_in_the_road.reset()
 	world.stop_faris_run()
 	world.set_inn_people_waiting(true)
@@ -858,13 +879,14 @@ func show_screen(screen: String) -> void:
 		_reminder_next_check = 0
 	var loan_view: bool = screen in MarketUI.LOAN_SCREENS or (screen == "reputation" and ui.screen in MarketUI.LOAN_SCREENS)
 	var partnership_view: bool = screen in MarketUI.PARTNERSHIP_SCREENS
+	var town_view := not runner_town_id().is_empty() and screen in MarketUI.RUNNER_SCREENS
 	var jisra_masjid_view := screen == "jisra_masjid" or (screen == "all_prayers" and gate_of_trust.in_jisra)
 	var partnership_reputation: bool = screen == "reputation" and current_place == "weaver" and partnership.reputation_line() != null
 	if screen in ["title", "settings"]:
 		world.title_camera.make_current()
 	elif screen == "gate_opening":
 		world.gate_opening_camera.make_current()
-	elif screen in ["jisra", "jisra_toll"]:
+	elif screen in ["jisra", "jisra_toll"] or town_view:
 		world.jisra_camera.make_current()
 	elif jisra_masjid_view:
 		world.jisra_masjid_camera.make_current()
@@ -902,7 +924,7 @@ func show_screen(screen: String) -> void:
 		world.jabirs_goats_camera.make_current()
 	elif screen != "reputation" or ui.screen != "grab_after":
 		player.camera.make_current()
-	player.visible = not jisra_masjid_view and not loan_view and not partnership_view and not partnership_reputation and screen not in ["title", "settings", "pause", "harm_done", "eid", "zakat", "pilgrims", "qurans_school", "names_of_allah"] and screen not in MarketUI.ADHA_SCREENS and screen not in MarketUI.GATE_OF_TRUST_SCREENS
+	player.visible = not town_view and not jisra_masjid_view and not loan_view and not partnership_view and not partnership_reputation and screen not in ["title", "settings", "pause", "harm_done", "eid", "zakat", "pilgrims", "qurans_school", "names_of_allah"] and screen not in MarketUI.ADHA_SCREENS and screen not in MarketUI.GATE_OF_TRUST_SCREENS
 	var paused := screen in PAUSE_SCREENS or screen in ["title", "all_prayers_title"]
 	player.set_physics_process(not paused)
 	world.set_scene_motion_paused(paused)
@@ -922,27 +944,32 @@ func _show_adhan(message: String) -> void:
 		_prayer_adhan = message
 
 func pray_here() -> void:
-	if gate_of_trust.in_jisra and ui.screen not in ["jisra", "jisra_masjid"]:
+	if not runner_town_id().is_empty() and ui.screen not in ["jisra", "jisra_masjid", "runner_town", "runner_masjid"]:
 		return
 	update_state()
 	var masjid_id := ""
-	if gate_of_trust.in_jisra and ui.screen == "jisra_masjid":
+	var town_masjid: bool = ui.screen == "runner_masjid" and not runner_masjid.is_empty()
+	if town_masjid:
+		masjid_id = runner_masjid.id
+	elif gate_of_trust.in_jisra and ui.screen == "jisra_masjid":
 		masjid_id = JisraMasjid.JISRA
 	elif current_place == "masjid":
 		masjid_id = JisraMasjid.RIVER_MARKET
-	_do_prayer(clock.pray.bind(not masjid_id.is_empty()), false, masjid_id)
+	_do_prayer(clock.pray.bind(not masjid_id.is_empty()), false, masjid_id, town_masjid)
 
 func make_up_prayer() -> void:
 	update_state()
 	var masjid_id := JisraMasjid.RIVER_MARKET if current_place == "masjid" else ""
 	_do_prayer(clock.make_up, false, masjid_id)
 
-func _do_prayer(action: Callable, compact_receipt: bool = false, masjid_id: String = "") -> void:
+func _do_prayer(action: Callable, compact_receipt: bool = false, masjid_id: String = "", town_masjid := false) -> void:
 	# An adhan crossed during the ten-minute advance is shown first.
 	_prayer_adhan = ""
 	var receipt: String = action.call()
 	if not receipt.is_empty() and not masjid_id.is_empty():
-		jisra_masjid.record_prayer(masjid_id)
+		if town_masjid:
+			runner_masjid_first = not jisra_masjid.prayed_in.has(masjid_id)
+		jisra_masjid.record_prayer(masjid_id, town_masjid)
 	var adhan: String = _prayer_adhan
 	_prayer_adhan = null
 	update_state()
@@ -1506,6 +1533,7 @@ func open_trust_gate() -> void:
 	_gate_return_screen = ui.screen
 	_stop_travel()
 	progress.ask_gate()
+	scene_runner.observe_builtin_flags(self)
 	world.open_gate()
 	show_screen("gate_opening")
 
@@ -1546,12 +1574,142 @@ func watch_jisra_bridge() -> void:
 
 func choose_jisra_toll(choice: String) -> void:
 	if ui.screen == "jisra_toll" and gate_of_trust.choose_toll(choice):
+		scene_runner.observe_builtin_flags(self)
 		show_screen("jisra_toll")
 
 
 func _can_use_trust_gate() -> bool:
 	return (ui.screen in ["game", "market_map"] and current_place == "gate"
 		and gate_of_trust.can_use_gate())
+
+
+func runner_town_id() -> String:
+	return "jisra" if gate_of_trust.in_jisra else _runner_town
+
+
+func runner_saved_town() -> String:
+	return _runner_town
+
+
+func restore_runner_town(id: String) -> void:
+	_runner_town = id if scene_runner.towns.has(id) else ""
+	_runner_origin = "market_map"
+	_runner_mission_id = ""
+	_runner_scene_id = ""
+	runner_person = {}
+	runner_masjid = {}
+	runner_masjid_first = false
+
+
+func enter_runner_town(id: String) -> void:
+	if id == "jisra" or not runner_town_id().is_empty() or not scene_runner.towns.has(id):
+		return
+	_stop_travel()
+	_runner_town = id
+	show_screen("runner_town")
+
+
+func _runner_hub() -> String:
+	if gate_of_trust.in_jisra:
+		return "jisra"
+	return "market_map" if _runner_town.is_empty() else "runner_town"
+
+
+func runner_mission() -> Dictionary:
+	return scene_runner.missions.get(_runner_mission_id, {})
+
+
+func runner_scene() -> Dictionary:
+	return runner_mission().get("scenes", {}).get(_runner_scene_id, {})
+
+
+func _runner_action(action: String, value: Variant) -> void:
+	var town := runner_town_id()
+	var at_hub: bool = ui.screen in ["jisra", "runner_town"] and scene_runner.towns.has(town)
+	match action:
+		"journal":
+			if town.is_empty() and ui.screen in ["game", "market_map"]:
+				_runner_origin = ui.screen
+				_stop_travel()
+				show_screen("journal")
+		"mission":
+			_start_runner_mission(value)
+		"choice":
+			_choose_runner_scene(value)
+		"back":
+			_runner_back()
+		"people", "sayings", "road_map":
+			if at_hub and (action != "road_map" or scene_runner.towns[town].has("road_map")):
+				show_screen("runner_" + action)
+		"person":
+			if ui.screen == "runner_people" and value in scene_runner.town_people(self, town) and scene_runner.person_available(self, value):
+				runner_person = value
+				show_screen("runner_person")
+		"masjid":
+			if at_hub and value in scene_runner.towns[town].get("masjids", []):
+				runner_masjid = value
+				runner_masjid_first = false
+				show_screen("runner_masjid")
+		"work", "inn":
+			if at_hub:
+				var receipt: String = scene_runner.work(self, town) if action == "work" else scene_runner.rest(self, town)
+				update_state()
+				if not receipt.is_empty():
+					ui.show_toast(receipt)
+
+
+func _start_runner_mission(mission: Dictionary) -> void:
+	var town := runner_town_id()
+	if (town.is_empty() and ui.screen not in ["game", "market_map"]) or (not town.is_empty() and ui.screen != _runner_hub()):
+		return
+	if mission not in scene_runner.available_missions(self, town, current_place if town.is_empty() else ""):
+		return
+	_runner_origin = ui.screen
+	_runner_mission_id = mission.id
+	_runner_scene_id = mission.start
+	_stop_travel()
+	show_screen("runner_mission")
+
+
+func _choose_runner_scene(choice: Dictionary) -> void:
+	if ui.screen != "runner_mission":
+		return
+	var mission := runner_mission()
+	var scene := runner_scene()
+	if choice not in scene_runner.choices(self, mission, scene):
+		return
+	var next: String = scene_runner.apply_choice(self, mission, choice)
+	scene_runner.leave_scene(self, mission, scene)
+	if next.is_empty():
+		_close_runner_mission()
+	else:
+		_runner_scene_id = next
+		show_screen("runner_mission")
+
+
+func _close_runner_mission() -> void:
+	_runner_mission_id = ""
+	_runner_scene_id = ""
+	show_screen(_runner_origin)
+
+
+func _runner_back() -> void:
+	match ui.screen:
+		"journal":
+			show_screen(_runner_origin)
+		"runner_mission":
+			var scene := runner_scene()
+			var mission := runner_mission()
+			if scene_runner.choices(self, mission, scene).is_empty():
+				scene_runner.leave_scene(self, mission, scene)
+				_close_runner_mission()
+		"runner_person":
+			show_screen("runner_people")
+		"runner_people", "runner_sayings", "runner_masjid", "runner_road_map":
+			show_screen(_runner_hub())
+		"runner_town":
+			_runner_town = ""
+			show_screen("market_map")
 
 
 func show_goal() -> void:
@@ -1612,6 +1770,16 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				_resume_game()
 		return
+	if ui.screen in MarketUI.RUNNER_SCREENS:
+		if event.is_action_pressed("close"):
+			if ui.screen == "runner_town":
+				_pause_return = ui.screen
+				show_screen("pause")
+			else:
+				_runner_back()
+		elif event.is_action_pressed("pray") and ui.screen in ["runner_town", "runner_masjid"]:
+			pray_here()
+		return
 	if ui.screen in MarketUI.GATE_OF_TRUST_SCREENS:
 		if event.is_action_pressed("close"):
 			_pause_return = ui.screen
@@ -1619,7 +1787,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif event.is_action_pressed("pray") and ui.screen in ["jisra", "jisra_masjid"]:
 			pray_here()
 		return
-	if gate_of_trust.in_jisra and ui.screen == "prayer_record":
+	if not runner_town_id().is_empty() and ui.screen == "prayer_record":
 		if event.is_action_pressed("close"):
 			close_prayer_record()
 		return

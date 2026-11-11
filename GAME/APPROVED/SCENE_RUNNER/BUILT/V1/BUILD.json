@@ -1,0 +1,615 @@
+{
+  "line": 41,
+  "lock": "LOCK 34 V1",
+  "brief": "DOC-TFG-0113",
+  "questions_answer_row": 13,
+  "tested_base_commit_sha": "9f03da57207d8d8b82d04e78cab7b125ddb246d6",
+  "capture_source": "The tested base with the runtime and capture source recorded below. The containing source/evidence commit is identified in the daily task note.",
+  "godot_version": "4.7.2-stable (official)",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T22:13:51Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Real native viewport. Mouse clicks use the production arrival, Journal, open purse, bread grab, honest board task and sealed-purse controls.",
+  "fixture": "Fair arrival. Passive game ticks paused. Only location, facing and time are set for the capture. The completions, trust, coins, and counters all come from gameplay. The Journal is captured at 10:00 on Thursday 8 and 15 Sha'ban.",
+  "native_approval_prompts": 0,
+  "checks_passed": {
+    "headless": 5824,
+    "focused_headless": 301,
+    "player_movement": 39,
+    "progress_restart": 24,
+    "look_controls": 28,
+    "native_journal": 86,
+    "native_jisra_masjid": 154
+  },
+  "png_verification": "Godot decoded every recompressed PNG. Dimensions and RGBA pixels matched the originals, and the comparison halves matched the approved master and the final viewport capture.",
+  "png_bytes_before_compression": 1947285,
+  "png_bytes_after_compression": 1887855,
+  "evidence": {
+    "LINE41_CHECKS.json": {
+      "bytes": 11910,
+      "sha256": "3e6df5b1f0a6352569911558553c4a11400ab69f984c3abe993b67636d9d9c5e"
+    },
+    "sr01_journal__empty__build.png": {
+      "bytes": 226520,
+      "sha256": "fc2cfce7050738a2ebe90ed4be16d9006ad9db72425266d53385b5044e61580f",
+      "bytes_before_compression": 229813,
+      "width": 1920,
+      "height": 1080
+    },
+    "sr01_journal__empty__master_beside_build.png": {
+      "bytes": 712189,
+      "sha256": "21b0beeb866a0df6e04c3f2ac1e8819b8a36026fa411c8f76ea5fff002bbb9aa",
+      "bytes_before_compression": 738352,
+      "width": 3840,
+      "height": 1080
+    },
+    "sr02_journal__progress__build.png": {
+      "bytes": 229539,
+      "sha256": "527ff67f0243c9196b0ac26a74ba13f2ebc8a8286a82fdf3bf183ab9e363f15f",
+      "bytes_before_compression": 232528,
+      "width": 1920,
+      "height": 1080
+    },
+    "sr02_journal__progress__master_beside_build.png": {
+      "bytes": 719607,
+      "sha256": "ab91880593784b9a734d2733aca33623734ae34a5c2b012f3621bf009f37d919",
+      "bytes_before_compression": 746592,
+      "width": 3840,
+      "height": 1080
+    }
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SCENE_RUNNER/BRIEFS/BUILD_BRIEF_2026-11-09_SCENE_RUNNER.md": {
+      "bytes": 2790,
+      "sha256": "cc22fcac1f88651e61b7c98eb647cd20ebc3a0f59286f73ddab5944fbf1aeb32"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/LOCK_RECORD.md": {
+      "bytes": 753,
+      "sha256": "21e7ceb734172660894c7d593eafa1726c174424014877b8d187f0936930284c"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 6113,
+      "sha256": "c40a90428bab9dda913ba5f401b622a30c7eb5c20641f86200927981ee086f02"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/scene_runner_data_V1.json": {
+      "bytes": 2425,
+      "sha256": "a648d261d996f681bf55e4055d30937ab0ef2d5d4f89cce91bf810e92e76af2b"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/MASTERS/sr01_journal__empty.png": {
+      "bytes": 246978,
+      "sha256": "7b978932426c602ef724def64904a96923d7b181d6689fb09d52d646baf1beb9"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/MASTERS/sr02_journal__progress.png": {
+      "bytes": 247678,
+      "sha256": "69a6d80ddec2ecb33c3ca71949318e70678cf588c39ec6cf317356c4e4a7f1bd"
+    }
+  },
+  "source_files_at_capture": {
+    "SOURCE/data/calendar.json": {
+      "bytes": 1552,
+      "sha256": "f3916e3a791113ae682f768442193ab2b0349fde6c81a8305c41094fa4407647"
+    },
+    "SOURCE/data/chapter1.json": {
+      "bytes": 7699,
+      "sha256": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0"
+    },
+    "SOURCE/data/clothes.json": {
+      "bytes": 2888,
+      "sha256": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 45,
+      "sha256": "b376df6478336985ae23a130aedc438a124d03c588a2e9edebeb047083438212"
+    },
+    "SOURCE/data/dice_house.json": {
+      "bytes": 1460,
+      "sha256": "d769f3698748af05e5498e13de397a701c0aebf740eae006f4547e2b53e21c80"
+    },
+    "SOURCE/data/dry_fountain.json": {
+      "bytes": 1373,
+      "sha256": "1eeaf232e9f43cbd9ddc411dae127dc34a0a6f89c6666819e416cf25ef79117f"
+    },
+    "SOURCE/data/eid_al_adha.json": {
+      "bytes": 2647,
+      "sha256": "52ace3b3d275173235220eb7ebfde7b2eb15cc4f15adb73520b9ec5b3018d4c3"
+    },
+    "SOURCE/data/eid_al_fitr.json": {
+      "bytes": 1665,
+      "sha256": "28dc157a37e0fb758773a320e745330673194bbf04707cb5f48293948ff51167"
+    },
+    "SOURCE/data/feeding.json": {
+      "bytes": 1470,
+      "sha256": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7"
+    },
+    "SOURCE/data/foundations.json": {
+      "bytes": 11978,
+      "sha256": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf"
+    },
+    "SOURCE/data/gate_of_trust.json": {
+      "bytes": 2066,
+      "sha256": "a5218488e5e5b287b756c1a33f79330f977f5b7dce0dce6964f71b7d9eab0b24"
+    },
+    "SOURCE/data/harm_in_the_road.json": {
+      "bytes": 1052,
+      "sha256": "26dc6570e4646c6487c01cba4cfec9d7f9873735445cfffcb68736b1d4c945a1"
+    },
+    "SOURCE/data/identity.json": {
+      "bytes": 14838,
+      "sha256": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647"
+    },
+    "SOURCE/data/idris_has_heard.json": {
+      "bytes": 742,
+      "sha256": "392e1d296199d473dca7e3f8a166a91d9e28d0f2c23461203642483d3a3a527e"
+    },
+    "SOURCE/data/iftar_giving.json": {
+      "bytes": 1573,
+      "sha256": "2b6c25508849062c9af59d4250a8658fd4b04f312c344e7adfdbbf2f7641beea"
+    },
+    "SOURCE/data/jabirs_goats.json": {
+      "bytes": 1857,
+      "sha256": "dd62e7b0f917e8db3c30c3b30435bb3098496598344252ffd8e98808f0ba2d99"
+    },
+    "SOURCE/data/jisra_masjid.json": {
+      "bytes": 976,
+      "sha256": "15dbb581df7ca76519e1f6db2ed27a582cead70055532a388d7b9cc18663ec0f"
+    },
+    "SOURCE/data/market_day.json": {
+      "bytes": 1071,
+      "sha256": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05"
+    },
+    "SOURCE/data/market_stall.json": {
+      "bytes": 2593,
+      "sha256": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604"
+    },
+    "SOURCE/data/menus.json": {
+      "bytes": 844,
+      "sha256": "e33cce8462b6cc07e68b21d8f8ca88986d7bef7646eb3e25c1f2df79f4adfb3e"
+    },
+    "SOURCE/data/names_of_allah.json": {
+      "bytes": 1475,
+      "sha256": "c51268c4c1cd6fe55f847e1bdae094fceeda9205cd32bcce77f649530fbedea5"
+    },
+    "SOURCE/data/partnership.json": {
+      "bytes": 2135,
+      "sha256": "59f2d6f536d7daa769f119cd6b7b7048af5b89345eb491ea0fe0dc6f4cb7a3bd"
+    },
+    "SOURCE/data/pilgrims.json": {
+      "bytes": 2452,
+      "sha256": "940e40446d0c056b26c2852df7833b310f03b1fda78f348fac68929682b97d32"
+    },
+    "SOURCE/data/prayer_record.json": {
+      "bytes": 1009,
+      "sha256": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9"
+    },
+    "SOURCE/data/prayer_reminder.json": {
+      "bytes": 2389,
+      "sha256": "c0aa631f2e1a50c748194b32559c8a387fbc4e3988be9d74f9d8839d4c2ae723"
+    },
+    "SOURCE/data/qasims_jars.json": {
+      "bytes": 1352,
+      "sha256": "c7a2c0a56d676ef6606769f94075ec537707875eecf8767d8dac43fda2c34bfb"
+    },
+    "SOURCE/data/qurans_school.json": {
+      "bytes": 1803,
+      "sha256": "4ac1114a3fae49b1989a629581e7679d2e19d71e1a92853cfa7557f7c3755cc5"
+    },
+    "SOURCE/data/ramadan.json": {
+      "bytes": 1181,
+      "sha256": "e2870da793e0923ac619736e2d60d3ca2c927bdae59f7ccb7c37439333e3e4dc"
+    },
+    "SOURCE/data/rashids_loan.json": {
+      "bytes": 2776,
+      "sha256": "89d162d30ea41ef7c65d2de0bf07ea3fae81d02e4b424c1933991a6ceba2893f"
+    },
+    "SOURCE/data/regulars_at_prayer.json": {
+      "bytes": 560,
+      "sha256": "7fa321659c51119e59e54b41440219848602dedfcfa2de6e67567e5ace316160"
+    },
+    "SOURCE/data/regulars_remember.json": {
+      "bytes": 2004,
+      "sha256": "6da5b91cf38de39858651d4a8694a7b827a6c17ee3dffa66b03c8e4a77a200f2"
+    },
+    "SOURCE/data/scene_runner.json": {
+      "bytes": 2425,
+      "sha256": "a648d261d996f681bf55e4055d30937ab0ef2d5d4f89cce91bf810e92e76af2b"
+    },
+    "SOURCE/data/sealed_purse.json": {
+      "bytes": 1902,
+      "sha256": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a"
+    },
+    "SOURCE/data/talking.json": {
+      "bytes": 3854,
+      "sha256": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4"
+    },
+    "SOURCE/data/zakat.json": {
+      "bytes": 1628,
+      "sha256": "29b93397edf4dc940a803f94685e943b27f6930c9b20d0410119a2ccb9263984"
+    },
+    "SOURCE/game/bread_grab.gd": {
+      "bytes": 1345,
+      "sha256": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468"
+    },
+    "SOURCE/game/dice_house.gd": {
+      "bytes": 2080,
+      "sha256": "17513513173a8d6729b9600baa2ec0999571716df233128f1a44cb249e88e0d5"
+    },
+    "SOURCE/game/dry_fountain.gd": {
+      "bytes": 1322,
+      "sha256": "f49d81661ec0af2495bffe9e102cafc5c9545149a5f1cf87bed6f2bd10162e95"
+    },
+    "SOURCE/game/eid_al_adha.gd": {
+      "bytes": 4850,
+      "sha256": "bdc9aba3e82e4a324bfa72869f636d14a5ede7c50ce53ac61d95a42b9e560bbc"
+    },
+    "SOURCE/game/eid_al_fitr.gd": {
+      "bytes": 3329,
+      "sha256": "663dbdfd38a34a08c4c98dbc89b19c6f03adb5ee85388f470b13edb71af45698"
+    },
+    "SOURCE/game/feeding.gd": {
+      "bytes": 2156,
+      "sha256": "545a2ffd4491db4fed2da1020a2168bf285db9e9eef57aebba01547fd59d113f"
+    },
+    "SOURCE/game/foundations.gd": {
+      "bytes": 9275,
+      "sha256": "f4c78e87adda161338013d4d84dd9b3aaf2651b4a494eeb584a5ad9baceaa854"
+    },
+    "SOURCE/game/gate_of_trust.gd": {
+      "bytes": 1144,
+      "sha256": "992ec33998c6b2b5384d04389c97c53324641073079c167df06e73e2c81cded6"
+    },
+    "SOURCE/game/harm_in_the_road.gd": {
+      "bytes": 1017,
+      "sha256": "dd288040b79c39c00470cd4b6ce5ab23d8d49f11c9f9ac6e09e4875019f5c50e"
+    },
+    "SOURCE/game/hijri_calendar.gd": {
+      "bytes": 2169,
+      "sha256": "cf5518070e1b8d87d8965babd287f9e4242753f622dbb098327e7acb7abd9155"
+    },
+    "SOURCE/game/idris_recovery.gd": {
+      "bytes": 1019,
+      "sha256": "6cb5d86d23ef6fab7fe1579c0bc80ee270008627f2493b5b33fab0dd4fa0635e"
+    },
+    "SOURCE/game/iftar_giving.gd": {
+      "bytes": 452,
+      "sha256": "6da651e0e374253f746b47565c61cd26451c1f6de24d2e2ae04ba7a314e8fda3"
+    },
+    "SOURCE/game/jabirs_goats.gd": {
+      "bytes": 1858,
+      "sha256": "5cae78452ff85fd392a85378fa044394810755b31f76dfc980a6c5c95c19f1d6"
+    },
+    "SOURCE/game/jisra_masjid.gd": {
+      "bytes": 955,
+      "sha256": "f5661999cc2b755d0d13134ba80b46a09d66c21ce6e5a1c89ab25a5e81057373"
+    },
+    "SOURCE/game/lesson_canvas.gd": {
+      "bytes": 1218,
+      "sha256": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c"
+    },
+    "SOURCE/game/map_canvas.gd": {
+      "bytes": 13513,
+      "sha256": "ce887435e1ceba5a4bd191c30a39bce68c65364a67e7f9f673111943c226926b"
+    },
+    "SOURCE/game/market_day.gd": {
+      "bytes": 1954,
+      "sha256": "51fb568d91dc9988ec384d88e187524d5641e910ecbec98232b0935e3e8c2d00"
+    },
+    "SOURCE/game/market_player.gd": {
+      "bytes": 4338,
+      "sha256": "93e8c01a197127de7fedd25a4de19f77d1322d980ae9d3c6dcc6287f0fda6473"
+    },
+    "SOURCE/game/market_save.gd": {
+      "bytes": 6761,
+      "sha256": "336b4fc917ee39596341b597eec634f8206ba24c3a6cc480b0394909fd3d1f37"
+    },
+    "SOURCE/game/market_stall.gd": {
+      "bytes": 4413,
+      "sha256": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56"
+    },
+    "SOURCE/game/market_ui.gd": {
+      "bytes": 152795,
+      "sha256": "8507e1223741afeb1f27872056df0669045966118f9f7ecc1b0b0c9ba03d0c7e"
+    },
+    "SOURCE/game/market_world.gd": {
+      "bytes": 18980,
+      "sha256": "0c2f3a3c22361057dbee4c1c97ef5f2ad26e3940f8e9e31801e01c8f88b088d4"
+    },
+    "SOURCE/game/names_of_allah.gd": {
+      "bytes": 802,
+      "sha256": "8d376ca58ec5e2ea1f2a8bb6709b2f6c66b05e697548b6be5fc4039428faab92"
+    },
+    "SOURCE/game/open_purse.gd": {
+      "bytes": 3329,
+      "sha256": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9"
+    },
+    "SOURCE/game/partnership.gd": {
+      "bytes": 2392,
+      "sha256": "49fe9a2838520509df8f3d4cec58afe2c0f59685e7e559019f5ed6916e8261c0"
+    },
+    "SOURCE/game/pilgrims.gd": {
+      "bytes": 3344,
+      "sha256": "cbcebb7fcb23c0edf2e21e95cb4ff614a69a61a6a3cbe9793cd0c3a0f5271dea"
+    },
+    "SOURCE/game/prayer_clock.gd": {
+      "bytes": 13266,
+      "sha256": "6d3057738ab2a31ed055e9102b64d4fd5f085df8ded96afc908a5564a961c209"
+    },
+    "SOURCE/game/qasims_jars.gd": {
+      "bytes": 1521,
+      "sha256": "b136d4f3c187fc775c811e010de6c848e7ebc00b51b8464e7f77c0b8f1f40c6a"
+    },
+    "SOURCE/game/qurans_school.gd": {
+      "bytes": 2673,
+      "sha256": "7fbde7dcbfcff6b559cc364d83627cdb9a2f3a6db14807708078b0dc3f89789a"
+    },
+    "SOURCE/game/ramadan.gd": {
+      "bytes": 2821,
+      "sha256": "fceb0490d3fed081ad3554d8189f08dbb6cbdefb53dc1b8e552554d681715962"
+    },
+    "SOURCE/game/rashids_loan.gd": {
+      "bytes": 2586,
+      "sha256": "0ecd01729c296de41f7b4f9ce3404b88386fa6bb19d2d97b8959671d9836074a"
+    },
+    "SOURCE/game/real_prayer_times.gd": {
+      "bytes": 5398,
+      "sha256": "2a8b0051cfd83ef5fe1ab7e8e363bbcdafd23e5f4b65c1da85a5d76575635b90"
+    },
+    "SOURCE/game/river_market.gd": {
+      "bytes": 69145,
+      "sha256": "40783395dfc4ea60ffc7d3788c30da111f2e60f08467afccedbac1afe833b6a3"
+    },
+    "SOURCE/game/river_market.tscn": {
+      "bytes": 171,
+      "sha256": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 14301,
+      "sha256": "90c356dc191290189430c4aaaf788f76bcd1cc6a39bff25a3c9a0db7d04a41f5"
+    },
+    "SOURCE/game/sealed_purse.gd": {
+      "bytes": 1725,
+      "sha256": "e3b46ae422a91cd824057e43881c80bb254dac24da5031163ac093d491bef7ab"
+    },
+    "SOURCE/game/talking.gd": {
+      "bytes": 2823,
+      "sha256": "ad0c1490a862e2dc301ec93f91d276b93b915127f8a1a2c5ae53727b767467d1"
+    },
+    "SOURCE/game/task_progress.gd": {
+      "bytes": 3214,
+      "sha256": "0777fd340c6c2f0a8ed3ed724307e07fc2fe8228d1539d3c8d6f12602654b777"
+    },
+    "SOURCE/game/zakat.gd": {
+      "bytes": 3028,
+      "sha256": "9a3e1bdad4eff6b47a5af62324d7f17052ba66f5db04e278159925870656ca7d"
+    },
+    "SOURCE/look_test/camera.gd": {
+      "bytes": 3995,
+      "sha256": "ce8e0199b3952f07dedf09af39dffbe1a784f9b6d0608d43f4b7649b5f277f83"
+    },
+    "SOURCE/look_test/camera.gd.uid": {
+      "bytes": 20,
+      "sha256": "f3d8af1d3390d8e2962cac35cad1349a217699d57f0f7548dbdf6fb34debf095"
+    },
+    "SOURCE/look_test/capture_helper.gd": {
+      "bytes": 4967,
+      "sha256": "919939ac60ec7e8a269a90263272f6c9aa029a6a9de839a419a61af34d480fb8"
+    },
+    "SOURCE/look_test/capture_helper.gd.uid": {
+      "bytes": 20,
+      "sha256": "ec433660923bb798846115c8386b335ea3a7447a3b002d8b44c2e582067d6053"
+    },
+    "SOURCE/look_test/look_test.tscn": {
+      "bytes": 659105,
+      "sha256": "2260de32d8589e450fae42548cbd4b098b590c8511e30e408ef94194b4f3b40a"
+    },
+    "SOURCE/main.tscn": {
+      "bytes": 54,
+      "sha256": "109e5b49d1caed038c97365a9c4fb995c5541bfd0b30d9ef1568af98bb815a94"
+    },
+    "SOURCE/project.godot": {
+      "bytes": 1690,
+      "sha256": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45"
+    },
+    "SOURCE/tests/capture_arrival.gd": {
+      "bytes": 10560,
+      "sha256": "fb2e560362904750caf2079a56b864ffa6273d803c1c4ef21d281fbba5770f8f"
+    },
+    "SOURCE/tests/capture_bread_grab.gd": {
+      "bytes": 7137,
+      "sha256": "133d2420f2a7f8bc938c4808004cfc73359141205ae5665da5284bfc774824af"
+    },
+    "SOURCE/tests/capture_calendar.gd": {
+      "bytes": 12596,
+      "sha256": "bc606c1869ba7ce424eed972e39af6e5cc2cf60ffa993f9eee6e09fb64725faf"
+    },
+    "SOURCE/tests/capture_clock.gd": {
+      "bytes": 10104,
+      "sha256": "0961206c776bf5e2d408ac08cd0dd0ba352d7eaa087bea99d8fec15cafb97f7b"
+    },
+    "SOURCE/tests/capture_clothes.gd": {
+      "bytes": 14196,
+      "sha256": "a406a8d17b04c4b8a30b57864b96b4a83924826f66166a6f60eb8957dfd8979e"
+    },
+    "SOURCE/tests/capture_dice_house.gd": {
+      "bytes": 11346,
+      "sha256": "28ade5c6f8fefc6e9825680d35bdff3e3746f3947d629c6563512e40888c30ee"
+    },
+    "SOURCE/tests/capture_dry_fountain.gd": {
+      "bytes": 10209,
+      "sha256": "281128079dc7ed8fffa3ed9cdf623cf014bde3ee0175d4ad318e98fd08c9245c"
+    },
+    "SOURCE/tests/capture_eid_al_adha.gd": {
+      "bytes": 16252,
+      "sha256": "38b22dde23024f68b045225768b21344f7f0cf39ce2877acdc47192ea301e7d9"
+    },
+    "SOURCE/tests/capture_eid_al_fitr.gd": {
+      "bytes": 14063,
+      "sha256": "75d59f7ec35597abd04a5647bf4f691c2408f6c9df39981fd19dbf4469cea38a"
+    },
+    "SOURCE/tests/capture_feeding.gd": {
+      "bytes": 11457,
+      "sha256": "ba73712f611de91c22267b9826d7742c358e522226af69386527d239c43c2f4f"
+    },
+    "SOURCE/tests/capture_foundations.gd": {
+      "bytes": 6104,
+      "sha256": "9438293266619c670d86a24a005ede07624529debf5856290ff40a858e48f27d"
+    },
+    "SOURCE/tests/capture_gate.gd": {
+      "bytes": 8746,
+      "sha256": "5fa04d7873b38e2c806a286189c8646bd462d623052b651d342ecae8471e3f38"
+    },
+    "SOURCE/tests/capture_gate_of_trust.gd": {
+      "bytes": 9868,
+      "sha256": "17fc164fe8b074ee669007dce4400d47980be97e9b44a8968e711ea6bf5c050e"
+    },
+    "SOURCE/tests/capture_harm_in_the_road.gd": {
+      "bytes": 9298,
+      "sha256": "b2b249800133580ae7753facd005a0e7b829266a8c734e725b07ba8ec2c896a1"
+    },
+    "SOURCE/tests/capture_identity.gd": {
+      "bytes": 10390,
+      "sha256": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32"
+    },
+    "SOURCE/tests/capture_idris.gd": {
+      "bytes": 6756,
+      "sha256": "def0ffe118e73920b7168bf83ca8579791200eb4451b0aeb9f146fc644dc4111"
+    },
+    "SOURCE/tests/capture_idris_recovery.gd": {
+      "bytes": 11995,
+      "sha256": "6b5ca269d02d8d8699b4787ff0fb8a3b378859507251a703dc5300e1a856f79a"
+    },
+    "SOURCE/tests/capture_iftar_giving.gd": {
+      "bytes": 14515,
+      "sha256": "df46101888eb75dbd1e053070b72cb6d0a625407ce73e78980817d66273df126"
+    },
+    "SOURCE/tests/capture_jabirs_goats.gd": {
+      "bytes": 12170,
+      "sha256": "f339f4eadd9571026273699aef8521f563def360cb3cf9429180cff22b259875"
+    },
+    "SOURCE/tests/capture_jisra_masjid.gd": {
+      "bytes": 11458,
+      "sha256": "b917acdb6401dc1c2fc2e65fbaaa19328de94cf3a18bcc15dbe67eefe3c52a39"
+    },
+    "SOURCE/tests/capture_market_day.gd": {
+      "bytes": 10343,
+      "sha256": "8dd6701b8c4ff833a82844e4f09aa6f4b44eee9f000a045209521e27ebf1a03a"
+    },
+    "SOURCE/tests/capture_market_stall.gd": {
+      "bytes": 15195,
+      "sha256": "e6d105a7b695f92279c562e3063f798ef4bc842f3ebf0378c1179dbdb1285cd0"
+    },
+    "SOURCE/tests/capture_menus.gd": {
+      "bytes": 6519,
+      "sha256": "888527b114cb3c82efd2d3ac15f3d49548c95388deffb908078e6f9f42e6756e"
+    },
+    "SOURCE/tests/capture_names_of_allah.gd": {
+      "bytes": 9278,
+      "sha256": "bd0b6d5ab1be9b8f3e52298e3b121b5642cb870209aa39b47de7079c1ae399ea"
+    },
+    "SOURCE/tests/capture_open_purse.gd": {
+      "bytes": 10537,
+      "sha256": "8bea68a179b553ee4f534002a9c495b51150d1e50348732cb0ff439498cd3da4"
+    },
+    "SOURCE/tests/capture_partnership.gd": {
+      "bytes": 12177,
+      "sha256": "26def4a1323e75a5d8a55ee552def1030b8a0c3bc4ec53bab02389f0ba1b6570"
+    },
+    "SOURCE/tests/capture_pilgrims.gd": {
+      "bytes": 14160,
+      "sha256": "2bf611ef06c3484a03b695768f47e22ba39a94ea600b931521824fcc760c3822"
+    },
+    "SOURCE/tests/capture_prayer_record.gd": {
+      "bytes": 10974,
+      "sha256": "45078ab03379b2eec2c354bdee8084edfe7f9911b72be12811a7aa1614907363"
+    },
+    "SOURCE/tests/capture_prayer_reminder.gd": {
+      "bytes": 7600,
+      "sha256": "392fbe7fcc2fa34a5d41af91ebf7d708cce7484e2df6c6832ec7ec87979d514c"
+    },
+    "SOURCE/tests/capture_qasims_jars.gd": {
+      "bytes": 9953,
+      "sha256": "89588b50aa1470de923ac10be4e3adce1c1cf7379a3b50a25a73db03f11611a1"
+    },
+    "SOURCE/tests/capture_qurans_school.gd": {
+      "bytes": 13528,
+      "sha256": "cd94e6b29b0ecbaa3306703cc98b45272c944793cdd2703c3c059d43184f26bb"
+    },
+    "SOURCE/tests/capture_ramadan.gd": {
+      "bytes": 13357,
+      "sha256": "e4c947bc655d367cd8d99cfe6f132eec4790b64b37d0a7069c097cae0a307c54"
+    },
+    "SOURCE/tests/capture_rashids_loan.gd": {
+      "bytes": 14356,
+      "sha256": "f2130a50f689a5471b9161e4fac7b47e5a3dc07ae50b151c8b54e2a51856e2c2"
+    },
+    "SOURCE/tests/capture_regulars_at_prayer.gd": {
+      "bytes": 10602,
+      "sha256": "36cb733358fa893d6a0fc0cf2e4140adb646c7483e1f9cef1ae2bcf2d96ca76f"
+    },
+    "SOURCE/tests/capture_regulars_remember.gd": {
+      "bytes": 7872,
+      "sha256": "f788b9cfa3d01f51db6523e723964d7511bab3435d04bf54ad03d3e12bcf9769"
+    },
+    "SOURCE/tests/capture_scene_runner.gd": {
+      "bytes": 7998,
+      "sha256": "f5d9e6209dc5262b7b682c4c5da2259dff86cff3208baf496bff75a6070f3587"
+    },
+    "SOURCE/tests/capture_sealed_purse.gd": {
+      "bytes": 11860,
+      "sha256": "0f4c3bb3e7ac20b85b6bfdf029a67e237fcfe84bbcb6cf594d4a97d0d7ced5d9"
+    },
+    "SOURCE/tests/capture_talking.gd": {
+      "bytes": 14017,
+      "sha256": "ac12b3ba5f862805b38863520046b94736482770760b59a0b523b583607e1fc9"
+    },
+    "SOURCE/tests/capture_tasks.gd": {
+      "bytes": 11310,
+      "sha256": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003"
+    },
+    "SOURCE/tests/capture_zakat.gd": {
+      "bytes": 11740,
+      "sha256": "beedda79972005692925ed748337659ede562f5a97862b02650826e113eb175e"
+    },
+    "SOURCE/tests/create_comparisons.gd": {
+      "bytes": 11857,
+      "sha256": "39f971cceb984ed42947488c4195d4feb4a67dd9b1512fbab2ce5ba32b3f886f"
+    },
+    "SOURCE/tests/fixtures/scene_runner/content_index.json": {
+      "bytes": 115,
+      "sha256": "3735f992b0d4730f899cbd11e17dfc3acf4871748ca926c3193ee69ad7bb2d67"
+    },
+    "SOURCE/tests/fixtures/scene_runner/fixture_chapters.json": {
+      "bytes": 101,
+      "sha256": "4e4a8a6c4c04b4f46687e5e78473a8244d65d5e6f0118649c5c571ca9bc07374"
+    },
+    "SOURCE/tests/fixtures/scene_runner/fixture_scenes.json": {
+      "bytes": 5664,
+      "sha256": "46cd291ca3f900c1ae29387fbb7b69ba7b7dc1aa275ca7517b0ae025032b5136"
+    },
+    "SOURCE/tests/regulars_remember_fixture.gd": {
+      "bytes": 2951,
+      "sha256": "9a28a9707bf312a3a5a36e5228a698d814ffbc707ff435bda51c3bcfdb318e2c"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 354732,
+      "sha256": "d6fc602cba94939cc7fdf8a062b0e9d37df20167c7da4c2d558fb2ec5e18c4fd"
+    },
+    "SOURCE/tests/scene_runner_fixture.gd": {
+      "bytes": 13938,
+      "sha256": "5de9d5f2c4a4d1570be968b1c0a64be494cbd393082828e41cebaaf86273287d"
+    },
+    "SOURCE/tests/test_look_controls.gd": {
+      "bytes": 6005,
+      "sha256": "65fada00fbc85a9680d7374f5015cdd916cc2d9f4d927de267b4c1fcc3dcd83f"
+    },
+    "SOURCE/tests/test_player_movement.gd": {
+      "bytes": 4911,
+      "sha256": "081aa954164599270c18caef8f1a5bf731da6c185e1d0f4c912f832003ac653a"
+    },
+    "SOURCE/tests/test_progress_restart.gd": {
+      "bytes": 4089,
+      "sha256": "2f9fe0ed8692640e548dd4d137b9f30d04dc514ffb918e87d57b37cbb4ec8393"
+    }
+  }
+}

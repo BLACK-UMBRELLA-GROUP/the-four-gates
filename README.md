@@ -99,6 +99,9 @@ complete, open the gate and walk 90 in-game minutes to Jisra. Jisra tracks its o
 same wallet and clock. At the bridge of boats, choose how to respond to Hamid's toll once per game.
 LOCK 33 opens the boatmen's masjid in Jisra, where Uthman greets you after your first prayer there.
 **All your prayers** shows a private count of the distinct masjids where you have prayed.
+LOCK 34 adds the private **Journal** to the River Market bar. Chapter 1 shows completed missions and
+undiscovered entries, alongside the side mission total and lifetime goals. The scene runner and town
+hubs read their actions from game content as it becomes available.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

@@ -10,6 +10,7 @@ const MarketDay = preload("res://game/market_day.gd")
 const MarketSave = preload("res://game/market_save.gd")
 const RealPrayerTimes = preload("res://game/real_prayer_times.gd")
 const RegularsRememberFixture = preload("res://tests/regulars_remember_fixture.gd")
+const SceneRunnerFixture = preload("res://tests/scene_runner_fixture.gd")
 
 var checks := 0
 var failures := 0
@@ -84,6 +85,10 @@ func _run() -> void:
 	if "--reminder-only" in OS.get_cmdline_user_args():
 		check_real_prayer_times()
 		await check_prayer_reminder_runtime()
+		finish()
+		return
+	if "--scene-runner-only" in OS.get_cmdline_user_args():
+		await check_scene_runner_runtime()
 		finish()
 		return
 	if "--jisra-masjid-only" in OS.get_cmdline_user_args():
@@ -185,6 +190,7 @@ func _run() -> void:
 	await check_partnership_runtime()
 	await check_gate_of_trust_runtime()
 	await check_jisra_masjid_runtime()
+	await check_scene_runner_runtime()
 	finish()
 
 
@@ -3565,6 +3571,134 @@ func check_jisra_prayer_and_save(copy: Dictionary) -> void:
 func check_gate_of_trust_meter(label: String, value: int) -> void:
 	check(has_visible_label(app.ui, label) and has_visible_label(app.ui, str(data.ui.hud.trust_value).format({"n": value})),
 		"the HUD displays %s at %d" % [label, value])
+
+
+func check_scene_runner_runtime() -> void:
+	SceneRunnerFixture.run(app, check)
+	app.set_process(false)
+	reset_at_market_place("inn", 198, 8)
+	var runner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var journal: Dictionary = words.journal
+	var original := MarketSave.snapshot(app)
+	var legacy := original.duplicate(true)
+	legacy.erase("scene_runner")
+	legacy.erase("runner_town")
+	await press_button(words.journal_button, "River Market map offers the Journal")
+	check(app.ui.screen == "journal" and has_visible_label(app.ui, "Chapter 1 · The Gate of Trust")
+		and has_visible_label(app.ui, "0 / 7") and has_visible_label(app.ui, "0 / 0")
+		and not visible_text().contains("Chapter 2"), "production Journal shows the loaded chapter and both zero totals")
+	check(visible_text().split(journal.not_yet).size() == 8 and visible_text().split("…").size() == 8,
+		"each of the seven undiscovered Journal rows uses the locked placeholder and status")
+	check(not has_visible_label(app.ui, str(app.chapter.rep.title).format({"n": app.progress.trust})),
+		"the private Journal contains no reputation section")
+	await press_button(journal.back, "Journal Back is available")
+	check(app.ui.screen == "market_map", "Journal Back returns to the same market view")
+
+	var dhuhr: Dictionary = identity.clock.prayers[1]
+	var noon: int = app._minutes(dhuhr.begins)
+	await enter_jisra_masjid_fixture(8, noon)
+	var jisra: Dictionary = app.gate_of_trust.data.jisra
+	for title: String in [jisra.watch, app.jisra_masjid.data.jisra_button, app.clock.prayer_label(false), jisra.back]:
+		check(find_button(app.ui, title) != null, "Jisra keeps its live LOCK 32/33 control: " + title)
+	for title: String in [words.people_button, str(words.rep_button).format({"town": "Jisra"}), words.journal_button]:
+		check(find_button(app.ui, title) == null, "Jisra hides unshipped content: " + title)
+
+	app.scene_runner = SceneRunnerFixture.make_runner()
+	app.ui.scene_runner = app.scene_runner
+	MarketSave.restore(app, original)
+	app.show_screen("market_map")
+	await _check_runner_market_mission()
+	await _check_runner_town(words, noon)
+	check(not app.scene_runner.state().done.is_empty(), "fixture missions leave saveable runner state")
+	var saved := MarketSave.snapshot(app)
+	app.scene_runner.reset()
+	MarketSave.restore(app, saved)
+	check(MarketSave.snapshot(app) == saved, "new saves round-trip mission, town and existing state")
+	MarketSave.restore(app, legacy)
+	check(app.scene_runner.state() == original.scene_runner and app.runner_town_id().is_empty(),
+		"old saves without LOCK 34 fields restore the previous game with fresh runner state")
+	app.scene_runner = runner
+	app.ui.scene_runner = runner
+	MarketSave.restore(app, original)
+	app.show_screen("market_map")
+	app.set_process(true)
+
+
+func _check_runner_market_mission() -> void:
+	var mission: Dictionary = app.scene_runner.missions.fixture_market
+	check(find_button(app.ui, mission.button) == null, "market mission stays hidden at the wrong place")
+	move_market_fixture("quay")
+	await press_button(mission.button, "fixture mission appears on the real quay place bar")
+	check(app.ui.screen == "runner_mission", "the market place bar opens the fixture scene")
+	await press_button(mission.scenes.notice.choices[0].label, "the market scene accepts the available choice")
+	check(app.ui.screen == "market_map" and app.scene_runner.has_flag(app, "fixture_banned"),
+		"the terminal choice returns to its market view and applies its effects")
+
+
+func _check_runner_town(words: Dictionary, noon: int) -> void:
+	var town: Dictionary = app.scene_runner.towns.fixture_town
+	var story: Dictionary = app.scene_runner.missions.fixture_main
+	var choice: Dictionary = story.scenes.beginning.choices[0]
+	var leave_choice: Dictionary = story.scenes.beginning.choices.pop_back()
+	app.enter_runner_town(town.id)
+	check(app.ui.screen == "runner_town" and has_visible_label(app.ui, "Trust · Fixture town"),
+		"a loaded town opens with its own trust meter")
+	var wallet: int = app.progress.coins
+	app.progress.coins = 1
+	await press_button(story.button, "loaded town shows its main mission")
+	check(find_button(app.ui, choice.label) == null, "the unaffordable choice stays hidden")
+	await press_button(words.scene_back, "an all-hidden choice list provides the scene Back action")
+	check(app.ui.screen == "runner_town" and not app.scene_runner.mission_done(app, story.id),
+		"Back from an uncompleted scene preserves the mission")
+	story.scenes.beginning.choices.append(leave_choice)
+	app.progress.coins = wallet
+	await press_button(story.button, "the unfinished mission is still available")
+	await press_button(choice.label, "the affordable choice applies its effects")
+	check(has_visible_label(app.ui, "The marker kept") and not app.scene_runner.mission_done(app, story.id),
+		"the end scene appears before the mission is complete")
+	await press_button(words.scene_back, "leaving the end scene finishes the mission")
+	check(app.ui.screen == "runner_town" and find_button(app.ui, story.button) == null
+		and app.scene_runner.mission_done(app, story.id), "the finished one-time mission leaves the town hub")
+
+	await press_button(words.people_button, "the town opens its people list")
+	var person: Dictionary = app.scene_runner.people.fixture_keeper
+	await press_button(person.name, "the present keeper can be spoken to")
+	check(visible_text().contains("The keeper nods.") and visible_text().contains("You kept the first marker.")
+		and not visible_text().contains("You kept the second marker."), "dialogue uses the trust band and only the first matching memory")
+	await press_button(words.talk.back, "the talk panel returns to the list")
+	await press_button(words.people.back, "the people list returns to the hub")
+	await press_button(str(words.rep_button).format({"town": town.name}), "the town opens its local sayings")
+	check(visible_text().contains("You kept the first marker."), "town sayings include the mission witness")
+	await press_button(words.trep.back, "sayings return to the hub")
+	await press_button(town.work.label, "the loaded town work action is live")
+	var trust: int = app.scene_runner.town_trust(app, town.id)
+	await press_button(town.work.label, "a second shift still pays")
+	check(app.scene_runner.town_trust(app, town.id) == trust, "working only increases trust once per day")
+
+	app.clock.skip_to(8, noon)
+	app.update_state()
+	var masjid: Dictionary = town.masjids[0]
+	await press_button(masjid.button, "the generic hub opens its loaded masjid")
+	var prayer: String = identity.clock.pray_congregation
+	await press_button(prayer, "the generic masjid uses the existing congregation action")
+	check(app.jisra_masjid.prayed_in == {masjid.id: true} and visible_text().contains(masjid.first),
+		"the first real prayer adds the masjid once and shows the first greeting")
+	await press_button(masjid.back, "the loaded masjid returns to town")
+	var inn := str(words.inn_button).format({"n": int(town.inn)})
+	await press_button(inn, "the loaded town inn can be used")
+	check(app.day == 9 and app.minute_of_day == 280, "the generic town inn wakes at the locked 04:40")
+
+	app.show_screen("pause")
+	app.save_game(true)
+	app.continue_game()
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == town.id
+		and app.scene_runner.mission_done(app, story.id), "saving and continuing restores the generic town and mission")
+	await press_button(words.road_back, "generic town Back returns to Ilmara")
+	await press_button(words.journal_button, "the River Market Journal reflects finished fixture content")
+	check(has_visible_label(app.ui, story.title) and has_visible_label(app.ui, "1 / 1")
+		and has_visible_label(app.ui, "1 / 50"), "the Journal reads the scene completion and distinct masjid counter")
+	await press_button(words.journal.back, "fixture Journal closes normally")
 
 
 func check_jisra_masjid_runtime() -> void:

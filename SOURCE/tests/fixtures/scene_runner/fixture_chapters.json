@@ -1,0 +1,5 @@
+{
+  "chapters": [
+    {"n": 2, "name": "Second fixture chapter", "missions": ["fixture_main"]}
+  ]
+}

@@ -534,3 +534,21 @@ Run `godot --path SOURCE -- --capture-jisra-masjid --jisra-masjid-user-dir=/abso
 to capture eight native viewport states. Run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --jisra-masjid`
 to place each master beside its capture. Both commands accept `--jisra-masjid-output=/absolute/path`.
+
+## LOCK 34 — Scene runner, towns and Journal
+
+Choose **Journal** on the River Market bar. Chapter 1 lists seven missions. A completed mission shows
+its title and **done**. Undiscovered missions show **…** and **not yet found**. The Journal also shows
+side mission totals and the five lifetime goals. **Back** returns to the River Market view.
+
+The loader reads `data/content_index.json` in order. A later entry with the same chapter number replaces
+the earlier chapter. Mission buttons and town actions appear when their content and conditions are
+available. Jisra's bridge, masjid, prayer and road controls are live. The generic town fixtures live
+under `tests/fixtures/scene_runner/`.
+
+Run `godot --headless --path SOURCE --script res://tests/run_tests.gd` for the full suite, or add
+`-- --scene-runner-only` for the LOCK 34 checks. Use a fresh capture save directory when running
+`godot --path SOURCE -- --capture-scene-runner --scene-runner-user-dir=/absolute/fresh/path`.
+Then run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --scene-runner`.
+Both capture commands accept `--scene-runner-output=/absolute/path`. See the line 41 captures and
+master comparisons in `GAME/APPROVED/SCENE_RUNNER/BUILT/V1/`.

@@ -32,3 +32,7 @@ owner: THE FOUR GATES chat
 
 Rules that always apply: text scene files only; no file over 50 MB; nothing from the keys folder; every word and number read
 from the data files at run time.
+
+## Answer note — 11 Nov 2026 (QUESTIONS row 13)
+
+Build to spec Clarifications row 13. Evidence for sr01/sr02 is the two line 41 targets J1 (new game: Chapter 1 0 / 7, side 0 / 0, goals 0) and J2 (purse, grab and sealed purse done: 3 / 7); the masters' Chapter 2/3 rows and Sahila tick are later-line set-up. Jisra keeps only its LOCK 32 panel until line 42 supplies its town data. T may use test-only fixtures under the tests folder.

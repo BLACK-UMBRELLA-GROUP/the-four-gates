@@ -75,6 +75,13 @@ Walking around inside towns (a town is a hub of buttons for now); quests that sp
 
 Words and numbers only from `scene_runner_data_V1.json` (copied byte for byte to `SOURCE/data/scene_runner.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
 
+## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
+
+| Date | QUESTIONS row | Clarification |
+|---|---|---|
+| 2026-11-11 | — | Masters are pictures with a set-up state: the HUD's weekday, time, date, coins and trust, and bar items or toasts from other LOCKs, are not evidence targets unless this spec names them. A master at "Thursday 10:00" is a set-up time (the live game reaches the market only after the arrival, 18:15 on day 1): test the same state at the same time on a later day that is not a Friday (Friday turns Dhuhr into Friday prayer) |
+| 2026-11-11 | 13 | Journal chapters come from the loaded data in `n` order; a later file's chapter with the same `n` replaces the earlier one. Line 41 shows Chapter 1 only (2 arrives with line 49, 3 with 52, 4 with 55, 5 with 56). A chapter mission with no data yet is not done (`…` · not yet found). sr01/sr02 picture the finished game: line 41 targets are J1 (new game: 0 / 7, side 0 / 0, goals 0) and J2 (purse, grab, sealed purse done: 3 / 7). Jisra shows only its LOCK 32 panel (toll, masjid, prayer, back) until its town data arrives (line 42); the town buttons are generic code that appear only with data. Tests may use fixtures kept under the tests folder, never in `SOURCE/data`. |
+
 ## Version history
 
 | Date | Version | Change |

@@ -1,0 +1,104 @@
+{
+ "version": "LOCK 34 V1 (9 Nov 2026) - the scene runner, towns and the journal",
+ "builds_on": "LOCK 1 trust, LOCK 2 prayer, LOCK 3 What people say, LOCK 6 talking, LOCK 8 All your prayers, LOCK 18 clock, LOCK 29 pause menu, LOCK 32 Jisra, LOCK 33 masjids. Placeholders: {town}, {n}, {m}, {c}, {name}, {role}.",
+ "numbers": {
+  "wary_below": 30,
+  "warm_from": 70,
+  "town_inn": 2,
+  "wake": 280
+ },
+ "bands": [
+  "wary",
+  "friendly",
+  "warm"
+ ],
+ "words": {
+  "back": "Back",
+  "journal_button": "Journal",
+  "people_button": "Talk to people",
+  "rep_button": "What {town} says",
+  "inn_button": "Rest at the inn · {n} coins",
+  "inn_done": "You pay {n} coins and sleep at the inn. Morning comes.",
+  "inn_poor": "You cannot pay, so you sleep by the inn's wall. Morning comes.",
+  "work_done": "You work for {n} minutes and earn {c} coins.",
+  "work_closed": "{name} is not working now.",
+  "road_back": "Back to Ilmara",
+  "people": {
+   "kicker": "{town} · people",
+   "title": "Who is about",
+   "away": "{name} is not here now.",
+   "back": "Back"
+  },
+  "talk": {
+   "kicker": "{town} · {role}",
+   "back": "Back to the people"
+  },
+  "trep": {
+   "kicker": "{town} · what people say about you",
+   "title": "Trust · {town}: {n} / 100",
+   "empty": "Nobody here talks about you yet.",
+   "back": "Back"
+  },
+  "scene_back": "Back",
+  "journal": {
+   "kicker": "Your journal · private",
+   "title": "Journal",
+   "main": "The main story",
+   "chapter": "Chapter {n} · {name}",
+   "count": "{n} / {m}",
+   "side": "Side missions",
+   "goals": "Lifetime goals",
+   "done": "done",
+   "not_yet": "not yet found",
+   "back": "Back"
+  }
+ },
+ "chapters": [
+  {
+   "n": 1,
+   "name": "The Gate of Trust",
+   "missions": [
+    "purse",
+    "grab",
+    "sealed_purse",
+    "gate_opens",
+    "sahila_boat",
+    "sukara_offers",
+    "trust_home"
+   ]
+  }
+ ],
+ "chapter_builtin": {
+  "purse": "The open purse",
+  "grab": "The bread grab",
+  "sealed_purse": "The sealed purse",
+  "gate_opens": "The Gate of Trust opens"
+ },
+ "goals": [
+  {
+   "id": "meals",
+   "label": "Meals for the poor",
+   "m": 10000
+  },
+  {
+   "id": "qurans",
+   "label": "Qurans given",
+   "m": 1000
+  },
+  {
+   "id": "children",
+   "label": "Children sent to school",
+   "m": 100
+  },
+  {
+   "id": "masjids",
+   "label": "Masjids you have prayed in",
+   "m": 50
+  },
+  {
+   "id": "names",
+   "label": "Names of Allah learned",
+   "m": 99
+  }
+ ]
+}

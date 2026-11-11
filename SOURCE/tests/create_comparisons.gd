@@ -139,6 +139,10 @@ func _initialize() -> void:
 		var runner := load("res://tests/capture_regulars_remember.gd")
 		quit(0 if _compare_master_set("res://../GAME/APPROVED/REGULARS_REMEMBER/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
 		return
+	if "--scene-runner" in OS.get_cmdline_user_args():
+		var runner := load("res://tests/capture_scene_runner.gd")
+		quit(0 if _compare_master_set("res://../GAME/APPROVED/SCENE_RUNNER/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
+		return
 	if "--jisra-masjid" in OS.get_cmdline_user_args():
 		var runner := load("res://tests/capture_jisra_masjid.gd")
 		quit(0 if _compare_master_set("res://../GAME/APPROVED/JISRA_MASJID/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)

@@ -1,0 +1,7 @@
+{
+  "files": [
+    "../../../data/scene_runner.json",
+    "fixture_scenes.json",
+    "fixture_chapters.json"
+  ]
+}

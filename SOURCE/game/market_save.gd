@@ -60,6 +60,8 @@ static func snapshot(game: Node3D) -> Dictionary:
 		"minute_of_day": game.minute_of_day,
 		"market": _capture_fields(game, MARKET_FIELDS),
 		"meals_given": game.feeding.meal_counter.total,
+		"scene_runner": game.scene_runner.state(),
+		"runner_town": game.runner_saved_town(),
 	}
 	for component: String in COMPONENT_FIELDS:
 		state[component] = _capture_fields(game.get(component), COMPONENT_FIELDS[component])
@@ -109,6 +111,8 @@ static func read_slot(path: String) -> Dictionary:
 			continue
 		if not _has_fields(state.get(component), COMPONENT_FIELDS[component]):
 			return {}
+	if not state.get("scene_runner", {}) is Dictionary or not state.get("runner_town", "") is String:
+		return {}
 	return state
 
 
@@ -126,6 +130,8 @@ static func restore(game: Node3D, state: Dictionary) -> void:
 			or game.ramadan.has_prayed_at_masjid() or game.eid_al_fitr.has_prayed_at_masjid()
 			or game.eid_al_adha.has_prayed_at_masjid())
 	game.feeding.meal_counter.total = values.meals_given
+	game.scene_runner.restore(values.get("scene_runner", {}))
+	game.restore_runner_town(values.get("runner_town", ""))
 	game.zakat.close_panel()
 	game.ui.known_words = game.known_words
 	game.ui.idris_met = game.idris_met

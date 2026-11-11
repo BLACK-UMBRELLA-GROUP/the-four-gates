@@ -1,0 +1,556 @@
+{
+	"checks": [
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fresh fair arrival opens River Market",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Journal",
+			"passed": true
+		},
+		{
+			"description": "Journal opens from the live River Market bar",
+			"passed": true
+		},
+		{
+			"description": "only Chapter 1 is loaded",
+			"passed": true
+		},
+		{
+			"description": "the built completions agree with the approved target",
+			"passed": true
+		},
+		{
+			"description": "there are no loaded side missions",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: YOUR JOURNAL · PRIVATE",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: Journal",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: THE MAIN STORY",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: Chapter 1 · The Gate of Trust",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: 0 / 7",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: Side missions",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: 0 / 0",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: LIFETIME GOALS",
+			"passed": true
+		},
+		{
+			"description": "every undiscovered mission has one ellipsis and one locked status",
+			"passed": true
+		},
+		{
+			"description": "the correct number of completed statuses are visible",
+			"passed": true
+		},
+		{
+			"description": "visible goal from real game state: Meals for the poor",
+			"passed": true
+		},
+		{
+			"description": "visible goal from real game state: Qurans given",
+			"passed": true
+		},
+		{
+			"description": "visible goal from real game state: Children sent to school",
+			"passed": true
+		},
+		{
+			"description": "visible goal from real game state: Masjids you have prayed in",
+			"passed": true
+		},
+		{
+			"description": "visible goal from real game state: Names of Allah learned",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: sr01_journal__empty__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: sr01_journal__empty__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back",
+			"passed": true
+		},
+		{
+			"description": "Back returns to the River Market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: People are waiting at the door",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give 10 coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: End the day",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the open purse is completed through End the day",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Something happens at the oven",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk on",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Salma wants a word",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Tell the truth: it was Faris",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the bread grab is completed by telling Salma",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Read the board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take it · 6 coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Tell the spice seller what happened",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Karim has a job for you",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Carry the purse",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Push it back into the purse",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give the purse to Abbas",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the real whole sealed-purse delivery is complete",
+			"passed": true
+		},
+		{
+			"description": "the Gate of Trust is still closed",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Journal",
+			"passed": true
+		},
+		{
+			"description": "Journal opens from the live River Market bar",
+			"passed": true
+		},
+		{
+			"description": "only Chapter 1 is loaded",
+			"passed": true
+		},
+		{
+			"description": "the built completions agree with the approved target",
+			"passed": true
+		},
+		{
+			"description": "there are no loaded side missions",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: YOUR JOURNAL · PRIVATE",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: Journal",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: THE MAIN STORY",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: Chapter 1 · The Gate of Trust",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: 3 / 7",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: Side missions",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: 0 / 0",
+			"passed": true
+		},
+		{
+			"description": "visible locked Journal label: LIFETIME GOALS",
+			"passed": true
+		},
+		{
+			"description": "completed title visible: The open purse",
+			"passed": true
+		},
+		{
+			"description": "completed title visible: The bread grab",
+			"passed": true
+		},
+		{
+			"description": "completed title visible: The sealed purse",
+			"passed": true
+		},
+		{
+			"description": "every undiscovered mission has one ellipsis and one locked status",
+			"passed": true
+		},
+		{
+			"description": "the correct number of completed statuses are visible",
+			"passed": true
+		},
+		{
+			"description": "visible goal from real game state: Meals for the poor",
+			"passed": true
+		},
+		{
+			"description": "visible goal from real game state: Qurans given",
+			"passed": true
+		},
+		{
+			"description": "visible goal from real game state: Children sent to school",
+			"passed": true
+		},
+		{
+			"description": "visible goal from real game state: Masjids you have prayed in",
+			"passed": true
+		},
+		{
+			"description": "visible goal from real game state: Names of Allah learned",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: sr02_journal__progress__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: sr02_journal__progress__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back",
+			"passed": true
+		},
+		{
+			"description": "Back returns to the River Market map",
+			"passed": true
+		},
+		{
+			"description": "both approved line 41 targets captured",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Fair arrival. Passive game ticks paused. Only location, facing and time are set for the capture. The completions, trust, coins, and counters all come from gameplay. The Journal is captured at 10:00 on Thursday 8 and 15 Sha'ban.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Real native viewport. Mouse clicks use the production arrival, Journal, open purse, bread grab, honest board task and sealed-purse controls.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "sr01_journal__empty__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "sr02_journal__progress__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"sr01_journal__empty__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"journal": {
+				"chapters": [
+					{
+						"done": 0,
+						"n": 1,
+						"name": "The Gate of Trust",
+						"rows": [
+							{
+								"done": false,
+								"title": ""
+							},
+							{
+								"done": false,
+								"title": ""
+							},
+							{
+								"done": false,
+								"title": ""
+							},
+							{
+								"done": false,
+								"title": ""
+							},
+							{
+								"done": false,
+								"title": ""
+							},
+							{
+								"done": false,
+								"title": ""
+							},
+							{
+								"done": false,
+								"title": ""
+							}
+						],
+						"total": 7
+					}
+				],
+				"goals": [
+					{
+						"label": "Meals for the poor",
+						"m": 10000,
+						"n": 0
+					},
+					{
+						"label": "Qurans given",
+						"m": 1000,
+						"n": 0
+					},
+					{
+						"label": "Children sent to school",
+						"m": 100,
+						"n": 0
+					},
+					{
+						"label": "Masjids you have prayed in",
+						"m": 50,
+						"n": 0
+					},
+					{
+						"label": "Names of Allah learned",
+						"m": 99,
+						"n": 0
+					}
+				],
+				"side": {
+					"done": 0,
+					"total": 0
+				}
+			},
+			"lesson_done": false,
+			"minute": 600,
+			"night": false,
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "journal",
+			"tasks": {},
+			"trust": 20
+		},
+		"sr02_journal__progress__build.png": {
+			"coins": 196,
+			"daily_count": 0,
+			"day": 15,
+			"gate_open": false,
+			"journal": {
+				"chapters": [
+					{
+						"done": 3,
+						"n": 1,
+						"name": "The Gate of Trust",
+						"rows": [
+							{
+								"done": true,
+								"title": "The open purse"
+							},
+							{
+								"done": true,
+								"title": "The bread grab"
+							},
+							{
+								"done": true,
+								"title": "The sealed purse"
+							},
+							{
+								"done": false,
+								"title": ""
+							},
+							{
+								"done": false,
+								"title": ""
+							},
+							{
+								"done": false,
+								"title": ""
+							},
+							{
+								"done": false,
+								"title": ""
+							}
+						],
+						"total": 7
+					}
+				],
+				"goals": [
+					{
+						"label": "Meals for the poor",
+						"m": 10000,
+						"n": 0
+					},
+					{
+						"label": "Qurans given",
+						"m": 1000,
+						"n": 0
+					},
+					{
+						"label": "Children sent to school",
+						"m": 100,
+						"n": 0
+					},
+					{
+						"label": "Masjids you have prayed in",
+						"m": 50,
+						"n": 0
+					},
+					{
+						"label": "Names of Allah learned",
+						"m": 99,
+						"n": 0
+					}
+				],
+				"side": {
+					"done": 0,
+					"total": 0
+				}
+			},
+			"lesson_done": false,
+			"minute": 600,
+			"night": false,
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "journal",
+			"tasks": {
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"trust": 45
+		}
+	},
+	"timestamp_utc": "2026-11-11T22:13:51Z"
+}

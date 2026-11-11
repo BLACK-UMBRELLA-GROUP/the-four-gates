@@ -20,6 +20,7 @@ signal idris_continue_requested
 signal idris_leave_requested
 signal idris_replay_requested
 signal screen_requested(screen: String)
+signal runner_requested(action: String, value: Variant)
 signal wait_requested
 signal pray_requested
 signal make_up_requested
@@ -159,6 +160,10 @@ const JABIRS_GOATS_SCREENS := ["jabirs_offer", "jabirs_bought", "jabirs_told"]
 const DRY_FOUNTAIN_SCREENS := ["dry_fountain", "fountain_done"]
 const LOAN_SCREENS := ["loan_ask", "loan_lent", "loan_riba", "loan_due", "loan_after", "loan_last"]
 const PARTNERSHIP_SCREENS := ["partnership_ask", "partnership_agreed", "partnership_riba", "partnership_week"]
+const RUNNER_SCREENS := [
+	"journal", "runner_mission", "runner_town", "runner_people", "runner_person",
+	"runner_sayings", "runner_masjid", "runner_road_map",
+]
 const GATE_OF_TRUST_SCREENS := ["gate_opening", "jisra", "jisra_toll", "jisra_masjid"]
 const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_refused", "purse_morning", "reputation", "harm_done", "pilgrims", "qurans_school", "names_of_allah"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS + DRY_FOUNTAIN_SCREENS + LOAN_SCREENS + PARTNERSHIP_SCREENS
 var data: Dictionary = {}
@@ -189,6 +194,10 @@ var dry_fountain: DryFountain
 var rashids_loan: RashidsLoan
 var partnership: Partnership
 var gate_of_trust: GateOfTrust
+var scene_runner: RefCounted
+var _runner_market_missions: Array = []
+var _runner_town_missions: Array = []
+var _runner_people_here: Array = []
 var jisra_masjid: JisraMasjid
 var harm_in_the_road: HarmInTheRoad
 var _road_harm: Dictionary = {}
@@ -246,6 +255,7 @@ var font := SystemFont.new()
 var bold_font := SystemFont.new()
 var title_font := SystemFont.new()
 var _spaced_caption_font := FontVariation.new()
+var _journal_section_font := FontVariation.new()
 var progress: RefCounted
 var clock: RefCounted
 var clock_panel: Panel
@@ -280,6 +290,7 @@ var known_words: Dictionary = {}
 var _word_marker := RegEx.create_from_string("\\{([^{}]+)\\}")
 var _last_coins := -1
 var _last_trust := -1
+var _last_town_trust := -1
 var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
@@ -322,6 +333,8 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	title_font.font_weight = 700
 	_spaced_caption_font.base_font = font
 	_spaced_caption_font.spacing_glyph = 2
+	_journal_section_font.base_font = title_font
+	_journal_section_font.spacing_glyph = 2
 	root = Control.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -366,6 +379,8 @@ func _rebuild_screen() -> void:
 	var previous_wardrobe := content.find_child("WardrobeScroll", true, false) as ScrollContainer if screen == "bag" else null
 	var wardrobe_scroll := previous_wardrobe.scroll_vertical if previous_wardrobe != null else 0
 	var old_panel_scroll := content.get_node_or_null("LargePanelScroll") as ScrollContainer
+	var old_runner_scroll := content.find_child("RunnerScroll", true, false) as ScrollContainer if screen in RUNNER_SCREENS else null
+	var runner_scroll := old_runner_scroll.scroll_vertical if old_runner_scroll != null else 0
 	var panel_scroll := Vector2i(old_panel_scroll.scroll_horizontal, old_panel_scroll.scroll_vertical) if old_panel_scroll != null else Vector2i.ZERO
 	_scale_panel = large_text and screen not in ["title", "game", "market_map", "city_map", "world_map"]
 	clock_panel = null
@@ -407,7 +422,11 @@ func _rebuild_screen() -> void:
 			var separate_board_row := place_id == "board"
 			if screen == "market_map":
 				place_x = 732.0
-			var nav_y := _build_place_bar(place_x, separate_board_row)
+			var journal_button: String = scene_runner.data.words.journal_button
+			var journal_width := _button_width(journal_button)
+			var nav_y := _build_place_bar(place_x + journal_width + 22.0, separate_board_row)
+			_button(journal_button, Vector2(place_x, nav_y), Vector2(journal_width, 55),
+				func(): runner_requested.emit("journal", null))
 			if screen == "market_map":
 				_button(data.ui.buttons.city_map, Vector2(42, nav_y), Vector2(138, 55), func(): screen_requested.emit("city_map"))
 				_button(data.ui.buttons.wait_prayer, Vector2(203, nav_y), Vector2(265, 55), func(): wait_requested.emit())
@@ -503,6 +522,12 @@ func _rebuild_screen() -> void:
 		"partnership_ask", "partnership_agreed", "partnership_riba", "partnership_week":
 			_build_hud()
 			_build_partnership()
+		"journal":
+			_build_hud()
+			_build_journal()
+		"runner_mission", "runner_town", "runner_people", "runner_person", "runner_sayings", "runner_masjid", "runner_road_map":
+			_build_hud()
+			_build_runner_panel()
 		"gate_opening", "jisra", "jisra_toll":
 			_build_hud()
 			_build_gate_of_trust()
@@ -542,6 +567,9 @@ func _rebuild_screen() -> void:
 		"talk":
 			_build_hud()
 			_build_talking()
+	var new_runner_scroll := content.find_child("RunnerScroll", true, false) as ScrollContainer if screen in RUNNER_SCREENS else null
+	if new_runner_scroll != null and runner_scroll > 0:
+		new_runner_scroll.set_deferred("scroll_vertical", runner_scroll)
 	if _scale_panel:
 		_layout_large_panel(panel_scroll)
 	_scale_panel = false
@@ -573,6 +601,22 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 		rebuild = rebuild or _clock_day != clock.day
 	if screen in ["pilgrims", "reputation"]:
 		rebuild = rebuild or _clock_day != clock.day
+	if screen in ["game", "market_map"]:
+		var available: Array = scene_runner.available_missions(get_parent(), "", place_value)
+		rebuild = rebuild or _runner_market_missions != available
+		_runner_market_missions = available
+	elif screen in ["jisra", "runner_town"]:
+		var town: String = get_parent().runner_town_id()
+		var available: Array = scene_runner.available_missions(get_parent(), town, "")
+		var trust: int = scene_runner.town_trust(get_parent(), town)
+		rebuild = rebuild or _runner_town_missions != available or _last_town_trust != trust
+		_runner_town_missions = available
+		_last_town_trust = trust
+	elif screen == "runner_people" and clock_changed:
+		var present := _town_people_present(get_parent().runner_town_id())
+		rebuild = rebuild or present != _runner_people_here
+	elif screen == "runner_mission" and clock_changed:
+		rebuild = true
 	var prompt := bread_grab.board_prompt(salma_present) if place_value == "board" else BreadGrab.Prompt.NONE
 	if prompt != _board_prompt:
 		_board_prompt = prompt
@@ -673,13 +717,13 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	if clock_changed or place_changed:
 		_clock_day = clock.day
 		_clock_minute = clock.minute_of_day
-		var at_masjid := place_id == "masjid" or screen == "jisra_masjid"
+		var at_masjid := place_id == "masjid" or screen in ["jisra_masjid", "runner_masjid"]
 		var prayer: String = clock.prayer_label(at_masjid)
 		var make_up: String = clock.make_up_label()
 		var masjid_line: String = clock.masjid_line() if at_masjid else ""
 		if screen in ["game", "market_map"]:
 			rebuild = rebuild or prayer != _prayer_label or make_up != _make_up_label or masjid_line != _masjid_line
-		elif screen in ["jisra", "jisra_masjid"]:
+		elif screen in ["jisra", "jisra_masjid", "runner_town", "runner_masjid"]:
 			rebuild = rebuild or prayer != _prayer_label
 		_prayer_label = prayer
 		_make_up_label = make_up
@@ -1090,8 +1134,13 @@ func _build_hud() -> void:
 		coin_hit.pressed.connect(func(): bag_requested.emit())
 		coins.add_child(coin_hit)
 	var at_jisra := gate_of_trust.in_jisra
-	var trust_value: int = gate_of_trust.jisra_trust if at_jisra else progress.trust
+	var town_id: String = get_parent().runner_town_id()
+	var town: Dictionary = scene_runner.towns.get(town_id, {})
+	var trust_value: int = scene_runner.town_trust(get_parent(), town_id)
 	var trust_label: String = gate_of_trust.data.jisra.meter if at_jisra else data.ui.hud.trust_label
+	if not town.is_empty():
+		var template: String = scene_runner.data.words.trep.title.get_slice(":", 0)
+		trust_label = template.format({"town": town.name})
 	var trust_width := roundf((306 if at_jisra else 352) * text_multiplier)
 	var trust := _panel(Vector2(1877 - trust_width, 42), Vector2(trust_width, 70), Color("302411"))
 	_label(trust, trust_label, Vector2(18, 7), Vector2(225 * text_multiplier, 37), 24, PAPER)
@@ -1110,7 +1159,7 @@ func _build_hud() -> void:
 	for index in range(first, content.get_child_count()):
 		content.get_child(index).set_meta("fixed_layer", true)
 	_scale_panel = scale_panel
-	if at_jisra or screen == "gate_opening" or screen in ["pause", "settings", "arrival", "idris", "purse_salma", "purse_page", "purse_refused", "stall_change", "all_prayers", "calendar"] or screen in GRAB_SCREENS:
+	if not town_id.is_empty() or screen in RUNNER_SCREENS or screen == "gate_opening" or screen in ["pause", "settings", "arrival", "idris", "purse_salma", "purse_page", "purse_refused", "stall_change", "all_prayers", "calendar"] or screen in GRAB_SCREENS:
 		return
 	var hit := Button.new()
 	hit.flat = true
@@ -1137,7 +1186,7 @@ func _build_clock_hud() -> void:
 func _update_clock_hud() -> void:
 	if not is_instance_valid(clock_panel):
 		return
-	var values: Dictionary = clock.hud(place_id == "masjid" or screen == "jisra_masjid")
+	var values: Dictionary = clock.hud(place_id == "masjid" or screen in ["jisra_masjid", "runner_masjid"])
 	_clock_time.text = values.time
 	_clock_prayer.text = values.prayer
 	var date_width := font.get_string_size(values.time, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x
@@ -1974,6 +2023,8 @@ func _build_gate_of_trust() -> void:
 			if not _prayer_label.is_empty():
 				x += _chapter_button(panel, _prayer_label, Vector2(x, y), func(): pray_requested.emit())
 			_chapter_button(panel, copy.back, Vector2(x, y), func(): jisra_return_requested.emit())
+			if scene_runner.towns.has("jisra"):
+				y = _runner_buttons(panel, _town_actions("jisra"), y + 69.0)
 		"jisra_toll":
 			if gate_of_trust.toll_choice.is_empty():
 				for choice: String in GateOfTrust.TOLL_CHOICES:
@@ -2006,6 +2057,216 @@ func _build_jisra_masjid() -> void:
 		x += _chapter_button(panel, _prayer_label, Vector2(x, y), func(): pray_requested.emit(), true)
 	_chapter_button(panel, copy.back, Vector2(x, y), func(): screen_requested.emit("jisra"))
 	_chapter_finish(panel, y)
+
+
+func _build_journal() -> void:
+	var copy: Dictionary = scene_runner.data.words.journal
+	var journal: Dictionary = scene_runner.journal(get_parent())
+	var panel := _panel(Vector2(365, 170), Vector2(1190, 826), Color("1b130be8"))
+	(panel.get_theme_stylebox("panel") as StyleBoxFlat).set_corner_radius_all(18)
+	_spaced_caption(panel, copy.kicker, 26.0)
+	var title := _label(panel, copy.title, Vector2(34, 53), Vector2(1122, 48), 36, Color("ffd27e"), true)
+	title.add_theme_font_override("font", title_font)
+	_journal_section(panel, copy.main, 110.0)
+	var rows := _runner_scroll_body(panel, 137.0, 675.0)
+	var y := 0.0
+	for chapter_entry: Dictionary in journal.chapters:
+		var name_value := str(copy.chapter).format({"n": chapter_entry.n, "name": chapter_entry.name})
+		var count := str(copy.count).format({"n": chapter_entry.done, "m": chapter_entry.total})
+		_prayer_total_row(rows, y, name_value, count, 45.0)
+		y += 45.0
+		for row: Dictionary in chapter_entry.rows:
+			_prayer_total_row(rows, y, row.title if row.done else "…", copy.done if row.done else copy.not_yet, 38.0, true)
+			y += 38.0
+	var side := str(copy.count).format({"n": journal.side.done, "m": journal.side.total})
+	_prayer_total_row(rows, y, copy.side, side, 45.0)
+	y += 54.0
+	_journal_section(rows, copy.goals, y)
+	y += 33.0
+	for goal: Dictionary in journal.goals:
+		_prayer_total_row(rows, y, goal.label, str(copy.count).format(goal), 38.0, true)
+		y += 38.0
+	_chapter_button(rows, copy.back, Vector2(34, y + 14.0), func(): runner_requested.emit("back", null))
+	rows.custom_minimum_size.y = y + 82.0
+
+
+func _journal_section(panel: Panel, caption: String, y: float) -> void:
+	_spaced_caption(panel, caption, y).add_theme_font_override("font", _journal_section_font)
+
+
+func _runner_scroll_body(panel: Panel, top: float, height: float) -> Panel:
+	var scroll := ScrollContainer.new()
+	scroll.name = "RunnerScroll"
+	scroll.position = Vector2(0, top)
+	scroll.size = Vector2(1186, height)
+	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	scroll.follow_focus = true
+	panel.add_child(scroll)
+	var body := Panel.new()
+	body.custom_minimum_size.x = 1158.0
+	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	body.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+	scroll.add_child(body)
+	return body
+
+
+func _build_runner_panel() -> void:
+	var app := get_parent()
+	var words: Dictionary = scene_runner.data.words
+	var town_id: String = app.runner_town_id()
+	var town: Dictionary = scene_runner.towns.get(town_id, {})
+	var copy: Dictionary
+	var actions: Array[Dictionary] = []
+	var paragraphs: Array = []
+	var values := {"town": town.get("name", ""), "n": scene_runner.town_trust(app, town_id)}
+	var back_label: String = words.back
+	match screen:
+		"runner_mission":
+			var mission: Dictionary = app.runner_mission()
+			copy = app.runner_scene()
+			paragraphs = _runner_paragraphs(copy.get("text", ""))
+			var choices: Array = scene_runner.choices(app, mission, copy)
+			for choice: Dictionary in choices:
+				actions.append(_runner_action(choice.label, "choice", choice, mission.get("main", false)))
+			back_label = words.scene_back if choices.is_empty() else ""
+		"runner_town":
+			copy = {"kicker": town.get("kicker", ""), "title": town.name}
+			paragraphs = _runner_paragraphs(town.get("text", ""))
+			actions = _town_actions(town_id)
+			_append_runner_prayer(actions, false)
+			back_label = words.road_back
+		"runner_people":
+			copy = words.people
+			_runner_people_here = _town_people_present(town_id)
+			for person: Dictionary in scene_runner.town_people(app, town_id):
+				if person.id in _runner_people_here:
+					actions.append(_runner_action(person.name, "person", person))
+				else:
+					paragraphs.append(str(copy.away).format({"name": person.name}))
+			back_label = copy.back
+		"runner_person":
+			var person: Dictionary = app.runner_person
+			copy = {"kicker": words.talk.kicker, "title": person.name}
+			values.role = person.role
+			paragraphs = scene_runner.person_lines(app, town_id, person)
+			back_label = words.talk.back
+		"runner_sayings":
+			copy = words.trep
+			for line in scene_runner.town_sayings(town_id):
+				paragraphs.append(str(line[0]) if line is Array else str(line))
+			if paragraphs.is_empty():
+				paragraphs.append(copy.empty)
+			back_label = copy.back
+		"runner_masjid":
+			copy = app.runner_masjid
+			var body: String = copy.get("first", copy.text) if app.runner_masjid_first else copy.text
+			paragraphs = [body]
+			var counter: String = jisra_masjid.counter()
+			if not counter.is_empty():
+				paragraphs.append(counter)
+			_append_runner_prayer(actions, true)
+			back_label = copy.get("back", words.back)
+		"runner_road_map":
+			copy = town.road_map
+			paragraphs = _runner_paragraphs(copy.get("text", ""))
+			back_label = copy.get("back", words.back)
+	if not back_label.is_empty():
+		actions.append(_runner_action(back_label, "back", null))
+	var panel := _chapter_panel(str(copy.get("kicker", "")).format(values), str(copy.get("title", "")).format(values), true)
+	(panel.get_theme_stylebox("panel") as StyleBoxFlat).set_corner_radius_all(18)
+	var rows := _runner_scroll_body(panel, 111.0, 1.0)
+	var y := 0.0
+	for paragraph: String in paragraphs:
+		y += _story_text(rows, paragraph, y) + 16.0
+	var end := _runner_buttons(rows, actions, y) + 69.0
+	rows.custom_minimum_size.y = end
+	var scroll := rows.get_parent() as ScrollContainer
+	scroll.size.y = minf(end, 696.0)
+	_chapter_finish(panel, 111.0 + scroll.size.y - 58.0)
+
+
+func _runner_paragraphs(text: Variant) -> Array:
+	if text is Array:
+		return text.duplicate()
+	return [] if str(text).is_empty() else [str(text)]
+
+
+func _runner_action(text: String, action: String, value: Variant, primary := false) -> Dictionary:
+	return {"text": text, "action": func(): runner_requested.emit(action, value), "primary": primary}
+
+
+func _mission_actions(missions: Array) -> Array[Dictionary]:
+	var actions: Array[Dictionary] = []
+	for mission: Dictionary in missions:
+		actions.append(_runner_action(mission.button, "mission", mission, mission.get("main", false)))
+	return actions
+
+
+func _town_actions(id: String) -> Array[Dictionary]:
+	var town: Dictionary = scene_runner.towns[id]
+	var words: Dictionary = scene_runner.data.words
+	var actions := _mission_actions(_runner_town_missions)
+	for masjid: Dictionary in town.get("masjids", []):
+		actions.append(_runner_action(masjid.button, "masjid", masjid))
+	if not scene_runner.town_people(get_parent(), id).is_empty():
+		actions.append(_runner_action(words.people_button, "people", null))
+	if town.has("work"):
+		actions.append(_runner_action(town.work.label, "work", null))
+	var cost: int = scene_runner.inn_cost(id)
+	if cost >= 0:
+		actions.append(_runner_action(str(words.inn_button).format({"n": cost}), "inn", null))
+	actions.append(_runner_action(str(words.rep_button).format({"town": town.name}), "sayings", null))
+	var road_map: Dictionary = town.get("road_map", {})
+	if road_map.has("button"):
+		actions.append(_runner_action(road_map.button, "road_map", null))
+	return actions
+
+
+func _town_people_present(town: String) -> Array:
+	var present := []
+	for person: Dictionary in scene_runner.town_people(get_parent(), town):
+		if scene_runner.person_available(get_parent(), person):
+			present.append(person.id)
+	return present
+
+
+func _append_runner_prayer(actions: Array[Dictionary], at_masjid: bool) -> void:
+	_prayer_label = clock.prayer_label(at_masjid)
+	if not _prayer_label.is_empty():
+		actions.append({"text": _prayer_label, "action": func(): pray_requested.emit(), "primary": at_masjid})
+
+
+func _runner_button_rows(actions: Array[Dictionary], width := 1120.0) -> Array:
+	var rows := []
+	var current := []
+	var used := 0.0
+	for action: Dictionary in actions:
+		var advance := _button_width(action.text, action.primary) + 12.0
+		if used + advance > width and not current.is_empty():
+			rows.append(current)
+			current = []
+			used = 0.0
+		current.append(action)
+		used += advance
+	if not current.is_empty():
+		rows.append(current)
+	return rows
+
+
+func _build_runner_button_rows(panel: Panel, rows: Array, origin: Vector2) -> float:
+	var y := origin.y
+	for row: Array in rows:
+		var x := origin.x
+		for action: Dictionary in row:
+			var width := _button_width(action.text, action.primary)
+			_button(action.text, Vector2(x, y), Vector2(width, 56), action.action, action.primary, panel)
+			x += width + 12.0
+		y += 69.0
+	return maxf(origin.y, y - 69.0)
+
+
+func _runner_buttons(panel: Panel, actions: Array[Dictionary], y: float) -> float:
+	return _build_runner_button_rows(panel, _runner_button_rows(actions), Vector2(34.0, y))
 
 
 func _build_road_harm_done() -> void:
@@ -2395,7 +2656,16 @@ func reputation_lines() -> Array:
 	var clothes: Variant = market_stall.clothing_reputation_line()
 	if clothes != null:
 		lines.append(clothes)
+	lines.append_array(_runner_market_sayings())
 	return lines
+
+func _runner_market_sayings() -> Array:
+	var lines: Array = scene_runner.town_sayings("")
+	var formatted := []
+	for line in lines:
+		formatted.append(line if line is Array else [line, data.ui.hud.trust_label.get_slice("· ", 1), 0])
+	return formatted
+
 
 func _build_reputation() -> void:
 	var rep: Dictionary = chapter.rep
@@ -2464,6 +2734,9 @@ func _build_prayer_buttons(x: float, place_width: float, row_y: float = 973.0) -
 
 # Returns the navigation row's vertical position.
 func _build_place_bar(x: float, separate_board_row: bool) -> float:
+	var mission_actions := _mission_actions(_runner_market_missions)
+	var mission_rows := _runner_button_rows(mission_actions, 1836.0)
+	var mission_height := 69.0 * mission_rows.size()
 	var carrying := sealed_purse.is_carrying()
 	var deliver := place_id == "gate" and carrying
 	var label_size := 23 if deliver else 24
@@ -2476,7 +2749,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		var idle: String = data.ui.place_bar.idle
 		var idle_width: float = font.get_string_size(idle, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x
 		var idle_total := idle_width + fasting_width + carrying_width + eid_line_width + 36.0
-		var idle_wrap := (carrying or fasting_width > 0.0 or eid_line_width > 0.0) and x + idle_total + _prayer_buttons_width(_prayer_label) > 1878.0
+		var idle_wrap := x + idle_total + _prayer_buttons_width(_prayer_label) > 1878.0
 		var idle_nav := 890.0 if idle_wrap else 974.0
 		var prayer_x := _build_prayer_buttons(x, 0.0 if idle_wrap else idle_total, idle_nav if idle_wrap else 973.0)
 		x = 42.0 if idle_wrap else prayer_x
@@ -2722,7 +2995,10 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if carrying_footer:
 		bar_y -= 50.0
 		nav_y -= 50.0
-	var separate_navigation := wrap or separate_board_row or carrying_footer or attendance_height > 0.0
+	wrap = wrap or x + bar_width + inline_carrying_width + prayer_width > 1878.0
+	nav_y -= mission_height
+	bar_y -= mission_height
+	var separate_navigation := wrap or separate_board_row or carrying_footer or attendance_height > 0.0 or mission_height > 0.0
 	if separate_navigation:
 		_build_prayer_buttons(x, 0.0, nav_y)
 		x = 42.0
@@ -2839,6 +3115,8 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		_label(panel, chapter.grab.wait_line, Vector2(18, 87 + (50 if carrying_footer and not harm_available and ramadan_width == 0.0 and eid_width == 0.0 else 0)), Vector2(width - 36, 42), 24, PAPER)
 	if attendance_height > 0.0:
 		_label(panel, attendance_notice, Vector2(18, height + 4.0), Vector2(width - 36.0, 42), label_size, PAPER)
+	if mission_height > 0.0:
+		_build_runner_button_rows(null, mission_rows, Vector2(42, 1048.0 - mission_height))
 	return nav_y if separate_navigation else 974.0
 
 func _font_size(normal: int) -> int:
