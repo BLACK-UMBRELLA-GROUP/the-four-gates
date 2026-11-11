@@ -39,7 +39,12 @@ Use E at Market scales to try the three weights against the checked weight and n
 adds 25 trust once; later visits check the scales. Passing after using the smiling changer reveals the cheat at
 the scales. Ask the gatekeepers with 100 trust and the lesson complete to swing the gate open for the session.
 Three honest tasks plus the lesson give exactly 100 trust and add 12 coins to the arrival wallet. G or the trust bar
-opens the four-gate goal panel. The city map marks the open Gate of Trust green. There is no shop yet.
+opens the four-gate goal panel. The city map marks the open Gate of Trust green.
+
+At Spice row, use **Buy at the stall** to buy bread, dates or local clothes. The first purchase opens
+**Your change**. Click the coins box on the market map or at the stall to open **What you carry**.
+Use **Wear them** or **Take them off** for the local clothes. At the Quay, **Give bread to Faris** appears
+while the bag holds bread. **What people say** shows the resulting reputation lines.
 
 WASD moves, mouse turns the third-person camera, Shift runs, E uses the nearby place, M opens/closes the market map,
 G opens the goal panel, T waits until the next prayer, P prays when available, and Esc closes panels or releases
@@ -167,3 +172,9 @@ running in `GAME/APPROVED/CHAPTER_1/BUILT/V1/`. Run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --bread-grab` for the 12 comparisons.
 Both commands accept `--bread-grab-output=/absolute/path`. See `BUILD.json` under `line_10` and `LINE10_CHECKS.json`
 for capture setup, checks and hashes.
+
+`godot --path SOURCE -- --capture-market-stall` captures the 15 LOCK 4 masters and two street capsule views in
+`GAME/APPROVED/MARKET_STALL/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --market-stall` for the 15 comparisons.
+Both commands accept `--market-stall-output=/absolute/path`. See `BUILD.json` for capture fixtures,
+source provenance, differences and the final PNG hashes.

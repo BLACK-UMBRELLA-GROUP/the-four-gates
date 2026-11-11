@@ -24,6 +24,11 @@ static func load_chapter1() -> Dictionary:
 	assert(parsed is Dictionary, "Approved chapter 1 data must be an object")
 	return parsed
 
+static func load_market_stall() -> Dictionary:
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/market_stall.json"))
+	assert(parsed is Dictionary, "Approved market stall data must be an object")
+	return parsed
+
 static func configure_input(data: Dictionary) -> void:
 	# The project declares the actions; the locked key names supply their events.
 	var movement: PackedStringArray = str(data.keys.move).split(" ", false)

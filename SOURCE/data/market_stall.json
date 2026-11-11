@@ -1,0 +1,91 @@
+{
+  "version": "LOCK 4 V1 (8 Nov 2026) - the market stall and your bag",
+  "builds_on": "LOCK 1 V2, LOCK 2 V3, LOCK 3 V1. Placeholders: {n} number.",
+  "numbers": {
+    "change_extra": 5,
+    "change_return_trust": 2,
+    "change_kept_trust": -3,
+    "feed_trust": 1
+  },
+  "place": {
+    "spice_button": "Buy at the stall",
+    "quay_feed": "Give bread to Faris"
+  },
+  "items": [
+    {
+      "id": "bread",
+      "name": "Bread",
+      "line": "A round loaf, baked this morning.",
+      "price": 1,
+      "use": "Give it away at the quay."
+    },
+    {
+      "id": "dates",
+      "name": "Dates",
+      "line": "A handful, wrapped in a leaf.",
+      "price": 2,
+      "use": "Keep them for later."
+    },
+    {
+      "id": "clothes",
+      "name": "Local clothes",
+      "line": "A robe and head cloth like everyone here wears.",
+      "price": 30,
+      "use": "Wear them and you stop looking like a foreigner.",
+      "once": true
+    }
+  ],
+  "stall": {
+    "kicker": "River Market · spice row",
+    "title": "Rashid's stall",
+    "intro": "Rashid sells a little of everything beside his spice sacks. He holds up fingers for the price.",
+    "buy": "Buy · {n} coins",
+    "buy_one": "Buy · {n} coin",
+    "not_enough": "not enough coins",
+    "owned": "bought",
+    "have": "You have {n}",
+    "back": "Back to the market map",
+    "change": {
+      "title": "Your change",
+      "text": "Rashid counts your change fast. When you look at your hand, there are {n} coins too many.",
+      "give_back": "Give it back",
+      "keep": "Keep it",
+      "returned": "Rashid laughs, surprised, and touches his heart. “Most people keep it.”",
+      "kept": "You close your hand. Rashid has already turned to the next customer.",
+      "found": "Rashid stops you. “I counted my box last night. Five coins short - and you were my only buyer.” He says nothing more."
+    }
+  },
+  "bag": {
+    "kicker": "Your bag",
+    "title": "What you carry",
+    "coins": "{n} coins",
+    "empty": "Your bag is empty.",
+    "wear": "Wear them",
+    "take_off": "Take them off",
+    "wearing": "wearing",
+    "back": "Back"
+  },
+  "feed": "Faris takes the bread and runs to share it with the younger boys at the quay.",
+  "say": {
+    "returned": [
+      "Honest at the stall",
+      "Rashid the spice seller",
+      1
+    ],
+    "kept": [
+      "Kept the extra change",
+      "Rashid the spice seller",
+      -1
+    ],
+    "fed": [
+      "Feeds the orphan at the quay",
+      "Jamal and the boatmen",
+      1
+    ],
+    "clothes": [
+      "Dresses like us now",
+      "the street",
+      1
+    ]
+  }
+}

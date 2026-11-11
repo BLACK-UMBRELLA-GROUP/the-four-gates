@@ -9,12 +9,14 @@ const TaskProgress = preload("res://game/task_progress.gd")
 const PrayerClock = preload("res://game/prayer_clock.gd")
 const OpenPurse = preload("res://game/open_purse.gd")
 const BreadGrab = preload("res://game/bread_grab.gd")
+const MarketStall = preload("res://game/market_stall.gd")
 
 var data: Dictionary
 var identity: Dictionary
 var chapter: Dictionary
 var open_purse := OpenPurse.new()
 var bread_grab := BreadGrab.new()
+var market_stall := MarketStall.new()
 var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
@@ -53,17 +55,18 @@ func _ready() -> void:
 	progress.setup(data)
 	open_purse.setup(chapter, progress, clock)
 	bread_grab.setup(chapter, progress, clock)
+	market_stall.setup(Foundations.load_market_stall(), progress, clock)
 	world = MarketWorld.new()
 	add_child(world)
 	world.setup(data)
-	world.setup_chapter_people(chapter)
+	world.setup_chapter_people(chapter, market_stall.data)
 	player = MarketPlayer.new()
 	add_child(player)
 	player.setup(data)
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -100,6 +103,11 @@ func _ready() -> void:
 	ui.bread_grab_left.connect(leave_bread_grab)
 	ui.bread_grab_ask_requested.connect(ask_about_bread)
 	ui.bread_grab_answered.connect(answer_bread_grab)
+	ui.bag_requested.connect(show_bag)
+	ui.purchase_requested.connect(buy_stall_item)
+	ui.change_answered.connect(resolve_stall_change)
+	ui.clothes_toggled.connect(toggle_stall_clothes)
+	ui.bread_given.connect(give_bread_to_faris)
 	show_screen("title")
 	update_state()
 	if "--capture-foundations" in OS.get_cmdline_user_args():
@@ -128,6 +136,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-bread-grab" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_bread_grab.gd").new()
+		capture_runner.run(self)
+	elif "--capture-market-stall" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_market_stall.gd").new()
 		capture_runner.run(self)
 
 func _process(delta: float) -> void:
@@ -175,6 +186,7 @@ func begin_game() -> void:
 	progress.setup(data)
 	open_purse.reset()
 	bread_grab.reset()
+	market_stall.reset()
 	world.stop_faris_run()
 	world.set_inn_people_waiting(true)
 	world.reset_gate()
@@ -432,10 +444,47 @@ func _bread_grab_prompt() -> BreadGrab.Prompt:
 		return bread_grab.board_prompt(world.salma.is_visible_in_tree())
 	return BreadGrab.Prompt.NONE
 
+func show_stall() -> void:
+	if current_place != "spice" or ui.screen not in ["game", "market_map"]:
+		return
+	_stop_travel()
+	market_stall.visit()
+	show_screen("stall")
+
+
+func buy_stall_item(id: String) -> void:
+	if ui.screen == "stall" and market_stall.buy(id):
+		show_screen("stall_change" if market_stall.change_state == MarketStall.Change.PENDING else "stall")
+
+
+func resolve_stall_change(give_back: bool) -> void:
+	if ui.screen == "stall_change" and market_stall.resolve_change(give_back):
+		show_screen("stall")
+
+
+func show_bag() -> void:
+	if ui.screen in MarketUI.BAG_ENTRY_SCREENS:
+		_stop_travel()
+		show_screen("bag")
+
+
+func toggle_stall_clothes() -> void:
+	if ui.screen == "bag" and market_stall.toggle_clothes():
+		show_screen("bag")
+
+
+func give_bread_to_faris() -> void:
+	update_state()
+	if current_place == "quay" and ui.screen in ["game", "market_map"] and market_stall.give_bread():
+		update_state()
+		ui.show_toast(market_stall.data.feed, ui.screen == "market_map")
+
+
 func use_place() -> void:
 	update_state()
 	match current_place:
 		"board": show_board()
+		"spice": show_stall()
 		"scales":
 			if progress.lesson_done:
 				ui.show_toast(data.other_text.scales_after_lesson)
@@ -510,7 +559,7 @@ func do_daily_job() -> void:
 		ui.show_toast(data.daily_job.toast)
 
 func _unhandled_input(event: InputEvent) -> void:
-	if ui.screen == "arrival":
+	if ui.screen in ["arrival", "stall_change"]:
 		return
 	if ui.screen == "idris":
 		if event.is_action_pressed("close"):
@@ -532,7 +581,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif ui.screen == "city_map": show_screen("market_map")
 		elif ui.screen == "world_map": show_screen("city_map")
 		elif ui.screen == "market_map": show_screen("game")
-		elif ui.screen in ["purse", "purse_morning", "reputation"]: show_screen("market_map")
+		elif ui.screen in ["purse", "purse_morning", "reputation", "stall", "bag"]: show_screen("market_map")
 		elif ui.screen in ["board", "task", "result", "lesson", "goal"]: show_screen("game")
 		else: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	elif event.is_action_pressed("market_map") and ui.screen != "title":

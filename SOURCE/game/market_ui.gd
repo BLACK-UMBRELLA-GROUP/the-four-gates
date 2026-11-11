@@ -36,13 +36,20 @@ signal bread_grab_requested
 signal bread_grab_left
 signal bread_grab_ask_requested
 signal bread_grab_answered(id: String)
+signal bag_requested
+signal purchase_requested(id: String)
+signal change_answered(give_back: bool)
+signal clothes_toggled
+signal bread_given
 
 const MapCanvas = preload("res://game/map_canvas.gd")
 const LessonCanvas = preload("res://game/lesson_canvas.gd")
 const BreadGrab = preload("res://game/bread_grab.gd")
+const MarketStall = preload("res://game/market_stall.gd")
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
+const BAG_ENTRY_SCREENS := ["game", "market_map", "stall"]
 const GRAB_SCREENS := ["grab_see", "grab_ask", "grab_after"]
 const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_morning", "reputation"] + GRAB_SCREENS
 var data: Dictionary = {}
@@ -50,6 +57,8 @@ var identity: Dictionary = {}
 var chapter: Dictionary
 var open_purse: RefCounted
 var bread_grab: BreadGrab
+var market_stall: MarketStall
+var _can_feed := false
 var _board_prompt := BreadGrab.Prompt.NONE
 var language_words: Dictionary
 var screen := "title"
@@ -97,12 +106,13 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
 	open_purse = purse_value
 	bread_grab = grab_value
+	market_stall = stall_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -238,6 +248,15 @@ func _rebuild_screen() -> void:
 		"reputation":
 			_build_hud()
 			_build_reputation()
+		"stall":
+			_build_hud()
+			_build_stall()
+		"stall_change":
+			_build_hud()
+			_build_stall_change()
+		"bag":
+			_build_hud()
+			_build_bag()
 	_last_coins = progress.coins
 	_last_trust = progress.trust
 	_last_daily_count = progress.daily_count
@@ -252,6 +271,10 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	var prompt := bread_grab.board_prompt(salma_present) if place_value == "board" else BreadGrab.Prompt.NONE
 	if prompt != _board_prompt:
 		_board_prompt = prompt
+		rebuild = rebuild or screen in ["game", "market_map"]
+	var can_feed := place_value == "quay" and market_stall.count("bread") > 0
+	if can_feed != _can_feed:
+		_can_feed = can_feed
 		rebuild = rebuild or screen in ["game", "market_map"]
 	place_id = place_value
 	night = night_value
@@ -478,6 +501,14 @@ func _build_hud() -> void:
 	var coin_width := bold_font.get_string_size(coin_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var coins := _panel(Vector2(42, 42), Vector2(coin_width + 36, 53), Color("302411"))
 	_label(coins, coin_text, Vector2(18, 7), Vector2(coin_width + 2, 38), 24, Color("ffd27e"), true)
+	if screen in BAG_ENTRY_SCREENS:
+		var coin_hit := Button.new()
+		coin_hit.text = coin_text
+		coin_hit.flat = true
+		coin_hit.size = coins.size
+		coin_hit.modulate = Color(1, 1, 1, 0)
+		coin_hit.pressed.connect(func(): bag_requested.emit())
+		coins.add_child(coin_hit)
 	var trust := _panel(Vector2(1525, 42), Vector2(352, 70), Color("302411"))
 	_label(trust, str(data.ui.hud.trust_label), Vector2(18, 7), Vector2(225, 37), 24, PAPER)
 	var value: String = str(data.ui.hud.trust_value).format({"n": progress.trust})
@@ -492,7 +523,7 @@ func _build_hud() -> void:
 	fill.size = Vector2(315 * float(progress.trust) / float(data.numbers.trust_max), 10)
 	fill.color = GOLD
 	track.add_child(fill)
-	if screen in ["arrival", "idris", "purse_salma", "purse_page"] or screen in GRAB_SCREENS:
+	if screen in ["arrival", "idris", "purse_salma", "purse_page", "stall_change"] or screen in GRAB_SCREENS:
 		return
 	var hit := Button.new()
 	hit.flat = true
@@ -508,7 +539,7 @@ func _build_clock_hud() -> void:
 	_clock_prayer = _label(clock_panel, "", Vector2(14, 40), Vector2(257, 34), 24, Color("ffd27e"), true)
 	_clock_time.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_clock_prayer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	if screen not in ["arrival", "idris", "prayer_record", "purse_salma", "purse_page"] and screen not in GRAB_SCREENS:
+	if screen not in ["arrival", "idris", "prayer_record", "purse_salma", "purse_page", "stall_change"] and screen not in GRAB_SCREENS:
 		_clock_hit = Button.new()
 		_clock_hit.flat = true
 		_clock_hit.modulate = Color(1, 1, 1, 0)
@@ -871,11 +902,92 @@ func _build_bread_grab() -> void:
 			_chapter_button(panel, beat.to_map, Vector2(x, y), func(): screen_requested.emit("market_map"))
 	_chapter_finish(panel, y)
 
+func _build_stall() -> void:
+	var stall: Dictionary = market_stall.data.stall
+	var panel := _chapter_panel(stall.kicker, stall.title)
+	var y := 111.0
+	if not market_stall.stall_notice.is_empty():
+		y += _story_text(panel, market_stall.stall_notice, y) + 19.0
+	y += _story_text(panel, stall.intro, y) + 21.0
+	for item: Dictionary in market_stall.data.items:
+		var detail: String = item.line
+		var held := market_stall.count(item.id)
+		if held > 0 and not item.get("once", false):
+			detail += " · " + str(stall.have).format({"n": held})
+		_stall_item_row(panel, item.name, detail, y)
+		var status := market_stall.purchase_status(item)
+		if status.is_empty():
+			var price := int(item.price)
+			var caption: String = str(stall.buy_one if price == 1 else stall.buy).format({"n": price})
+			_stall_row_button(panel, caption, y, func(): purchase_requested.emit(item.id), true)
+		else:
+			var label := _label(panel, status, Vector2(930, y + 14), Vector2(224, 56), 23, Color("ffd27e"))
+			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		y += 84.0
+	_stall_panel_back(panel, stall.back, y + 14.0)
+
+
+func _build_stall_change() -> void:
+	var stall: Dictionary = market_stall.data.stall
+	var change: Dictionary = stall.change
+	var panel := _chapter_panel(stall.kicker, change.title)
+	var text_value: String = str(change.text).format({"n": int(market_stall.data.numbers.change_extra)})
+	var y := 111.0 + _story_text(panel, text_value, 111.0) + 20.0
+	_chapter_button(panel, change.give_back, Vector2(34, y), func(): change_answered.emit(true), true, true)
+	y += 69.0
+	_chapter_button(panel, change.keep, Vector2(34, y), func(): change_answered.emit(false), false, true)
+	_chapter_finish(panel, y)
+
+
+func _build_bag() -> void:
+	var bag: Dictionary = market_stall.data.bag
+	var panel := _chapter_panel(bag.kicker, bag.title)
+	var coins: String = str(bag.coins).format({"n": progress.coins})
+	var held_items: Array[Dictionary] = []
+	for item: Dictionary in market_stall.data.items:
+		if market_stall.count(item.id) > 0:
+			held_items.append(item)
+			if item.id == "clothes" and market_stall.wearing_clothes:
+				coins += " · " + item.name + " · " + bag.wearing
+	var y := _chapter_note(panel, coins, 110.0)
+	if held_items.is_empty():
+		y += _story_text(panel, bag.empty, y) + 22.0
+	else:
+		for item in held_items:
+			var item_name: String = item.name
+			if not item.get("once", false):
+				item_name += " × %d" % market_stall.count(item.id)
+			_stall_item_row(panel, item_name, item.use, y)
+			if item.id == "clothes":
+				var caption: String = bag.take_off if market_stall.wearing_clothes else bag.wear
+				_stall_row_button(panel, caption, y, func(): clothes_toggled.emit(), not market_stall.wearing_clothes)
+			y += 84.0
+		y += 13.0
+	_stall_panel_back(panel, bag.back, y)
+
+
+func _stall_item_row(panel: Panel, item_name: String, detail: String, y: float) -> void:
+	_chapter_row_rule(panel, y)
+	_label(panel, item_name, Vector2(34, y + 10), Vector2(900, 34), 23, PAPER, true)
+	_label(panel, detail, Vector2(34, y + 42), Vector2(900, 30), 20, PAPER)
+
+
+func _stall_row_button(panel: Panel, caption: String, y: float, callback: Callable, primary: bool) -> void:
+	var width := _button_width(caption, primary)
+	_chapter_button(panel, caption, Vector2(1154 - width, y + 14), callback, primary)
+
+
+func _stall_panel_back(panel: Panel, caption: String, y: float) -> void:
+	_chapter_button(panel, caption, Vector2(34, y), func(): screen_requested.emit("market_map"))
+	_chapter_finish(panel, y)
+
+
 func reputation_lines() -> Array:
 	var lines: Array = open_purse.reputation_lines()
 	var answer: Variant = bread_grab.reputation_line()
 	if answer != null:
 		lines.append(answer)
+	lines.append_array(market_stall.reputation_lines())
 	return lines
 
 func _build_reputation() -> void:
@@ -886,20 +998,42 @@ func _build_reputation() -> void:
 	if lines.is_empty():
 		y += _story_text(panel, rep.empty, y) + 15.0
 	var row_height := 70.0 if lines.size() > 6 else 81.0
-	for line: Array in lines:
-		_chapter_row_rule(panel, y)
-		_label(panel, "“%s”" % line[0], Vector2(34, y + 10), Vector2(1000, 32), 23, PAPER, true)
-		_label(panel, str(line[1]).to_upper(), Vector2(34, y + 42), Vector2(1000, 24), 16, Color("e9bd70"))
-		var tone: String = rep.tone[str(int(line[2]))]
-		var tag := _label(panel, tone, Vector2(1034, y + 16), Vector2(120, 48), 23, Color("ffd27e"))
-		tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
-		y += row_height
-	if open_purse.has_secret_gift():
+	var has_secret_gift: bool = open_purse.has_secret_gift()
+	var rows_height := row_height * lines.size()
+	var max_rows_height := 687.0 - (36.0 if has_secret_gift else 0.0)
+	if rows_height > max_rows_height:
+		var scroll := ScrollContainer.new()
+		scroll.position = Vector2(0, y)
+		scroll.size = Vector2(1172, floorf(max_rows_height / row_height) * row_height)
+		scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+		panel.add_child(scroll)
+		var rows := Panel.new()
+		rows.custom_minimum_size = Vector2(1154, rows_height)
+		rows.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		rows.add_theme_stylebox_override("panel", StyleBoxEmpty.new())
+		scroll.add_child(rows)
+		_build_reputation_rows(rows, lines, row_height, 0.0)
+		y += scroll.size.y
+	else:
+		_build_reputation_rows(panel, lines, row_height, y)
+		y += rows_height
+	if has_secret_gift:
 		y = _chapter_note(panel, rep.secret_note, y)
 	y = _chapter_note(panel, rep.towns_note, y)
 	var x := 34.0 + _chapter_button(panel, rep.to_map, Vector2(34, y), func(): screen_requested.emit("market_map"), true)
 	_chapter_button(panel, rep.to_goal, Vector2(x, y), func(): goal_requested.emit())
 	_chapter_finish(panel, y)
+
+func _build_reputation_rows(panel: Panel, lines: Array, row_height: float, y: float) -> void:
+	var tones: Dictionary = chapter.rep.tone
+	for line: Array in lines:
+		_chapter_row_rule(panel, y)
+		_label(panel, "“%s”" % line[0], Vector2(34, y + 10), Vector2(1000, 32), 23, PAPER, true)
+		_label(panel, str(line[1]).to_upper(), Vector2(34, y + 42), Vector2(1000, 24), 16, Color("e9bd70"))
+		var tag := _label(panel, tones[str(int(line[2]))], Vector2(1034, y + 16), Vector2(120, 48), 23, Color("ffd27e"))
+		tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		y += row_height
+
 
 func _build_prayer_buttons(x: float, place_width: float, row_y: float = 973.0) -> float:
 	var prayer := _prayer_label if place_id != "masjid" else ""
@@ -931,6 +1065,8 @@ func _build_place_bar(x: float) -> void:
 	var action: String = data.ui.place_actions.get(place_id, data.ui.not_built)
 	if place_id == "inn":
 		action = identity.inn.action
+	elif place_id == "spice":
+		action = market_stall.data.place.spice_button
 	elif place_id == "scales" and progress.lesson_done:
 		action = data.ui.place_actions.scales_after_lesson
 	elif place_id == "masjid":
@@ -947,6 +1083,9 @@ func _build_place_bar(x: float) -> void:
 	if place_id == "inn" and not open_purse.done:
 		extra_text = chapter.places.inn
 		extra_action = func(): purse_requested.emit()
+	elif _can_feed:
+		extra_text = market_stall.data.place.quay_feed
+		extra_action = func(): bread_given.emit()
 	elif _board_prompt == BreadGrab.Prompt.SEE:
 		extra_text = chapter.places.board
 		extra_action = func(): bread_grab_requested.emit()

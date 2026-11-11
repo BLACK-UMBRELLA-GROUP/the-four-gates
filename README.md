@@ -25,6 +25,9 @@ LOCK 3 part 1 adds the people at the inn door, public and secret gifts, the firs
 and **What people say** on the market map.
 LOCK 3 part 2 adds the bread grab at the Task board. Salma asks from 16:10 when she is at her oven.
 The four answers affect coins, trust and what River Market says about the traveller.
+LOCK 4 opens Rashid’s stall at Spice row. Buy bread, dates or local clothes, and decide what to do with
+the extra change on the first purchase. Click the coins box to open the bag. Carry bread to the Quay
+to give it to Faris. What people say shows how River Market responds.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

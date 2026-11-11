@@ -4,6 +4,7 @@ extends SceneTree
 const PrayerClock = preload("res://game/prayer_clock.gd")
 const OpenPurse = preload("res://game/open_purse.gd")
 const TaskProgress = preload("res://game/task_progress.gd")
+const MarketStall = preload("res://game/market_stall.gd")
 
 var checks := 0
 var failures := 0
@@ -122,6 +123,7 @@ func _run() -> void:
 	check_open_purse_rules()
 	await check_open_purse_runtime()
 	await check_bread_grab_runtime()
+	await check_market_stall_runtime()
 	finish()
 
 
@@ -504,7 +506,7 @@ func check_ui_states() -> void:
 	await frames(2)
 	check(app.ui.screen == "goal" and visible_text().contains(data.goal.title), "G opens the approved goal panel")
 	app.show_screen("game")
-	for id: String in ["quay", "spice", "weaver"]:
+	for id: String in ["quay", "weaver"]:
 		app.player.global_position = app.world.point(id)
 		app.player.velocity = Vector3.ZERO
 		app.update_state()
@@ -1624,3 +1626,176 @@ func finish() -> void:
 	if app != null:
 		app.queue_free()
 	quit(0 if failures == 0 else 1)
+
+
+func check_market_stall_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/MARKET_STALL/RECORD/market_stall_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/market_stall.json")
+	var market: Dictionary = app.market_stall.data
+	check(not locked.is_empty() and locked == runtime, "market stall runtime copies the locked data byte for byte")
+	check(market == JSON.parse_string(runtime.get_string_from_utf8()), "market stall rules and interface use the locked runtime data")
+	await check_market_stall_return(market)
+	await check_market_stall_keep(market)
+	await check_market_stall_bag_and_feed(market)
+
+
+func reset_at_market_place(place: String, coins: int) -> void:
+	app.begin_game()
+	app.clock.advance_to(3, 10 * 60, false)
+	app.progress.coins = coins
+	move_market_fixture(place)
+
+
+func move_market_fixture(place: String) -> void:
+	app.player.position = app.world.point(place)
+	app.player.velocity = Vector3.ZERO
+	app.show_screen("market_map")
+
+
+func market_buy_caption(market: Dictionary, price: int) -> String:
+	return str(market.stall.buy_one if price == 1 else market.stall.buy).format({"n": price})
+
+
+func market_coins_caption() -> String:
+	return str(data.ui.hud.coins).format({"n": app.progress.coins})
+
+
+func check_market_stall_return(market: Dictionary) -> void:
+	var bread := int(market.items[0].price)
+	var dates := int(market.items[1].price)
+	var clothes := int(market.items[2].price)
+	var extra := int(market.numbers.change_extra)
+	reset_at_market_place("spice", bread)
+	app.show_screen("game")
+	check(find_button(app.ui, market.place.spice_button) != null, "spice row offers the locked stall action")
+	key_event(KEY_E, true)
+	key_event(KEY_E, false)
+	await frames(2)
+	check(app.ui.screen == "stall", "E at spice row opens Rashid's stall")
+	check(visible_text().contains(market.stall.not_enough), "unaffordable items show the locked status")
+	check(find_button(app.ui, market_buy_caption(market, dates)) == null, "unaffordable dates have no Buy button")
+	app.buy_stall_item("dates")
+	app.buy_stall_item("unknown")
+	check(app.progress.coins == bread and app.market_stall.count("dates") == 0, "invalid and unaffordable purchases have no effect")
+	await press_button(market_buy_caption(market, bread), "the exact wallet price buys bread")
+	check(app.ui.screen == "stall_change" and visible_text().contains(market.stall.change.text.format({"n": extra})), "first purchase opens the locked change panel")
+	check(app.progress.coins == extra and app.market_stall.count("bread") == 1, "first purchase pays the price, adds bread and gives extra coins")
+	check(find_button(app.ui, market_coins_caption()) == null, "bag cannot bypass the unresolved change decision")
+	key_event(KEY_ESCAPE, true)
+	key_event(KEY_ESCAPE, false)
+	await frames(2)
+	check(app.ui.screen == "stall_change", "Esc keeps the change decision open")
+	var trust: int = app.progress.trust
+	await press_button(market.stall.change.give_back, "give the extra change back")
+	trust += int(market.numbers.change_return_trust)
+	check_wallet(trust, 0, "returning the change spends the extra coins and grants trust")
+	check(app.ui.screen == "stall" and visible_text().contains(market.stall.change.returned), "stall shows Rashid's response")
+	app.resolve_stall_change(true)
+	check_wallet(trust, 0, "the returned change cannot be returned again")
+	app.progress.coins = dates + clothes
+	app.update_state()
+	await press_button(market_buy_caption(market, dates), "buy dates after resolving the first purchase")
+	check_wallet(trust, clothes, "second purchase charges only the price")
+	check(app.market_stall.count("dates") == 1 and app.ui.screen == "stall", "second purchase adds dates without a change panel")
+	await press_button(market_buy_caption(market, clothes), "buy the local clothes")
+	check_wallet(trust, 0, "local clothes cost exactly their locked price")
+	check(find_button(app.ui, market_buy_caption(market, clothes)) == null and visible_text().contains(market.stall.owned), "already-owned clothes show bought instead of Buy")
+	app.progress.coins = clothes
+	app.buy_stall_item("clothes")
+	check(app.progress.coins == clothes and app.market_stall.count("clothes") == 1, "buying local clothes again is rejected even when affordable")
+	check(app.ui.reputation_lines() == [market.say.returned], "returning change adds only the returned reputation line")
+
+
+func check_market_stall_keep(market: Dictionary) -> void:
+	var bread := int(market.items[0].price)
+	reset_at_market_place("spice", bread)
+	await press_button(market.place.spice_button, "market-map spice row button opens the stall")
+	await press_button(market_buy_caption(market, bread), "buy bread for the keep-change branch")
+	var coins: int = app.progress.coins
+	var trust: int = app.progress.trust
+	await press_button(market.stall.change.keep, "keep the extra change")
+	check_wallet(trust, coins, "keeping the change leaves the wallet and trust intact that day")
+	check(visible_text().contains(market.stall.change.kept), "stall shows the locked keep response")
+	check(app.ui.reputation_lines().is_empty(), "kept change has no reputation before discovery")
+	await press_button(market.stall.back, "stall Back returns to the market map")
+	await press_button(market.place.spice_button, "reopen the stall on the same day")
+	check_wallet(trust, coins, "a same-day return does not cost trust")
+	check(not visible_text().contains(market.stall.change.found), "same-day return shows no discovery")
+	await press_button(market.stall.back, "leave before the next day")
+	app.clock.advance_to(app.day + 2, 10 * 60, false)
+	app.update_state()
+	check_wallet(trust, coins, "passing days alone does not cost trust")
+	await press_button(market.place.spice_button, "reopen the stall after skipping a day")
+	trust += int(market.numbers.change_kept_trust)
+	check_wallet(trust, coins, "the first later visit deducts trust once without changing coins")
+	check(visible_text().contains(market.stall.change.found), "Rashid explains his discovery when it occurs")
+	check(app.ui.reputation_lines() == [market.say.kept], "the discovered choice adds only the kept reputation line")
+	await press_button(market.stall.back, "leave after discovery")
+	await press_button(market.place.spice_button, "reopen after discovery")
+	check_wallet(trust, coins, "the discovery cannot deduct trust again")
+	check(not visible_text().contains(market.stall.change.found), "the discovery response is shown only when it occurs")
+
+
+func check_market_stall_bag_and_feed(market: Dictionary) -> void:
+	var bread := int(market.items[0].price)
+	var clothes := int(market.items[2].price)
+	reset_at_market_place("quay", 2 * bread + clothes + 100)
+	check(app.market_stall.change_state == MarketStall.Change.NONE, "beginning again clears the previous change decision")
+	check(find_button(app.ui, market.place.quay_feed) == null, "Quay cannot offer bread with an empty bag")
+	await press_button(market_coins_caption(), "clicking the coins box opens the bag")
+	check(app.ui.screen == "bag" and visible_text().contains(market.bag.empty), "empty bag shows the locked empty state")
+	await press_button(market.bag.back, "bag Back returns to the market map")
+	move_market_fixture("spice")
+	await press_button(market.place.spice_button, "open the stall to fill the bag")
+	await press_button(market_buy_caption(market, bread), "buy the first of two loaves")
+	await press_button(market.stall.change.give_back, "resolve the change before buying again")
+	await press_button(market_buy_caption(market, bread), "buy the second loaf")
+	await press_button(market_buy_caption(market, clothes), "buy clothes for the bag")
+	await press_button(market.stall.back, "leave with the full bag")
+	check(find_button(app.ui, market.place.quay_feed) == null, "bread action stays off the spice row")
+	app.give_bread_to_faris()
+	check(app.market_stall.count("bread") == 2, "giving bread is rejected away from the Quay")
+	await press_button(market_coins_caption(), "open the bag with goods")
+	check(visible_text().contains("%s × 2" % market.items[0].name), "bag shows the repeatable item's count")
+	check(visible_text().contains(market.items[2].use), "bag shows the local clothes use line")
+	await press_button(market.bag.wear, "wear the local clothes")
+	var coins_line := ("%s · %s · %s" % [str(market.bag.coins).format({"n": app.progress.coins}), market.items[2].name, market.bag.wearing]).to_upper()
+	check(visible_text().contains(coins_line), "wearing is reflected in the bag's coins line")
+	check(app.ui.reputation_lines() == [market.say.returned, market.say.clothes], "clothes reputation follows returned change")
+	await press_button(market.bag.take_off, "take off the local clothes")
+	check(not visible_text().contains(coins_line) and app.ui.reputation_lines() == [market.say.returned], "taking off removes both wearing indications")
+	await press_button(market.bag.wear, "put the clothes back on")
+	await press_button(market.bag.back, "close bag before going to the Quay")
+	move_market_fixture("quay")
+	check(find_button(app.ui, data.ui.place_actions.quay) != null, "bread keeps the regular Quay action visible")
+	var coins: int = app.progress.coins
+	var trust: int = app.progress.trust
+	await press_button(market.place.quay_feed, "Quay offers the first bread gift")
+	trust += int(market.numbers.feed_trust)
+	check_wallet(trust, coins, "the first gift adds trust and leaves coins alone")
+	check(app.market_stall.count("bread") == 1 and visible_text().contains(market.feed), "first gift consumes one loaf and shows the locked toast")
+	await press_button(market.place.quay_feed, "the remaining loaf can be given")
+	check_wallet(trust, coins, "a repeat gift does not give more trust")
+	check(app.market_stall.count("bread") == 0 and find_button(app.ui, market.place.quay_feed) == null, "using the last bread removes the action immediately")
+	app.give_bread_to_faris()
+	check_wallet(trust, coins, "giving without bread cannot affect the wallet")
+	await check_market_stall_reputation_order(market)
+
+
+func check_market_stall_reputation_order(market: Dictionary) -> void:
+	var chapter: Dictionary = app.chapter
+	for task: Dictionary in data.tasks:
+		app.progress.choose_task(task.id, "honest")
+	app.progress.do_daily_job()
+	app.progress.try_weight(int(data.lesson.false_weight_index))
+	app.progress.answer_weight()
+	app.progress.coins += int(chapter.purse.people[2].cost)
+	app.open_purse.give("fire", false)
+	app.bread_grab.answer_id = "lie"
+	await press_button(chapter.purse.morning.to_rep, "open What people say with earlier and new reputation lines")
+	var lines: Array = app.ui.reputation_lines()
+	check(lines.slice(-4) == [chapter.grab.answers.lie.say, market.say.returned, market.say.fed, market.say.clothes], "ordered stall lines follow the bread grab and earlier reputation")
+	var scrolls: Array[Node] = app.ui.find_children("*", "ScrollContainer", true, false)
+	var back := find_button(app.ui, chapter.rep.to_map)
+	check(lines.size() > 9 and scrolls.size() == 1, "combined reputation lines are scrollable")
+	check(back != null and back.get_global_rect().end.y < 1080, "the back button remains visible under the full reputation list")

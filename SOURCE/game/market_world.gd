@@ -16,6 +16,8 @@ var _segments: Array = []
 var _inn_people: Node3D
 var salma: Node3D
 var faris_at_oven: Node3D
+var faris_at_quay: MeshInstance3D
+var rashid: MeshInstance3D
 var oven_camera: Camera3D
 var _faris_start: Vector3
 var _faris_run: Tween
@@ -96,7 +98,7 @@ func point(id: String) -> Vector3:
 	return Vector3(source.x, 0.0, source.z)
 
 
-func setup_chapter_people(chapter: Dictionary) -> void:
+func setup_chapter_people(chapter: Dictionary, market_stall: Dictionary) -> void:
 	_inn_people = Node3D.new()
 	_inn_people.name = "InnPeople"
 	_inn_people.position = point("inn")
@@ -114,6 +116,12 @@ func setup_chapter_people(chapter: Dictionary) -> void:
 		if person.id == "boy":
 			faris_name = display_name
 		index += 1
+
+	var along_spice_row := (point("sp1") - point("spice")).normalized()
+	var by_stall := point("spice") + along_spice_row.cross(Vector3.UP) * float(data.player.capsule_height)
+	rashid = _add_chapter_person(self, str(market_stall.stall.title).get_slice("'s", 0), by_stall)
+	var by_quay := point("quay") + Vector3.RIGHT * float(data.player.capsule_height)
+	faris_at_quay = _add_chapter_person(self, faris_name, by_quay)
 
 	var along_square := (point(data.square.centre) - point("board")).normalized()
 	var oven_at := point("board") + along_square * float(data.player.capsule_height)

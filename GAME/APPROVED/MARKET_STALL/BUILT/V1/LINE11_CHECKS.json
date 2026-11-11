@@ -1,0 +1,1134 @@
+{
+	"checks": [
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the Inn market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: 198 coins",
+			"passed": true
+		},
+		{
+			"description": "coins HUD opens the empty bag",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s09_bag__empty__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s09_bag__empty__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back",
+			"passed": true
+		},
+		{
+			"description": "bag Back returns to the market map",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at spice",
+			"passed": true
+		},
+		{
+			"description": "the spice row replaces Look around",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s01_market_map__spice_row_stall__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s01_market_map__spice_row_stall__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy at the stall",
+			"passed": true
+		},
+		{
+			"description": "spice row opens Rashid's stall",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s02_stall__start__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s02_stall__start__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 1 coin",
+			"passed": true
+		},
+		{
+			"description": "the first purchase opens Your change",
+			"passed": true
+		},
+		{
+			"description": "first purchase holds a loaf and pays the locked extra change",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s03_stall__extra_change__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s03_stall__extra_change__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give it back",
+			"passed": true
+		},
+		{
+			"description": "returning the change shows Rashid's reply",
+			"passed": true
+		},
+		{
+			"description": "returning the change refunds it and adds the locked trust",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s04_stall__gave_it_back__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s04_stall__gave_it_back__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "stall Back returns to the market map",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at quay",
+			"passed": true
+		},
+		{
+			"description": "Faris's action keeps the Quay's Look around button",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s12_market_map__quay_give_bread__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s12_market_map__quay_give_bread__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give bread to Faris",
+			"passed": true
+		},
+		{
+			"description": "first gift spends the last loaf and adds the locked trust",
+			"passed": true
+		},
+		{
+			"description": "the locked feed toast is visible",
+			"passed": true
+		},
+		{
+			"description": "the Quay no longer offers bread when the bag has none",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s13_market_map__bread_given__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s13_market_map__bread_given__build.png",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at spice",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy at the stall",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 1 coin",
+			"passed": true
+		},
+		{
+			"description": "repeat bread purchase pays the price without another change choice",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 1 coin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 2 coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 30 coins",
+			"passed": true
+		},
+		{
+			"description": "the bag holds two loaves, one serving of dates and the local clothes",
+			"passed": true
+		},
+		{
+			"description": "all repeat purchases charge their locked prices",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at inn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: 163 coins",
+			"passed": true
+		},
+		{
+			"description": "bag shows both repeatable item counts",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s10_bag__items__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s10_bag__items__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Wear them",
+			"passed": true
+		},
+		{
+			"description": "wearing local clothes adds the locked coins-line suffix",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s11_bag__wearing__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s11_bag__wearing__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take them off",
+			"passed": true
+		},
+		{
+			"description": "taking off clothes removes the suffix",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Wear them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "returned change, bread and clothes appear in locked order",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s14_people_say__stall_lines__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s14_people_say__stall_lines__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at quay",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give bread to Faris",
+			"passed": true
+		},
+		{
+			"description": "a second gift spends a loaf and leaves trust alone",
+			"passed": true
+		},
+		{
+			"description": "Faris is a visible placeholder capsule",
+			"passed": true
+		},
+		{
+			"description": "Faris has the locked name label",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: faris_at_quay__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: faris_at_quay__build.png",
+			"passed": true
+		},
+		{
+			"description": "Rashid is a visible placeholder capsule",
+			"passed": true
+		},
+		{
+			"description": "Rashid has the locked name label",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rashid_at_spice_row__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rashid_at_spice_row__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "new fair arrival restores the baseline wallet and trust",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at spice",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy at the stall",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 1 coin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Keep it",
+			"passed": true
+		},
+		{
+			"description": "keeping the change shows the locked same-day reply",
+			"passed": true
+		},
+		{
+			"description": "keeping the change leaves coins and trust alone that day",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s05_stall__kept_it__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s05_stall__kept_it__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy at the stall",
+			"passed": true
+		},
+		{
+			"description": "a same-day return does not reveal the change",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "kept change has no reputation line before discovery",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "a later day without a stall visit has no discovery penalty",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy at the stall",
+			"passed": true
+		},
+		{
+			"description": "the first later-day visit shows Rashid's discovery and deducts the locked trust",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s06_stall__next_day_found_out__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s06_stall__next_day_found_out__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy · 30 coins",
+			"passed": true
+		},
+		{
+			"description": "local clothes can be bought only once and the row shows bought",
+			"passed": true
+		},
+		{
+			"description": "the ordinary purchase returns to the stall without the discovery line",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s07_stall__clothes_bought__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s07_stall__clothes_bought__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy at the stall",
+			"passed": true
+		},
+		{
+			"description": "another stall visit leaves trust alone",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "the kept-change reputation line follows discovery",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s15_people_say__kept_change__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s15_people_say__kept_change__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "new fair arrival restores the baseline wallet and trust",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at spice",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy at the stall",
+			"passed": true
+		},
+		{
+			"description": "the player can buy bread at the exact price",
+			"passed": true
+		},
+		{
+			"description": "unaffordable dates and clothes show not enough coins and offer no buy buttons",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: s08_stall__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: s08_stall__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "all 15 masters and both street capsule views captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Fair arrival. Thursday day 8 and Friday day 9 at 10:00, then Thursday day 15 for the discovered-change reputation. Prayer history is reset for the fixture jump. The unavailable purchase fixture sets the wallet to the price of one loaf.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport with mouse clicks on production GUI. The harness pauses passive clock ticks.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "s09_bag__empty__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s01_market_map__spice_row_stall__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s02_stall__start__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s03_stall__extra_change__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s04_stall__gave_it_back__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s12_market_map__quay_give_bread__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s13_market_map__bread_given__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s10_bag__items__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s11_bag__wearing__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s14_people_say__stall_lines__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "faris_at_quay__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rashid_at_spice_row__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s05_stall__kept_it__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s06_stall__next_day_found_out__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s07_stall__clothes_bought__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s15_people_say__kept_change__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "s08_stall__not_enough_coins__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"faris_at_quay__build.png": {
+			"coins": 163,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"person": "Faris",
+			"person_position": [
+				54.5999984741211,
+				0.899999976158142,
+				73.5999984741211
+			],
+			"player": [
+				57.2999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "game",
+			"tasks": {},
+			"trust": 23
+		},
+		"rashid_at_spice_row__build.png": {
+			"coins": 163,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"person": "Rashid",
+			"person_position": [
+				150.10791015625,
+				0.899999976158142,
+				26.2731418609619
+			],
+			"player": [
+				145.282867431641,
+				0.0,
+				26.7302513122559
+			],
+			"screen": "game",
+			"tasks": {},
+			"trust": 23
+		},
+		"s01_market_map__spice_row_stall__build.png": {
+			"bag": {
+				"bread": 0,
+				"clothes": 0,
+				"dates": 0
+			},
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20,
+			"wearing_clothes": false
+		},
+		"s02_stall__start__build.png": {
+			"bag": {
+				"bread": 0,
+				"clothes": 0,
+				"dates": 0
+			},
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "stall",
+			"tasks": {},
+			"trust": 20,
+			"wearing_clothes": false
+		},
+		"s03_stall__extra_change__build.png": {
+			"bag": {
+				"bread": 1,
+				"clothes": 0,
+				"dates": 0
+			},
+			"change_state": 1,
+			"coins": 202,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "stall_change",
+			"tasks": {},
+			"trust": 20,
+			"wearing_clothes": false
+		},
+		"s04_stall__gave_it_back__build.png": {
+			"bag": {
+				"bread": 1,
+				"clothes": 0,
+				"dates": 0
+			},
+			"change_state": 2,
+			"coins": 197,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "stall",
+			"tasks": {},
+			"trust": 22,
+			"wearing_clothes": false
+		},
+		"s05_stall__kept_it__build.png": {
+			"bag": {
+				"bread": 1,
+				"clothes": 0,
+				"dates": 0
+			},
+			"change_state": 3,
+			"coins": 202,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "stall",
+			"tasks": {},
+			"trust": 20,
+			"wearing_clothes": false
+		},
+		"s06_stall__next_day_found_out__build.png": {
+			"bag": {
+				"bread": 1,
+				"clothes": 0,
+				"dates": 0
+			},
+			"change_state": 4,
+			"coins": 202,
+			"daily_count": 0,
+			"day": 9,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "stall",
+			"tasks": {},
+			"trust": 17,
+			"wearing_clothes": false
+		},
+		"s07_stall__clothes_bought__build.png": {
+			"bag": {
+				"bread": 1,
+				"clothes": 1,
+				"dates": 0
+			},
+			"change_state": 4,
+			"coins": 172,
+			"daily_count": 0,
+			"day": 9,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "stall",
+			"tasks": {},
+			"trust": 17,
+			"wearing_clothes": false
+		},
+		"s08_stall__not_enough_coins__build.png": {
+			"bag": {
+				"bread": 0,
+				"clothes": 0,
+				"dates": 0
+			},
+			"change_state": 0,
+			"coins": 1,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "stall",
+			"tasks": {},
+			"trust": 20,
+			"wearing_clothes": false
+		},
+		"s09_bag__empty__build.png": {
+			"bag": {
+				"bread": 0,
+				"clothes": 0,
+				"dates": 0
+			},
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "bag",
+			"tasks": {},
+			"trust": 20,
+			"wearing_clothes": false
+		},
+		"s10_bag__items__build.png": {
+			"bag": {
+				"bread": 2,
+				"clothes": 1,
+				"dates": 1
+			},
+			"change_state": 2,
+			"coins": 163,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "bag",
+			"tasks": {},
+			"trust": 23,
+			"wearing_clothes": false
+		},
+		"s11_bag__wearing__build.png": {
+			"bag": {
+				"bread": 2,
+				"clothes": 1,
+				"dates": 1
+			},
+			"change_state": 2,
+			"coins": 163,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "bag",
+			"tasks": {},
+			"trust": 23,
+			"wearing_clothes": true
+		},
+		"s12_market_map__quay_give_bread__build.png": {
+			"bag": {
+				"bread": 1,
+				"clothes": 0,
+				"dates": 0
+			},
+			"change_state": 2,
+			"coins": 197,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 22,
+			"wearing_clothes": false
+		},
+		"s13_market_map__bread_given__build.png": {
+			"bag": {
+				"bread": 0,
+				"clothes": 0,
+				"dates": 0
+			},
+			"change_state": 2,
+			"coins": 197,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 23,
+			"wearing_clothes": false
+		},
+		"s14_people_say__stall_lines__build.png": {
+			"bag": {
+				"bread": 2,
+				"clothes": 1,
+				"dates": 1
+			},
+			"change_state": 2,
+			"coins": 163,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				[
+					"Honest at the stall",
+					"Rashid the spice seller",
+					1.0
+				],
+				[
+					"Feeds the orphan at the quay",
+					"Jamal and the boatmen",
+					1.0
+				],
+				[
+					"Dresses like us now",
+					"the street",
+					1.0
+				]
+			],
+			"minute_of_day": 600,
+			"night": false,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 23,
+			"wearing_clothes": true
+		},
+		"s15_people_say__kept_change__build.png": {
+			"bag": {
+				"bread": 1,
+				"clothes": 1,
+				"dates": 0
+			},
+			"change_state": 4,
+			"coins": 172,
+			"daily_count": 0,
+			"day": 15,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				[
+					"Kept the extra change",
+					"Rashid the spice seller",
+					-1.0
+				]
+			],
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 17,
+			"wearing_clothes": false
+		}
+	},
+	"timestamp_utc": "2026-11-11T15:04:37Z"
+}
