@@ -10,6 +10,7 @@ const PrayerClock = preload("res://game/prayer_clock.gd")
 const HijriCalendar = preload("res://game/hijri_calendar.gd")
 const Ramadan = preload("res://game/ramadan.gd")
 const EidAlFitr = preload("res://game/eid_al_fitr.gd")
+const EidAlAdha = preload("res://game/eid_al_adha.gd")
 const Zakat = preload("res://game/zakat.gd")
 const OpenPurse = preload("res://game/open_purse.gd")
 const BreadGrab = preload("res://game/bread_grab.gd")
@@ -50,6 +51,7 @@ var ui: CanvasLayer
 var clock: PrayerClock
 var ramadan: Ramadan
 var eid_al_fitr: EidAlFitr
+var eid_al_adha: EidAlAdha
 var zakat: Zakat
 var market_day: MarketDay
 var night: bool:
@@ -106,6 +108,7 @@ func _ready() -> void:
 	dice_house.setup(Foundations.load_dice_house(), progress, clock)
 	qasims_jars.setup(Foundations.load_qasims_jars(), progress, clock)
 	jabirs_goats.setup(Foundations.load_jabirs_goats(), progress, clock)
+	eid_al_adha = EidAlAdha.new(Foundations.load_eid_al_adha(), clock, progress, jabirs_goats, feeding.meal_counter)
 	dry_fountain.setup(Foundations.load_dry_fountain(), progress, clock)
 	rashids_loan.setup(Foundations.load_rashids_loan(), progress, clock, market_day)
 	harm_in_the_road.setup(Foundations.load_harm_in_the_road(), clock)
@@ -122,7 +125,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road, ramadan, iftar_giving, eid_al_fitr, zakat)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road, ramadan, iftar_giving, eid_al_fitr, zakat, eid_al_adha)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -147,6 +150,9 @@ func _ready() -> void:
 	ui.fitr_requested.connect(_show_fitr)
 	ui.fitr_paid.connect(_pay_fitr)
 	ui.eid_prayer_requested.connect(_pray_eid)
+	ui.adha_requested.connect(_do_adha_action)
+	ui.adha_sheep_bought.connect(_buy_adha_sheep)
+	ui.adha_sacrifice_chosen.connect(_sacrifice_adha_sheep)
 	ui.zakat_requested.connect(_show_zakat)
 	ui.zakat_paid.connect(_pay_zakat)
 	clock.adhan_started.connect(_show_adhan)
@@ -287,6 +293,9 @@ func _ready() -> void:
 	elif "--capture-zakat" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_zakat.gd").new()
 		capture_runner.run(self)
+	elif "--capture-eid-al-adha" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_eid_al_adha.gd").new()
+		capture_runner.run(self)
 
 func _process(delta: float) -> void:
 	if ui.screen not in ["title", "arrival", "all_prayers_title"]:
@@ -359,6 +368,7 @@ func begin_game() -> void:
 	clock.reset()
 	ramadan.reset()
 	eid_al_fitr.reset()
+	eid_al_adha.reset()
 	zakat.reset()
 	_arrival_sunset = false
 	player.position = world.point(data.start_place)
@@ -502,13 +512,13 @@ func show_screen(screen: String) -> void:
 		world.spice_row_camera.make_current()
 	elif screen == "harm_done":
 		world.sealed_purse_coin_camera.make_current()
-	elif screen in MarketUI.JABIRS_GOATS_SCREENS:
+	elif screen in MarketUI.JABIRS_GOATS_SCREENS or screen in MarketUI.ADHA_SCREENS:
 		world.jabirs_goats_camera.make_current()
 	elif screen == "reputation" and (ui.screen == "jabirs_told" or (ui.screen in ["game", "market_map"] and current_place == "gate" and not jabirs_goats.reputation_lines().is_empty())):
 		world.jabirs_goats_camera.make_current()
 	elif screen != "reputation" or ui.screen != "grab_after":
 		player.camera.make_current()
-	player.visible = not loan_view and screen not in ["harm_done", "eid", "zakat"]
+	player.visible = not loan_view and screen not in ["harm_done", "eid", "zakat"] and screen not in MarketUI.ADHA_SCREENS
 	ui.show_screen(screen)
 	player.enabled = screen == "game" or screen == "market_map"
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if screen == "game" else Input.MOUSE_MODE_VISIBLE
@@ -545,7 +555,7 @@ func _do_prayer(action: Callable, compact_receipt: bool = false) -> void:
 		ui.show_toast(receipt, compact)
 
 func show_prayer_record() -> void:
-	if ui.screen not in ["title", "arrival", "prayer_record", "zakat"]:
+	if ui.screen not in ["title", "arrival", "prayer_record", "zakat"] and ui.screen not in MarketUI.ADHA_SCREENS:
 		_record_return_screen = ui.screen
 		show_screen("prayer_record")
 
@@ -642,6 +652,42 @@ func _pray_eid() -> void:
 	if eid_al_fitr.pray_eid(current_place):
 		_stop_travel()
 		show_screen("eid")
+
+
+func _do_adha_action(action: EidAlAdha.Action) -> void:
+	if ui.screen not in ["game", "market_map"]:
+		return
+	update_state()
+	if action != eid_al_adha.action_at(current_place):
+		return
+	match action:
+		EidAlAdha.Action.SHEEP:
+			_stop_travel()
+			show_screen("adha_sheep")
+		EidAlAdha.Action.ARAFAH:
+			if eid_al_adha.intend_arafah(current_place):
+				update_state()
+				ui.show_toast(eid_al_adha.data.arafah_toast, ui.screen == "market_map")
+		EidAlAdha.Action.PRAYER:
+			if eid_al_adha.pray_eid(current_place):
+				_stop_travel()
+				show_screen("adha_eid")
+		EidAlAdha.Action.SACRIFICE:
+			ui.adha_sacrifice_receipt = ""
+			_stop_travel()
+			show_screen("adha_sacrifice")
+
+
+func _buy_adha_sheep() -> void:
+	if ui.screen == "adha_sheep" and eid_al_adha.buy_sheep(current_place):
+		update_state()
+
+
+func _sacrifice_adha_sheep(give_all: bool) -> void:
+	if ui.screen == "adha_sacrifice" and eid_al_adha.sacrifice(current_place, give_all):
+		var copy: Dictionary = eid_al_adha.data.sacrifice
+		ui.adha_sacrifice_receipt = copy.out_all if give_all else copy.out_thirds
+		show_screen("adha_sacrifice")
 
 
 func _show_zakat() -> void:
@@ -1080,7 +1126,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				show_screen("market_map")
 		return
-	if ui.screen in MarketUI.DICE_HOUSE_SCREENS or ui.screen in MarketUI.QASIMS_JARS_SCREENS or ui.screen in MarketUI.JABIRS_GOATS_SCREENS or ui.screen in MarketUI.LOAN_SCREENS or ui.screen == "harm_done":
+	if ui.screen in MarketUI.DICE_HOUSE_SCREENS or ui.screen in MarketUI.QASIMS_JARS_SCREENS or ui.screen in MarketUI.JABIRS_GOATS_SCREENS or ui.screen in MarketUI.LOAN_SCREENS or ui.screen == "harm_done" or ui.screen in MarketUI.ADHA_SCREENS:
 		if event.is_action_pressed("close"):
 			show_screen("market_map")
 		return

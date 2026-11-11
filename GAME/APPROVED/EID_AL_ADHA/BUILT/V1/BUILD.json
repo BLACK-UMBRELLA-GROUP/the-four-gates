@@ -1,0 +1,697 @@
+{
+  "line": 30,
+  "lock": "LOCK 23 V1",
+  "brief": "DOC-TFG-0080",
+  "tested_base_commit_sha": "3fd5d8ea582bbe227598cc623862b0d95987947f",
+  "capture_source": "Line 30 working source over the tested base. The 11 November Codex task note identifies the commit containing this source and evidence.",
+  "godot_version": "4.7.2-stable (official)",
+  "godot_binary_version": "4.7.2-stable (official)",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T19:11:08Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Native Godot viewport with production buttons for fair arrival, telling Saeed, buying a sheep, intending the fast, Eid prayer, both distributions and opening the private prayer record.",
+  "fixture": "Passive ticks are paused. After fair arrival, skip_to stages real calendar times and leaves skipped prayers unplayed. The player is placed at the named place marker. For a16, the player looks down the lane from a1 toward the square. Wallet and trust begin at 198 and 45, with a 20-coin shortage in a05 and trust set back to 45 after telling Saeed in a04. Purchases, prayer, intention, distribution and record outcomes are produced by the game.",
+  "headless_checks_passed": 4011,
+  "native_checks_passed": 366,
+  "approved_inputs": [
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BRIEFS/BUILD_BRIEF_2026-11-09_EID_AL_ADHA.md",
+      "bytes": 2471,
+      "sha256": "a97a660018c4fe53a05fedb21bb809a2f165b5b222ec999d448924941fe51a4c"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a01_gate__saeed_brings_sheep.png",
+      "bytes": 67294,
+      "sha256": "833315a087f48073d5db973fc7939c6fde49a29bd35d71ff733b86bcae0d2b59"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a02_sheep__offer.png",
+      "bytes": 324543,
+      "sha256": "510a4a58844e5fcc370218363a54f3b7cae4c549345f84a12dc8c197939abd58"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a03_sheep__bought.png",
+      "bytes": 331680,
+      "sha256": "90d9ab8659ccfea9125efe91f80a212bc151e82e5cbdb8794e168c0ff4107dde"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a04_sheep__saeed_remembers.png",
+      "bytes": 327907,
+      "sha256": "c3b6ad803c7c25f2c68d30abe3e5ba6583b0ea00806bc7ab3b3c279d29a74337"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a05_sheep__not_enough_coins.png",
+      "bytes": 326050,
+      "sha256": "6370148ec7eabb2619eb82dcb137d3d2ba8c743a9bcd02290f4340c91b873bb6"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a06_inn__intend_arafah_fast.png",
+      "bytes": 89458,
+      "sha256": "9577d0ffe19e5154d21466de721c45e7bae48e59dd2e75dd3ef8ccec02872218"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a07_spice__arafah_fasting_line.png",
+      "bytes": 68021,
+      "sha256": "3f48cc2338ffd30530fc33deacabc5f86b0a54933f6b9b34971ba98a6e08dabc"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a08_gate__eid_no_sacrifice_before_prayer.png",
+      "bytes": 67654,
+      "sha256": "d6997ef2960e425fdb0cccd3d7bd58820dc96e9b16bd4f184a2eb1e7a1094138"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a09_masjid__eid_al_adha_prayer.png",
+      "bytes": 67386,
+      "sha256": "9eeef328455ba0f39b21ebdd2821cf83600958df1ef2120c1142f29fb6694e31"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a10_adha__the_prayer.png",
+      "bytes": 330096,
+      "sha256": "4cf53317051b43c4c8ff46322da88a5274ba19cda4e25ef3676d1003c042b3d1"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a11_gate__sacrifice_your_sheep.png",
+      "bytes": 68340,
+      "sha256": "1eedcfdf53b9179ff1d7d891ffafd1ced62e9f3324c44c4e7afe085c0de85cda"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a12_sacrifice__choose.png",
+      "bytes": 308402,
+      "sha256": "cbe9709401adba4375b3877daee978c164f0e22d530897a67d04e27f563fa4ee"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a13_sacrifice__thirds.png",
+      "bytes": 327695,
+      "sha256": "931a2dd234e9e52704974e3f460aad7714c52ab8f0cd39847e6ba128a8d31fb4"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a14_sacrifice__all_to_the_poor_day_11.png",
+      "bytes": 326052,
+      "sha256": "2f29f8e066a54f09b915e4505b52b78520c29f989306a65296712126e7caccab"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a15_gate__tashreeq_line.png",
+      "bytes": 67140,
+      "sha256": "5f42e53ca15145b8aaa3cc35ed4f083517306232cc8422031d3efa2f74881b30"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a16_prayers__dhu_al_hijjah_record.png",
+      "bytes": 217866,
+      "sha256": "9efe9cd20cb8f2e84d823c7dd6ba2302bbb11013fbb74255e10a267d9c3133c8"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a17_gate__13th_after_maghrib_no_sacrifice.png",
+      "bytes": 73100,
+      "sha256": "c01f108b2a440a3e8c4d21afb243bd8b33e81a8eaa7ce07c82d05f7946d49ba6"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/MASTERS/a18_gate__14th_nothing.png",
+      "bytes": 63198,
+      "sha256": "0e9ee6e9a2f50e7ab40128cf1c9a15e28ee48029add6372bb28f072ada47ef40"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/RECORD/EID_AL_ADHA_SPEC_CURRENT_VERSION_V1.md",
+      "bytes": 5568,
+      "sha256": "13669b74ea8c55f23eb8a092b7840221d7c726621cb1f6f738ef15213e83629d"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/RECORD/LOCK_RECORD.md",
+      "bytes": 706,
+      "sha256": "fd9ccdcf7124b2129c39f63d42ee03686feeb24cc938591417f25b813ced722a"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/RECORD/eid_al_adha_data_V1.json",
+      "bytes": 2647,
+      "sha256": "52ace3b3d275173235220eb7ebfde7b2eb15cc4f15adb73520b9ec5b3018d4c3"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "SOURCE/data/calendar.json",
+      "bytes": 1552,
+      "sha256": "f3916e3a791113ae682f768442193ab2b0349fde6c81a8305c41094fa4407647"
+    },
+    {
+      "path": "SOURCE/data/chapter1.json",
+      "bytes": 7699,
+      "sha256": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0"
+    },
+    {
+      "path": "SOURCE/data/clothes.json",
+      "bytes": 2888,
+      "sha256": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e"
+    },
+    {
+      "path": "SOURCE/data/dice_house.json",
+      "bytes": 1460,
+      "sha256": "d769f3698748af05e5498e13de397a701c0aebf740eae006f4547e2b53e21c80"
+    },
+    {
+      "path": "SOURCE/data/dry_fountain.json",
+      "bytes": 1373,
+      "sha256": "1eeaf232e9f43cbd9ddc411dae127dc34a0a6f89c6666819e416cf25ef79117f"
+    },
+    {
+      "path": "SOURCE/data/eid_al_adha.json",
+      "bytes": 2647,
+      "sha256": "52ace3b3d275173235220eb7ebfde7b2eb15cc4f15adb73520b9ec5b3018d4c3"
+    },
+    {
+      "path": "SOURCE/data/eid_al_fitr.json",
+      "bytes": 1665,
+      "sha256": "28dc157a37e0fb758773a320e745330673194bbf04707cb5f48293948ff51167"
+    },
+    {
+      "path": "SOURCE/data/feeding.json",
+      "bytes": 1470,
+      "sha256": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7"
+    },
+    {
+      "path": "SOURCE/data/foundations.json",
+      "bytes": 11978,
+      "sha256": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf"
+    },
+    {
+      "path": "SOURCE/data/harm_in_the_road.json",
+      "bytes": 1052,
+      "sha256": "26dc6570e4646c6487c01cba4cfec9d7f9873735445cfffcb68736b1d4c945a1"
+    },
+    {
+      "path": "SOURCE/data/identity.json",
+      "bytes": 14838,
+      "sha256": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647"
+    },
+    {
+      "path": "SOURCE/data/idris_has_heard.json",
+      "bytes": 742,
+      "sha256": "392e1d296199d473dca7e3f8a166a91d9e28d0f2c23461203642483d3a3a527e"
+    },
+    {
+      "path": "SOURCE/data/iftar_giving.json",
+      "bytes": 1573,
+      "sha256": "2b6c25508849062c9af59d4250a8658fd4b04f312c344e7adfdbbf2f7641beea"
+    },
+    {
+      "path": "SOURCE/data/jabirs_goats.json",
+      "bytes": 1857,
+      "sha256": "dd62e7b0f917e8db3c30c3b30435bb3098496598344252ffd8e98808f0ba2d99"
+    },
+    {
+      "path": "SOURCE/data/market_day.json",
+      "bytes": 1071,
+      "sha256": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05"
+    },
+    {
+      "path": "SOURCE/data/market_stall.json",
+      "bytes": 2593,
+      "sha256": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604"
+    },
+    {
+      "path": "SOURCE/data/prayer_record.json",
+      "bytes": 1009,
+      "sha256": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9"
+    },
+    {
+      "path": "SOURCE/data/qasims_jars.json",
+      "bytes": 1352,
+      "sha256": "c7a2c0a56d676ef6606769f94075ec537707875eecf8767d8dac43fda2c34bfb"
+    },
+    {
+      "path": "SOURCE/data/ramadan.json",
+      "bytes": 1181,
+      "sha256": "e2870da793e0923ac619736e2d60d3ca2c927bdae59f7ccb7c37439333e3e4dc"
+    },
+    {
+      "path": "SOURCE/data/rashids_loan.json",
+      "bytes": 2776,
+      "sha256": "89d162d30ea41ef7c65d2de0bf07ea3fae81d02e4b424c1933991a6ceba2893f"
+    },
+    {
+      "path": "SOURCE/data/sealed_purse.json",
+      "bytes": 1902,
+      "sha256": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a"
+    },
+    {
+      "path": "SOURCE/data/talking.json",
+      "bytes": 3854,
+      "sha256": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4"
+    },
+    {
+      "path": "SOURCE/data/zakat.json",
+      "bytes": 1628,
+      "sha256": "29b93397edf4dc940a803f94685e943b27f6930c9b20d0410119a2ccb9263984"
+    },
+    {
+      "path": "SOURCE/game/bread_grab.gd",
+      "bytes": 1345,
+      "sha256": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468"
+    },
+    {
+      "path": "SOURCE/game/dice_house.gd",
+      "bytes": 2080,
+      "sha256": "17513513173a8d6729b9600baa2ec0999571716df233128f1a44cb249e88e0d5"
+    },
+    {
+      "path": "SOURCE/game/dry_fountain.gd",
+      "bytes": 1322,
+      "sha256": "f49d81661ec0af2495bffe9e102cafc5c9545149a5f1cf87bed6f2bd10162e95"
+    },
+    {
+      "path": "SOURCE/game/eid_al_adha.gd",
+      "bytes": 4783,
+      "sha256": "97ad5bd46318024f0a20a14e923459cd8477b28679ad28061a6e20c62a03cf07"
+    },
+    {
+      "path": "SOURCE/game/eid_al_fitr.gd",
+      "bytes": 3225,
+      "sha256": "ada3689c7bde66a6c778b882083b1cd2e25fd549e336944be3cde0342e9522b2"
+    },
+    {
+      "path": "SOURCE/game/feeding.gd",
+      "bytes": 2179,
+      "sha256": "7c4e735de7675d1f4eba7c8828ef8c8e67ce61d88eb75c93619fc088493aaa12"
+    },
+    {
+      "path": "SOURCE/game/foundations.gd",
+      "bytes": 6713,
+      "sha256": "b1bb9b7a52dee4e499d578319c16be40e1965b8e27c7e227e75017a0c7f1e1ca"
+    },
+    {
+      "path": "SOURCE/game/harm_in_the_road.gd",
+      "bytes": 1017,
+      "sha256": "dd288040b79c39c00470cd4b6ce5ab23d8d49f11c9f9ac6e09e4875019f5c50e"
+    },
+    {
+      "path": "SOURCE/game/hijri_calendar.gd",
+      "bytes": 2042,
+      "sha256": "257aaca6092a68361a30982610977a7cdb81887b8cfe2b31467c0712d38eafc6"
+    },
+    {
+      "path": "SOURCE/game/idris_recovery.gd",
+      "bytes": 1019,
+      "sha256": "6cb5d86d23ef6fab7fe1579c0bc80ee270008627f2493b5b33fab0dd4fa0635e"
+    },
+    {
+      "path": "SOURCE/game/iftar_giving.gd",
+      "bytes": 452,
+      "sha256": "6da651e0e374253f746b47565c61cd26451c1f6de24d2e2ae04ba7a314e8fda3"
+    },
+    {
+      "path": "SOURCE/game/jabirs_goats.gd",
+      "bytes": 1858,
+      "sha256": "5cae78452ff85fd392a85378fa044394810755b31f76dfc980a6c5c95c19f1d6"
+    },
+    {
+      "path": "SOURCE/game/lesson_canvas.gd",
+      "bytes": 1218,
+      "sha256": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c"
+    },
+    {
+      "path": "SOURCE/game/map_canvas.gd",
+      "bytes": 13421,
+      "sha256": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba"
+    },
+    {
+      "path": "SOURCE/game/market_day.gd",
+      "bytes": 1065,
+      "sha256": "3cb77474a4fd5fffb10caa13954c0369a3759235cd60449a258fa202ce702b38"
+    },
+    {
+      "path": "SOURCE/game/market_player.gd",
+      "bytes": 4286,
+      "sha256": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2"
+    },
+    {
+      "path": "SOURCE/game/market_stall.gd",
+      "bytes": 4413,
+      "sha256": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56"
+    },
+    {
+      "path": "SOURCE/game/market_ui.gd",
+      "bytes": 108906,
+      "sha256": "146289b1e790629275c8fa634e03f4dbb5f4ee7a1fe51043f3ae49f1e3de2b3d"
+    },
+    {
+      "path": "SOURCE/game/market_world.gd",
+      "bytes": 16495,
+      "sha256": "ed830fb38da942b1f81b66c9dd4d734eb74dc84b555930d725303304afe217a8"
+    },
+    {
+      "path": "SOURCE/game/open_purse.gd",
+      "bytes": 3329,
+      "sha256": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9"
+    },
+    {
+      "path": "SOURCE/game/prayer_clock.gd",
+      "bytes": 12710,
+      "sha256": "9e85b7e45d6b300cbb094703195f870fff2d72c73f57a6c334f5c982ede0858c"
+    },
+    {
+      "path": "SOURCE/game/qasims_jars.gd",
+      "bytes": 1521,
+      "sha256": "b136d4f3c187fc775c811e010de6c848e7ebc00b51b8464e7f77c0b8f1f40c6a"
+    },
+    {
+      "path": "SOURCE/game/ramadan.gd",
+      "bytes": 2736,
+      "sha256": "b6b09c71b01b8f070bab577d9374cbe7ffee2e906bc8f7b942c17cb270e47a18"
+    },
+    {
+      "path": "SOURCE/game/rashids_loan.gd",
+      "bytes": 2586,
+      "sha256": "0ecd01729c296de41f7b4f9ce3404b88386fa6bb19d2d97b8959671d9836074a"
+    },
+    {
+      "path": "SOURCE/game/river_market.gd",
+      "bytes": 43876,
+      "sha256": "90d75d10981e5af14752ab47aad25433e36c42a11a9d64ec8046471ef40a3c7d"
+    },
+    {
+      "path": "SOURCE/game/river_market.tscn",
+      "bytes": 171,
+      "sha256": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe"
+    },
+    {
+      "path": "SOURCE/game/sealed_purse.gd",
+      "bytes": 1725,
+      "sha256": "e3b46ae422a91cd824057e43881c80bb254dac24da5031163ac093d491bef7ab"
+    },
+    {
+      "path": "SOURCE/game/talking.gd",
+      "bytes": 2568,
+      "sha256": "546458aedd4c3c74f06e498f2160c8622fc5524a3f9d9ab49ec6cd0891bd0f86"
+    },
+    {
+      "path": "SOURCE/game/task_progress.gd",
+      "bytes": 3214,
+      "sha256": "0777fd340c6c2f0a8ed3ed724307e07fc2fe8228d1539d3c8d6f12602654b777"
+    },
+    {
+      "path": "SOURCE/game/zakat.gd",
+      "bytes": 3028,
+      "sha256": "9a3e1bdad4eff6b47a5af62324d7f17052ba66f5db04e278159925870656ca7d"
+    },
+    {
+      "path": "SOURCE/look_test/capture_helper.gd",
+      "bytes": 4967,
+      "sha256": "919939ac60ec7e8a269a90263272f6c9aa029a6a9de839a419a61af34d480fb8"
+    },
+    {
+      "path": "SOURCE/main.tscn",
+      "bytes": 54,
+      "sha256": "109e5b49d1caed038c97365a9c4fb995c5541bfd0b30d9ef1568af98bb815a94"
+    },
+    {
+      "path": "SOURCE/project.godot",
+      "bytes": 1690,
+      "sha256": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45"
+    },
+    {
+      "path": "SOURCE/tests/capture_eid_al_adha.gd",
+      "bytes": 16252,
+      "sha256": "38b22dde23024f68b045225768b21344f7f0cf39ce2877acdc47192ea301e7d9"
+    },
+    {
+      "path": "SOURCE/tests/capture_identity.gd",
+      "bytes": 10390,
+      "sha256": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32"
+    },
+    {
+      "path": "SOURCE/tests/create_comparisons.gd",
+      "bytes": 9023,
+      "sha256": "1dc103d6212162b7537a08c2eef3b939648ffe3fd3c583f219807f345abef1d7"
+    },
+    {
+      "path": "SOURCE/tests/run_tests.gd",
+      "bytes": 260470,
+      "sha256": "72527f75e7074a22264aff1a33b6d622f2277286c5cdb1a4af0b433541e5f1f0"
+    }
+  ],
+  "compression": {
+    "method": "Lossless PNG optimisation. Dropped fully opaque alpha channels, preserved decoded RGBA pixels and dimensions.",
+    "original_image_bytes": 15079068,
+    "final_image_bytes": 13657223,
+    "verified_image_count": 36
+  },
+  "evidence": [
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/LINE30_CHECKS.json",
+      "bytes": 49523,
+      "sha256": "4a856877c88063d80547169bfa0c1cd752c9623cf6be513c7527afb30b8fdc1c"
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a01_gate__saeed_brings_sheep__build.png",
+      "bytes": 173422,
+      "sha256": "429a3166c55c5d2344e2f9560e90acea939b1aeb3619e1507eaae9f07b86b167",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a01_gate__saeed_brings_sheep__master_beside_build.png",
+      "bytes": 346591,
+      "sha256": "d5c0c43c46b2e6a93a675369c64ee1dcbe9da55fe1f90e439eccc8caf7e24cdb",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a02_sheep__offer__build.png",
+      "bytes": 149827,
+      "sha256": "5ddda33c56b94b9e62b27383b3a91431329af161f9d23552b4db7191ecf53d4b",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a02_sheep__offer__master_beside_build.png",
+      "bytes": 860496,
+      "sha256": "d3e12a50545829803dd2aa3161e3c1e6d72f9253c698bd0d86525f9e68b2508b",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a03_sheep__bought__build.png",
+      "bytes": 148758,
+      "sha256": "34a957b418d7b0665210c4eca3ea25371735db3d836f305ff3d1d9454f2d8fa6",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a03_sheep__bought__master_beside_build.png",
+      "bytes": 869494,
+      "sha256": "e49feafd1a4b34040026d99e9446e5385245767b03a904f3dafd35aa6e9858b1",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a04_sheep__saeed_remembers__build.png",
+      "bytes": 155339,
+      "sha256": "a23b808f2a83dad5f1166f000aa6fef70aec9bf60d26ecbd89840667019f130e",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a04_sheep__saeed_remembers__master_beside_build.png",
+      "bytes": 869630,
+      "sha256": "e64af989373485a102f2ff7736c69e5bb3c8f9aa4d5a9f39e6f4944ad6373156",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a05_sheep__not_enough_coins__build.png",
+      "bytes": 143845,
+      "sha256": "0238d4fbadcd0dafd94ca49e1b423ed5a1643ed7517ce19c73e022d42500c564",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a05_sheep__not_enough_coins__master_beside_build.png",
+      "bytes": 853055,
+      "sha256": "98c48eaf8bc091b1dea4d2e6bfddc57dcffd51f1402594bcb3e9956ac493f476",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a06_inn__intend_arafah_fast__build.png",
+      "bytes": 222966,
+      "sha256": "782e41086ba1993ebb35b96c1ee1a714c1d2999648cd083fa4f42f0ed9cf5d27",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a06_inn__intend_arafah_fast__master_beside_build.png",
+      "bytes": 441583,
+      "sha256": "57f48e72526ec0a592c3c29b9e6e433d3690620e0995d6e660dab7d81d27efc9",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a07_spice__arafah_fasting_line__build.png",
+      "bytes": 171484,
+      "sha256": "24f7c6bb2481d48609b59d4f90ac228ae2ada217a160d4fd592e065ebb454da4",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a07_spice__arafah_fasting_line__master_beside_build.png",
+      "bytes": 346245,
+      "sha256": "9485eced8de823136a0f1bc5591b96afe50c24dea0045d69801cb808f2a7f2fd",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a08_gate__eid_no_sacrifice_before_prayer__build.png",
+      "bytes": 173768,
+      "sha256": "7699ba683cdacddfab19b0e8912656841b63f77403a0d4932e5e66ca91262301",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a08_gate__eid_no_sacrifice_before_prayer__master_beside_build.png",
+      "bytes": 347903,
+      "sha256": "8e3c6696b980d404c702757650f698892715ef65f1346b5715e329490fbc9e8b",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a09_masjid__eid_al_adha_prayer__build.png",
+      "bytes": 172565,
+      "sha256": "16ddf5e73b391e84f1e2358d059202fe4831571d3ede9bd86697ca16a6b5808e",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a09_masjid__eid_al_adha_prayer__master_beside_build.png",
+      "bytes": 344945,
+      "sha256": "e154407af253fb72c3b65f055007a8f1f1559fff46611e8037a38ce385f053ed",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a10_adha__the_prayer__build.png",
+      "bytes": 149709,
+      "sha256": "8a89c77004cd018c09d1b0a35365cabf2e24a1a9ad2895f552415d99b4f5d275",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a10_adha__the_prayer__master_beside_build.png",
+      "bytes": 874932,
+      "sha256": "96580a88f0d64dd6b36912fed554f4404647cbd7b10b1ada5d745a706cab099b",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a11_gate__sacrifice_your_sheep__build.png",
+      "bytes": 172258,
+      "sha256": "811fdfbfd01f1e3ed3e83440e8f87f55e2f9641ce1e74d865c440b530128d782",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a11_gate__sacrifice_your_sheep__master_beside_build.png",
+      "bytes": 348855,
+      "sha256": "05cbe9b3d1b9fad5b8a8436599b9d1ff8da2807c7a1983ab62afa6a2e7e2daff",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a12_sacrifice__choose__build.png",
+      "bytes": 146993,
+      "sha256": "18358172835e1a96ee82aa956bea9a90dc49dd6bd1b646790bfb58dba93513cc",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a12_sacrifice__choose__master_beside_build.png",
+      "bytes": 825865,
+      "sha256": "7f4bbb04c52850a68f300d763b20633b06f79175f6697762ac8c119af61a81ef",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a13_sacrifice__thirds__build.png",
+      "bytes": 148731,
+      "sha256": "27851ea2a15d7603b7f98743381e1ad95a58a0779062db4dd8bdec24b6ffdbe2",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a13_sacrifice__thirds__master_beside_build.png",
+      "bytes": 861658,
+      "sha256": "85db11615cb7b61cb1f9d0282be9f73ff710e0d9db77255b78d61f1f789dd125",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a14_sacrifice__all_to_the_poor_day_11__build.png",
+      "bytes": 146022,
+      "sha256": "507351d8de830ced010810bf3305ea5ed253f92b4a4560f52b42153bf23c7009",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a14_sacrifice__all_to_the_poor_day_11__master_beside_build.png",
+      "bytes": 857734,
+      "sha256": "a941a72b840e9a1b3deb4bf800b70759284c2b07ff9a1d4d7cca7925a5dd479e",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a15_gate__tashreeq_line__build.png",
+      "bytes": 173132,
+      "sha256": "b3550fb6342fddc7e9327f150e2d80c7c665c33b939ea487d1399541e762598f",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a15_gate__tashreeq_line__master_beside_build.png",
+      "bytes": 345404,
+      "sha256": "6b9abd1f61a6c7f320638fba14f410133b20f2cf0bec368a98cab4bfce4b8e4c",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a16_prayers__dhu_al_hijjah_record__build.png",
+      "bytes": 160914,
+      "sha256": "2301fb42f56fee05959adfefbfb314fbfaec6b6bb9774063d19c0bc33e685e7d",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a16_prayers__dhu_al_hijjah_record__master_beside_build.png",
+      "bytes": 613433,
+      "sha256": "ea5033d0cc69493dd85b50268d14d08c506e6e8367e0b942fec2ce198dd04b64",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a17_gate__13th_after_maghrib_no_sacrifice__build.png",
+      "bytes": 176219,
+      "sha256": "edb878703b245eae85579870bfa278f4b65af50bbb5f58ae63e81cece3d913ea",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a17_gate__13th_after_maghrib_no_sacrifice__master_beside_build.png",
+      "bytes": 365491,
+      "sha256": "5c93fb4265c1a57f909fd2e6a3b89cdf1cb0f6733d6534c387267c06aa6f7375",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a18_gate__14th_nothing__build.png",
+      "bytes": 167960,
+      "sha256": "bc81bbf38ddaad4dd611c73e879f746cb265d78ff86732af873aba5e716e9615",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/EID_AL_ADHA/BUILT/V1/a18_gate__14th_nothing__master_beside_build.png",
+      "bytes": 329997,
+      "sha256": "bb227d233d10ff0f0241814bec7d91679af23f9c1aa4b9486994fa0dc36f635a",
+      "width": 3840,
+      "height": 1080
+    }
+  ]
+}

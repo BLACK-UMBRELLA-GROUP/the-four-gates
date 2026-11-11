@@ -1,0 +1,2042 @@
+{
+	"checks": [
+		{
+			"description": "runtime Eid al-Adha data matches the locked bytes",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the live Inn map",
+			"passed": true
+		},
+		{
+			"description": "arrival starts with the staged wallet and trust, no meals and no public reputation",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 119 minute 600",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 1 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "button shown: Saeed brings sheep for Eid",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Saeed brings sheep for Eid",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a01_gate__saeed_brings_sheep__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a01_gate__saeed_brings_sheep__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Saeed brings sheep for Eid",
+			"passed": true
+		},
+		{
+			"description": "the native adha_sheep panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: THE GATE OF TRUST · DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: THE GATE OF TRUST · DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed the herder",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed the herder",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed has walked his flock in from the river fields. “A sheep for Eid? A year old, healthy, not a fault on it. Thirty coins.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed has walked his flock in from the river fields. “A sheep for Eid? A year old, healthy, not a fault on it. Thirty coins.”",
+			"passed": true
+		},
+		{
+			"description": "text hidden: He looks at you twice. “You brought back my goats.” He picks you the best of the flock himself.",
+			"passed": true
+		},
+		{
+			"description": "button shown: Buy a sheep · 30 coins",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Buy a sheep · 30 coins",
+			"passed": true
+		},
+		{
+			"description": "button shown: Not now",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Not now",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a02_sheep__offer__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a02_sheep__offer__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy a sheep · 30 coins",
+			"passed": true
+		},
+		{
+			"description": "the native adha_sheep panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: THE GATE OF TRUST · DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: THE GATE OF TRUST · DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed the herder",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed the herder",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed has walked his flock in from the river fields. “A sheep for Eid? A year old, healthy, not a fault on it. Thirty coins.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed has walked his flock in from the river fields. “A sheep for Eid? A year old, healthy, not a fault on it. Thirty coins.”",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed ties a rope round its neck. It will wait in the inn's yard until Eid.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed ties a rope round its neck. It will wait in the inn's yard until Eid.",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Buy a sheep · 30 coins",
+			"passed": true
+		},
+		{
+			"description": "button shown: Not now",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Not now",
+			"passed": true
+		},
+		{
+			"description": "the live purchase owns one sheep, costs thirty coins and preserves trust, meals and public reputation",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a03_sheep__bought__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a03_sheep__bought__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Not now",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Saeed brings sheep for Eid",
+			"passed": true
+		},
+		{
+			"description": "live map at inn",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 127 minute 240",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 9 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "button shown: Intend to fast the Day of Arafah",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Intend to fast the Day of Arafah",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a06_inn__intend_arafah_fast__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a06_inn__intend_arafah_fast__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Intend to fast the Day of Arafah",
+			"passed": true
+		},
+		{
+			"description": "the Inn action records the Arafah intention",
+			"passed": true
+		},
+		{
+			"description": "Arafah shows the exact locked toast",
+			"passed": true
+		},
+		{
+			"description": "the Arafah toast fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Intend to fast the Day of Arafah",
+			"passed": true
+		},
+		{
+			"description": "intention leaves coins, trust, meals and public reputation unchanged",
+			"passed": true
+		},
+		{
+			"description": "live map at spice",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 127 minute 600",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 9 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "text shown: Fasting the Day of Arafah · iftar at 18:10",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Fasting the Day of Arafah · iftar at 18:10",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a07_spice__arafah_fasting_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a07_spice__arafah_fasting_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 128 minute 400",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 10 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "text shown: Eid al-Adha · Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Eid al-Adha · Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Sacrifice your sheep",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a08_gate__eid_no_sacrifice_before_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a08_gate__eid_no_sacrifice_before_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "live map at masjid",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 128 minute 400",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 10 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "text shown: Eid al-Adha · Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Eid al-Adha · Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "button shown: Pray the Eid prayer",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray the Eid prayer",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a09_masjid__eid_al_adha_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a09_masjid__eid_al_adha_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray the Eid prayer",
+			"passed": true
+		},
+		{
+			"description": "the native adha_eid panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: 10 DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: 10 DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text shown: Eid al-Adha",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Eid al-Adha",
+			"passed": true
+		},
+		{
+			"description": "text shown: River Market prays in the open ground again. Idris speaks of Ibrahim and his son, and of giving up what you love for Allah. Then everyone goes to their animals.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: River Market prays in the open ground again. Idris speaks of Ibrahim and his son, and of giving up what you love for Allah. Then everyone goes to their animals.",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the Eid prayer is recorded without advancing the clock",
+			"passed": true
+		},
+		{
+			"description": "Eid prayer leaves coins, trust, meals and public reputation unchanged",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a10_adha__the_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a10_adha__the_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Pray the Eid prayer",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 128 minute 420",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 10 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "text shown: Eid al-Adha · Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Eid al-Adha · Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "button shown: Sacrifice your sheep",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Sacrifice your sheep",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a11_gate__sacrifice_your_sheep__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a11_gate__sacrifice_your_sheep__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Sacrifice your sheep",
+			"passed": true
+		},
+		{
+			"description": "the native adha_sacrifice panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: AFTER THE EID PRAYER",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: AFTER THE EID PRAYER",
+			"passed": true
+		},
+		{
+			"description": "text shown: The sacrifice",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: The sacrifice",
+			"passed": true
+		},
+		{
+			"description": "text shown: At the butcher's by the gate you hold the rope while he says “Bismillah, Allahu akbar.” It is quick, and the sheep does not see the knife before.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: At the butcher's by the gate you hold the rope while he says “Bismillah, Allahu akbar.” It is quick, and the sheep does not see the knife before.",
+			"passed": true
+		},
+		{
+			"description": "button shown: Share it in thirds: your table, your neighbours, the poor",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Share it in thirds: your table, your neighbours, the poor",
+			"passed": true
+		},
+		{
+			"description": "button shown: Give it all to the poor",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Give it all to the poor",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the choices are stacked in locked order before the map return",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a12_sacrifice__choose__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a12_sacrifice__choose__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Share it in thirds: your table, your neighbours, the poor",
+			"passed": true
+		},
+		{
+			"description": "the native adha_sacrifice panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: AFTER THE EID PRAYER",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: AFTER THE EID PRAYER",
+			"passed": true
+		},
+		{
+			"description": "text shown: The sacrifice",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: The sacrifice",
+			"passed": true
+		},
+		{
+			"description": "text shown: At the butcher's by the gate you hold the rope while he says “Bismillah, Allahu akbar.” It is quick, and the sheep does not see the knife before.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: At the butcher's by the gate you hold the rope while he says “Bismillah, Allahu akbar.” It is quick, and the sheep does not see the knife before.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Salma takes a share for her lane, and Umm Salim's pot is full tonight.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Salma takes a share for her lane, and Umm Salim's pot is full tonight.",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Share it in thirds: your table, your neighbours, the poor",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Give it all to the poor",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the live distribution uses the sheep and adds only 10 meals",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a13_sacrifice__thirds__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a13_sacrifice__thirds__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Sacrifice your sheep",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 129 minute 600",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 11 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "text shown: Days of Tashreeq · days of eating, no fasting",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Days of Tashreeq · days of eating, no fasting",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a15_gate__tashreeq_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a15_gate__tashreeq_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "the native clock opens Today's prayers",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: All your prayers",
+			"passed": true
+		},
+		{
+			"description": "Today's prayers opens All your prayers",
+			"passed": true
+		},
+		{
+			"description": "text shown: DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text shown: Day of Arafah",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Day of Arafah",
+			"passed": true
+		},
+		{
+			"description": "private row follows the previous row: Day of Arafah",
+			"passed": true
+		},
+		{
+			"description": "rendered private row: Day of Arafah = fasted",
+			"passed": true
+		},
+		{
+			"description": "text shown: Eid al-Adha prayer",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Eid al-Adha prayer",
+			"passed": true
+		},
+		{
+			"description": "private row follows the previous row: Eid al-Adha prayer",
+			"passed": true
+		},
+		{
+			"description": "rendered private row: Eid al-Adha prayer = prayed",
+			"passed": true
+		},
+		{
+			"description": "text shown: Sacrifice",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Sacrifice",
+			"passed": true
+		},
+		{
+			"description": "private row follows the previous row: Sacrifice",
+			"passed": true
+		},
+		{
+			"description": "rendered private row: Sacrifice = done",
+			"passed": true
+		},
+		{
+			"description": "text shown: ONLY YOU SEE THIS. PRAYER GIVES NO COINS AND NO TRUST.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: ONLY YOU SEE THIS. PRAYER GIVES NO COINS AND NO TRUST.",
+			"passed": true
+		},
+		{
+			"description": "the privacy note follows the three new rows",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a16_prayers__dhu_al_hijjah_record__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a16_prayers__dhu_al_hijjah_record__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the live Inn map",
+			"passed": true
+		},
+		{
+			"description": "arrival starts with the staged wallet and trust, no meals and no public reputation",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 119 minute 600",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 1 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Saeed brings sheep for Eid",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy a sheep · 30 coins",
+			"passed": true
+		},
+		{
+			"description": "the native adha_sheep panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: THE GATE OF TRUST · DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: THE GATE OF TRUST · DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed the herder",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed the herder",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed has walked his flock in from the river fields. “A sheep for Eid? A year old, healthy, not a fault on it. Thirty coins.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed has walked his flock in from the river fields. “A sheep for Eid? A year old, healthy, not a fault on it. Thirty coins.”",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed ties a rope round its neck. It will wait in the inn's yard until Eid.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed ties a rope round its neck. It will wait in the inn's yard until Eid.",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Buy a sheep · 30 coins",
+			"passed": true
+		},
+		{
+			"description": "button shown: Not now",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Not now",
+			"passed": true
+		},
+		{
+			"description": "the live purchase owns one sheep, costs thirty coins and preserves trust, meals and public reputation",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Not now",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 129 minute 600",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 11 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Sacrifice your sheep",
+			"passed": true
+		},
+		{
+			"description": "the native adha_sacrifice panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: AFTER THE EID PRAYER",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: AFTER THE EID PRAYER",
+			"passed": true
+		},
+		{
+			"description": "text shown: The sacrifice",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: The sacrifice",
+			"passed": true
+		},
+		{
+			"description": "text shown: At the butcher's by the gate you hold the rope while he says “Bismillah, Allahu akbar.” It is quick, and the sheep does not see the knife before.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: At the butcher's by the gate you hold the rope while he says “Bismillah, Allahu akbar.” It is quick, and the sheep does not see the knife before.",
+			"passed": true
+		},
+		{
+			"description": "button shown: Share it in thirds: your table, your neighbours, the poor",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Share it in thirds: your table, your neighbours, the poor",
+			"passed": true
+		},
+		{
+			"description": "button shown: Give it all to the poor",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Give it all to the poor",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the choices are stacked in locked order before the map return",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give it all to the poor",
+			"passed": true
+		},
+		{
+			"description": "the native adha_sacrifice panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: AFTER THE EID PRAYER",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: AFTER THE EID PRAYER",
+			"passed": true
+		},
+		{
+			"description": "text shown: The sacrifice",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: The sacrifice",
+			"passed": true
+		},
+		{
+			"description": "text shown: At the butcher's by the gate you hold the rope while he says “Bismillah, Allahu akbar.” It is quick, and the sheep does not see the knife before.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: At the butcher's by the gate you hold the rope while he says “Bismillah, Allahu akbar.” It is quick, and the sheep does not see the knife before.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Faris carries the meat from door to door until dark.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Faris carries the meat from door to door until dark.",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Share it in thirds: your table, your neighbours, the poor",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Give it all to the poor",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the live distribution uses the sheep and adds only 30 meals",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a14_sacrifice__all_to_the_poor_day_11__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a14_sacrifice__all_to_the_poor_day_11__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the live Inn map",
+			"passed": true
+		},
+		{
+			"description": "arrival starts with the staged wallet and trust, no meals and no public reputation",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 119 minute 600",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 1 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Saeed brings sheep for Eid",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy a sheep · 30 coins",
+			"passed": true
+		},
+		{
+			"description": "the native adha_sheep panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: THE GATE OF TRUST · DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: THE GATE OF TRUST · DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed the herder",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed the herder",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed has walked his flock in from the river fields. “A sheep for Eid? A year old, healthy, not a fault on it. Thirty coins.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed has walked his flock in from the river fields. “A sheep for Eid? A year old, healthy, not a fault on it. Thirty coins.”",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed ties a rope round its neck. It will wait in the inn's yard until Eid.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed ties a rope round its neck. It will wait in the inn's yard until Eid.",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Buy a sheep · 30 coins",
+			"passed": true
+		},
+		{
+			"description": "button shown: Not now",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Not now",
+			"passed": true
+		},
+		{
+			"description": "the live purchase owns one sheep, costs thirty coins and preserves trust, meals and public reputation",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Not now",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 131 minute 1100",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 13 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "the late cutoff fixture still owns an unused sheep",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Sacrifice your sheep",
+			"passed": true
+		},
+		{
+			"description": "text shown: Days of Tashreeq · days of eating, no fasting",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Days of Tashreeq · days of eating, no fasting",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a17_gate__13th_after_maghrib_no_sacrifice__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a17_gate__13th_after_maghrib_no_sacrifice__build.png",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 132 minute 600",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 14 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Saeed brings sheep for Eid",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Sacrifice your sheep",
+			"passed": true
+		},
+		{
+			"description": "text hidden: Days of Tashreeq · days of eating, no fasting",
+			"passed": true
+		},
+		{
+			"description": "text hidden: Eid al-Adha · Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a18_gate__14th_nothing__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a18_gate__14th_nothing__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the live Inn map",
+			"passed": true
+		},
+		{
+			"description": "arrival starts with the staged wallet and trust, no meals and no public reputation",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 118 minute 960",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: A drover with two goats",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Tell Saeed",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "Saeed remembers after the native Tell Saeed action",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 119 minute 600",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 1 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Saeed brings sheep for Eid",
+			"passed": true
+		},
+		{
+			"description": "the native adha_sheep panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: THE GATE OF TRUST · DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: THE GATE OF TRUST · DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed the herder",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed the herder",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed has walked his flock in from the river fields. “A sheep for Eid? A year old, healthy, not a fault on it. Thirty coins.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed has walked his flock in from the river fields. “A sheep for Eid? A year old, healthy, not a fault on it. Thirty coins.”",
+			"passed": true
+		},
+		{
+			"description": "text shown: He looks at you twice. “You brought back my goats.” He picks you the best of the flock himself.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: He looks at you twice. “You brought back my goats.” He picks you the best of the flock himself.",
+			"passed": true
+		},
+		{
+			"description": "button shown: Buy a sheep · 30 coins",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Buy a sheep · 30 coins",
+			"passed": true
+		},
+		{
+			"description": "button shown: Not now",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Not now",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a04_sheep__saeed_remembers__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a04_sheep__saeed_remembers__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the live Inn map",
+			"passed": true
+		},
+		{
+			"description": "arrival starts with the staged wallet and trust, no meals and no public reputation",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 119 minute 600",
+			"passed": true
+		},
+		{
+			"description": "the real calendar shows 1 Dhu al-Hijjah",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Saeed brings sheep for Eid",
+			"passed": true
+		},
+		{
+			"description": "the native adha_sheep panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: THE GATE OF TRUST · DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: THE GATE OF TRUST · DHU AL-HIJJAH",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed the herder",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed the herder",
+			"passed": true
+		},
+		{
+			"description": "text shown: Saeed has walked his flock in from the river fields. “A sheep for Eid? A year old, healthy, not a fault on it. Thirty coins.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Saeed has walked his flock in from the river fields. “A sheep for Eid? A year old, healthy, not a fault on it. Thirty coins.”",
+			"passed": true
+		},
+		{
+			"description": "text shown: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "text hidden: He looks at you twice. “You brought back my goats.” He picks you the best of the flock himself.",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Buy a sheep · 30 coins",
+			"passed": true
+		},
+		{
+			"description": "button shown: Not now",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Not now",
+			"passed": true
+		},
+		{
+			"description": "the shortage changes neither ownership nor the wallet",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: a05_sheep__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: a05_sheep__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "all eighteen locked masters have native captures",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Passive ticks are paused. After fair arrival, skip_to stages real calendar times and leaves skipped prayers unplayed. The player is placed at the named place marker. For a16, the player looks down the lane from a1 toward the square. Wallet and trust begin at 198 and 45, with a 20-coin shortage in a05 and trust set back to 45 after telling Saeed in a04. Purchases, prayer, intention, distribution and record outcomes are produced by the game.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport with production buttons for fair arrival, telling Saeed, buying a sheep, intending the fast, Eid prayer, both distributions and opening the private prayer record.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "a01_gate__saeed_brings_sheep__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a02_sheep__offer__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a03_sheep__bought__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a06_inn__intend_arafah_fast__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a07_spice__arafah_fasting_line__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a08_gate__eid_no_sacrifice_before_prayer__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a09_masjid__eid_al_adha_prayer__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a10_adha__the_prayer__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a11_gate__sacrifice_your_sheep__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a12_sacrifice__choose__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a13_sacrifice__thirds__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a15_gate__tashreeq_line__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a16_prayers__dhu_al_hijjah_record__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a14_sacrifice__all_to_the_poor_day_11__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a17_gate__13th_after_maghrib_no_sacrifice__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a18_gate__14th_nothing__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a04_sheep__saeed_remembers__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "a05_sheep__not_enough_coins__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"a01_gate__saeed_brings_sheep__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Wednesday 1 Dhu al-Hijjah",
+			"day_index": 118,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 600,
+			"night": false,
+			"owns_sheep": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000826869567390531,
+				7.28581762313843
+			],
+			"record": {
+				"arafah": "not yet",
+				"eid": "not yet",
+				"sacrifice": "not yet"
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"a02_sheep__offer__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Wednesday 1 Dhu al-Hijjah",
+			"day_index": 118,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 600,
+			"night": false,
+			"owns_sheep": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"record": {
+				"arafah": "not yet",
+				"eid": "not yet",
+				"sacrifice": "not yet"
+			},
+			"screen": "adha_sheep",
+			"tasks": {},
+			"trust": 45
+		},
+		"a03_sheep__bought__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Wednesday 1 Dhu al-Hijjah",
+			"day_index": 118,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 600,
+			"night": false,
+			"owns_sheep": true,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"record": {
+				"arafah": "not yet",
+				"eid": "not yet",
+				"sacrifice": "not yet"
+			},
+			"screen": "adha_sheep",
+			"tasks": {},
+			"trust": 45
+		},
+		"a04_sheep__saeed_remembers__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Wednesday 1 Dhu al-Hijjah",
+			"day_index": 118,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 600,
+			"night": false,
+			"owns_sheep": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"record": {
+				"arafah": "not yet",
+				"eid": "not yet",
+				"sacrifice": "not yet"
+			},
+			"screen": "adha_sheep",
+			"tasks": {},
+			"trust": 45
+		},
+		"a05_sheep__not_enough_coins__build.png": {
+			"coins": 20,
+			"daily_count": 0,
+			"date": "Wednesday 1 Dhu al-Hijjah",
+			"day_index": 118,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 600,
+			"night": false,
+			"owns_sheep": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"record": {
+				"arafah": "not yet",
+				"eid": "not yet",
+				"sacrifice": "not yet"
+			},
+			"screen": "adha_sheep",
+			"tasks": {},
+			"trust": 45
+		},
+		"a06_inn__intend_arafah_fast__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Thursday 9 Dhu al-Hijjah",
+			"day_index": 126,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 240,
+			"night": true,
+			"owns_sheep": true,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"record": {
+				"arafah": "not yet",
+				"eid": "not yet",
+				"sacrifice": "not yet"
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"a07_spice__arafah_fasting_line__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Thursday 9 Dhu al-Hijjah",
+			"day_index": 126,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 600,
+			"night": false,
+			"owns_sheep": true,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"record": {
+				"arafah": "fasted",
+				"eid": "not yet",
+				"sacrifice": "not yet"
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"a08_gate__eid_no_sacrifice_before_prayer__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Friday 10 Dhu al-Hijjah",
+			"day_index": 127,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 400,
+			"night": false,
+			"owns_sheep": true,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"record": {
+				"arafah": "fasted",
+				"eid": "not yet",
+				"sacrifice": "not yet"
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"a09_masjid__eid_al_adha_prayer__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Friday 10 Dhu al-Hijjah",
+			"day_index": 127,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 400,
+			"night": false,
+			"owns_sheep": true,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"record": {
+				"arafah": "fasted",
+				"eid": "not yet",
+				"sacrifice": "not yet"
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"a10_adha__the_prayer__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Friday 10 Dhu al-Hijjah",
+			"day_index": 127,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 400,
+			"night": false,
+			"owns_sheep": true,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"record": {
+				"arafah": "fasted",
+				"eid": "prayed",
+				"sacrifice": "not yet"
+			},
+			"screen": "adha_eid",
+			"tasks": {},
+			"trust": 45
+		},
+		"a11_gate__sacrifice_your_sheep__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Friday 10 Dhu al-Hijjah",
+			"day_index": 127,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 420,
+			"night": false,
+			"owns_sheep": true,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000826869567390531,
+				7.28581762313843
+			],
+			"record": {
+				"arafah": "fasted",
+				"eid": "prayed",
+				"sacrifice": "not yet"
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"a12_sacrifice__choose__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Friday 10 Dhu al-Hijjah",
+			"day_index": 127,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 420,
+			"night": false,
+			"owns_sheep": true,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"record": {
+				"arafah": "fasted",
+				"eid": "prayed",
+				"sacrifice": "not yet"
+			},
+			"screen": "adha_sacrifice",
+			"tasks": {},
+			"trust": 45
+		},
+		"a13_sacrifice__thirds__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Friday 10 Dhu al-Hijjah",
+			"day_index": 127,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 10,
+			"minute_of_day": 420,
+			"night": false,
+			"owns_sheep": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"record": {
+				"arafah": "fasted",
+				"eid": "prayed",
+				"sacrifice": "done"
+			},
+			"screen": "adha_sacrifice",
+			"tasks": {},
+			"trust": 45
+		},
+		"a14_sacrifice__all_to_the_poor_day_11__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Saturday 11 Dhu al-Hijjah",
+			"day_index": 128,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 30,
+			"minute_of_day": 600,
+			"night": false,
+			"owns_sheep": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000826869567390531,
+				7.28581762313843
+			],
+			"record": {
+				"arafah": "not yet",
+				"eid": "not yet",
+				"sacrifice": "done"
+			},
+			"screen": "adha_sacrifice",
+			"tasks": {},
+			"trust": 45
+		},
+		"a15_gate__tashreeq_line__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Saturday 11 Dhu al-Hijjah",
+			"day_index": 128,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 10,
+			"minute_of_day": 600,
+			"night": false,
+			"owns_sheep": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000826869567390531,
+				7.28581762313843
+			],
+			"record": {
+				"arafah": "fasted",
+				"eid": "prayed",
+				"sacrifice": "done"
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"a16_prayers__dhu_al_hijjah_record__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Saturday 11 Dhu al-Hijjah",
+			"day_index": 128,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 10,
+			"minute_of_day": 600,
+			"night": false,
+			"owns_sheep": false,
+			"place": "",
+			"player": [
+				120.0,
+				0.0,
+				19.2000007629395
+			],
+			"record": {
+				"arafah": "fasted",
+				"eid": "prayed",
+				"sacrifice": "done"
+			},
+			"screen": "all_prayers",
+			"tasks": {},
+			"trust": 45
+		},
+		"a17_gate__13th_after_maghrib_no_sacrifice__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Monday 13 Dhu al-Hijjah",
+			"day_index": 130,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 1100,
+			"night": false,
+			"owns_sheep": true,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"record": {
+				"arafah": "not yet",
+				"eid": "not yet",
+				"sacrifice": "not yet"
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"a18_gate__14th_nothing__build.png": {
+			"coins": 168,
+			"daily_count": 0,
+			"date": "Tuesday 14 Dhu al-Hijjah",
+			"day_index": 131,
+			"gate_open": false,
+			"lesson_done": false,
+			"meals": 0,
+			"minute_of_day": 600,
+			"night": false,
+			"owns_sheep": true,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"record": {
+				"arafah": "not yet",
+				"eid": "not yet",
+				"sacrifice": "not yet"
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		}
+	},
+	"timestamp_utc": "2026-11-11T19:11:08Z"
+}

@@ -55,6 +55,9 @@ signal night_prayer_requested
 signal fitr_requested
 signal fitr_paid
 signal eid_prayer_requested
+signal adha_requested(action: EidAlAdha.Action)
+signal adha_sheep_bought
+signal adha_sacrifice_chosen(give_all: bool)
 signal iftar_giving_requested
 signal iftar_giving_paid(id: String)
 signal zakat_requested
@@ -97,6 +100,7 @@ const RashidsLoan = preload("res://game/rashids_loan.gd")
 const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
 const Ramadan = preload("res://game/ramadan.gd")
 const EidAlFitr = preload("res://game/eid_al_fitr.gd")
+const EidAlAdha = preload("res://game/eid_al_adha.gd")
 const Zakat = preload("res://game/zakat.gd")
 const RAMADAN_BUTTONS := {
 	Ramadan.Action.SUHOOR: "suhoor_button",
@@ -105,6 +109,14 @@ const RAMADAN_BUTTONS := {
 }
 const RAMADAN_RECORD_ROWS := ["fasted", "suhoor", "tarawih"]
 const EID_RECORD_ROWS := ["nights", "fitr", "eid"]
+const ADHA_RECORD_ROWS := ["arafah", "eid", "sacrifice"]
+const ADHA_BUTTONS := {
+	EidAlAdha.Action.SHEEP: "gate_button",
+	EidAlAdha.Action.ARAFAH: "arafah_button",
+	EidAlAdha.Action.PRAYER: "eid_button",
+	EidAlAdha.Action.SACRIFICE: "sacrifice_button",
+}
+const ADHA_SCREENS := ["adha_sheep", "adha_eid", "adha_sacrifice"]
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
@@ -133,6 +145,8 @@ var market_day: MarketDay
 var feeding: Feeding
 var iftar_giving: IftarGiving
 var eid_al_fitr: EidAlFitr
+var eid_al_adha: EidAlAdha
+var adha_sacrifice_receipt := ""
 var zakat: Zakat
 var sealed_purse: SealedPurse
 var dice_house: DiceHouse
@@ -154,6 +168,7 @@ var _night_prayer_available := false
 var _fitr_available := false
 var _zakat_available := false
 var _eid_prayer_available := false
+var _adha_action := EidAlAdha.Action.NONE
 var _eid_line := ""
 var _sealed_offer_available := false
 var _regular_status := MarketDay.Status.OPEN
@@ -188,6 +203,7 @@ var _shown_prayer_totals: Dictionary
 var _shown_ramadan_totals: Dictionary
 var _shown_eid_totals: Dictionary
 var _shown_zakat_record := ""
+var _shown_adha_record: Dictionary
 var _fasting_line := ""
 var _ramadan_action := Ramadan.Action.NONE
 var _clock_day := -1
@@ -212,7 +228,7 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars, jabirs_goats_value: JabirsGoats, idris_recovery_value: IdrisRecovery, dry_fountain_value: DryFountain, rashids_loan_value: RashidsLoan, harm_in_the_road_value: HarmInTheRoad, ramadan_value: Ramadan, iftar_giving_value: IftarGiving, eid_al_fitr_value: EidAlFitr, zakat_value: Zakat) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars, jabirs_goats_value: JabirsGoats, idris_recovery_value: IdrisRecovery, dry_fountain_value: DryFountain, rashids_loan_value: RashidsLoan, harm_in_the_road_value: HarmInTheRoad, ramadan_value: Ramadan, iftar_giving_value: IftarGiving, eid_al_fitr_value: EidAlFitr, zakat_value: Zakat, eid_al_adha_value: EidAlAdha) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
@@ -235,6 +251,7 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	iftar_giving = iftar_giving_value
 	eid_al_fitr = eid_al_fitr_value
 	zakat = zakat_value
+	eid_al_adha = eid_al_adha_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -345,6 +362,9 @@ func _rebuild_screen() -> void:
 		"zakat":
 			_build_hud()
 			_build_zakat()
+		"adha_sheep", "adha_eid", "adha_sacrifice":
+			_build_hud()
+			_build_adha_panel()
 		"prayer_record":
 			_build_hud()
 			_build_prayer_record()
@@ -496,6 +516,11 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	if loan_offer != _loan_offer:
 		_loan_offer = loan_offer
 		rebuild = rebuild or screen in ["game", "market_map"]
+	if screen in ["game", "market_map"] or screen in ADHA_SCREENS:
+		var adha_action := eid_al_adha.action_at(place_value)
+		if adha_action != _adha_action:
+			_adha_action = adha_action
+			rebuild = true
 	if screen in ["game", "market_map"]:
 		var road_harm := harm_in_the_road.available_at(place_value)
 		if road_harm != _road_harm:
@@ -509,7 +534,7 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 			rebuild = true
 		var night_prayer := eid_al_fitr.night_available_at(place_value)
 		var eid_prayer := eid_al_fitr.eid_prayer_available_at(place_value)
-		var eid_line: String = eid_al_fitr.data.eid_line if eid_al_fitr.is_eid_day() else ""
+		var eid_line: String = eid_al_fitr.data.eid_line if eid_al_fitr.is_eid_day() else eid_al_adha.bar_line()
 		if night_prayer != _night_prayer_available or eid_prayer != _eid_prayer_available or eid_line != _eid_line:
 			_night_prayer_available = night_prayer
 			_eid_prayer_available = eid_prayer
@@ -545,7 +570,7 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	if screen == "all_prayers" and clock_changed:
 		rebuild = (rebuild or clock.totals() != _shown_prayer_totals
 			or ramadan.record() != _shown_ramadan_totals or eid_al_fitr.record() != _shown_eid_totals
-			or zakat.record() != _shown_zakat_record)
+			or zakat.record() != _shown_zakat_record or eid_al_adha.record() != _shown_adha_record)
 	if rebuild and screen not in ["title", "all_prayers_title"]:
 		_rebuild_screen()
 	elif clock_changed:
@@ -716,7 +741,7 @@ func _story_text(panel: Panel, value: String, y: float, bold: bool = false) -> f
 	body.add_theme_font_size_override("normal_font_size", 23)
 	body.add_theme_font_size_override("bold_font_size", 23)
 	body.add_theme_color_override("default_color", PAPER)
-	if screen in CHAPTER_SCREENS:
+	if screen in CHAPTER_SCREENS or screen in ADHA_SCREENS:
 		body.add_theme_constant_override("line_separation", 5)
 	panel.add_child(body)
 
@@ -792,7 +817,7 @@ func _build_clock_hud() -> void:
 	_clock_prayer = _label(clock_panel, "", Vector2(14, 40), Vector2(257, 34), 24, Color("ffd27e"), true)
 	_clock_time.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_clock_prayer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	if screen not in ["arrival", "idris", "prayer_record", "all_prayers", "calendar", "zakat", "purse_salma", "purse_page", "purse_refused", "stall_change"] and screen not in GRAB_SCREENS:
+	if screen not in ["arrival", "idris", "prayer_record", "all_prayers", "calendar", "zakat", "purse_salma", "purse_page", "purse_refused", "stall_change"] and screen not in GRAB_SCREENS and screen not in ADHA_SCREENS:
 		_clock_hit = Button.new()
 		_clock_hit.flat = true
 		_clock_hit.modulate = Color(1, 1, 1, 0)
@@ -901,6 +926,38 @@ func _build_eid_panel() -> void:
 	_chapter_finish(panel, y)
 
 
+func _build_adha_panel() -> void:
+	var section := screen.trim_prefix("adha_")
+	var copy: Dictionary = eid_al_adha.data[section]
+	var panel := _chapter_panel(copy.kicker, copy.title, true)
+	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
+	style.set_corner_radius_all(18)
+	var y := 132.0 + maxf(58.0, _story_text(panel, copy.text, 112))
+	var x := 34.0
+	if section == "sheep":
+		if eid_al_adha.saeed_remembers():
+			y += _story_text(panel, copy.remembers, y) + 14.0
+		if eid_al_adha.owns_sheep() or (_adha_action == EidAlAdha.Action.SHEEP and not eid_al_adha.can_afford_sheep()):
+			var notice: String = copy.bought if eid_al_adha.owns_sheep() else copy.not_enough
+			var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+			_label(panel, notice, Vector2(x, y), Vector2(width, 56), 23, PAPER)
+			x += width + 14.0
+		elif _adha_action == EidAlAdha.Action.SHEEP:
+			var caption := str(copy.buy).format({"n": int(eid_al_adha.data.numbers.sheep_cost)})
+			x += _chapter_button(panel, caption, Vector2(x, y), func(): adha_sheep_bought.emit(), true)
+	elif section == "sacrifice":
+		if not adha_sacrifice_receipt.is_empty():
+			y += _story_text(panel, adha_sacrifice_receipt, y) + 14.0
+		elif _adha_action == EidAlAdha.Action.SACRIFICE:
+			_chapter_button(panel, copy.thirds, Vector2(x, y), func(): adha_sacrifice_chosen.emit(false), true, true)
+			y += 69.0
+			_chapter_button(panel, copy.all, Vector2(x, y), func(): adha_sacrifice_chosen.emit(true), true, true)
+			y += 69.0
+	var back: String = copy.no if section == "sheep" else copy.to_map
+	_chapter_button(panel, back, Vector2(x, y), func(): screen_requested.emit("market_map"))
+	_chapter_finish(panel, y)
+
+
 func _build_zakat() -> void:
 	var copy: Dictionary = zakat.data.panel
 	var state := zakat.panel()
@@ -947,16 +1004,25 @@ func _build_prayer_totals() -> void:
 	_shown_ramadan_totals = ramadan.record()
 	_shown_eid_totals = eid_al_fitr.record()
 	_shown_zakat_record = zakat.record()
+	_shown_adha_record = eid_al_adha.record()
 	var copy: Dictionary = prayer_record.panel
 	var empty: bool = int(_shown_prayer_totals.on_time) + int(_shown_prayer_totals.madeup) + int(_shown_prayer_totals.missed) == 0
 	var top := 443.0 if empty else 283.0
 	var height := 281.0 if empty else 600.0
 	var row_height := 45.3
-	var ramadan_height := 169.0 + EID_RECORD_ROWS.size() * row_height if not _shown_ramadan_totals.is_empty() else 0.0
+	# The full daily, Ramadan, Zakat and Dhu al-Hijjah record shares one viewport.
+	if not empty and not _shown_adha_record.is_empty():
+		row_height = 32.0
+		height -= PRAYER_TOTAL_ROWS.size() * (45.3 - row_height)
+	var ramadan_height := 0.0
+	if not _shown_ramadan_totals.is_empty():
+		ramadan_height = 169.0 + EID_RECORD_ROWS.size() * 45.3
+		ramadan_height -= (RAMADAN_RECORD_ROWS.size() + EID_RECORD_ROWS.size()) * (45.3 - row_height)
 	var zakat_height := row_height if not _shown_zakat_record.is_empty() else 0.0
-	var added_height := ramadan_height + zakat_height
+	var adha_height := 32.0 + ADHA_RECORD_ROWS.size() * row_height if not _shown_adha_record.is_empty() else 0.0
+	var added_height := ramadan_height + zakat_height + adha_height
 	var panel_top := top - ceilf(added_height / 2.0)
-	if zakat_height > 0.0:
+	if zakat_height > 0.0 or adha_height > 0.0:
 		panel_top = maxf(129.0, panel_top)
 	var panel := _panel(Vector2(365, panel_top), Vector2(1190, height + added_height), Color("1b130be6"))
 	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
@@ -969,26 +1035,33 @@ func _build_prayer_totals() -> void:
 	else:
 		for index in PRAYER_TOTAL_ROWS.size():
 			var row: String = PRAYER_TOTAL_ROWS[index]
-			var y := 113.0 + index * 45.3
+			var y := 113.0 + index * row_height
 			var indented := index >= 1 and index <= 3
 			var count: String = str(prayer_record.count).format({"n": _shown_prayer_totals[row]})
-			_prayer_total_row(panel, y, prayer_record.rows[row], count, indented)
-	var footer := 197.0 if empty else 517.0
+			_prayer_total_row(panel, y, prayer_record.rows[row], count, row_height, indented)
+	var footer := 197.0 if empty else height - 83.0
 	if ramadan_height > 0.0:
 		var record: Dictionary = ramadan.data.record
 		_spaced_caption(panel, record.title, footer - 35.0)
 		for index in RAMADAN_RECORD_ROWS.size():
 			var row: String = RAMADAN_RECORD_ROWS[index]
 			var count: String = str(record.count).format({"n": _shown_ramadan_totals[row]})
-			_prayer_total_row(panel, footer - 8.0 + index * row_height, record[row], count)
+			_prayer_total_row(panel, footer - 8.0 + index * row_height, record[row], count, row_height)
 		var eid_start := footer - 8.0 + RAMADAN_RECORD_ROWS.size() * row_height
 		for index in EID_RECORD_ROWS.size():
 			var row: String = EID_RECORD_ROWS[index]
-			_prayer_total_row(panel, eid_start + index * row_height, eid_al_fitr.data.record[row], _shown_eid_totals[row])
+			_prayer_total_row(panel, eid_start + index * row_height, eid_al_fitr.data.record[row], _shown_eid_totals[row], row_height)
 		footer += ramadan_height
 	if zakat_height > 0.0:
-		_prayer_total_row(panel, footer - 40.0, zakat.data.record.title, _shown_zakat_record)
+		_prayer_total_row(panel, footer - 40.0, zakat.data.record.title, _shown_zakat_record, row_height)
 		footer += zakat_height
+	if adha_height > 0.0:
+		var record: Dictionary = eid_al_adha.data.record
+		_spaced_caption(panel, record.title, footer - 40.0)
+		for index in ADHA_RECORD_ROWS.size():
+			var row: String = ADHA_RECORD_ROWS[index]
+			_prayer_total_row(panel, footer - 8.0 + index * row_height, record[row], _shown_adha_record[row], row_height)
+		footer += adha_height
 	_spaced_caption(panel, copy.note, footer - 40)
 	if screen == "all_prayers_title":
 		_button(copy.back_title, Vector2(34, footer), Vector2(109, 56), func(): screen_requested.emit("title"), true, panel)
@@ -996,15 +1069,15 @@ func _build_prayer_totals() -> void:
 		_button(copy.back_market, Vector2(34, footer), Vector2(247, 56), func(): record_closed.emit(), true, panel)
 		_button(copy.today, Vector2(294, footer), Vector2(210, 56), func(): screen_requested.emit("prayer_record"), false, panel)
 
-func _prayer_total_row(panel: Panel, y: float, caption: String, count: String, indented: bool = false) -> void:
+func _prayer_total_row(panel: Panel, y: float, caption: String, count: String, row_height: float, indented: bool = false) -> void:
 	var line := ColorRect.new()
 	line.position = Vector2(34, y)
 	line.size = Vector2(1122, 1)
 	line.color = Color("88612555")
 	line.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.add_child(line)
-	_label(panel, caption, Vector2(64 if indented else 34, y), Vector2(960, 45), 23, PAPER, not indented)
-	var value := _label(panel, count, Vector2(1000, y), Vector2(156, 45), 23, Color("ffd27e"))
+	_label(panel, caption, Vector2(64 if indented else 34, y), Vector2(960, floorf(row_height)), 23, PAPER, not indented)
+	var value := _label(panel, count, Vector2(1000, y), Vector2(156, floorf(row_height)), 23, Color("ffd27e"))
 	value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 
 
@@ -2026,11 +2099,18 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var eid_buttons: Array[Dictionary] = []
 	var eid_copy := eid_al_fitr.data
 	if _night_prayer_available:
-		eid_buttons.append({"text": eid_copy.night_button, "primary": false, "action": night_prayer_requested})
+		eid_buttons.append({"text": eid_copy.night_button, "primary": false, "action": func(): night_prayer_requested.emit()})
 	if _fitr_available:
-		eid_buttons.append({"text": eid_copy.fitr_button, "primary": false, "action": fitr_requested})
+		eid_buttons.append({"text": eid_copy.fitr_button, "primary": false, "action": func(): fitr_requested.emit()})
 	if _eid_prayer_available:
-		eid_buttons.append({"text": eid_copy.eid_button, "primary": true, "action": eid_prayer_requested})
+		eid_buttons.append({"text": eid_copy.eid_button, "primary": true, "action": func(): eid_prayer_requested.emit()})
+	if _adha_action != EidAlAdha.Action.NONE:
+		var action_value := _adha_action
+		eid_buttons.append({
+			"text": eid_al_adha.data[ADHA_BUTTONS[action_value]],
+			"primary": action_value != EidAlAdha.Action.SHEEP,
+			"action": func(): adha_requested.emit(action_value),
+		})
 	var eid_width := eid_line_width
 	for button in eid_buttons:
 		button.width = _button_width(button.text, button.primary) + 18.0
@@ -2140,9 +2220,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		_button(action_text, ramadan_at + Vector2(x, bar_y + 8), Vector2(ramadan_width - 18.0, 56),
 			func(): ramadan_requested.emit(ramadan_action), ramadan_primary)
 	for entry in eid_buttons:
-		var requested: Signal = entry.action
-		_button(entry.text, eid_at + Vector2(x, bar_y + 8), Vector2(entry.width - 18.0, 56),
-			func(): requested.emit(), entry.primary)
+		_button(entry.text, eid_at + Vector2(x, bar_y + 8), Vector2(entry.width - 18.0, 56), entry.action, entry.primary)
 		eid_at.x += entry.width
 	if eid_line_width > 0.0:
 		_label(panel, _eid_line, eid_at + Vector2(0, 15), Vector2(eid_line_width, 42), label_size, PAPER)

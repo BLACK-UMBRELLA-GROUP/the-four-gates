@@ -1,0 +1,65 @@
+{
+ "version": "LOCK 23 V1 (9 Nov 2026) - worship: Eid al-Adha and the sacrifice",
+ "builds_on": "LOCK 9 meals for the poor, LOCK 13 Saeed the herder, LOCK 18 calendar, LOCK 19 fasting line and private record, LOCK 21 Eid prayer. Placeholders: {n}, {t}.",
+ "numbers": {
+  "month": 11,
+  "sell_until_day": 9,
+  "sell_from": 420,
+  "sell_until": 1080,
+  "sheep_cost": 30,
+  "arafah_day": 9,
+  "eid_day": 10,
+  "tashreeq_last": 13,
+  "suhoor_from": 210,
+  "fast_from": 285,
+  "iftar_from": 1090,
+  "eid_from": 390,
+  "eid_until": 540,
+  "thirds_meals": 10,
+  "all_meals": 30
+ },
+ "gate_button": "Saeed brings sheep for Eid",
+ "sheep": {
+  "kicker": "The Gate of Trust · Dhu al-Hijjah",
+  "title": "Saeed the herder",
+  "text": "Saeed has walked his flock in from the river fields. “A sheep for Eid? A year old, healthy, not a fault on it. Thirty coins.”",
+  "remembers": "He looks at you twice. “You brought back my goats.” He picks you the best of the flock himself.",
+  "buy": "Buy a sheep · {n} coins",
+  "not_enough": "not enough coins",
+  "bought": "Saeed ties a rope round its neck. It will wait in the inn's yard until Eid.",
+  "no": "Not now"
+ },
+ "arafah_button": "Intend to fast the Day of Arafah",
+ "arafah_toast": "You eat before Fajr. Far away the pilgrims are standing at Arafah; here you fast.",
+ "arafah_line": "Fasting the Day of Arafah · iftar at {t}",
+ "eid_line": "Eid al-Adha · Eid Mubarak · no fasting today",
+ "tashreeq_line": "Days of Tashreeq · days of eating, no fasting",
+ "eid_button": "Pray the Eid prayer",
+ "eid": {
+  "kicker": "10 Dhu al-Hijjah",
+  "title": "Eid al-Adha",
+  "text": "River Market prays in the open ground again. Idris speaks of Ibrahim and his son, and of giving up what you love for Allah. Then everyone goes to their animals.",
+  "to_map": "Back to the market map"
+ },
+ "sacrifice_button": "Sacrifice your sheep",
+ "sacrifice": {
+  "kicker": "After the Eid prayer",
+  "title": "The sacrifice",
+  "text": "At the butcher's by the gate you hold the rope while he says “Bismillah, Allahu akbar.” It is quick, and the sheep does not see the knife before.",
+  "thirds": "Share it in thirds: your table, your neighbours, the poor",
+  "all": "Give it all to the poor",
+  "out_thirds": "Salma takes a share for her lane, and Umm Salim's pot is full tonight.",
+  "out_all": "Faris carries the meat from door to door until dark.",
+  "to_map": "Back to the market map"
+ },
+ "record": {
+  "title": "Dhu al-Hijjah",
+  "arafah": "Day of Arafah",
+  "eid": "Eid al-Adha prayer",
+  "sacrifice": "Sacrifice",
+  "yes_fast": "fasted",
+  "yes_eid": "prayed",
+  "yes_sac": "done",
+  "no": "not yet"
+ }
+}

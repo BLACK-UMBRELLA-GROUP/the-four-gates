@@ -153,6 +153,7 @@ func _run() -> void:
 	await check_iftar_giving_runtime()
 	await check_eid_al_fitr_runtime()
 	await check_zakat_runtime()
+	await check_eid_al_adha_runtime()
 	finish()
 
 
@@ -3887,3 +3888,200 @@ func check_zakat_record(copy: Dictionary, status: String) -> void:
 	var at := text.find(row)
 	check(at > text.find(app.eid_al_fitr.data.record.eid) and text.contains(row)
 		and at < text.find(str(app.ui.prayer_record.panel.note).to_upper()), "the private Zakat row follows the Eid rows and reads " + status)
+
+
+const FIRST_DHU_AL_HIJJAH := 119
+
+
+func check_eid_al_adha_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/EID_AL_ADHA/RECORD/eid_al_adha_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/eid_al_adha.json")
+	var copy: Dictionary = app.eid_al_adha.data
+	check(not approved.is_empty() and approved == runtime, "Eid al-Adha copies LOCK 23 byte for byte")
+	check(copy == JSON.parse_string(runtime.get_string_from_utf8()), "Eid al-Adha reads the locked runtime data")
+	app.set_process(false)
+	await check_adha_sheep(copy)
+	await check_arafah_and_adha_prayer(copy)
+	await check_adha_sacrifice(copy)
+	check_adha_record(copy)
+	app.set_process(true)
+
+
+func check_adha_sheep(copy: Dictionary) -> void:
+	var adha = app.eid_al_adha
+	var buy := str(copy.sheep.buy).format({"n": int(copy.numbers.sheep_cost)})
+	reset_at_market_place("gate", 20)
+	stage_ramadan(FIRST_DHU_AL_HIJJAH - 1, 960, "gate")
+	check(find_button(app.ui, copy.gate_button) == null and adha.record().is_empty(), "no Eid al-Adha offer or private rows before Dhu al-Hijjah")
+	for slot: Array in [[1, 419, false], [1, 420, true], [1, 1079, true], [1, 1080, false],
+			[9, 419, false], [9, 420, true], [9, 1079, true], [9, 1080, false], [10, 600, false]]:
+		stage_adha(slot[0], slot[1], "gate")
+		check((find_button(app.ui, copy.gate_button) != null) == slot[2], "sheep offer on Dhu al-Hijjah day %d at minute %d" % [slot[0], slot[1]])
+
+	reset_at_market_place("gate", 20)
+	stage_adha(1, 600, "quay")
+	check(find_button(app.ui, copy.gate_button) == null and not adha.buy_sheep("quay"), "sheep purchase is Gate-only")
+	move_market_fixture("gate")
+	await press_button(copy.gate_button, "an unaffordable sheep offer still opens")
+	check_adha_panel("adha_sheep", copy.sheep)
+	check(has_visible_label(app.ui, copy.sheep.not_enough) and find_button(app.ui, buy) == null, "short balance shows the locked notice in place of Buy")
+	check(not visible_text().contains(copy.sheep.remembers), "the extra line is absent before telling Saeed")
+	check(not adha.buy_sheep("gate") and app.progress.coins == 20 and not adha.owns_sheep(), "insufficient funds preserve the wallet and ownership")
+	await press_button(copy.sheep.no, "Not now returns to the market without a sale")
+
+	stage_adha(1, 960, "gate")
+	var goats: Dictionary = app.jabirs_goats.data
+	await press_button(goats.gate_button, "Jabir remains available alongside the LOCK 23 offer")
+	await press_button(goats.offer.tell, "Tell Saeed uses the earlier goats action")
+	await press_button(goats.told.to_map, "return after telling Saeed")
+	app.progress.coins = int(copy.numbers.sheep_cost)
+	app.update_state()
+	var before := adha_accounts()
+	app.show_screen("game")
+	await press_button(copy.gate_button, "the street place bar also opens the sheep offer")
+	check_adha_panel("adha_sheep", copy.sheep)
+	check(visible_text().contains(copy.sheep.remembers), "the sheep offer shows the exact extra line after telling Saeed")
+	await press_button(buy, "exactly thirty coins buys the sheep")
+	check_adha_panel("adha_sheep", copy.sheep)
+	check(visible_text().contains(copy.sheep.bought) and find_button(app.ui, buy) == null, "the locked purchase receipt replaces Buy")
+	check(adha.owns_sheep() and adha_accounts() == [0, before[1], before[2], before[3]], "the sheep costs thirty coins and adds no trust, meals or public reputation")
+	await press_button(copy.sheep.no, "return to the Gate after purchase")
+	app.progress.coins = 100
+	app.update_state()
+	check(find_button(app.ui, copy.gate_button) == null and not adha.buy_sheep("gate") and app.progress.coins == 100, "a second sheep cannot be bought")
+
+
+func check_arafah_and_adha_prayer(copy: Dictionary) -> void:
+	var adha = app.eid_al_adha
+	var fasting := str(copy.arafah_line).format({"t": "18:10"})
+	reset_at_market_place("inn", 198)
+	stage_adha(8, 240, "inn")
+	check(find_button(app.ui, copy.arafah_button) == null, "the Arafah intention is absent on the eighth")
+	stage_adha(9, 209, "inn")
+	check(find_button(app.ui, copy.arafah_button) == null and not adha.intend_arafah("inn"), "Arafah cannot be intended before 03:30")
+	stage_adha(9, 210, "quay")
+	check(find_button(app.ui, copy.arafah_button) == null and not adha.intend_arafah("quay"), "the Arafah action is Inn-only")
+	move_market_fixture("inn")
+	check(find_button(app.ui, copy.arafah_button) != null, "the Arafah action opens at 03:30")
+	stage_adha(9, 284, "inn")
+	check(not has_visible_label(app.ui, fasting), "the fasting line has not started at 04:44")
+	var before := adha_accounts()
+	await press_button(copy.arafah_button, "the Arafah intention is still available at 04:44")
+	check(app.ui.toast_label.text == copy.arafah_toast and app.ui.toast_panel.visible, "the exact Arafah toast is displayed")
+	check(find_button(app.ui, copy.arafah_button) == null and not adha.intend_arafah("inn"), "Arafah cannot be intended twice")
+	check(adha.record().arafah == copy.record.yes_fast and adha_accounts() == before, "the intention updates the private record with no economic or public effect")
+	stage_adha(9, 285, "inn")
+	check(has_visible_label(app.ui, fasting) and find_button(app.ui, copy.arafah_button) == null, "the fasting line starts at 04:45 when the intention window closes")
+	for place: String in ["inn", "masjid", "spice", "gate", "quay", "board", "weaver", "scales"]:
+		move_market_fixture(place)
+		check(has_visible_label(app.ui, fasting), "the Arafah line appears on the map bar at " + place)
+		app.show_screen("game")
+		check(has_visible_label(app.ui, fasting), "the Arafah line appears on the street bar at " + place)
+	stage_adha(9, 1089, "spice")
+	check(has_visible_label(app.ui, fasting), "the Arafah line remains at 18:09")
+	stage_adha(9, 1090, "spice")
+	check(not has_visible_label(app.ui, fasting), "the Arafah line ends at 18:10")
+
+	stage_adha(10, 389, "masjid")
+	check(has_visible_label(app.ui, copy.eid_line) and find_button(app.ui, copy.eid_button) == null, "Eid greeting is up before the 06:30 prayer")
+	stage_adha(10, 390, "gate")
+	check(has_visible_label(app.ui, copy.eid_line) and not adha.pray_eid("gate"), "Eid greeting is also at the Gate while the prayer remains Masjid-only")
+	move_market_fixture("masjid")
+	check(find_button(app.ui, copy.eid_button) != null, "Eid prayer starts at 06:30")
+	stage_adha(10, 539, "masjid")
+	await press_button(copy.eid_button, "Eid prayer is still available at 08:59")
+	check_adha_panel("adha_eid", copy.eid)
+	check(adha.record().eid == copy.record.yes_eid and app.minute_of_day == 539 and adha_accounts() == before, "Eid prayer is privately recorded without advancing time or changing accounts")
+	await press_button(copy.eid.to_map, "the Eid prayer panel returns to the map")
+	check(find_button(app.ui, copy.eid_button) == null and not adha.pray_eid("masjid"), "Eid prayer is available only once")
+	stage_adha(10, 1439, "spice")
+	check(has_visible_label(app.ui, copy.eid_line), "the Eid greeting lasts to the end of the tenth")
+	for day_of_month: int in [11, 12, 13]:
+		stage_adha(day_of_month, 0, "quay")
+		check(has_visible_label(app.ui, copy.tashreeq_line) and not has_visible_label(app.ui, copy.eid_line), "the Tashreeq line replaces the Eid line on day %d" % day_of_month)
+	stage_adha(14, 0, "gate")
+	check(adha.bar_line().is_empty() and not has_visible_label(app.ui, copy.tashreeq_line), "the fourteenth has no Eid al-Adha map notice")
+
+	reset_at_market_place("masjid", 198)
+	stage_adha(10, 540, "masjid")
+	check(find_button(app.ui, copy.eid_button) == null and not adha.pray_eid("masjid"), "an unprayed Eid closes at 09:00")
+
+
+func check_adha_sacrifice(copy: Dictionary) -> void:
+	var adha = app.eid_al_adha
+	reset_at_market_place("gate", 198)
+	stage_adha(1, 600, "gate")
+	check(adha.buy_sheep("gate"), "the time-boundary fixture buys a sheep through the live model")
+	stage_adha(10, 539, "gate")
+	check(find_button(app.ui, copy.sacrifice_button) == null and not adha.sacrifice("gate", true), "the sheep cannot be sacrificed before prayer or 09:00")
+	stage_adha(10, 540, "gate")
+	check(find_button(app.ui, copy.sacrifice_button) != null, "without a personal Eid prayer the sacrifice opens at 09:00")
+	for slot: Array in [[11, 0, true], [11, 1439, true], [12, 0, true], [12, 1439, true],
+			[13, 0, true], [13, 1089, true], [13, 1090, false], [14, 600, false]]:
+		stage_adha(slot[0], slot[1], "gate")
+		check((find_button(app.ui, copy.sacrifice_button) != null) == slot[2], "sacrifice offer on day %d at minute %d" % [slot[0], slot[1]])
+	check(adha.owns_sheep() and app.feeding.meals_given == 0, "time-boundary checks leave the unused sheep and meals alone")
+
+	for give_all: bool in [false, true]:
+		reset_at_market_place("gate", 198)
+		stage_adha(1, 600, "gate")
+		check(adha.buy_sheep("gate"), "the distribution fixture owns a sheep")
+		stage_adha(10, 400, "masjid")
+		await press_button(copy.eid_button, "praying Eid unlocks the sacrifice before 09:00")
+		await press_button(copy.eid.to_map, "return to the map after prayer")
+		check(not adha.sacrifice("masjid", give_all), "sacrifice is Gate-only")
+		move_market_fixture("gate")
+		await press_button(copy.sacrifice_button, "the Gate offers sacrifice after the personal Eid prayer")
+		check_adha_panel("adha_sacrifice", copy.sacrifice)
+		check(find_button(app.ui, copy.sacrifice.thirds) != null and find_button(app.ui, copy.sacrifice.all) != null, "both locked distributions are offered")
+		var before := adha_accounts()
+		var option: String = copy.sacrifice.all if give_all else copy.sacrifice.thirds
+		var receipt: String = copy.sacrifice.out_all if give_all else copy.sacrifice.out_thirds
+		var meals := int(copy.numbers.all_meals if give_all else copy.numbers.thirds_meals)
+		await press_button(option, "the live distribution accepts: " + option)
+		check(visible_text().contains(receipt), "the distribution displays the exact locked receipt")
+		check(not adha.owns_sheep() and adha.record().sacrifice == copy.record.yes_sac, "the sheep is consumed and sacrifice is privately recorded")
+		check(adha_accounts() == [before[0], before[1], before[2] + meals, before[3]], "only %d meals are added to the shared counter" % meals)
+		check(find_button(app.ui, copy.sacrifice.thirds) == null and find_button(app.ui, copy.sacrifice.all) == null, "the receipt removes both distribution choices")
+		await press_button(copy.sacrifice.to_map, "the sacrifice panel returns to the Gate map")
+		check(find_button(app.ui, copy.sacrifice_button) == null and not adha.sacrifice("gate", not give_all), "distribution cannot be repeated")
+		check(app.feeding.meals_given == before[2] + meals, "the repeat attempt adds no more meals")
+
+
+func check_adha_record(copy: Dictionary) -> void:
+	var adha = app.eid_al_adha
+	var year_days: int = app.clock.calendar.year_days
+	var last_dhu_day := FIRST_DHU_AL_HIJJAH + int(app.clock.calendar.data.months[int(copy.numbers.month)][1]) - 1
+	stage_ramadan(last_dhu_day + 29, 600, "masjid")
+	check(not adha.record().is_empty(), "private rows remain while a Dhu al-Hijjah date is in the last thirty days")
+	stage_ramadan(last_dhu_day + 30, 600, "masjid")
+	app.show_screen("all_prayers")
+	check(adha.record().is_empty() and not has_visible_label(app.ui, str(copy.record.title).to_upper()), "private rows expire when no Dhu al-Hijjah date remains in the last thirty days")
+
+	stage_ramadan(FIRST_DHU_AL_HIJJAH + year_days, 600, "masjid")
+	app.show_screen("all_prayers")
+	var text := visible_text()
+	var title := text.find(str(copy.record.title).to_upper())
+	var arafah := text.find(str(copy.record.arafah) + "\n" + str(copy.record.no))
+	var eid := text.find(str(copy.record.eid) + "\n" + str(copy.record.no))
+	var sacrifice := text.find(str(copy.record.sacrifice) + "\n" + str(copy.record.no))
+	var footer := text.find(str(app.ui.prayer_record.panel.note).to_upper())
+	var zakat_row := text.find(str(app.zakat.data.record.title) + "\n" + str(app.zakat.record()))
+	check(zakat_row >= 0 and zakat_row < title and title < arafah and arafah < eid and eid < sacrifice and sacrifice < footer, "the fresh Dhu al-Hijjah rows follow Zakat and precede the privacy note in locked order")
+	check(adha.record() == {"arafah": copy.record.no, "eid": copy.record.no, "sacrifice": copy.record.no}, "a new lunar season begins with three not-yet rows")
+	reset_at_market_place("inn", 198)
+	check(adha.record().is_empty() and not adha.owns_sheep() and app.feeding.meals_given == 0, "a new playthrough clears the Eid al-Adha state and meals")
+
+
+func stage_adha(day_of_month: int, minute: int, place: String) -> void:
+	stage_ramadan(FIRST_DHU_AL_HIJJAH + day_of_month - 1, minute, place)
+
+
+func adha_accounts() -> Array:
+	return [app.progress.coins, app.progress.trust, app.feeding.meals_given, app.ui.reputation_lines().duplicate(true)]
+
+
+func check_adha_panel(screen: String, copy: Dictionary) -> void:
+	var text := visible_text()
+	check(app.ui.screen == screen and text.contains(str(copy.kicker).to_upper())
+		and has_visible_label(app.ui, copy.title) and text.contains(copy.text), "the " + screen + " panel shows its locked copy")

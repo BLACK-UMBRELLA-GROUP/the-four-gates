@@ -71,6 +71,9 @@ LOCK 21 adds night prayer at the Masjid on the last ten nights of Ramadan, zakat
 09:00 on 1 Shawwal and the Eid al-Fitr prayer. **All your prayers** includes the three private rows.
 LOCK 22 assesses Zakat after each lunar year from arrival. Visit the Masjid for the oldest unpaid year.
 **All your prayers** shows the total still due, or the latest year’s paid or zero-due status.
+LOCK 23 adds Saeed’s sheep at the Gate, the Day of Arafah intention at the Inn and the Eid al-Adha
+prayer at the Masjid. Sacrificing the sheep adds meals to the shared goal. **All your prayers** records
+the fast, prayer and sacrifice privately.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

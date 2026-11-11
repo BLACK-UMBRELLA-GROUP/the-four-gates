@@ -375,3 +375,19 @@ Run `godot --path SOURCE -- --capture-zakat` for the 13 native viewport captures
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --zakat`
 to place each approved master beside the capture. Both commands accept `--zakat-output=/absolute/path`.
 See `LINE29_CHECKS.json` for capture fixtures and day-708 checks, and `BUILD.json` for source and image verification.
+
+## LOCK 23 Eid al-Adha
+
+At the Gate, Saeed offers one sheep for 30 coins from 07:00 through 17:59 on
+1–9 Dhu al-Hijjah. At the Inn on the 9th, the fast intention is available from
+03:30 through 04:44. The Masjid offers the Eid prayer from 06:30 through 08:59 on
+the 10th. Return to the Gate with the sheep after praying or from 09:00, through
+18:09 on the 13th. Sharing in thirds adds 10 meals to the shared goal. Giving
+it all to the poor adds 30. The fast, prayer and sacrifice appear in the private
+Dhu al-Hijjah section of **All your prayers**.
+
+Run `godot --path SOURCE -- --capture-eid-al-adha` for the 18 native viewport captures in
+`GAME/APPROVED/EID_AL_ADHA/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --eid-al-adha`
+for the master-left comparisons. Both commands accept `--adha-output=/absolute/path`.
+See `LINE30_CHECKS.json` for the native checks and `BUILD.json` for provenance and verified images.
