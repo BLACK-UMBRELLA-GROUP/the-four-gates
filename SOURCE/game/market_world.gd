@@ -14,6 +14,11 @@ var environment: Environment
 var house_count := 0
 var _segments: Array = []
 var _inn_people: Node3D
+var salma: Node3D
+var faris_at_oven: Node3D
+var oven_camera: Camera3D
+var _faris_start: Vector3
+var _faris_run: Tween
 
 
 func setup(source: Dictionary) -> void:
@@ -99,11 +104,15 @@ func setup_chapter_people(chapter: Dictionary) -> void:
 	var down_street := (point(data.places.inn.street) - point("inn")).normalized()
 	var toward_edge := Vector3.UP.cross(down_street) * (float(data.street_width) / 3.0)
 	var index := 0
+	var faris_name := ""
 	for person: Dictionary in chapter.purse.people:
 		if person.hidden:
 			continue
 		var offset := toward_edge + down_street * (index + 1) * float(data.player.capsule_height)
-		_add_chapter_person(_inn_people, str(person.name).get_slice(",", 0), offset)
+		var display_name := str(person.name).get_slice(",", 0)
+		_add_chapter_person(_inn_people, display_name, offset)
+		if person.id == "boy":
+			faris_name = display_name
 		index += 1
 
 	var along_square := (point(data.square.centre) - point("board")).normalized()
@@ -111,14 +120,42 @@ func setup_chapter_people(chapter: Dictionary) -> void:
 	var oven_size := Vector3(1.0, 0.9, 0.85) * float(data.player.capsule_height)
 	_box(oven_at + Vector3.UP * oven_size.y / 2.0, oven_size, Color("8b5c41"), false)
 	var beside_oven := along_square.cross(Vector3.UP) * float(data.player.capsule_height)
-	_add_chapter_person(self, str(chapter.purse.baker.title).get_slice(" ", 0), oven_at + beside_oven)
+	salma = _add_chapter_person(self, str(chapter.purse.baker.title).get_slice(" ", 0), oven_at + beside_oven)
+	faris_at_oven = _add_chapter_person(self, faris_name, oven_at - beside_oven)
+	_faris_start = faris_at_oven.position
+	faris_at_oven.hide()
+	# Frame the oven from inside the square with room above the story panel for Faris.
+	oven_camera = Camera3D.new()
+	add_child(oven_camera)
+	var distance := float(data.camera.distance_behind)
+	var height := float(data.camera.height_above_feet) + float(data.player.capsule_height)
+	oven_camera.position = oven_at + along_square * distance + beside_oven * 2.0 + Vector3.UP * height
+	oven_camera.look_at(oven_at + along_square * float(data.player.capsule_height))
 
 
 func set_inn_people_waiting(waiting: bool) -> void:
 	_inn_people.visible = waiting
 
 
-func _add_chapter_person(parent: Node3D, display_name: String, at: Vector3) -> void:
+func run_faris_from_oven() -> void:
+	stop_faris_run()
+	faris_at_oven.position = _faris_start
+	faris_at_oven.show()
+	var end := point(data.square.centre)
+	end.y = _faris_start.y
+	var duration := _faris_start.distance_to(end) / float(data.player.run_speed)
+	_faris_run = create_tween()
+	_faris_run.tween_property(faris_at_oven, "position", end, duration)
+	_faris_run.tween_callback(faris_at_oven.hide)
+
+
+func stop_faris_run() -> void:
+	if _faris_run != null:
+		_faris_run.kill()
+	faris_at_oven.hide()
+
+
+func _add_chapter_person(parent: Node3D, display_name: String, at: Vector3) -> MeshInstance3D:
 	var mesh := CapsuleMesh.new()
 	mesh.height = data.player.capsule_height
 	mesh.radius = data.player.capsule_radius
@@ -132,6 +169,7 @@ func _add_chapter_person(parent: Node3D, display_name: String, at: Vector3) -> v
 	label.position.y = mesh.height / 2.0 + mesh.radius
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	person.add_child(label)
+	return person
 
 
 func _point2(id: String) -> Vector2:

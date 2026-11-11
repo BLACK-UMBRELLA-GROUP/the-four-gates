@@ -121,6 +121,7 @@ func _run() -> void:
 	await check_idris()
 	check_open_purse_rules()
 	await check_open_purse_runtime()
+	await check_bread_grab_runtime()
 	finish()
 
 
@@ -1478,6 +1479,134 @@ func check_open_purse_runtime() -> void:
 	check(app.ui.screen == "goal", "reputation's Goal opens the original panel")
 	app.begin_game()
 	check(not app.open_purse.done and not app.open_purse.page_read and not app.open_purse.salma_asked and app.open_purse.gift_status("fire").is_empty(), "a fresh game clears the open purse and gifts")
+
+
+func check_bread_grab_runtime() -> void:
+	# Keep the simulated clock at the exact minute until each transition is checked.
+	app.set_process(false)
+	var chapter: Dictionary = app.chapter
+	var grab: Dictionary = chapter.grab
+	var asks_at := int(chapter.numbers.grab_ask_minute)
+	reset_at_bread_grab()
+	app.world.salma.hide()
+	app.update_state()
+	check(find_button(app.ui, chapter.places.board) == null, "the oven action requires Salma to be present")
+	app.show_bread_grab()
+	check(app.ui.screen == "market_map", "an absent Salma blocks opening the oven scene")
+	app.world.salma.show()
+	app.update_state()
+	await press_button(chapter.places.board, "the Task board has the locked oven action")
+	check(app.ui.screen == "grab_see" and visible_text().contains(grab.see.text), "the oven panel shows the locked scene")
+	check(app.day == 3 and app.minute_of_day == 10 * 60, "opening the oven scene leaves the clock at 10:00")
+	await press_button(grab.see.next, "Walk on returns to the market map")
+	check(app.ui.screen == "market_map" and app.current_place == "board", "Walk on returns to the Task board")
+	check(app.day == 3 and app.minute_of_day == 10 * 60, "Walk on does not jump the clock")
+	check(find_button(app.ui, chapter.places.board) == null, "the start action disappears once the grab has been seen")
+	for expected_day in [3, 4]:
+		app.clock.advance_to(expected_day, asks_at - 1, false)
+		app.update_state()
+		check(visible_text().contains(grab.wait_line), "the board shows the locked waiting line at 16:09 on day %d" % expected_day)
+		check(find_button(app.ui, grab.ask_button) == null, "Salma's question is unavailable at 16:09 on day %d" % expected_day)
+		app.ask_about_bread()
+		check(app.ui.screen == "market_map", "the early question cannot be opened on day %d" % expected_day)
+		app.clock.advance_to(expected_day, asks_at, false)
+		app.update_state()
+		check(find_button(app.ui, grab.ask_button) != null, "Salma's question becomes available at 16:10 on day %d" % expected_day)
+		check(not visible_text().contains(grab.wait_line), "the question replaces the waiting line at 16:10 on day %d" % expected_day)
+	app.world.salma.hide()
+	app.update_state()
+	check(find_button(app.ui, grab.ask_button) == null, "Salma's question disappears when she is away")
+	app.ask_about_bread()
+	check(app.ui.screen == "market_map", "an absent Salma blocks opening the question after 16:10")
+	app.world.salma.show()
+	app.player.position = app.world.point("inn")
+	app.update_state()
+	check(find_button(app.ui, grab.ask_button) == null, "Salma's question is only available at the Task board")
+	app.ask_about_bread()
+	check(app.ui.screen == "market_map", "the question cannot be opened away from the board")
+	app.player.position = app.world.point("board")
+	app.update_state()
+	await press_button(grab.ask_button, "Salma can ask the next day at 16:10")
+	check(app.ui.screen == "grab_ask" and visible_text().contains(grab.ask.text), "Salma asks the exact locked question")
+	check(app.day == 4 and app.minute_of_day == asks_at, "opening the question does not jump the clock")
+	var previous_y := -1.0
+	for answer: Dictionary in grab.answers.values():
+		var button := find_button(app.ui, answer.button)
+		check(button != null and button.global_position.y > previous_y, "answer buttons follow the locked data order: " + answer.button)
+		if button != null:
+			previous_y = button.global_position.y
+
+	for id: String in grab.answers:
+		await check_bread_grab_answer(id, 20, 198, id == "lie")
+	await check_bread_grab_answer("truth", int(data.numbers.trust_max) - 1, 198)
+	await check_bread_grab_answer("lie", 1, 198)
+	await check_bread_grab_answer("pay", 20, 0)
+	reset_at_bread_grab()
+	check(find_button(app.ui, chapter.places.board) != null, "a fresh game makes the oven action available again")
+	app.show_screen("reputation")
+	check(visible_text().contains(chapter.rep.empty), "a fresh game clears the bread grab reputation")
+	app.set_process(true)
+
+
+func reset_at_bread_grab() -> void:
+	app.begin_game()
+	app.clock.advance_to(3, 10 * 60, false)
+	app.player.position = app.world.point("board")
+	app.show_screen("market_map")
+
+
+func check_bread_grab_answer(id: String, trust: int, coins: int, seed_reputation: bool = false) -> void:
+	reset_at_bread_grab()
+	var chapter: Dictionary = app.chapter
+	var grab: Dictionary = chapter.grab
+	var answer: Dictionary = grab.answers[id]
+	app.progress.trust = trust
+	app.progress.coins = coins
+	if seed_reputation:
+		check(app.open_purse.give("fire", false), "a prior public gift adds earlier reputation")
+	var starting_trust: int = app.progress.trust
+	var starting_coins: int = app.progress.coins
+	var asks_at := int(chapter.numbers.grab_ask_minute)
+	await press_button(chapter.places.board, "the oven scene is available: " + id)
+	await press_button(grab.see.next, "Walk on leaves Salma's question pending: " + id)
+	app.clock.advance_to(3, asks_at, false)
+	app.update_state()
+	await press_button(grab.ask_button, "Salma can ask on the same day at 16:10: " + id)
+	app.answer_bread_grab("unknown")
+	check(app.ui.screen == "grab_ask", "an unknown answer leaves the question open: " + id)
+	await press_button(answer.button, "the locked answer can be selected: " + id)
+	check(app.ui.screen == "grab_after" and visible_text().contains(answer.out), "the locked outcome appears after: " + id)
+	check(visible_text().to_lower().contains(str(grab.after.note).to_lower()) == (id == "lie"), "only the lie shows the locked note: " + id)
+	var expected_trust := clampi(starting_trust + int(answer.trust), 0, int(data.numbers.trust_max))
+	var expected_coins := maxi(starting_coins + int(answer.coins), 0)
+	check_wallet(expected_trust, expected_coins, "the answer applies its locked trust and coin changes: " + id)
+	app.answer_bread_grab("lie")
+	check_wallet(expected_trust, expected_coins, "a second answer cannot change the wallet: " + id)
+	check(app.day == 3 and app.minute_of_day == asks_at, "answering does not jump the clock: " + id)
+	if id == "quiet":
+		await press_button(grab.after.to_map, "the outcome can return directly to the market map")
+		check(app.ui.screen == "market_map" and app.current_place == "board", "the direct map action returns to the board")
+		await press_button(chapter.purse.morning.to_rep, "What people say is available from the board after the outcome")
+	else:
+		await press_button(grab.after.to_rep, "the outcome opens What people say: " + id)
+	var reputation := visible_text()
+	check(app.ui.screen == "reputation", "the outcome opens the reputation screen: " + id)
+	for other_id: String in grab.answers:
+		var say = grab.answers[other_id].say
+		if say != null:
+			check(reputation.contains("“%s”" % say[0]) == (other_id == id), "only the chosen answer may add its reputation line: %s / %s" % [id, other_id])
+	if answer.say == null:
+		check(reputation.contains(chapter.rep.empty), "saying nothing leaves otherwise empty reputation empty")
+	else:
+		check(has_visible_label(app.ui, str(answer.say[1]).to_upper()), "the answer names its locked speaker: " + id)
+		check(has_visible_label(app.ui, chapter.rep.tone[str(int(answer.say[2]))]), "the answer shows its locked reputation tone: " + id)
+	if seed_reputation:
+		var gives := reputation.find("“%s”" % chapter.rep.gives[0])
+		var fooled := reputation.find("“%s”" % chapter.rep.fooled[0])
+		var bread := reputation.find("“%s”" % answer.say[0])
+		check(gives >= 0 and gives < fooled and fooled < bread, "bread grab reputation follows the prior purse lines")
+	await press_button(chapter.rep.to_map, "reputation returns to the market map: " + id)
+	check(app.current_place == "board" and find_button(app.ui, chapter.places.board) == null and find_button(app.ui, grab.ask_button) == null and not visible_text().contains(grab.wait_line), "the finished board has no bread grab action or waiting line: " + id)
 
 
 func find_button_in_row(node: Node, caption: String, y: float) -> Button:

@@ -27,6 +27,10 @@ func _initialize() -> void:
 		var runner := load("res://tests/capture_open_purse.gd")
 		quit(0 if _compare_master_set("res://../GAME/APPROVED/CHAPTER_1/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
 		return
+	if "--bread-grab" in OS.get_cmdline_user_args():
+		var runner := load("res://tests/capture_bread_grab.gd")
+		quit(0 if _compare_master_set("res://../GAME/APPROVED/CHAPTER_1/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
+		return
 	quit(0 if _compare_master_set(folder + "MASTERS/", folder + evidence, names) else 1)
 
 func _compare_master_set(masters: String, evidence: String, stems: Array) -> bool:

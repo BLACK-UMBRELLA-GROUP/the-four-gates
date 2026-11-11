@@ -8,11 +8,13 @@ const MarketUI = preload("res://game/market_ui.gd")
 const TaskProgress = preload("res://game/task_progress.gd")
 const PrayerClock = preload("res://game/prayer_clock.gd")
 const OpenPurse = preload("res://game/open_purse.gd")
+const BreadGrab = preload("res://game/bread_grab.gd")
 
 var data: Dictionary
 var identity: Dictionary
 var chapter: Dictionary
 var open_purse := OpenPurse.new()
+var bread_grab := BreadGrab.new()
 var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
@@ -50,6 +52,7 @@ func _ready() -> void:
 	Foundations.configure_input(data)
 	progress.setup(data)
 	open_purse.setup(chapter, progress, clock)
+	bread_grab.setup(chapter, progress, clock)
 	world = MarketWorld.new()
 	add_child(world)
 	world.setup(data)
@@ -60,7 +63,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -93,6 +96,10 @@ func _ready() -> void:
 	ui.page_closed.connect(return_to_purse)
 	ui.gift_requested.connect(give_from_purse)
 	ui.end_purse_day_requested.connect(end_purse_day)
+	ui.bread_grab_requested.connect(show_bread_grab)
+	ui.bread_grab_left.connect(leave_bread_grab)
+	ui.bread_grab_ask_requested.connect(ask_about_bread)
+	ui.bread_grab_answered.connect(answer_bread_grab)
 	show_screen("title")
 	update_state()
 	if "--capture-foundations" in OS.get_cmdline_user_args():
@@ -118,6 +125,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-open-purse" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_open_purse.gd").new()
+		capture_runner.run(self)
+	elif "--capture-bread-grab" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_bread_grab.gd").new()
 		capture_runner.run(self)
 
 func _process(delta: float) -> void:
@@ -159,11 +169,13 @@ func update_state() -> void:
 	var world_night: bool = night or (ui.screen == "arrival" and _arrival_sunset)
 	if world.night != world_night:
 		world.set_night(world_night)
-	ui.refresh(player.position, current_place, night)
+	ui.refresh(player.position, current_place, night, world.salma.is_visible_in_tree())
 
 func begin_game() -> void:
 	progress.setup(data)
 	open_purse.reset()
+	bread_grab.reset()
+	world.stop_faris_run()
 	world.set_inn_people_waiting(true)
 	world.reset_gate()
 	arrival_beat = 0
@@ -291,6 +303,10 @@ func _minutes(time: String) -> int:
 	return int(time.get_slice(":", 0)) * 60 + int(time.get_slice(":", 1))
 
 func show_screen(screen: String) -> void:
+	if screen in MarketUI.GRAB_SCREENS:
+		world.oven_camera.make_current()
+	elif screen != "reputation" or ui.screen != "grab_after":
+		player.camera.make_current()
 	ui.show_screen(screen)
 	player.enabled = screen == "game" or screen == "market_map"
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if screen == "game" else Input.MOUSE_MODE_VISIBLE
@@ -388,6 +404,34 @@ func end_purse_day() -> void:
 		world.set_inn_people_waiting(false)
 		show_screen("purse_morning")
 
+func show_bread_grab() -> void:
+	if _bread_grab_prompt() != BreadGrab.Prompt.SEE:
+		return
+	_stop_travel()
+	bread_grab.see()
+	world.run_faris_from_oven()
+	show_screen("grab_see")
+
+func leave_bread_grab() -> void:
+	if ui.screen == "grab_see":
+		world.stop_faris_run()
+		show_screen("market_map")
+
+func ask_about_bread() -> void:
+	if _bread_grab_prompt() != BreadGrab.Prompt.ASK:
+		return
+	_stop_travel()
+	show_screen("grab_ask")
+
+func answer_bread_grab(id: String) -> void:
+	if ui.screen == "grab_ask" and bread_grab.answer(id):
+		show_screen("grab_after")
+
+func _bread_grab_prompt() -> BreadGrab.Prompt:
+	if current_place == "board" and ui.screen in ["game", "market_map"]:
+		return bread_grab.board_prompt(world.salma.is_visible_in_tree())
+	return BreadGrab.Prompt.NONE
+
 func use_place() -> void:
 	update_state()
 	match current_place:
@@ -475,6 +519,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if ui.screen in ["purse_salma", "purse_page"]:
 		if event.is_action_pressed("close"):
 			return_to_purse()
+		return
+	if ui.screen in MarketUI.GRAB_SCREENS:
+		if event.is_action_pressed("close"):
+			if ui.screen == "grab_see":
+				leave_bread_grab()
+			else:
+				show_screen("market_map")
 		return
 	if event.is_action_pressed("close"):
 		if ui.screen == "prayer_record": close_prayer_record()

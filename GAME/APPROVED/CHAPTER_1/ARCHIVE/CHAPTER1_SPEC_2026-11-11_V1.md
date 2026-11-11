@@ -1,7 +1,7 @@
 ---
 id: DOC-TFG-0017
 type: SPEC
-status: CURRENT
+status: ARCHIVED
 feature: CHAPTER_1
 purpose: LOCK 3 - chapter 1 first missions in River Market - the open purse, hadith page 1 (giving in secret), the bread grab (first truth scene) and the What people say page
 links: [AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0011, DOC-TFG-0018, DOC-TFG-0001]
@@ -101,6 +101,12 @@ Temptations (dice house, wine, stolen animals) · wealth projects, lending, part
 - Words and numbers only from `chapter1_data_V1.json` (copied byte for byte to `SOURCE/data/chapter1.json`), plus `foundations.json` and `identity.json`.
 - The hadith text and source are copied exactly; nothing added or shortened.
 - Placeholder shapes only; no art, no exports.
+
+## Clarifications from QUESTIONS (no change to the LOCK, data or masters)
+
+| Date | QUESTIONS row | Clarification |
+|---|---|---|
+| 2026-11-11 | 8 | A secret gift to Tariq stays available (locked cost, no trust change). Tariq does not know who gave it, so morning line `fire` and the What people say line `fooled` show only after a **public** gift to Tariq. After a secret gift to him: no Tariq morning line, no `fooled`; `secret_note` as usual |
 
 ## Version history
 

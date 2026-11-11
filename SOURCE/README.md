@@ -161,3 +161,9 @@ in `GAME/APPROVED/CHAPTER_1/BUILT/V1/`. Run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --open-purse` to put each
 master to the left of its native capture. Pass `--open-purse-output=/absolute/path` after either command
 to use a separate directory. See `BUILD.json` for the provenance, visual differences and verified PNG hashes.
+
+`godot --path SOURCE -- --capture-bread-grab` captures the 12 bread grab states and a second frame of Faris
+running in `GAME/APPROVED/CHAPTER_1/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --bread-grab` for the 12 comparisons.
+Both commands accept `--bread-grab-output=/absolute/path`. See `BUILD.json` under `line_10` and `LINE10_CHECKS.json`
+for capture setup, checks and hashes.

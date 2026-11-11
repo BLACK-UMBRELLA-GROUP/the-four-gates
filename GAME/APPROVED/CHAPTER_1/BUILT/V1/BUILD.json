@@ -350,5 +350,264 @@
       "bytes": 212294,
       "sha256": "0ad77ed5be723a85f197272ef84ffa43ab909da134775bbe011cde39eb82a322"
     }
+  },
+  "line_10": {
+    "id": "DOC-TFG-0020",
+    "queue_line": 10,
+    "lock": "LOCK 3 V2 part 2",
+    "tested_base_commit_sha": "cc422d3c2d15355da76a2ad4befa1d5b3c22f990",
+    "capture_source": "Line 10 worktree on the tested base. SHA-256 identifies the actual captured source. The daily report task note records the containing commit.",
+    "godot_version": "4.7.2-stable (official)",
+    "build_mode": "Native Godot debug viewport, forward_plus / metal on Apple M2 (Apple8)",
+    "timestamp_utc": "2026-11-11T14:53:03Z",
+    "method": "Native Godot viewport with local mouse clicks on production GUI. The harness holds the clock at the approved fixture times.",
+    "fixture": "Fair arrival sets 198 coins. Captures start at the Task board on Saturday at 10:00. The next-day question is on Sunday at 16:10.",
+    "built_from_sha256": {
+      "GAME/APPROVED/CHAPTER_1/BRIEFS/BUILD_BRIEF_2026-11-07_PART2_BREAD_GRAB.md": "0bc9889c25cbeb9ccf9192d5979d6185d3e9e0bd6d2b68ed68793bb3ac9afd14",
+      "GAME/APPROVED/CHAPTER_1/RECORD/CHAPTER1_SPEC_CURRENT_VERSION_V2.md": "37683e899081afd2585371954fcbade41511e1f3b1b553bcdb2494c0b2d3b3d8",
+      "GAME/APPROVED/CHAPTER_1/RECORD/chapter1_data_V2.json": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0",
+      "GAME/APPROVED/CHAPTER_1/RECORD/LOCK_RECORD.md": "41b27fd672025d0a23907a4eaf55d0ef5fcfd1728d0da15daa041df092435800",
+      "GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md": "f2abfee4dcc542086c5dcd23242a52986a6d29f28935f48b88e1bbbc6fbfdae6",
+      "GAME/APPROVED/CHAPTER_1/MASTERS/c17_market_map__board_oven.png": "ca675f9c5a6fdaf27d48cfc3d2bcf7ad397b71e9842b5fa451d80bf73cd91de5",
+      "GAME/APPROVED/CHAPTER_1/MASTERS/c18_grab__see.png": "bc3dc27a2352e0c2022b08389809f6d438f065dbe1e2311ea6e7606a2dc3cf46",
+      "GAME/APPROVED/CHAPTER_1/MASTERS/c19_grab__asked.png": "b0302acf94d4b4653c59335dfbfc5d2d81c09b701d4cd5fcda322de72ee33711",
+      "GAME/APPROVED/CHAPTER_1/MASTERS/c20_grab__after_truth.png": "1bba5701cebbfb1fadcb9c67e8bb9ee1f780ce82568d0bdc6abbc742c69f11f1",
+      "GAME/APPROVED/CHAPTER_1/MASTERS/c21_grab__after_lie.png": "be0a2f806c597c2876bcb8ba39a9ce4563c5f02949f5ced5ff2d782f4ccad12f",
+      "GAME/APPROVED/CHAPTER_1/MASTERS/c22_grab__after_quiet.png": "48002ae277f8d56a8f01cdc5b8fe0bdedb28296a073e86416d59bed030d391c9",
+      "GAME/APPROVED/CHAPTER_1/MASTERS/c23_grab__after_pay.png": "467ccd82d882990952d699235ebcf51770e5c6af9ee14916b663ac626b9995b6",
+      "GAME/APPROVED/CHAPTER_1/MASTERS/c24_market_map__after_grab.png": "a424f12e61d1006fb91fafbb8af44e30ffc03673c3167be98b5c48945d323ea4",
+      "GAME/APPROVED/CHAPTER_1/MASTERS/c25_people_say__bends_the_truth.png": "65abdd394a2dc1935366bc7548afb098fdc78a315e8f35142f236df1e82f93cb",
+      "GAME/APPROVED/CHAPTER_1/MASTERS/c26_market_map__board_salma_later.png": "009da680ec3ec2e65eb78cfe7c3e0b91f49f0670cef60ff9a8de8505d652084a",
+      "GAME/APPROVED/CHAPTER_1/MASTERS/c27_market_map__board_salma_wants_a_word.png": "bbe3e2917ed1fddbd9389d5cb8fdd8f410394f5d24dda0cc8d0979b0557101bf",
+      "GAME/APPROVED/CHAPTER_1/MASTERS/c28_market_map__next_day_salma_wants_a_word.png": "52580aced6b61eb0683bf22016e0ac008d7afe096d1eb43481875cd182dcc0cb"
+    },
+    "captured_source_sha256": {
+      "SOURCE/data/chapter1.json": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0",
+      "SOURCE/data/foundations.json": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf",
+      "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+      "SOURCE/game/bread_grab.gd": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468",
+      "SOURCE/game/foundations.gd": "1aaa16cd4542337d2aadbfa03eea6fef667052cb053a8a92bece37459f539aa0",
+      "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+      "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+      "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+      "SOURCE/game/market_ui.gd": "7a260ee1620255e890526f160d9d6f2c7d5f94f137c844ee3d29f2c8b9bf0c12",
+      "SOURCE/game/market_world.gd": "c2ded4de0df61956b6b84e00e0c3445cf88017e89c93e2e449c293654d928eda",
+      "SOURCE/game/open_purse.gd": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9",
+      "SOURCE/game/prayer_clock.gd": "97816e45b9724bc203f095d5344aa59aaeb613da2c5fc3356a17ec16a3092d6e",
+      "SOURCE/game/river_market.gd": "b688a1c3876c6fcd0149311701e790bedde11d9b442e62c70c718f2e70234ba6",
+      "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+      "SOURCE/game/task_progress.gd": "ec252cac5837000910f107051f4d63d16a77f3327c83f316f7e31d5dcf16cbc2",
+      "SOURCE/main.tscn": "109e5b49d1caed038c97365a9c4fb995c5541bfd0b30d9ef1568af98bb815a94",
+      "SOURCE/project.godot": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45",
+      "SOURCE/tests/capture_bread_grab.gd": "133d2420f2a7f8bc938c4808004cfc73359141205ae5665da5284bfc774824af",
+      "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+      "SOURCE/tests/capture_tasks.gd": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003",
+      "SOURCE/tests/create_comparisons.gd": "d58b9790699af316fc721dc92811f3126d5d3c426c7ae4a253d390d2bfaa866c",
+      "SOURCE/tests/run_tests.gd": "190a4b0dc9024ab1d96df136654f6cfc9ec593c4c5872073627e1ebdacf71fe8"
+    },
+    "test_counts": {
+      "headless_passed": 1552,
+      "headless_total": 1552,
+      "native_passed": 78,
+      "native_total": 78,
+      "open_purse_native_regression_passed": 110,
+      "open_purse_native_regression_total": 110
+    },
+    "native_checks": {
+      "file": "LINE10_CHECKS.json",
+      "bytes": 14381,
+      "sha256": "237f217aecedc79a76b1b4640057bfe3826565fa83aea48a7ac260eeb1ff1401"
+    },
+    "visual_differences": {
+      "all": "Existing Godot font, spacing, border and HUD alignment differ slightly. Fixtures use Saturday or Sunday in place of the masters' Thursday and Friday.",
+      "c17, c24, c26–c28": "Existing map rendering has different label outlines and gate marker. Toolbar gaps and widths follow the installed fonts and available actions.",
+      "c18–c23, c25": "Locked placeholder direction: simple Godot buildings and oven with named capsules, viewed from inside the square to show Faris running. The prototype uses a dressed street from a different angle. Panel typography, line breaks, padding and widths of the compact buttons differ slightly.",
+      "c18–c19, c26–c28": "Current HUD shows the weekday without the later Hijri date. Journal, The dry fountain, Feed the poor, Talk to Salma and Read the calligraphy are later features visible in c26–c28. The board bar is narrower, and c27–c28 fit their controls on a single line.",
+      "c24": "The current prayer row wraps above the toolbar to fit Pray Asr here and the available Make up Dhuhr action. The bread grab actions are gone.",
+      "c25": "The build keeps the live 16:10 after the lie. The master uses a 10:00 setup state.",
+      "c28": "The later-day fixture shows a pending Fajr make-up. The master shows Dhuhr make-up."
+    },
+    "compression": {
+      "method": "Lossless IDAT recompression. CRCs, PNG headers and metadata, decompressed filtered pixels, dimensions and final file hashes were verified.",
+      "original_png_bytes": 12014083,
+      "final_png_bytes": 11790431
+    },
+    "pngs": {
+      "c17_market_map__board_oven__build.png": {
+        "width": 1920,
+        "height": 1080,
+        "bytes": 170970,
+        "original_bytes": 177550,
+        "sha256": "be0d6821410c8bdbb67c6aaf4d7be8d6f9fd6881f048ca67e0e7a6ca163f8c1f"
+      },
+      "c17_market_map__board_oven__master_beside_build.png": {
+        "width": 3840,
+        "height": 1080,
+        "bytes": 361453,
+        "original_bytes": 384743,
+        "sha256": "293848faa617a13a04b9b2c50993b276fcaba37a09fe09887a32b4a1e8e8737a"
+      },
+      "c18_grab__see__build.png": {
+        "width": 1920,
+        "height": 1080,
+        "bytes": 222310,
+        "original_bytes": 226090,
+        "sha256": "d360ce4d3939d6aa8bc7fe769fbe8da36b77644542a8903482275e2c95583d72"
+      },
+      "c18_grab__see__master_beside_build.png": {
+        "width": 3840,
+        "height": 1080,
+        "bytes": 990577,
+        "original_bytes": 998671,
+        "sha256": "a4e3f57fa76a5e0d122b81186a130ade63ea505c031b4403d03a123c18a7957a"
+      },
+      "c19_grab__asked__build.png": {
+        "width": 1920,
+        "height": 1080,
+        "bytes": 217149,
+        "original_bytes": 220133,
+        "sha256": "6bb200279486343f99c759c283c3df188845a11f7830013cc3b4a21a702c3d05"
+      },
+      "c19_grab__asked__master_beside_build.png": {
+        "width": 3840,
+        "height": 1080,
+        "bytes": 934333,
+        "original_bytes": 941232,
+        "sha256": "85d2dc157616f809c2482e360253cdfb6713384fa764eda61831684c8a67e677"
+      },
+      "c20_grab__after_truth__build.png": {
+        "width": 1920,
+        "height": 1080,
+        "bytes": 211028,
+        "original_bytes": 214650,
+        "sha256": "877fb834724cb81305a8da30da634daee04cf734ed018f6a40178075dce67fb0"
+      },
+      "c20_grab__after_truth__master_beside_build.png": {
+        "width": 3840,
+        "height": 1080,
+        "bytes": 1079818,
+        "original_bytes": 1085465,
+        "sha256": "e766c4806cc260bdd18c248664e8d6b619231d170adbbe6b3a7f785e35fef6c9"
+      },
+      "c21_grab__after_lie__build.png": {
+        "width": 1920,
+        "height": 1080,
+        "bytes": 223350,
+        "original_bytes": 225577,
+        "sha256": "96bd0491f181c84068d53296d3724015ab09fe8666bfb6d2a4032c3ed223002c"
+      },
+      "c21_grab__after_lie__master_beside_build.png": {
+        "width": 3840,
+        "height": 1080,
+        "bytes": 1091066,
+        "original_bytes": 1098525,
+        "sha256": "467c6edbbdac3356ffd90f60b79de5ec458e95d816e1d81f7d3bc13736cbef3a"
+      },
+      "c22_grab__after_quiet__build.png": {
+        "width": 1920,
+        "height": 1080,
+        "bytes": 209438,
+        "original_bytes": 212443,
+        "sha256": "555e9c4c3e32c592c9fcf39e2a0bc47f4bdecfa3985947619b7d45e62f63f3b6"
+      },
+      "c22_grab__after_quiet__master_beside_build.png": {
+        "width": 3840,
+        "height": 1080,
+        "bytes": 1074769,
+        "original_bytes": 1080202,
+        "sha256": "d5f0ea75a6366bf3affc861efbb73a1660a081fa6dea22f324b6f2f6383d3456"
+      },
+      "c23_grab__after_pay__build.png": {
+        "width": 1920,
+        "height": 1080,
+        "bytes": 216886,
+        "original_bytes": 220471,
+        "sha256": "6fd50a50c87f7a03e9720ebb7bc73053c5d4bf49fddcac30065ffd5ad270f752"
+      },
+      "c23_grab__after_pay__master_beside_build.png": {
+        "width": 3840,
+        "height": 1080,
+        "bytes": 1087067,
+        "original_bytes": 1092013,
+        "sha256": "66ce60b3d77c0ccca83cb4953fd7e18e215d632ca5fe727fdf962231e4328cf7"
+      },
+      "c24_market_map__after_grab__build.png": {
+        "width": 1920,
+        "height": 1080,
+        "bytes": 174591,
+        "original_bytes": 181326,
+        "sha256": "ca946067ad2ed520ceae3d930aebc02e9104f085ea2ff9c8b9ff406be421cca2"
+      },
+      "c24_market_map__after_grab__master_beside_build.png": {
+        "width": 3840,
+        "height": 1080,
+        "bytes": 358792,
+        "original_bytes": 381490,
+        "sha256": "45f8c0af40b0c7aa0494452366cd9ddeaeab1f0edbf63f07a90448a7cded4e7d"
+      },
+      "c25_people_say__bends_the_truth__build.png": {
+        "width": 1920,
+        "height": 1080,
+        "bytes": 212607,
+        "original_bytes": 215595,
+        "sha256": "cb323b047b0e4499db528749b10764aa79a68cf3ef7fc00ea9a31ce3531dfce0"
+      },
+      "c25_people_say__bends_the_truth__master_beside_build.png": {
+        "width": 3840,
+        "height": 1080,
+        "bytes": 1068116,
+        "original_bytes": 1074027,
+        "sha256": "618873022e7edcbd6f219807df34a60d13e3daac5d81279bedd350d000b467e0"
+      },
+      "c26_market_map__board_salma_later__build.png": {
+        "width": 1920,
+        "height": 1080,
+        "bytes": 171184,
+        "original_bytes": 177922,
+        "sha256": "3e0c4d0a14dbbd46a663f28620b2133dd0ceb09b56173f696e3adebb18450c6c"
+      },
+      "c26_market_map__board_salma_later__master_beside_build.png": {
+        "width": 3840,
+        "height": 1080,
+        "bytes": 377789,
+        "original_bytes": 402996,
+        "sha256": "9c11a1107b6da80824266d29b804aeb8452e58f4bee148dba10dc317a02ce2c5"
+      },
+      "c27_market_map__board_salma_wants_a_word__build.png": {
+        "width": 1920,
+        "height": 1080,
+        "bytes": 178469,
+        "original_bytes": 185094,
+        "sha256": "dca3edaf1d01a8059cc3d95c5ee86326af0048eb532860a1b214cd13a56b7022"
+      },
+      "c27_market_map__board_salma_wants_a_word__master_beside_build.png": {
+        "width": 3840,
+        "height": 1080,
+        "bytes": 384082,
+        "original_bytes": 408547,
+        "sha256": "6b9ebcace9b959df5928cfaf0c2f2bdbf6ea6bde61288e43a128eea29e537801"
+      },
+      "c28_market_map__next_day_salma_wants_a_word__build.png": {
+        "width": 1920,
+        "height": 1080,
+        "bytes": 178298,
+        "original_bytes": 184949,
+        "sha256": "6a8781fb1c429d6f74d49b7e66872a2a84fea1918a14fea52fa9ce8f7c62f66d"
+      },
+      "c28_market_map__next_day_salma_wants_a_word__master_beside_build.png": {
+        "width": 3840,
+        "height": 1080,
+        "bytes": 384098,
+        "original_bytes": 409144,
+        "sha256": "d630ec866e5c23e67053f335d3dbef791c65f113c75a64751a67d18d9a285763"
+      },
+      "faris_running_from_oven__build.png": {
+        "width": 1920,
+        "height": 1080,
+        "bytes": 212191,
+        "original_bytes": 215228,
+        "sha256": "4f75bf0d52c225ea37de5159d1e8cb6cc40165578e674880d21e13e116e2a366"
+      }
+    }
   }
 }

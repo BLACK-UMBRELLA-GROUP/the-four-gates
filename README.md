@@ -23,6 +23,8 @@ LOCK 2 part 3 adds the 48-minute day, adhan, five prayer windows, Friday congreg
 LOCK 2 part 4 adds the first meeting with Idris and the words the traveller can learn by listening and replying.
 LOCK 3 part 1 adds the people at the inn door, public and secret gifts, the first scholar’s page with Idris,
 and **What people say** on the market map.
+LOCK 3 part 2 adds the bread grab at the Task board. Salma asks from 16:10 when she is at her oven.
+The four answers affect coins, trust and what River Market says about the traveller.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

@@ -32,17 +32,25 @@ signal page_requested
 signal page_closed
 signal gift_requested(id: String, secret: bool)
 signal end_purse_day_requested
+signal bread_grab_requested
+signal bread_grab_left
+signal bread_grab_ask_requested
+signal bread_grab_answered(id: String)
 
 const MapCanvas = preload("res://game/map_canvas.gd")
 const LessonCanvas = preload("res://game/lesson_canvas.gd")
+const BreadGrab = preload("res://game/bread_grab.gd")
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
-const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_morning", "reputation"]
+const GRAB_SCREENS := ["grab_see", "grab_ask", "grab_after"]
+const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_morning", "reputation"] + GRAB_SCREENS
 var data: Dictionary = {}
 var identity: Dictionary = {}
 var chapter: Dictionary
 var open_purse: RefCounted
+var bread_grab: BreadGrab
+var _board_prompt := BreadGrab.Prompt.NONE
 var language_words: Dictionary
 var screen := "title"
 var player_position := Vector3.ZERO
@@ -89,11 +97,12 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
 	open_purse = purse_value
+	bread_grab = grab_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -170,13 +179,20 @@ func _rebuild_screen() -> void:
 		"game", "market_map":
 			_build_hud()
 			var place_x := 203.0
+			var has_board_prompt := _board_prompt != BreadGrab.Prompt.NONE
+			var nav_y := 974.0
+			if has_board_prompt:
+				nav_y = 814.0 if _board_prompt == BreadGrab.Prompt.WAIT else 890.0
 			if screen == "market_map":
-				_button(data.ui.buttons.city_map, Vector2(42, 974), Vector2(138, 55), func(): screen_requested.emit("city_map"))
-				_button(data.ui.buttons.wait_prayer, Vector2(203, 974), Vector2(265, 55), func(): wait_requested.emit())
-				_button(chapter.purse.morning.to_rep, Vector2(491, 974), Vector2(219, 55), func(): screen_requested.emit("reputation"))
+				_button(data.ui.buttons.city_map, Vector2(42, nav_y), Vector2(138, 55), func(): screen_requested.emit("city_map"))
+				_button(data.ui.buttons.wait_prayer, Vector2(203, nav_y), Vector2(265, 55), func(): wait_requested.emit())
+				_button(chapter.purse.morning.to_rep, Vector2(491, nav_y), Vector2(219, 55), func(): screen_requested.emit("reputation"))
 				place_x = 732.0
 			else:
-				_button(data.ui.buttons.map, Vector2(42, 974), Vector2(138, 55), func(): screen_requested.emit("market_map"))
+				_button(data.ui.buttons.map, Vector2(42, nav_y), Vector2(138, 55), func(): screen_requested.emit("market_map"))
+			if has_board_prompt:
+				_build_prayer_buttons(place_x, 0.0, nav_y)
+				place_x = 42.0
 			_build_place_bar(place_x)
 		"city_map":
 			_button(identity.ui.world_map, Vector2(42, 983), Vector2(158, 55), func(): screen_requested.emit("world_map"))
@@ -216,6 +232,9 @@ func _rebuild_screen() -> void:
 		"purse_morning":
 			_build_hud()
 			_build_purse_morning()
+		"grab_see", "grab_ask", "grab_after":
+			_build_hud()
+			_build_bread_grab()
 		"reputation":
 			_build_hud()
 			_build_reputation()
@@ -225,11 +244,15 @@ func _rebuild_screen() -> void:
 	_last_lesson = progress.lesson_done
 	_last_gate = progress.gate_open
 
-func refresh(position_value: Vector3, place_value: String, night_value: bool) -> void:
+func refresh(position_value: Vector3, place_value: String, night_value: bool, salma_present: bool) -> void:
 	player_position = position_value
 	var place_changed := place_id != place_value
 	var clock_changed: bool = _clock_day != clock.day or _clock_minute != clock.minute_of_day
 	var rebuild: bool = place_changed or _last_coins != progress.coins or _last_trust != progress.trust or _last_daily_count != progress.daily_count or _last_lesson != progress.lesson_done or _last_gate != progress.gate_open
+	var prompt := bread_grab.board_prompt(salma_present) if place_value == "board" else BreadGrab.Prompt.NONE
+	if prompt != _board_prompt:
+		_board_prompt = prompt
+		rebuild = rebuild or screen in ["game", "market_map"]
 	place_id = place_value
 	night = night_value
 	if clock_changed or place_changed:
@@ -469,7 +492,7 @@ func _build_hud() -> void:
 	fill.size = Vector2(315 * float(progress.trust) / float(data.numbers.trust_max), 10)
 	fill.color = GOLD
 	track.add_child(fill)
-	if screen in ["arrival", "idris", "purse_salma", "purse_page"]:
+	if screen in ["arrival", "idris", "purse_salma", "purse_page"] or screen in GRAB_SCREENS:
 		return
 	var hit := Button.new()
 	hit.flat = true
@@ -485,7 +508,7 @@ func _build_clock_hud() -> void:
 	_clock_prayer = _label(clock_panel, "", Vector2(14, 40), Vector2(257, 34), 24, Color("ffd27e"), true)
 	_clock_time.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_clock_prayer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	if screen not in ["arrival", "idris", "prayer_record", "purse_salma", "purse_page"]:
+	if screen not in ["arrival", "idris", "prayer_record", "purse_salma", "purse_page"] and screen not in GRAB_SCREENS:
 		_clock_hit = Button.new()
 		_clock_hit.flat = true
 		_clock_hit.modulate = Color(1, 1, 1, 0)
@@ -822,10 +845,43 @@ func _build_purse_morning() -> void:
 	_chapter_button(panel, morning.to_map, Vector2(x, y), func(): screen_requested.emit("market_map"))
 	_chapter_finish(panel, y)
 
+func _build_bread_grab() -> void:
+	var grab: Dictionary = chapter.grab
+	var beat: Dictionary = grab[screen.trim_prefix("grab_")]
+	var panel := _chapter_panel(beat.kicker, beat.title)
+	var y := 111.0
+	match screen:
+		"grab_see":
+			y += _story_text(panel, beat.text, y) + 14.0
+			_chapter_button(panel, beat.next, Vector2(34, y), func(): bread_grab_left.emit(), true, true)
+		"grab_ask":
+			y += _story_text(panel, beat.text, y) + 14.0
+			var first := true
+			for id: String in grab.answers:
+				_chapter_button(panel, grab.answers[id].button, Vector2(34, y), func(): bread_grab_answered.emit(id), first, true)
+				first = false
+				y += 69.0
+			y -= 69.0
+		"grab_after":
+			var id := bread_grab.answer_id
+			y += _story_text(panel, grab.answers[id].out, y) + 14.0
+			if id == "lie":
+				y = _chapter_note(panel, beat.note, y)
+			var x := 34.0 + _chapter_button(panel, beat.to_rep, Vector2(34, y), func(): screen_requested.emit("reputation"), true)
+			_chapter_button(panel, beat.to_map, Vector2(x, y), func(): screen_requested.emit("market_map"))
+	_chapter_finish(panel, y)
+
+func reputation_lines() -> Array:
+	var lines: Array = open_purse.reputation_lines()
+	var answer: Variant = bread_grab.reputation_line()
+	if answer != null:
+		lines.append(answer)
+	return lines
+
 func _build_reputation() -> void:
 	var rep: Dictionary = chapter.rep
 	var panel := _chapter_panel(rep.kicker, str(rep.title).format({"n": progress.trust}))
-	var lines: Array = open_purse.reputation_lines()
+	var lines := reputation_lines()
 	var y := 111.0
 	if lines.is_empty():
 		y += _story_text(panel, rep.empty, y) + 15.0
@@ -845,7 +901,7 @@ func _build_reputation() -> void:
 	_chapter_button(panel, rep.to_goal, Vector2(x, y), func(): goal_requested.emit())
 	_chapter_finish(panel, y)
 
-func _build_prayer_buttons(x: float, place_width: float) -> float:
+func _build_prayer_buttons(x: float, place_width: float, row_y: float = 973.0) -> float:
 	var prayer := _prayer_label if place_id != "masjid" else ""
 	var width := 0.0
 	if not prayer.is_empty():
@@ -853,7 +909,7 @@ func _build_prayer_buttons(x: float, place_width: float) -> float:
 	if not _make_up_label.is_empty():
 		width += _button_width(_make_up_label) + 22.0
 	var separate_row := x + width + place_width > 1878.0
-	var at := Vector2(x, 898.0 if separate_row else 973.0)
+	var at := Vector2(x, 898.0 if separate_row else row_y)
 	if not prayer.is_empty():
 		at.x += _arrival_button(prayer, at, func(): pray_requested.emit(), true) + 22.0
 	if not _make_up_label.is_empty():
@@ -885,17 +941,37 @@ func _build_place_bar(x: float) -> void:
 	var name_width := bold_font.get_string_size(name_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var line_width := font.get_string_size(line_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var button_width := bold_font.get_string_size(action, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 46
-	var purse_button: bool = place_id == "inn" and not open_purse.done
-	var purse_width := _button_width(chapter.places.inn) + 18.0 if purse_button else 0.0
-	var total_width := name_width + line_width + button_width + purse_width + 55.0
-	x = _build_prayer_buttons(x, total_width)
-	var panel := _panel(Vector2(x, 965), Vector2(total_width, 73), Color("191c19"))
+	var extra_text := ""
+	var extra_action: Callable
+	var extra_primary := false
+	if place_id == "inn" and not open_purse.done:
+		extra_text = chapter.places.inn
+		extra_action = func(): purse_requested.emit()
+	elif _board_prompt == BreadGrab.Prompt.SEE:
+		extra_text = chapter.places.board
+		extra_action = func(): bread_grab_requested.emit()
+	elif _board_prompt == BreadGrab.Prompt.ASK:
+		extra_text = chapter.grab.ask_button
+		extra_action = func(): bread_grab_ask_requested.emit()
+		extra_primary = true
+	var extra_width := _button_width(extra_text, extra_primary) + 18.0 if not extra_text.is_empty() else 0.0
+	var total_width := name_width + line_width + button_width + extra_width + 55.0
+	if _board_prompt == BreadGrab.Prompt.NONE:
+		x = _build_prayer_buttons(x, total_width)
+	var waiting := _board_prompt == BreadGrab.Prompt.WAIT
+	var bar_y := 891.0 if waiting else 965.0
+	var width := total_width
+	if waiting:
+		width = maxf(width, font.get_string_size(chapter.grab.wait_line, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 36.0)
+	var panel := _panel(Vector2(x, bar_y), Vector2(width, 147.0 if waiting else 73.0), Color("191c19"))
 	_label(panel, name_value, Vector2(18, 15), Vector2(name_width + 4, 42), 24, PAPER, true)
 	_label(panel, line_value, Vector2(18 + name_width, 15), Vector2(line_width + 4, 42), 24, PAPER)
-	var action_x := x + total_width - button_width - purse_width - 17.0
-	_button(action, Vector2(action_x, 973), Vector2(button_width, 56), func(): use_requested.emit(), true)
-	if purse_button:
-		_button(chapter.places.inn, Vector2(action_x + button_width + 18.0, 973), Vector2(purse_width - 18.0, 56), func(): purse_requested.emit())
+	var action_x := x + total_width - button_width - extra_width - 17.0
+	_button(action, Vector2(action_x, bar_y + 8.0), Vector2(button_width, 56), func(): use_requested.emit(), true)
+	if not extra_text.is_empty():
+		_button(extra_text, Vector2(action_x + button_width + 18.0, bar_y + 8.0), Vector2(extra_width - 18.0, 56), extra_action, extra_primary)
+	if waiting:
+		_label(panel, chapter.grab.wait_line, Vector2(18, 87), Vector2(width - 36, 42), 24, PAPER)
 
 func _style(background: Color, border: Color = Color("886125")) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()

@@ -1,0 +1,663 @@
+{
+	"checks": [
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the map at the Inn with 198 coins",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c17_market_map__board_oven__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c17_market_map__board_oven__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Something happens at the oven",
+			"passed": true
+		},
+		{
+			"description": "the oven panel opens with Faris in the world",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c18_grab__see__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c18_grab__see__build.png",
+			"passed": true
+		},
+		{
+			"description": "Faris's capsule moves away from the oven",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: faris_running_from_oven__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: faris_running_from_oven__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk on",
+			"passed": true
+		},
+		{
+			"description": "Walk on returns to the Task board map",
+			"passed": true
+		},
+		{
+			"description": "seeing and walking on leave the clock at 10:00",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c26_market_map__board_salma_later__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c26_market_map__board_salma_later__build.png",
+			"passed": true
+		},
+		{
+			"description": "there is no question at 16:09",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c27_market_map__board_salma_wants_a_word__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c27_market_map__board_salma_wants_a_word__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Salma wants a word",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c19_grab__asked__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c19_grab__asked__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Tell the truth: it was Faris",
+			"passed": true
+		},
+		{
+			"description": "native answer opens the correct outcome: truth",
+			"passed": true
+		},
+		{
+			"description": "locked trust and coin change: truth",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c20_grab__after_truth__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c20_grab__after_truth__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Something happens at the oven",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk on",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Salma wants a word",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Lie: “I didn’t see anything”",
+			"passed": true
+		},
+		{
+			"description": "native answer opens the correct outcome: lie",
+			"passed": true
+		},
+		{
+			"description": "locked trust and coin change: lie",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c21_grab__after_lie__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c21_grab__after_lie__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c25_people_say__bends_the_truth__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c25_people_say__bends_the_truth__build.png",
+			"passed": true
+		},
+		{
+			"description": "the lie's locked line is in What people say",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Something happens at the oven",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk on",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Salma wants a word",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Say nothing",
+			"passed": true
+		},
+		{
+			"description": "native answer opens the correct outcome: quiet",
+			"passed": true
+		},
+		{
+			"description": "locked trust and coin change: quiet",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c22_grab__after_quiet__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c22_grab__after_quiet__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Something happens at the oven",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk on",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Salma wants a word",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for the loaf yourself (1 coin)",
+			"passed": true
+		},
+		{
+			"description": "native answer opens the correct outcome: pay",
+			"passed": true
+		},
+		{
+			"description": "locked trust and coin change: pay",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c23_grab__after_pay__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c23_grab__after_pay__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c24_market_map__after_grab__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c24_market_map__after_grab__build.png",
+			"passed": true
+		},
+		{
+			"description": "the finished board has no encounter buttons",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Something happens at the oven",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk on",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c28_market_map__next_day_salma_wants_a_word__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c28_market_map__next_day_salma_wants_a_word__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Salma wants a word",
+			"passed": true
+		},
+		{
+			"description": "Salma asks the next day without moving the clock",
+			"passed": true
+		},
+		{
+			"description": "all masters and the extra Faris movement frame were captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Fair arrival sets 198 coins. Captures start at the Task board on Saturday at 10:00. The next-day question is on Sunday at 16:10.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport with local mouse clicks on production GUI. The harness holds the clock at the approved fixture times.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "c17_market_map__board_oven__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c18_grab__see__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "faris_running_from_oven__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c26_market_map__board_salma_later__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c27_market_map__board_salma_wants_a_word__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c19_grab__asked__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c20_grab__after_truth__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c21_grab__after_lie__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c25_people_say__bends_the_truth__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c22_grab__after_quiet__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c23_grab__after_pay__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c24_market_map__after_grab__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c28_market_map__next_day_salma_wants_a_word__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"c17_market_map__board_oven__build.png": {
+			"answer": "",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"c18_grab__see__build.png": {
+			"answer": "",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"faris_position": [
+				87.6909255981445,
+				0.899999976158142,
+				33.1663131713867
+			],
+			"faris_visible": true,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "grab_see",
+			"tasks": {},
+			"trust": 20
+		},
+		"c19_grab__asked__build.png": {
+			"answer": "",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 970,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "grab_ask",
+			"tasks": {},
+			"trust": 20
+		},
+		"c20_grab__after_truth__build.png": {
+			"answer": "truth",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 970,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "grab_after",
+			"tasks": {},
+			"trust": 23
+		},
+		"c21_grab__after_lie__build.png": {
+			"answer": "lie",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 970,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "grab_after",
+			"tasks": {},
+			"trust": 15
+		},
+		"c22_grab__after_quiet__build.png": {
+			"answer": "quiet",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 970,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "grab_after",
+			"tasks": {},
+			"trust": 20
+		},
+		"c23_grab__after_pay__build.png": {
+			"answer": "pay",
+			"coins": 197,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 970,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "grab_after",
+			"tasks": {},
+			"trust": 22
+		},
+		"c24_market_map__after_grab__build.png": {
+			"answer": "pay",
+			"coins": 197,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 970,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 22
+		},
+		"c25_people_say__bends_the_truth__build.png": {
+			"answer": "lie",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				[
+					"Bends the truth",
+					"Salma the baker",
+					-1.0
+				]
+			],
+			"minute_of_day": 970,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 15
+		},
+		"c26_market_map__board_salma_later__build.png": {
+			"answer": "",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"c27_market_map__board_salma_wants_a_word__build.png": {
+			"answer": "",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 970,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"c28_market_map__next_day_salma_wants_a_word__build.png": {
+			"answer": "",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 4,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 970,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"faris_running_from_oven__build.png": {
+			"answer": "",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"faris_position": [
+				89.0498809814453,
+				0.899999976158142,
+				34.2264213562012
+			],
+			"faris_visible": true,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "grab_see",
+			"tasks": {},
+			"trust": 20
+		}
+	},
+	"timestamp_utc": "2026-11-11T14:53:03Z"
+}
