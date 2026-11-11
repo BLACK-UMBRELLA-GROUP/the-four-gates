@@ -21,6 +21,7 @@ var rashid: MeshInstance3D
 var layla: MeshInstance3D
 var talking_people: Dictionary = {}
 var oven_camera: Camera3D
+var dice_house_camera: Camera3D
 var sealed_purse_offer_camera: Camera3D
 var sealed_purse_coin_camera: Camera3D
 var sealed_purse_delivery_camera: Camera3D
@@ -154,6 +155,10 @@ func setup_chapter_people(chapter: Dictionary, regulars: Array) -> void:
 	var height := float(data.camera.height_above_feet) + float(data.player.capsule_height)
 	oven_camera.position = oven_at + along_square * distance + beside_oven * 2.0 + Vector3.UP * height
 	oven_camera.look_at(oven_at + along_square * float(data.player.capsule_height))
+
+	# Frame the night scene from beyond the group waiting outside the inn.
+	var inn_view := point("inn") + down_street * (index + 1) * spacing + Vector3.UP * float(data.camera.height_above_feet)
+	dice_house_camera = _story_camera(inn_view, inn_view + down_street * distance)
 
 
 func set_inn_people_waiting(waiting: bool) -> void:

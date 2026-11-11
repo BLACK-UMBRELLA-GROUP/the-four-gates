@@ -42,6 +42,8 @@ the Task board while she is at her oven. The panel counts meals toward 10,000. R
 unlocks secret payments.
 LOCK 10 adds Karim's sealed-purse job at the Quay. With enough River Market trust during his opening hours,
 accept the purse, decide what to do with the fallen coin and deliver the purse to Abbas at the Gate of Trust.
+LOCK 11 adds Mansur's invitation at the Inn after Isha and the dice house behind the blue cloth. Wagers use fair odds.
+Returning on more nights changes what the market says and can lower River Market trust.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

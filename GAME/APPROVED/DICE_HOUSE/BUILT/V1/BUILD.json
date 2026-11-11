@@ -1,0 +1,243 @@
+{
+  "line": 18,
+  "lock": "LOCK 11 V1",
+  "brief": "DOC-TFG-0044",
+  "tested_base_commit_sha": "9e831a4b472aecbc5f0c389f51a353ebeb2d4f78",
+  "capture_source": "Line 18 candidate on the tested base. The Codex daily task note records the single commit containing this source and evidence.",
+  "godot_version": "4.7.2-stable (official)",
+  "godot_version_full": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T16:27:40Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Real native Godot viewport. Viewport-local clicks exercise arrival, Inn invitation, both choices, the door, Leave and What people say. The betting action uses forced boundary rolls for repeatable win and loss evidence.",
+  "fixture": "Passive clock ticks are paused. The harness places the player at the Inn on Saturday day 3, advances the real clock for later visits and sets starting trust to 45. The fair-arrival wallet is used through x06 and restored for x09-x11. For x07 the wallet is set to 27 before a real 20-coin loss leaves 7. For x09-x11 the fixture opens What people say from the lane towards the square at 10:00 the next day, after earning each threshold at night.",
+  "source_sha256": {
+    "SOURCE/data/chapter1.json": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0",
+    "SOURCE/data/clothes.json": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e",
+    "SOURCE/data/dice_house.json": "d769f3698748af05e5498e13de397a701c0aebf740eae006f4547e2b53e21c80",
+    "SOURCE/data/feeding.json": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7",
+    "SOURCE/data/foundations.json": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/data/market_day.json": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05",
+    "SOURCE/data/market_stall.json": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604",
+    "SOURCE/data/prayer_record.json": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9",
+    "SOURCE/data/sealed_purse.json": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a",
+    "SOURCE/data/talking.json": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4",
+    "SOURCE/game/bread_grab.gd": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468",
+    "SOURCE/game/dice_house.gd": "8e196b262b2f85c55d61679fb4fca31428406fd4788de68d94dbb7761eeaef05",
+    "SOURCE/game/feeding.gd": "a818d69fb277ed6125f20d06a47e997c03c25dee99094de4651a2acb11df6b80",
+    "SOURCE/game/foundations.gd": "d37c06b0f92f95eccc4128b90804ac1c1c3ded998f8ce0fc4ab09f17f6cff433",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+    "SOURCE/game/market_day.gd": "3cb77474a4fd5fffb10caa13954c0369a3759235cd60449a258fa202ce702b38",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_stall.gd": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56",
+    "SOURCE/game/market_ui.gd": "b2728e78ec7944edb874f19b20dba24b1057e77f77eeb32cad1c51ca3dace3c1",
+    "SOURCE/game/market_world.gd": "2db108b88b33639915d16776c544b35f4a89b78c33ebf78796be4bd10e7ac843",
+    "SOURCE/game/open_purse.gd": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9",
+    "SOURCE/game/prayer_clock.gd": "20a417baf9e0e102b366a8d1f2c2a0fa464cfbbe2d55c7dfd1ab38712a701b45",
+    "SOURCE/game/river_market.gd": "3baea5ac870c0b571e665fa80acc56d1994fcc6a7d9ceeb4adbe835b6ee3dd55",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/game/sealed_purse.gd": "e3b46ae422a91cd824057e43881c80bb254dac24da5031163ac093d491bef7ab",
+    "SOURCE/game/talking.gd": "546458aedd4c3c74f06e498f2160c8622fc5524a3f9d9ab49ec6cd0891bd0f86",
+    "SOURCE/game/task_progress.gd": "ec252cac5837000910f107051f4d63d16a77f3327c83f316f7e31d5dcf16cbc2",
+    "SOURCE/main.tscn": "109e5b49d1caed038c97365a9c4fb995c5541bfd0b30d9ef1568af98bb815a94",
+    "SOURCE/project.godot": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45",
+    "SOURCE/tests/capture_dice_house.gd": "57113257aa841a3fc76391cd0cbe19fe7fa08f061cfd2483305716302a93fc70",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/capture_tasks.gd": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003"
+  },
+  "test_and_comparison_source_sha256": {
+    "SOURCE/tests/create_comparisons.gd": "03aff65f6bae15c2107e75ac662ea60535d0ae59cfab4417155ed7d3093dc9d7",
+    "SOURCE/tests/run_tests.gd": "3f83eb7cfc32cf7fb4e0ef00353dde88663c1914ad4f8c2747e8ca1ec218b990"
+  },
+  "approved_inputs_sha256": {
+    "GAME/APPROVED/DICE_HOUSE/BRIEFS/BUILD_BRIEF_2026-11-08_DICE_HOUSE.md": "9b4d64ec681be961f97144f7d9107d0170c7b27ef9b785844952ff9cd9b040f3",
+    "GAME/APPROVED/DICE_HOUSE/MASTERS/x01_inn__daytime_no_door.png": "43975296d8e5c7cb89a47f6088526c5b764d94d33ae1effa80ad9853b890cffa",
+    "GAME/APPROVED/DICE_HOUSE/MASTERS/x02_inn__after_isha_whisper.png": "61623a99853c35f1a67022aa338ee5964181c858e52ccc1ab9e582ac31c453b7",
+    "GAME/APPROVED/DICE_HOUSE/MASTERS/x03_dice__mansur_invites.png": "7826f5d5ecc3f51c3ddedf84de6117d3893d83c6eadf87c6db51b9d297bad587",
+    "GAME/APPROVED/DICE_HOUSE/MASTERS/x04_dice__first_night.png": "c28478e408a3a010439349df9c83322df7e3bd0761167a0a2339a88b05c841ed",
+    "GAME/APPROVED/DICE_HOUSE/MASTERS/x05_dice__won_10.png": "a00fea08795e249adb221cfe4d5e96832a690c20555f054342c7e883400e6ae4",
+    "GAME/APPROVED/DICE_HOUSE/MASTERS/x06_dice__lost_20.png": "c77fa48495892e80772804451097ded3050e0f4eb57cc6156221f14c103f83b0",
+    "GAME/APPROVED/DICE_HOUSE/MASTERS/x07_dice__not_enough_coins.png": "2250cc31d698a10c9fa203b15bce8ab58ac7cb2d9bcd40785f26bd9f666a2686",
+    "GAME/APPROVED/DICE_HOUSE/MASTERS/x08_inn__door_with_blue_cloth.png": "ca7ef1a3a33e60bac10a87a63ed3266328b2d8f233ea38e4a14509bb7a1d1a7b",
+    "GAME/APPROVED/DICE_HOUSE/MASTERS/x09_people_say__talk_2_nights.png": "f23e18cac8353e722b53bccde5b00bd17d5eb3964a9b27fb34ca2fc44483110c",
+    "GAME/APPROVED/DICE_HOUSE/MASTERS/x10_people_say__seen_4_nights.png": "97037ffdda4085016e7a016cb1530f4ddeb6ba27e7f31eb1797a46bf82913080",
+    "GAME/APPROVED/DICE_HOUSE/MASTERS/x11_people_say__gambler_10_nights.png": "22a4a63162f1d80bdab7402b5ebeba950dbedf2ae8a3577660d6ebed596bcff7",
+    "GAME/APPROVED/DICE_HOUSE/MASTERS/x12_inn__after_go_to_bed.png": "40eefb3a029ea72b14c9eee42d59d99139f6cfee7cc0e4a214cd3431f8f8d3b9",
+    "GAME/APPROVED/DICE_HOUSE/RECORD/DICE_HOUSE_SPEC_CURRENT_VERSION_V1.md": "15746e42eb9c838e9a5dca9e13d1b2529e6ddfc4b95d375f959dc6d9b30c6937",
+    "GAME/APPROVED/DICE_HOUSE/RECORD/LOCK_RECORD.md": "41cff8291d442f6b71f84581220eaf70e4e37f1f7084e5c1e4ffe8fe0b28f624",
+    "GAME/APPROVED/DICE_HOUSE/RECORD/dice_house_data_V1.json": "d769f3698748af05e5498e13de397a701c0aebf740eae006f4547e2b53e21c80",
+    "GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md": "f2abfee4dcc542086c5dcd23242a52986a6d29f28935f48b88e1bbbc6fbfdae6"
+  },
+  "spec_at_base_sha256": "04694fd9243246f2a5d56c0955e962b4f16d4063fca65d44946697908f36d43f",
+  "spec_clarifications_used": "The 11 Nov designer working copy specifies a later non-Friday for the daytime master and DOC-TFG-0321 as the reputation order.",
+  "tests": {
+    "headless_passed": 2696,
+    "dice_house_native_passed": 182,
+    "sealed_purse_native_regression_passed": 203,
+    "progress_restart_passed": 24
+  },
+  "png_verification": "Lossless IDAT recompression. Godot decoded the original and compressed files, checked original dimensions and byte-identical pixels, and verified both halves of every comparison against the master and capture.",
+  "png_bytes_before": 12885831,
+  "png_bytes_after": 12401647,
+  "native_checks": {
+    "bytes": 23373,
+    "sha256": "f5ce8d8e7400309aadb377eaab301f182fbe4aad491b7779dc993092d87bca2c"
+  },
+  "files": {
+    "x01_inn__daytime_no_door__build.png": {
+      "bytes": 168159,
+      "sha256": "5fdf1ddb1246e5fe2f474e5c1dd5d83d8c28de3600f73ab742d7c376baa0fe14",
+      "width": 1920,
+      "height": 1080
+    },
+    "x01_inn__daytime_no_door__master_beside_build.png": {
+      "bytes": 353292,
+      "sha256": "fc89d342582aae3f4a79e1ae5e6289c9d50c4cb157e56ea444a6cc85af729548",
+      "width": 3840,
+      "height": 1080
+    },
+    "x02_inn__after_isha_whisper__build.png": {
+      "bytes": 235208,
+      "sha256": "edcf00a3d6ca402ae6d3085a550ceb01968609b02e63dbb978440430edf0ac50",
+      "width": 1920,
+      "height": 1080
+    },
+    "x02_inn__after_isha_whisper__master_beside_build.png": {
+      "bytes": 480874,
+      "sha256": "1cadcec39b3918eae843ba8b567769a194603f81536c991a0a2792ad75e00401",
+      "width": 3840,
+      "height": 1080
+    },
+    "x03_dice__mansur_invites__build.png": {
+      "bytes": 188739,
+      "sha256": "9e643f882510984487989c96a80baeb2cb1db0c599fcbe6c9eaa82eb894dc30f",
+      "width": 1920,
+      "height": 1080
+    },
+    "x03_dice__mansur_invites__master_beside_build.png": {
+      "bytes": 822798,
+      "sha256": "043141553cbe4dba94a09ef0f58213b99fcb62581167be0155a0903623d0bfb7",
+      "width": 3840,
+      "height": 1080
+    },
+    "x04_dice__first_night__build.png": {
+      "bytes": 190008,
+      "sha256": "52fed38f33eca18b1455f295335b48fbff5e5c9283f8b3fc4abdd3d0275d1d89",
+      "width": 1920,
+      "height": 1080
+    },
+    "x04_dice__first_night__master_beside_build.png": {
+      "bytes": 805530,
+      "sha256": "fadff0a5030316025e940a8633c118d490602b1f77bad1254aa1e7ef27b59b24",
+      "width": 3840,
+      "height": 1080
+    },
+    "x05_dice__won_10__build.png": {
+      "bytes": 183455,
+      "sha256": "f34066c1fb718eabdac4de621d3b845474b02235989364b45bdfd91260aba438",
+      "width": 1920,
+      "height": 1080
+    },
+    "x05_dice__won_10__master_beside_build.png": {
+      "bytes": 794651,
+      "sha256": "b76595606c40fe66ec297d528332dc300c59dbcc5825a116f0155a3c7aaeff0c",
+      "width": 3840,
+      "height": 1080
+    },
+    "x06_dice__lost_20__build.png": {
+      "bytes": 186119,
+      "sha256": "4c2dbec4df0b2c0b573efd0dd08aefda74bded2ae05dba5929503e6b928b8520",
+      "width": 1920,
+      "height": 1080
+    },
+    "x06_dice__lost_20__master_beside_build.png": {
+      "bytes": 804527,
+      "sha256": "5d5ec561229a9b27edf33749c9cb76fef866052e2c10490609d864bfc29d0272",
+      "width": 3840,
+      "height": 1080
+    },
+    "x07_dice__not_enough_coins__build.png": {
+      "bytes": 192406,
+      "sha256": "2da42fbb73541cebf5a39b8117e62044ef6e20ed8bf40188994c750baff78419",
+      "width": 1920,
+      "height": 1080
+    },
+    "x07_dice__not_enough_coins__master_beside_build.png": {
+      "bytes": 792727,
+      "sha256": "0e6f480ea47f1c065ca69b56f3797a2063cd322f16942e9b2ca93c10573601a1",
+      "width": 3840,
+      "height": 1080
+    },
+    "x08_inn__door_with_blue_cloth__build.png": {
+      "bytes": 233741,
+      "sha256": "09dfd6f49daedb6b7b1f3a3a78db6314f28a6290742d781df6a1ca2dbe568a53",
+      "width": 1920,
+      "height": 1080
+    },
+    "x08_inn__door_with_blue_cloth__master_beside_build.png": {
+      "bytes": 475017,
+      "sha256": "f2dbbc9b6d5f90ad38777f92e0ffb6eb6618a525a976cc3144c2990b46f5d3b4",
+      "width": 3840,
+      "height": 1080
+    },
+    "x09_people_say__talk_2_nights__build.png": {
+      "bytes": 352183,
+      "sha256": "8ebdf92ff1de9248eabf388e24779f22bc4d0bc0302bcca4dbf7f7894e642649",
+      "width": 1920,
+      "height": 1080
+    },
+    "x09_people_say__talk_2_nights__master_beside_build.png": {
+      "bytes": 1187429,
+      "sha256": "0541b23936f4cb71b02c2c31ed3ab9b059c11321a804ed50373f6d3a2471b830",
+      "width": 3840,
+      "height": 1080
+    },
+    "x10_people_say__seen_4_nights__build.png": {
+      "bytes": 392566,
+      "sha256": "3c8f2e583901df9696ce07cfac5c5de9ac343e105e7d8d4bd88482291cdb6e98",
+      "width": 1920,
+      "height": 1080
+    },
+    "x10_people_say__seen_4_nights__master_beside_build.png": {
+      "bytes": 1229626,
+      "sha256": "e3d7fec15ee0e2f20b4d785ee709e83491bc43368ee914d33dcbe7def0a7af0c",
+      "width": 3840,
+      "height": 1080
+    },
+    "x11_people_say__gambler_10_nights__build.png": {
+      "bytes": 389662,
+      "sha256": "e99e6d72956b887ba67e17fe93fc5d51376a5cc5b482bc94ee1eb4988e48f858",
+      "width": 1920,
+      "height": 1080
+    },
+    "x11_people_say__gambler_10_nights__master_beside_build.png": {
+      "bytes": 1229720,
+      "sha256": "67952dfe3a8e0add07b000f7111234f057d30edfa400357c5c6df3b02a519e5b",
+      "width": 3840,
+      "height": 1080
+    },
+    "x12_inn__after_go_to_bed__build.png": {
+      "bytes": 234802,
+      "sha256": "3778aca0915034172838783172e781f86a74f5c34e6bc9e56c8df5e46bf9b751",
+      "width": 1920,
+      "height": 1080
+    },
+    "x12_inn__after_go_to_bed__master_beside_build.png": {
+      "bytes": 478408,
+      "sha256": "bbf29369ff677c321770241173e74241bb49f635ecb954b1a091536b40cc55c4",
+      "width": 3840,
+      "height": 1080
+    }
+  },
+  "visual_differences": {
+    "all": "The live HUD uses different type metrics, alignment, box widths and fill styling. The fixture uses real game days. The pictured coins and trust values match.",
+    "x01_x02_x08_x12": "The runtime map has different marker and gate rings, label outlines, grid and lantern shading, and toolbar sizing. The inherited Make up Dhuhr action is visible. x01 puts it on a separate row. At night the live bar and prayer controls have different widths and cover a different part of the canal label. x02 omits the transient Isha call.",
+    "x03_x04_x05_x06_x07": "The night story camera frames the existing block-built inn lane with warmer lighting, a plain sky and faint distant quay figures. The masters show a detailed moonlit street. The panels use live type and letter spacing, with small differences in bounds, opacity, button widths and row spacing. The x04 master shows a brighter Bet 5 coins button than the native evidence. The x07 notices and Leave have slightly different spacing.",
+    "x09_x10_x11": "The same existing daylight lane and player capsule replace the detailed market storefront. The real clock shows 10:00 the next morning and a Dhuhr countdown. x11 omits the transient Isha call. The existing reputation panel has different type, letter spacing, panel and button metrics."
+  },
+  "pre_release_scholar_review": "Quran 5:90 and 2:219 on gambling (maysir), LOCK 11 §1. Pending before public release under OA-AIOS-432. DOC-TFG-0320 has no dedicated LOCK 11 row at handover. Row 1 covers the inherited prayer windows."
+}

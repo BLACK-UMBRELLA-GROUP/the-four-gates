@@ -1,0 +1,1048 @@
+{
+	"checks": [
+		{
+			"description": "runtime dice data matches the locked bytes",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "daytime fixture starts at the Inn on a later non-Friday",
+			"passed": true
+		},
+		{
+			"description": "Inn actions appear on its market-map bar",
+			"passed": true
+		},
+		{
+			"description": "button hidden: A man whispers at the inn door",
+			"passed": true
+		},
+		{
+			"description": "button hidden: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: x01_inn__daytime_no_door__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: x01_inn__daytime_no_door__build.png",
+			"passed": true
+		},
+		{
+			"description": "Inn actions appear on its market-map bar",
+			"passed": true
+		},
+		{
+			"description": "button shown: A man whispers at the inn door",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: A man whispers at the inn door",
+			"passed": true
+		},
+		{
+			"description": "button hidden: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: x02_inn__after_isha_whisper__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: x02_inn__after_isha_whisper__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: A man whispers at the inn door",
+			"passed": true
+		},
+		{
+			"description": "the Inn whisper opens Mansur's invitation",
+			"passed": true
+		},
+		{
+			"description": "one visible label: RIVER MARKET · AFTER ISHA",
+			"passed": true
+		},
+		{
+			"description": "one visible label: Mansur",
+			"passed": true
+		},
+		{
+			"description": "one visible label: A man with rings on every finger leans close. “A traveller with a heavy purse should not sit alone at night. Behind the inn, the door with the blue cloth. Dice, friends, and luck.”",
+			"passed": true
+		},
+		{
+			"description": "button shown: Follow him",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Follow him",
+			"passed": true
+		},
+		{
+			"description": "button shown: Go to bed",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Go to bed",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: x03_dice__mansur_invites__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: x03_dice__mansur_invites__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow him",
+			"passed": true
+		},
+		{
+			"description": "the dice house is open",
+			"passed": true
+		},
+		{
+			"description": "one visible label: BEHIND THE BLUE CLOTH",
+			"passed": true
+		},
+		{
+			"description": "one visible label: The dice house",
+			"passed": true
+		},
+		{
+			"description": "one visible label: Lamps, smoke and the click of dice. Mansur keeps the board. Nobody looks at faces here.",
+			"passed": true
+		},
+		{
+			"description": "one visible label: NIGHTS HERE: 1",
+			"passed": true
+		},
+		{
+			"description": "button shown: Leave",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Leave",
+			"passed": true
+		},
+		{
+			"description": "button shown: Bet 5 coins",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Bet 5 coins",
+			"passed": true
+		},
+		{
+			"description": "button shown: Bet 10 coins",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Bet 10 coins",
+			"passed": true
+		},
+		{
+			"description": "button shown: Bet 20 coins",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Bet 20 coins",
+			"passed": true
+		},
+		{
+			"description": "one visit creates no talk",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: x04_dice__first_night__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: x04_dice__first_night__build.png",
+			"passed": true
+		},
+		{
+			"description": "the dice house is open",
+			"passed": true
+		},
+		{
+			"description": "one visible label: BEHIND THE BLUE CLOTH",
+			"passed": true
+		},
+		{
+			"description": "one visible label: The dice house",
+			"passed": true
+		},
+		{
+			"description": "one visible label: The dice fall your way. You win 10 coins.",
+			"passed": true
+		},
+		{
+			"description": "one visible label: NIGHTS HERE: 1",
+			"passed": true
+		},
+		{
+			"description": "button shown: Leave",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Leave",
+			"passed": true
+		},
+		{
+			"description": "forced win adds ten coins and changes no trust",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: x05_dice__won_10__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: x05_dice__won_10__build.png",
+			"passed": true
+		},
+		{
+			"description": "the dice house is open",
+			"passed": true
+		},
+		{
+			"description": "one visible label: BEHIND THE BLUE CLOTH",
+			"passed": true
+		},
+		{
+			"description": "one visible label: The dice house",
+			"passed": true
+		},
+		{
+			"description": "one visible label: The dice fall against you. You lose 20 coins.",
+			"passed": true
+		},
+		{
+			"description": "one visible label: NIGHTS HERE: 1",
+			"passed": true
+		},
+		{
+			"description": "button shown: Leave",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Leave",
+			"passed": true
+		},
+		{
+			"description": "forced loss takes twenty coins and changes no trust",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: x06_dice__lost_20__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: x06_dice__lost_20__build.png",
+			"passed": true
+		},
+		{
+			"description": "the dice house is open",
+			"passed": true
+		},
+		{
+			"description": "one visible label: BEHIND THE BLUE CLOTH",
+			"passed": true
+		},
+		{
+			"description": "one visible label: The dice house",
+			"passed": true
+		},
+		{
+			"description": "one visible label: The dice fall against you. You lose 20 coins.",
+			"passed": true
+		},
+		{
+			"description": "one visible label: NIGHTS HERE: 1",
+			"passed": true
+		},
+		{
+			"description": "button shown: Leave",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Leave",
+			"passed": true
+		},
+		{
+			"description": "button shown: Bet 5 coins",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Bet 5 coins",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Bet 10 coins",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Bet 20 coins",
+			"passed": true
+		},
+		{
+			"description": "the 7-coin wallet replaces each unaffordable bet with the locked notice",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: x07_dice__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: x07_dice__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "Inn actions appear on its market-map bar",
+			"passed": true
+		},
+		{
+			"description": "button hidden: A man whispers at the inn door",
+			"passed": true
+		},
+		{
+			"description": "button shown: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: x08_inn__door_with_blue_cloth__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: x08_inn__door_with_blue_cloth__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "each later night counts once: 2",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "the reputation view uses the next morning's daylight",
+			"passed": true
+		},
+		{
+			"description": "What people say has only the highest reached dice line",
+			"passed": true
+		},
+		{
+			"description": "the rumor threshold has the exact trust result",
+			"passed": true
+		},
+		{
+			"description": "one visible label: “There's talk about the back lanes”",
+			"passed": true
+		},
+		{
+			"description": "one visible label: THE STREET",
+			"passed": true
+		},
+		{
+			"description": "one visible label: mixed",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: x09_people_say__talk_2_nights__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: x09_people_say__talk_2_nights__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "each later night counts once: 3",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "each later night counts once: 4",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "the reputation view uses the next morning's daylight",
+			"passed": true
+		},
+		{
+			"description": "What people say has only the highest reached dice line",
+			"passed": true
+		},
+		{
+			"description": "the rumor threshold has the exact trust result",
+			"passed": true
+		},
+		{
+			"description": "one visible label: “Seen at the dice house”",
+			"passed": true
+		},
+		{
+			"description": "one visible label: YUNUS THE MUEZZIN",
+			"passed": true
+		},
+		{
+			"description": "one visible label: bad",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: x10_people_say__seen_4_nights__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: x10_people_say__seen_4_nights__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "each later night counts once: 5",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "each later night counts once: 6",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "each later night counts once: 7",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "each later night counts once: 8",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "each later night counts once: 9",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "each later night counts once: 10",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Leave",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "the reputation view uses the next morning's daylight",
+			"passed": true
+		},
+		{
+			"description": "What people say has only the highest reached dice line",
+			"passed": true
+		},
+		{
+			"description": "the rumor threshold has the exact trust result",
+			"passed": true
+		},
+		{
+			"description": "one visible label: “A gambler”",
+			"passed": true
+		},
+		{
+			"description": "one visible label: THE WHOLE MARKET",
+			"passed": true
+		},
+		{
+			"description": "one visible label: bad",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: x11_people_say__gambler_10_nights__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: x11_people_say__gambler_10_nights__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: City map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: World map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Title",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: A man whispers at the inn door",
+			"passed": true
+		},
+		{
+			"description": "the Inn whisper opens Mansur's invitation",
+			"passed": true
+		},
+		{
+			"description": "one visible label: RIVER MARKET · AFTER ISHA",
+			"passed": true
+		},
+		{
+			"description": "one visible label: Mansur",
+			"passed": true
+		},
+		{
+			"description": "one visible label: A man with rings on every finger leans close. “A traveller with a heavy purse should not sit alone at night. Behind the inn, the door with the blue cloth. Dice, friends, and luck.”",
+			"passed": true
+		},
+		{
+			"description": "button shown: Follow him",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Follow him",
+			"passed": true
+		},
+		{
+			"description": "button shown: Go to bed",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Go to bed",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to bed",
+			"passed": true
+		},
+		{
+			"description": "Inn actions appear on its market-map bar",
+			"passed": true
+		},
+		{
+			"description": "button hidden: A man whispers at the inn door",
+			"passed": true
+		},
+		{
+			"description": "button shown: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: The door with the blue cloth",
+			"passed": true
+		},
+		{
+			"description": "Go to bed keeps the clock and adds no visit",
+			"passed": true
+		},
+		{
+			"description": "Go to bed changes no wallet, trust or talk",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: x12_inn__after_go_to_bed__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: x12_inn__after_go_to_bed__build.png",
+			"passed": true
+		},
+		{
+			"description": "all twelve master states were captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Passive clock ticks are paused. The harness places the player at the Inn on Saturday day 3, advances the real clock for later visits and sets starting trust to 45. The fair-arrival wallet is used through x06 and restored for x09-x11. For x07 the wallet is set to 27 before a real 20-coin loss leaves 7. For x09-x11 the fixture opens What people say from the lane towards the square at 10:00 the next day, after earning each threshold at night.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Real native Godot viewport. Viewport-local clicks exercise arrival, Inn invitation, both choices, the door, Leave and What people say. The betting action uses forced boundary rolls for repeatable win and loss evidence.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "x01_inn__daytime_no_door__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "x02_inn__after_isha_whisper__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "x03_dice__mansur_invites__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "x04_dice__first_night__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "x05_dice__won_10__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "x06_dice__lost_20__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "x07_dice__not_enough_coins__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "x08_inn__door_with_blue_cloth__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "x09_people_say__talk_2_nights__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "x10_people_say__seen_4_nights__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "x11_people_say__gambler_10_nights__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "x12_inn__after_go_to_bed__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"x01_inn__daytime_no_door__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"invited": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"nights": 0,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"x02_inn__after_isha_whisper__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"invited": false,
+			"lesson_done": false,
+			"minute_of_day": 1200,
+			"night": true,
+			"nights": 0,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"x03_dice__mansur_invites__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"invited": true,
+			"lesson_done": false,
+			"minute_of_day": 1200,
+			"night": true,
+			"nights": 0,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "dice_invite",
+			"tasks": {},
+			"trust": 45
+		},
+		"x04_dice__first_night__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"invited": true,
+			"lesson_done": false,
+			"minute_of_day": 1200,
+			"night": true,
+			"nights": 1,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "dice_house",
+			"tasks": {},
+			"trust": 45
+		},
+		"x05_dice__won_10__build.png": {
+			"coins": 208,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"invited": true,
+			"lesson_done": false,
+			"minute_of_day": 1200,
+			"night": true,
+			"nights": 1,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "dice_house",
+			"tasks": {},
+			"trust": 45
+		},
+		"x06_dice__lost_20__build.png": {
+			"coins": 188,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"invited": true,
+			"lesson_done": false,
+			"minute_of_day": 1200,
+			"night": true,
+			"nights": 1,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "dice_house",
+			"tasks": {},
+			"trust": 45
+		},
+		"x07_dice__not_enough_coins__build.png": {
+			"coins": 7,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"invited": true,
+			"lesson_done": false,
+			"minute_of_day": 1200,
+			"night": true,
+			"nights": 1,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "dice_house",
+			"tasks": {},
+			"trust": 45
+		},
+		"x08_inn__door_with_blue_cloth__build.png": {
+			"coins": 7,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"invited": true,
+			"lesson_done": false,
+			"minute_of_day": 1200,
+			"night": true,
+			"nights": 1,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"x09_people_say__talk_2_nights__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 5,
+			"gate_open": false,
+			"invited": true,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"nights": 2,
+			"place": "",
+			"player": [
+				70.4000015258789,
+				0.0,
+				56.0
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 45
+		},
+		"x10_people_say__seen_4_nights__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 7,
+			"gate_open": false,
+			"invited": true,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"nights": 4,
+			"place": "",
+			"player": [
+				70.4000015258789,
+				0.0,
+				56.0
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 40
+		},
+		"x11_people_say__gambler_10_nights__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 13,
+			"gate_open": false,
+			"invited": true,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"nights": 10,
+			"place": "",
+			"player": [
+				70.4000015258789,
+				0.0,
+				56.0
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 30
+		},
+		"x12_inn__after_go_to_bed__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"invited": true,
+			"lesson_done": false,
+			"minute_of_day": 1200,
+			"night": true,
+			"nights": 0,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		}
+	},
+	"timestamp_utc": "2026-11-11T16:27:40Z"
+}

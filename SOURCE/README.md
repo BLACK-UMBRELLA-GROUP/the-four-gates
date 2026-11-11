@@ -232,3 +232,13 @@ At the Gate of Trust choose **Give the purse to Abbas**. The outcome appears in 
 `GAME/APPROVED/SEALED_PURSE/BUILT/V1/`. Run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --sealed-purse`
 to pair the captures with their masters. Both commands accept `--sealed-purse-output=/absolute/path`.
+
+LOCK 11 adds **A man whispers at the inn door** at the Inn from 19:30 through 04:44. After Mansur's
+invitation, **The door with the blue cloth** opens the dice house during the same hours. Go to bed
+dismisses the invitation without moving the clock. Repeated nights add a single evolving line in
+**What people say**. Bets change the wallet and repeated visits can lower River Market trust.
+
+`godot --path SOURCE -- --capture-dice-house` records the twelve native LOCK 11 states under
+`GAME/APPROVED/DICE_HOUSE/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --dice-house`
+to pair the captures with their masters. Both commands accept `--dice-house-output=/absolute/path`.

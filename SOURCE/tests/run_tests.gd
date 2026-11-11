@@ -139,6 +139,7 @@ func _run() -> void:
 	check_market_day_runtime()
 	await check_feeding_runtime()
 	await check_sealed_purse_runtime()
+	await check_dice_house_runtime()
 	finish()
 
 
@@ -2396,3 +2397,134 @@ func check_sealed_purse_runtime() -> void:
 	reset_at_market_place("quay", wallet)
 	check(app.ui.reputation_lines().is_empty() and not app.sealed_purse.is_carrying(), "a new playthrough clears the sealed-purse outcome")
 	app.set_process(true)
+
+
+func check_dice_house_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/DICE_HOUSE/RECORD/dice_house_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/dice_house.json")
+	var dice: Dictionary = app.dice_house.data
+	check(not locked.is_empty() and runtime == locked, "dice house copies LOCK 11 byte for byte")
+	check(dice == JSON.parse_string(runtime.get_string_from_utf8()), "dice house uses the locked runtime data")
+	app.set_process(false)
+	reset_at_market_place("inn", 17)
+	app.progress.apply_trust(45 - app.progress.trust)
+	for slot: Array in [[3, 1169, false], [3, 1170, true], [3, 1439, true], [4, 0, true], [4, 284, true], [4, 285, false]]:
+		set_market_day_time(slot[0], slot[1])
+		check((find_button(app.ui, dice.inn_invite) != null) == slot[2], "Mansur's whisper at day %d, minute %d" % [slot[0], slot[1]])
+		check(find_button(app.ui, dice.inn_button) == null, "the blue-cloth door is hidden until invited")
+		if not slot[2]:
+			app.open_dice_house()
+			check(app.ui.screen == "market_map", "a direct request cannot open the dice house during the day")
+	set_market_day_time(3, 1200)
+	move_market_fixture("quay")
+	check(find_button(app.ui, dice.inn_invite) == null, "Mansur's whisper only appears at the Inn")
+	app.open_dice_house()
+	check(app.ui.screen == "market_map", "a direct request away from the Inn cannot open the invitation")
+	move_market_fixture("inn")
+	await press_button(dice.inn_invite, "the Inn opens Mansur's invitation")
+	check(app.ui.screen == "dice_invite" and visible_text().contains(dice.invite.text), "the invitation shows Mansur's locked words")
+	await press_button(dice.invite.no, "Go to bed is a real button")
+	check(app.ui.screen == "market_map" and app.current_place == "inn" and app.day == 3 and app.minute_of_day == 1200, "Go to bed returns to the Inn without moving the clock")
+	check(app.dice_house.invited and app.dice_house.nights == 0 and app.ui.reputation_lines().is_empty(), "Go to bed grants the door without counting a visit or creating talk")
+	check_wallet(45, 17, "Go to bed changes neither trust nor coins")
+	check(find_button(app.ui, dice.inn_invite) == null, "the whisper is replaced by the door")
+	set_market_day_time(3, 1169)
+	check(find_button(app.ui, dice.inn_button) == null, "the blue-cloth door is also hidden before opening")
+	set_market_day_time(3, 1200)
+	await press_button(dice.inn_button, "the blue-cloth door opens directly after Go to bed")
+	check(app.ui.screen == "dice_house" and visible_text().contains(dice.house.text), "first entry shows the locked dice house description")
+	check(has_visible_label(app.ui, str(dice.house.visits).format({"n": 1}).to_upper()), "the house displays the first night's count")
+	check(app.ui.reputation_lines().is_empty(), "one night stays secret")
+	check_wallet(45, 17, "the first night changes neither trust nor coins")
+
+	var win := int(dice.numbers.win_chance_percent) - 1
+	var loss := int(dice.numbers.win_chance_percent)
+	var five: String = str(dice.house.bet).format({"n": 5})
+	var ten: String = str(dice.house.bet).format({"n": 10})
+	var twenty: String = str(dice.house.bet).format({"n": 20})
+	check(find_button(app.ui, five) != null and find_button(app.ui, ten) != null and find_button(app.ui, twenty) == null, "the player can only select affordable locked bets")
+	check(has_visible_label(app.ui, dice.house.not_enough), "an unaffordable bet is replaced by the locked notice")
+	app.bet_at_dice_house(20, win)
+	app.bet_at_dice_house(1, win)
+	check_wallet(45, 17, "direct calls reject unaffordable and unlisted stakes")
+	app.bet_at_dice_house(10, win)
+	check_wallet(45, 27, "a roll below the locked 50% threshold adds exactly the stake with no trust change")
+	check(visible_text().contains(str(dice.house.won).format({"n": 10})), "win shows the locked result")
+	check(find_button(app.ui, twenty) != null, "the win can make another bet affordable")
+	app.bet_at_dice_house(20, loss)
+	check_wallet(45, 7, "a roll at the locked 50% threshold subtracts exactly the stake with no trust change")
+	check(visible_text().contains(str(dice.house.lost).format({"n": 20})), "loss shows the locked result")
+	var texts: Array[String] = []
+	collect_text(app.ui, texts)
+	check(texts.count(dice.house.not_enough) == 2, "each of the two unaffordable stakes has its own notice")
+	app.progress.coins = 5
+	app.update_state()
+	app.bet_at_dice_house(5, loss)
+	app.bet_at_dice_house(5, loss)
+	check_wallet(45, 0, "a stake equal to the wallet may lose once, and coins never go below zero")
+	app.progress.coins = 5
+	app.update_state()
+	await press_button(five, "the real bet button rolls without a test override")
+	check(app.progress.coins in [0, 10] and app.progress.trust == 45, "the real roll settles exactly one stake without affecting trust")
+	await press_button(dice.house.leave, "the house has a usable Leave button")
+	check(app.ui.screen == "market_map" and app.current_place == "inn", "Leave returns to the market map at the Inn")
+	await press_button(dice.inn_button, "the door stays available on the same night")
+	check(app.dice_house.nights == 1, "same-evening reentry does not count twice")
+	app.leave_dice_house()
+	set_market_day_time(4, 284)
+	app.open_dice_house()
+	check(app.dice_house.nights == 1, "04:44 reentry belongs to the previous evening")
+	app.leave_dice_house()
+	set_market_day_time(4, 285)
+	check(find_button(app.ui, dice.inn_button) == null, "the blue-cloth door closes at 04:45")
+	await check_dice_house_talk(dice)
+
+	reset_at_market_place("inn", 30)
+	check(not app.dice_house.invited and app.dice_house.nights == 0 and app.dice_house.last_result.is_empty() and app.ui.reputation_lines().is_empty(), "a new playthrough clears dice invitation, visits, result and talk")
+	set_market_day_time(3, 1200)
+	await press_button(dice.inn_invite, "the new playthrough starts with Mansur's whisper")
+	await press_button(dice.invite.go, "Follow him enters on the first visit")
+	check(app.ui.screen == "dice_house" and app.dice_house.invited and app.dice_house.nights == 1, "following Mansur marks the invitation and counts one visit")
+	app.leave_dice_house()
+	app.progress.apply_trust(3 - app.progress.trust)
+	for day in range(4, 7):
+		set_market_day_time(day, 1200)
+		app.open_dice_house()
+		app.leave_dice_house()
+	check(app.dice_house.nights == 4 and app.progress.trust == 0, "the fourth-night penalty clamps trust to zero")
+	app.set_process(true)
+
+
+func check_dice_house_talk(dice: Dictionary) -> void:
+	var expected_trust := 45
+	var expected_line: Array = []
+	var visit_wallet: int = app.progress.coins
+	for visit in range(2, 12):
+		# Skip day 4 completely; an early-morning visit counts for day 5.
+		var day := visit + 3
+		set_market_day_time(day + 1 if visit == 2 else day, 60 if visit == 2 else 1200)
+		app.open_dice_house()
+		match visit:
+			2:
+				expected_line = dice.say.talk
+			4:
+				expected_line = dice.say.seen
+				expected_trust += int(dice.numbers.seen_trust)
+			10:
+				expected_line = dice.say.gambler
+				expected_trust += int(dice.numbers.gambler_trust)
+		check(app.dice_house.nights == visit and app.progress.trust == expected_trust and app.progress.coins == visit_wallet, "night %d counts a visit and applies the threshold penalty once" % visit)
+		app.leave_dice_house()
+		app.open_dice_house()
+		check(app.dice_house.nights == visit and app.progress.trust == expected_trust, "reentry on night %d cannot repeat a penalty" % visit)
+		app.leave_dice_house()
+		check(app.ui.reputation_lines() == [expected_line], "night %d contributes only the highest locked dice line" % visit)
+		if visit in [2, 4, 10]:
+			await press_button(app.chapter.purse.morning.to_rep, "open What people say after %d nights" % visit)
+			check(app.ui.screen == "reputation" and has_visible_label(app.ui, "“%s”" % expected_line[0]) and has_visible_label(app.ui, str(expected_line[1]).to_upper()) and has_visible_label(app.ui, app.chapter.rep.tone[str(int(expected_line[2]))]), "night %d renders the locked quote, source and tone" % visit)
+			await press_button(app.chapter.rep.to_map, "return to the Inn to count another night")
+	set_market_day_time(15, 600)
+	app.progress.apply_trust(int(app.sealed_purse.data.numbers.offer_from_trust) - app.progress.trust)
+	check(app.sealed_purse.accept() and app.sealed_purse.choose_coin(false) and app.sealed_purse.deliver(), "fixture adds the locked sealed-purse outcome")
+	app.market_stall.fed_faris = true
+	check(app.ui.reputation_lines() == [app.market_stall.data.say.fed, dice.say.gambler, app.sealed_purse.data.say.honest], "dice talk follows the market stall and precedes the sealed purse")

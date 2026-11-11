@@ -1,0 +1,56 @@
+{
+ "version": "LOCK 11 V1 (8 Nov 2026) - temptations: the dice house",
+ "builds_on": "LOCK 2 clock (Isha, Fajr), LOCK 3 What people say. Placeholders: {n}.",
+ "numbers": {
+  "open_from": 1170,
+  "open_until": 285,
+  "win_chance_percent": 50,
+  "talk_from_visits": 2,
+  "seen_from_visits": 4,
+  "seen_trust": -5,
+  "gambler_from_visits": 10,
+  "gambler_trust": -10
+ },
+ "bets": [
+  5,
+  10,
+  20
+ ],
+ "inn_invite": "A man whispers at the inn door",
+ "inn_button": "The door with the blue cloth",
+ "invite": {
+  "kicker": "River Market · after Isha",
+  "title": "Mansur",
+  "text": "A man with rings on every finger leans close. “A traveller with a heavy purse should not sit alone at night. Behind the inn, the door with the blue cloth. Dice, friends, and luck.”",
+  "go": "Follow him",
+  "no": "Go to bed"
+ },
+ "house": {
+  "kicker": "Behind the blue cloth",
+  "title": "The dice house",
+  "text": "Lamps, smoke and the click of dice. Mansur keeps the board. Nobody looks at faces here.",
+  "bet": "Bet {n} coins",
+  "not_enough": "not enough coins",
+  "leave": "Leave",
+  "won": "The dice fall your way. You win {n} coins.",
+  "lost": "The dice fall against you. You lose {n} coins.",
+  "visits": "Nights here: {n}"
+ },
+ "say": {
+  "talk": [
+   "There's talk about the back lanes",
+   "the street",
+   0
+  ],
+  "seen": [
+   "Seen at the dice house",
+   "Yunus the muezzin",
+   -1
+  ],
+  "gambler": [
+   "A gambler",
+   "the whole market",
+   -1
+  ]
+ }
+}

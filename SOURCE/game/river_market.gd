@@ -14,6 +14,7 @@ const Talking = preload("res://game/talking.gd")
 const MarketDay = preload("res://game/market_day.gd")
 const Feeding = preload("res://game/feeding.gd")
 const SealedPurse = preload("res://game/sealed_purse.gd")
+const DiceHouse = preload("res://game/dice_house.gd")
 
 var data: Dictionary
 var identity: Dictionary
@@ -24,6 +25,7 @@ var market_stall := MarketStall.new()
 var talking := Talking.new()
 var feeding := Feeding.new()
 var sealed_purse := SealedPurse.new()
+var dice_house := DiceHouse.new()
 var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
@@ -72,6 +74,7 @@ func _ready() -> void:
 	var maghrib: Array = identity.clock.prayers.filter(func(prayer): return prayer.name == "Maghrib")
 	var karim_closes := _minutes(maghrib[0].begins)
 	sealed_purse.setup(Foundations.load_sealed_purse(), progress, market_day, karim_opens, karim_closes)
+	dice_house.setup(Foundations.load_dice_house(), progress, clock)
 	world = MarketWorld.new()
 	add_child(world)
 	world.setup(data)
@@ -85,7 +88,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -137,6 +140,10 @@ func _ready() -> void:
 	ui.sealed_purse_accepted.connect(accept_sealed_purse)
 	ui.sealed_purse_coin_chosen.connect(choose_sealed_purse_coin)
 	ui.sealed_purse_delivered.connect(deliver_sealed_purse)
+	ui.dice_door_opened.connect(open_dice_house)
+	ui.dice_invitation_answered.connect(answer_dice_invitation)
+	ui.dice_bet_placed.connect(bet_at_dice_house)
+	ui.dice_house_left.connect(leave_dice_house)
 	show_screen("title")
 	update_state()
 	if "--capture-foundations" in OS.get_cmdline_user_args():
@@ -186,6 +193,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-sealed-purse" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_sealed_purse.gd").new()
+		capture_runner.run(self)
+	elif "--capture-dice-house" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_dice_house.gd").new()
 		capture_runner.run(self)
 
 func _process(delta: float) -> void:
@@ -237,6 +247,7 @@ func begin_game() -> void:
 	talking.reset()
 	feeding.reset()
 	sealed_purse.reset()
+	dice_house.reset()
 	world.stop_faris_run()
 	world.set_inn_people_waiting(true)
 	world.reset_gate()
@@ -367,6 +378,8 @@ func _minutes(time: String) -> int:
 func show_screen(screen: String) -> void:
 	if screen == "feeding" or screen in MarketUI.GRAB_SCREENS:
 		world.oven_camera.make_current()
+	elif screen in MarketUI.DICE_HOUSE_SCREENS:
+		world.dice_house_camera.make_current()
 	elif screen == "sealed_purse_offer":
 		world.sealed_purse_offer_camera.make_current()
 	elif screen == "sealed_purse_coin":
@@ -544,6 +557,33 @@ func deliver_sealed_purse() -> void:
 		show_screen("sealed_purse_delivery")
 
 
+func open_dice_house() -> void:
+	if current_place != "inn" or ui.screen not in ["game", "market_map"] or not dice_house.is_open():
+		return
+	_stop_travel()
+	if dice_house.invited:
+		if dice_house.enter():
+			show_screen("dice_house")
+	else:
+		dice_house.invited = true
+		show_screen("dice_invite")
+
+
+func answer_dice_invitation(follow: bool) -> void:
+	if ui.screen == "dice_invite":
+		show_screen("dice_house" if follow and dice_house.enter() else "market_map")
+
+
+func bet_at_dice_house(bet: int, roll_percent: int = -1) -> void:
+	if ui.screen == "dice_house" and dice_house.bet_coins(bet, roll_percent):
+		show_screen("dice_house")
+
+
+func leave_dice_house() -> void:
+	if ui.screen == "dice_house":
+		show_screen("market_map")
+
+
 func show_stall() -> void:
 	if current_place != "spice" or ui.screen not in ["game", "market_map"]:
 		return
@@ -717,6 +757,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				leave_bread_grab()
 			else:
 				show_screen("market_map")
+		return
+	if ui.screen in MarketUI.DICE_HOUSE_SCREENS:
+		if event.is_action_pressed("close"):
+			show_screen("market_map")
 		return
 	if ui.screen in ["sealed_purse_offer", "sealed_purse_delivery"]:
 		if event.is_action_pressed("close"):
