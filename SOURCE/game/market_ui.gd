@@ -45,6 +45,8 @@ signal bread_given
 signal talk_requested
 signal greeting_requested
 signal tip_requested
+signal feeding_requested
+signal feeding_paid(id: String)
 
 const MapCanvas = preload("res://game/map_canvas.gd")
 const LessonCanvas = preload("res://game/lesson_canvas.gd")
@@ -52,6 +54,7 @@ const BreadGrab = preload("res://game/bread_grab.gd")
 const MarketStall = preload("res://game/market_stall.gd")
 const Talking = preload("res://game/talking.gd")
 const MarketDay = preload("res://game/market_day.gd")
+const Feeding = preload("res://game/feeding.gd")
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
@@ -70,6 +73,8 @@ var bread_grab: BreadGrab
 var market_stall: MarketStall
 var talking: Talking
 var market_day: MarketDay
+var feeding: Feeding
+var _feeding_available := false
 var _regular_status := MarketDay.Status.OPEN
 var _can_feed := false
 var _board_prompt := BreadGrab.Prompt.NONE
@@ -88,7 +93,7 @@ var _following_toast := ""
 var font := SystemFont.new()
 var bold_font := SystemFont.new()
 var title_font := SystemFont.new()
-var _prayer_caption_font := FontVariation.new()
+var _spaced_caption_font := FontVariation.new()
 var progress: RefCounted
 var clock: RefCounted
 var clock_panel: Panel
@@ -121,7 +126,7 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
@@ -131,6 +136,7 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	talking = talking_value
 	market_day = market_day_value
 	prayer_record = prayer_record_value
+	feeding = feeding_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -140,8 +146,8 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	bold_font.font_weight = 700
 	title_font.font_names = PackedStringArray(["Times New Roman", "Times", "serif"])
 	title_font.font_weight = 700
-	_prayer_caption_font.base_font = font
-	_prayer_caption_font.spacing_glyph = 2
+	_spaced_caption_font.base_font = font
+	_spaced_caption_font.spacing_glyph = 2
 	root = Control.new()
 	root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	root.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -211,16 +217,16 @@ func _rebuild_screen() -> void:
 		"game", "market_map":
 			_build_hud()
 			var place_x := 203.0
-			var has_board_prompt := _board_prompt != BreadGrab.Prompt.NONE
+			var separate_board_row := _board_prompt != BreadGrab.Prompt.NONE or _feeding_available
 			var nav_y := 974.0
-			if has_board_prompt:
+			if separate_board_row:
 				nav_y = 814.0 if _board_prompt == BreadGrab.Prompt.WAIT else 890.0
 			if screen == "market_map":
 				place_x = 732.0
-			if has_board_prompt:
+			if separate_board_row:
 				_build_prayer_buttons(place_x, 0.0, nav_y)
 				place_x = 42.0
-			if _build_place_bar(place_x):
+			if _build_place_bar(place_x, separate_board_row):
 				nav_y = 890.0
 			if screen == "market_map":
 				_button(data.ui.buttons.city_map, Vector2(42, nav_y), Vector2(138, 55), func(): screen_requested.emit("city_map"))
@@ -281,6 +287,9 @@ func _rebuild_screen() -> void:
 		"stall":
 			_build_hud()
 			_build_stall()
+		"feeding":
+			_build_hud()
+			_build_feeding()
 		"stall_change":
 			_build_hud()
 			_build_stall_change()
@@ -315,6 +324,10 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	var prompt := bread_grab.board_prompt(salma_present) if place_value == "board" else BreadGrab.Prompt.NONE
 	if prompt != _board_prompt:
 		_board_prompt = prompt
+		rebuild = rebuild or screen in ["game", "market_map"]
+	var feeding_available := place_value == "board" and salma_present
+	if feeding_available != _feeding_available:
+		_feeding_available = feeding_available
 		rebuild = rebuild or screen in ["game", "market_map"]
 	var can_feed := place_value == "quay" and market_stall.count("bread") > 0
 	if can_feed != _can_feed:
@@ -642,7 +655,7 @@ func _build_prayer_totals() -> void:
 	var panel := _panel(Vector2(365, top), Vector2(1190, 281 if empty else 600), Color("1b130be6"))
 	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
 	style.set_corner_radius_all(18)
-	_prayer_totals_caption(panel, copy.kicker, 26)
+	_spaced_caption(panel, copy.kicker, 26)
 	var title := _label(panel, copy.title, Vector2(34, 53), Vector2(1122, 48), 36, Color("ffd27e"), true)
 	title.add_theme_font_override("font", title_font)
 	if empty:
@@ -662,16 +675,17 @@ func _build_prayer_totals() -> void:
 			var value := _label(panel, str(prayer_record.count).format({"n": _shown_prayer_totals[row]}), Vector2(1000, y), Vector2(156, 45), 23, Color("ffd27e"))
 			value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	var footer := 197.0 if empty else 517.0
-	_prayer_totals_caption(panel, copy.note, footer - 40)
+	_spaced_caption(panel, copy.note, footer - 40)
 	if screen == "all_prayers_title":
 		_button(copy.back_title, Vector2(34, footer), Vector2(109, 56), func(): screen_requested.emit("title"), true, panel)
 	else:
 		_button(copy.back_market, Vector2(34, footer), Vector2(247, 56), func(): record_closed.emit(), true, panel)
 		_button(copy.today, Vector2(294, footer), Vector2(210, 56), func(): screen_requested.emit("prayer_record"), false, panel)
 
-func _prayer_totals_caption(panel: Panel, value: String, y: float) -> void:
+func _spaced_caption(panel: Panel, value: String, y: float) -> Label:
 	var caption := _label(panel, value.to_upper(), Vector2(34, y), Vector2(1122, 28), 16, Color("e9bd70"))
-	caption.add_theme_font_override("font", _prayer_caption_font)
+	caption.add_theme_font_override("font", _spaced_caption_font)
+	return caption
 
 func _update_prayer_record() -> void:
 	var record_values: Dictionary = clock.record()
@@ -690,8 +704,11 @@ func _task() -> Dictionary:
 			return task
 	return {}
 
-func _heading(panel: Panel, kicker: String, title_value: String) -> void:
-	_label(panel, kicker.to_upper(), Vector2(34, 23), Vector2(1120, 28), 16, Color("e9bd70"))
+func _heading(panel: Panel, kicker: String, title_value: String, spaced_kicker: bool = false) -> void:
+	if spaced_kicker:
+		_spaced_caption(panel, kicker, 23)
+	else:
+		_label(panel, kicker.to_upper(), Vector2(34, 23), Vector2(1120, 28), 16, Color("e9bd70"))
 	var title := _label(panel, title_value, Vector2(34, 53), Vector2(1120, 48), 36, Color("ffd27e"), true)
 	title.add_theme_font_override("font", title_font)
 
@@ -845,9 +862,9 @@ func _build_goal() -> void:
 	_button(data.ui.buttons.back_to_market, Vector2(399, 804), Vector2(247, 56), func(): screen_requested.emit("game"), true)
 	_button(data.ui.buttons.map, Vector2(659, 804), Vector2(91, 56), func(): screen_requested.emit("market_map"))
 
-func _chapter_panel(kicker: String, title_value: String) -> Panel:
+func _chapter_panel(kicker: String, title_value: String, spaced_kicker: bool = false) -> Panel:
 	var panel := _panel(Vector2.ZERO, Vector2(1188, 0), Color("1b130be8"))
-	_heading(panel, kicker, title_value)
+	_heading(panel, kicker, title_value, spaced_kicker)
 	return panel
 
 func _chapter_finish(panel: Panel, button_y: float) -> void:
@@ -1017,6 +1034,56 @@ func _build_stall() -> void:
 	_stall_panel_back(panel, stall.back, y + 14.0)
 
 
+func _build_feeding() -> void:
+	var copy: Dictionary = feeding.data.panel
+	var panel := _chapter_panel(copy.kicker, copy.title, true)
+	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
+	style.set_corner_radius_all(18)
+	var y := 111.0 + _story_text(panel, feeding.message, 111.0) + 21.0
+	for option: Dictionary in feeding.data.options:
+		_stall_item_row(panel, option.name, option.line, y)
+		if feeding.can_afford(option):
+			var caption: String = str(copy.pay).format({"n": int(option.cost)})
+			_stall_row_button(panel, caption, y, func(): feeding_paid.emit(option.id), true)
+		else:
+			var notice := _label(panel, copy.not_enough, Vector2(930, y + 14), Vector2(224, 56), 23, Color("ffd27e"))
+			notice.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		y += 84.0
+
+	var locked := not known_words.has("sirr")
+	var checkbox: CheckBox
+	var hint_y := y + 3.0
+	if not locked:
+		checkbox = CheckBox.new()
+		checkbox.text = copy.secret_label
+		checkbox.position = Vector2(34, hint_y)
+		checkbox.size.y = 42.0
+		checkbox.add_theme_font_override("font", font)
+		checkbox.add_theme_font_size_override("font_size", 23)
+		checkbox.add_theme_constant_override("h_separation", 12)
+		var unchecked := Image.create_empty(14, 14, false, Image.FORMAT_RGBA8)
+		unchecked.fill(Color("898989"))
+		unchecked.fill_rect(Rect2i(1, 1, 12, 12), Color("343434"))
+		checkbox.add_theme_icon_override("unchecked", ImageTexture.create_from_image(unchecked))
+		for state in ["font_color", "font_hover_color", "font_focus_color", "font_pressed_color"]:
+			checkbox.add_theme_color_override(state, PAPER)
+		checkbox.button_pressed = feeding.secret_selected
+		panel.add_child(checkbox)
+		hint_y += 45.0
+	var hint := _spaced_caption(panel, copy.secret_locked if locked else copy.secret_on, hint_y)
+	var counter := _spaced_caption(panel, feeding.counter(), 0.0)
+	var back := _button(copy.back, Vector2(34, 0), Vector2(_button_width(copy.back), 56), func(): screen_requested.emit("market_map"), false, panel)
+	var layout_footer := func(selected: bool):
+		feeding.secret_selected = selected
+		hint.visible = locked or selected
+		counter.position.y = hint_y + (36.0 if hint.visible else 0.0)
+		back.position.y = counter.position.y + 38.0
+		_chapter_finish(panel, back.position.y)
+	if checkbox != null:
+		checkbox.toggled.connect(layout_footer)
+	layout_footer.call(not locked and feeding.secret_selected)
+
+
 func _build_stall_change() -> void:
 	var stall: Dictionary = market_stall.data.stall
 	var change: Dictionary = stall.change
@@ -1173,6 +1240,9 @@ func reputation_lines() -> Array:
 	if answer != null:
 		lines.append(answer)
 	lines.append_array(market_stall.trade_reputation_lines())
+	var feeding_line: Variant = feeding.reputation_line()
+	if feeding_line != null:
+		lines.append(feeding_line)
 	var greeting: Variant = talking.reputation_line()
 	if greeting != null:
 		lines.append(greeting)
@@ -1247,7 +1317,7 @@ func _build_prayer_buttons(x: float, place_width: float, row_y: float = 973.0) -
 	return x if separate_row else at.x
 
 # Returns whether navigation moved above a wide place bar.
-func _build_place_bar(x: float) -> bool:
+func _build_place_bar(x: float, separate_board_row: bool) -> bool:
 	if place_id.is_empty() or not data.places.has(place_id):
 		var idle: String = data.ui.place_bar.idle
 		var idle_width: float = font.get_string_size(idle, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
@@ -1309,12 +1379,13 @@ func _build_place_bar(x: float) -> bool:
 		else:
 			talk_notice = market_day.talk_notice(talking.regular_at(place_id).id, _regular_status)
 			talk_width = font.get_string_size(talk_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 18.0
-	var total_width := name_width + line_width + action_width + extra_width + talk_width + 55.0
-	var wrap := not talk_text.is_empty() and _board_prompt == BreadGrab.Prompt.NONE and x + total_width + _prayer_buttons_width(_prayer_label) > 1878.0
+	var feeding_width := _button_width(feeding.data.place_button) + 18.0 if _feeding_available else 0.0
+	var total_width := name_width + line_width + action_width + feeding_width + extra_width + talk_width + 55.0
+	var wrap := not talk_text.is_empty() and not separate_board_row and x + total_width + _prayer_buttons_width(_prayer_label) > 1878.0
 	if wrap:
 		_build_prayer_buttons(x, 0.0, 890.0)
 		x = 42.0
-	elif _board_prompt == BreadGrab.Prompt.NONE:
+	elif not separate_board_row:
 		x = _build_prayer_buttons(x, total_width)
 	var waiting := _board_prompt == BreadGrab.Prompt.WAIT
 	var bar_y := 891.0 if waiting else 965.0
@@ -1324,14 +1395,18 @@ func _build_place_bar(x: float) -> bool:
 	var panel := _panel(Vector2(x, bar_y), Vector2(width, 147.0 if waiting else 73.0), Color("191c19"))
 	_label(panel, name_value, Vector2(18, 15), Vector2(name_width + 4, 42), 24, PAPER, true)
 	_label(panel, line_value, Vector2(18 + name_width, 15), Vector2(line_width + 4, 42), 24, PAPER)
-	var action_x := x + total_width - action_width - extra_width - talk_width - 17.0
+	var action_x := x + total_width - action_width - feeding_width - extra_width - talk_width - 17.0
 	if shop_notice.is_empty():
 		_button(action, Vector2(action_x, bar_y + 8.0), Vector2(action_width, 56), func(): use_requested.emit(), true)
 	else:
 		_label(panel, shop_notice, Vector2(action_x - x, 15), Vector2(action_width + 4.0, 42), 24, PAPER)
+	var extra_x := action_x + action_width + 18.0
+	if _feeding_available:
+		_button(feeding.data.place_button, Vector2(extra_x, bar_y + 8.0), Vector2(feeding_width - 18.0, 56), func(): feeding_requested.emit())
+		extra_x += feeding_width
 	if not extra_text.is_empty():
-		_button(extra_text, Vector2(action_x + action_width + 18.0, bar_y + 8.0), Vector2(extra_width - 18.0, 56), extra_action, extra_primary)
-	var talk_x := action_x + action_width + extra_width + 18.0
+		_button(extra_text, Vector2(extra_x, bar_y + 8.0), Vector2(extra_width - 18.0, 56), extra_action, extra_primary)
+	var talk_x := extra_x + extra_width
 	if not talk_notice.is_empty():
 		_label(panel, talk_notice, Vector2(talk_x - x, 15), Vector2(talk_width - 14.0, 42), 24, PAPER)
 	elif not talk_text.is_empty():

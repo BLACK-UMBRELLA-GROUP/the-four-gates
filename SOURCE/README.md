@@ -213,3 +213,13 @@ See `LINE14_CHECKS.json` and `BUILD.json` for the checks, fixture, provenance an
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --prayer-record`
 to pair each master with its native capture. Both commands accept `--prayer-record-output=/absolute/path`.
 `LINE15_CHECKS.json` records the native checks and the setup for each screen.
+
+LOCK 9 opens **Feed the poor** at the Task board when Salma is at her oven. Ten loaves cost five coins and fifty
+cost twenty. The first public payment each game day adds one trust. The first public payment also adds
+**Feeds the poor** to **What people say**. After reading the first scholar’s page, tick **Ask Salma to keep it
+quiet** to pay without adding trust or a reputation line. Both choices count toward 10,000 meals.
+
+`godot --path SOURCE -- --capture-feeding` captures the eight LOCK 9 states in `GAME/APPROVED/FEEDING/BUILT/V1/`.
+Run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --feeding` to place each master
+beside its native capture. Both commands accept `--feeding-output=/absolute/path`. See `LINE16_CHECKS.json` and
+`BUILD.json` for the fixtures, checks, provenance and visual differences.

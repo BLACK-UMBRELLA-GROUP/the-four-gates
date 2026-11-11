@@ -51,6 +51,10 @@ func _initialize() -> void:
 		var runner := load("res://tests/capture_prayer_record.gd")
 		quit(0 if _compare_master_set("res://../GAME/APPROVED/PRAYER_RECORD/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
 		return
+	if "--feeding" in OS.get_cmdline_user_args():
+		var runner := load("res://tests/capture_feeding.gd")
+		quit(0 if _compare_master_set("res://../GAME/APPROVED/FEEDING/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
+		return
 	quit(0 if _compare_master_set(folder + "MASTERS/", folder + evidence, names) else 1)
 
 func _compare_master_set(masters: String, evidence: String, stems: Array) -> bool:

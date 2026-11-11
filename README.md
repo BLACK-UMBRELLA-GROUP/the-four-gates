@@ -37,6 +37,9 @@ LOCK 7 gives the regulars opening hours. The place bar shows when they are away 
 are shut for Friday prayer. The bread grab starts while Salma is at the oven.
 LOCK 8 adds private all-time prayer totals. Choose **Your prayers** on the title screen or **All your prayers**
 in today’s record.
+LOCK 9 lets you pay Salma to bake ten or fifty loaves for people who are hungry. Choose **Feed the poor** at
+the Task board while she is at her oven. The panel counts meals toward 10,000. Reading the first scholar’s page
+unlocks secret payments.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

@@ -1,0 +1,207 @@
+{
+  "line": 16,
+  "lock": "LOCK 9 V1",
+  "brief": "DOC-TFG-0038",
+  "tested_base_commit_sha": "10b7ce1e7817465f2b2d6f7df585d7865b7b96d4",
+  "capture_source": "Line 16 worktree on the tested base. The daily task note identifies the single commit containing the tested source and evidence.",
+  "godot_version": "4.7.2-stable (official)",
+  "godot_version_full": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native Godot project debug run without export",
+  "timestamp_utc": "2026-11-11T15:59:40Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Real native Godot viewport. Viewport clicks exercise arrival, feeding, the scholar's first page and the reputation panel.",
+  "fixture": "Passive clock ticks are paused. Three fair arrivals provide the starting wallet and trust. The harness places the player at the Inn or Task board on Saturday day 3, using 10:00 for the daytime cases and 20:00 for e08. Only e06 seeds a four-coin wallet.",
+  "source_sha256": {
+    "SOURCE/data/chapter1.json": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0",
+    "SOURCE/data/clothes.json": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e",
+    "SOURCE/data/feeding.json": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7",
+    "SOURCE/data/foundations.json": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/data/market_day.json": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05",
+    "SOURCE/data/market_stall.json": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604",
+    "SOURCE/data/prayer_record.json": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9",
+    "SOURCE/data/talking.json": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4",
+    "SOURCE/game/bread_grab.gd": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468",
+    "SOURCE/game/feeding.gd": "a818d69fb277ed6125f20d06a47e997c03c25dee99094de4651a2acb11df6b80",
+    "SOURCE/game/foundations.gd": "bf329798c75b456b0b090d5dd3680e39759a9be88c47e12fdab28a1982bbb0cf",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+    "SOURCE/game/market_day.gd": "aa22429adc0288f1e0a98450e2a38fb32bf11ee455edd42466357897e51783cf",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_stall.gd": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56",
+    "SOURCE/game/market_ui.gd": "f22a4b65cfa9546078d0efcc9f8036e537373dd71a66d8c4874fdb5fa0d8002a",
+    "SOURCE/game/market_world.gd": "eaf1865a7fbde3193e796882c9c7c93a1979e2a4db7c51b7c7d2604e32f7eb2f",
+    "SOURCE/game/open_purse.gd": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9",
+    "SOURCE/game/prayer_clock.gd": "20a417baf9e0e102b366a8d1f2c2a0fa464cfbbe2d55c7dfd1ab38712a701b45",
+    "SOURCE/game/river_market.gd": "9c08edfd3c82dfc16b8f07bbe6f99aa7f5276201904e0aced2a346b4867a5b5b",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/game/talking.gd": "546458aedd4c3c74f06e498f2160c8622fc5524a3f9d9ab49ec6cd0891bd0f86",
+    "SOURCE/game/task_progress.gd": "ec252cac5837000910f107051f4d63d16a77f3327c83f316f7e31d5dcf16cbc2",
+    "SOURCE/project.godot": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45",
+    "SOURCE/tests/capture_feeding.gd": "11709c5b2f92858dffe814e98a764134f6775ab86524173f7e72099a5ccbcab3",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/capture_tasks.gd": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003"
+  },
+  "test_and_comparison_source_sha256": {
+    "SOURCE/tests/run_tests.gd": "91b20ceae43028c0cf04e12cdca370cbf9f0d74bcd741369237ad6bcc2fa11fa",
+    "SOURCE/tests/create_comparisons.gd": "f0d94c61686ce2fceab346eb461793c8ee997610367abf16992eea64b2cbe620"
+  },
+  "approved_inputs_sha256": {
+    "GAME/APPROVED/FEEDING/BRIEFS/BUILD_BRIEF_2026-11-08_FEEDING.md": "6f9c6edaf914378914ea88e6bbaa13ee128741d6c16d873bcd653fc969ccfdb4",
+    "GAME/APPROVED/FEEDING/MASTERS/e01_square__feed_the_poor.png": "f022c1abb00d837b5608010b2aa8a833fa88c0211ba6ff0946db43d088568d6a",
+    "GAME/APPROVED/FEEDING/MASTERS/e02_feed__start.png": "cff1463f7ab0ad342020f50d02cdff238e4875232a5bcc639f2da951c6579f1c",
+    "GAME/APPROVED/FEEDING/MASTERS/e03_feed__public.png": "701be7f6ba349ef660791ea05d57e430fbe1cb67c95f37053c652b9ca796528e",
+    "GAME/APPROVED/FEEDING/MASTERS/e04_feed__secret_choice.png": "cb04c7320622003899f24d419b38af6bb236f2115d3f65bc4146f50682e60a00",
+    "GAME/APPROVED/FEEDING/MASTERS/e05_feed__secret.png": "94227cb82f91b87f724943dd32c3bcfb7be7106ed872dca713645c802c632e99",
+    "GAME/APPROVED/FEEDING/MASTERS/e06_feed__not_enough_coins.png": "b8bfdb8d5d839eef47f88976ba4dc8134193f613dcc54c0ba46f93a3f88eb345",
+    "GAME/APPROVED/FEEDING/MASTERS/e07_people_say__feeds_the_poor.png": "263e3dfae6460722691cf873ed59721ffe27835d439ce19a356305205fc6113b",
+    "GAME/APPROVED/FEEDING/MASTERS/e08_square__night_no_feeding.png": "017c0d1506862149c17132e553078e4c205ba7f6af9d86e6ee2c8ee10e825789",
+    "GAME/APPROVED/FEEDING/RECORD/FEEDING_SPEC_CURRENT_VERSION_V1.md": "d34c9caa088be4f174a116375a6e0a22492eaf2a72124fed5e3d967e790e6216",
+    "GAME/APPROVED/FEEDING/RECORD/LOCK_RECORD.md": "bfdc058120437c0fd569222c40c0678d50855503462104c75703b55baa42b43a",
+    "GAME/APPROVED/FEEDING/RECORD/feeding_data_V1.json": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7",
+    "GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md": "f2abfee4dcc542086c5dcd23242a52986a6d29f28935f48b88e1bbbc6fbfdae6"
+  },
+  "approved_spec_note": "Hash reflects the current approved spec with the designer's 11 November evidence and reputation-order clarifications.",
+  "tests": {
+    "base_headless_passed": 2373,
+    "headless_passed": 2443,
+    "native_line_16_passed": 210,
+    "native_line_15_regression_passed": 166,
+    "comparison_command_frames": 8,
+    "native_approval_requests": 0
+  },
+  "native_checks": {
+    "file": "LINE16_CHECKS.json",
+    "bytes": 24722,
+    "sha256": "fc5818ad32b2bbc8a15b2c1d262dccb1b64bd50cdfc928afff4ccb3f788ac833"
+  },
+  "visual_differences": {
+    "all": "Saturday replaces the master setup Thursday. The existing HUD has different clock centering, text metrics, panel fills and rectangular trust fill.",
+    "e01_e08": "Godot's map uses the existing palette, gate and marker rings, text outlines, glow and antialiasing. Toolbar and bar controls are a few pixels lower or wider. The wider daytime bar covers more of the canal label.",
+    "e02_e06": "Salma's existing native oven camera shows placeholder geometry, capsule and label in place of the rendered street. Fonts, spacing, opacity, panel bounds, button widths and tint differ slightly. The pointer is moved off the payment buttons, so the prototype hover highlight is absent.",
+    "e04_e05": "The empty tick box has a gray outline and the checked Godot mark is gray in place of the prototype's blue.",
+    "e07": "The usual live player camera replaces the rendered street. Existing reputation panel lettering, bounds and controls differ slightly. The HUD shows 193 coins after payment rather than the setup's 198."
+  },
+  "compression": {
+    "method": "Lossless PNG IDAT recompression",
+    "uncompressed_evidence_bytes": 9102889,
+    "final_evidence_bytes": 9008403,
+    "verified": "Godot verified eight 1920×1080 screenshots and eight 3840×1080 comparisons pixel-identically to the originals, with both halves checked against their approved master and native frame."
+  },
+  "images": {
+    "e01_square__feed_the_poor__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 168940,
+      "sha256": "10bd4516b3665b49f9946218e0eff2c5923207dc8a7406206c4fbe6be6e06bf3",
+      "raw_bytes": 175627
+    },
+    "e01_square__feed_the_poor__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 361531,
+      "sha256": "e1dbe2c91efb8fe73f2cac28a91a2994ab390d81153bb27b800df1a69a661d1e",
+      "raw_bytes": 384874
+    },
+    "e02_feed__start__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 239392,
+      "sha256": "0a476e1d4f06ba15ed292739d951b5ab838543512051400c1ad1fb45327e437a",
+      "raw_bytes": 240974
+    },
+    "e02_feed__start__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 1077852,
+      "sha256": "17adbb638ad5131ad67a370beab8e4a614c5199e6f6ee118486df6d28bcf684d",
+      "raw_bytes": 1083265
+    },
+    "e03_feed__public__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 236609,
+      "sha256": "36f80b11d121672441f56943617ddc2d63b54535a004abdc616005befe099eb1",
+      "raw_bytes": 237238
+    },
+    "e03_feed__public__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 1075410,
+      "sha256": "8e9c58b24bddf67749ae966a2d4ac46784fbdbdddcaaa86888a56ab90cfda8a2",
+      "raw_bytes": 1080027
+    },
+    "e04_feed__secret_choice__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 234051,
+      "sha256": "de9b411b476dacf65f134df05993147ba34dd7109f8e1f4a27ad6638f148f1c6",
+      "raw_bytes": 235341
+    },
+    "e04_feed__secret_choice__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 1069808,
+      "sha256": "04fcb70768ba751e101d5cde3dc5910eb505ede8265428a767422c2f93d95e71",
+      "raw_bytes": 1074615
+    },
+    "e05_feed__secret__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 232120,
+      "sha256": "f286b7f313b0c6e694925f01f0f15b49a89ec50ddd51c12578b3e705deef02f8",
+      "raw_bytes": 233913
+    },
+    "e05_feed__secret__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 1054686,
+      "sha256": "da0dbc246e65b737351bbf302ec379daca23b2370ffe06d6bddc25b214e86d67",
+      "raw_bytes": 1061279
+    },
+    "e06_feed__not_enough_coins__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 234644,
+      "sha256": "54c3e526bd67e48c5b7010c867f4211f804b3ea568d6acd41076e70613d620b3",
+      "raw_bytes": 236878
+    },
+    "e06_feed__not_enough_coins__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 1090981,
+      "sha256": "cdee896ef8692b704c9c0332f18c484f808588f5ecfc047db3d74c6a944c32b7",
+      "raw_bytes": 1096905
+    },
+    "e07_people_say__feeds_the_poor__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 186890,
+      "sha256": "3a2693d4725aa10b97c619037da26ff38031a4c7364ccfb65dff689c548b93a5",
+      "raw_bytes": 187477
+    },
+    "e07_people_say__feeds_the_poor__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 1035607,
+      "sha256": "ada5e3ed8b8cf7ec4dff6cf5a2b38494c648368bb324ebce2cd9dc7c5c13d0b8",
+      "raw_bytes": 1039178
+    },
+    "e08_square__night_no_feeding__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes": 234566,
+      "sha256": "80d854afcd33d247e2bbba6672b863a61c933f4d06846e71522e2145df970e55",
+      "raw_bytes": 240151
+    },
+    "e08_square__night_no_feeding__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes": 475316,
+      "sha256": "0406b0b750c5a18c09502c8c151a642b14c809d4a606b6217d60746fb93177ca",
+      "raw_bytes": 495147
+    }
+  }
+}

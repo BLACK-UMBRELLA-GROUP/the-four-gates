@@ -1,0 +1,1060 @@
+{
+	"checks": [
+		{
+			"description": "runtime feeding data matches the locked bytes",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the Inn market map",
+			"passed": true
+		},
+		{
+			"description": "daytime fixture reaches the Task board on a later non-Friday at 10:00",
+			"passed": true
+		},
+		{
+			"description": "daytime board shows feeding, bread grab and Salma's talk controls",
+			"passed": true
+		},
+		{
+			"description": "feeding sits before bread grab and Salma's talk",
+			"passed": true
+		},
+		{
+			"description": "feeding button fits in the native viewport",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: e01_square__feed_the_poor__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: e01_square__feed_the_poor__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "feeding panel is open",
+			"passed": true
+		},
+		{
+			"description": "RIVER MARKET · SALMA'S OVEN shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: RIVER MARKET · SALMA'S OVEN",
+			"passed": true
+		},
+		{
+			"description": "Bread for the poor shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Bread for the poor",
+			"passed": true
+		},
+		{
+			"description": "Salma bakes extra loaves and hands them out at the oven door to anyone hungry. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Salma bakes extra loaves and hands them out at the oven door to anyone hungry.",
+			"passed": true
+		},
+		{
+			"description": "Ten loaves shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Ten loaves",
+			"passed": true
+		},
+		{
+			"description": "Enough for the families on one lane. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Enough for the families on one lane.",
+			"passed": true
+		},
+		{
+			"description": "payment button availability matches the wallet for ten",
+			"passed": true
+		},
+		{
+			"description": "Fifty loaves shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Fifty loaves",
+			"passed": true
+		},
+		{
+			"description": "Bread for every hungry door in River Market today. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Bread for every hungry door in River Market today.",
+			"passed": true
+		},
+		{
+			"description": "payment button availability matches the wallet for fifty",
+			"passed": true
+		},
+		{
+			"description": "MEALS FOR THE POOR: 0 / 10,000 shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: MEALS FOR THE POOR: 0 / 10,000",
+			"passed": true
+		},
+		{
+			"description": "feeding counter reflects the live meal total",
+			"passed": true
+		},
+		{
+			"description": "feeding panel offers the locked Back button",
+			"passed": true
+		},
+		{
+			"description": "secret checkbox visibility and tick state match the page and choice",
+			"passed": true
+		},
+		{
+			"description": "(YOU CAN GIVE IN SECRET ONCE YOU HAVE READ THE SCHOLAR'S FIRST PAGE.) shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: (YOU CAN GIVE IN SECRET ONCE YOU HAVE READ THE SCHOLAR'S FIRST PAGE.)",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: e02_feed__start__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: e02_feed__start__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay · 5 coins",
+			"passed": true
+		},
+		{
+			"description": "feeding panel is open",
+			"passed": true
+		},
+		{
+			"description": "RIVER MARKET · SALMA'S OVEN shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: RIVER MARKET · SALMA'S OVEN",
+			"passed": true
+		},
+		{
+			"description": "Bread for the poor shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Bread for the poor",
+			"passed": true
+		},
+		{
+			"description": "Salma calls it out as she hands out the bread: “From the foreigner at the inn!” shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Salma calls it out as she hands out the bread: “From the foreigner at the inn!”",
+			"passed": true
+		},
+		{
+			"description": "Ten loaves shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Ten loaves",
+			"passed": true
+		},
+		{
+			"description": "Enough for the families on one lane. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Enough for the families on one lane.",
+			"passed": true
+		},
+		{
+			"description": "payment button availability matches the wallet for ten",
+			"passed": true
+		},
+		{
+			"description": "Fifty loaves shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Fifty loaves",
+			"passed": true
+		},
+		{
+			"description": "Bread for every hungry door in River Market today. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Bread for every hungry door in River Market today.",
+			"passed": true
+		},
+		{
+			"description": "payment button availability matches the wallet for fifty",
+			"passed": true
+		},
+		{
+			"description": "MEALS FOR THE POOR: 10 / 10,000 shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: MEALS FOR THE POOR: 10 / 10,000",
+			"passed": true
+		},
+		{
+			"description": "feeding counter reflects the live meal total",
+			"passed": true
+		},
+		{
+			"description": "feeding panel offers the locked Back button",
+			"passed": true
+		},
+		{
+			"description": "public payment spends the locked ten-loaf price",
+			"passed": true
+		},
+		{
+			"description": "first public payment earns the locked daily trust amount",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: e03_feed__public__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: e03_feed__public__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "public feeding shows only the locked Salma reputation row in this fixture",
+			"passed": true
+		},
+		{
+			"description": "“Feeds the poor” shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: “Feeds the poor”",
+			"passed": true
+		},
+		{
+			"description": "SALMA THE BAKER shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: SALMA THE BAKER",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: e07_people_say__feeds_the_poor__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: e07_people_say__feeds_the_poor__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: City map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: World map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Title",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "a new game starts a fresh feeding record",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: People are waiting at the door",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask Salma the baker about them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the page to Idris",
+			"passed": true
+		},
+		{
+			"description": "the first scholar page teaches sirr through the live controls",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the people",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Not now",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "feeding panel is open",
+			"passed": true
+		},
+		{
+			"description": "RIVER MARKET · SALMA'S OVEN shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: RIVER MARKET · SALMA'S OVEN",
+			"passed": true
+		},
+		{
+			"description": "Bread for the poor shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Bread for the poor",
+			"passed": true
+		},
+		{
+			"description": "Salma bakes extra loaves and hands them out at the oven door to anyone hungry. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Salma bakes extra loaves and hands them out at the oven door to anyone hungry.",
+			"passed": true
+		},
+		{
+			"description": "Ten loaves shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Ten loaves",
+			"passed": true
+		},
+		{
+			"description": "Enough for the families on one lane. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Enough for the families on one lane.",
+			"passed": true
+		},
+		{
+			"description": "payment button availability matches the wallet for ten",
+			"passed": true
+		},
+		{
+			"description": "Fifty loaves shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Fifty loaves",
+			"passed": true
+		},
+		{
+			"description": "Bread for every hungry door in River Market today. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Bread for every hungry door in River Market today.",
+			"passed": true
+		},
+		{
+			"description": "payment button availability matches the wallet for fifty",
+			"passed": true
+		},
+		{
+			"description": "MEALS FOR THE POOR: 0 / 10,000 shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: MEALS FOR THE POOR: 0 / 10,000",
+			"passed": true
+		},
+		{
+			"description": "feeding counter reflects the live meal total",
+			"passed": true
+		},
+		{
+			"description": "feeding panel offers the locked Back button",
+			"passed": true
+		},
+		{
+			"description": "secret checkbox visibility and tick state match the page and choice",
+			"passed": true
+		},
+		{
+			"description": "(YOU CAN GIVE IN SECRET ONCE YOU HAVE READ THE SCHOLAR'S FIRST PAGE.) hidden",
+			"passed": true
+		},
+		{
+			"description": "SALMA WILL SAY THE BREAD IS FROM “SOMEONE”. hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: e04_feed__secret_choice__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: e04_feed__secret_choice__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask Salma to keep it quiet",
+			"passed": true
+		},
+		{
+			"description": "secret checkbox visibility and tick state match the page and choice",
+			"passed": true
+		},
+		{
+			"description": "SALMA WILL SAY THE BREAD IS FROM “SOMEONE”. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: SALMA WILL SAY THE BREAD IS FROM “SOMEONE”.",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay · 20 coins",
+			"passed": true
+		},
+		{
+			"description": "feeding panel is open",
+			"passed": true
+		},
+		{
+			"description": "RIVER MARKET · SALMA'S OVEN shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: RIVER MARKET · SALMA'S OVEN",
+			"passed": true
+		},
+		{
+			"description": "Bread for the poor shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Bread for the poor",
+			"passed": true
+		},
+		{
+			"description": "Salma hands out the bread and says only: “From someone who cares.” shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Salma hands out the bread and says only: “From someone who cares.”",
+			"passed": true
+		},
+		{
+			"description": "Ten loaves shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Ten loaves",
+			"passed": true
+		},
+		{
+			"description": "Enough for the families on one lane. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Enough for the families on one lane.",
+			"passed": true
+		},
+		{
+			"description": "payment button availability matches the wallet for ten",
+			"passed": true
+		},
+		{
+			"description": "Fifty loaves shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Fifty loaves",
+			"passed": true
+		},
+		{
+			"description": "Bread for every hungry door in River Market today. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Bread for every hungry door in River Market today.",
+			"passed": true
+		},
+		{
+			"description": "payment button availability matches the wallet for fifty",
+			"passed": true
+		},
+		{
+			"description": "MEALS FOR THE POOR: 50 / 10,000 shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: MEALS FOR THE POOR: 50 / 10,000",
+			"passed": true
+		},
+		{
+			"description": "feeding counter reflects the live meal total",
+			"passed": true
+		},
+		{
+			"description": "feeding panel offers the locked Back button",
+			"passed": true
+		},
+		{
+			"description": "secret checkbox visibility and tick state match the page and choice",
+			"passed": true
+		},
+		{
+			"description": "SALMA WILL SAY THE BREAD IS FROM “SOMEONE”. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: SALMA WILL SAY THE BREAD IS FROM “SOMEONE”.",
+			"passed": true
+		},
+		{
+			"description": "secret payment spends the locked fifty-loaf price without adding trust",
+			"passed": true
+		},
+		{
+			"description": "secret feeding leaves no reputation row",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: e05_feed__secret__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: e05_feed__secret__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: City map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: World map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Title",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "night fixture reaches the same Task board at 20:00",
+			"passed": true
+		},
+		{
+			"description": "feeding button is hidden while Salma is away",
+			"passed": true
+		},
+		{
+			"description": "Salma has gone home. Back after sunrise. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Salma has gone home. Back after sunrise.",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: e08_square__night_no_feeding__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: e08_square__night_no_feeding__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Feed the poor",
+			"passed": true
+		},
+		{
+			"description": "feeding panel is open",
+			"passed": true
+		},
+		{
+			"description": "RIVER MARKET · SALMA'S OVEN shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: RIVER MARKET · SALMA'S OVEN",
+			"passed": true
+		},
+		{
+			"description": "Bread for the poor shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Bread for the poor",
+			"passed": true
+		},
+		{
+			"description": "Salma bakes extra loaves and hands them out at the oven door to anyone hungry. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Salma bakes extra loaves and hands them out at the oven door to anyone hungry.",
+			"passed": true
+		},
+		{
+			"description": "Ten loaves shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Ten loaves",
+			"passed": true
+		},
+		{
+			"description": "Enough for the families on one lane. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Enough for the families on one lane.",
+			"passed": true
+		},
+		{
+			"description": "payment button availability matches the wallet for ten",
+			"passed": true
+		},
+		{
+			"description": "Fifty loaves shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Fifty loaves",
+			"passed": true
+		},
+		{
+			"description": "Bread for every hungry door in River Market today. shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Bread for every hungry door in River Market today.",
+			"passed": true
+		},
+		{
+			"description": "payment button availability matches the wallet for fifty",
+			"passed": true
+		},
+		{
+			"description": "MEALS FOR THE POOR: 0 / 10,000 shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: MEALS FOR THE POOR: 0 / 10,000",
+			"passed": true
+		},
+		{
+			"description": "feeding counter reflects the live meal total",
+			"passed": true
+		},
+		{
+			"description": "feeding panel offers the locked Back button",
+			"passed": true
+		},
+		{
+			"description": "not enough coins shown",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "secret checkbox visibility and tick state match the page and choice",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: e06_feed__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: e06_feed__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "all eight master states were captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Passive clock ticks are paused. Three fair arrivals provide the starting wallet and trust. The harness places the player at the Inn or Task board on Saturday day 3, using 10:00 for the daytime cases and 20:00 for e08. Only e06 seeds a four-coin wallet.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Real native Godot viewport. Viewport clicks exercise arrival, feeding, the scholar's first page and the reputation panel.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "e01_square__feed_the_poor__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "e02_feed__start__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "e03_feed__public__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "e07_people_say__feeds_the_poor__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "e04_feed__secret_choice__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "e05_feed__secret__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "e08_square__night_no_feeding__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "e06_feed__not_enough_coins__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"e01_square__feed_the_poor__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"knows_sirr": false,
+			"lesson_done": false,
+			"meals_given": 0,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"e02_feed__start__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"knows_sirr": false,
+			"lesson_done": false,
+			"meals_given": 0,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "feeding",
+			"tasks": {},
+			"trust": 20
+		},
+		"e03_feed__public__build.png": {
+			"coins": 193,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"knows_sirr": false,
+			"lesson_done": false,
+			"meals_given": 10,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "feeding",
+			"tasks": {},
+			"trust": 21
+		},
+		"e04_feed__secret_choice__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"knows_sirr": true,
+			"lesson_done": false,
+			"meals_given": 0,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "feeding",
+			"tasks": {},
+			"trust": 20
+		},
+		"e05_feed__secret__build.png": {
+			"coins": 178,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"knows_sirr": true,
+			"lesson_done": false,
+			"meals_given": 50,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "feeding",
+			"tasks": {},
+			"trust": 20
+		},
+		"e06_feed__not_enough_coins__build.png": {
+			"coins": 4,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"knows_sirr": false,
+			"lesson_done": false,
+			"meals_given": 0,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "feeding",
+			"tasks": {},
+			"trust": 20
+		},
+		"e07_people_say__feeds_the_poor__build.png": {
+			"coins": 193,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"knows_sirr": false,
+			"lesson_done": false,
+			"meals_given": 10,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 21
+		},
+		"e08_square__night_no_feeding__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"knows_sirr": false,
+			"lesson_done": false,
+			"meals_given": 0,
+			"minute_of_day": 1200,
+			"night": true,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		}
+	},
+	"timestamp_utc": "2026-11-11T15:59:40Z"
+}

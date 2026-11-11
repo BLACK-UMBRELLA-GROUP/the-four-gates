@@ -137,6 +137,7 @@ func _run() -> void:
 	await check_clothes_runtime()
 	await check_talking_runtime()
 	check_market_day_runtime()
+	await check_feeding_runtime()
 	finish()
 
 
@@ -2203,3 +2204,98 @@ func check_talking_memory(regular: Dictionary, fact: String) -> void:
 	var copy := visible_text()
 	for key: String in regular.facts:
 		check(copy.contains(regular.facts[key]) == (key == fact), "only the applicable memory is visible: %s %s %s" % [regular.id, fact, key])
+
+
+func check_feeding_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/FEEDING/RECORD/feeding_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/feeding.json")
+	var feeding: Dictionary = app.feeding.data
+	check(not approved.is_empty() and runtime == approved, "feeding data copies LOCK 9 byte for byte")
+	check(feeding == JSON.parse_string(runtime.get_string_from_utf8()), "feeding uses the approved runtime data")
+	var copy: Dictionary = feeding.panel
+	var ten: Dictionary = feeding.options[0]
+	var fifty: Dictionary = feeding.options[1]
+	var pay_ten: String = str(copy.pay).format({"n": int(ten.cost)})
+	var pay_fifty: String = str(copy.pay).format({"n": int(fifty.cost)})
+	var daily_trust := int(feeding.numbers.trust_per_day)
+	app.set_process(false)
+
+	reset_at_market_place("board", 100)
+	var trust: int = app.progress.trust
+	var feed := find_button(app.ui, feeding.place_button)
+	var grab := find_button(app.ui, app.chapter.places.board)
+	var talk := find_button(app.ui, app.talking.button_at("board"))
+	check(feed != null and grab != null and talk != null and feed.position.x < grab.position.x and grab.position.x < talk.position.x, "feeding precedes the bread grab and Salma's talk button")
+	await press_button(feeding.place_button, "the square offers feeding while Salma is present")
+	check(app.ui.screen == "feeding" and visible_text().contains(copy.intro), "feeding opens the locked oven introduction")
+	check(find_button(app.ui, copy.secret_label) == null and has_visible_label(app.ui, str(copy.secret_locked).to_upper()), "secrecy is locked until the first scholar page")
+	check(has_visible_label(app.ui, "MEALS FOR THE POOR: 0 / 10,000"), "empty counter shows the thousands comma")
+	await press_button(pay_ten, "the ten-loaf row has a usable payment button")
+	check_wallet(trust + daily_trust, 100 - int(ten.cost), "first public feeding charges the locked price and adds daily trust")
+	check(app.feeding.meals_given == int(ten.meals) and visible_text().contains(copy.done_public), "public feeding adds the locked meals and shows Salma's public reply")
+	await press_button(copy.back, "feeding returns to the market map")
+	await press_button(feeding.place_button, "feeding can reopen the same day")
+	await press_button(pay_fifty, "the fifty-loaf row has a usable payment button")
+	check_wallet(trust + daily_trust, 100 - int(ten.cost) - int(fifty.cost), "another public payment the same day costs coins without another trust point")
+	check(app.feeding.meals_given == int(ten.meals) + int(fifty.meals), "the second payment still counts the meals")
+	check(app.ui.reputation_lines().count(feeding.say.feeds) == 1, "public feeding adds its reputation line exactly once")
+	await press_button(copy.back, "leave feeding before advancing to the next day")
+	set_market_day_time(4, 600)
+	await press_button(feeding.place_button, "feeding reopens on the next game day")
+	await press_button(pay_ten, "another day permits a public payment")
+	check_wallet(trust + daily_trust * 2, 100 - int(ten.cost) * 2 - int(fifty.cost), "the next day awards its own single public trust point")
+	app.market_stall.fed_faris = true
+	app.talking.greeted = {"salma": true, "rashid": true, "layla": true}
+	check(app.ui.reputation_lines() == [app.market_stall.data.say.fed, feeding.say.feeds, app.talking.data.say.greets], "feeding follows market trade and comes before greetings")
+
+	reset_at_market_place("board", int(ten.cost) - 1)
+	await press_button(feeding.place_button, "feeding opens with an insufficient balance")
+	check(visible_text().count(copy.not_enough) == feeding.options.size(), "each unaffordable option shows the locked status")
+	check(find_button(app.ui, pay_ten) == null and find_button(app.ui, pay_fifty) == null, "unaffordable options have no payment controls")
+	app.pay_for_feeding(ten.id)
+	check_wallet(trust, int(ten.cost) - 1, "an insufficient payment cannot change the wallet or trust")
+	check(app.feeding.meals_given == 0 and app.ui.reputation_lines().is_empty(), "an insufficient payment cannot add meals or reputation")
+	app.progress.coins = int(ten.cost)
+	app.update_state()
+	await press_button(pay_ten, "the exact price is affordable")
+	check_wallet(trust + daily_trust, 0, "exact payment leaves zero coins")
+
+	reset_at_market_place("inn", 400)
+	await press_button(app.chapter.places.inn, "enter the open purse to discover the page")
+	await press_button(app.chapter.purse.ask_baker, "ask Salma about the waiting people")
+	await press_button(app.chapter.purse.baker.back, "return from Salma to take the page")
+	var take_page: String = str(app.chapter.purse.take_page).format({"teacher": app.chapter.teacher})
+	await press_button(take_page, "reading the first page teaches sirr")
+	await press_button(app.chapter.page.back, "return from the first scholar page")
+	await press_button(app.chapter.purse.not_now, "leave the purse without giving a gift")
+	move_market_fixture("board")
+	app.show_screen("game")
+	await press_button(feeding.place_button, "feeding also opens from the street's place bar")
+	var checkbox := find_button(app.ui, copy.secret_label) as CheckBox
+	check(checkbox != null and not checkbox.button_pressed and not has_visible_label(app.ui, str(copy.secret_on).to_upper()), "the learned word unlocks an unchecked secret choice")
+	if checkbox != null:
+		checkbox.button_pressed = true
+	check(has_visible_label(app.ui, str(copy.secret_on).to_upper()), "ticking secrecy shows the locked hint")
+	await press_button(pay_fifty, "the secret choice uses the same payment button")
+	check_wallet(trust, 400 - int(fifty.cost), "secret feeding charges the locked price with no trust change")
+	check(app.feeding.meals_given == int(fifty.meals) and visible_text().contains(copy.done_secret), "secret feeding adds meals and shows Salma's secret reply")
+	check(app.ui.reputation_lines().is_empty(), "secret feeding leaves no reputation line")
+	for _payment in range(19):
+		app.pay_for_feeding(fifty.id)
+	check(has_visible_label(app.ui, "MEALS FOR THE POOR: 1,000 / 10,000"), "the running meal count also groups thousands")
+	check_wallet(trust, 0, "repeat secret payments still leave trust untouched")
+	await press_button(copy.back, "return from secret feeding to the square")
+	check(app.ui.screen == "market_map", "the feeding back button returns to the market map")
+
+	for fixture: Vector2i in [Vector2i(3, 1200), Vector2i(2, 725)]:
+		set_market_day_time(fixture.x, fixture.y)
+		check(find_button(app.ui, feeding.place_button) == null, "feeding is hidden when Salma is away at night or Friday prayer")
+		app.show_feeding()
+		check(app.ui.screen == "market_map", "a direct request cannot open feeding while Salma is away")
+	set_market_day_time(3, 600)
+	check(find_button(app.ui, feeding.place_button) != null, "feeding returns when Salma is available")
+	move_market_fixture("spice")
+	check(find_button(app.ui, feeding.place_button) == null, "feeding is offered only at the square")
+	reset_at_market_place("board", 100)
+	check(app.feeding.meals_given == 0 and app.ui.reputation_lines().is_empty(), "a new playthrough resets feeding and its reputation")
+	app.set_process(true)
