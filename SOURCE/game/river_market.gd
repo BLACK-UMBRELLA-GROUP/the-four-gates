@@ -1,5 +1,5 @@
 extends Node3D
-## River Market arrival, prayer, movement, tasks, scales lesson and gate progression.
+## River Market arrival, Idris, prayer, movement, tasks, scales lesson and gate progression.
 
 const Foundations = preload("res://game/foundations.gd")
 const MarketWorld = preload("res://game/market_world.gd")
@@ -24,6 +24,9 @@ var progress := TaskProgress.new()
 var arrival_beat := 0
 var arrival_reply := ""
 var arrival_fair = null
+var idris_beat := 0
+var known_words: Dictionary = {}
+var idris_met := false
 var paid_nights := 0
 var day: int:
 	get: return clock.day
@@ -31,6 +34,8 @@ var minute_of_day: int:
 	get: return clock.minute_of_day
 var _daily_job_day := 0
 var _arrival_sunset := false
+var _idris_reply := ""
+var _idris_new_word := ""
 var _record_return_screen := "game"
 var _prayer_adhan: Variant = null
 
@@ -54,6 +59,11 @@ func _ready() -> void:
 	ui.arrival_choice_requested.connect(choose_arrival)
 	ui.arrival_continue_requested.connect(continue_arrival)
 	ui.arrival_walk_requested.connect(walk_from_arrival)
+	ui.arrival_meet_requested.connect(meet_idris_from_arrival)
+	ui.idris_choice_requested.connect(choose_idris)
+	ui.idris_continue_requested.connect(continue_idris)
+	ui.idris_leave_requested.connect(leave_idris)
+	ui.idris_replay_requested.connect(replay_idris)
 	ui.screen_requested.connect(show_screen)
 	ui.wait_requested.connect(wait_until_next_prayer)
 	ui.pray_requested.connect(pray_here)
@@ -89,6 +99,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-clock" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_clock.gd").new()
+		capture_runner.run(self)
+	elif "--capture-idris" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_idris.gd").new()
 		capture_runner.run(self)
 
 func _process(delta: float) -> void:
@@ -138,6 +151,9 @@ func begin_game() -> void:
 	arrival_beat = 0
 	arrival_reply = ""
 	arrival_fair = null
+	idris_met = false
+	ui.idris_met = false
+	known_words.clear()
 	paid_nights = 0
 	clock.reset()
 	_arrival_sunset = false
@@ -197,6 +213,61 @@ func _show_arrival() -> void:
 	ui.arrival_reply = arrival_reply
 	ui.arrival_fair = arrival_fair is bool and arrival_fair
 	show_screen("arrival")
+
+func meet_idris_from_arrival() -> void:
+	if ui.screen == "arrival" and arrival_beat == identity.arrival.beats.size():
+		_start_idris()
+
+func _start_idris() -> void:
+	player.position = world.point("masjid")
+	player.velocity = Vector3.ZERO
+	player.test_move_axis = Vector2.ZERO
+	route.clear()
+	destination = ""
+	idris_beat = 0
+	_idris_reply = ""
+	_idris_new_word = ""
+	_show_idris()
+
+func choose_idris(index: int) -> void:
+	var beats: Array = identity.teacher.beats
+	if ui.screen != "idris" or idris_beat >= beats.size() or not _idris_reply.is_empty():
+		return
+	var choices: Array = beats[idris_beat].choices
+	if index < 0 or index >= choices.size():
+		return
+	var choice: Dictionary = choices[index]
+	if choice.learns != null and identity.language.words.has(choice.learns) and not known_words.has(choice.learns):
+		known_words[choice.learns] = true
+		_idris_new_word = choice.learns
+	_idris_reply = choice.reply
+	_show_idris()
+
+func continue_idris() -> void:
+	if ui.screen != "idris" or _idris_reply.is_empty():
+		return
+	idris_beat += 1
+	_idris_reply = ""
+	_idris_new_word = ""
+	if idris_beat == identity.teacher.beats.size():
+		idris_met = true
+		ui.idris_met = true
+	_show_idris()
+
+func leave_idris() -> void:
+	if ui.screen == "idris":
+		show_screen("market_map")
+
+func replay_idris() -> void:
+	if ui.screen == "idris" and idris_beat == identity.teacher.beats.size():
+		_start_idris()
+
+func _show_idris() -> void:
+	ui.idris_beat = idris_beat
+	ui.idris_reply = _idris_reply
+	ui.idris_new_word = _idris_new_word
+	ui.known_words = known_words
+	show_screen("idris")
 
 func _minutes(time: String) -> int:
 	return int(time.get_slice(":", 0)) * 60 + int(time.get_slice(":", 1))
@@ -276,10 +347,12 @@ func use_place() -> void:
 		"centre": ui.show_toast(data.other_text.centre_exit)
 		"inn": _rest_at_inn()
 		"masjid":
-			if clock.prayer_label(true).is_empty():
-				ui.show_toast(data.ui.not_built, ui.screen == "market_map")
-			else:
+			if not clock.prayer_label(true).is_empty():
 				pray_here()
+			elif not idris_met:
+				_start_idris()
+			else:
+				ui.show_toast(data.ui.not_built, ui.screen == "market_map")
 		_: pass
 
 func show_goal() -> void:
@@ -334,6 +407,10 @@ func do_daily_job() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if ui.screen == "arrival":
+		return
+	if ui.screen == "idris":
+		if event.is_action_pressed("close"):
+			leave_idris()
 		return
 	if event.is_action_pressed("close"):
 		if ui.screen == "prayer_record": close_prayer_record()

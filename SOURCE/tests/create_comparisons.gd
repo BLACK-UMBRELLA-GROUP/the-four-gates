@@ -19,6 +19,17 @@ func _initialize() -> void:
 	if "--clock" in OS.get_cmdline_user_args():
 		quit(0 if _compare_clock() else 1)
 		return
+	if "--idris" in OS.get_cmdline_user_args():
+		var runner := load("res://tests/capture_idris.gd")
+		var idris_evidence: String = runner.evidence_folder()
+		var masters := "res://../GAME/APPROVED/IDENTITY/MASTERS/"
+		for stem: String in runner.MASTER_STEMS:
+			var captured: String = idris_evidence.path_join(stem)
+			if not _compare(masters + stem + ".png", captured + "__build.png", captured + "__master_beside_build.png"):
+				quit(1)
+				return
+		quit(0)
+		return
 	for stem: String in names:
 		var captured := folder + evidence + stem
 		if not _compare(folder + "MASTERS/" + stem + ".png", captured + "__build.png", captured + "__master_beside_build.png"):

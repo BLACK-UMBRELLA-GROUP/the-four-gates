@@ -1,0 +1,493 @@
+{
+	"checks": [
+		{
+			"description": "native 1920x1080 image: g19_market_map__masjid_sit_a_while__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g19_market_map__masjid_sit_a_while__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Sit a while",
+			"passed": true
+		},
+		{
+			"description": "Sit a while opens Idris immediately at the live 10:00 clock",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: masjid_live_clock__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: masjid_live_clock__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Leave",
+			"passed": true
+		},
+		{
+			"description": "Leave returns to the Masjid before completing the meeting",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Meet the old man",
+			"passed": true
+		},
+		{
+			"description": "Meet the old man preserves the Arrival clock, wallet and prepaid night",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: arrival_18_15__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: arrival_18_15__build.png",
+			"passed": true
+		},
+		{
+			"description": "the first beat starts with zero words known",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g25_meet__start_unknown_word__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g25_meet__start_unknown_word__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Repeat it and take a date",
+			"passed": true
+		},
+		{
+			"description": "the first word is learned on the teaching choice",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g26_meet__new_word__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g26_meet__new_word__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Say thank you in your language",
+			"passed": true
+		},
+		{
+			"description": "the water reply leaves the count at one",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g27_meet__word_to_learn__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g27_meet__word_to_learn__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Copy him",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "beat four starts at two words and the last word is still unknown",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g28_meet__learned_words_show_english__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g28_meet__learned_words_show_english__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Nod",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "continuing the last reply completes the meeting with three words",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g29_meet__end__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g29_meet__end__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Meet him again",
+			"passed": true
+		},
+		{
+			"description": "Meet him again starts at beat one with all learned words",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Repeat it and take a date",
+			"passed": true
+		},
+		{
+			"description": "relearning a known word adds no notice or count",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Say thank you in your language",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Copy him",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Nod",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market",
+			"passed": true
+		},
+		{
+			"description": "Back to the market returns to the Masjid with wallet and credit intact",
+			"passed": true
+		},
+		{
+			"description": "the Masjid offers Look inside after the meeting when no prayer action is due",
+			"passed": true
+		},
+		{
+			"description": "six master states and both entry captures were saved",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "g19 seeds the Masjid and Thursday 10:00. The Arrival branch reaches 18:15 through its choices and is captured with the real wallet. The zero-coin fixture reproduces the g25–g29 HUD. The post-meeting Masjid check completes Maghrib through the clock model.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport and real viewport clicks on the production buttons. Passive clock ticks are paused for repeatable captures.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "g19_market_map__masjid_sit_a_while__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "masjid_live_clock__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "arrival_18_15__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g25_meet__start_unknown_word__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g26_meet__new_word__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g27_meet__word_to_learn__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g28_meet__learned_words_show_english__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g29_meet__end__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"arrival_18_15__build.png": {
+			"caption": "After Maghrib",
+			"coins": 198,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"idris_beat": 0,
+			"idris_met": false,
+			"known_words": [],
+			"lesson_done": false,
+			"minute_of_day": 1095,
+			"new_word": "",
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"screen": "idris",
+			"tasks": {},
+			"trust": 20
+		},
+		"g19_market_map__masjid_sit_a_while__build.png": {
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"idris_beat": 0,
+			"idris_met": false,
+			"known_words": [],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"g25_meet__start_unknown_word__build.png": {
+			"caption": "After Maghrib",
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"idris_beat": 0,
+			"idris_met": false,
+			"known_words": [],
+			"lesson_done": false,
+			"minute_of_day": 1095,
+			"new_word": "",
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"screen": "idris",
+			"tasks": {},
+			"trust": 20
+		},
+		"g26_meet__new_word__build.png": {
+			"caption": "After Maghrib",
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"idris_beat": 0,
+			"idris_met": false,
+			"known_words": [
+				"bismillah"
+			],
+			"lesson_done": false,
+			"minute_of_day": 1095,
+			"new_word": "bismillah",
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"screen": "idris",
+			"tasks": {},
+			"trust": 20
+		},
+		"g27_meet__word_to_learn__build.png": {
+			"caption": "After Maghrib",
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"idris_beat": 2,
+			"idris_met": false,
+			"known_words": [
+				"bismillah"
+			],
+			"lesson_done": false,
+			"minute_of_day": 1095,
+			"new_word": "",
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"screen": "idris",
+			"tasks": {},
+			"trust": 20
+		},
+		"g28_meet__learned_words_show_english__build.png": {
+			"caption": "After Maghrib",
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"idris_beat": 3,
+			"idris_met": false,
+			"known_words": [
+				"bismillah",
+				"shukran"
+			],
+			"lesson_done": false,
+			"minute_of_day": 1095,
+			"new_word": "",
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"screen": "idris",
+			"tasks": {},
+			"trust": 20
+		},
+		"g29_meet__end__build.png": {
+			"caption": "After Maghrib",
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"idris_beat": 4,
+			"idris_met": true,
+			"known_words": [
+				"bismillah",
+				"shukran",
+				"laylan"
+			],
+			"lesson_done": false,
+			"minute_of_day": 1095,
+			"new_word": "",
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"screen": "idris",
+			"tasks": {},
+			"trust": 20
+		},
+		"masjid_live_clock__build.png": {
+			"caption": "After Maghrib",
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"idris_beat": 0,
+			"idris_met": false,
+			"known_words": [],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"new_word": "",
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"screen": "idris",
+			"tasks": {},
+			"trust": 20
+		}
+	},
+	"timestamp_utc": "2026-11-11T12:35:25Z"
+}

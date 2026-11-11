@@ -26,7 +26,7 @@ Import `SOURCE/project.godot` in Godot 4.7.2 and press Run, or run `godot --path
 The Ilmara title opens first. Begin starts the four arrival beats at the quay with zero coins.
 The open scale gives 200 coins and the smiling changer gives 120. Paying for the first night leaves 198 or 118.
 The sunset choice moves the clock to 18:15. Walk River Market opens the map at the Inn, Arrive again
-restarts the arrival, and Meet the old man shows the interim placeholder message.
+restarts the arrival, and Meet the old man opens Idris's meeting at the Masjid.
 The game uses placeholder shapes.
 LOCK 1 parts 1–3 provide the street layout, collision, capsule player, camera, maps and task board.
 Use E at the board to take the three tasks, choose the honest or quick way, earn coins/trust, put quick choices right
@@ -48,8 +48,12 @@ The game starts at 06:30 on Thursday, after the first Fajr window. A day takes 4
 day and night lighting and announces when prayers begin. Use the Masjid action to pray in congregation during
 its window, or use P or the on-screen action to pray where you are. On Friday, the Masjid offers Friday prayer
 during congregation. Elsewhere and after congregation, pray Dhuhr. Click the clock to see the private prayer
-record. A missed prayer can be made up and prayer leaves coins and trust as they were. At the Masjid,
-Sit a while shows the interim placeholder message.
+record. A missed prayer can be made up and prayer leaves coins and trust as they were.
+
+At the Masjid, Sit a while opens the first meeting with Idris at the current game time. Reply to learn town words.
+Learned words appear in English with the town word in brackets. Leave or Esc returns to the Masjid on the market map.
+Meet him again replays the meeting with the words you learned. After the meeting, the Masjid offers Look inside when
+there is no prayer action due.
 
 Open City map from the market map and tap any of Ilmara's five parts for its description. The Inn marker or River Market button returns to the
 market map. Open World map from the city map and tap one of the twelve placeholder towns for its description.
@@ -137,8 +141,14 @@ Append `--masters-only` to place the player at the scales for g30, then use the 
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --arrival` puts each approved
 master on the left of its native capture. The line 6 receipt lives alongside those pairs in `ARRIVAL/BUILD.json`.
 
-`godot --path SOURCE -- --capture-clock` records eight line 7 master states and the day and night street HUDs
+At source revision `a69dda5`, `godot --path SOURCE -- --capture-clock` records eight line 7 master states and the day and night street HUDs
 in `GAME/APPROVED/IDENTITY/BUILT/V1/CLOCK/`. The runner fixes capture times and uses the production prayer
 and record controls. `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --clock`
 creates the eight master pairs and the street HUD day/night pair. See `CLOCK/BUILD.json` for the source hashes,
 capture checks and visual differences.
+
+`godot --path SOURCE -- --capture-idris` captures the six line 8 master states and both entry routes in
+`GAME/APPROVED/IDENTITY/BUILT/V1/IDRIS/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --idris` to pair each master with
+the corresponding build. Pass `--idris-output=/absolute/path` after either command to write to a separate directory.
+See `IDRIS/BUILD.json` for the test counts, capture fixtures and visual differences.

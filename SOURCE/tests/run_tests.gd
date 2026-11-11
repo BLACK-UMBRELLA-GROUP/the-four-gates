@@ -116,6 +116,7 @@ func _run() -> void:
 	await check_identity_maps_and_places()
 	await check_arrival_and_inn()
 	await check_prayer_runtime()
+	await check_idris()
 	finish()
 
 
@@ -132,7 +133,9 @@ func visible_text() -> String:
 func collect_text(node: Node, result: Array[String]) -> void:
 	if node is Control and not node.is_visible_in_tree():
 		return
-	if node is Label or node is Button or node is RichTextLabel:
+	if node is RichTextLabel:
+		result.append(node.get_parsed_text())
+	elif node is Label or node is Button:
 		result.append(node.text)
 	for child in node.get_children():
 		collect_text(child, result)
@@ -879,11 +882,17 @@ func check_identity_maps_and_places() -> void:
 		if id == "inn":
 			check(find_button(app.ui, identity.inn.action) != null, "the Inn now offers its approved rest action")
 		if id == "masjid":
+			app.clock.advance_to(1, 10 * 60, false)
+			app.update_state()
 			var sit: String = identity.clock.masjid_actions.none_yet
 			check(find_button(app.ui, sit) != null, "the Masjid offers Sit a while between prayers")
 			var wallet := Vector2i(app.progress.coins, app.progress.trust)
 			await press_button(sit, "Sit a while is a real Masjid button")
-			check(app.ui.screen == "market_map" and visible_text().contains(data.ui.not_built) and Vector2i(app.progress.coins, app.progress.trust) == wallet, "Sit a while shows the approved interim toast without side effects")
+			check(app.ui.screen == "idris" and app.day == 1 and app.minute_of_day == 10 * 60, "Sit a while opens immediately using the daytime clock")
+			check(visible_text().contains(app.clock.hud(true).time) and visible_text().contains(str(identity.teacher.when).to_upper()), "the meeting shows the live clock and fixed After Maghrib caption together")
+			check(Vector2i(app.progress.coins, app.progress.trust) == wallet, "the Masjid entry leaves coins and trust intact")
+			await press_button(identity.teacher.buttons.leave, "the daytime meeting has a usable Leave button")
+			check(app.ui.screen == "market_map" and app.current_place == "masjid", "Leave returns to the Masjid map")
 	app.show_screen("city_map")
 	await frames(2)
 	var parts: Dictionary = {"centre": Vector2(960, 547), "east": Vector2(1200, 547), "north": Vector2(960, 300), "west": Vector2(700, 547), "south": Vector2(960, 790)}
@@ -930,9 +939,6 @@ func check_arrival_and_inn() -> void:
 	await frames(2)
 	check(app.ui.screen == "arrival" and app.arrival_beat == 0 and app.minute_of_day == 390 and not app.night, "market shortcuts cannot leave or change the opening arrival beat")
 	await play_arrival(1, 0)
-	await press_button(arrival.buttons[0], "the end screen offers a usable meeting button")
-	check(app.ui.screen == "arrival" and app.arrival_beat == arrival.beats.size() and visible_text().contains(data.ui.not_built), "meeting shows the approved interim toast on the end screen")
-	check(app.progress.coins == 118 and app.paid_nights == 1, "meeting leaves the arrival wallet and night credit intact")
 	await press_button(arrival.buttons[2], "Arrive again restarts the arrival from its end screen")
 	check_arrival_start()
 	await play_arrival(0, 1)
@@ -1176,6 +1182,101 @@ func check_prayer_runtime() -> void:
 	await press_button(source.pray_congregation, "the Masjid offers a real congregation button")
 	check(app.clock.record().rows[2].status == "jamaah" and visible_text().contains(source.toast_congregation.format({"prayer": "Asr"})), "congregation button records Asr with the exact toast")
 	check(Vector2i(app.progress.coins, app.progress.trust) == wallet, "praying in congregation leaves coins and trust untouched")
+
+
+func check_idris_count(expected: int) -> void:
+	var teacher: Dictionary = identity.teacher
+	var kicker: String = teacher.kicker.format({"when": teacher.when, "n": expected})
+	check(visible_text().to_lower().contains(kicker.to_lower()), "meeting kicker shows %d known words" % expected)
+	check(app.known_words.size() == expected, "the word store contains %d known words" % expected)
+
+
+func check_idris() -> void:
+	var teacher: Dictionary = identity.teacher
+	var words: Dictionary = identity.language.words
+	var sit: String = identity.clock.masjid_actions.none_yet
+	var look: String = identity.clock.masjid_actions.after_meeting
+	var arrival: Dictionary = identity.arrival
+	app.show_screen("title")
+	await press_button(data.ui.buttons.begin, "Begin starts a clean session for the Idris meeting")
+	for _beat: Dictionary in arrival.beats:
+		app.choose_arrival(0)
+		app.continue_arrival()
+	var arrival_minute: int = arrival.beats.back().choices[0].effect.time
+	var wallet := Vector2i(app.progress.coins, app.progress.trust)
+	var paid_nights: int = app.paid_nights
+	await press_button(arrival.buttons[0], "the end of Arrival has a usable Meet the old man button")
+	check(app.ui.screen == "idris" and app.current_place == "masjid" and app.day == 1 and app.minute_of_day == arrival_minute, "Arrival opens the meeting at the Masjid at its locked time")
+	check(Vector2i(app.progress.coins, app.progress.trust) == wallet and app.paid_nights == paid_nights, "meeting retains the Arrival wallet, trust and prepaid night")
+	check(not app.player.enabled and visible_text().contains(teacher.title_before), "the first meeting shows the old-man title and pauses movement")
+	check_idris_count(0)
+
+	var first: Dictionary = teacher.beats[0]
+	var first_word: Dictionary = words[first.choices[0].learns]
+	var decline: Dictionary = first.choices[1]
+	await press_button(decline.label, "the first beat offers the choice without a taught word")
+	check(visible_text().contains(decline.reply) and visible_text().contains(first_word.ar) and not visible_text().contains(first_word.en), "the non-teaching reply leaves the word unknown")
+	check_idris_count(0)
+	key_event(KEY_ESCAPE, true)
+	key_event(KEY_ESCAPE, false)
+	await frames(2)
+	check(app.ui.screen == "market_map" and app.current_place == "masjid" and not app.idris_met, "Escape leaves an unfinished meeting at the Masjid")
+	app.clock.reset()
+	app.clock.advance_to(1, 10 * 60, false)
+	app.update_state()
+	await press_button(sit, "an unfinished meeting can be opened again at the Masjid")
+
+	var learned := 0
+	for index in range(teacher.beats.size()):
+		var choice: Dictionary = teacher.beats[index].choices[0]
+		check(app.ui.screen == "idris" and app.idris_beat == index, "Idris opens beat %d in order" % (index + 1))
+		check_idris_count(learned)
+		await press_button(teacher.buttons.leave, "the player can leave beat %d" % (index + 1))
+		check(app.ui.screen == "market_map" and app.current_place == "masjid" and not app.idris_met, "leaving beat %d returns to the Masjid before completion" % (index + 1))
+		await press_button(sit, "Sit a while stays available before completion")
+		check_idris_count(learned)
+		for _previous in range(index):
+			app.choose_idris(0)
+			app.continue_idris()
+		var word: Dictionary = words.get(choice.learns, {}) if choice.learns != null else {}
+		if not word.is_empty():
+			check(visible_text().contains(word.ar) and not visible_text().contains(word.en), "the town word stays unknown until its choice is picked: " + str(word.ar))
+		await press_button(choice.label, "the player can pick the locked choice")
+		check(visible_text().contains(choice.reply), "the selected choice shows the locked reply")
+		if not word.is_empty():
+			learned += 1
+			var known_form := "%s (%s)" % [word.en, word.ar]
+			var notice: String = teacher.new_word.format(word)
+			check(visible_text().to_lower().contains(known_form.to_lower()), "the chosen word immediately shows English with the town word in brackets")
+			check(visible_text().to_lower().contains(notice.to_lower()), "the reply shows the approved New word notice")
+		check_idris_count(learned)
+		await press_button(teacher.buttons.continue, "the player can continue from the reply")
+	check(app.idris_met and visible_text().contains(teacher.name) and visible_text().contains(teacher.end), "completing the last reply reveals Idris and his invitation")
+	var ending_count: String = teacher.words_you_know.format({"n": learned})
+	check(has_visible_label(app.ui, ending_count.to_upper()), "the ending displays the words-you-know total")
+	check(learned == words.size(), "learning every word reaches the full locked vocabulary")
+
+	await press_button(teacher.buttons.again, "the ending offers a usable Meet him again button")
+	for beat: Dictionary in teacher.beats:
+		check_idris_count(learned)
+		var choice: Dictionary = beat.choices[0]
+		if choice.learns != null:
+			var word: Dictionary = words[choice.learns]
+			var known_form := "%s (%s)" % [word.en, word.ar]
+			check(visible_text().to_lower().contains(known_form.to_lower()), "replay retains the learned form for " + str(word.ar))
+		await press_button(choice.label, "a replay choice is usable")
+		if choice.learns != null:
+			var notice: String = teacher.new_word.format(words[choice.learns])
+			check(not visible_text().to_lower().contains(notice.to_lower()), "repeating a learned choice does not announce a new word")
+		await press_button(teacher.buttons.continue, "the replay can continue from its reply")
+	check_idris_count(learned)
+	await press_button(teacher.buttons.back, "the ending offers a usable Back to the market button")
+	check(app.ui.screen == "market_map" and app.current_place == "masjid", "Back to the market returns to the Masjid point")
+	check(find_button(app.ui, look) != null and find_button(app.ui, sit) == null, "Look inside replaces Sit a while after completion")
+	check(Vector2i(app.progress.coins, app.progress.trust) == wallet and app.paid_nights == paid_nights, "the full meeting and replay leave wallet, trust and prepaid night intact")
+	app.show_screen("title")
+	await press_button(data.ui.buttons.begin, "Begin starts another session after meeting Idris")
+	check(app.known_words.is_empty() and not app.idris_met, "a new game clears the word store and meeting completion")
 
 
 func finish() -> void:

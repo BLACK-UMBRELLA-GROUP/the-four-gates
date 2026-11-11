@@ -6,6 +6,11 @@ signal begin_requested
 signal arrival_choice_requested(index: int)
 signal arrival_continue_requested
 signal arrival_walk_requested
+signal arrival_meet_requested
+signal idris_choice_requested(index: int)
+signal idris_continue_requested
+signal idris_leave_requested
+signal idris_replay_requested
 signal screen_requested(screen: String)
 signal wait_requested
 signal pray_requested
@@ -62,6 +67,12 @@ var result: Dictionary = {}
 var arrival_beat := 0
 var arrival_reply := ""
 var arrival_fair := false
+var idris_beat := 0
+var idris_reply := ""
+var idris_new_word := ""
+var idris_met := false
+var known_words: Dictionary = {}
+var _word_marker := RegEx.create_from_string("\\{([^{}]+)\\}")
 var _last_coins := -1
 var _last_trust := -1
 var _last_daily_count := -1
@@ -139,6 +150,9 @@ func _rebuild_screen() -> void:
 		"arrival":
 			_build_hud()
 			_build_arrival()
+		"idris":
+			_build_hud()
+			_build_idris()
 		"game", "market_map":
 			_build_hud()
 			var place_x := 491.0 if screen == "market_map" else 203.0
@@ -294,7 +308,7 @@ func _build_arrival() -> void:
 		_label(panel, coins.to_upper(), Vector2(34, y), Vector2(line_width, 28), 16, Color("e9bd70"))
 		y += 38.0
 		var x := origin.x + 34.0
-		x += _arrival_button(arrival.buttons[0], Vector2(x, origin.y + y), func(): show_toast(data.ui.not_built), true) + 12.0
+		x += _arrival_button(arrival.buttons[0], Vector2(x, origin.y + y), func(): arrival_meet_requested.emit(), true) + 12.0
 		x += _arrival_button(arrival.buttons[1], Vector2(x, origin.y + y), func(): arrival_walk_requested.emit()) + 12.0
 		_arrival_button(arrival.buttons[2], Vector2(x, origin.y + y), func(): begin_requested.emit())
 	elif not arrival_reply.is_empty():
@@ -316,6 +330,89 @@ func _arrival_button(value: String, at: Vector2, callback: Callable, primary: bo
 	_button(value, at, Vector2(width, 56), callback, primary)
 	return width
 
+func _build_idris() -> void:
+	var teacher: Dictionary = identity.teacher
+	var done: bool = idris_beat == teacher.beats.size()
+	var beat: Dictionary = {} if done else teacher.beats[idris_beat]
+	var count := known_words.size()
+	var kicker: String = teacher.kicker.format({"when": teacher.when, "n": count})
+	var panel := _panel(Vector2.ZERO, Vector2(1188, 0), Color("1b130be8"))
+	_heading(panel, kicker, teacher.name if done else teacher.title_before)
+	var line: String = teacher.end if done else beat.text
+	var y := 111.0 + _idris_text(panel, line, 111.0) + 14.0
+	if done:
+		var count_line: String = teacher.words_you_know.format({"n": count})
+		_label(panel, count_line.to_upper(), Vector2(34, y), Vector2(1120, 28), 16, Color("e9bd70"))
+		y += 36.0
+	elif not idris_reply.is_empty():
+		y += _idris_text(panel, idris_reply, y, true) + 12.0
+		if not idris_new_word.is_empty():
+			var word: Dictionary = identity.language.words[idris_new_word]
+			var notice: String = teacher.new_word.format(word)
+			_label(panel, notice.to_upper(), Vector2(34, y), Vector2(1120, 28), 16, Color("e9bd70"))
+			y += 36.0
+
+	var buttons_height := 68.0
+	if not done and idris_reply.is_empty():
+		buttons_height *= beat.choices.size()
+	panel.size.y = y + buttons_height + 82.0
+	panel.position = Vector2(366, 583 - panel.size.y / 2.0)
+	var at := panel.position + Vector2(34, y)
+	if done:
+		var back_width := _arrival_button(teacher.buttons.back, at, func(): idris_leave_requested.emit(), true)
+		_arrival_button(teacher.buttons.again, at + Vector2(back_width + 12.0, 0), func(): idris_replay_requested.emit())
+	elif not idris_reply.is_empty():
+		_arrival_button(teacher.buttons.continue, at, func(): idris_continue_requested.emit(), true)
+	else:
+		for index in range(beat.choices.size()):
+			var choose := _button(beat.choices[index].label, at + Vector2(0, 68 * index), Vector2(1120, 56), func(): idris_choice_requested.emit(index))
+			choose.alignment = HORIZONTAL_ALIGNMENT_LEFT
+			for state in ["normal", "hover", "pressed"]:
+				choose.get_theme_stylebox(state).content_margin_left = 22.0
+	_arrival_button(teacher.buttons.leave, at + Vector2(0, buttons_height), func(): idris_leave_requested.emit())
+
+func _idris_text(panel: Panel, value: String, y: float, bold: bool = false) -> float:
+	var body := RichTextLabel.new()
+	body.position = Vector2(34, y)
+	body.size.x = 1120
+	body.fit_content = true
+	body.scroll_active = false
+	body.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	body.add_theme_font_override("normal_font", bold_font if bold else font)
+	body.add_theme_font_override("bold_font", bold_font)
+	body.add_theme_font_size_override("normal_font_size", 23)
+	body.add_theme_font_size_override("bold_font_size", 23)
+	body.add_theme_color_override("default_color", PAPER)
+	panel.add_child(body)
+
+	var offset := 0
+	for marker: RegExMatch in _word_marker.search_all(value):
+		var id := marker.get_string(1)
+		if not identity.language.words.has(id):
+			continue
+		body.add_text(value.substr(offset, marker.get_start() - offset))
+		var word: Dictionary = identity.language.words[id]
+		if known_words.has(id):
+			body.push_bold()
+			body.add_text(word.en)
+			body.pop()
+			body.push_color(Color("e9bd70"))
+			body.push_font_size(17)
+			body.add_text(" (" + word.ar + ")")
+			body.pop()
+			body.pop()
+		else:
+			body.push_color(Color("a7d3ff"))
+			body.push_italics()
+			body.push_underline()
+			body.add_text(word.ar)
+			body.pop()
+			body.pop()
+			body.pop()
+		offset = marker.get_end()
+	body.add_text(value.substr(offset))
+	return body.get_content_height()
+
 func _build_hud() -> void:
 	_build_clock_hud()
 	var coin_text: String = str(data.ui.hud.coins).format({"n": progress.coins})
@@ -336,7 +433,7 @@ func _build_hud() -> void:
 	fill.size = Vector2(315 * float(progress.trust) / float(data.numbers.trust_max), 10)
 	fill.color = GOLD
 	track.add_child(fill)
-	if screen == "arrival":
+	if screen in ["arrival", "idris"]:
 		return
 	var hit := Button.new()
 	hit.flat = true
@@ -352,7 +449,7 @@ func _build_clock_hud() -> void:
 	_clock_prayer = _label(clock_panel, "", Vector2(14, 40), Vector2(257, 34), 24, Color("ffd27e"), true)
 	_clock_time.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_clock_prayer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	if screen not in ["arrival", "prayer_record"]:
+	if screen not in ["arrival", "idris", "prayer_record"]:
 		_clock_hit = Button.new()
 		_clock_hit.flat = true
 		_clock_hit.modulate = Color(1, 1, 1, 0)
@@ -592,7 +689,10 @@ func _build_place_bar(x: float) -> void:
 	elif place_id == "scales" and progress.lesson_done:
 		action = data.ui.place_actions.scales_after_lesson
 	elif place_id == "masjid":
-		action = identity.clock.masjid_actions.none_yet if _prayer_label.is_empty() else _prayer_label
+		var masjid_actions: Dictionary = identity.clock.masjid_actions
+		action = masjid_actions.after_meeting if idris_met else masjid_actions.none_yet
+		if not _prayer_label.is_empty():
+			action = _prayer_label
 	var name_width := bold_font.get_string_size(name_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var line_width := font.get_string_size(line_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var button_width := bold_font.get_string_size(action, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 46
@@ -643,7 +743,7 @@ func _button(value: String, at: Vector2, extent: Vector2, callback: Callable, pr
 	button.add_theme_color_override("font_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_hover_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_pressed_color", INK if primary else PAPER)
-	var task_panel := screen in ["arrival", "board", "task", "result", "lesson", "goal", "prayer_record"]
+	var task_panel := screen in ["arrival", "idris", "board", "task", "result", "lesson", "goal", "prayer_record"]
 	var background := Color("1b130bf2") if task_panel else Color("191c19")
 	button.add_theme_stylebox_override("normal", _style(GOLD if primary else background))
 	button.add_theme_stylebox_override("hover", _style(GOLD.lightened(0.12) if primary else (background.lightened(0.1) if task_panel else Color("312b20"))))

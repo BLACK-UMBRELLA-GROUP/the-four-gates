@@ -1,0 +1,235 @@
+{
+  "id": "DOC-TFG-0016",
+  "queue_line": 8,
+  "lock": "LOCK 2 V3 data, V5 identity spec and QUESTIONS row 6 option A.",
+  "tested_base_commit_sha": "a69dda5aea017f6523844eb46955b062ff4cb8ab",
+  "capture_source": "Native capture used the Line 8 worktree on this tested base. The daily report task note identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+  "build_mode": "Native debug Godot viewport, Forward+ / Metal on Apple M2 (Apple8)",
+  "timestamp_utc": "2026-11-11T12:35:25Z",
+  "founder_decisions": [
+    "11 Nov reissue: \"GO. THE FOUR GATES QUESTIONS row 6 is answered (Option A, interim for line 8, Fable 11 Nov - Founder clickable \"You answer A and restart (Recommended)\") and line 8 is back to WAITING.\"",
+    "11 Nov daytime exception: \"4 gates needs to improve a lot ... i want 50 by end of the day\" and \"Build in the day today (Recommended)\".",
+    "6 Nov LOCK 2: \"LOCK it (Recommended)\" and \"the visual aint importantn\"."
+  ],
+  "built_from": {
+    "GAME/APPROVED/IDENTITY/BRIEFS/BUILD_BRIEF_2026-11-06_PART4_IDRIS.md": "cf94a661c67985fdee72003bd6c05f3201bfd4d27582ee03b2682f6578dfa246",
+    "GAME/APPROVED/IDENTITY/RECORD/IDENTITY_SPEC_CURRENT_VERSION_V5.md": "3ca338e60c36ab86edaae99e873c28c4235ec020ef7626d081f70902de241c5d",
+    "GAME/APPROVED/IDENTITY/RECORD/identity_data_V3.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "GAME/APPROVED/IDENTITY/RECORD/LOCK_RECORD.md": "6632c23ba527fe7fd12b37874d8ef564ac12f8ec557f556b2f03287e8da1c498",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/FOUNDATIONS_SPEC_CURRENT_VERSION_V2.md": "cfe9038832646a04fbfc4933465a5a15d5b900b26e3ace6e317660f8b34d507f",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/foundations_data_V2.json": "96f9cab093fc7cd949a10663c44f4bb037556c7caa33cf0f4df0e4a5e03ba66f",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/LOCK_RECORD.md": "8004223e256b130091ffa62bb39ed12a04a7c3a9f7daafdf541518d0281f0ea9",
+    "GAME/APPROVED/IDENTITY/MASTERS/g19_market_map__masjid_sit_a_while.png": "bd4825c9c6a08362fe2d99701f127267361ac763dc11e717edee3e56e251361d",
+    "GAME/APPROVED/IDENTITY/MASTERS/g25_meet__start_unknown_word.png": "9120e569622cd23edd36440662e47d191a5530caf05bb9ecb89f83597c73f2c8",
+    "GAME/APPROVED/IDENTITY/MASTERS/g26_meet__new_word.png": "aaf1e93eb1fb20dc8cc1c8ca3bc5d70b6b810b098d37b637ff65db97416d7a92",
+    "GAME/APPROVED/IDENTITY/MASTERS/g27_meet__word_to_learn.png": "be7c7354386a02de1d7c6dd5d79642cd40301bbb376647b974d9ac2fd8f28391",
+    "GAME/APPROVED/IDENTITY/MASTERS/g28_meet__learned_words_show_english.png": "80e46d6f0342353783919aaac88499cdae799b7bd68dc42a439985ef70906b87",
+    "GAME/APPROVED/IDENTITY/MASTERS/g29_meet__end.png": "677165cf4eefce6a8f4c3dd8d4190456ef0a4a27d4ce69432b89fbb8e4502b2b"
+  },
+  "approval_records": {
+    "GAME/APPROVED/QUESTIONS.md row 4": {
+      "row_sha256": "7c856045d6fbacc845820e03178a72bcf6cdd15defa511adc0727a7bd3ac3549",
+      "decision": "Meeting button shows the existing \"Not built yet.\" toast until line 8."
+    },
+    "GAME/APPROVED/QUESTIONS.md row 5": {
+      "row_sha256": "7688959718d0e7999fbdbb1b4739d55d687261e826cc98e9b82097cd1348dc64",
+      "decision": "Line 8 connects \"Sit a while\" to the meeting."
+    },
+    "GAME/APPROVED/QUESTIONS.md row 6": {
+      "row_sha256": "01874ff05320620a9b9767dbde77f05e81f40511cb44a211311831889d0f1ae0",
+      "decision": "Option A, as Codex proposed (Fable, 11 Nov 2026 - Founder, clickable: \"You answer A and restart (Recommended)\"). g28 stays the beat 4 unknown state (Ba'd al-'isha, count 2); g26 is the reference for the learned-word form; \"Sit a while\" opens the meeting straight away using the live clock, with 18:15 as the arrival reference and \"After Maghrib\" as the fixed scene caption. Use the data-driven word states and keep the live clock. Interim for line 8 only: THE FOUR GATES Claude chat may change it later through a new LOCK. Line 8 back to WAITING"
+    }
+  },
+  "captured_source_sha256": {
+    "SOURCE/project.godot": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45",
+    "SOURCE/game/foundations.gd": "4e132dcc4f95f867c75592be115385c48d4cac37d0caac09772abad5e24381d9",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_ui.gd": "8566615cd6494a3d8215158950d20210f25962d0b609f766df498e84ae762581",
+    "SOURCE/game/market_world.gd": "10eea1d7f5b8c2ce5aa3b273b9ce63ceb3507bcf74d7e5a1e30ffad5db15ef65",
+    "SOURCE/game/prayer_clock.gd": "8412b8be836bab8359dfc38acb72a5bd42e9cf05b2366c356515ecc0f5f5f79f",
+    "SOURCE/game/river_market.gd": "56fa49c72ea152ab4c233e7e5e8ba485d1e1746b088e4b666b521c1331cb470a",
+    "SOURCE/game/task_progress.gd": "75b72be44c61575625da399cd993e046ebc74f9f51140e2b552ebe5cec6771c9",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/data/foundations.json": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/tests/capture_idris.gd": "def0ffe118e73920b7168bf83ca8579791200eb4451b0aeb9f146fc644dc4111",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/capture_tasks.gd": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003",
+    "SOURCE/tests/capture_foundations.gd": "9438293266619c670d86a24a005ede07624529debf5856290ff40a858e48f27d"
+  },
+  "test_and_comparison_source_sha256": {
+    "SOURCE/tests/run_tests.gd": "9dfd93feb01df5679aa2a08f276942c6c31e47107fb4bee22543028d970cb560",
+    "SOURCE/tests/create_comparisons.gd": "dc965dfa40f34145542dc4239fd5a384bbbad702bec4250f27904be1d15ddabb",
+    "SOURCE/tests/test_player_movement.gd": "081aa954164599270c18caef8f1a5bf731da6c185e1d0f4c912f832003ac653a",
+    "SOURCE/tests/test_progress_restart.gd": "2f9fe0ed8692640e548dd4d137b9f30d04dc514ffb918e87d57b37cbb4ec8393",
+    "SOURCE/tests/test_look_controls.gd": "65fada00fbc85a9680d7374f5015cdd916cc2d9f4d927de267b4c1fcc3dcd83f"
+  },
+  "tests": {
+    "headless": {
+      "passed": 972,
+      "total": 972
+    },
+    "native": {
+      "passed": 60,
+      "total": 60
+    },
+    "player_movement": {
+      "passed": 39,
+      "total": 39
+    },
+    "progress_restart": {
+      "passed": 24,
+      "total": 24
+    },
+    "look_controls": {
+      "passed": 28,
+      "total": 28
+    }
+  },
+  "fixture": "g19 seeds the Masjid and Thursday 10:00. The Arrival branch reaches 18:15 through its choices and is captured with the real wallet. The zero-coin fixture reproduces the g25–g29 HUD. The post-meeting Masjid check completes Maghrib through the clock model.",
+  "comparison_order": "Approved master on the left, native Godot build on the right.",
+  "visual_differences": {
+    "g19": "Thursday 10:00, Dhuhr countdown, Masjid marker, buttons and values agree. Existing Godot map uses different label weight, outlines, gate rim, scale and canal label positions, marker placement and footer and HUD spacing.",
+    "g25–g29": "The real daylight greybox at the Masjid replaces the prototype's nighttime quay image. The clock follows the existing daylight cutoff at 18:40. Fonts, tracking, panel translucency and height, line spacing, button widths and spacing, HUD widths and corner radii differ. Story, captions, counters, choices and replies use the approved data.",
+    "g25/g27/g28": "Unknown words are blue, italic and underlined in Godot. The prototype uses a dotted underline. In g28, Ba‘d al-‘isha fits on one line in Godot. The beat and count of two follow the row 6 answer.",
+    "g26": "The learned English appears in bold. The smaller town spelling in brackets uses the mixed case from the data. The prototype shows uppercase. The reply, New word notice and count of one agree.",
+    "g29": "The revealed name, invitation, words-you-know count of three, Back to the market, Meet him again and Leave are visible in the approved order.",
+    "supplemental": "The native Masjid entry at 10:00 shows Dhuhr in 2 h 5 min while retaining the After Maghrib caption. Arrival at 18:15 shows the live fair-Arrival wallet of 198 coins. The six paired captures use the pictured zero-coin state."
+  },
+  "compression": "Lossless PNG recompression. Each file shrank and retained its original dimensions and exact PNG scanline bytes. Final comparisons reviewed at the same content and resolution.",
+  "files": {
+    "CHECKS.json": {
+      "bytes": 10896,
+      "sha256": "18870f7678667b6ee3d31a41528369c8616ae30c6949ba3249e0ec835c693cb4"
+    },
+    "arrival_18_15__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 159262,
+      "sha256": "1e46d1e8a0f450afb1eccc18e5788ae92d5bf0efaeb75ca9622c552a92d68d41",
+      "capture_bytes_before_optimization": 159646
+    },
+    "g19_market_map__masjid_sit_a_while__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 165408,
+      "sha256": "43ca8fcb39c9d2d35b2c887df4bf1fccb9094066be8042bf3a93945518ebe717",
+      "capture_bytes_before_optimization": 171664
+    },
+    "g19_market_map__masjid_sit_a_while__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 344621,
+      "sha256": "1d4eeebc5f6a8ea1c6959b3b2f552dbedafe22db0fb89b90d445418a031426f6",
+      "capture_bytes_before_optimization": 366246
+    },
+    "g25_meet__start_unknown_word__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 156569,
+      "sha256": "72f82cb48d8e223b63963e221429fb0568a65d548a42649298d3172d0e9f2750",
+      "capture_bytes_before_optimization": 157653
+    },
+    "g25_meet__start_unknown_word__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 494375,
+      "sha256": "acca32a2b01f3b7e1e5ea04c569a3d66b304786b2748ac76c04f128ac80ddae5",
+      "capture_bytes_before_optimization": 503207
+    },
+    "g26_meet__new_word__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 157212,
+      "sha256": "5aea4e34a32ae13133587c02d77e19fb193213f33136f07ba320283ddbf19ada",
+      "capture_bytes_before_optimization": 157402
+    },
+    "g26_meet__new_word__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 508937,
+      "sha256": "7f4843aa3978a7cb154fb7dd042c7244958c5be9555b000573ede66d73433d0d",
+      "capture_bytes_before_optimization": 517081
+    },
+    "g27_meet__word_to_learn__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 136450,
+      "sha256": "d3e00e532458284a11b41a59e513158db91d0f7db87250c710445ce3167de800",
+      "capture_bytes_before_optimization": 140072
+    },
+    "g27_meet__word_to_learn__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 495939,
+      "sha256": "38d16af9ea5b8fa0a78094ad32c288c0a3a60d36f0d032c280499437cb8f3005",
+      "capture_bytes_before_optimization": 497426
+    },
+    "g28_meet__learned_words_show_english__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 136891,
+      "sha256": "374cac8e6f11963a48e9d9b53391dc45a3a8da313600bf2cd4411b6f464a8dba",
+      "capture_bytes_before_optimization": 140255
+    },
+    "g28_meet__learned_words_show_english__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 495960,
+      "sha256": "84abadeffffedeb8efaba1b45dd3a34bbb0421ffdfcf000b7de8767ed115cbe5",
+      "capture_bytes_before_optimization": 497590
+    },
+    "g29_meet__end__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 138292,
+      "sha256": "4f237306b50f75269d6fcf4bbd98caaa41fbf30017e4609bbe6fa0418ab66c5b",
+      "capture_bytes_before_optimization": 142085
+    },
+    "g29_meet__end__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 495696,
+      "sha256": "87af5bc923d7f3e99b5709a042a92907f8a3ad394d3bb6f1f4292cd7ed91dfde",
+      "capture_bytes_before_optimization": 499434
+    },
+    "masjid_live_clock__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 146569,
+      "sha256": "03d95c34fba95549e701dddd2dfc99caa6d2a282b22000608edb523055e7451d",
+      "capture_bytes_before_optimization": 146857
+    }
+  }
+}
