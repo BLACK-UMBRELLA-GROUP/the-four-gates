@@ -407,3 +407,16 @@ Run `godot --path SOURCE -- --capture-pilgrims` for the 11 native viewport captu
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --pilgrims`
 for master-left comparisons. Both commands accept `--pilgrims-output=/absolute/path`.
 See `LINE31_CHECKS.json` for the native checks and `BUILD.json` for provenance and verified images.
+
+## LOCK 25 Qurans and school
+
+At the Masjid from 07:00 through 15:29, choose **Idris's school and copyists**.
+A hand-copied Quran costs 25 coins and a child's year of school costs 30. The first school payment
+sponsors Faris. The panel counts payments toward 1,000 Qurans and 100 children in school.
+The first public payment each day adds one trust, and each kind of public giving adds an Idris line
+to **What people say**. After reading the first scholar's page, you can ask Idris to keep a payment quiet.
+
+Run `godot --path SOURCE -- --capture-qurans-school` for the 11 native viewport captures in
+`GAME/APPROVED/QURANS_SCHOOL/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --qurans-school`
+for the master-left comparisons. Both commands accept `--qurans-school-output=/absolute/path`.

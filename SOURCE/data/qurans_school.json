@@ -1,0 +1,47 @@
+{
+ "version": "LOCK 25 V1 (9 Nov 2026) - lifetime goals: Qurans and school",
+ "builds_on": "LOCK 2 Idris and the masjid, LOCK 3 giving in secret and What people say, LOCK 9 public/secret pattern. Placeholders: {n}, {m}.",
+ "numbers": {
+  "from": 420,
+  "until": 930,
+  "quran_cost": 25,
+  "school_cost": 30,
+  "trust_per_day": 1,
+  "goal_qurans": 1000,
+  "goal_children": 100
+ },
+ "masjid_button": "Idris's school and copyists",
+ "panel": {
+  "kicker": "The masjid · the school room",
+  "title": "Qurans and school",
+  "text": "Children chant their letters on slates in the side room. In the corner an old copyist writes the Quran by hand, one careful page a day.",
+  "quran": "Pay for a Quran to be copied for a family",
+  "quran_line": "Written by hand and given to a home that has none.",
+  "school": "Pay a child's school for a year",
+  "school_line": "Slate, ink, and a year of lessons with Idris.",
+  "pay": "Pay · {n} coins",
+  "not_enough": "not enough coins",
+  "secret_label": "Ask Idris to keep it quiet",
+  "secret_locked": "(You can give in secret once you have read the scholar's first page.)",
+  "first_child": "Faris sits in the front row with a slate on his knees. The orphan from the quay is learning to read.",
+  "more_child": "Another child from the quay lanes joins Idris's school.",
+  "quran_done": "The copyist dips his pen. In a few weeks a family will have the Quran in their home.",
+  "public": "Idris tells the room who paid.",
+  "secret": "Idris tells no one who paid.",
+  "counter": "Qurans given: {n} / {m}",
+  "counter_school": "Children in school: {n} / {m}",
+  "back": "Back to the market map"
+ },
+ "say": {
+  "qurans": [
+   "Pays for Qurans to be copied",
+   "Idris the imam",
+   1
+  ],
+  "school": [
+   "Sends children to school",
+   "Idris the imam",
+   1
+  ]
+ }
+}

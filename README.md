@@ -76,6 +76,9 @@ prayer at the Masjid. Sacrificing the sheep adds meals to the shared goal. **All
 the fast, prayer and sacrifice privately.
 LOCK 24 lets you pay Abbas at the Gate of Trust to send people on Umrah and Hajj. The caravan panel
 tracks the trips paid. Public returns add trust and appear in **What people say**. Secret returns stay private.
+LOCK 25 adds **Idris's school and copyists** at the Masjid. Paying for a Quran or a child's school
+year adds to the lifetime counters. The first public payment each day adds trust. Reading the
+first scholar's page unlocks secret payments.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

@@ -62,6 +62,8 @@ signal iftar_giving_requested
 signal iftar_giving_paid(id: String)
 signal zakat_requested
 signal zakat_paid(id: String)
+signal qurans_school_requested
+signal qurans_school_paid(kind: String)
 signal pilgrims_requested
 signal pilgrim_sent(id: String)
 signal dry_fountain_requested
@@ -104,6 +106,7 @@ const Ramadan = preload("res://game/ramadan.gd")
 const EidAlFitr = preload("res://game/eid_al_fitr.gd")
 const EidAlAdha = preload("res://game/eid_al_adha.gd")
 const Zakat = preload("res://game/zakat.gd")
+const QuransSchool = preload("res://game/qurans_school.gd")
 const Pilgrims = preload("res://game/pilgrims.gd")
 const RAMADAN_BUTTONS := {
 	Ramadan.Action.SUHOOR: "suhoor_button",
@@ -134,7 +137,7 @@ const QASIMS_JARS_SCREENS := ["qasims_offer", "qasims_done"]
 const JABIRS_GOATS_SCREENS := ["jabirs_offer", "jabirs_bought", "jabirs_told"]
 const DRY_FOUNTAIN_SCREENS := ["dry_fountain", "fountain_done"]
 const LOAN_SCREENS := ["loan_ask", "loan_lent", "loan_riba", "loan_due", "loan_after", "loan_last"]
-const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_refused", "purse_morning", "reputation", "harm_done", "pilgrims"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS + DRY_FOUNTAIN_SCREENS + LOAN_SCREENS
+const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_refused", "purse_morning", "reputation", "harm_done", "pilgrims", "qurans_school"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS + DRY_FOUNTAIN_SCREENS + LOAN_SCREENS
 var data: Dictionary = {}
 var identity: Dictionary = {}
 var chapter: Dictionary
@@ -152,6 +155,7 @@ var eid_al_adha: EidAlAdha
 var adha_sacrifice_receipt := ""
 var zakat: Zakat
 var pilgrims: Pilgrims
+var qurans_school: QuransSchool
 var sealed_purse: SealedPurse
 var dice_house: DiceHouse
 var qasims_jars: QasimsJars
@@ -172,6 +176,7 @@ var _night_prayer_available := false
 var _fitr_available := false
 var _zakat_available := false
 var _pilgrims_available := false
+var _qurans_school_available := false
 var _eid_prayer_available := false
 var _adha_action := EidAlAdha.Action.NONE
 var _eid_line := ""
@@ -233,7 +238,7 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars, jabirs_goats_value: JabirsGoats, idris_recovery_value: IdrisRecovery, dry_fountain_value: DryFountain, rashids_loan_value: RashidsLoan, harm_in_the_road_value: HarmInTheRoad, ramadan_value: Ramadan, iftar_giving_value: IftarGiving, eid_al_fitr_value: EidAlFitr, zakat_value: Zakat, eid_al_adha_value: EidAlAdha, pilgrims_value: Pilgrims) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars, jabirs_goats_value: JabirsGoats, idris_recovery_value: IdrisRecovery, dry_fountain_value: DryFountain, rashids_loan_value: RashidsLoan, harm_in_the_road_value: HarmInTheRoad, ramadan_value: Ramadan, iftar_giving_value: IftarGiving, eid_al_fitr_value: EidAlFitr, zakat_value: Zakat, eid_al_adha_value: EidAlAdha, pilgrims_value: Pilgrims, qurans_school_value: QuransSchool) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
@@ -258,6 +263,7 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	zakat = zakat_value
 	eid_al_adha = eid_al_adha_value
 	pilgrims = pilgrims_value
+	qurans_school = qurans_school_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -371,6 +377,9 @@ func _rebuild_screen() -> void:
 		"pilgrims":
 			_build_hud()
 			_build_pilgrims()
+		"qurans_school":
+			_build_hud()
+			_build_qurans_school()
 		"adha_sheep", "adha_eid", "adha_sacrifice":
 			_build_hud()
 			_build_adha_panel()
@@ -504,6 +513,10 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	var pilgrims_available := pilgrims.available_at(place_value)
 	if pilgrims_available != _pilgrims_available:
 		_pilgrims_available = pilgrims_available
+		rebuild = rebuild or screen in ["game", "market_map"]
+	var school_available := qurans_school.available_at(place_value)
+	if school_available != _qurans_school_available:
+		_qurans_school_available = school_available
 		rebuild = rebuild or screen in ["game", "market_map"]
 	var fitr := eid_al_fitr.fitr_available_at(place_value)
 	if fitr != _fitr_available:
@@ -1691,6 +1704,42 @@ func _secret_checkbox(panel: Panel, caption: String, y: float, selected: bool) -
 	return checkbox
 
 
+func _build_qurans_school() -> void:
+	var copy: Dictionary = qurans_school.data.panel
+	var panel := _chapter_panel(copy.kicker, copy.title, true)
+	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
+	style.set_corner_radius_all(18)
+	var y := 111.0 + _story_text(panel, qurans_school.message, 111.0) + 15.0
+	for kind: String in ["quran", "school"]:
+		_chapter_row_rule(panel, y)
+		_label(panel, copy[kind], Vector2(34, y + 7), Vector2(890, 32), 23, PAPER, true)
+		_label(panel, copy[kind + "_line"], Vector2(34, y + 35), Vector2(890, 26), 18, PAPER)
+		if qurans_school.can_afford(kind):
+			var caption := str(copy.pay).format({"n": qurans_school.cost(kind)})
+			var width := _button_width(caption, true)
+			_button(caption, Vector2(1154.0 - width, y + 6), Vector2(width, 56),
+				func(): qurans_school_paid.emit(kind), true, panel)
+			y += 68.0
+		else:
+			var notice := _label(panel, copy.not_enough, Vector2(930, y + 6), Vector2(224, 48), 23, PAPER)
+			notice.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+			y += 61.0
+
+	if open_purse.page_read:
+		var checkbox := _secret_checkbox(panel, copy.secret_label, y + 5.0, qurans_school.secret_selected)
+		checkbox.toggled.connect(func(selected: bool): qurans_school.secret_selected = selected)
+		y += 47.0
+	else:
+		_spaced_caption(panel, copy.secret_locked, y + 2.0)
+		y += 35.0
+	var back_width := _button_width(copy.back)
+	var counters := _spaced_caption(panel, qurans_school.counters(), y + 14.0)
+	counters.size.x = 1120.0 - back_width - 16.0
+	_button(copy.back, Vector2(1154.0 - back_width, y), Vector2(back_width, 56.0),
+		func(): screen_requested.emit("market_map"), false, panel)
+	_chapter_finish(panel, y)
+
+
 func _build_pilgrims() -> void:
 	var copy: Dictionary = pilgrims.data.panel
 	var panel := _chapter_panel(copy.kicker, copy.title, true)
@@ -1927,6 +1976,7 @@ func reputation_lines() -> Array:
 	if iftar_line != null:
 		lines.append(iftar_line)
 	lines.append_array(pilgrims.reputation_lines())
+	lines.append_array(qurans_school.reputation_lines())
 	var greeting: Variant = talking.reputation_line()
 	if greeting != null:
 		lines.append(greeting)
@@ -2190,7 +2240,8 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		eid_width += button.width
 	var zakat_width := _button_width(zakat.data.masjid_button) + 18.0 if _zakat_available else 0.0
 	var pilgrims_width := _button_width(pilgrims.data.gate_button) + 18.0 if _pilgrims_available else 0.0
-	var last_actions_width := eid_width + zakat_width + pilgrims_width
+	var school_width := _button_width(qurans_school.data.masjid_button) + 18.0 if _qurans_school_available else 0.0
+	var last_actions_width := eid_width + zakat_width + pilgrims_width + school_width
 	var eid_at := Vector2(total_width + 1.0, 0.0)
 	var eid_height := 0.0
 	if last_actions_width > 0.0:
@@ -2304,6 +2355,9 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if _pilgrims_available:
 		_button(pilgrims.data.gate_button, eid_at + Vector2(x + eid_line_width + zakat_width, bar_y + 8.0),
 			Vector2(pilgrims_width - 18.0, 56), func(): pilgrims_requested.emit())
+	if _qurans_school_available:
+		_button(qurans_school.data.masjid_button, eid_at + Vector2(x + eid_line_width + zakat_width, bar_y + 8.0),
+			Vector2(school_width - 18.0, 56), func(): qurans_school_requested.emit())
 	if carrying_footer:
 		var carrying_y := height - 50.0 if harm_available or ramadan_width > 0.0 or eid_width > 0.0 else 73.0
 		_label(panel, carrying_text, Vector2(18, carrying_y), Vector2(carrying_width, 42), label_size, PAPER)

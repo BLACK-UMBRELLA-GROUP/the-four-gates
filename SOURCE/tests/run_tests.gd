@@ -155,6 +155,7 @@ func _run() -> void:
 	await check_zakat_runtime()
 	await check_eid_al_adha_runtime()
 	await check_pilgrims_runtime()
+	await check_qurans_school_runtime()
 	finish()
 
 
@@ -4203,3 +4204,147 @@ func check_pilgrim_returns(copy: Dictionary) -> void:
 	reset_at_market_place("gate", 300, 61)
 	check(app.pilgrims.umrah_paid == 0 and app.pilgrims.hajj_paid == 0 and app.pilgrims.reputation_lines().is_empty(),
 		"a fresh playthrough resets the pilgrim trips and counters")
+
+
+func check_qurans_school_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/QURANS_SCHOOL/RECORD/qurans_school_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/qurans_school.json")
+	var school: Dictionary = app.qurans_school.data
+	check(not approved.is_empty() and approved == runtime, "Qurans and school uses the exact LOCK 25 V1 data")
+	check(school == JSON.parse_string(runtime.get_string_from_utf8()), "the live school panel reads the locked runtime data")
+	app.set_process(false)
+	await check_school_access(school)
+	await check_school_public(school)
+	await check_school_secret(school)
+	app.set_process(true)
+
+
+func check_school_access(school: Dictionary) -> void:
+	var copy: Dictionary = school.panel
+	app.begin_game()
+	app.progress.coins = 20
+	for boundary: Array in [[419, false], [420, true], [929, true], [930, false]]:
+		app.clock.skip_to(1, boundary[0])
+		move_market_fixture("masjid")
+		check((find_button(app.ui, school.masjid_button) != null) == boundary[1],
+			"school button availability at the Masjid at minute %d" % boundary[0])
+	app.ui.qurans_school_requested.emit()
+	check(app.ui.screen == "market_map", "direct school request at closing leaves the map open")
+
+	stage_ramadan(2, 600, "quay")
+	check(find_button(app.ui, school.masjid_button) == null, "the school button is Masjid-only")
+	app.ui.qurans_school_requested.emit()
+	check(app.ui.screen == "market_map", "school cannot be opened away from the Masjid")
+	move_market_fixture("masjid")
+	app.show_screen("game")
+	check(find_button(app.ui, school.masjid_button) != null, "the school can be opened from the Masjid place bar in the world")
+	await press_button(school.masjid_button, "open the school with 20 coins")
+	var text := visible_text()
+	check(app.ui.screen == "qurans_school" and has_visible_label(app.ui, copy.title)
+		and has_visible_label(app.ui, str(copy.kicker).to_upper()) and text.contains(copy.text),
+		"the school displays the locked header and introduction")
+	check(text.contains(copy.quran) and text.contains(copy.quran_line)
+		and text.contains(copy.school) and text.contains(copy.school_line),
+		"both locked donation descriptions are visible")
+	check(text.count(copy.not_enough) == 2 and not text.contains(str(copy.pay).format({"n": 25}))
+		and not text.contains(str(copy.pay).format({"n": 30})), "neither payment is offered with 20 coins")
+	var trust: int = app.progress.trust
+	for kind in ["quran", "school", "unknown"]:
+		app.ui.qurans_school_paid.emit(kind)
+	check_wallet(trust, 20, "short or invalid payments leave the wallet and trust alone")
+	check(app.qurans_school.qurans_given == 0 and app.qurans_school.children_in_school == 0
+		and app.qurans_school.reputation_lines().is_empty(), "short or invalid payments leave goals and reputation alone")
+	check_school_footer(copy.back, "QURANS GIVEN: 0 / 1,000 · CHILDREN IN SCHOOL: 0 / 100")
+	await press_button(copy.back, "Back stays reachable with a short wallet")
+	check(app.ui.screen == "market_map", "the school Back button returns to the market map")
+
+
+func check_school_public(school: Dictionary) -> void:
+	var copy: Dictionary = school.panel
+	var pay_quran := str(copy.pay).format({"n": 25})
+	var pay_school := str(copy.pay).format({"n": 30})
+	reset_at_market_place("masjid", 200, 1)
+	app.progress.trust = 45
+	await press_button(school.masjid_button, "open the school before the first page")
+	check(has_visible_label(app.ui, str(copy.secret_locked).to_upper()) and find_button(app.ui, copy.secret_label) == null,
+		"the secret giving checkbox is locked before the first page")
+	check_school_footer(copy.back, "QURANS GIVEN: 0 / 1,000 · CHILDREN IN SCHOOL: 0 / 100")
+	await press_button(pay_school, "pay 30 coins for Faris's year")
+	check_wallet(46, 170, "the first public payment adds one trust")
+	check(visible_text().contains("%s %s" % [copy.first_child, copy.public]),
+		"the first child is Faris and Idris tells the room")
+	await press_button(pay_school, "pay for a second child's year")
+	check_wallet(46, 140, "a second public payment on the same day adds no trust")
+	check(visible_text().contains("%s %s" % [copy.more_child, copy.public]) and not visible_text().contains(copy.first_child),
+		"only the first school payment uses the Faris result")
+	await press_button(pay_quran, "pay 25 coins for a Quran")
+	check_wallet(46, 115, "the daily public trust cap is shared across the two school payments")
+	check(visible_text().contains("%s %s" % [copy.quran_done, copy.public]), "the Quran result uses the locked public text")
+	check_school_footer(copy.back, "QURANS GIVEN: 1 / 1,000 · CHILDREN IN SCHOOL: 2 / 100")
+	await press_button(copy.back, "return to the map after the donations")
+	app.pilgrims.send("musa", false)
+	app.clock.advance_to(31, 600, false)
+	app.update_state()
+	var lines: Array = app.ui.reputation_lines()
+	var pilgrim_line: Array = app.pilgrims.data.pilgrims[0].say
+	check(lines.find(pilgrim_line) >= 0 and lines.find(pilgrim_line) + 1 == lines.find(school.say.qurans)
+		and lines.find(school.say.qurans) + 1 == lines.find(school.say.school),
+		"the two Idris reputation lines follow the LOCK 24 returns in locked order")
+	await press_button(app.chapter.purse.morning.to_rep, "view public school reputation")
+	check(has_visible_label(app.ui, "“%s”" % school.say.qurans[0]) and has_visible_label(app.ui, "“%s”" % school.say.school[0]),
+		"both locked Idris lines appear after public giving")
+	app.progress.coins = 25
+	app.progress.trust = 46
+	move_market_fixture("masjid")
+	await press_button(school.masjid_button, "reopen the school on a later day")
+	check(visible_text().contains(copy.text) and not visible_text().contains(copy.quran_done),
+		"reopening clears the last result and keeps the counters")
+	check_school_footer(copy.back, "QURANS GIVEN: 1 / 1,000 · CHILDREN IN SCHOOL: 2 / 100")
+	await press_button(pay_quran, "pay exactly 25 coins on a later day")
+	check_wallet(47, 0, "the next day's first public payment adds one trust")
+	check(app.qurans_school.reputation_lines() == [school.say.qurans, school.say.school],
+		"repeat payments leave one reputation line per kind")
+
+
+func check_school_secret(school: Dictionary) -> void:
+	var copy: Dictionary = school.panel
+	reset_at_market_place("masjid", 80, 1)
+	app.progress.trust = 45
+	app.open_purse.page_read = true
+	await press_button(school.masjid_button, "open the school after the first page")
+	var checkbox := find_button(app.ui, copy.secret_label) as CheckBox
+	check(checkbox != null and not checkbox.button_pressed, "reading page one unlocks the clear checkbox")
+	if checkbox != null:
+		checkbox.button_pressed = true
+	await press_button(str(copy.pay).format({"n": 25}), "pay for a Quran in secret")
+	check_wallet(45, 55, "secret Quran payment spends coins without adding trust")
+	check(visible_text().contains("%s %s" % [copy.quran_done, copy.secret]), "the Quran result says Idris tells no one")
+	checkbox = find_button(app.ui, copy.secret_label) as CheckBox
+	check(checkbox != null and checkbox.button_pressed, "the secret choice persists for this visit")
+	await press_button(str(copy.pay).format({"n": 30}), "pay for Faris's year in secret")
+	check_wallet(45, 25, "secret school payment spends coins without adding trust")
+	check(visible_text().contains("%s %s" % [copy.first_child, copy.secret]), "a secret first school payment still sponsors Faris")
+	check_school_footer(copy.back, "QURANS GIVEN: 1 / 1,000 · CHILDREN IN SCHOOL: 1 / 100")
+	await press_button(copy.back, "return after secret school payments")
+	await press_button(app.chapter.purse.morning.to_rep, "view reputation after secret school payments")
+	check(app.qurans_school.reputation_lines().is_empty() and visible_text().contains(app.chapter.rep.empty)
+		and not visible_text().contains(school.say.qurans[0]) and not visible_text().contains(school.say.school[0]),
+		"neither secret payment is visible in What people say")
+	move_market_fixture("masjid")
+	await press_button(school.masjid_button, "reopen the school after giving secretly")
+	checkbox = find_button(app.ui, copy.secret_label) as CheckBox
+	check(checkbox != null and not checkbox.button_pressed, "reopening clears the last visit's private selection")
+	await press_button(str(copy.pay).format({"n": 25}), "make the day's first public payment after two secret gifts")
+	check_wallet(46, 0, "secret payments do not consume the public trust award")
+	check(app.qurans_school.reputation_lines() == [school.say.qurans], "a public Quran leaves only its own line")
+	reset_at_market_place("masjid", 200, 1)
+	check(app.qurans_school.qurans_given == 0 and app.qurans_school.children_in_school == 0
+		and app.qurans_school.reputation_lines().is_empty(), "a new game clears both lifetime counters and public history")
+
+
+func check_school_footer(back_copy: String, counter_copy: String) -> void:
+	var back := find_button(app.ui, back_copy)
+	var counters := find_visible_label(app.ui, counter_copy)
+	check(back != null and counters != null and app.get_viewport().get_visible_rect().encloses(back.get_global_rect())
+		and back.get_global_rect().has_point(Vector2(back.global_position.x, counters.global_position.y)),
+		"the locked counters and Back button share a visible footer row")
