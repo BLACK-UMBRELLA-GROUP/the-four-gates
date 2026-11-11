@@ -51,6 +51,7 @@ const LessonCanvas = preload("res://game/lesson_canvas.gd")
 const BreadGrab = preload("res://game/bread_grab.gd")
 const MarketStall = preload("res://game/market_stall.gd")
 const Talking = preload("res://game/talking.gd")
+const MarketDay = preload("res://game/market_day.gd")
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
@@ -64,6 +65,8 @@ var open_purse: RefCounted
 var bread_grab: BreadGrab
 var market_stall: MarketStall
 var talking: Talking
+var market_day: MarketDay
+var _regular_status := MarketDay.Status.OPEN
 var _can_feed := false
 var _board_prompt := BreadGrab.Prompt.NONE
 var language_words: Dictionary
@@ -112,7 +115,7 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
@@ -120,6 +123,7 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	bread_grab = grab_value
 	market_stall = stall_value
 	talking = talking_value
+	market_day = market_day_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -285,6 +289,12 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	var place_changed := place_id != place_value
 	var clock_changed: bool = _clock_day != clock.day or _clock_minute != clock.minute_of_day
 	var rebuild: bool = place_changed or _last_coins != progress.coins or _last_trust != progress.trust or _last_daily_count != progress.daily_count or _last_lesson != progress.lesson_done or _last_gate != progress.gate_open
+	if clock_changed or place_changed:
+		var regular_id: String = talking.regular_at(place_value).get("id", "")
+		var availability := market_day.status(regular_id)
+		if availability != _regular_status:
+			_regular_status = availability
+			rebuild = rebuild or screen in ["game", "market_map"]
 	if screen == "reputation" and market_stall.worn_clothes == "best":
 		rebuild = rebuild or _clock_day != clock.day
 	var prompt := bread_grab.board_prompt(salma_present) if place_value == "board" else BreadGrab.Prompt.NONE
@@ -1155,13 +1165,18 @@ func _build_reputation_rows(panel: Panel, lines: Array, row_height: float, y: fl
 		y += row_height
 
 
-func _build_prayer_buttons(x: float, place_width: float, row_y: float = 973.0) -> float:
-	var prayer := _prayer_label if place_id != "masjid" else ""
+func _prayer_buttons_width(prayer: String) -> float:
 	var width := 0.0
 	if not prayer.is_empty():
 		width += _button_width(prayer, true) + 22.0
 	if not _make_up_label.is_empty():
 		width += _button_width(_make_up_label) + 22.0
+	return width
+
+
+func _build_prayer_buttons(x: float, place_width: float, row_y: float = 973.0) -> float:
+	var prayer := _prayer_label if place_id != "masjid" else ""
+	var width := _prayer_buttons_width(prayer)
 	var separate_row := x + width + place_width > 1878.0
 	var at := Vector2(x, 898.0 if separate_row else row_y)
 	if not prayer.is_empty():
@@ -1199,7 +1214,14 @@ func _build_place_bar(x: float) -> bool:
 			action = _prayer_label
 	var name_width := bold_font.get_string_size(name_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var line_width := font.get_string_size(line_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
-	var button_width := bold_font.get_string_size(action, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 46
+	var shop_notice := ""
+	if _regular_status != MarketDay.Status.OPEN and place_id in ["spice", "weaver"]:
+		var copy: Dictionary = market_day.data.text
+		if _regular_status == MarketDay.Status.FRIDAY_PRAYER:
+			shop_notice = copy.shop_closed_friday
+		else:
+			shop_notice = copy.stall_closed_night if place_id == "spice" else copy.loom_closed_night
+	var action_width := _button_width(action, true) + 2.0 if shop_notice.is_empty() else font.get_string_size(shop_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var extra_text := ""
 	var extra_action: Callable
 	var extra_primary := false
@@ -1218,9 +1240,16 @@ func _build_place_bar(x: float) -> bool:
 		extra_primary = true
 	var extra_width := _button_width(extra_text, extra_primary) + 18.0 if not extra_text.is_empty() else 0.0
 	var talk_text := talking.button_at(place_id)
-	var talk_width := _button_width(talk_text) + 18.0 if not talk_text.is_empty() else 0.0
-	var total_width := name_width + line_width + button_width + extra_width + talk_width + 55.0
-	var wrap := not talk_text.is_empty() and x + total_width > 1878.0
+	var talk_notice := ""
+	var talk_width := 0.0
+	if not talk_text.is_empty():
+		if _regular_status == MarketDay.Status.OPEN:
+			talk_width = _button_width(talk_text) + 18.0
+		else:
+			talk_notice = market_day.talk_notice(talking.regular_at(place_id).id, _regular_status)
+			talk_width = font.get_string_size(talk_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 18.0
+	var total_width := name_width + line_width + action_width + extra_width + talk_width + 55.0
+	var wrap := not talk_text.is_empty() and _board_prompt == BreadGrab.Prompt.NONE and x + total_width + _prayer_buttons_width(_prayer_label) > 1878.0
 	if wrap:
 		_build_prayer_buttons(x, 0.0, 890.0)
 		x = 42.0
@@ -1234,12 +1263,18 @@ func _build_place_bar(x: float) -> bool:
 	var panel := _panel(Vector2(x, bar_y), Vector2(width, 147.0 if waiting else 73.0), Color("191c19"))
 	_label(panel, name_value, Vector2(18, 15), Vector2(name_width + 4, 42), 24, PAPER, true)
 	_label(panel, line_value, Vector2(18 + name_width, 15), Vector2(line_width + 4, 42), 24, PAPER)
-	var action_x := x + total_width - button_width - extra_width - talk_width - 17.0
-	_button(action, Vector2(action_x, bar_y + 8.0), Vector2(button_width, 56), func(): use_requested.emit(), true)
+	var action_x := x + total_width - action_width - extra_width - talk_width - 17.0
+	if shop_notice.is_empty():
+		_button(action, Vector2(action_x, bar_y + 8.0), Vector2(action_width, 56), func(): use_requested.emit(), true)
+	else:
+		_label(panel, shop_notice, Vector2(action_x - x, 15), Vector2(action_width + 4.0, 42), 24, PAPER)
 	if not extra_text.is_empty():
-		_button(extra_text, Vector2(action_x + button_width + 18.0, bar_y + 8.0), Vector2(extra_width - 18.0, 56), extra_action, extra_primary)
-	if not talk_text.is_empty():
-		_button(talk_text, Vector2(action_x + button_width + extra_width + 18.0, bar_y + 8.0), Vector2(talk_width - 18.0, 56), func(): talk_requested.emit())
+		_button(extra_text, Vector2(action_x + action_width + 18.0, bar_y + 8.0), Vector2(extra_width - 18.0, 56), extra_action, extra_primary)
+	var talk_x := action_x + action_width + extra_width + 18.0
+	if not talk_notice.is_empty():
+		_label(panel, talk_notice, Vector2(talk_x - x, 15), Vector2(talk_width - 14.0, 42), 24, PAPER)
+	elif not talk_text.is_empty():
+		_button(talk_text, Vector2(talk_x, bar_y + 8.0), Vector2(talk_width - 18.0, 56), func(): talk_requested.emit())
 	if waiting:
 		_label(panel, chapter.grab.wait_line, Vector2(18, 87), Vector2(width - 36, 42), 24, PAPER)
 	return wrap

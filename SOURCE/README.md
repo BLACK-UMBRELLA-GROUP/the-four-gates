@@ -197,3 +197,13 @@ and `BUILD.json` for provenance, visual differences and verified PNG hashes.
 Run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --talking` for the 15 comparisons.
 Both commands accept `--talking-output=/absolute/path`. See `LINE13_CHECKS.json` for the viewport checks and fixture states,
 and `BUILD.json` for source provenance, visual differences and verified PNG hashes.
+
+LOCK 7 reads the regulars' hours from `SOURCE/data/market_day.json`. On Fridays, the five conversations,
+Rashid's stall and Layla's loom close at the Friday adhan and reopen five minutes after the iqamah.
+The scales lesson stays open, and Salma must be present to start the bread grab.
+
+`godot --path SOURCE -- --capture-market-day` captures all ten LOCK 7 states in
+`GAME/APPROVED/MARKET_DAY/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --market-day` to pair each master with
+its native capture. Both commands accept `--market-day-output=/absolute/path`.
+See `LINE14_CHECKS.json` and `BUILD.json` for the checks, fixture, provenance and visual differences.

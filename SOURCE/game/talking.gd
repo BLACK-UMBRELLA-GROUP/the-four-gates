@@ -32,8 +32,12 @@ func reset() -> void:
 	reply = ""
 
 
+func regular_at(place: String) -> Dictionary:
+	return _by_place.get(place, {})
+
+
 func button_at(place: String) -> String:
-	var regular: Dictionary = _by_place.get(place, {})
+	var regular := regular_at(place)
 	if regular.is_empty():
 		return ""
 	return str(data.talk_button).format({"name": regular.name})

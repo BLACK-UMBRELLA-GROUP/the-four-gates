@@ -11,6 +11,7 @@ const OpenPurse = preload("res://game/open_purse.gd")
 const BreadGrab = preload("res://game/bread_grab.gd")
 const MarketStall = preload("res://game/market_stall.gd")
 const Talking = preload("res://game/talking.gd")
+const MarketDay = preload("res://game/market_day.gd")
 
 var data: Dictionary
 var identity: Dictionary
@@ -23,6 +24,7 @@ var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
 var clock: PrayerClock
+var market_day: MarketDay
 var night: bool:
 	get: return clock.night
 var current_place := ""
@@ -53,6 +55,7 @@ func _ready() -> void:
 	identity = Foundations.load_identity()
 	chapter = Foundations.load_chapter1()
 	clock = PrayerClock.new(identity.clock)
+	market_day = MarketDay.new(Foundations.load_market_day(), clock)
 	Foundations.configure_input(data)
 	progress.setup(data)
 	open_purse.setup(chapter, progress, clock)
@@ -69,7 +72,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -153,6 +156,9 @@ func _ready() -> void:
 	elif "--capture-talking" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_talking.gd").new()
 		capture_runner.run(self)
+	elif "--capture-market-day" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_market_day.gd").new()
+		capture_runner.run(self)
 
 func _process(delta: float) -> void:
 	if ui.screen not in ["title", "arrival"]:
@@ -193,7 +199,7 @@ func update_state() -> void:
 	var world_night: bool = night or (ui.screen == "arrival" and _arrival_sunset)
 	if world.night != world_night:
 		world.set_night(world_night)
-	ui.refresh(player.position, current_place, night, world.salma.is_visible_in_tree())
+	ui.refresh(player.position, current_place, night, _salma_available())
 
 func begin_game() -> void:
 	progress.setup(data)
@@ -455,11 +461,18 @@ func answer_bread_grab(id: String) -> void:
 
 func _bread_grab_prompt() -> BreadGrab.Prompt:
 	if current_place == "board" and ui.screen in ["game", "market_map"]:
-		return bread_grab.board_prompt(world.salma.is_visible_in_tree())
+		return bread_grab.board_prompt(_salma_available())
 	return BreadGrab.Prompt.NONE
+
+
+func _salma_available() -> bool:
+	return market_day.status("salma") == MarketDay.Status.OPEN and world.salma.is_visible_in_tree()
+
 
 func show_stall() -> void:
 	if current_place != "spice" or ui.screen not in ["game", "market_map"]:
+		return
+	if market_day.status("rashid") != MarketDay.Status.OPEN:
 		return
 	_stop_travel()
 	market_stall.visit()
@@ -477,9 +490,12 @@ func resolve_stall_change(give_back: bool) -> void:
 
 
 func show_loom() -> void:
-	if current_place == "weaver" and ui.screen in ["game", "market_map"]:
-		_stop_travel()
-		show_screen("loom")
+	if current_place != "weaver" or ui.screen not in ["game", "market_map"]:
+		return
+	if market_day.status("layla") != MarketDay.Status.OPEN:
+		return
+	_stop_travel()
+	show_screen("loom")
 
 
 func buy_loom_item(id: String) -> void:
@@ -507,6 +523,9 @@ func give_bread_to_faris() -> void:
 
 func show_talking() -> void:
 	update_state()
+	var regular := talking.regular_at(current_place)
+	if regular.is_empty() or market_day.status(regular.id) != MarketDay.Status.OPEN:
+		return
 	if ui.screen in ["game", "market_map"] and talking.open_at(current_place):
 		_stop_travel()
 		show_screen("talk")

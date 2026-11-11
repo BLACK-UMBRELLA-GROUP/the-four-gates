@@ -1,0 +1,257 @@
+{
+  "id": "DOC-TFG-0032",
+  "queue_line": 14,
+  "lock": "LOCK 7 V1",
+  "tested_base_commit_sha": "4fd5e8d1961eebdcc54422fcb10fde571cb1471b",
+  "capture_source": "Native run from the Line 14 worktree on the tested base. The daily task note identifies the single commit containing the captured source and evidence.",
+  "godot_version": "4.7.2-stable (official)",
+  "build_mode": "Native Godot debug viewport, forward_plus / metal on Apple M2 (Apple8)",
+  "timestamp_utc": "2026-11-11T15:38:49Z",
+  "method": "Native Godot viewport. Viewport clicks complete the arrival and exercise the place buttons. The use input checks closed shops; the production talk entry point checks closed conversations.",
+  "fixture": "The harness pauses passive clock ticks and stages the player at the live map positions on Friday day 2 or Saturday day 3. The fair arrival supplies coins and trust. d08 advances the clock at Spice row from 12:15 to 12:45 without changing the screen or player position.",
+  "locked_inputs_as_read_sha256": {
+    "GAME/APPROVED/MARKET_DAY/BRIEFS/BUILD_BRIEF_2026-11-08_MARKET_DAY.md": "a8c2c52ea991cc6924b9bbdafa98a86c061cc57da3acfe9d782fa54df8864988",
+    "GAME/APPROVED/MARKET_DAY/MASTERS/d01_spice_row__day_open.png": "dc5fd35676fef35dfb03135bebc213876936a6ad809a67607ea7ec312497cf4a",
+    "GAME/APPROVED/MARKET_DAY/MASTERS/d02_spice_row__night_shut.png": "0b71c6118f9e34cd95c0a7b9d8edc0c229686831ec5f7479f77da2391972c2fc",
+    "GAME/APPROVED/MARKET_DAY/MASTERS/d03_square__night_salma_gone.png": "77e959a2a32bd008eeab5f266a8f29806830250380e95b282f8b4865bfcdafd5",
+    "GAME/APPROVED/MARKET_DAY/MASTERS/d04_square__before_sunrise_salma_baking.png": "61901fbfd498d8912df9476878182833c953304f9d14b2df13c994fb20b25ea8",
+    "GAME/APPROVED/MARKET_DAY/MASTERS/d05_spice_row__before_opening.png": "6963d34bc6207ef8b05a61143b9c12e5520e052a56e87e836bf12739a2ea0c22",
+    "GAME/APPROVED/MARKET_DAY/MASTERS/d06_weaver__friday_prayer.png": "a748c6616ee7a86b89fc72b78f2406a977975ecdb059e0bad28daae90bc1f2e6",
+    "GAME/APPROVED/MARKET_DAY/MASTERS/d07_quay__friday_prayer.png": "1adf7ffc38417b1829891f0041a4fec53b595a2e43c54cdfbf3b77995abcf8a4",
+    "GAME/APPROVED/MARKET_DAY/MASTERS/d08_spice_row__after_friday_prayer.png": "a6883576ccba5646a12f18521666dbfafd4b1e9cc2f34aafb589614b61235a31",
+    "GAME/APPROVED/MARKET_DAY/MASTERS/d09_scales__old_musa_gone.png": "2481fb6daa3e45757cf67d560eec1d5238e14e448726440216c9ebb9214125ac",
+    "GAME/APPROVED/MARKET_DAY/MASTERS/d10_quay__jamal_early.png": "6c9b9e61aef5b54188cc5961471ee5b2391f0b73cdefd572f67c1fd136cb73a8",
+    "GAME/APPROVED/MARKET_DAY/RECORD/LOCK_RECORD.md": "83d62dbdd9979475f0a29427a1d9fa28a616accee269d2937ee6606622d6b951",
+    "GAME/APPROVED/MARKET_DAY/RECORD/MARKET_DAY_SPEC_CURRENT_VERSION_V1.md": "d28679b7a215df25ae33c7729f8b69015f613abf3771f4e6fe1e1a49a26ee6ae",
+    "GAME/APPROVED/MARKET_DAY/RECORD/market_day_data_V1.json": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05"
+  },
+  "captured_source_sha256": {
+    "SOURCE/data/chapter1.json": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0",
+    "SOURCE/data/clothes.json": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e",
+    "SOURCE/data/foundations.json": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/data/market_day.json": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05",
+    "SOURCE/data/market_stall.json": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604",
+    "SOURCE/data/talking.json": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4",
+    "SOURCE/game/bread_grab.gd": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468",
+    "SOURCE/game/foundations.gd": "c4e39d0fe602b4f15d8a6943dfb4dbee0e6aa811f906457197c104080957cc0e",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+    "SOURCE/game/market_day.gd": "aa22429adc0288f1e0a98450e2a38fb32bf11ee455edd42466357897e51783cf",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_stall.gd": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56",
+    "SOURCE/game/market_ui.gd": "173b024f53a951c262f698fcbdd100bd7c6563aed3a0ab238ad9018673ee50dd",
+    "SOURCE/game/market_world.gd": "eaf1865a7fbde3193e796882c9c7c93a1979e2a4db7c51b7c7d2604e32f7eb2f",
+    "SOURCE/game/open_purse.gd": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9",
+    "SOURCE/game/prayer_clock.gd": "ee989a2fb314715f9ea17dc9862d53f78894ad4ea389dae1c527a0a38c7d4837",
+    "SOURCE/game/river_market.gd": "4e350c412ec868deb5fb2289c3b749b55db8df6e5860ad4f4a4c0e451aa3deab",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/game/talking.gd": "546458aedd4c3c74f06e498f2160c8622fc5524a3f9d9ab49ec6cd0891bd0f86",
+    "SOURCE/game/task_progress.gd": "ec252cac5837000910f107051f4d63d16a77f3327c83f316f7e31d5dcf16cbc2",
+    "SOURCE/project.godot": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45",
+    "SOURCE/tests/capture_foundations.gd": "9438293266619c670d86a24a005ede07624529debf5856290ff40a858e48f27d",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/capture_market_day.gd": "8dd6701b8c4ff833a82844e4f09aa6f4b44eee9f000a045209521e27ebf1a03a",
+    "SOURCE/tests/capture_tasks.gd": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003",
+    "SOURCE/tests/create_comparisons.gd": "4fab4dda3cc43d105836c5b95220b3b829119c7a416e65572d05d8009467b37e",
+    "SOURCE/tests/run_tests.gd": "b5ec5d83919b51898347a4fa2e351f363f6782eaae3eed33a98edd4dc7e915b7"
+  },
+  "tests": {
+    "headless": {
+      "passed": 2334,
+      "total": 2334,
+      "exit_code": 0
+    },
+    "native_market_day": {
+      "passed": 140,
+      "total": 140,
+      "exit_code": 0,
+      "file": "LINE14_CHECKS.json",
+      "bytes": 20635,
+      "sha256": "a6a78896deafe8b334cdcd96f0902adbe593ed224f2cfe3f9a73ff12a1c25cc8"
+    },
+    "native_talking_regression": {
+      "passed": 341,
+      "total": 341,
+      "exit_code": 0,
+      "output": "Separate scratch directory"
+    },
+    "comparisons_verified_pixel_for_pixel": 10,
+    "native_approval_requests": 0
+  },
+  "visual_review": {
+    "matches": "All ten place-bar states, exact closure notices, button replacements and order, map locations, day and night states, HUD time, coins and trust match.",
+    "all": "The live map uses its existing marker rings, gate badge, label outlines and fonts, day and night tones, lantern glow and canal caption. HUD panels, toolbar spacing, place bar fills, outlines, control widths, and text positioning differ slightly.",
+    "d02_d05_d06": "The live notice bars are taller and the navigation row sits slightly higher.",
+    "d04": "The live wider bar overlaps the beginning of the canal caption.",
+    "d06_d07_d08": "The inherited away-from-Masjid HUD reads Dhuhr now while the prototype reads Friday prayer now. The locked market closure and reopening match."
+  },
+  "compression": {
+    "method": "Lossless zlib recompression of PNG image data",
+    "original_png_bytes": 6318821,
+    "final_png_bytes": 6008984,
+    "verified": "Godot decoded every final PNG at full dimensions. Each matched the uncompressed original, and each comparison matched the approved master on the left and final native capture on the right."
+  },
+  "pngs": {
+    "d01_spice_row__day_open__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 165809,
+      "sha256": "91b9c002063e90b0279d2837b4b0c0215c215202ae7598057389f77e3a1f5e2d"
+    },
+    "d01_spice_row__day_open__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 349637,
+      "sha256": "22813f1af2357a12c661e33f276262a2495c074b6c69d360d159c07e974f22e9"
+    },
+    "d02_spice_row__night_shut__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 230942,
+      "sha256": "e4cec50d05f8731e319df2bb40c74673518b0e319d29c7ae1acf71ec73ba9dc7"
+    },
+    "d02_spice_row__night_shut__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 469669,
+      "sha256": "260c39851ed3ec8571871cf1373a4e60941e301741bac9b229eae51cc895ad42"
+    },
+    "d03_square__night_salma_gone__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 233725,
+      "sha256": "87a8248a9f1a3cfa40ef2aa48dccc73cccc3034a40907fa886a139d3a025dd87"
+    },
+    "d03_square__night_salma_gone__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 477892,
+      "sha256": "9cbc3be5d8ab3f5f798d391b5168470d5ddb5ddfc06fee39776aad63a5e80885"
+    },
+    "d04_square__before_sunrise_salma_baking__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 233181,
+      "sha256": "6ec5117b67ec942488c32db17c7242211d862ba0c68a3411873075448bac7566"
+    },
+    "d04_square__before_sunrise_salma_baking__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 475837,
+      "sha256": "fdfaec4cb8fa618add3346ad6f5be68b35b812519183836a585438d23e8d8c1f"
+    },
+    "d05_spice_row__before_opening__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 230409,
+      "sha256": "37339439fcac0466f304ac21e28dd5c20fcf24e50a1e199b2c5e6407bb50e393"
+    },
+    "d05_spice_row__before_opening__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 472575,
+      "sha256": "810c590e14199bf065eb011a98de1315158b51115b02f2cf514fa2b563a690f9"
+    },
+    "d06_weaver__friday_prayer__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 171387,
+      "sha256": "1bf8b906b7f69fdf50652a9d198c6aad96a3b810e3f4fcddfd9e8bc906eb677a"
+    },
+    "d06_weaver__friday_prayer__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 361322,
+      "sha256": "08aeda34d364f9ab42bf96136ba704931abd0140a113edbd31e8af7f4c08d934"
+    },
+    "d07_quay__friday_prayer__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 172177,
+      "sha256": "81dae48b3eec7d1ba95ca652db57298dd2e162e35d93b166c9abc103fcba9a7b"
+    },
+    "d07_quay__friday_prayer__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 363194,
+      "sha256": "26280619f0879ee18741c8a0fdc525c88bcd336c2e94cebec0598f15ef07afd7"
+    },
+    "d08_spice_row__after_friday_prayer__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 174929,
+      "sha256": "5ba4beb089bcd37ca5f63933f9a2726375124be0b776a8306752b8264c8aa2a2"
+    },
+    "d08_spice_row__after_friday_prayer__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 368182,
+      "sha256": "e3c1ce4c2e588a16f68ee698995eda72a06094852413950a1af6046d1ffd356b"
+    },
+    "d09_scales__old_musa_gone__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 176995,
+      "sha256": "af1c237ab7e80870a927912f451e55fdc710c2b5a7ea9c8d2ad2e8836fc40dd5"
+    },
+    "d09_scales__old_musa_gone__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 372496,
+      "sha256": "3de4351b6b4c98f34ac9579dcfbc6317130b908d7490584613602cf9201cbdee"
+    },
+    "d10_quay__jamal_early__build.png": {
+      "dimensions": [
+        1920,
+        1080
+      ],
+      "bytes": 164240,
+      "sha256": "074a44889396249bf70b3302890b62bbafa1eacc879cac45b9e0f44a0fe0b564"
+    },
+    "d10_quay__jamal_early__master_beside_build.png": {
+      "dimensions": [
+        3840,
+        1080
+      ],
+      "bytes": 344386,
+      "sha256": "10c135a1dac1ea254e66b34acda7bc6a0b41795c5a6ee21d4b818e443c8b053c"
+    }
+  }
+}

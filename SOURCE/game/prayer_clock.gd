@@ -295,6 +295,17 @@ func is_friday() -> bool:
 	return _weekday(day) == "Friday"
 
 
+func is_friday_prayer_window(minutes_after_iqamah: int) -> bool:
+	if not is_friday():
+		return false
+	for prayer: Dictionary in _prayers:
+		if prayer.name == _data.friday.replaces:
+			var adhan := int(prayer.begins)
+			var reopens := adhan + int(_data.friday.iqamah_minutes_after_adhan) + minutes_after_iqamah
+			return minute_of_day >= adhan and minute_of_day < reopens
+	return false
+
+
 func _scheduled_name(prayer: int) -> String:
 	return _data.friday.name if _is_friday_slot(prayer) else _prayer(prayer).name
 

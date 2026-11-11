@@ -1,0 +1,820 @@
+{
+	"checks": [
+		{
+			"description": "the locked market day data is readable",
+			"passed": true
+		},
+		{
+			"description": "runtime market day data matches the locked bytes",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the Inn market map",
+			"passed": true
+		},
+		{
+			"description": "d01_spice_row__day_open is at the locked map place and time",
+			"passed": true
+		},
+		{
+			"description": "d01_spice_row__day_open: Talk to Rashid button shown",
+			"passed": true
+		},
+		{
+			"description": "d01_spice_row__day_open: Talk to Rashid button fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d01_spice_row__day_open: Rashid has gone home. Back after sunrise. hidden",
+			"passed": true
+		},
+		{
+			"description": "d01_spice_row__day_open: Rashid is at Friday prayer. hidden",
+			"passed": true
+		},
+		{
+			"description": "d01_spice_row__day_open: Buy at the stall button shown",
+			"passed": true
+		},
+		{
+			"description": "d01_spice_row__day_open: Buy at the stall button fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d01_spice_row__day_open: Rashid's stall is shut for the night. hidden",
+			"passed": true
+		},
+		{
+			"description": "d01_spice_row__day_open: Shut for Friday prayer. hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: d01_spice_row__day_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: d01_spice_row__day_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "d02_spice_row__night_shut is at the locked map place and time",
+			"passed": true
+		},
+		{
+			"description": "d02_spice_row__night_shut: Talk to Rashid button hidden",
+			"passed": true
+		},
+		{
+			"description": "d02_spice_row__night_shut: Rashid has gone home. Back after sunrise. shown",
+			"passed": true
+		},
+		{
+			"description": "d02_spice_row__night_shut: Rashid has gone home. Back after sunrise. fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d02_spice_row__night_shut: Rashid is at Friday prayer. hidden",
+			"passed": true
+		},
+		{
+			"description": "d02_spice_row__night_shut: Buy at the stall button hidden",
+			"passed": true
+		},
+		{
+			"description": "d02_spice_row__night_shut: Rashid's stall is shut for the night. shown",
+			"passed": true
+		},
+		{
+			"description": "d02_spice_row__night_shut: Rashid's stall is shut for the night. fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d02_spice_row__night_shut: Shut for Friday prayer. hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: d02_spice_row__night_shut__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: d02_spice_row__night_shut__build.png",
+			"passed": true
+		},
+		{
+			"description": "d03_square__night_salma_gone is at the locked map place and time",
+			"passed": true
+		},
+		{
+			"description": "d03_square__night_salma_gone: Talk to Salma button hidden",
+			"passed": true
+		},
+		{
+			"description": "d03_square__night_salma_gone: Salma has gone home. Back after sunrise. shown",
+			"passed": true
+		},
+		{
+			"description": "d03_square__night_salma_gone: Salma has gone home. Back after sunrise. fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d03_square__night_salma_gone: Salma is at Friday prayer. hidden",
+			"passed": true
+		},
+		{
+			"description": "d03_square__night_salma_gone: Read the board button shown",
+			"passed": true
+		},
+		{
+			"description": "d03_square__night_salma_gone: Read the board button fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d03_square__night_salma_gone: Something happens at the oven button hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: d03_square__night_salma_gone__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: d03_square__night_salma_gone__build.png",
+			"passed": true
+		},
+		{
+			"description": "d04_square__before_sunrise_salma_baking is at the locked map place and time",
+			"passed": true
+		},
+		{
+			"description": "d04_square__before_sunrise_salma_baking: Talk to Salma button shown",
+			"passed": true
+		},
+		{
+			"description": "d04_square__before_sunrise_salma_baking: Talk to Salma button fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d04_square__before_sunrise_salma_baking: Salma has gone home. Back after sunrise. hidden",
+			"passed": true
+		},
+		{
+			"description": "d04_square__before_sunrise_salma_baking: Salma is at Friday prayer. hidden",
+			"passed": true
+		},
+		{
+			"description": "d04_square__before_sunrise_salma_baking: Read the board button shown",
+			"passed": true
+		},
+		{
+			"description": "d04_square__before_sunrise_salma_baking: Read the board button fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d04_square__before_sunrise_salma_baking: Something happens at the oven button shown",
+			"passed": true
+		},
+		{
+			"description": "d04_square__before_sunrise_salma_baking: Something happens at the oven button fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: d04_square__before_sunrise_salma_baking__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: d04_square__before_sunrise_salma_baking__build.png",
+			"passed": true
+		},
+		{
+			"description": "d05_spice_row__before_opening is at the locked map place and time",
+			"passed": true
+		},
+		{
+			"description": "d05_spice_row__before_opening: Talk to Rashid button hidden",
+			"passed": true
+		},
+		{
+			"description": "d05_spice_row__before_opening: Rashid has gone home. Back after sunrise. shown",
+			"passed": true
+		},
+		{
+			"description": "d05_spice_row__before_opening: Rashid has gone home. Back after sunrise. fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d05_spice_row__before_opening: Rashid is at Friday prayer. hidden",
+			"passed": true
+		},
+		{
+			"description": "d05_spice_row__before_opening: Buy at the stall button hidden",
+			"passed": true
+		},
+		{
+			"description": "d05_spice_row__before_opening: Rashid's stall is shut for the night. shown",
+			"passed": true
+		},
+		{
+			"description": "d05_spice_row__before_opening: Rashid's stall is shut for the night. fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d05_spice_row__before_opening: Shut for Friday prayer. hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: d05_spice_row__before_opening__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: d05_spice_row__before_opening__build.png",
+			"passed": true
+		},
+		{
+			"description": "d06_weaver__friday_prayer is at the locked map place and time",
+			"passed": true
+		},
+		{
+			"description": "d06_weaver__friday_prayer: Talk to Layla button hidden",
+			"passed": true
+		},
+		{
+			"description": "d06_weaver__friday_prayer: Layla has gone home. Back after sunrise. hidden",
+			"passed": true
+		},
+		{
+			"description": "d06_weaver__friday_prayer: Layla is at Friday prayer. shown",
+			"passed": true
+		},
+		{
+			"description": "d06_weaver__friday_prayer: Layla is at Friday prayer. fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d06_weaver__friday_prayer: Visit Layla's loom button hidden",
+			"passed": true
+		},
+		{
+			"description": "d06_weaver__friday_prayer: Layla's loom is quiet for the night. hidden",
+			"passed": true
+		},
+		{
+			"description": "d06_weaver__friday_prayer: Shut for Friday prayer. shown",
+			"passed": true
+		},
+		{
+			"description": "d06_weaver__friday_prayer: Shut for Friday prayer. fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: d06_weaver__friday_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: d06_weaver__friday_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "d07_quay__friday_prayer is at the locked map place and time",
+			"passed": true
+		},
+		{
+			"description": "d07_quay__friday_prayer: Talk to Jamal button hidden",
+			"passed": true
+		},
+		{
+			"description": "d07_quay__friday_prayer: Jamal has gone home. Back after sunrise. hidden",
+			"passed": true
+		},
+		{
+			"description": "d07_quay__friday_prayer: Jamal is at Friday prayer. shown",
+			"passed": true
+		},
+		{
+			"description": "d07_quay__friday_prayer: Jamal is at Friday prayer. fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d07_quay__friday_prayer: Look around button shown",
+			"passed": true
+		},
+		{
+			"description": "d07_quay__friday_prayer: Look around button fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: d07_quay__friday_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: d07_quay__friday_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "d08 before reopening: Talk to Rashid button hidden",
+			"passed": true
+		},
+		{
+			"description": "d08 before reopening: Rashid has gone home. Back after sunrise. hidden",
+			"passed": true
+		},
+		{
+			"description": "d08 before reopening: Rashid is at Friday prayer. shown",
+			"passed": true
+		},
+		{
+			"description": "d08 before reopening: Rashid is at Friday prayer. fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d08 before reopening: Buy at the stall button hidden",
+			"passed": true
+		},
+		{
+			"description": "d08 before reopening: Rashid's stall is shut for the night. hidden",
+			"passed": true
+		},
+		{
+			"description": "d08 before reopening: Shut for Friday prayer. shown",
+			"passed": true
+		},
+		{
+			"description": "d08 before reopening: Shut for Friday prayer. fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d08_spice_row__after_friday_prayer is at the locked map place and time",
+			"passed": true
+		},
+		{
+			"description": "d08_spice_row__after_friday_prayer: Talk to Rashid button shown",
+			"passed": true
+		},
+		{
+			"description": "d08_spice_row__after_friday_prayer: Talk to Rashid button fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d08_spice_row__after_friday_prayer: Rashid has gone home. Back after sunrise. hidden",
+			"passed": true
+		},
+		{
+			"description": "d08_spice_row__after_friday_prayer: Rashid is at Friday prayer. hidden",
+			"passed": true
+		},
+		{
+			"description": "d08_spice_row__after_friday_prayer: Buy at the stall button shown",
+			"passed": true
+		},
+		{
+			"description": "d08_spice_row__after_friday_prayer: Buy at the stall button fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d08_spice_row__after_friday_prayer: Rashid's stall is shut for the night. hidden",
+			"passed": true
+		},
+		{
+			"description": "d08_spice_row__after_friday_prayer: Shut for Friday prayer. hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: d08_spice_row__after_friday_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: d08_spice_row__after_friday_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "d09_scales__old_musa_gone is at the locked map place and time",
+			"passed": true
+		},
+		{
+			"description": "d09_scales__old_musa_gone: Talk to Old Musa button hidden",
+			"passed": true
+		},
+		{
+			"description": "d09_scales__old_musa_gone: Old Musa has gone home. Back after sunrise. shown",
+			"passed": true
+		},
+		{
+			"description": "d09_scales__old_musa_gone: Old Musa has gone home. Back after sunrise. fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d09_scales__old_musa_gone: Old Musa is at Friday prayer. hidden",
+			"passed": true
+		},
+		{
+			"description": "d09_scales__old_musa_gone: Learn the scales button shown",
+			"passed": true
+		},
+		{
+			"description": "d09_scales__old_musa_gone: Learn the scales button fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: d09_scales__old_musa_gone__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: d09_scales__old_musa_gone__build.png",
+			"passed": true
+		},
+		{
+			"description": "d10_quay__jamal_early is at the locked map place and time",
+			"passed": true
+		},
+		{
+			"description": "d10_quay__jamal_early: Talk to Jamal button shown",
+			"passed": true
+		},
+		{
+			"description": "d10_quay__jamal_early: Talk to Jamal button fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "d10_quay__jamal_early: Jamal has gone home. Back after sunrise. hidden",
+			"passed": true
+		},
+		{
+			"description": "d10_quay__jamal_early: Jamal is at Friday prayer. hidden",
+			"passed": true
+		},
+		{
+			"description": "d10_quay__jamal_early: Look around button shown",
+			"passed": true
+		},
+		{
+			"description": "d10_quay__jamal_early: Look around button fits in the viewport",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: d10_quay__jamal_early__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: d10_quay__jamal_early__build.png",
+			"passed": true
+		},
+		{
+			"description": "all ten locked master states were captured",
+			"passed": true
+		},
+		{
+			"description": "use input cannot open Rashid's closed stall",
+			"passed": true
+		},
+		{
+			"description": "Rashid refuses talk while away",
+			"passed": true
+		},
+		{
+			"description": "use input cannot open Layla's loom during Friday prayer",
+			"passed": true
+		},
+		{
+			"description": "Layla refuses talk during Friday prayer",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Buy at the stall",
+			"passed": true
+		},
+		{
+			"description": "the reopened stall can be used after Friday prayer",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Learn the scales",
+			"passed": true
+		},
+		{
+			"description": "the scales lesson opens while Old Musa is away",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Jamal",
+			"passed": true
+		},
+		{
+			"description": "Jamal can be talked to after opening",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Something happens at the oven",
+			"passed": true
+		},
+		{
+			"description": "the board starts the bread grab while Salma is baking",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "The harness pauses passive clock ticks and stages the player at the live map positions on Friday day 2 or Saturday day 3. The fair arrival supplies coins and trust. d08 advances the clock at Spice row from 12:15 to 12:45 without changing the screen or player position.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport. Viewport clicks complete the arrival and exercise the place buttons. The use input checks closed shops; the production talk entry point checks closed conversations.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "d01_spice_row__day_open__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "d02_spice_row__night_shut__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "d03_square__night_salma_gone__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "d04_square__before_sunrise_salma_baking__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "d05_spice_row__before_opening__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "d06_weaver__friday_prayer__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "d07_quay__friday_prayer__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "d08_spice_row__after_friday_prayer__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "d09_scales__old_musa_gone__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "d10_quay__jamal_early__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"d01_spice_row__day_open__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"friday": false,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"d02_spice_row__night_shut__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"friday": false,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1200,
+			"night": true,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"d03_square__night_salma_gone__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"friday": false,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1200,
+			"night": true,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"d04_square__before_sunrise_salma_baking__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"friday": false,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 300,
+			"night": true,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"d05_spice_row__before_opening__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"friday": false,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 300,
+			"night": true,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"d06_weaver__friday_prayer__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 2,
+			"friday": true,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 735,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"d07_quay__friday_prayer__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 2,
+			"friday": true,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 735,
+			"night": false,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"d08_spice_row__after_friday_prayer__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 2,
+			"friday": true,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 765,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"d09_scales__old_musa_gone__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"friday": false,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1060,
+			"night": false,
+			"place": "scales",
+			"player": [
+				104.0,
+				0.0,
+				44.0
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"d10_quay__jamal_early__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"friday": false,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 370,
+			"night": false,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		}
+	},
+	"timestamp_utc": "2026-11-11T15:38:49Z"
+}

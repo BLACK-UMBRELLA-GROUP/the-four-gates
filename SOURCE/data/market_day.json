@@ -1,0 +1,42 @@
+{
+  "version": "LOCK 7 V1 (8 Nov 2026) - River Market's day",
+  "builds_on": "LOCK 2 V3 clock (prayer times, Fridays), LOCK 4-6 (stall, loom, talking). Times are minutes after midnight. Placeholders: {name}.",
+  "hours": {
+    "salma": {
+      "name": "Salma",
+      "open": 270,
+      "close": 1090
+    },
+    "rashid": {
+      "name": "Rashid",
+      "open": 390,
+      "close": 1090
+    },
+    "layla": {
+      "name": "Layla",
+      "open": 390,
+      "close": 1090
+    },
+    "jamal": {
+      "name": "Jamal",
+      "open": 360,
+      "close": 1090
+    },
+    "musa": {
+      "name": "Old Musa",
+      "open": 390,
+      "close": 1050
+    }
+  },
+  "friday": {
+    "closed_from": "the Friday adhan",
+    "closed_until_minutes_after_iqamah": 5
+  },
+  "text": {
+    "closed_night": "{name} has gone home. Back after sunrise.",
+    "closed_friday": "{name} is at Friday prayer.",
+    "stall_closed_night": "Rashid's stall is shut for the night.",
+    "loom_closed_night": "Layla's loom is quiet for the night.",
+    "shop_closed_friday": "Shut for Friday prayer."
+  }
+}

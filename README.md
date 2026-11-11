@@ -33,6 +33,8 @@ leather bag holds twelve. Bread, dates and unworn clothes count towards the limi
 with the clothes you wear.
 LOCK 6 lets you talk to five River Market regulars. Their dialogue follows trust and what each person knows.
 The third different salam greeting adds one trust and a line in What people say.
+LOCK 7 gives the regulars opening hours. The place bar shows when they are away and when the stall and loom
+are shut for Friday prayer. The bread grab starts while Salma is at the oven.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

@@ -126,6 +126,7 @@ func _run() -> void:
 	await check_market_stall_runtime()
 	await check_clothes_runtime()
 	await check_talking_runtime()
+	check_market_day_runtime()
 	finish()
 
 
@@ -2012,6 +2013,69 @@ func open_talk_fixture(regular: Dictionary, talking: Dictionary) -> void:
 	var caption: String = str(talking.talk_button).format({"name": regular.name})
 	await press_button(caption, "open the approved place-bar action for " + regular.name)
 	check(app.ui.screen == "talk" and visible_text().contains("%s, %s" % [regular.name, regular.role]), "talk opens the correct named panel")
+
+
+func check_market_day_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/MARKET_DAY/RECORD/market_day_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/market_day.json")
+	var market_day: Dictionary = app.market_day.data
+	check(not approved.is_empty() and runtime == approved, "market day data copies the locked file byte for byte")
+	check(market_day == JSON.parse_string(runtime.get_string_from_utf8()), "the game uses the approved market day data")
+	app.set_process(false)
+	for regular: Dictionary in app.talking.data.people:
+		var hours: Dictionary = market_day.hours[regular.id]
+		var opened := int(hours.open)
+		var closed := int(hours.close)
+		reset_at_market_place(regular.place, 100)
+		# Change time while standing in place so stale controls cannot pass.
+		for minute: int in [opened - 1, opened, closed - 1, closed]:
+			set_market_day_time(3, minute)
+			var away := minute < opened or minute >= closed
+			check_market_place_hours(regular, away, false, market_day)
+		for day: int in [2, 3]:
+			for minute: int in [724, 725, 759, 760]:
+				set_market_day_time(day, minute)
+				var friday_closed := day == 2 and minute >= 725 and minute < 760
+				check_market_place_hours(regular, friday_closed, friday_closed, market_day)
+	app.set_process(true)
+
+
+func set_market_day_time(day: int, minute: int) -> void:
+	app.clock.reset()
+	app.clock.skip_to(day, minute)
+	app.update_state()
+
+
+func check_market_place_hours(regular: Dictionary, away: bool, friday_closed: bool, market_day: Dictionary) -> void:
+	var caption: String = app.talking.data.talk_button.format({"name": regular.name})
+	var context := "%s on day %d at minute %d" % [regular.name, app.day, app.minute_of_day]
+	check((find_button(app.ui, caption) == null) == away, "talk action at " + context)
+	var copy: Dictionary = market_day.text
+	var night_notice: String = copy.closed_night.format({"name": regular.name})
+	var friday_notice: String = copy.closed_friday.format({"name": regular.name})
+	check(has_visible_label(app.ui, night_notice) == (away and not friday_closed), "hours notice at " + context)
+	check(has_visible_label(app.ui, friday_notice) == friday_closed, "Friday notice at " + context)
+	if away:
+		app.show_talking()
+		check(app.ui.screen == "market_map", "direct talk request refused at " + context)
+	match regular.id:
+		"salma":
+			check((find_button(app.ui, app.chapter.places.board) == null) == away, "bread grab action at " + context)
+			if away:
+				app.show_bread_grab()
+				check(app.ui.screen == "market_map", "bread grab request refused at " + context)
+		"musa":
+			check(find_button(app.ui, data.ui.place_actions.scales) != null, "scales lesson stays available at " + context)
+		"rashid", "layla":
+			var stall: bool = regular.id == "rashid"
+			var shop_button: String = app.market_stall.data.place.spice_button if stall else app.market_stall.clothes_data.place.weaver_button
+			var hours_notice: String = copy.stall_closed_night if stall else copy.loom_closed_night
+			check((find_button(app.ui, shop_button) == null) == away, "shop action at " + context)
+			check(has_visible_label(app.ui, hours_notice) == (away and not friday_closed), "shop hours notice at " + context)
+			check(has_visible_label(app.ui, copy.shop_closed_friday) == friday_closed, "shop Friday notice at " + context)
+			if away:
+				app.use_place()
+				check(app.ui.screen == "market_map", "shop request refused at " + context)
 
 
 func check_talking_memories(talking: Dictionary) -> void:
