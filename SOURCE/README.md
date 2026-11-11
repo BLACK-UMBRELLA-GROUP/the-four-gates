@@ -512,10 +512,25 @@ another 90 minutes and restores the River Market trust display.
 
 Choose **Watch the bridge** to play **One coin and three** once. Speaking adds five Jisra trust,
 paying costs three coins and adds three Jisra trust, and saying nothing leaves both values as they are.
-Prayers offered in Jisra are recorded as prayed alone. A save in Jisra continues in town with the
+Prayers offered on the bridge are recorded as prayed alone. A save in Jisra continues in town with the
 same wallet, prayer record, trust and toll choice.
 
 Run `godot --path SOURCE -- --capture-gate-of-trust --gate-of-trust-user-dir=/absolute/fresh/path`
 to capture the 12 states from the native viewport. Run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --gate-of-trust`
 to place each master beside its capture. Both commands accept `--gate-of-trust-output=/absolute/path`.
+
+## LOCK 33 — Jisra's masjid and Masjids you have prayed in
+
+From Jisra, choose **Go to the boatmen's masjid**. Pray with the congregation through five minutes
+after the iqamah, or pray on your own at the masjid later in the prayer window. Uthman greets you
+after your first prayer there.
+
+Click the clock and open **All your prayers** to see the private count after praying in a masjid.
+Prayers at the River Market masjid and the boatmen's masjid each add that place once. The count
+saves with the game, and prayers on the bridge leave it as it was.
+
+Run `godot --path SOURCE -- --capture-jisra-masjid --jisra-masjid-user-dir=/absolute/fresh/path`
+to capture eight native viewport states. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --jisra-masjid`
+to place each master beside its capture. Both commands accept `--jisra-masjid-output=/absolute/path`.

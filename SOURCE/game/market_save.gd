@@ -38,6 +38,7 @@ const COMPONENT_FIELDS := {
 	"rashids_loan": ["outcome", "_state", "_since_day"],
 	"partnership": ["_partner_day", "_weeks_collected", "_refused"],
 	"gate_of_trust": ["in_jisra", "jisra_trust", "toll_choice"],
+	"jisra_masjid": ["prayed_in", "show_first"],
 	"harm_in_the_road": ["count", "done_day", "moved_harm"],
 	"ramadan": ["_taken", "_rested"],
 	"eid_al_fitr": ["_stood_nights", "_fitr_years", "_eid_days"],
@@ -104,7 +105,7 @@ static func read_slot(path: String) -> Dictionary:
 		return {}
 	for component: String in COMPONENT_FIELDS:
 		# Earlier slots may predate these components.
-		if component in ["partnership", "gate_of_trust"] and not state.has(component):
+		if component in ["partnership", "gate_of_trust", "jisra_masjid"] and not state.has(component):
 			continue
 		if not _has_fields(state.get(component), COMPONENT_FIELDS[component]):
 			return {}
@@ -119,6 +120,11 @@ static func restore(game: Node3D, state: Dictionary) -> void:
 			_restore_fields(game.get(component), values[component], COMPONENT_FIELDS[component])
 		elif component in ["partnership", "gate_of_trust"]:
 			game.get(component).reset()
+	if not values.has("jisra_masjid"):
+		# Earlier slots only identify the location of regular and seasonal prayers.
+		game.jisra_masjid.restore_legacy(game.clock.has_prayed_at_masjid()
+			or game.ramadan.has_prayed_at_masjid() or game.eid_al_fitr.has_prayed_at_masjid()
+			or game.eid_al_adha.has_prayed_at_masjid())
 	game.feeding.meal_counter.total = values.meals_given
 	game.zakat.close_panel()
 	game.ui.known_words = game.known_words

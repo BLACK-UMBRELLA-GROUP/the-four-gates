@@ -1,0 +1,944 @@
+{
+	"checks": [
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "the real fair arrival opens the market with 198 coins",
+			"passed": true
+		},
+		{
+			"description": "the arrival begins a fresh masjid history",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "the first masjid comes from a real River Market congregation",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The gatekeepers will open the gate",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the road east to Jisra",
+			"passed": true
+		},
+		{
+			"description": "the production road reaches Jisra at minute 735",
+			"passed": true
+		},
+		{
+			"description": "Jisra starts with its own trust",
+			"passed": true
+		},
+		{
+			"description": "shown: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "shown: Go to the boatmen's masjid",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Go to the boatmen's masjid",
+			"passed": true
+		},
+		{
+			"description": "shown: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "shown: Back to Ilmara",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to Ilmara",
+			"passed": true
+		},
+		{
+			"description": "bridge action order matches jm01",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: jm01_jisra__go_to_the_masjid__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: jm01_jisra__go_to_the_masjid__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the boatmen's masjid",
+			"passed": true
+		},
+		{
+			"description": "production boatmen's masjid panel",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: JISRA · THE BOATMEN'S MASJID",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: The boatmen's masjid",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: A small masjid of reed and timber at the far end of the bridge. The floor moves gently with the river. The imam, Uthman, was a boatman himself.",
+			"passed": true
+		},
+		{
+			"description": "the distinct masjid count is 1",
+			"passed": true
+		},
+		{
+			"description": "counter visibility follows the count",
+			"passed": true
+		},
+		{
+			"description": "shown: Back to the bridge",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the bridge",
+			"passed": true
+		},
+		{
+			"description": "shown: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: jm02_masjid__pray_with_the_congregation__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: jm02_masjid__pray_with_the_congregation__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "production boatmen's masjid panel",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: JISRA · THE BOATMEN'S MASJID",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: The boatmen's masjid",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: After the prayer the imam, Uthman, asks where you are from. “Whoever prays with us is no stranger here.”",
+			"passed": true
+		},
+		{
+			"description": "the distinct masjid count is 2",
+			"passed": true
+		},
+		{
+			"description": "counter visibility follows the count",
+			"passed": true
+		},
+		{
+			"description": "shown: Back to the bridge",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the bridge",
+			"passed": true
+		},
+		{
+			"description": "hidden: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "Jisra congregation completes a second distinct masjid",
+			"passed": true
+		},
+		{
+			"description": "masjid prayer leaves both towns' trust, coins and reputation unchanged",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: jm03_masjid__no_stranger_here__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: jm03_masjid__no_stranger_here__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the bridge",
+			"passed": true
+		},
+		{
+			"description": "Back to the bridge returns to Jisra",
+			"passed": true
+		},
+		{
+			"description": "the native clock opens today's prayer record",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: All your prayers",
+			"passed": true
+		},
+		{
+			"description": "the native record opens All your prayers",
+			"passed": true
+		},
+		{
+			"description": "the distinct masjid count is 2",
+			"passed": true
+		},
+		{
+			"description": "counter visibility follows the count",
+			"passed": true
+		},
+		{
+			"description": "the counter follows the prayer rows before the privacy note",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: jm04_prayers__masjids_2_of_50__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: jm04_prayers__masjids_2_of_50__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "the real fair arrival opens the market with 198 coins",
+			"passed": true
+		},
+		{
+			"description": "the arrival begins a fresh masjid history",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The gatekeepers will open the gate",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the road east to Jisra",
+			"passed": true
+		},
+		{
+			"description": "the production road reaches Jisra at minute 770",
+			"passed": true
+		},
+		{
+			"description": "Jisra starts with its own trust",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the boatmen's masjid",
+			"passed": true
+		},
+		{
+			"description": "production boatmen's masjid panel",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: JISRA · THE BOATMEN'S MASJID",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: The boatmen's masjid",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: A small masjid of reed and timber at the far end of the bridge. The floor moves gently with the river. The imam, Uthman, was a boatman himself.",
+			"passed": true
+		},
+		{
+			"description": "the distinct masjid count is 0",
+			"passed": true
+		},
+		{
+			"description": "counter visibility follows the count",
+			"passed": true
+		},
+		{
+			"description": "zero has no counter in the panel",
+			"passed": true
+		},
+		{
+			"description": "shown: Back to the bridge",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the bridge",
+			"passed": true
+		},
+		{
+			"description": "shown: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "hidden: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: jm05_masjid__after_the_iqamah__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: jm05_masjid__after_the_iqamah__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "production boatmen's masjid panel",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: JISRA · THE BOATMEN'S MASJID",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: The boatmen's masjid",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: After the prayer the imam, Uthman, asks where you are from. “Whoever prays with us is no stranger here.”",
+			"passed": true
+		},
+		{
+			"description": "the distinct masjid count is 1",
+			"passed": true
+		},
+		{
+			"description": "counter visibility follows the count",
+			"passed": true
+		},
+		{
+			"description": "shown: Back to the bridge",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the bridge",
+			"passed": true
+		},
+		{
+			"description": "hidden: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "after iqamah the solo prayer is recorded at the masjid",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: jm06_masjid__first_masjid_1_of_50__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: jm06_masjid__first_masjid_1_of_50__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "the real fair arrival opens the market with 198 coins",
+			"passed": true
+		},
+		{
+			"description": "the arrival begins a fresh masjid history",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The gatekeepers will open the gate",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the road east to Jisra",
+			"passed": true
+		},
+		{
+			"description": "the production road reaches Jisra at minute 600",
+			"passed": true
+		},
+		{
+			"description": "Jisra starts with its own trust",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the boatmen's masjid",
+			"passed": true
+		},
+		{
+			"description": "production boatmen's masjid panel",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: JISRA · THE BOATMEN'S MASJID",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: The boatmen's masjid",
+			"passed": true
+		},
+		{
+			"description": "locked masjid copy: A small masjid of reed and timber at the far end of the bridge. The floor moves gently with the river. The imam, Uthman, was a boatman himself.",
+			"passed": true
+		},
+		{
+			"description": "the distinct masjid count is 0",
+			"passed": true
+		},
+		{
+			"description": "counter visibility follows the count",
+			"passed": true
+		},
+		{
+			"description": "zero has no counter in the panel",
+			"passed": true
+		},
+		{
+			"description": "shown: Back to the bridge",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the bridge",
+			"passed": true
+		},
+		{
+			"description": "hidden: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "hidden: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "no prayer window is open at 10:00",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: jm07_masjid__no_prayer_time__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: jm07_masjid__no_prayer_time__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the bridge",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "the bridge prayer is alone elsewhere and adds no masjid",
+			"passed": true
+		},
+		{
+			"description": "the native clock opens today's prayer record",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: All your prayers",
+			"passed": true
+		},
+		{
+			"description": "the native record opens All your prayers",
+			"passed": true
+		},
+		{
+			"description": "the distinct masjid count is 0",
+			"passed": true
+		},
+		{
+			"description": "counter visibility follows the count",
+			"passed": true
+		},
+		{
+			"description": "zero has no counter in the panel",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: jm08_prayers__bridge_not_counted__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: jm08_prayers__bridge_not_counted__build.png",
+			"passed": true
+		},
+		{
+			"description": "all eight approved states captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Fair arrival gives 198 coins. Passive ticks are paused. Set the player location and gate prerequisites; skip intervening prayer windows with the game clock to Thursday day 8. The real road then advances 90 minutes. A real River Market prayer precedes the Jisra congregation, so jm04 records two on-time prayers and congregations. The solo and bridge paths start fresh.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native 1920x1080 Godot viewport. Click through arrival, gate, travel, Jisra, both masjids, bridge prayer and the prayer record with production controls.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "jm01_jisra__go_to_the_masjid__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "jm02_masjid__pray_with_the_congregation__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "jm03_masjid__no_stranger_here__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "jm04_prayers__masjids_2_of_50__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "jm05_masjid__after_the_iqamah__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "jm06_masjid__first_masjid_1_of_50__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "jm07_masjid__no_prayer_time__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "jm08_prayers__bridge_not_counted__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"jm01_jisra__go_to_the_masjid__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 735,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"prayed_in": [
+				"river_market"
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 1,
+				"madeup": 0,
+				"missed": 2,
+				"on_time": 1
+			},
+			"rendered_night": true,
+			"screen": "jisra",
+			"tasks": {},
+			"trust": 100,
+			"uthman_first_line": false
+		},
+		"jm02_masjid__pray_with_the_congregation__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 735,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"prayed_in": [
+				"river_market"
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 1,
+				"madeup": 0,
+				"missed": 2,
+				"on_time": 1
+			},
+			"rendered_night": false,
+			"screen": "jisra_masjid",
+			"tasks": {},
+			"trust": 100,
+			"uthman_first_line": false
+		},
+		"jm03_masjid__no_stranger_here__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 745,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"prayed_in": [
+				"river_market",
+				"jisra"
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 2,
+				"madeup": 0,
+				"missed": 2,
+				"on_time": 2
+			},
+			"rendered_night": false,
+			"screen": "jisra_masjid",
+			"tasks": {},
+			"trust": 100,
+			"uthman_first_line": true
+		},
+		"jm04_prayers__masjids_2_of_50__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 745,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"prayed_in": [
+				"river_market",
+				"jisra"
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 2,
+				"madeup": 0,
+				"missed": 2,
+				"on_time": 2
+			},
+			"rendered_night": true,
+			"screen": "all_prayers",
+			"tasks": {},
+			"trust": 100,
+			"uthman_first_line": true
+		},
+		"jm05_masjid__after_the_iqamah__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 770,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"prayed_in": [],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 2,
+				"on_time": 0
+			},
+			"rendered_night": false,
+			"screen": "jisra_masjid",
+			"tasks": {},
+			"trust": 100,
+			"uthman_first_line": false
+		},
+		"jm06_masjid__first_masjid_1_of_50__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 780,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"prayed_in": [
+				"jisra"
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 1,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 2,
+				"on_time": 1
+			},
+			"rendered_night": false,
+			"screen": "jisra_masjid",
+			"tasks": {},
+			"trust": 100,
+			"uthman_first_line": true
+		},
+		"jm07_masjid__no_prayer_time__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"prayed_in": [],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 2,
+				"on_time": 0
+			},
+			"rendered_night": false,
+			"screen": "jisra_masjid",
+			"tasks": {},
+			"trust": 100,
+			"uthman_first_line": false
+		},
+		"jm08_prayers__bridge_not_counted__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 745,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"prayed_in": [],
+			"prayer_totals": {
+				"alone_elsewhere": 1,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 2,
+				"on_time": 1
+			},
+			"rendered_night": true,
+			"screen": "all_prayers",
+			"tasks": {},
+			"trust": 100,
+			"uthman_first_line": false
+		}
+	},
+	"timestamp_utc": "2026-11-11T21:32:27Z"
+}

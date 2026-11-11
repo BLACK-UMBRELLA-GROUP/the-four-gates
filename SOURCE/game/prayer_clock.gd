@@ -122,6 +122,10 @@ func has_prayed_in_congregation() -> bool:
 	return _completed.values().has("jamaah")
 
 
+func has_prayed_at_masjid() -> bool:
+	return has_prayed_in_congregation() or _alone_at_masjid.values().has(true)
+
+
 func wait_until_next_prayer() -> void:
 	_fraction = 0.0
 	_advance(_begins(_latest_started() + 1), true)

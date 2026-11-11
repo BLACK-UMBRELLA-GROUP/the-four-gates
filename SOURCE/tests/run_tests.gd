@@ -86,6 +86,10 @@ func _run() -> void:
 		await check_prayer_reminder_runtime()
 		finish()
 		return
+	if "--jisra-masjid-only" in OS.get_cmdline_user_args():
+		await check_jisra_masjid_runtime()
+		finish()
+		return
 	check(app.ui.screen == "title", "launch opens the title")
 	check(visible_text().replace("\n", "").contains(data.title_screen.title), "title uses approved title text")
 	check(visible_text().contains(data.title_screen.line), "title uses approved subtitle")
@@ -180,6 +184,7 @@ func _run() -> void:
 	await check_prayer_reminder_runtime()
 	await check_partnership_runtime()
 	await check_gate_of_trust_runtime()
+	await check_jisra_masjid_runtime()
 	finish()
 
 
@@ -3560,6 +3565,194 @@ func check_jisra_prayer_and_save(copy: Dictionary) -> void:
 func check_gate_of_trust_meter(label: String, value: int) -> void:
 	check(has_visible_label(app.ui, label) and has_visible_label(app.ui, str(data.ui.hud.trust_value).format({"n": value})),
 		"the HUD displays %s at %d" % [label, value])
+
+
+func check_jisra_masjid_runtime() -> void:
+	const LOCKED := "res://../GAME/APPROVED/JISRA_MASJID/RECORD/jisra_masjid_data_V1.json"
+	var locked := FileAccess.get_file_as_bytes(LOCKED)
+	var runtime := FileAccess.get_file_as_bytes("res://data/jisra_masjid.json")
+	var copy: Dictionary = app.jisra_masjid.data
+	check(not locked.is_empty() and runtime == locked, "Jisra's masjid uses byte-identical LOCK 33 data")
+	check(copy == JSON.parse_string(runtime.get_string_from_utf8()), "the masjid uses the approved words and numbers")
+
+	app.set_process(false)
+	var prayer_copy: Dictionary = identity.clock
+	var dhuhr: Dictionary = prayer_copy.prayers[1]
+	var noon: int = app._minutes(dhuhr.begins)
+	var boundary := noon + int(dhuhr.iqamah_minutes_after_adhan) + 5
+	var dhuhr_solo := str(prayer_copy.pray_here).format({"prayer": dhuhr.name})
+
+	reset_at_market_place("masjid", 198, 1)
+	check(app.jisra_masjid.counter().is_empty() and app.jisra_masjid.prayed_in.is_empty(), "a fresh save has no masjids")
+	check(find_button(app.ui, copy.jisra_button) == null, "the boatmen's masjid entry appears only in Jisra")
+	app.clock.skip_to(1, noon)
+	app.update_state()
+	await press_button(prayer_copy.pray_congregation, "pray a real congregation at River Market")
+	check(app.jisra_masjid.prayed_in == {"river_market": true}, "the River Market masjid counts on its first prayer")
+	var before_rest := MarketSave.snapshot(app)
+	app.clock.skip_to(1, app._minutes(dhuhr.ends), true)
+	check(app.clock.totals().jamaah == 0, "the legacy fixture hides its completed prayer from totals during a rest")
+	var old_slot := MarketSave.snapshot(app)
+	old_slot.erase("jisra_masjid")
+	MarketSave.restore(app, before_rest)
+	app.clock.skip_to(1, app._minutes(prayer_copy.prayers[2].begins) + int(prayer_copy.prayers[2].iqamah_minutes_after_adhan) + 6)
+	app.update_state()
+	await press_button(str(prayer_copy.pray_here).format({"prayer": prayer_copy.prayers[2].name}), "pray solo at the same River Market masjid")
+	check(app.clock.totals().alone_masjid == 1 and app.jisra_masjid.prayed_in.size() == 1,
+		"a second prayer at River Market cannot increase the distinct count")
+
+	await enter_jisra_masjid_fixture(8, boundary)
+	await press_button(copy.jisra_button, "the bridge opens the boatmen's masjid")
+	check(app.ui.screen == "jisra_masjid" and has_visible_label(app.ui, str(copy.masjid.kicker).to_upper())
+		and has_visible_label(app.ui, copy.masjid.title) and visible_text().contains(copy.masjid.text)
+		and not visible_text().contains(copy.masjid.first), "the masjid starts with the locked introduction")
+	var one := str(copy.counter).format({"n": 1, "m": int(copy.numbers.goal_masjids)})
+	var two := str(copy.counter).format({"n": 2, "m": int(copy.numbers.goal_masjids)})
+	check(visible_text().contains(one.to_upper()), "the masjid shows the locked 1-of-50 caption below the introduction")
+	var wallet := Vector3i(app.progress.coins, app.progress.trust, app.gate_of_trust.jisra_trust)
+	var reputation: Array = app.ui.reputation_lines().duplicate(true)
+	await press_button(prayer_copy.pray_congregation, "the congregation button remains available exactly at iqamah plus five")
+	check(app.clock.record().rows[1].status == "jamaah" and app.clock.totals().jamaah == 2,
+		"the last minute of congregation records a real Jisra congregation")
+	check(app.ui.screen == "jisra_masjid" and visible_text().contains(copy.masjid.first)
+		and not visible_text().contains(copy.masjid.text) and find_button(app.ui, prayer_copy.pray_congregation) == null,
+		"Uthman's exact line replaces the introduction after the first prayer and the prayer action disappears")
+	check(app.jisra_masjid.prayed_in == {"river_market": true, "jisra": true} and visible_text().contains(two.to_upper()),
+		"praying in Jisra adds just one new masjid and updates the caption")
+	await press_button(copy.masjid.back, "the masjid has the locked Back to the bridge button")
+	check(app.ui.screen == "jisra", "back leaves the masjid at the Jisra bridge")
+	await open_jisra_prayer_totals()
+	var panel_copy: Dictionary = app.ui.prayer_record.panel
+	var counter_row := find_visible_label(app.ui, two)
+	var missed_row := find_visible_label(app.ui, app.ui.prayer_record.rows.missed)
+	var note := find_visible_label(app.ui, str(panel_copy.note).to_upper())
+	check(counter_row != null and missed_row != null and note != null
+		and missed_row.global_position.y < counter_row.global_position.y
+		and counter_row.global_position.y < note.global_position.y,
+		"the locked count follows the prayer rows and precedes the privacy note")
+	await press_button(panel_copy.back_market, "the private totals return to their origin")
+	check(app.ui.screen == "jisra", "closing the record from Jisra keeps the player in Jisra")
+
+	await check_jisra_masjid_save(old_slot)
+	await press_button(copy.jisra_button, "the masjid remains accessible after returning to the bridge")
+	check(visible_text().contains(copy.masjid.first), "Uthman's first-prayer line persists across visits and a save")
+	app.clock.skip_to(8, app._minutes(prayer_copy.prayers[2].begins))
+	app.update_state()
+	await press_button(prayer_copy.pray_congregation, "another prayer becomes available in the same masjid")
+	check(app.jisra_masjid.counter() == two and not app.jisra_masjid.show_first
+		and visible_text().contains(copy.masjid.text) and not visible_text().contains(copy.masjid.first),
+		"the second prayer restores the introduction and leaves the count at two")
+	check(Vector3i(app.progress.coins, app.progress.trust, app.gate_of_trust.jisra_trust) == wallet
+		and app.ui.reputation_lines() == reputation, "the prayers and private count leave coins, both towns' trust and reputation alone")
+
+	reset_at_market_place("gate", 198, 8)
+	await enter_jisra_masjid_fixture(8, boundary + 1)
+	await press_button(dhuhr_solo, "the original bridge prayer is still available")
+	check(app.clock.totals().alone_elsewhere == 1 and app.jisra_masjid.counter().is_empty(),
+		"bridge prayer is recorded away from a masjid and does not count")
+	await press_button(copy.jisra_button, "visit the masjid after praying on the bridge")
+	check(find_button(app.ui, dhuhr_solo) == null and visible_text().contains(copy.masjid.text)
+		and not visible_text().contains(str(copy.counter).get_slice("{", 0).to_upper()),
+		"a completed bridge prayer offers neither a repeat action nor the first masjid line or counter")
+	await open_jisra_prayer_totals()
+	check(not visible_text().contains(str(copy.counter).get_slice("{", 0)), "the all-prayers panel omits the count at zero")
+
+	reset_at_market_place("gate", 198, 8)
+	await enter_jisra_masjid_fixture(8, boundary + 1)
+	await press_button(copy.jisra_button, "open a fresh masjid just after the congregation cutoff")
+	check(find_button(app.ui, prayer_copy.pray_congregation) == null, "iqamah plus six offers no congregation")
+	await press_button(dhuhr_solo, "iqamah plus six offers the locked solo prayer label")
+	check(app.clock.totals().alone_masjid == 1 and app.clock.totals().alone_elsewhere == 0
+		and app.jisra_masjid.prayed_in == {"jisra": true} and visible_text().contains(copy.masjid.first)
+		and visible_text().contains(one.to_upper()), "a solo first prayer counts at the masjid and triggers the same first line")
+
+	reset_at_market_place("gate", 198, 9)
+	var friday_end := noon + int(prayer_copy.friday.iqamah_minutes_after_adhan) + 5
+	await enter_jisra_masjid_fixture(9, friday_end)
+	await press_button(copy.jisra_button, "open Jisra's masjid during Friday congregation")
+	await press_button(prayer_copy.pray_friday, "Friday congregation has the exact LOCK 2 label")
+	check(app.clock.totals().friday == 1 and app.clock.totals().jamaah == 1 and app.jisra_masjid.counter() == one,
+		"Friday prayer at the masjid keeps the Friday and congregation records")
+	reset_at_market_place("gate", 198, 9)
+	await enter_jisra_masjid_fixture(9, friday_end + 1)
+	await press_button(copy.jisra_button, "open Jisra's masjid after Friday congregation")
+	check(find_button(app.ui, prayer_copy.pray_friday) == null, "the Friday congregation button ends after the grace window")
+	await press_button(prayer_copy.pray_here_friday, "Dhuhr remains available after Friday congregation")
+	check(app.clock.totals().dhuhr_fri == 1 and app.clock.totals().alone_masjid == 1 and app.jisra_masjid.counter() == one,
+		"late Friday Dhuhr is a solo prayer at the masjid")
+
+	app.begin_game()
+	var ramadan_copy: Dictionary = app.ramadan.data
+	var first_ramadan_day: int = app.clock.calendar.days_until_date(0, int(ramadan_copy.numbers.month), 1) + 1
+	app.clock.skip_to(first_ramadan_day, int(ramadan_copy.numbers.tarawih_from))
+	move_market_fixture("masjid")
+	await press_button(ramadan_copy.tarawih_button, "a seasonal first prayer uses the existing River Market tarawih action")
+	check(app.clock.totals().on_time == 0 and app.ramadan.record().tarawih == 1
+		and app.jisra_masjid.prayed_in == {"river_market": true},
+		"tarawih alone visits the masjid without changing the scheduled prayer record")
+	await press_control(app.ui.clock_panel.get_child(-1), "the clock opens the record after a seasonal prayer")
+	await press_button(app.ui.prayer_record.record_button, "open the totals after tarawih")
+	check(has_visible_label(app.ui, one) and not has_visible_label(app.ui, panel_copy.empty),
+		"the count appears after a seasonal visit even when there are no scheduled prayers recorded")
+	var seasonal_legacy := MarketSave.snapshot(app)
+	seasonal_legacy.erase("jisra_masjid")
+	app.jisra_masjid.reset()
+	MarketSave.restore(app, seasonal_legacy)
+	check(app.jisra_masjid.prayed_in == {"river_market": true} and not app.jisra_masjid.show_first,
+		"an older save with only a seasonal masjid prayer recovers the River Market visit")
+
+
+func enter_jisra_masjid_fixture(target_day: int, target_minute: int) -> void:
+	var gate: Dictionary = app.gate_of_trust.data
+	app.clock.skip_to(target_day, target_minute - int(gate.numbers.travel_minutes))
+	move_market_fixture("gate")
+	app.progress.trust = int(data.numbers.gate_trust)
+	app.progress.lesson_done = true
+	app.update_state()
+	await press_button(gate.gate_open_button, "open the route from the Gate of Trust")
+	await press_button(gate.opening.go, "use the existing road to Jisra")
+	check(app.ui.screen == "jisra" and app.day == target_day and app.minute_of_day == target_minute,
+		"the existing road reaches Jisra at the intended prayer time")
+
+
+func open_jisra_prayer_totals() -> void:
+	await press_control(app.ui.clock_panel.get_child(-1), "the clock opens today's prayers from Jisra")
+	await press_button(app.ui.prayer_record.record_button, "today's prayers opens All your prayers from Jisra")
+	check(app.ui.screen == "all_prayers", "the private record uses the original prayer totals screen")
+
+
+func check_jisra_masjid_save(old_slot: Dictionary) -> void:
+	await menus_escape()
+	check(app.ui.screen == "pause", "the pause menu is available in Jisra")
+	var saved := MarketSave.snapshot(app)
+	await press_button(app.menus.pause.quit, "save both masjids through the real save-and-quit action")
+	var path: String = app.storage_directory.path_join(app.SAVE_FILENAME)
+	check(MarketSave.read_slot(path) == saved, "the saved game includes the private count and first-prayer state")
+	app.begin_game()
+	check(app.jisra_masjid.prayed_in.is_empty() and not app.jisra_masjid.show_first, "a new game clears the private count and greeting")
+	app.show_screen("title")
+	await press_button(str(app.menus.title_continue).format({"d": app.ui.continue_date}), "reload both masjids via the title's Continue")
+	check(app.ui.screen == "jisra" and MarketSave.snapshot(app).jisra_masjid == saved.jisra_masjid,
+		"Continue restores the private count and greeting")
+
+	var old_path: String = app.storage_directory.path_join("before-jisra-masjid-test.save")
+	var payload := var_to_bytes(old_slot)
+	var file := FileAccess.open(old_path, FileAccess.WRITE)
+	check(file != null, "prepare an earlier slot without the LOCK 33 component")
+	if file == null:
+		return
+	file.store_buffer(MarketSave._checksum(payload))
+	file.store_buffer(payload)
+	file.close()
+	var restored := MarketSave.read_slot(old_path)
+	check(restored == old_slot, "an older save remains readable")
+	if restored.is_empty():
+		return
+	MarketSave.restore(app, restored)
+	check(app.jisra_masjid.prayed_in == {"river_market": true} and not app.jisra_masjid.show_first,
+		"an older save recovers its rest-excluded River Market prayer without inventing a Jisra visit")
+	MarketSave.restore(app, saved)
+	app.show_screen("jisra")
 
 
 func check_harm_in_the_road_runtime() -> void:

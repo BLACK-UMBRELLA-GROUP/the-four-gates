@@ -162,6 +162,12 @@ static func load_gate_of_trust() -> Dictionary:
 	return parsed
 
 
+static func load_jisra_masjid() -> Dictionary:
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/jisra_masjid.json"))
+	assert(parsed is Dictionary, "Approved Jisra masjid data must be an object")
+	return parsed
+
+
 static func load_partnership() -> Dictionary:
 	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/partnership.json"))
 	assert(parsed is Dictionary, "Approved partnership data must be an object")

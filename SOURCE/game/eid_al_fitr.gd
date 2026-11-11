@@ -93,6 +93,10 @@ func pray_eid(place: String) -> bool:
 	return true
 
 
+func has_prayed_at_masjid() -> bool:
+	return not _stood_nights.is_empty() or not _eid_days.is_empty()
+
+
 func record() -> Dictionary:
 	var copy: Dictionary = data.record
 	return {

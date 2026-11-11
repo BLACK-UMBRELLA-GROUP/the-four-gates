@@ -97,6 +97,8 @@ seven in-game days. Layla refuses a fixed weekly return.
 LOCK 32 opens the road east from the Gate of Trust. With 100 River Market trust and the scales lesson
 complete, open the gate and walk 90 in-game minutes to Jisra. Jisra tracks its own trust and shares the
 same wallet and clock. At the bridge of boats, choose how to respond to Hamid's toll once per game.
+LOCK 33 opens the boatmen's masjid in Jisra, where Uthman greets you after your first prayer there.
+**All your prayers** shows a private count of the distinct masjids where you have prayed.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

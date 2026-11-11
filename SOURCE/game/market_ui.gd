@@ -120,6 +120,7 @@ const DryFountain = preload("res://game/dry_fountain.gd")
 const RashidsLoan = preload("res://game/rashids_loan.gd")
 const Partnership = preload("res://game/partnership.gd")
 const GateOfTrust = preload("res://game/gate_of_trust.gd")
+const JisraMasjid = preload("res://game/jisra_masjid.gd")
 const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
 const Ramadan = preload("res://game/ramadan.gd")
 const EidAlFitr = preload("res://game/eid_al_fitr.gd")
@@ -158,7 +159,7 @@ const JABIRS_GOATS_SCREENS := ["jabirs_offer", "jabirs_bought", "jabirs_told"]
 const DRY_FOUNTAIN_SCREENS := ["dry_fountain", "fountain_done"]
 const LOAN_SCREENS := ["loan_ask", "loan_lent", "loan_riba", "loan_due", "loan_after", "loan_last"]
 const PARTNERSHIP_SCREENS := ["partnership_ask", "partnership_agreed", "partnership_riba", "partnership_week"]
-const GATE_OF_TRUST_SCREENS := ["gate_opening", "jisra", "jisra_toll"]
+const GATE_OF_TRUST_SCREENS := ["gate_opening", "jisra", "jisra_toll", "jisra_masjid"]
 const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_refused", "purse_morning", "reputation", "harm_done", "pilgrims", "qurans_school", "names_of_allah"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS + DRY_FOUNTAIN_SCREENS + LOAN_SCREENS + PARTNERSHIP_SCREENS
 var data: Dictionary = {}
 var identity: Dictionary = {}
@@ -188,6 +189,7 @@ var dry_fountain: DryFountain
 var rashids_loan: RashidsLoan
 var partnership: Partnership
 var gate_of_trust: GateOfTrust
+var jisra_masjid: JisraMasjid
 var harm_in_the_road: HarmInTheRoad
 var _road_harm: Dictionary = {}
 var _loan_offer := RashidsLoan.Offer.HIDDEN
@@ -504,6 +506,9 @@ func _rebuild_screen() -> void:
 		"gate_opening", "jisra", "jisra_toll":
 			_build_hud()
 			_build_gate_of_trust()
+		"jisra_masjid":
+			_build_hud()
+			_build_jisra_masjid()
 		"harm_done":
 			_build_hud()
 			_build_road_harm_done()
@@ -668,13 +673,13 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	if clock_changed or place_changed:
 		_clock_day = clock.day
 		_clock_minute = clock.minute_of_day
-		var at_masjid := place_id == "masjid"
+		var at_masjid := place_id == "masjid" or screen == "jisra_masjid"
 		var prayer: String = clock.prayer_label(at_masjid)
 		var make_up: String = clock.make_up_label()
 		var masjid_line: String = clock.masjid_line() if at_masjid else ""
 		if screen in ["game", "market_map"]:
 			rebuild = rebuild or prayer != _prayer_label or make_up != _make_up_label or masjid_line != _masjid_line
-		elif screen == "jisra":
+		elif screen in ["jisra", "jisra_masjid"]:
 			rebuild = rebuild or prayer != _prayer_label
 		_prayer_label = prayer
 		_make_up_label = make_up
@@ -1132,7 +1137,7 @@ func _build_clock_hud() -> void:
 func _update_clock_hud() -> void:
 	if not is_instance_valid(clock_panel):
 		return
-	var values: Dictionary = clock.hud(place_id == "masjid")
+	var values: Dictionary = clock.hud(place_id == "masjid" or screen == "jisra_masjid")
 	_clock_time.text = values.time
 	_clock_prayer.text = values.prayer
 	var date_width := font.get_string_size(values.time, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x
@@ -1324,7 +1329,9 @@ func _build_prayer_totals() -> void:
 		ramadan_height -= (RAMADAN_RECORD_ROWS.size() + EID_RECORD_ROWS.size()) * (45.3 - row_height)
 	var zakat_height := row_height if not _shown_zakat_record.is_empty() else 0.0
 	var adha_height := 32.0 + ADHA_RECORD_ROWS.size() * row_height if not _shown_adha_record.is_empty() else 0.0
-	var added_height := ramadan_height + zakat_height + adha_height
+	var masjid_counter: String = jisra_masjid.counter()
+	var masjid_height := 0.0 if masjid_counter.is_empty() else row_height
+	var added_height := masjid_height + ramadan_height + zakat_height + adha_height
 	var panel_top := top - ceilf(added_height / 2.0)
 	if zakat_height > 0.0 or adha_height > 0.0:
 		panel_top = maxf(129.0, panel_top)
@@ -1335,7 +1342,8 @@ func _build_prayer_totals() -> void:
 	var title := _label(panel, copy.title, Vector2(34, 53), Vector2(1122, 48), 36, Color("ffd27e"), true)
 	title.add_theme_font_override("font", title_font)
 	if empty:
-		_label(panel, copy.empty, Vector2(34, 110), Vector2(1122, 36), 23, PAPER)
+		if masjid_counter.is_empty():
+			_label(panel, copy.empty, Vector2(34, 110), Vector2(1122, 36), 23, PAPER)
 	else:
 		for index in PRAYER_TOTAL_ROWS.size():
 			var row: String = PRAYER_TOTAL_ROWS[index]
@@ -1344,6 +1352,10 @@ func _build_prayer_totals() -> void:
 			var count: String = str(prayer_record.count).format({"n": _shown_prayer_totals[row]})
 			_prayer_total_row(panel, y, prayer_record.rows[row], count, row_height, indented)
 	var footer := 197.0 if empty else height - 83.0
+	if masjid_height > 0.0:
+		var counter_y := 110.0 if empty else 113.0 + PRAYER_TOTAL_ROWS.size() * row_height
+		_prayer_total_row(panel, counter_y, masjid_counter, "", row_height)
+		footer += masjid_height
 	if ramadan_height > 0.0:
 		var record: Dictionary = ramadan.data.record
 		_spaced_caption(panel, record.title, footer - 35.0)
@@ -1957,9 +1969,10 @@ func _build_gate_of_trust() -> void:
 		"jisra":
 			if gate_of_trust.toll_choice.is_empty():
 				x += _chapter_button(panel, copy.watch, Vector2(x, y), func(): jisra_watch_requested.emit(), true)
-			var prayer: String = clock.prayer_label(false)
-			if not prayer.is_empty():
-				x += _chapter_button(panel, prayer, Vector2(x, y), func(): pray_requested.emit())
+			x += _chapter_button(panel, jisra_masjid.data.jisra_button, Vector2(x, y), func(): screen_requested.emit("jisra_masjid"))
+			_prayer_label = clock.prayer_label(false)
+			if not _prayer_label.is_empty():
+				x += _chapter_button(panel, _prayer_label, Vector2(x, y), func(): pray_requested.emit())
 			_chapter_button(panel, copy.back, Vector2(x, y), func(): jisra_return_requested.emit())
 		"jisra_toll":
 			if gate_of_trust.toll_choice.is_empty():
@@ -1973,6 +1986,25 @@ func _build_gate_of_trust() -> void:
 			else:
 				y += _story_text(panel, copy["out_" + gate_of_trust.toll_choice], y) + 22.0
 				_chapter_button(panel, copy.to_town, Vector2(x, y), func(): screen_requested.emit("jisra"))
+	_chapter_finish(panel, y)
+
+
+func _build_jisra_masjid() -> void:
+	var copy: Dictionary = jisra_masjid.data.masjid
+	var panel := _chapter_panel(copy.kicker, copy.title, true)
+	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
+	style.set_corner_radius_all(18)
+	var text: String = copy.first if jisra_masjid.show_first else copy.text
+	var y := 111.0 + _story_text(panel, text, 111.0) + 26.0
+	var counter: String = jisra_masjid.counter()
+	if not counter.is_empty():
+		_spaced_caption(panel, counter, y - 4.0)
+		y += 36.0
+	var x := 34.0
+	_prayer_label = clock.prayer_label(true)
+	if not _prayer_label.is_empty():
+		x += _chapter_button(panel, _prayer_label, Vector2(x, y), func(): pray_requested.emit(), true)
+	_chapter_button(panel, copy.back, Vector2(x, y), func(): screen_requested.emit("jisra"))
 	_chapter_finish(panel, y)
 
 

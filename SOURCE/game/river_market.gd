@@ -31,6 +31,7 @@ const DryFountain = preload("res://game/dry_fountain.gd")
 const RashidsLoan = preload("res://game/rashids_loan.gd")
 const Partnership = preload("res://game/partnership.gd")
 const GateOfTrust = preload("res://game/gate_of_trust.gd")
+const JisraMasjid = preload("res://game/jisra_masjid.gd")
 const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
 
 const MarketSave = preload("res://game/market_save.gd")
@@ -75,6 +76,7 @@ var dry_fountain := DryFountain.new()
 var rashids_loan := RashidsLoan.new()
 var partnership := Partnership.new()
 var gate_of_trust := GateOfTrust.new()
+var jisra_masjid: JisraMasjid
 var _gate_return_screen := "market_map"
 var harm_in_the_road := HarmInTheRoad.new()
 var world: Node3D
@@ -125,6 +127,8 @@ func _ready() -> void:
 		return
 	if "--capture-gate-of-trust" in capture_args and not _set_capture_storage("--gate-of-trust-user-dir="):
 		return
+	if "--capture-jisra-masjid" in capture_args and not _set_capture_storage("--jisra-masjid-user-dir="):
+		return
 	menus = Foundations.load_menus()
 	reminder = Foundations.load_prayer_reminder()
 	data = Foundations.load_data()
@@ -138,6 +142,7 @@ func _ready() -> void:
 	Foundations.configure_input(data)
 	progress.setup(data)
 	gate_of_trust.setup(Foundations.load_gate_of_trust(), progress)
+	jisra_masjid = JisraMasjid.new(Foundations.load_jisra_masjid())
 	zakat = Zakat.new(Foundations.load_zakat(), clock, progress)
 	pilgrims = Pilgrims.new(Foundations.load_pilgrims(), clock, progress)
 	idris_recovery.setup(Foundations.load_idris_recovery(), progress)
@@ -180,6 +185,7 @@ func _ready() -> void:
 	ui.reminder = reminder
 	ui.partnership = partnership
 	ui.gate_of_trust = gate_of_trust
+	ui.jisra_masjid = jisra_masjid
 	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road, ramadan, iftar_giving, eid_al_fitr, zakat, eid_al_adha, pilgrims, qurans_school, names_of_allah)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
@@ -355,6 +361,9 @@ func _ready() -> void:
 	elif "--capture-gate-of-trust" in capture_args:
 		capture_runner = load("res://tests/capture_gate_of_trust.gd").new()
 		capture_runner.run(self)
+	elif "--capture-jisra-masjid" in capture_args:
+		capture_runner = load("res://tests/capture_jisra_masjid.gd").new()
+		capture_runner.run(self)
 	elif "--capture-partnership" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_partnership.gd").new()
 		capture_runner.run(self)
@@ -453,7 +462,7 @@ func update_state() -> void:
 	if day != _daily_job_day:
 		_daily_job_day = day
 		progress.morning()
-	var world_night: bool = night or ui.screen in MarketUI.GATE_OF_TRUST_SCREENS or ui.screen in ["title", "settings", "all_prayers", "all_prayers_title", "calendar", "iftar", "iftar_giving", "fitr"] or (ui.screen == "arrival" and _arrival_sunset)
+	var world_night: bool = night or ui.screen in ["gate_opening", "jisra", "jisra_toll"] or ui.screen in ["title", "settings", "all_prayers", "all_prayers_title", "calendar", "iftar", "iftar_giving", "fitr"] or (ui.screen == "arrival" and _arrival_sunset)
 	if world.night != world_night:
 		world.set_night(world_night)
 	zakat.assess_years()
@@ -692,6 +701,7 @@ func begin_game() -> void:
 	rashids_loan.reset()
 	partnership.reset()
 	gate_of_trust.reset()
+	jisra_masjid.reset()
 	harm_in_the_road.reset()
 	world.stop_faris_run()
 	world.set_inn_people_waiting(true)
@@ -848,6 +858,7 @@ func show_screen(screen: String) -> void:
 		_reminder_next_check = 0
 	var loan_view: bool = screen in MarketUI.LOAN_SCREENS or (screen == "reputation" and ui.screen in MarketUI.LOAN_SCREENS)
 	var partnership_view: bool = screen in MarketUI.PARTNERSHIP_SCREENS
+	var jisra_masjid_view := screen == "jisra_masjid" or (screen == "all_prayers" and gate_of_trust.in_jisra)
 	var partnership_reputation: bool = screen == "reputation" and current_place == "weaver" and partnership.reputation_line() != null
 	if screen in ["title", "settings"]:
 		world.title_camera.make_current()
@@ -855,6 +866,8 @@ func show_screen(screen: String) -> void:
 		world.gate_opening_camera.make_current()
 	elif screen in ["jisra", "jisra_toll"]:
 		world.jisra_camera.make_current()
+	elif jisra_masjid_view:
+		world.jisra_masjid_camera.make_current()
 	elif partnership_view:
 		world.weaver_lane_camera.make_current()
 	elif partnership_reputation:
@@ -889,7 +902,7 @@ func show_screen(screen: String) -> void:
 		world.jabirs_goats_camera.make_current()
 	elif screen != "reputation" or ui.screen != "grab_after":
 		player.camera.make_current()
-	player.visible = not loan_view and not partnership_view and not partnership_reputation and screen not in ["title", "settings", "pause", "harm_done", "eid", "zakat", "pilgrims", "qurans_school", "names_of_allah"] and screen not in MarketUI.ADHA_SCREENS and screen not in MarketUI.GATE_OF_TRUST_SCREENS
+	player.visible = not jisra_masjid_view and not loan_view and not partnership_view and not partnership_reputation and screen not in ["title", "settings", "pause", "harm_done", "eid", "zakat", "pilgrims", "qurans_school", "names_of_allah"] and screen not in MarketUI.ADHA_SCREENS and screen not in MarketUI.GATE_OF_TRUST_SCREENS
 	var paused := screen in PAUSE_SCREENS or screen in ["title", "all_prayers_title"]
 	player.set_physics_process(not paused)
 	world.set_scene_motion_paused(paused)
@@ -909,18 +922,27 @@ func _show_adhan(message: String) -> void:
 		_prayer_adhan = message
 
 func pray_here() -> void:
-	if gate_of_trust.in_jisra and ui.screen != "jisra":
+	if gate_of_trust.in_jisra and ui.screen not in ["jisra", "jisra_masjid"]:
 		return
 	update_state()
-	_do_prayer(clock.pray.bind(current_place == "masjid"))
+	var masjid_id := ""
+	if gate_of_trust.in_jisra and ui.screen == "jisra_masjid":
+		masjid_id = JisraMasjid.JISRA
+	elif current_place == "masjid":
+		masjid_id = JisraMasjid.RIVER_MARKET
+	_do_prayer(clock.pray.bind(not masjid_id.is_empty()), false, masjid_id)
 
 func make_up_prayer() -> void:
-	_do_prayer(clock.make_up)
+	update_state()
+	var masjid_id := JisraMasjid.RIVER_MARKET if current_place == "masjid" else ""
+	_do_prayer(clock.make_up, false, masjid_id)
 
-func _do_prayer(action: Callable, compact_receipt: bool = false) -> void:
+func _do_prayer(action: Callable, compact_receipt: bool = false, masjid_id: String = "") -> void:
 	# An adhan crossed during the ten-minute advance is shown first.
 	_prayer_adhan = ""
 	var receipt: String = action.call()
+	if not receipt.is_empty() and not masjid_id.is_empty():
+		jisra_masjid.record_prayer(masjid_id)
 	var adhan: String = _prayer_adhan
 	_prayer_adhan = null
 	update_state()
@@ -992,7 +1014,7 @@ func _do_ramadan_action(action: Ramadan.Action) -> void:
 		Ramadan.Action.TARAWIH:
 			_do_prayer(func() -> String:
 				clock.advance_to(day, minute_of_day + int(ramadan.data.numbers.tarawih_minutes))
-				return ramadan.data.tarawih_toast
+				return ramadan.data.tarawih_toast, false, JisraMasjid.RIVER_MARKET
 			)
 
 
@@ -1003,7 +1025,7 @@ func _stand_at_night() -> void:
 	if eid_al_fitr.stand_at_night(current_place):
 		_do_prayer(func() -> String:
 			clock.advance_to(day, minute_of_day + int(eid_al_fitr.data.numbers.night_minutes))
-			return eid_al_fitr.data.night_toast, true
+			return eid_al_fitr.data.night_toast, true, JisraMasjid.RIVER_MARKET
 		)
 
 
@@ -1026,6 +1048,7 @@ func _pray_eid() -> void:
 		return
 	update_state()
 	if eid_al_fitr.pray_eid(current_place):
+		jisra_masjid.record_prayer(JisraMasjid.RIVER_MARKET)
 		_stop_travel()
 		show_screen("eid")
 
@@ -1046,6 +1069,7 @@ func _do_adha_action(action: EidAlAdha.Action) -> void:
 				ui.show_toast(eid_al_adha.data.arafah_toast, ui.screen == "market_map")
 		EidAlAdha.Action.PRAYER:
 			if eid_al_adha.pray_eid(current_place):
+				jisra_masjid.record_prayer(JisraMasjid.RIVER_MARKET)
 				_stop_travel()
 				show_screen("adha_eid")
 		EidAlAdha.Action.SACRIFICE:
@@ -1592,7 +1616,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("close"):
 			_pause_return = ui.screen
 			show_screen("pause")
-		elif event.is_action_pressed("pray") and ui.screen == "jisra":
+		elif event.is_action_pressed("pray") and ui.screen in ["jisra", "jisra_masjid"]:
 			pray_here()
 		return
 	if gate_of_trust.in_jisra and ui.screen == "prayer_record":

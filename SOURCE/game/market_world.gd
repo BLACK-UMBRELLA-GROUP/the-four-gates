@@ -30,6 +30,7 @@ var dice_house_camera: Camera3D
 var qasims_offer_camera: Camera3D
 var gate_opening_camera: Camera3D
 var jisra_camera: Camera3D
+var jisra_masjid_camera: Camera3D
 var qasims_done_camera: Camera3D
 var jabirs_goats_camera: Camera3D
 var sealed_purse_offer_camera: Camera3D
@@ -131,7 +132,10 @@ func setup(source: Dictionary) -> void:
 	var gate_lane := point("a1") + height_at_eye
 	jabirs_goats_camera = _story_camera(gate_lane, point(data.square.centre) + height_at_eye)
 	var masjid_view := point("masjid") + height_at_eye
-	iftar_giving_camera = _story_camera(masjid_view, point("board") + height_at_eye)
+	var masjid_target := point("board") + height_at_eye
+	iftar_giving_camera = _story_camera(masjid_view, masjid_target)
+	jisra_masjid_camera = _story_camera(masjid_view, masjid_target)
+	jisra_masjid_camera.set_cull_mask_value(STREET_FIGURES_LAYER, false)
 
 
 func point(id: String) -> Vector3:

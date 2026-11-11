@@ -136,6 +136,10 @@ func bar_line() -> String:
 	return ""
 
 
+func has_prayed_at_masjid() -> bool:
+	return _eid_prayer_day > 0
+
+
 func record() -> Dictionary:
 	var first := maxi(1, _clock.day - RECORD_DAYS + 1)
 	for day in range(_clock.day, first - 1, -1):

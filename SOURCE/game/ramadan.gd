@@ -64,6 +64,10 @@ func rest_until(wake_day: int, wake_minute: int) -> void:
 			_rested[day] = true
 
 
+func has_prayed_at_masjid() -> bool:
+	return not _taken[Action.TARAWIH].is_empty()
+
+
 func record() -> Dictionary:
 	var reached := false
 	var fasted := 0
