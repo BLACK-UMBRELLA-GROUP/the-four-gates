@@ -381,7 +381,8 @@
     "use": "E",
     "market_map": "M",
     "goal": "G",
-    "wait_day_night": "T",
+    "wait_prayer": "T",
+    "pray": "P",
     "close": "Esc",
     "look": "mouse"
   },
@@ -409,8 +410,7 @@
     "buttons": {
       "city_map": "City map",
       "market_map": "Market map",
-      "wait_night": "Wait until night",
-      "wait_day": "Wait until day",
+      "wait_prayer": "Wait until next prayer",
       "goal": "Goal",
       "map": "Map",
       "title_back": "‹ Title",

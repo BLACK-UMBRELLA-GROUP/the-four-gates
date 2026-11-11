@@ -12,13 +12,14 @@ a period when a city's libraries, markets and workshops were the centre of the k
 
 LOCK 1 parts 1–3 are playable in Godot: River Market streets and collision, a third-person capsule player,
 place actions, market/city maps, day/night lighting, three tasks with honest and quick choices, live coins/trust,
-amends and a daily boat job. The job becomes available again when night turns to day. Placeholder shapes; gameplay first.
+amends and a daily boat job. The job becomes available again on the next game day. The game uses placeholder shapes.
 The scales lesson awards trust once. The Gate of Trust swings open and stays open when the player asks with
 100 trust and the lesson complete. G or the trust bar opens the four-gate goal panel. The city map marks the open gate green.
 LOCK 2 part 1 adds the Ilmara title, the five-part city map, a world map with twelve placeholder towns,
 and walkable routes to the Inn and Masjid.
 LOCK 2 part 2 adds the arrival at the quay, two money-changers, overnight rest at the Inn and a discovery at
-the scales for travellers who used the smiling changer. Rest also makes the daily job available again.
+the scales for travellers who used the smiling changer.
+LOCK 2 part 3 adds the 48-minute day, adhan, five prayer windows, Friday congregation at the Masjid and a private prayer record.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 
@@ -35,7 +36,8 @@ See [ROADMAP.md](ROADMAP.md) for the planned game.
 3. Press **Run**, then **Begin** to play the arrival. Choose **Walk River Market** at the end to start at the Inn.
 
 WASD moves, mouse looks, Shift runs, E uses a nearby place, M opens the map, G opens the goal panel,
-T switches day/night, and Esc closes maps or releases the mouse. Map markers choose a physical walking route.
+T waits until the next prayer, P prays when available, and Esc closes panels or releases the mouse.
+Click the clock to open your prayer record. Map markers choose a physical walking route.
 Run `godot --headless --path SOURCE --script res://tests/run_tests.gd` for the plain automated checks.
 [Source instructions](SOURCE/README.md) cover native captures, frame-rate measurement and the old look-test scene.
 

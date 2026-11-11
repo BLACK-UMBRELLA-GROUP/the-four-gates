@@ -1,6 +1,8 @@
 extends SceneTree
 ## Plain, dependency-free checks against the real scene and physics world.
 
+const PrayerClock = preload("res://game/prayer_clock.gd")
+
 var checks := 0
 var failures := 0
 var app
@@ -37,7 +39,13 @@ func _run() -> void:
 	var expected: Dictionary = renamed_foundations(JSON.parse_string(approved.get_string_from_utf8()))
 	expected.goal.gates = JSON.parse_string(identity.renames_in_foundations_data[5][1])
 	expected.erase("city_map")
-	check(not runtime.is_empty() and JSON.parse_string(runtime.get_string_from_utf8()) == expected, "foundations contains exactly the line-5 transformations and no later-line changes")
+	expected.keys.wait_prayer = expected.keys.wait_day_night
+	expected.keys.erase("wait_day_night")
+	expected.keys.pray = identity.clock.keys.pray
+	expected.ui.buttons.wait_prayer = identity.ui.wait_prayer
+	expected.ui.buttons.erase("wait_night")
+	expected.ui.buttons.erase("wait_day")
+	check(not runtime.is_empty() and JSON.parse_string(runtime.get_string_from_utf8()) == expected, "foundations contains exactly the approved runtime transformations")
 	check_retired_content()
 	var parsed = JSON.parse_string(runtime.get_string_from_utf8())
 	if not parsed is Dictionary:
@@ -92,6 +100,11 @@ func _run() -> void:
 		await check_step_and_camera_collision()
 		finish()
 		return
+	check_prayer_clock()
+	if "--clock-only" in OS.get_cmdline_user_args():
+		await check_prayer_runtime()
+		finish()
+		return
 	await check_data_driven_bindings()
 	await check_input_and_camera()
 	await check_route_and_boundaries()
@@ -102,6 +115,7 @@ func _run() -> void:
 	await check_lesson_and_gate()
 	await check_identity_maps_and_places()
 	await check_arrival_and_inn()
+	await check_prayer_runtime()
 	finish()
 
 
@@ -124,11 +138,13 @@ func collect_text(node: Node, result: Array[String]) -> void:
 		collect_text(child, result)
 
 
-func find_button(node: Node, label: String) -> Button:
+func find_button(node: Node, label: String, skip: Node = null) -> Button:
+	if node == skip:
+		return null
 	if node is Button and node.text == label:
 		return node
 	for child in node.get_children():
-		var found := find_button(child, label)
+		var found := find_button(child, label, skip)
 		if found != null:
 			return found
 	return null
@@ -171,7 +187,7 @@ func approved_bindings(source: Dictionary) -> Dictionary:
 		"move_back": move[2], "move_right": move[3],
 		"run": source.keys.run, "use": source.keys.use,
 		"market_map": source.keys.market_map, "goal": source.keys.goal,
-		"wait_day_night": source.keys.wait_day_night, "close": source.keys.close,
+		"wait_prayer": source.keys.wait_prayer, "pray": source.keys.pray, "close": source.keys.close,
 	}
 
 
@@ -411,26 +427,26 @@ func check_ui_states() -> void:
 	await frames(2)
 	check(app.ui.screen == "market_map", "M opens the market map")
 	check(visible_text().contains(data.ui.buttons.city_map), "market map has City map")
-	check(visible_text().contains(data.ui.buttons.wait_night), "day map has Wait until night")
+	check(visible_text().contains(data.ui.buttons.wait_prayer), "day map has Wait until next prayer")
 	check(visible_text().contains(data.places.quay.line), "quay bar shows the approved line")
 	check(visible_text().contains(data.ui.place_actions.quay), "quay bar shows Look around")
+	app.clock.reset()
+	app.clock.advance_to(1, 18 * 60 + 10, false)
+	app.update_state()
 	key_event(KEY_T, true)
 	key_event(KEY_T, false)
 	await frames(2)
-	check(app.night and app.world.night, "T switches both controller and world to night")
+	check(app.minute_of_day == 19 * 60 + 30 and app.night and app.world.night, "T jumps to Isha and updates world lighting")
 	for lantern: OmniLight3D in app.world.lanterns:
 		check(lantern.visible, "night turns each actual lantern on")
-	check(visible_text().contains(data.ui.buttons.wait_day), "night map has Wait until day")
-	check(visible_text().contains(data.other_text.night), "night switch uses the approved toast")
-	var wait_button: Button = find_button(app.ui, data.ui.buttons.wait_day)
-	check(wait_button != null, "night map offers a real wait button")
-	if wait_button != null:
-		wait_button.pressed.emit()
-	await frames(2)
-	check(not app.night and not app.world.night, "map wait button switches back to day")
+	check(visible_text().contains(identity.clock.adhan_toast.format({"prayer": "Isha"})), "waiting to Isha shows the approved adhan")
+	await press_button(data.ui.buttons.wait_prayer, "night map offers a real wait button")
+	check(app.day == 2 and app.minute_of_day == 4 * 60 + 45 and app.night, "waiting through midnight reaches Fajr in the dark")
+	await press_button(data.ui.buttons.wait_prayer, "night wait button still works during Fajr")
+	check(app.minute_of_day == 12 * 60 + 5 and not app.night and not app.world.night, "map wait button reaches Friday noon in daylight")
 	for lantern: OmniLight3D in app.world.lanterns:
 		check(not lantern.visible, "day turns each actual lantern off")
-	check(visible_text().contains(data.other_text.day), "day switch uses the approved toast")
+	check(visible_text().contains(identity.clock.adhan_toast.format({"prayer": identity.clock.friday.name})), "Friday noon announces Friday prayer")
 	var city_button: Button = find_button(app.ui, data.ui.buttons.city_map)
 	check(city_button != null, "market map offers a real city-map button")
 	if city_button != null:
@@ -519,8 +535,8 @@ func place_at_quay() -> void:
 
 func reset_tasks() -> void:
 	app.progress.setup(data)
-	if app.night:
-		app.toggle_night()
+	app.clock.reset()
+	app.update_state()
 	app.player.global_position = app.world.point("board")
 	app.player.velocity = Vector3.ZERO
 	app.show_board()
@@ -583,9 +599,13 @@ func check_task_economics() -> void:
 	var wallet := Vector2i(app.progress.trust, app.progress.coins)
 	check(app.progress.choose_task(data.tasks[0].id, "quick").is_empty(), "a completed task rejects a second choice")
 	check(Vector2i(app.progress.trust, app.progress.coins) == wallet, "rejected repeated choice leaves the wallet unchanged")
-	# The blank hit button over the trust HUD is a real button, not a label.
+	# The clock and trust HUDs have independent hit targets.
 	app.ui.show_toast("")
-	await press_button("", "trust HUD has a usable goal hit target")
+	var trust_hit := find_button(app.ui, "", app.ui.clock_panel)
+	check(trust_hit != null and trust_hit.is_visible_in_tree() and not trust_hit.disabled, "trust HUD has a usable goal hit target")
+	if trust_hit != null:
+		trust_hit.pressed.emit()
+		await frames(2)
 	check(app.ui.screen == "goal", "trust HUD opens the goal screen")
 	await reset_tasks()
 	for task: Dictionary in data.tasks:
@@ -622,6 +642,8 @@ func check_task_economics() -> void:
 	app.do_daily_job()
 	await frames(1)
 	check(Vector2i(app.progress.trust, app.progress.coins) == wallet, "daily job cannot be collected twice on the same day")
+	app.clock.advance_to(1, 18 * 60 + 10, false)
+	app.update_state()
 	key_event(KEY_T, true)
 	key_event(KEY_T, false)
 	await frames(2)
@@ -633,8 +655,8 @@ func check_task_economics() -> void:
 	key_event(KEY_T, true)
 	key_event(KEY_T, false)
 	await frames(2)
-	check(not app.night and app.progress.daily_count == 0, "only night-to-day resets the daily allowance")
-	await press_button(data.ui.buttons.do_job.format({"n": int(data.daily_job.coins)}), "morning restores the real Do it button")
+	check(app.day == 2 and app.night and app.progress.daily_count == 0, "the new day resets the daily allowance even before daylight")
+	await press_button(data.ui.buttons.do_job.format({"n": int(data.daily_job.coins)}), "the new day restores the real Do it button")
 	check_wallet(30, 4, "new morning permits exactly one new daily boat reward")
 	app.do_daily_job()
 	await frames(1)
@@ -827,12 +849,12 @@ func check_identity_maps_and_places() -> void:
 	app.progress.setup(data)
 	check(app.identity == identity and app.ui.identity == identity, "runtime and UI share the complete approved identity data")
 	check(app.progress.coins == 0 and app.progress.trust == 20, "map fixture starts with the LOCK 1 baseline wallet")
-	check(data.keys.wait_day_night == "T", "the LOCK 1 T binding still switches day and night")
-	if app.night:
-		app.toggle_night()
+	check(data.keys.wait_prayer == "T", "T is now bound to Wait until next prayer")
+	app.clock.reset()
+	app.update_state()
 	await place_at_quay()
-	check(not visible_text().contains(identity.clock.wait_button), "the clock wait control is still deferred")
-	check(not visible_text().contains(identity.clock.weekdays_from_day1[0]), "the clock HUD is still deferred")
+	check(visible_text().contains(identity.clock.wait_button), "the market map has the clock wait control")
+	check(visible_text().contains(identity.clock.weekdays_from_day1[0]), "the clock HUD shows the first weekday")
 	for id: String in identity.layout_additions:
 		var addition: Dictionary = identity.layout_additions[id]
 		check(data.places.has(id) and data.street_points.has(id), "runtime layout includes the new place and street point: " + id)
@@ -857,10 +879,11 @@ func check_identity_maps_and_places() -> void:
 		if id == "inn":
 			check(find_button(app.ui, identity.inn.action) != null, "the Inn now offers its approved rest action")
 		if id == "masjid":
-			check(find_button(app.ui, data.ui.not_built) != null, "new-place action uses the approved not-built label: " + id)
+			var sit: String = identity.clock.masjid_actions.none_yet
+			check(find_button(app.ui, sit) != null, "the Masjid offers Sit a while between prayers")
 			var wallet := Vector2i(app.progress.coins, app.progress.trust)
-			await press_button(data.ui.not_built, "new-place placeholder action is a real button: " + id)
-			check(app.ui.screen == "market_map" and visible_text().contains(data.ui.not_built) and Vector2i(app.progress.coins, app.progress.trust) == wallet, "new-place action stays deferred without side effects: " + id)
+			await press_button(sit, "Sit a while is a real Masjid button")
+			check(app.ui.screen == "market_map" and visible_text().contains(data.ui.not_built) and Vector2i(app.progress.coins, app.progress.trust) == wallet, "Sit a while shows the approved interim toast without side effects")
 	app.show_screen("city_map")
 	await frames(2)
 	var parts: Dictionary = {"centre": Vector2(960, 547), "east": Vector2(1200, 547), "north": Vector2(960, 300), "west": Vector2(700, 547), "south": Vector2(960, 790)}
@@ -901,7 +924,7 @@ func check_arrival_and_inn() -> void:
 	check_arrival_start()
 	check(app.progress.tasks.is_empty() and not app.progress.lesson_done and not app.progress.gate_open, "Begin clears the previous market progress")
 	check(not app.world.gate_open and app.world.gate_body.collision_layer != 0, "Begin closes the previous session's physical gate")
-	for key: Key in [KEY_M, KEY_G, KEY_T, KEY_E, KEY_ESCAPE]:
+	for key: Key in [KEY_M, KEY_G, KEY_T, KEY_P, KEY_E, KEY_ESCAPE]:
 		key_event(key, true)
 		key_event(key, false)
 	await frames(2)
@@ -948,7 +971,7 @@ func play_arrival(changer: int, quay_choice: int) -> void:
 			var button := find_button(app.ui, option.label)
 			check(button != null and button.is_visible_in_tree() and not button.disabled, "arrival choice is visible and usable: " + str(option.label))
 		if index == 3:
-			check(app.minute_of_day == 390 and not visible_text().contains("18:15"), "the sunset prompt precedes the time jump and clock display")
+			check(app.minute_of_day == 390 and visible_text().contains("06:30") and app.world.night, "the sunset backdrop appears before Follow them jumps the clock")
 		await press_button(choice.label, "the player can select the locked arrival choice")
 		check(visible_text().contains(choice.reply), "the choice displays its complete locked reply")
 		check(app.arrival_beat == index, "the reply stays on its beat until Continue")
@@ -961,7 +984,7 @@ func play_arrival(changer: int, quay_choice: int) -> void:
 			2:
 				check(app.progress.coins == end_coins and app.paid_nights == 1, "inn choice leaves %d coins and credits one night" % end_coins)
 			3:
-				check(app.day == 1 and app.minute_of_day == 1095, "Follow them jumps to 18:15 on day 1")
+				check(app.day == 1 and app.minute_of_day == 1095 and visible_text().contains("18:15"), "Follow them jumps the clock HUD to 18:15 on day 1")
 		await press_button(arrival.continue, "each arrival reply offers Continue")
 	check(app.arrival_beat == arrival.beats.size(), "continuing from the sunset reply opens the ending")
 	var ending: String = arrival.end_fair if fair else arrival.end_cheated
@@ -979,7 +1002,8 @@ func walk_from_arrival(expected_coins: int) -> void:
 	check(horizontal_distance(app.player.global_position, app.world.point("inn")) < 0.02, "the real player spawns at the Inn")
 	check_wallet(int(data.numbers.start_trust), expected_coins, "walking retains the arrival balance")
 	check(app.paid_nights == 1 and app.minute_of_day == 1095, "walking carries the paid night and arrival time into the market")
-	check(not visible_text().contains(identity.clock.wait_button) and not visible_text().contains("18:15"), "market retains the LOCK 1 controls with the clock deferred")
+	check(visible_text().contains(identity.clock.wait_button) and visible_text().contains("18:15"), "market exposes the clock HUD and wait control at the arrival time")
+	check(not app.night and not app.world.night, "the playable market is in daylight at 18:15")
 
 
 func check_inn_rest() -> void:
@@ -1028,6 +1052,130 @@ func check_arrival_lesson(cheated: bool) -> void:
 	check(app.progress.lesson_done and app.progress.trust == before.x + int(data.lesson.trust) and app.progress.coins == before.y, "the lesson still awards only its locked trust")
 	await press_button(data.ui.place_actions.scales_after_lesson, "returning to the completed scales uses the check action")
 	check(visible_text().contains(data.other_text.scales_after_lesson) and not visible_text().contains(identity.arrival.cheat_found_after_lesson), "checking the scales never repeats the cheat toast")
+
+
+func check_prayer_clock() -> void:
+	var source: Dictionary = identity.clock
+	var clock := PrayerClock.new(source)
+	check(clock.day == 1 and clock.minute_of_day == 390 and not clock.night, "clock starts on Thursday at 06:30 in daylight")
+	check(clock.hud().time == "Thursday · 06:30", "HUD uses the locked weekday and time format")
+	check(clock.record().kicker == "Thursday · day 1", "record identifies the current day")
+	check(clock.record().rows[0].text == "04:45 · not counted" and clock.make_up_label().is_empty(), "day 1 Fajr ended before play and cannot be made up")
+	clock.advance_to(1, 600)
+	check(clock.hud().prayer == "Dhuhr in 2 h 5 min", "long next-prayer countdown matches the master")
+	clock.advance_to(1, 720)
+	check(clock.hud().prayer == "Dhuhr in 5 min", "short countdown uses minutes alone")
+	clock.reset()
+	clock.advance_seconds(0.75)
+	clock.advance_seconds(1.25)
+	check(clock.minute_of_day == 391, "the clock retains sub-minute progress between frames")
+	clock.advance_seconds(48 * 60)
+	check(clock.day == 2 and clock.minute_of_day == 391, "48 real minutes advance exactly one game day")
+	clock.advance_to(2, 18 * 60 + 39)
+	check(not clock.night, "18:39 is daylight")
+	clock.advance_to(2, 18 * 60 + 40)
+	check(clock.night, "night begins at 18:40")
+	clock.advance_to(3, 5 * 60 + 29)
+	check(clock.night, "05:29 is night")
+	clock.advance_to(3, 5 * 60 + 30)
+	check(not clock.night, "daylight returns at 05:30")
+
+	var schedule := [
+		["Fajr", 285, 365, 20],
+		["Dhuhr", 725, 930, 15],
+		["Asr", 930, 1090, 15],
+		["Maghrib", 1090, 1170, 5],
+		["Isha", 1170, 1440 + 285, 15],
+	]
+	check(source.prayers.size() == schedule.size(), "the clock uses the five locked prayer slots")
+	for index in schedule.size():
+		var name: String = schedule[index][0]
+		var begins: int = schedule[index][1]
+		var ends: int = schedule[index][2]
+		var iqamah: int = schedule[index][3]
+		var adhan: Array[String] = []
+		clock = PrayerClock.new(source)
+		clock.adhan_started.connect(func(message: String): adhan.append(message))
+		clock.advance_to(3, begins - 1, false)
+		clock.wait_until_next_prayer()
+		check(clock.day == 3 and clock.minute_of_day == begins, "Wait reaches the exact adhan minute: " + name)
+		check(adhan == [source.adhan_toast.format({"prayer": name})], "exactly one approved adhan is emitted at the prayer start: " + name)
+		var solo: String = source.pray_here.format({"prayer": name})
+		check(clock.prayer_label(true) == source.pray_congregation and clock.prayer_label(false) == solo, "only the Masjid offers congregation at the adhan: " + name)
+		clock.advance_to(3, begins + iqamah + 5)
+		check(clock.prayer_label(true) == source.pray_congregation, "congregation includes the fifth minute after iqamah: " + name)
+		clock.advance_to(3, begins + iqamah + 6)
+		check(clock.prayer_label(true) == solo, "after congregation, the Masjid offers prayer alone: " + name)
+		clock.advance_to(3, ends - 1)
+		check(clock.prayer_label(false) == solo, "the final minute before the prayer ends is playable: " + name)
+		clock.advance_to(3, ends)
+		check(clock.prayer_label(false) != solo, "the prayer cannot be started at its end: " + name)
+		if index < schedule.size() - 1:
+			check(clock.record().rows[index].status == "missed", "a skipped slot is missed at its end: " + name)
+
+	clock = PrayerClock.new(source)
+	clock.advance_to(2, 6 * 60 + 5)
+	check(clock.record().rows[0].status == "missed", "day 2 Fajr is missed as soon as its window ends")
+	check(clock.make_up_label() == "Make up Fajr", "Friday Fajr is offered for make-up")
+	check(clock.make_up() == "You made up Fajr." and clock.minute_of_day == 6 * 60 + 15, "make-up uses the locked toast and takes ten game minutes")
+	check(clock.record().rows[0].text == "04:45 · made up", "making up Fajr updates Friday's private record")
+	check(clock.make_up_label() != "Make up Fajr", "the completed Fajr make-up cannot repeat")
+	clock.advance_to(2, 12 * 60 + 40)
+	check(clock.hud(true).prayer.begins_with("Friday prayer now") and clock.hud(false).prayer.begins_with("Dhuhr now"), "Friday congregational time uses the correct HUD prayer for the place")
+	check(clock.prayer_label(true) == source.pray_friday and clock.prayer_label(false) == source.pray_here_friday, "Friday prayer is only offered in congregation at the Masjid")
+	check(clock.pray(true) == "You prayed Friday prayer in congregation.", "praying Friday in the Masjid uses the locked congregation toast")
+	check(clock.minute_of_day == 12 * 60 + 50 and clock.record().rows[1].status == "jamaah", "Friday congregation takes ten minutes and updates its record")
+	check(clock.hud().prayer == "Friday prayer · prayed in congregation" and clock.prayer_label(true).is_empty(), "completed prayer shows the done line and cannot repeat")
+
+	clock.reset()
+	clock.advance_to(2, 12 * 60 + 8)
+	check(clock.pray(false) == source.toast_alone_friday, "Friday prayer away from the Masjid is Dhuhr")
+	check(clock.record().rows[1].text == "12:05 · missed Friday prayer · prayed Dhuhr", "praying Friday Dhuhr alone shows the locked distinct status")
+	clock.reset()
+	clock.advance_to(2, 12 * 60 + 41)
+	check(clock.prayer_label(true) == source.pray_here_friday, "the Masjid also offers Dhuhr once the Friday congregation window closes")
+	clock.reset()
+	clock.advance_to(1, 19 * 60 + 30)
+	clock.wait_until_next_prayer()
+	check(clock.day == 2 and clock.minute_of_day == 285, "Wait at the start of Isha jumps strictly forward to Friday Fajr")
+	clock.make_up()
+	check(clock.make_up_label() == "Make up Asr", "making up a prior-day prayer advances to the next outstanding slot")
+
+
+func check_prayer_runtime() -> void:
+	var source: Dictionary = identity.clock
+	app.clock.reset()
+	await place_at_quay()
+	var clock_hit: Button = app.ui.clock_panel.get_child(-1)
+	check(clock_hit != null and clock_hit.is_visible_in_tree() and not clock_hit.disabled, "HUD has a usable clock hit target")
+	if clock_hit != null:
+		clock_hit.pressed.emit()
+		await frames(2)
+	check(app.ui.screen == "prayer_record" and visible_text().contains(source.record.title), "clock opens the private prayer record")
+	check(visible_text().contains("04:45 · not counted") and visible_text().to_lower().contains(str(source.record.note).to_lower()), "record shows the not-counted Fajr and exact privacy note")
+	await press_button(source.record.back, "record offers a usable Back to the market button")
+	check(app.ui.screen == "market_map", "record returns to the market map")
+
+	app.clock.advance_to(2, 6 * 60 + 5, false)
+	app.update_state()
+	var wallet := Vector2i(app.progress.coins, app.progress.trust)
+	await press_button(source.make_up.format({"prayer": "Fajr"}), "missed Friday Fajr has a real Make up Fajr button")
+	check(app.clock.record().rows[0].status == "madeup" and visible_text().contains(source.toast_madeup.format({"prayer": "Fajr"})), "make-up button updates the record and shows its exact toast")
+	check(Vector2i(app.progress.coins, app.progress.trust) == wallet, "making up a prayer leaves coins and trust untouched")
+	app.clock.advance_to(2, 12 * 60 + 8, false)
+	app.update_state()
+	check(visible_text().contains(source.pray_here_friday), "away from the Masjid the market offers the locked Friday Dhuhr action")
+	key_event(KEY_P, true)
+	key_event(KEY_P, false)
+	await frames(2)
+	check(app.clock.record().rows[1].status == "dhuhr_fri" and visible_text().contains(source.toast_alone_friday), "P prays Dhuhr away from the Masjid on Friday")
+	check(Vector2i(app.progress.coins, app.progress.trust) == wallet, "praying alone leaves coins and trust untouched")
+	app.player.position = app.world.point("masjid")
+	app.clock.advance_to(2, 15 * 60 + 31, false)
+	app.update_state()
+	await press_button(source.pray_congregation, "the Masjid offers a real congregation button")
+	check(app.clock.record().rows[2].status == "jamaah" and visible_text().contains(source.toast_congregation.format({"prayer": "Asr"})), "congregation button records Asr with the exact toast")
+	check(Vector2i(app.progress.coins, app.progress.trust) == wallet, "praying in congregation leaves coins and trust untouched")
 
 
 func finish() -> void:

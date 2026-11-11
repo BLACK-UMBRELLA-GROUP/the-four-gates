@@ -27,7 +27,7 @@ static func configure_input(data: Dictionary) -> void:
 		"move_forward": movement[0], "move_left": movement[1],
 		"move_back": movement[2], "move_right": movement[3],
 	}
-	for action in ["run", "use", "market_map", "goal", "wait_day_night", "close"]:
+	for action in ["run", "use", "market_map", "goal", "wait_prayer", "pray", "close"]:
 		bindings[action] = data.keys[action]
 	for action in bindings:
 		if not InputMap.has_action(action):

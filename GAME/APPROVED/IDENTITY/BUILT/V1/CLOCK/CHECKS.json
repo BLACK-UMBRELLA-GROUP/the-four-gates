@@ -1,0 +1,632 @@
+{
+	"checks": [
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "Begin starts Thursday at 06:30",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "arrival sunset backdrop begins before its time jump",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival reaches the Inn with 198 coins and clock-driven daylight at 18:15",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g15_market_map__day_inn_masjid_clock__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g15_market_map__day_inn_masjid_clock__build.png",
+			"passed": true
+		},
+		{
+			"description": "daylight in the actual street",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: hud_day__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: hud_day__build.png",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g19_market_map__masjid_sit_a_while__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g19_market_map__masjid_sit_a_while__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Sit a while",
+			"passed": true
+		},
+		{
+			"description": "Sit a while shows the approved interim toast",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Wait until next prayer",
+			"passed": true
+		},
+		{
+			"description": "Wait button reaches the Dhuhr adhan",
+			"passed": true
+		},
+		{
+			"description": "P prays Dhuhr alone at the Task board",
+			"passed": true
+		},
+		{
+			"description": "T reaches the Asr adhan and shows its toast",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g20_market_map__asr_adhan_congregation__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g20_market_map__asr_adhan_congregation__build.png",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g21_market_map__pray_here__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g21_market_map__pray_here__build.png",
+			"passed": true
+		},
+		{
+			"description": "Task board offers solitary Asr only",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "Masjid congregation button records Asr and advances ten minutes",
+			"passed": true
+		},
+		{
+			"description": "the clock opens the private record",
+			"passed": true
+		},
+		{
+			"description": "Thursday Fajr is not counted and cannot be made up",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g22b_record__day1_not_counted__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g22b_record__day1_not_counted__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market",
+			"passed": true
+		},
+		{
+			"description": "Back to the market returns to the original market view",
+			"passed": true
+		},
+		{
+			"description": "Isha starts at 19:30 and the clock drives night",
+			"passed": true
+		},
+		{
+			"description": "night lighting in the actual street",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: hud_night__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: hud_night__build.png",
+			"passed": true
+		},
+		{
+			"description": "waiting after Isha lands at Friday Fajr",
+			"passed": true
+		},
+		{
+			"description": "Friday away from the Masjid offers Dhuhr",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "Friday Dhuhr records missed Friday prayer and prayed Dhuhr",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "Friday Fajr becomes missed",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g23_market_map__day2_make_up__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g23_market_map__day2_make_up__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Make up Fajr",
+			"passed": true
+		},
+		{
+			"description": "Friday Fajr make-up advances ten minutes and updates the record",
+			"passed": true
+		},
+		{
+			"description": "the clock opens the private record",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g22_record__day2_made_up__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g22_record__day2_made_up__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market",
+			"passed": true
+		},
+		{
+			"description": "Back to the market returns to the original market view",
+			"passed": true
+		},
+		{
+			"description": "congregation, solitary prayer and make-up leave coins and trust unchanged",
+			"passed": true
+		},
+		{
+			"description": "Friday at the Masjid shows the congregational prayer",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: g24_market_map__friday_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: g24_market_map__friday_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray Friday prayer with the congregation",
+			"passed": true
+		},
+		{
+			"description": "Friday congregation records the prayer, advances ten minutes and leaves coins and trust unchanged",
+			"passed": true
+		},
+		{
+			"description": "an adhan crossed during prayer is shown immediately",
+			"passed": true
+		},
+		{
+			"description": "the prayer receipt follows the crossed adhan",
+			"passed": true
+		},
+		{
+			"description": "all eight master states and the day and night street HUDs were captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Positions and selected clock minutes are seeded. The g15 wallet comes from the fair arrival; g19–g24 seed the masters' zero coins. g24 is a replay with previous prayers completed by the clock model before Friday's live congregation action.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport. The capture freezes passive clock ticks for reproducible minutes. Arrival choices, T/P, the Wait button, prayers, and the record use production controls.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "g15_market_map__day_inn_masjid_clock__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "hud_day__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g19_market_map__masjid_sit_a_while__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g20_market_map__asr_adhan_congregation__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g21_market_map__pray_here__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g22b_record__day1_not_counted__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "hud_night__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g23_market_map__day2_make_up__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g22_record__day2_made_up__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "g24_market_map__friday_prayer__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"g15_market_map__day_inn_masjid_clock__build.png": {
+			"clock": {
+				"prayer": "Dhuhr in 2 h 5 min",
+				"time": "Thursday · 10:00"
+			},
+			"coins": 198,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g19_market_map__masjid_sit_a_while__build.png": {
+			"clock": {
+				"prayer": "Dhuhr in 2 h 5 min",
+				"time": "Thursday · 10:00"
+			},
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g20_market_map__asr_adhan_congregation__build.png": {
+			"clock": {
+				"prayer": "Asr now · 2 h 39 min left",
+				"time": "Thursday · 15:31"
+			},
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 931,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"toast": "Adhan: Asr has begun.",
+			"trust": 20
+		},
+		"g21_market_map__pray_here__build.png": {
+			"clock": {
+				"prayer": "Asr now · 2 h 39 min left",
+				"time": "Thursday · 15:31"
+			},
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 931,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g22_record__day2_made_up__build.png": {
+			"clock": {
+				"prayer": "Maghrib now · 1 h 0 min left",
+				"time": "Friday · 18:30"
+			},
+			"coins": 0,
+			"daily_count": 0,
+			"day": 2,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1110,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"record": {
+				"kicker": "Friday · day 2",
+				"rows": [
+					{
+						"name": "Fajr",
+						"status": "madeup",
+						"text": "04:45 · made up"
+					},
+					{
+						"name": "Friday prayer",
+						"status": "dhuhr_fri",
+						"text": "12:05 · missed Friday prayer · prayed Dhuhr"
+					},
+					{
+						"name": "Asr",
+						"status": "jamaah",
+						"text": "15:30 · prayed in congregation"
+					},
+					{
+						"name": "Maghrib",
+						"status": "now",
+						"text": "18:10 · now · 1 h 0 min left"
+					},
+					{
+						"name": "Isha",
+						"status": "later",
+						"text": "19:30 · at 19:30"
+					}
+				]
+			},
+			"screen": "prayer_record",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g22b_record__day1_not_counted__build.png": {
+			"clock": {
+				"prayer": "Maghrib now · 1 h 10 min left",
+				"time": "Thursday · 18:20"
+			},
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1100,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"record": {
+				"kicker": "Thursday · day 1",
+				"rows": [
+					{
+						"name": "Fajr",
+						"status": "not_counted",
+						"text": "04:45 · not counted"
+					},
+					{
+						"name": "Dhuhr",
+						"status": "alone",
+						"text": "12:05 · prayed on your own"
+					},
+					{
+						"name": "Asr",
+						"status": "jamaah",
+						"text": "15:30 · prayed in congregation"
+					},
+					{
+						"name": "Maghrib",
+						"status": "now",
+						"text": "18:10 · now · 1 h 10 min left"
+					},
+					{
+						"name": "Isha",
+						"status": "later",
+						"text": "19:30 · at 19:30"
+					}
+				]
+			},
+			"screen": "prayer_record",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g23_market_map__day2_make_up__build.png": {
+			"clock": {
+				"prayer": "Maghrib now · 1 h 10 min left",
+				"time": "Friday · 18:20"
+			},
+			"coins": 0,
+			"daily_count": 0,
+			"day": 2,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1100,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"g24_market_map__friday_prayer__build.png": {
+			"clock": {
+				"prayer": "Friday prayer now · 3 h 22 min left",
+				"time": "Friday · 12:08"
+			},
+			"coins": 0,
+			"daily_count": 0,
+			"day": 2,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 728,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"hud_day__build.png": {
+			"clock": {
+				"prayer": "Dhuhr in 2 h 5 min",
+				"time": "Thursday · 10:00"
+			},
+			"coins": 198,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "game",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		},
+		"hud_night__build.png": {
+			"clock": {
+				"prayer": "Isha now · 9 h 15 min left",
+				"time": "Thursday · 19:30"
+			},
+			"coins": 0,
+			"daily_count": 0,
+			"day": 1,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1170,
+			"night": true,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "game",
+			"tasks": {},
+			"toast": "",
+			"trust": 20
+		}
+	},
+	"timestamp_utc": "2026-11-11T11:49:26Z"
+}

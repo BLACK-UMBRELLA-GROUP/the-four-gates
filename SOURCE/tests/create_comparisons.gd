@@ -16,21 +16,40 @@ func _initialize() -> void:
 		folder = "res://../GAME/APPROVED/IDENTITY/"
 		evidence = "BUILT/V1/ARRIVAL/"
 		names = load("res://tests/capture_arrival.gd").MASTER_STEMS.values()
+	if "--clock" in OS.get_cmdline_user_args():
+		quit(0 if _compare_clock() else 1)
+		return
 	for stem: String in names:
-		var master := Image.load_from_file(folder + "MASTERS/" + stem + ".png")
-		var build := Image.load_from_file(folder + evidence + stem + "__build.png")
-		if master == null or build == null or master.get_size() != Vector2i(1920, 1080) or master.get_size() != build.get_size():
-			push_error("Comparison requires a 1920×1080 master and build for " + stem)
+		var captured := folder + evidence + stem
+		if not _compare(folder + "MASTERS/" + stem + ".png", captured + "__build.png", captured + "__master_beside_build.png"):
 			quit(1)
 			return
-		master.convert(Image.FORMAT_RGBA8)
-		build.convert(Image.FORMAT_RGBA8)
-		var comparison := Image.create(3840, 1080, false, Image.FORMAT_RGBA8)
-		comparison.blit_rect(master, Rect2i(0, 0, 1920, 1080), Vector2i.ZERO)
-		comparison.blit_rect(build, Rect2i(0, 0, 1920, 1080), Vector2i(1920, 0))
-		if comparison.save_png(folder + evidence + stem + "__master_beside_build.png") != OK:
-			push_error("Could not save comparison for " + stem)
-			quit(1)
-			return
-		print("COMPARE ", stem)
 	quit(0)
+
+func _compare_clock() -> bool:
+	var runner := load("res://tests/capture_clock.gd")
+	var folder: String = runner.evidence_folder()
+	var masters := "res://../GAME/APPROVED/IDENTITY/MASTERS/"
+	for stem: String in runner.MASTER_STEMS:
+		var master: String = masters + runner.MASTER_STEMS[stem] + ".png"
+		if not _compare(master, folder.path_join(stem + "__build.png"), folder.path_join(stem + "__master_beside_build.png")):
+			return false
+	return _compare(folder.path_join("hud_day__build.png"), folder.path_join("hud_night__build.png"), folder.path_join("hud_day_beside_night.png"))
+
+func _compare(left_path: String, right_path: String, output_path: String) -> bool:
+	var left := Image.load_from_file(left_path)
+	var right := Image.load_from_file(right_path)
+	var frame := Rect2i(0, 0, 1920, 1080)
+	if left == null or right == null or left.get_size() != frame.size or right.get_size() != frame.size:
+		push_error("Comparison requires two 1920×1080 images for " + output_path)
+		return false
+	left.convert(Image.FORMAT_RGBA8)
+	right.convert(Image.FORMAT_RGBA8)
+	var comparison := Image.create(frame.size.x * 2, frame.size.y, false, Image.FORMAT_RGBA8)
+	comparison.blit_rect(left, frame, Vector2i.ZERO)
+	comparison.blit_rect(right, frame, Vector2i(frame.size.x, 0))
+	if comparison.save_png(output_path) != OK:
+		push_error("Could not save comparison to " + output_path)
+		return false
+	print("COMPARE ", output_path.get_file())
+	return true

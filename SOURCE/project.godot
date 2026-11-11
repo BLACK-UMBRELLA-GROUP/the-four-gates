@@ -62,9 +62,13 @@ goal={
 "deadzone": 0.0,
 "events": [Object(InputEventKey,"physical_keycode":71)]
 }
-wait_day_night={
+wait_prayer={
 "deadzone": 0.0,
 "events": [Object(InputEventKey,"physical_keycode":84)]
+}
+pray={
+"deadzone": 0.0,
+"events": [Object(InputEventKey,"physical_keycode":80)]
 }
 close={
 "deadzone": 0.0,

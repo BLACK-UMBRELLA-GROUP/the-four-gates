@@ -25,13 +25,13 @@ line 19 and records the exact Godot version below; gameplay is built only from L
 Import `SOURCE/project.godot` in Godot 4.7.2 and press Run, or run `godot --path SOURCE` from the repository root.
 The Ilmara title opens first. Begin starts the four arrival beats at the quay with zero coins.
 The open scale gives 200 coins and the smiling changer gives 120. Paying for the first night leaves 198 or 118.
-The sunset choice moves the stored time to 18:15. Walk River Market opens the map at the Inn, Arrive again
+The sunset choice moves the clock to 18:15. Walk River Market opens the map at the Inn, Arrive again
 restarts the arrival, and Meet the old man shows the interim placeholder message.
 The game uses placeholder shapes.
-LOCK 1 parts 1–3 provide the street layout, collision, capsule player, camera, maps, day/night switch and task board.
+LOCK 1 parts 1–3 provide the street layout, collision, capsule player, camera, maps and task board.
 Use E at the board to take the three tasks, choose the honest or quick way, earn coins/trust, put quick choices right
-and unload a boat once each day. Amends return the trust actually lost plus the honest reward. Resting at the Inn
-or switching night to day restores the daily job. Trust starts at 20 / 100 and stays within 0–100.
+and unload a boat once each day. Amends return the trust actually lost plus the honest reward. The job is available
+again on the next game day, including after a rest at the Inn. Trust starts at 20 / 100 and stays within 0–100.
 Use E at Market scales to try the three weights against the checked weight and name the light one. A correct answer
 adds 25 trust once; later visits check the scales. Passing after using the smiling changer reveals the cheat at
 the scales. Ask the gatekeepers with 100 trust and the lesson complete to swing the gate open for the session.
@@ -39,12 +39,19 @@ Three honest tasks plus the lesson give exactly 100 trust and add 12 coins to th
 opens the four-gate goal panel. The city map marks the open Gate of Trust green. There is no shop yet.
 
 WASD moves, mouse turns the third-person camera, Shift runs, E uses the nearby place, M opens/closes the market map,
-G opens the goal panel, T switches day/night, and Esc closes panels or releases the mouse. Click the world
-to capture the mouse again. Map place markers choose a walking route along the approved streets; the player moves
+G opens the goal panel, T waits until the next prayer, P prays when available, and Esc closes panels or releases
+the mouse. Click the world to capture the mouse again. Map place markers choose a walking route along the approved streets; the player moves
 physically. Use Rest until morning at the Inn to spend the prepaid night, pay two coins, or sweep the stable if
-the wallet falls short. Each route wakes at 04:40 the next day. The Masjid action shows the placeholder message.
-Open City map from the market
-map and tap any of Ilmara's five parts for its description. The Inn marker or River Market button returns to the
+the wallet falls short. Each route wakes at 04:40 the next day.
+
+The game starts at 06:30 on Thursday, after the first Fajr window. A day takes 48 real minutes. The clock drives
+day and night lighting and announces when prayers begin. Use the Masjid action to pray in congregation during
+its window, or use P or the on-screen action to pray where you are. On Friday, the Masjid offers Friday prayer
+during congregation. Elsewhere and after congregation, pray Dhuhr. Click the clock to see the private prayer
+record. A missed prayer can be made up and prayer leaves coins and trust as they were. At the Masjid,
+Sit a while shows the interim placeholder message.
+
+Open City map from the market map and tap any of Ilmara's five parts for its description. The Inn marker or River Market button returns to the
 market map. Open World map from the city map and tap one of the twelve placeholder towns for its description.
 
 `SOURCE/data/foundations.json` applies the line 5 names and map changes to the approved foundations V2 data.
@@ -123,9 +130,15 @@ to put each of the six approved masters beside the corresponding native capture.
 Append `--masters-only` to the native command for a shorter capture. This sets up the player at the gate
 for g14 and verifies the gate's prerequisites, hinge and collision through the real use action.
 
-`godot --path SOURCE -- --capture-arrival` records the 13 line 6 states and `CHECKS.json` under
+At the line 6 source revision, `godot --path SOURCE -- --capture-arrival` records the 13 line 6 states and `CHECKS.json` under
 `GAME/APPROVED/IDENTITY/BUILT/V1/ARRIVAL/`. It uses viewport clicks for both arrival branches and walks the
 player to the scales. The stable case seeds a zero wallet after using the prepaid night.
 Append `--masters-only` to place the player at the scales for g30, then use the live lesson controls.
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --arrival` puts each approved
 master on the left of its native capture. The line 6 receipt lives alongside those pairs in `ARRIVAL/BUILD.json`.
+
+`godot --path SOURCE -- --capture-clock` records eight line 7 master states and the day and night street HUDs
+in `GAME/APPROVED/IDENTITY/BUILT/V1/CLOCK/`. The runner fixes capture times and uses the production prayer
+and record controls. `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --clock`
+creates the eight master pairs and the street HUD day/night pair. See `CLOCK/BUILD.json` for the source hashes,
+capture checks and visual differences.

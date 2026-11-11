@@ -8,6 +8,10 @@ signal arrival_continue_requested
 signal arrival_walk_requested
 signal screen_requested(screen: String)
 signal wait_requested
+signal pray_requested
+signal make_up_requested
+signal record_requested
+signal record_closed
 signal use_requested
 signal goal_requested
 signal destination_requested(place_id: String)
@@ -35,10 +39,24 @@ var content: Control
 var toast_panel: Panel
 var toast_label: Label
 var _toast_seconds := 0.0
+var _following_toast := ""
 var font := SystemFont.new()
 var bold_font := SystemFont.new()
 var title_font := SystemFont.new()
 var progress: RefCounted
+var clock: RefCounted
+var clock_panel: Panel
+var _clock_time: Label
+var _clock_prayer: Label
+var _clock_hit: Button
+var _record_kicker: Label
+var _record_names: Array[Label] = []
+var _record_values: Array[Label] = []
+var _clock_day := -1
+var _clock_minute := -1
+var _prayer_label := ""
+var _make_up_label := ""
+var _masjid_line := ""
 var task_id := ""
 var result: Dictionary = {}
 var arrival_beat := 0
@@ -50,10 +68,11 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted) -> void:
 	data = source
 	identity = identity_value
 	progress = progress_value
+	clock = clock_value
 	font.font_names = PackedStringArray(["Arial", "Helvetica", "sans-serif"])
 	bold_font.font_names = font.font_names
 	bold_font.font_weight = 700
@@ -96,6 +115,14 @@ func show_screen(value: String) -> void:
 	if is_instance_valid(toast_panel):
 		toast_panel.hide()
 		_toast_seconds = 0.0
+		_following_toast = ""
+	_rebuild_screen()
+
+func _rebuild_screen() -> void:
+	clock_panel = null
+	_clock_hit = null
+	_record_names.clear()
+	_record_values.clear()
 	for child in content.get_children():
 		content.remove_child(child)
 		child.queue_free()
@@ -114,10 +141,11 @@ func show_screen(value: String) -> void:
 			_build_arrival()
 		"game", "market_map":
 			_build_hud()
-			_build_place_bar()
+			var place_x := 491.0 if screen == "market_map" else 203.0
+			_build_place_bar(_build_prayer_buttons(place_x))
 			if screen == "market_map":
 				_button(data.ui.buttons.city_map, Vector2(42, 974), Vector2(138, 55), func(): screen_requested.emit("city_map"))
-				_button(data.ui.buttons.wait_day if night else data.ui.buttons.wait_night, Vector2(203, 974), Vector2(200, 55), func(): wait_requested.emit())
+				_button(data.ui.buttons.wait_prayer, Vector2(203, 974), Vector2(265, 55), func(): wait_requested.emit())
 			else:
 				_button(data.ui.buttons.map, Vector2(42, 974), Vector2(138, 55), func(): screen_requested.emit("market_map"))
 		"city_map":
@@ -128,6 +156,9 @@ func show_screen(value: String) -> void:
 			_button(identity.ui.title_back, Vector2(42, 983), Vector2(105, 55), func(): screen_requested.emit("title"))
 			_button(identity.ui.city_map, Vector2(170, 983), Vector2(138, 55), func(): screen_requested.emit("city_map"))
 			_button(identity.ui.river_market, Vector2(331, 983), Vector2(176, 55), func(): screen_requested.emit("market_map"))
+		"prayer_record":
+			_build_hud()
+			_build_prayer_record()
 		"board":
 			_build_hud()
 			_build_board()
@@ -151,9 +182,23 @@ func show_screen(value: String) -> void:
 
 func refresh(position_value: Vector3, place_value: String, night_value: bool) -> void:
 	player_position = position_value
-	var rebuild: bool = place_id != place_value or night != night_value or _last_coins != progress.coins or _last_trust != progress.trust or _last_daily_count != progress.daily_count or _last_lesson != progress.lesson_done or _last_gate != progress.gate_open
+	var place_changed := place_id != place_value
+	var clock_changed: bool = _clock_day != clock.day or _clock_minute != clock.minute_of_day
+	var rebuild: bool = place_changed or _last_coins != progress.coins or _last_trust != progress.trust or _last_daily_count != progress.daily_count or _last_lesson != progress.lesson_done or _last_gate != progress.gate_open
 	place_id = place_value
 	night = night_value
+	if clock_changed or place_changed:
+		_clock_day = clock.day
+		_clock_minute = clock.minute_of_day
+		var at_masjid := place_id == "masjid"
+		var prayer: String = clock.prayer_label(at_masjid)
+		var make_up: String = clock.make_up_label()
+		var masjid_line: String = clock.masjid_line() if at_masjid else ""
+		if screen in ["game", "market_map"]:
+			rebuild = rebuild or prayer != _prayer_label or make_up != _make_up_label or masjid_line != _masjid_line
+		_prayer_label = prayer
+		_make_up_label = make_up
+		_masjid_line = masjid_line
 	if not is_instance_valid(root):
 		return
 	map.player_position = player_position
@@ -162,9 +207,13 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool) ->
 	if map.visible:
 		map.queue_redraw()
 	if rebuild and screen != "title":
-		show_screen(screen)
+		_rebuild_screen()
+	elif clock_changed:
+		_update_clock_hud()
+		if screen == "prayer_record":
+			_update_prayer_record()
 
-func show_toast(value: String, compact: bool = false) -> void:
+func show_toast(value: String, compact: bool = false, follow_with: String = "") -> void:
 	if not is_instance_valid(toast_label):
 		return
 	var use_compact := compact or screen in ["city_map", "world_map"]
@@ -184,13 +233,17 @@ func show_toast(value: String, compact: bool = false) -> void:
 		toast_label.add_theme_font_size_override("font_size", 25)
 		toast_label.size = Vector2(960, 48)
 	_toast_seconds = 3.5
+	_following_toast = follow_with
 	toast_panel.show()
 
 func _process(delta: float) -> void:
 	if _toast_seconds > 0:
 		_toast_seconds -= delta
 		if _toast_seconds <= 0:
-			toast_panel.hide()
+			if _following_toast.is_empty():
+				toast_panel.hide()
+			else:
+				show_toast(_following_toast, screen == "market_map")
 
 func _build_title() -> void:
 	var shade := ColorRect.new()
@@ -264,6 +317,7 @@ func _arrival_button(value: String, at: Vector2, callback: Callable, primary: bo
 	return width
 
 func _build_hud() -> void:
+	_build_clock_hud()
 	var coin_text: String = str(data.ui.hud.coins).format({"n": progress.coins})
 	var coin_width := bold_font.get_string_size(coin_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var coins := _panel(Vector2(42, 42), Vector2(coin_width + 36, 53), Color("302411"))
@@ -291,6 +345,67 @@ func _build_hud() -> void:
 	hit.modulate = Color(1, 1, 1, 0)
 	hit.pressed.connect(func(): goal_requested.emit())
 	trust.add_child(hit)
+
+func _build_clock_hud() -> void:
+	clock_panel = _panel(Vector2.ZERO, Vector2(285, 84), Color("302411"))
+	_clock_time = _label(clock_panel, "", Vector2(14, 8), Vector2(257, 34), 24, PAPER)
+	_clock_prayer = _label(clock_panel, "", Vector2(14, 40), Vector2(257, 34), 24, Color("ffd27e"), true)
+	_clock_time.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_clock_prayer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	if screen not in ["arrival", "prayer_record"]:
+		_clock_hit = Button.new()
+		_clock_hit.flat = true
+		_clock_hit.modulate = Color(1, 1, 1, 0)
+		_clock_hit.pressed.connect(func(): record_requested.emit())
+		clock_panel.add_child(_clock_hit)
+	_update_clock_hud()
+
+func _update_clock_hud() -> void:
+	if not is_instance_valid(clock_panel):
+		return
+	var values: Dictionary = clock.hud(place_id == "masjid")
+	_clock_time.text = values.time
+	_clock_prayer.text = values.prayer
+	var width := maxf(285, bold_font.get_string_size(values.prayer, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 42)
+	clock_panel.position = Vector2(850 - width / 2, 42)
+	clock_panel.size.x = width
+	_clock_time.size.x = width - 28
+	_clock_prayer.size.x = width - 28
+	if is_instance_valid(_clock_hit):
+		_clock_hit.size = clock_panel.size
+
+func _build_prayer_record() -> void:
+	var record_copy: Dictionary = identity.clock.record
+	var panel := _panel(Vector2(365, 322), Vector2(1190, 524), Color("1b130bf2"))
+	_record_kicker = _label(panel, "", Vector2(34, 23), Vector2(1122, 28), 16, Color("e9bd70"))
+	var title := _label(panel, record_copy.title, Vector2(34, 53), Vector2(1122, 47), 36, Color("ffd27e"), true)
+	title.add_theme_font_override("font", title_font)
+	for index in range(identity.clock.prayers.size()):
+		var y := 112.0 + index * 57.0
+		var line := ColorRect.new()
+		line.position = Vector2(34, y)
+		line.size = Vector2(1122, 1)
+		line.color = Color("88612555")
+		line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		panel.add_child(line)
+		_record_names.append(_label(panel, "", Vector2(34, y + 1), Vector2(450, 56), 24, PAPER, true))
+		var value := _label(panel, "", Vector2(484, y + 1), Vector2(672, 56), 24, Color("ffd27e"))
+		value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		_record_values.append(value)
+	_label(panel, str(record_copy.note).to_upper(), Vector2(34, 397), Vector2(1122, 28), 16, Color("e9bd70"))
+	_button(record_copy.back, Vector2(399, 762), Vector2(247, 56), func(): record_closed.emit(), true)
+	_update_prayer_record()
+
+func _update_prayer_record() -> void:
+	var record_values: Dictionary = clock.record()
+	_record_kicker.text = str(record_values.kicker).to_upper()
+	for index in _record_names.size():
+		var row: Dictionary = record_values.rows[index]
+		_record_names[index].text = row.name
+		_record_values[index].text = row.text
+		var inactive: bool = row.status not in ["now", "later"]
+		_record_names[index].modulate.a = 0.55 if inactive else 1.0
+		_record_values[index].modulate.a = 0.55 if inactive else 1.0
 
 func _task() -> Dictionary:
 	for task: Dictionary in data.tasks:
@@ -453,8 +568,14 @@ func _build_goal() -> void:
 	_button(data.ui.buttons.back_to_market, Vector2(399, 804), Vector2(247, 56), func(): screen_requested.emit("game"), true)
 	_button(data.ui.buttons.map, Vector2(659, 804), Vector2(91, 56), func(): screen_requested.emit("market_map"))
 
-func _build_place_bar() -> void:
-	var x := 425.0 if screen == "market_map" else 203.0
+func _build_prayer_buttons(x: float) -> float:
+	if not _prayer_label.is_empty() and place_id != "masjid":
+		x += _arrival_button(_prayer_label, Vector2(x, 973), func(): pray_requested.emit(), true) + 22
+	if not _make_up_label.is_empty():
+		x += _arrival_button(_make_up_label, Vector2(x, 973), func(): make_up_requested.emit()) + 22
+	return x
+
+func _build_place_bar(x: float) -> void:
 	if place_id.is_empty() or not data.places.has(place_id):
 		var idle: String = data.ui.place_bar.idle
 		var idle_width: float = font.get_string_size(idle, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
@@ -463,12 +584,15 @@ func _build_place_bar() -> void:
 		return
 	var place: Dictionary = data.places[place_id]
 	var name_value: String = place.name
-	var line_value: String = str(data.ui.place_bar.format).format({"name": "", "line": place.line})
+	var place_line: String = _masjid_line if place_id == "masjid" and not _masjid_line.is_empty() else place.line
+	var line_value: String = str(data.ui.place_bar.format).format({"name": "", "line": place_line})
 	var action: String = data.ui.place_actions.get(place_id, data.ui.not_built)
 	if place_id == "inn":
 		action = identity.inn.action
 	elif place_id == "scales" and progress.lesson_done:
 		action = data.ui.place_actions.scales_after_lesson
+	elif place_id == "masjid":
+		action = identity.clock.masjid_actions.none_yet if _prayer_label.is_empty() else _prayer_label
 	var name_width := bold_font.get_string_size(name_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var line_width := font.get_string_size(line_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var button_width := bold_font.get_string_size(action, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 46
@@ -519,7 +643,7 @@ func _button(value: String, at: Vector2, extent: Vector2, callback: Callable, pr
 	button.add_theme_color_override("font_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_hover_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_pressed_color", INK if primary else PAPER)
-	var task_panel := screen in ["arrival", "board", "task", "result", "lesson", "goal"]
+	var task_panel := screen in ["arrival", "board", "task", "result", "lesson", "goal", "prayer_record"]
 	var background := Color("1b130bf2") if task_panel else Color("191c19")
 	button.add_theme_stylebox_override("normal", _style(GOLD if primary else background))
 	button.add_theme_stylebox_override("hover", _style(GOLD.lightened(0.12) if primary else (background.lightened(0.1) if task_panel else Color("312b20"))))

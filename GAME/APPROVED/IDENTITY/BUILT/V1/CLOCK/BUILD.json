@@ -1,0 +1,283 @@
+{
+  "id": "DOC-TFG-0015",
+  "actions": [
+    "OA-AIOS-437",
+    "OA-AIOS-432",
+    "AD-AIOS-115",
+    "AD-AIOS-141"
+  ],
+  "queue_line": 7,
+  "lock": "LOCK 2 V3 data and V5 identity spec. QUESTIONS row 5, option A.",
+  "tested_base_commit_sha": "be8d85cf74c40b3ef37554fa893600640e06425f",
+  "capture_source": "Native capture and tests used the Line 7 worktree changes on this base. The source file hashes identify those changes. The daily report identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native debug Godot viewport, Forward+ / Metal on Apple M2 (Apple8)",
+  "timestamp_utc": "2026-11-11T11:49:26Z",
+  "founder_decisions": [
+    "11 Nov GO: \"4 gates needs to improve a lot ... i want 50 by end of the day\"; \"Build in the day today (Recommended)\".",
+    "6 Nov LOCK 2: \"LOCK it (Recommended)\".",
+    "11 Nov prayer-rules scholar check, DOC-TFG-0320 row 1: \"Build now, check later (Recommended)\"."
+  ],
+  "built_from": {
+    "GAME/APPROVED/IDENTITY/BRIEFS/BUILD_BRIEF_2026-11-06_PART3_CLOCK.md": "9790d61567b4cb8a8db21f2ef96450ba58a71996a6fceea033b932f1120129c5",
+    "GAME/APPROVED/IDENTITY/RECORD/IDENTITY_SPEC_CURRENT_VERSION_V5.md": "3ca338e60c36ab86edaae99e873c28c4235ec020ef7626d081f70902de241c5d",
+    "GAME/APPROVED/IDENTITY/RECORD/identity_data_V3.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "GAME/APPROVED/IDENTITY/RECORD/LOCK_RECORD.md": "6632c23ba527fe7fd12b37874d8ef564ac12f8ec557f556b2f03287e8da1c498",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/FOUNDATIONS_SPEC_CURRENT_VERSION_V2.md": "cfe9038832646a04fbfc4933465a5a15d5b900b26e3ace6e317660f8b34d507f",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/foundations_data_V2.json": "96f9cab093fc7cd949a10663c44f4bb037556c7caa33cf0f4df0e4a5e03ba66f",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/LOCK_RECORD.md": "8004223e256b130091ffa62bb39ed12a04a7c3a9f7daafdf541518d0281f0ea9",
+    "GAME/APPROVED/IDENTITY/MASTERS/g15_market_map__day_inn_masjid_clock.png": "a69b5a96e923c87da5ee20c6297dbc5ac8b08c3b62c45444868570cb2ee377a3",
+    "GAME/APPROVED/IDENTITY/MASTERS/g19_market_map__masjid_sit_a_while.png": "bd4825c9c6a08362fe2d99701f127267361ac763dc11e717edee3e56e251361d",
+    "GAME/APPROVED/IDENTITY/MASTERS/g20_market_map__asr_adhan_congregation.png": "44a261dfb09064c562dfff2792810d600bd64df5685a1831d6fd6649e445184f",
+    "GAME/APPROVED/IDENTITY/MASTERS/g21_market_map__pray_here.png": "bb831942d5a6265b4f5be79ac0533da1c2bb582b5bd93f7c0e12abfa7e266448",
+    "GAME/APPROVED/IDENTITY/MASTERS/g22_record__day.png": "da56ea11728ee7b5ccd9e5c3f66dc1b82a080eeaf1629c6bd936bc3d838c8fec",
+    "GAME/APPROVED/IDENTITY/MASTERS/g23_market_map__make_up.png": "1a40879a6c0a3d4252a9ec09fd49cd4756a19fafd25706b234295c412e7e5da2",
+    "GAME/APPROVED/IDENTITY/MASTERS/g24_market_map__friday_prayer.png": "0987caf708301c485db12cf6ddc65d541e090c507907fd608694e9b7f7f5bf65"
+  },
+  "approval_records": {
+    "GAME/APPROVED/QUESTIONS.md row 5": {
+      "row_sha256": "7688959718d0e7999fbdbb1b4739d55d687261e826cc98e9b82097cd1348dc64",
+      "decision": "Keep Thursday day 1 at 06:30 with Fajr not counted. Use Friday day 2 for missed and made-up Fajr. Use the existing Not built yet. toast for Sit a while until the Idris line."
+    },
+    "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md row 1": {
+      "row_sha256": "d79ff923dfba7fe2af93f97f19a9c9ee633096ee0722c0d203b510daa8582de5",
+      "decision": "Prayer-rules scholar check after this build under DOC-TFG-0320 / OA-AIOS-432."
+    }
+  },
+  "captured_source_sha256": {
+    "SOURCE/data/foundations.json": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/game/foundations.gd": "4e132dcc4f95f867c75592be115385c48d4cac37d0caac09772abad5e24381d9",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_ui.gd": "2d650569740a813cbdfe56fcdd726ea68d66801317cf80563502d3dbc23fd984",
+    "SOURCE/game/market_world.gd": "10eea1d7f5b8c2ce5aa3b273b9ce63ceb3507bcf74d7e5a1e30ffad5db15ef65",
+    "SOURCE/game/prayer_clock.gd": "8412b8be836bab8359dfc38acb72a5bd42e9cf05b2366c356515ecc0f5f5f79f",
+    "SOURCE/game/river_market.gd": "5728427e1dfecced6f2fbf19f8e4b855fcba1456799c34fccc05d896bd8f2439",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/game/task_progress.gd": "75b72be44c61575625da399cd993e046ebc74f9f51140e2b552ebe5cec6771c9",
+    "SOURCE/project.godot": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45",
+    "SOURCE/tests/capture_clock.gd": "0961206c776bf5e2d408ac08cd0dd0ba352d7eaa087bea99d8fec15cafb97f7b",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/capture_tasks.gd": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003",
+    "SOURCE/tests/create_comparisons.gd": "21a52620b160fed11d2772ca67422d387d1089570524af606c3b7dfc671ab322",
+    "SOURCE/tests/run_tests.gd": "f413bd3926a4898411e70a773c3ce97691dfbca42dafcf205f539e54b688de03"
+  },
+  "tests": {
+    "headless": {
+      "passed": 861,
+      "total": 861,
+      "exit_code": 0
+    },
+    "standalone_headless": {
+      "player_movement": "39/39",
+      "progress_restart": "24/24",
+      "look_controls": "28/28"
+    },
+    "native": {
+      "passed": 68,
+      "total": 68,
+      "exit_code": 0,
+      "receipt": "CHECKS.json",
+      "receipt_sha256": "44797eee9c041df3dcbda5ea509ad001455a61396a4d745726bc9f042ff3c91a",
+      "method": "Native Godot viewport. The capture freezes passive clock ticks for reproducible minutes. Arrival choices, T/P, the Wait button, prayers, and the record use production controls.",
+      "fixture": "Positions and selected clock minutes are seeded. The g15 wallet comes from the fair arrival; g19–g24 seed the masters' zero coins. g24 is a replay with previous prayers completed by the clock model before Friday's live congregation action."
+    },
+    "comparisons": {
+      "count": 9,
+      "size": [
+        3840,
+        1080
+      ],
+      "visually_inspected_after_compression": true
+    },
+    "png_validation": "Lossless IDAT recompression. Verified CRCs, original filtered pixel bytes, all non-IDAT chunks, dimensions, final sizes and SHA-256."
+  },
+  "visual_differences": {
+    "g15, g19, g20, g21, g23 and g24": "Existing map has thinner marker and label outlines, different gate rim, scale/label placement, and slightly different widths, fonts and spacing on the HUD and controls. The bottom place/action bars are wider with a thin border.",
+    "g20": "Same Asr adhan words at 15:31. Godot's compact toast has a thin border and less rounded corners.",
+    "g22": "Friday day 2, at 18:30 after the ten-minute Fajr make-up. Maghrib has 1 h 0 min left. The Friday row shows missed Friday prayer · prayed Dhuhr. Placeholder street and camera position replace the illustrated backdrop. Row type and tracking, clock width and button width differ.",
+    "g22b": "Extra Thursday day 1 comparison against g22, at 18:20. Fajr reads 04:45 · not counted. Same record styling differences as g22 and a placeholder street viewed from the Masjid.",
+    "g23": "Friday at 18:20 under the approved correction. The Make up Fajr action is present with the same Maghrib countdown.",
+    "hud_day_beside_night": "Same Quay camera in both native views. Thursday 10:00 day with 198 coins and 19:30 night with zero fixture coins. Isha is active in the night view. The night scene shows the existing lanterns."
+  },
+  "implementation_details": [
+    "Make-up offers the current day's earliest missed prayer first, then earlier outstanding prayers.",
+    "The daily job resets when the game day changes. The arrival keeps its sunset backdrop, and the market uses the clock when it opens.",
+    "If a prayer advances across the next adhan, the adhan toast appears immediately and the prayer receipt follows."
+  ],
+  "screenshots": {
+    "g15_market_map__day_inn_masjid_clock__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes_before_compression": 171936,
+      "bytes": 165188,
+      "sha256": "c9f298847c6ca56731b5470489b48fe72b94ec04baa836b48ab8748083ea2c86"
+    },
+    "g15_market_map__day_inn_masjid_clock__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes_before_compression": 365870,
+      "bytes": 342966,
+      "sha256": "bd3beb95d1542e88a1a87d8b9e98714ffdc5d352ca30b35ebabe7eca63d64f90"
+    },
+    "g19_market_map__masjid_sit_a_while__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes_before_compression": 171664,
+      "bytes": 164963,
+      "sha256": "27eb1e833ad5863f2ac07c385e5fe6618af74a984e102fdd0481ee519565d1b9"
+    },
+    "g19_market_map__masjid_sit_a_while__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes_before_compression": 366246,
+      "bytes": 343222,
+      "sha256": "6da0417dac33960075953303c7b9200d2fcf0dee466e3514b5ad42d7e45f5e46"
+    },
+    "g20_market_map__asr_adhan_congregation__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes_before_compression": 180340,
+      "bytes": 173338,
+      "sha256": "cd7ee2dc183cd73cfd39f7fe426c712ec96d13536ce40d8f9524b81ab44fd159"
+    },
+    "g20_market_map__asr_adhan_congregation__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes_before_compression": 386022,
+      "bytes": 361128,
+      "sha256": "4fabd0e75b8943a0cda7f83667a33c6db4af6130064c9fc7fb929d8d15546916"
+    },
+    "g21_market_map__pray_here__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes_before_compression": 176444,
+      "bytes": 169567,
+      "sha256": "ab038450e5bf974353d4eb2fe54e8eb73db4e951708844895b5fdb26965d2e09"
+    },
+    "g21_market_map__pray_here__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes_before_compression": 377091,
+      "bytes": 353180,
+      "sha256": "9a073ccf0b0b168d73f6cf10a418ee6fcfb2478e2bc7011e90a51f35a31c60a0"
+    },
+    "g22_record__day2_made_up__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes_before_compression": 175450,
+      "bytes": 172473,
+      "sha256": "5b2d1a53367084f7320a05982175f8f60b58b598f2f9c1301491df68c0b091ae"
+    },
+    "g22_record__day2_made_up__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes_before_compression": 979667,
+      "bytes": 976024,
+      "sha256": "5cab83af1f70de36ffb9a2e821bff297abf6579b27b1ffcb84cc4e30b99e7e92"
+    },
+    "g22b_record__day1_not_counted__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes_before_compression": 152471,
+      "bytes": 151338,
+      "sha256": "011a06a3250d26631531faaf585e5a1a60e01e10468d465183123d467100c077"
+    },
+    "g22b_record__day1_not_counted__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes_before_compression": 955787,
+      "bytes": 953965,
+      "sha256": "5640d8578c8c2a9c15db952135ac80f17c9840205ebb983002bbd6fb96f81124"
+    },
+    "g23_market_map__day2_make_up__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes_before_compression": 174525,
+      "bytes": 167483,
+      "sha256": "689ecab6f6b9e495f1956fcb59fc4256551925cfb0ed588f0f5f0efcba5a1345"
+    },
+    "g23_market_map__day2_make_up__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes_before_compression": 374602,
+      "bytes": 351210,
+      "sha256": "f61a92ee72919c22f2d77a932a8143d801f79ed0808c73170bb1ea71101c653b"
+    },
+    "g24_market_map__friday_prayer__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes_before_compression": 175000,
+      "bytes": 168148,
+      "sha256": "6fe86e759f28b230fc062bb2a48c27da158cb7ff3527baa10fc7dedc62fc515d"
+    },
+    "g24_market_map__friday_prayer__master_beside_build.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes_before_compression": 375052,
+      "bytes": 351446,
+      "sha256": "591606d405fa8d27e612bce1946f6d1572f53caaebfa092475f73bc6a0f40a8f"
+    },
+    "hud_day__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes_before_compression": 230383,
+      "bytes": 225187,
+      "sha256": "9ea2949d9faba1929df3287ceb88ee4f4a0366ed8f836471334a2005a154e8b1"
+    },
+    "hud_day_beside_night.png": {
+      "size": [
+        3840,
+        1080
+      ],
+      "bytes_before_compression": 485931,
+      "bytes": 443359,
+      "sha256": "00bea33fe3fcd5309000433d613cab2963ed7ba9e5851fe3ec2138a3348602e7"
+    },
+    "hud_night__build.png": {
+      "size": [
+        1920,
+        1080
+      ],
+      "bytes_before_compression": 198137,
+      "bytes": 173778,
+      "sha256": "0ffe262c9353b51fd21373d5931b0ec457a52ba3b9c96b28ee418ac283df7bc6"
+    }
+  }
+}

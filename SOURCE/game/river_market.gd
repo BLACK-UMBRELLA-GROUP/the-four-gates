@@ -1,18 +1,21 @@
 extends Node3D
-## River Market arrival, movement, tasks, scales lesson and gate progression.
+## River Market arrival, prayer, movement, tasks, scales lesson and gate progression.
 
 const Foundations = preload("res://game/foundations.gd")
 const MarketWorld = preload("res://game/market_world.gd")
 const MarketPlayer = preload("res://game/market_player.gd")
 const MarketUI = preload("res://game/market_ui.gd")
 const TaskProgress = preload("res://game/task_progress.gd")
+const PrayerClock = preload("res://game/prayer_clock.gd")
 
 var data: Dictionary
 var identity: Dictionary
 var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
-var night := false
+var clock: PrayerClock
+var night: bool:
+	get: return clock.night
 var current_place := ""
 var destination := ""
 var route: Array[Vector3] = []
@@ -22,12 +25,19 @@ var arrival_beat := 0
 var arrival_reply := ""
 var arrival_fair = null
 var paid_nights := 0
-var day := 0
-var minute_of_day := 0
+var day: int:
+	get: return clock.day
+var minute_of_day: int:
+	get: return clock.minute_of_day
+var _daily_job_day := 0
+var _arrival_sunset := false
+var _record_return_screen := "game"
+var _prayer_adhan: Variant = null
 
 func _ready() -> void:
 	data = Foundations.load_data()
 	identity = Foundations.load_identity()
+	clock = PrayerClock.new(identity.clock)
 	Foundations.configure_input(data)
 	progress.setup(data)
 	world = MarketWorld.new()
@@ -39,13 +49,18 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity)
+	ui.setup(data, progress, identity, clock)
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
 	ui.arrival_continue_requested.connect(continue_arrival)
 	ui.arrival_walk_requested.connect(walk_from_arrival)
 	ui.screen_requested.connect(show_screen)
-	ui.wait_requested.connect(toggle_night)
+	ui.wait_requested.connect(wait_until_next_prayer)
+	ui.pray_requested.connect(pray_here)
+	ui.make_up_requested.connect(make_up_prayer)
+	ui.record_requested.connect(show_prayer_record)
+	ui.record_closed.connect(close_prayer_record)
+	clock.adhan_started.connect(_show_adhan)
 	ui.use_requested.connect(use_place)
 	ui.goal_requested.connect(show_goal)
 	ui.destination_requested.connect(walk_to_place)
@@ -72,8 +87,13 @@ func _ready() -> void:
 	elif "--capture-arrival" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_arrival.gd").new()
 		capture_runner.run(self)
+	elif "--capture-clock" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_clock.gd").new()
+		capture_runner.run(self)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	if ui.screen not in ["title", "arrival"]:
+		clock.advance_seconds(delta)
 	update_state()
 
 func _physics_process(_delta: float) -> void:
@@ -104,6 +124,12 @@ func update_state() -> void:
 		if distance <= nearest:
 			nearest = distance
 			current_place = id
+	if day != _daily_job_day:
+		_daily_job_day = day
+		progress.morning()
+	var world_night: bool = night or (ui.screen == "arrival" and _arrival_sunset)
+	if world.night != world_night:
+		world.set_night(world_night)
 	ui.refresh(player.position, current_place, night)
 
 func begin_game() -> void:
@@ -113,9 +139,8 @@ func begin_game() -> void:
 	arrival_reply = ""
 	arrival_fair = null
 	paid_nights = 0
-	var start: PackedStringArray = str(identity.arrival.start_time).split(" ")
-	day = int(start[1])
-	minute_of_day = _minutes(start[-1])
+	clock.reset()
+	_arrival_sunset = false
 	player.position = world.point(data.start_place)
 	player.velocity = Vector3.ZERO
 	player.yaw = 0
@@ -124,7 +149,6 @@ func begin_game() -> void:
 	route.clear()
 	destination = ""
 	player.test_move_axis = Vector2.ZERO
-	_set_night(false)
 	_show_arrival()
 
 func choose_arrival(index: int) -> void:
@@ -143,7 +167,7 @@ func choose_arrival(index: int) -> void:
 	if effect.has("fair"):
 		arrival_fair = effect.fair
 	if effect.has("time"):
-		minute_of_day = int(effect.time)
+		clock.advance_to(day, int(effect.time), false)
 	arrival_reply = choice.reply
 	_show_arrival()
 
@@ -157,7 +181,7 @@ func continue_arrival() -> void:
 		# The sunset backdrop begins with the prompt. Its choice applies the time jump.
 		for choice: Dictionary in beats[arrival_beat].choices:
 			if choice.effect.has("time"):
-				_set_night(true)
+				_arrival_sunset = true
 				break
 	_show_arrival()
 
@@ -183,16 +207,42 @@ func show_screen(screen: String) -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if screen == "game" else Input.MOUSE_MODE_VISIBLE
 	update_state()
 
-func toggle_night() -> void:
-	_set_night(not night)
-	if not night:
-		progress.morning()
+func wait_until_next_prayer() -> void:
+	clock.wait_until_next_prayer()
 	update_state()
-	ui.show_toast(data.other_text.night if night else data.other_text.day)
 
-func _set_night(value: bool) -> void:
-	night = value
-	world.set_night(night)
+func _show_adhan(message: String) -> void:
+	if _prayer_adhan == null:
+		ui.show_toast(message, ui.screen == "market_map")
+	else:
+		_prayer_adhan = message
+
+func pray_here() -> void:
+	update_state()
+	_do_prayer(clock.pray.bind(current_place == "masjid"))
+
+func make_up_prayer() -> void:
+	_do_prayer(clock.make_up)
+
+func _do_prayer(action: Callable) -> void:
+	# An adhan crossed during the ten-minute advance is shown first.
+	_prayer_adhan = ""
+	var receipt: String = action.call()
+	var adhan: String = _prayer_adhan
+	_prayer_adhan = null
+	update_state()
+	if not adhan.is_empty():
+		ui.show_toast(adhan, ui.screen == "market_map", receipt)
+	elif not receipt.is_empty():
+		ui.show_toast(receipt, ui.screen == "market_map")
+
+func show_prayer_record() -> void:
+	if ui.screen not in ["title", "arrival", "prayer_record"]:
+		_record_return_screen = ui.screen
+		show_screen("prayer_record")
+
+func close_prayer_record() -> void:
+	show_screen(_record_return_screen)
 
 func _rest_at_inn() -> void:
 	var cost := int(identity.arrival.inn_night)
@@ -203,10 +253,7 @@ func _rest_at_inn() -> void:
 	elif progress.coins >= cost:
 		progress.coins -= cost
 		message = str(identity.inn.coins).format({"n": cost})
-	day += 1
-	minute_of_day = _minutes(str(identity.inn.wakes_at).get_slice(" ", 0))
-	progress.morning()
-	_set_night(true)
+	clock.advance_to(day + 1, _minutes(str(identity.inn.wakes_at).get_slice(" ", 0)), false)
 	update_state()
 	ui.show_toast(message, ui.screen == "market_map")
 
@@ -228,7 +275,11 @@ func use_place() -> void:
 			ui.show_toast(message)
 		"centre": ui.show_toast(data.other_text.centre_exit)
 		"inn": _rest_at_inn()
-		"masjid": ui.show_toast(data.ui.not_built)
+		"masjid":
+			if clock.prayer_label(true).is_empty():
+				ui.show_toast(data.ui.not_built, ui.screen == "market_map")
+			else:
+				pray_here()
 		_: pass
 
 func show_goal() -> void:
@@ -285,7 +336,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if ui.screen == "arrival":
 		return
 	if event.is_action_pressed("close"):
-		if ui.screen == "city_map": show_screen("market_map")
+		if ui.screen == "prayer_record": close_prayer_record()
+		elif ui.screen == "city_map": show_screen("market_map")
 		elif ui.screen == "world_map": show_screen("city_map")
 		elif ui.screen == "market_map": show_screen("game")
 		elif ui.screen in ["board", "task", "result", "lesson", "goal"]: show_screen("game")
@@ -293,7 +345,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("market_map") and ui.screen != "title":
 		show_screen("game" if ui.screen == "market_map" else "market_map")
 	elif event.is_action_pressed("goal") and ui.screen != "title": show_goal()
-	elif event.is_action_pressed("wait_day_night") and ui.screen != "title": toggle_night()
+	elif event.is_action_pressed("wait_prayer") and ui.screen != "title": wait_until_next_prayer()
+	elif event.is_action_pressed("pray") and ui.screen in ["game", "market_map"]: pray_here()
 	elif event.is_action_pressed("use") and ui.screen in ["game", "market_map"]: use_place()
 	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT and ui.screen == "game":
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
