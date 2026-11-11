@@ -88,6 +88,9 @@ know about something you did. A pilgrim you sent in secret can thank an unnamed 
 LOCK 29 opens **Paused** with Esc on the River Market map. **Save game** and **Save and quit to title**
 replace the same local save. **Continue** restores the saved session. **Settings** keeps text size and
 walking speed separately from the save.
+LOCK 30 adds the optional **Real-life prayer reminder** in **Settings**. It starts off. Choose a city
+and Standard or Hanafi Asr to see today's local prayer times. While playing, **Pause and pray** opens
+the pause menu and **Later** dismisses the reminder.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

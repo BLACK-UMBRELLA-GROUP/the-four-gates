@@ -39,6 +39,11 @@ static func load_menus() -> Dictionary:
 	assert(parsed is Dictionary, "Approved menu data must be an object")
 	return parsed
 
+static func load_prayer_reminder() -> Dictionary:
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/prayer_reminder.json"))
+	assert(parsed is Dictionary, "Approved prayer reminder data must be an object")
+	return parsed
+
 static func load_regulars_remember() -> Dictionary:
 	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/regulars_remember.json"))
 	assert(parsed is Dictionary, "Approved regulars remember data must be an object")

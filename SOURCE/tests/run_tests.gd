@@ -8,6 +8,7 @@ const TaskProgress = preload("res://game/task_progress.gd")
 const MarketStall = preload("res://game/market_stall.gd")
 const MarketDay = preload("res://game/market_day.gd")
 const MarketSave = preload("res://game/market_save.gd")
+const RealPrayerTimes = preload("res://game/real_prayer_times.gd")
 const RegularsRememberFixture = preload("res://tests/regulars_remember_fixture.gd")
 
 var checks := 0
@@ -76,6 +77,15 @@ func _run() -> void:
 	root.add_child(app)
 	await frames(3)
 	data = app.data
+	if "--reminder-restart" in OS.get_cmdline_user_args():
+		await check_reminder_capture_restart()
+		finish()
+		return
+	if "--reminder-only" in OS.get_cmdline_user_args():
+		check_real_prayer_times()
+		await check_prayer_reminder_runtime()
+		finish()
+		return
 	check(app.ui.screen == "title", "launch opens the title")
 	check(visible_text().replace("\n", "").contains(data.title_screen.title), "title uses approved title text")
 	check(visible_text().contains(data.title_screen.line), "title uses approved subtitle")
@@ -166,6 +176,8 @@ func _run() -> void:
 	check_regulars_at_prayer_runtime()
 	await check_regulars_remember_runtime()
 	await check_menus_runtime()
+	check_real_prayer_times()
+	await check_prayer_reminder_runtime()
 	finish()
 
 
@@ -4812,6 +4824,164 @@ func check_menus_runtime() -> void:
 	corrupt.close()
 	app.show_screen("title")
 	check(app.ui.continue_date.is_empty() and MarketSave.read_slot(slot).is_empty(), "a corrupt slot never offers Continue")
+
+
+func check_real_prayer_times() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/PRAYER_REMINDER/RECORD/prayer_reminder_data_V1.json")
+	check(not approved.is_empty() and approved == FileAccess.get_file_as_bytes("res://data/prayer_reminder.json"),
+		"real prayer reminder data is the byte-identical LOCK 30 file")
+	var reminder: Dictionary = app.reminder
+	var november := {"year": 2026, "month": 11, "day": 9}
+	var summer := {"year": 2026, "month": 6, "day": 21}
+	var winter := {"year": 2026, "month": 12, "day": 21}
+	var reference := [
+		[0, false, ["05:13", "11:44", "13:56", "16:20", "18:09"]],
+		[0, true, ["05:13", "11:44", "14:32", "16:20", "18:09"]],
+		[9, false, ["05:12", "12:04", "15:17", "17:41", "18:53"]],
+		[9, true, ["05:12", "12:04", "16:05", "17:41", "18:53"]],
+	]
+	for fixture: Array in reference:
+		var city: Array = reminder.cities[fixture[0]]
+		var events := RealPrayerTimes.times(november, city, reminder.numbers, fixture[1])
+		check(events.size() == 5, city[0] + " gives five November prayer times")
+		for index in events.size():
+			var actual := RealPrayerTimes.local_time(events[index], city[3])
+			var expected: String = fixture[2][index]
+			check(actual.length() == 5 and absi(app._minutes(actual) - app._minutes(expected)) <= 2,
+				"%s %s is within two minutes (Hanafi %s): %s / %s" % [city[0], reminder.prayers[index], fixture[1], actual, expected])
+	for city: Array in reminder.cities:
+		for date: Dictionary in [summer, winter]:
+			var times := RealPrayerTimes.times(date, city, reminder.numbers, false)
+			var ordered := times.duplicate()
+			ordered.sort()
+			check(times.size() == 5 and times == ordered, "%s gives five ordered times at the solstice" % city[0])
+	var glasgow: Array = reminder.cities[4]
+	var solstice := RealPrayerTimes.times(summer, glasgow, reminder.numbers, false)
+	check(solstice.size() == 5 and RealPrayerTimes.local_time(solstice[0], glasgow[3]) == "02:36"
+		and RealPrayerTimes.local_time(solstice[4], glasgow[3]) == "23:56", "Glasgow uses the angle fraction of the night for Fajr and Isha")
+	var utc := Time.get_unix_time_from_datetime_string("2026-06-21T23:30:00")
+	check(RealPrayerTimes.local_date(utc, "Europe/London").get("day") == 22
+		and RealPrayerTimes.local_time(utc, "Europe/London") == "00:30"
+		and RealPrayerTimes.local_time(utc, "Asia/Riyadh") == "02:30", "the date and time come from the city's zone including London DST")
+	utc = Time.get_unix_time_from_datetime_string("2026-11-09T23:30:00")
+	check(RealPrayerTimes.local_date(utc, "Europe/London").get("day") == 9
+		and RealPrayerTimes.local_date(utc, "Asia/Riyadh").get("day") == 10
+		and RealPrayerTimes.local_time(utc, "Europe/London") == "23:30", "winter GMT and the Makkah date are independent")
+
+
+func check_prayer_reminder_runtime() -> void:
+	var reminder: Dictionary = app.reminder
+	var copy: Dictionary = reminder.settings
+	var date := {"year": 2026, "month": 11, "day": 9}
+	var london := RealPrayerTimes.times(date, reminder.cities[0], reminder.numbers, false)
+	if london.size() != 5:
+		check(false, "London fixture can drive the reminder tests")
+		return
+	app.set_process(false)
+	var wall_time := [london[2]]
+	app.reminder_time_source = func(): return wall_time[0]
+	var storage: String = app.storage_directory
+	var save_path := storage.path_join(app.SAVE_FILENAME)
+	var prior_save := FileAccess.get_file_as_bytes(save_path)
+	var fast: bool = app.ui.fast_walk
+	app.show_screen("title")
+	await press_button(data.ui.buttons.settings, "title opens Settings for the prayer reminder")
+	check(not app.ui.reminder_on and find_button(app.ui, copy.off) != null
+		and app.ui.find_child("ReminderCity", true, false) == null
+		and find_button(app.ui, copy.asr_hanafi) == null and not visible_text().contains(copy.method.to_upper()),
+		"fresh and legacy settings default to Off with no city, Asr, times or method rows")
+	app.show_screen("market_map")
+	app._process(0.0)
+	check(not app.ui.has_reminder_banner(), "a due prayer is quiet with the reminder Off")
+	app.show_screen("title")
+	await press_button(data.ui.buttons.settings, "return to the reminder setting")
+	await press_control(app.ui.find_child("reminder_enabled_alternate", true, false), "enable the real reminder with the On button")
+	var cities := app.ui.find_child("ReminderCity", true, false) as OptionButton
+	check(cities != null and cities.item_count == reminder.cities.size() and cities.selected == 0, "enabling reveals the full city list with London selected")
+	if cities == null:
+		return
+	for index in cities.item_count:
+		check(cities.get_item_text(index) == reminder.cities[index][0], "city order and text are locked: " + cities.get_item_text(index))
+	check(visible_text().contains("TODAY IN LONDON: FAJR") and visible_text().contains(copy.method.to_upper()),
+		"the exact locked method, privacy copy and today line are visible")
+	check(find_button(app.ui, copy.asr_standard) != null and find_button(app.ui, copy.asr_hanafi) != null,
+		"only the locked two Asr choices are offered")
+	app._poll_reminder(wall_time[0])
+	check(not app.ui.has_reminder_banner(), "Settings suppresses the reminder")
+	await press_button(app.menus.settings.back, "leave Settings for the title")
+	app._poll_reminder(wall_time[0])
+	check(not app.ui.has_reminder_banner(), "title suppresses the reminder")
+	app.show_screen("all_prayers_title")
+	app._poll_reminder(wall_time[0])
+	check(not app.ui.has_reminder_banner(), "the title's prayer totals stay in the title context")
+	app.show_screen("market_map")
+	var clock_before: Dictionary = MarketSave.snapshot(app).clock
+	app._poll_reminder(london[2] - 1)
+	check(not app.ui.has_reminder_banner(), "a prayer cannot show before its time")
+	var late_seconds := int(reminder.numbers.late_minutes) * 60
+	app._poll_reminder(london[2] + late_seconds + 1)
+	check(not app.ui.has_reminder_banner(), "the banner excludes a prayer over fifteen minutes old")
+	wall_time[0] = london[2] + late_seconds
+	app._process(0.0)
+	var delay: int = app._reminder_next_check - Time.get_ticks_msec()
+	check(delay > 0 and delay <= int(reminder.numbers.check_seconds) * 1000,
+		"the regular poll uses the locked thirty-second interval")
+	var asr_message: String = str(reminder.banner.text).format({"prayer": reminder.prayers[2], "city": reminder.cities[0][0]})
+	check(app.ui.has_reminder_banner() and has_visible_label(app.ui, asr_message), "the map shows the locked banner at the fifteen-minute boundary")
+	await press_button(reminder.banner.later, "Later is a usable button")
+	app._poll_reminder(wall_time[0])
+	check(app.ui.screen == "market_map" and not app.ui.has_reminder_banner(), "Later closes the banner once for the day")
+	app._poll_reminder(london[3])
+	await press_button(reminder.banner.pray, "Pause and pray is a usable button")
+	check(app.ui.screen == "pause" and not app.ui.has_reminder_banner(), "Pause and pray opens the existing menu")
+	check(MarketSave.snapshot(app).clock == clock_before, "the reminder and its actions leave game time and the prayer record untouched")
+	await press_button(app.menus.pause.settings, "pause opens the same reminder settings")
+	cities = app.ui.find_child("ReminderCity", true, false) as OptionButton
+	cities.get_popup().index_pressed.emit(6)
+	check(app.ui.reminder_city == 6, "the actual city selector switches to Paris")
+	await press_button(app.menus.settings.back, "Back returns to the paused game")
+	await press_button(app.menus.pause.resume, "Resume returns to the market")
+	var paris: Array = reminder.cities[6]
+	var solstice := RealPrayerTimes.times({"year": 2026, "month": 6, "day": 21}, paris, reminder.numbers, false)
+	var after_midnight := solstice[4] + 600
+	app._poll_reminder(after_midnight)
+	check(RealPrayerTimes.local_date(after_midnight, paris[3]).get("day") == 22
+		and app.ui.has_reminder_banner(), "Isha from the previous prayer day stays eligible after civil midnight")
+	await press_button(reminder.banner.later, "dismiss the cross-midnight Isha")
+	app.show_screen("pause")
+	await press_button(app.menus.pause.settings, "open Settings again from pause")
+	cities = app.ui.find_child("ReminderCity", true, false) as OptionButton
+	cities.get_popup().index_pressed.emit(9)
+	check(app.ui.reminder_city == 9 and visible_text().contains("TODAY IN MAKKAH: FAJR"), "Makkah updates the visible local times")
+	await press_button(copy.asr_hanafi, "choose Hanafi in Settings")
+	check(app.ui.reminder_hanafi and app.ui.fast_walk == fast, "the reminder preserves legacy preferences")
+	check(FileAccess.get_file_as_bytes(save_path) == prior_save, "real settings and notification history leave the save bytes intact")
+	var scene := load("res://game/river_market.tscn") as PackedScene
+	root.remove_child(app)
+	app.queue_free()
+	app = scene.instantiate()
+	app.storage_directory = storage
+	root.add_child(app)
+	app.set_process(false)
+	app.reminder_time_source = func(): return wall_time[0]
+	check(app.ui.reminder_on and app.ui.reminder_city == 9 and app.ui.reminder_hanafi and app.ui.fast_walk == fast,
+		"relaunch restores all reminder settings alongside older settings")
+	app.open_settings()
+	cities = app.ui.find_child("ReminderCity", true, false) as OptionButton
+	cities.get_popup().index_pressed.emit(6)
+	check(app.ui.reminder_city == 6, "the saved date remains available after switching back to Paris")
+	app.show_screen("market_map")
+	app._poll_reminder(after_midnight)
+	check(not app.ui.has_reminder_banner(), "an already shown prayer does not repeat after relaunch")
+
+
+func check_reminder_capture_restart() -> void:
+	check(app.ui.screen == "title" and not app.ui.has_reminder_banner(), "fresh process starts without a banner on the title")
+	check(app.ui.reminder_on and app.ui.reminder_city == 9 and app.ui.reminder_hanafi and app.ui.fast_walk,
+		"fresh process restores On, Makkah, Hanafi and the earlier Fast setting")
+	app.reminder_time_source = func(): return Time.get_unix_time_from_datetime_string("2026-11-09T10:00:00")
+	await press_button(data.ui.buttons.settings, "fresh process reopens real Settings")
+	check(visible_text().contains("ASR 16:05"), "the reloaded setting calculates Hanafi Asr in Makkah")
 
 
 func menus_escape() -> void:

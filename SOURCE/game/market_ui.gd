@@ -6,6 +6,8 @@ signal continue_requested
 signal settings_requested
 signal settings_closed
 signal menu_setting_changed(setting: String, enabled: bool)
+signal reminder_city_changed(index: int)
+signal reminder_answered(pause_for_prayer: bool)
 signal resume_requested
 signal save_requested(quit_to_title: bool)
 signal begin_requested
@@ -197,6 +199,13 @@ var _can_feed := false
 var _board_prompt := BreadGrab.Prompt.NONE
 var language_words: Dictionary
 var menus: Dictionary
+var reminder: Dictionary
+var reminder_on := false
+var reminder_city := 0
+var reminder_hanafi := false
+var _reminder_today := ""
+var _reminder_today_label: Label
+var _reminder_banner: Panel
 var continue_date := ""
 var saved_date := ""
 var settings_has_hud := false
@@ -343,6 +352,7 @@ func _rebuild_screen() -> void:
 	_scale_panel = large_text and screen not in ["title", "game", "market_map", "city_map", "world_map"]
 	clock_panel = null
 	_clock_hit = null
+	_reminder_today_label = null
 	_record_names.clear()
 	_record_values.clear()
 	for child in content.get_children():
@@ -752,18 +762,96 @@ func _build_pause() -> void:
 
 func _build_settings() -> void:
 	var copy: Dictionary = menus.settings
-	var panel := _menu_panel(copy.title, Vector2(660, 386))
-	_setting_row(panel, copy.text_size, "large_text", copy.large, large_text, 89.0)
-	_setting_row(panel, copy.walk, "fast_walk", copy.fast, fast_walk, 162.0)
-	_menu_caption(panel, copy.later, 236.0, 54.0)
-	_menu_button(panel, copy.back, Vector2(34, 301), Vector2(99, 56), func(): settings_closed.emit(), true)
+	var prayer: Dictionary = reminder.settings
+	var panel := _menu_panel(copy.title, Vector2(660, 688 if reminder_on else 405))
+	_setting_row(panel, copy.text_size, "large_text", [copy.normal, copy.large], large_text, 89.0)
+	_setting_row(panel, copy.walk, "fast_walk", [copy.normal, copy.fast], fast_walk, 162.0)
+	_setting_row(panel, prayer.reminder, "reminder_enabled", [prayer.off, prayer.on], reminder_on, 235.0)
+	if reminder_on:
+		_build_reminder_settings(panel, prayer)
+	var back_y := 605.0 if reminder_on else 322.0
+	_menu_button(panel, copy.back, Vector2(34, back_y), Vector2(99, 56), func(): settings_closed.emit(), true)
 
 
-func _setting_row(panel: Panel, caption: String, key: String, other: String, selected: bool, top: float) -> void:
+func _build_reminder_settings(panel: Panel, copy: Dictionary) -> void:
+	_chapter_row_rule(panel, 308, 34, panel.size.x - 68)
+	_label(panel, copy.city, Vector2(34, 313), Vector2(300, 46), 23, PAPER, true)
+	var cities := OptionButton.new()
+	cities.name = "ReminderCity"
+	cities.action_mode = BaseButton.ACTION_MODE_BUTTON_RELEASE
+	cities.fit_to_longest_item = false
+	cities.position = Vector2(461, 322)
+	cities.add_theme_font_override("font", font)
+	cities.add_theme_font_size_override("font_size", _font_size(23))
+	var city_style := _style(Color("3b3b3b"), Color("888888"))
+	city_style.set_corner_radius_all(2)
+	city_style.content_margin_left = 5.0
+	city_style.content_margin_right = 4.0
+	city_style.content_margin_top = 0.0
+	city_style.content_margin_bottom = 0.0
+	cities.add_theme_stylebox_override("normal", city_style)
+	cities.add_theme_stylebox_override("hover", city_style)
+	cities.add_theme_stylebox_override("pressed", city_style)
+	var popup := cities.get_popup()
+	popup.max_size = Vector2i(0, 390)
+	popup.add_theme_font_override("font", font)
+	popup.add_theme_font_size_override("font_size", roundi(23 * text_multiplier))
+	for city: Array in reminder.cities:
+		cities.add_item(city[0])
+	cities.select(reminder_city)
+	cities.item_selected.connect(func(index: int): reminder_city_changed.emit(index))
+	panel.add_child(cities)
+	cities.size = Vector2(165, 30)
+	_setting_row(panel, copy.asr, "reminder_hanafi", [copy.asr_standard, copy.asr_hanafi], reminder_hanafi, 365.0)
+	_reminder_today_label = _menu_caption(panel, _reminder_today, 442.0, 48.0)
+	_menu_caption(panel, copy.method, 495.0, 96.0)
+
+
+func set_reminder_today(value: String) -> void:
+	_reminder_today = value
+	if is_instance_valid(_reminder_today_label):
+		_reminder_today_label.text = value.to_upper()
+
+
+func show_reminder_banner(prayer: String, city: String) -> void:
+	hide_reminder_banner()
+	var copy: Dictionary = reminder.banner
+	var message: String = str(copy.text).format({"prayer": prayer, "city": city})
+	var message_width := ceilf(bold_font.get_string_size(message, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x)
+	var pray_width := ceilf(bold_font.get_string_size(copy.pray, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x) + 46.0
+	var later_width := ceilf(font.get_string_size(copy.later, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x) + 46.0
+	var width := 92.0 + message_width + pray_width + later_width
+	_reminder_banner = _panel(Vector2(960 - width * text_multiplier / 2.0, 162), Vector2(width, 89), Color("1b130bf2"))
+	_reminder_banner.name = "PrayerReminderBanner"
+	_reminder_banner.reparent(root, false)
+	_reminder_banner.scale = Vector2.ONE * text_multiplier
+	var style := _reminder_banner.get_theme_stylebox("panel") as StyleBoxFlat
+	style.set_corner_radius_all(18)
+	style.border_color = GOLD
+	var label := _label(_reminder_banner, message, Vector2(24, 16), Vector2(message_width, 56), 23, PAPER, true)
+	label.add_theme_font_size_override("font_size", 23)
+	var pray_x := 46.0 + message_width
+	var pray := _menu_button(_reminder_banner, copy.pray, Vector2(pray_x, 16), Vector2(pray_width, 56), func(): reminder_answered.emit(true), true)
+	var later := _menu_button(_reminder_banner, copy.later, Vector2(pray_x + pray_width + 22.0, 16), Vector2(later_width, 56), func(): reminder_answered.emit(false))
+	pray.add_theme_font_size_override("font_size", 23)
+	later.add_theme_font_size_override("font_size", 23)
+
+
+func hide_reminder_banner() -> void:
+	if is_instance_valid(_reminder_banner):
+		root.remove_child(_reminder_banner)
+		_reminder_banner.queue_free()
+		_reminder_banner = null
+
+
+func has_reminder_banner() -> bool:
+	return is_instance_valid(_reminder_banner)
+
+
+func _setting_row(panel: Panel, caption: String, key: String, choices: Array, selected: bool, top: float) -> void:
 	_chapter_row_rule(panel, top, 34, panel.size.x - 68)
 	_label(panel, caption, Vector2(34, top + 13), Vector2(300, 48), 23, PAPER, true)
 	var edge := panel.size.x - 34.0
-	var choices := [str(menus.settings.normal), other]
 	for index: int in [1, 0]:
 		var text_value: String = choices[index]
 		var enabled := index == 1
@@ -788,11 +876,13 @@ func _menu_panel(caption: String, extent: Vector2) -> Panel:
 	return panel
 
 
-func _menu_caption(panel: Panel, caption: String, y: float, height: float) -> void:
-	var label := _label(panel, caption.to_upper(), Vector2(34, y), Vector2(panel.size.x - 68, height), 16, Color("e9bd70"))
+func _menu_caption(panel: Panel, caption: String, y: float, height: float) -> Label:
+	var label := _label(panel, "", Vector2(34, y), Vector2(panel.size.x - 68, height), 16, Color("e9bd70"))
 	label.add_theme_font_override("font", _spaced_caption_font)
 	label.add_theme_constant_override("line_spacing", 4)
 	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	label.text = caption.to_upper()
+	return label
 
 
 func _menu_button_width(caption: String, primary: bool) -> float:

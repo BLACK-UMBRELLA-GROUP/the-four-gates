@@ -473,3 +473,19 @@ For the nine native viewport captures, run
 with a fresh fixture directory. Then run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --menus`
 to place each master beside its capture. Both commands accept `--menus-output=/absolute/path`.
+
+## LOCK 30 Real-life prayer reminder
+
+Turn on **Real-life prayer reminder** in **Settings** to select a city and Standard or Hanafi Asr.
+Today's five times use the Muslim World League calculation and the selected city's local date.
+The native Mac build uses macOS's offline time-zone database for daylight saving. Preferences
+stay in `user://settings.cfg`, alongside the text-size and walking-speed settings.
+
+While the game is open, a recent prayer can show one banner per prayer day. **Pause and pray**
+opens the existing pause menu. **Later** closes the banner. The reminder runs on the real clock.
+
+Capture the seven locked states with
+`godot --path SOURCE -- --capture-prayer-reminder --reminder-user-dir=/absolute/fresh/path`.
+Create the paired images with
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --prayer-reminder`.
+Both commands accept `--reminder-output=/absolute/path`.

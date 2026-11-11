@@ -32,15 +32,29 @@ const RashidsLoan = preload("res://game/rashids_loan.gd")
 const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
 
 const MarketSave = preload("res://game/market_save.gd")
+const RealPrayerTimes = preload("res://game/real_prayer_times.gd")
 const PAUSE_SCREENS := ["pause", "settings"]
+const REMINDER_EXCLUDED_SCREENS := ["title", "all_prayers_title", "settings"]
 const SAVE_FILENAME := "market.save"
 const SETTINGS_FILENAME := "settings.cfg"
 
 var storage_directory := "user://"
 var menus: Dictionary
+var reminder: Dictionary
+var reminder_time_source := Callable(Time, "get_unix_time_from_system")
 var _settings_return := "title"
+var _pause_return := "market_map"
 var _large_text := false
 var _fast_walk := false
+var _reminder_on := false
+var _reminder_city := 0
+var _reminder_hanafi := false
+var _reminder_seen: Dictionary = {}
+var _reminder_next_check := 0
+var _reminder_date := ""
+var _reminder_events: Array[int] = []
+var _reminder_previous_date := ""
+var _reminder_previous_events: Array[int] = []
 var data: Dictionary
 var identity: Dictionary
 var chapter: Dictionary
@@ -97,19 +111,13 @@ var _calendar_return_screen := "market_map"
 var _prayer_adhan: Variant = null
 
 func _ready() -> void:
-	if "--capture-menus" in OS.get_cmdline_user_args():
-		for argument: String in OS.get_cmdline_user_args():
-			if argument.begins_with("--menus-user-dir="):
-				storage_directory = argument.trim_prefix("--menus-user-dir=")
-		if (not storage_directory.is_absolute_path() or storage_directory.begins_with("user://")
-				or FileAccess.file_exists(storage_directory.path_join(SAVE_FILENAME))
-				or FileAccess.file_exists(storage_directory.path_join(SETTINGS_FILENAME))):
-			push_error("Pass a fresh absolute --menus-user-dir for native menu capture")
-			set_process(false)
-			set_physics_process(false)
-			get_tree().quit(1)
-			return
+	var capture_args := OS.get_cmdline_user_args()
+	if "--capture-menus" in capture_args and not _set_capture_storage("--menus-user-dir="):
+		return
+	if "--capture-prayer-reminder" in capture_args and not _set_capture_storage("--reminder-user-dir="):
+		return
 	menus = Foundations.load_menus()
+	reminder = Foundations.load_prayer_reminder()
 	data = Foundations.load_data()
 	identity = Foundations.load_identity()
 	chapter = Foundations.load_chapter1()
@@ -158,6 +166,7 @@ func _ready() -> void:
 	ui = MarketUI.new()
 	add_child(ui)
 	ui.menus = menus
+	ui.reminder = reminder
 	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road, ramadan, iftar_giving, eid_al_fitr, zakat, eid_al_adha, pilgrims, qurans_school, names_of_allah)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
@@ -165,7 +174,9 @@ func _ready() -> void:
 	ui.settings_requested.connect(open_settings)
 	ui.settings_closed.connect(close_settings)
 	ui.menu_setting_changed.connect(change_menu_setting)
-	ui.resume_requested.connect(func(): show_screen("market_map"))
+	ui.reminder_city_changed.connect(change_reminder_city)
+	ui.reminder_answered.connect(_answer_reminder)
+	ui.resume_requested.connect(_resume_game)
 	ui.save_requested.connect(save_game)
 	_load_settings()
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -360,8 +371,29 @@ func _ready() -> void:
 	elif "--capture-menus" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_menus.gd").new()
 		capture_runner.run(self)
+	elif "--capture-prayer-reminder" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_prayer_reminder.gd").new()
+		capture_runner.run(self)
+
+
+func _set_capture_storage(prefix: String) -> bool:
+	for argument: String in OS.get_cmdline_user_args():
+		if argument.begins_with(prefix):
+			storage_directory = argument.trim_prefix(prefix)
+	if (storage_directory.is_absolute_path() and not storage_directory.begins_with("user://")
+			and not FileAccess.file_exists(storage_directory.path_join(SAVE_FILENAME))
+			and not FileAccess.file_exists(storage_directory.path_join(SETTINGS_FILENAME))):
+		return true
+	push_error("Pass a fresh absolute fixture directory using " + prefix)
+	set_process(false)
+	set_physics_process(false)
+	get_tree().quit(1)
+	return false
 
 func _process(delta: float) -> void:
+	if _reminder_on and Time.get_ticks_msec() >= _reminder_next_check:
+		_reminder_next_check = Time.get_ticks_msec() + int(reminder.numbers.check_seconds) * 1000
+		_poll_reminder(int(reminder_time_source.call()))
 	if ui.screen in PAUSE_SCREENS:
 		return
 	if ui.screen not in ["title", "arrival", "all_prayers_title"]:
@@ -413,12 +445,25 @@ func _load_settings() -> void:
 	if settings.load(storage_directory.path_join(SETTINGS_FILENAME)) == OK:
 		_large_text = settings.get_value("settings", "large_text", false) == true
 		_fast_walk = settings.get_value("settings", "fast_walk", false) == true
+		_reminder_on = settings.get_value("prayer_reminder", "enabled", false) == true
+		var saved_city: Variant = settings.get_value("prayer_reminder", "city", "")
+		for index in reminder.cities.size():
+			if reminder.cities[index][0] == saved_city:
+				_reminder_city = index
+				break
+		_reminder_hanafi = settings.get_value("prayer_reminder", "hanafi", false) == true
+		var seen: Variant = settings.get_value("prayer_reminder", "shown", {})
+		if seen is Dictionary:
+			_reminder_seen = seen
 	_apply_settings()
 
 
 func _apply_settings() -> void:
 	ui.large_text = _large_text
 	ui.fast_walk = _fast_walk
+	ui.reminder_on = _reminder_on
+	ui.reminder_city = _reminder_city
+	ui.reminder_hanafi = _reminder_hanafi
 	var text_multiplier: float = float(menus.numbers.large_text_percent) / 100.0 if _large_text else 1.0
 	ui.text_multiplier = text_multiplier
 	world.set_text_multiplier(text_multiplier)
@@ -429,6 +474,7 @@ func open_settings() -> void:
 	if ui.screen not in ["pause", "title"]:
 		return
 	_settings_return = ui.screen
+	_update_reminder_today(int(reminder_time_source.call()))
 	show_screen("settings")
 
 
@@ -438,14 +484,52 @@ func close_settings() -> void:
 
 
 func change_menu_setting(setting: String, enabled: bool) -> void:
-	if ui.screen != "settings" or setting not in ["large_text", "fast_walk"]:
+	if ui.screen != "settings":
 		return
-	var large := enabled if setting == "large_text" else _large_text
-	var fast := enabled if setting == "fast_walk" else _fast_walk
-	var settings := ConfigFile.new()
-	settings.set_value("settings", "large_text", large)
-	settings.set_value("settings", "fast_walk", fast)
+	match setting:
+		"large_text":
+			if not _write_setting("settings", setting, enabled):
+				return
+			_large_text = enabled
+		"fast_walk":
+			if not _write_setting("settings", setting, enabled):
+				return
+			_fast_walk = enabled
+		"reminder_enabled":
+			if not _write_setting("prayer_reminder", "enabled", enabled):
+				return
+			_reminder_on = enabled
+		"reminder_hanafi":
+			if not _reminder_on or not _write_setting("prayer_reminder", "hanafi", enabled):
+				return
+			_reminder_hanafi = enabled
+		_:
+			return
+	_refresh_settings()
+
+
+func change_reminder_city(index: int) -> void:
+	if ui.screen != "settings" or not _reminder_on or index < 0 or index >= reminder.cities.size():
+		return
+	if _write_setting("prayer_reminder", "city", reminder.cities[index][0]):
+		_reminder_city = index
+	_refresh_settings()
+
+
+func _refresh_settings() -> void:
+	_reminder_date = ""
+	_reminder_next_check = 0
+	_apply_settings()
+	_update_reminder_today(int(reminder_time_source.call()))
+	ui.show_screen("settings")
+
+
+func _write_setting(section: String, key: String, value: Variant) -> bool:
 	var filename := storage_directory.path_join(SETTINGS_FILENAME)
+	var settings := ConfigFile.new()
+	if FileAccess.file_exists(filename) and settings.load(filename) != OK:
+		settings.clear()
+	settings.set_value(section, key, value)
 	var pending := "%s.pending-%d" % [filename, OS.get_process_id()]
 	var error := DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(storage_directory))
 	if error == OK:
@@ -454,11 +538,84 @@ func change_menu_setting(setting: String, enabled: bool) -> void:
 		error = DirAccess.rename_absolute(pending, filename)
 	if error != OK:
 		push_error("Could not write game settings: " + error_string(error))
+	return error == OK
+
+
+func _update_reminder_today(now: int) -> Dictionary:
+	if not _reminder_on:
+		return {}
+	var city: Array = reminder.cities[_reminder_city]
+	var date := RealPrayerTimes.local_date(now, city[3])
+	if date.is_empty():
+		return {}
+	var key := _reminder_date_key(date)
+	if key != _reminder_date:
+		_reminder_events = RealPrayerTimes.times(date, city, reminder.numbers, _reminder_hanafi)
+		var previous_day := Time.get_unix_time_from_datetime_dict(date) - 86400
+		var previous_date := Time.get_date_dict_from_unix_time(previous_day)
+		_reminder_previous_date = _reminder_date_key(previous_date)
+		_reminder_previous_events = RealPrayerTimes.times(previous_date, city, reminder.numbers, _reminder_hanafi)
+		var values := PackedStringArray()
+		for index in _reminder_events.size():
+			values.append("%s %s" % [reminder.prayers[index], RealPrayerTimes.local_time(_reminder_events[index], city[3])])
+		_reminder_date = key
+		ui.set_reminder_today(str(reminder.settings.today).format({"city": city[0], "times": " · ".join(values)}))
+	return date
+
+
+func _poll_reminder(now: int) -> void:
+	if not _reminder_on or ui.screen in ["title", "all_prayers_title"]:
 		return
-	_large_text = large
-	_fast_walk = fast
-	_apply_settings()
-	ui.show_screen("settings")
+	var date := _update_reminder_today(now)
+	if date.is_empty() or ui.screen == "settings":
+		return
+	var window := int(reminder.numbers.late_minutes) * 60
+	if not _show_due_reminder(now, window, _reminder_date, _reminder_events):
+		# The previous prayer day's Isha can be at or after local midnight.
+		_show_due_reminder(now, window, _reminder_previous_date, _reminder_previous_events)
+
+
+func _show_due_reminder(now: int, window: int, date: String, events: Array[int]) -> bool:
+	var seen: Array = _reminder_seen.get(date, [])
+	for index in events.size():
+		var elapsed := now - events[index]
+		if elapsed < 0 or elapsed > window or index in seen:
+			continue
+		seen.append(index)
+		_reminder_seen[date] = seen
+		# Retain the two neighbouring dates for midnight and city changes.
+		var day_start := Time.get_unix_time_from_datetime_string(date)
+		for old_date in _reminder_seen.keys():
+			if absi(Time.get_unix_time_from_datetime_string(old_date) - day_start) > 86400:
+				_reminder_seen.erase(old_date)
+		_write_setting("prayer_reminder", "shown", _reminder_seen)
+		ui.show_reminder_banner(reminder.prayers[index], reminder.cities[_reminder_city][0])
+		_update_mouse_mode()
+		return true
+	return false
+
+
+func _reminder_date_key(date: Dictionary) -> String:
+	return "%04d-%02d-%02d" % [date.year, date.month, date.day]
+
+
+func _answer_reminder(pause_for_prayer: bool) -> void:
+	ui.hide_reminder_banner()
+	if pause_for_prayer and ui.screen != "pause":
+		_pause_return = ui.screen
+		show_screen("pause")
+	else:
+		_update_mouse_mode()
+
+
+func _resume_game() -> void:
+	var destination_screen := _pause_return
+	_pause_return = "market_map"
+	show_screen(destination_screen)
+
+
+func _update_mouse_mode() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if ui.screen == "game" and not ui.has_reminder_banner() else Input.MOUSE_MODE_VISIBLE
 
 
 func save_game(quit_to_title: bool) -> void:
@@ -645,11 +802,16 @@ func show_screen(screen: String) -> void:
 	if screen == "pause" and previous != "settings":
 		ui.saved_date = ""
 	if screen == "title":
+		_pause_return = "market_map"
 		var saved := MarketSave.read_slot(storage_directory.path_join(SAVE_FILENAME))
 		ui.continue_date = "" if saved.is_empty() else clock.time_label(saved.day, saved.minute_of_day)
 	ui.settings_has_hud = _settings_return == "pause"
-	if ui.screen == "zakat" and screen != "zakat":
+	if ui.screen == "zakat" and screen != "zakat" and not (screen == "pause" and _pause_return == "zakat"):
 		zakat.close_panel()
+	if screen in REMINDER_EXCLUDED_SCREENS:
+		ui.hide_reminder_banner()
+	elif previous in REMINDER_EXCLUDED_SCREENS:
+		_reminder_next_check = 0
 	var loan_view: bool = screen in MarketUI.LOAN_SCREENS or (screen == "reputation" and ui.screen in MarketUI.LOAN_SCREENS)
 	if screen in ["title", "settings"]:
 		world.title_camera.make_current()
@@ -689,7 +851,7 @@ func show_screen(screen: String) -> void:
 	world.set_scene_motion_paused(paused)
 	ui.show_screen(screen)
 	player.enabled = screen == "game" or screen == "market_map"
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if screen == "game" else Input.MOUSE_MODE_VISIBLE
+	_update_mouse_mode()
 	update_state()
 
 func wait_until_next_prayer() -> void:
@@ -1305,7 +1467,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			if ui.screen == "settings":
 				close_settings()
 			else:
-				show_screen("market_map")
+				_resume_game()
 		return
 	if ui.screen == "calendar":
 		if event.is_action_pressed("close"):
