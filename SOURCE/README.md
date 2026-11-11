@@ -362,3 +362,16 @@ Run `godot --path SOURCE -- --capture-eid-al-fitr` for the native viewport captu
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --eid-al-fitr`
 for the master-left pairs. Both commands accept `--eid-al-fitr-output=/absolute/path`.
 See `LINE28_CHECKS.json` for the native checks and `BUILD.json` for provenance and verified images.
+
+## LOCK 22 Zakat
+
+The Masjid offers **Your zakat year has ended** when Zakat is due or on the day a zero-due assessment
+is recorded. Each assessment uses the coins held when it is recorded. The panel serves the oldest unpaid
+year and keeps its receipt until you leave. **All your prayers** shows the total unpaid, or the status of
+the latest assessment once no debt remains.
+
+Run `godot --path SOURCE -- --capture-zakat` for the 13 native viewport captures in
+`GAME/APPROVED/ZAKAT/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --zakat`
+to place each approved master beside the capture. Both commands accept `--zakat-output=/absolute/path`.
+See `LINE29_CHECKS.json` for capture fixtures and day-708 checks, and `BUILD.json` for source and image verification.

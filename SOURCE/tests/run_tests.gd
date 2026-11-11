@@ -152,6 +152,7 @@ func _run() -> void:
 	await check_ramadan_runtime()
 	await check_iftar_giving_runtime()
 	await check_eid_al_fitr_runtime()
+	await check_zakat_runtime()
 	finish()
 
 
@@ -3726,3 +3727,163 @@ func check_eid_prayer_and_record(copy: Dictionary) -> void:
 	check(find_button(app.ui, copy.eid_button) == null and has_visible_label(app.ui, copy.eid_line), "Eid prayer closes at 09:00 while the line stays")
 	reset_at_market_place("masjid", 198)
 	check(app.eid_al_fitr.record() == {"nights": "0", "fitr": copy.record.no, "eid": copy.record.no}, "a fresh playthrough resets the LOCK 21 record")
+
+
+func check_zakat_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/ZAKAT/RECORD/zakat_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/zakat.json")
+	var copy: Dictionary = app.zakat.data
+	check(not approved.is_empty() and approved == runtime, "Zakat data copies LOCK 22 byte for byte")
+	check(copy == JSON.parse_string(runtime.get_string_from_utf8()), "Zakat reads the locked runtime data")
+	app.set_process(false)
+	await check_zakat_recipients(copy)
+	await check_zakat_threshold_and_balance(copy)
+	await check_zakat_after_inn_rest(copy)
+	await check_zakat_overlapping_years(copy)
+	app.set_process(true)
+
+
+func check_zakat_recipients(copy: Dictionary) -> void:
+	var due_text := str(copy.panel.due).format({"c": 238, "t": 100, "n": 6})
+	for recipient: Dictionary in copy.options:
+		reset_at_market_place("masjid", 238, 354)
+		check(find_button(app.ui, copy.masjid_button) == null, "the Masjid has no Zakat action on day index 353")
+		app.ui.zakat_requested.emit()
+		check(app.ui.screen == "market_map", "the panel cannot open before the lunar year ends")
+		app.show_screen("all_prayers")
+		check(not has_visible_label(app.ui, copy.record.title), "the private Zakat row is absent before the first assessment")
+		stage_ramadan(355, 600, "inn")
+		check(find_button(app.ui, copy.masjid_button) == null, "the annual notice is Masjid-only")
+		move_market_fixture("masjid")
+		await press_button(copy.masjid_button, "the Masjid opens the first Zakat assessment on day index 354")
+		var text := visible_text()
+		check(app.ui.screen == "zakat" and text.contains(str(copy.panel.kicker).to_upper())
+			and has_visible_label(app.ui, copy.panel.title) and text.contains(due_text), "the panel shows the locked heading and 238-coin assessment")
+		var previous_y := 0.0
+		for option: Dictionary in copy.options:
+			var button := find_button(app.ui, option.label)
+			check(button != null and button.position.y > previous_y, "Zakat recipients appear in locked order: " + option.id)
+			if button != null:
+				previous_y = button.position.y
+		var trust: int = app.progress.trust
+		var reputation: Array = app.ui.reputation_lines()
+		app.ui.zakat_paid.emit("invalid")
+		check(app.progress.coins == 238, "an invalid recipient cannot take coins")
+		await press_button(recipient.label, "the locked Zakat recipient is selectable: " + recipient.id)
+		text = visible_text()
+		check(app.progress.coins == 232 and text.contains(due_text) and text.contains(recipient.out), "payment takes six and keeps the exact receipt: " + recipient.id)
+		check(find_button(app.ui, recipient.label) == null, "payment choices disappear on the receipt")
+		app.ui.zakat_paid.emit(recipient.id)
+		check(app.progress.coins == 232 and app.progress.trust == trust and app.ui.reputation_lines() == reputation, "repeat payment has no effect and Zakat adds no trust or reputation")
+		await press_button(copy.panel.to_map, "the locked return button exits the Zakat receipt")
+		check(app.ui.screen == "market_map" and find_button(app.ui, copy.masjid_button) == null, "the Masjid action goes away after the last debt is paid")
+		check_zakat_record(copy, "paid · 6 coins")
+
+
+func check_zakat_threshold_and_balance(copy: Dictionary) -> void:
+	reset_at_market_place("masjid", 99, 355)
+	await press_button(copy.masjid_button, "below the threshold the notice appears on the recording day")
+	check(visible_text().contains(str(copy.panel.none).format({"c": 99, "t": 100})), "99 coins uses the exact zero-due copy")
+	app.progress.coins = 100
+	app.update_state()
+	app.ui.zakat_paid.emit(copy.options[0].id)
+	check(app.progress.coins == 100 and find_button(app.ui, copy.options[0].label) == null, "a zero assessment stays fixed after an increase in coins")
+	await press_button(copy.panel.to_map, "the zero-due notice can be closed")
+	check(find_button(app.ui, copy.masjid_button) != null, "the zero notice can be reopened on the recording day")
+	check_zakat_record(copy, "not due this year")
+	stage_ramadan(356, 600, "masjid")
+	check(find_button(app.ui, copy.masjid_button) == null, "the zero notice disappears the next day")
+
+	reset_at_market_place("masjid", 100, 355)
+	check_zakat_record(copy, "due · 3 coins")
+	reset_at_market_place("masjid", 120, 355)
+	check_zakat_record(copy, "due · 3 coins")
+	reset_at_market_place("masjid", 300, 355)
+	app.progress.coins = 3
+	app.update_state()
+	await press_button(copy.masjid_button, "an unaffordable assessment remains accessible")
+	check(visible_text().contains(str(copy.panel.due).format({"c": 300, "t": 100, "n": 8})), "the panel keeps the assessed coin count after spending")
+	check(visible_text().contains(str(copy.panel.not_enough).format({"n": 8})), "the unaffordable notice names the exact amount due")
+	for option: Dictionary in copy.options:
+		check(find_button(app.ui, option.label) == null, "unaffordable Zakat hides recipient " + option.id)
+	app.ui.zakat_paid.emit(copy.options[0].id)
+	check(app.progress.coins == 3, "unaffordable payment leaves the balance unchanged")
+	stage_ramadan(361, 600, "masjid")
+	check(find_button(app.ui, copy.masjid_button) != null, "the unpaid eight remains accessible six days later")
+	check_zakat_record(copy, "due · 8 coins")
+
+
+func check_zakat_after_inn_rest(copy: Dictionary) -> void:
+	var rest_days := 3
+	var coins: int = 60 + app.clock.calendar.rest_cost(rest_days)
+	reset_at_market_place("inn", coins, 353)
+	await press_button(app.clock.calendar.data.inn_button, "the Inn calendar is available before the Zakat year ends")
+	app.ui.calendar_rest_requested.emit(rest_days)
+	check(app.day == 356 and app.progress.coins == 60, "rest crosses the Zakat anniversary and deducts the Inn cost")
+	move_market_fixture("masjid")
+	await press_button(copy.masjid_button, "a zero-due assessment first observed after resting shows on the recording day")
+	check(visible_text().contains(str(copy.panel.none).format({"c": 60, "t": 100})), "the delayed assessment uses the coins held after paying the Inn")
+	stage_ramadan(357, 600, "masjid")
+	check(find_button(app.ui, copy.masjid_button) == null, "the delayed zero notice expires the day after it is recorded")
+
+
+func check_zakat_overlapping_years(copy: Dictionary) -> void:
+	reset_at_market_place("masjid", 300, 355)
+	app.progress.coins = 100
+	stage_ramadan(709, 600, "masjid")
+	check_zakat_record(copy, "due · 11 coins")
+	move_market_fixture("masjid")
+	app.progress.coins = 3
+	app.update_state()
+	await press_button(copy.masjid_button, "at day index 708 the panel still opens the older debt")
+	check(visible_text().contains(str(copy.panel.not_enough).format({"n": 8})), "affordability checks the older eight even when the newer three is affordable")
+	app.progress.coins = 100
+	app.update_state()
+	await press_button(copy.options[0].label, "pay the older eight once")
+	check(app.progress.coins == 92 and visible_text().contains(copy.options[0].out)
+		and visible_text().contains(str(copy.panel.due).format({"c": 300, "t": 100, "n": 8})), "the panel remains pinned to the older year and its receipt")
+	app.ui.zakat_paid.emit(copy.options[1].id)
+	check(app.progress.coins == 92, "the newer debt cannot be paid through the older receipt")
+	check(app.ui.clock_panel.get_child_count() == 2, "the Zakat receipt keeps the clock display without a prayer-record button")
+	app.ui.record_requested.emit()
+	check(app.ui.screen == "zakat" and visible_text().contains(copy.options[0].out), "the prayer-record signal cannot displace the pinned receipt")
+	await press_button(copy.panel.to_map, "leave the older receipt before paying again")
+	check(find_button(app.ui, copy.masjid_button) != null, "the Masjid action remains for the newer debt")
+	check_zakat_record(copy, "due · 3 coins")
+	move_market_fixture("masjid")
+	await press_button(copy.masjid_button, "reopening serves the newer year")
+	check(visible_text().contains(str(copy.panel.due).format({"c": 100, "t": 100, "n": 3})), "the newer assessment uses the coins held on its own recording day")
+	await press_button(copy.options[1].label, "pay the newer three")
+	check(app.progress.coins == 89 and visible_text().contains(copy.options[1].out), "payment takes only the newer three and retains its receipt")
+	await press_button(copy.panel.to_map, "leave the newer receipt")
+	check(find_button(app.ui, copy.masjid_button) == null, "the action is removed after both debts are paid")
+	check_zakat_record(copy, "paid · 3 coins")
+
+	reset_at_market_place("masjid", 300, 355)
+	app.progress.coins = 60
+	stage_ramadan(709, 600, "masjid")
+	check_zakat_record(copy, "due · 8 coins")
+	move_market_fixture("masjid")
+	await press_button(copy.masjid_button, "an older debt takes precedence over the same-day zero assessment")
+	check(visible_text().contains(str(copy.panel.due).format({"c": 300, "t": 100, "n": 8})), "the zero assessment does not displace the older eight")
+	await press_button(copy.options[3].label, "pay the older eight in the zero-due year")
+	check(app.progress.coins == 52 and visible_text().contains(copy.options[3].out), "the older receipt remains pinned after payment")
+	await press_button(copy.panel.to_map, "exit the old receipt in the zero-due year")
+	check(find_button(app.ui, copy.masjid_button) != null, "the latest zero assessment retains its same-day notice")
+	check_zakat_record(copy, "not due this year")
+	move_market_fixture("masjid")
+	await press_button(copy.masjid_button, "reopening serves the latest zero assessment")
+	check(visible_text().contains(str(copy.panel.none).format({"c": 60, "t": 100})), "the zero notice uses the 60 held at assessment")
+	stage_ramadan(710, 600, "masjid")
+	check(find_button(app.ui, copy.masjid_button) == null, "the zero notice expires even when it followed older debt")
+	reset_at_market_place("masjid", 300)
+	check(app.zakat.record().is_empty() and find_button(app.ui, copy.masjid_button) == null, "a new playthrough clears assessments and receipts")
+
+
+func check_zakat_record(copy: Dictionary, status: String) -> void:
+	app.show_screen("all_prayers")
+	var row := str(copy.record.title) + "\n" + status
+	var text := visible_text()
+	var at := text.find(row)
+	check(at > text.find(app.eid_al_fitr.data.record.eid) and text.contains(row)
+		and at < text.find(str(app.ui.prayer_record.panel.note).to_upper()), "the private Zakat row follows the Eid rows and reads " + status)

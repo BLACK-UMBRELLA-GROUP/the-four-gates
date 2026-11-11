@@ -69,6 +69,8 @@ LOCK 20 adds **Pay for iftar** at the Masjid from 16:00 through 18:09 in Ramadan
 Public or secret payments count toward the same 10,000-meal goal as **Feed the poor**.
 LOCK 21 adds night prayer at the Masjid on the last ten nights of Ramadan, zakat al-fitr before
 09:00 on 1 Shawwal and the Eid al-Fitr prayer. **All your prayers** includes the three private rows.
+LOCK 22 assesses Zakat after each lunar year from arrival. Visit the Masjid for the oldest unpaid year.
+**All your prayers** shows the total still due, or the latest year’s paid or zero-due status.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 
