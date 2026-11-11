@@ -420,3 +420,13 @@ Run `godot --path SOURCE -- --capture-qurans-school` for the 11 native viewport 
 `GAME/APPROVED/QURANS_SCHOOL/BUILT/V1/`. Run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --qurans-school`
 for the master-left comparisons. Both commands accept `--qurans-school-output=/absolute/path`.
+
+## LOCK 26 The Names of Allah
+
+After meeting Idris, choose **Read the calligraphy** at the Masjid, Task board and Market scales.
+Each Name can be learned once. Its panel shows the Arabic, Idris's explanation, the Quran reference
+and a private count out of 99. Learning leaves coins, trust and reputation unchanged.
+
+Run `godot --path SOURCE -- --capture-names-of-allah` for the eight native viewport captures.
+Run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --names-of-allah`
+to put each master beside its capture. Both commands accept `--names-of-allah-output=/absolute/path`.

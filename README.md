@@ -79,6 +79,8 @@ tracks the trips paid. Public returns add trust and appear in **What people say*
 LOCK 25 adds **Idris's school and copyists** at the Masjid. Paying for a Quran or a child's school
 year adds to the lifetime counters. The first public payment each day adds trust. Reading the
 first scholar's page unlocks secret payments.
+LOCK 26 adds **Read the calligraphy** at the Masjid, Task board and Market scales after meeting Idris.
+The three Names have a private count out of 99. Learning a Name leaves coins, trust and reputation unchanged.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

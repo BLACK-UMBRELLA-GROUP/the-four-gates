@@ -156,6 +156,7 @@ func _run() -> void:
 	await check_eid_al_adha_runtime()
 	await check_pilgrims_runtime()
 	await check_qurans_school_runtime()
+	await check_names_of_allah_runtime()
 	finish()
 
 
@@ -4348,3 +4349,81 @@ func check_school_footer(back_copy: String, counter_copy: String) -> void:
 	check(back != null and counters != null and app.get_viewport().get_visible_rect().encloses(back.get_global_rect())
 		and back.get_global_rect().has_point(Vector2(back.global_position.x, counters.global_position.y)),
 		"the locked counters and Back button share a visible footer row")
+
+
+func check_names_of_allah_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/NAMES_OF_ALLAH/RECORD/names_of_allah_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/names_of_allah.json")
+	var copy: Dictionary = app.names_of_allah.data
+	check(not approved.is_empty() and runtime == approved, "Names of Allah uses the exact LOCK 26 V1 data")
+	check(copy == JSON.parse_string(runtime.get_string_from_utf8()), "the calligraphy uses the locked runtime data")
+
+	app.set_process(false)
+	app.begin_game()
+	app.clock.skip_to(1, 600)
+	for entry: Dictionary in copy.names:
+		move_market_fixture(entry.place)
+		check(find_button(app.ui, copy.button) == null, "calligraphy is hidden before Idris at " + str(entry.place))
+		app.ui.calligraphy_requested.emit()
+		check(app.ui.screen == "market_map" and app.names_of_allah.learned.is_empty(),
+			"direct requests also require meeting Idris")
+
+	move_market_fixture("masjid")
+	await press_button(app.identity.clock.masjid_actions.none_yet, "Sit a while opens the Idris meeting")
+	var teacher: Dictionary = app.identity.teacher
+	await press_button(teacher.beats[0].choices[0].label, "the first Idris reply is available")
+	await press_button(teacher.buttons.continue, "the first Idris reply continues")
+	await press_button(teacher.buttons.leave, "an unfinished meeting can be left")
+	check(not app.idris_met and find_button(app.ui, copy.button) == null, "an unfinished meeting keeps calligraphy hidden")
+	await press_button(app.identity.clock.masjid_actions.none_yet, "Sit a while reopens the Idris meeting")
+	for beat: Dictionary in teacher.beats:
+		await press_button(beat.choices[0].label, "each Idris beat accepts the locked reply")
+		await press_button(teacher.buttons.continue, "each Idris beat continues")
+	await press_button(teacher.buttons.back, "the completed meeting returns to the map")
+	check(app.idris_met, "finishing the meeting unlocks calligraphy")
+
+	var named_places: Array = copy.names.map(func(entry): return entry.place)
+	for place: String in data.places:
+		move_market_fixture(place)
+		check((find_button(app.ui, copy.button) != null) == (place in named_places),
+			"after meeting Idris, calligraphy is offered only at locked places: " + place)
+	move_market_fixture("spice")
+	app.ui.calligraphy_requested.emit()
+	check(app.ui.screen == "market_map" and app.names_of_allah.learned.is_empty(),
+		"a direct request at Spice row changes nothing")
+
+	var coins: int = app.progress.coins
+	var trust: int = app.progress.trust
+	var reputation: Array = app.ui.reputation_lines()
+	var expected: Array[String] = []
+	for entry: Dictionary in copy.names:
+		move_market_fixture(entry.place)
+		if expected.size() == 2:
+			app.show_screen("game")
+		await press_button(copy.button, "Read the calligraphy opens at " + str(entry.place))
+		expected.append(entry.id)
+		check(app.ui.screen == "names_of_allah" and app.names_of_allah.learned == expected,
+			"reading learns exactly the Name at the current place")
+		var arabic := find_visible_label(app.ui, entry.ar)
+		check(arabic != null and arabic.text_direction == Control.TEXT_DIRECTION_RTL
+			and arabic.horizontal_alignment == HORIZONTAL_ALIGNMENT_RIGHT, "the exact marked Arabic renders right to left")
+		check(has_visible_label(app.ui, str(copy.panel.kicker).to_upper())
+			and has_visible_label(app.ui, "%s · %s" % [entry.tr, entry.en])
+			and visible_text().contains(entry.where) and visible_text().contains(entry.idris),
+			"the kicker, translation, place and Idris explanation match the data")
+		var count: String = copy.panel.count.format({"n": expected.size(), "m": int(copy.numbers.goal)})
+		check(has_visible_label(app.ui, ("%s · %s" % [entry.ref, count]).to_upper()),
+			"the locked reference and private count are shown")
+		check_wallet(trust, coins, "learning a Name leaves coins and trust unchanged")
+		check(app.ui.reputation_lines() == reputation, "learning a Name leaves reputation unchanged")
+		await press_button(copy.panel.to_map, "the panel has a usable Back to the market map button")
+		check(app.ui.screen == "market_map" and app.current_place == entry.place
+			and find_button(app.ui, copy.button) == null and not visible_text().contains(count),
+			"Back preserves the place and removes the learned Name and private count from the map")
+		app.ui.calligraphy_requested.emit()
+		check(app.ui.screen == "market_map" and app.names_of_allah.learned == expected,
+			"a repeat request cannot learn the same Name twice")
+
+	app.begin_game()
+	check(not app.idris_met and app.names_of_allah.learned.is_empty(), "a new game clears this session's Names and Idris completion")
+	app.set_process(true)

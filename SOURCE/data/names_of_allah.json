@@ -1,0 +1,45 @@
+{
+ "version": "LOCK 26 V1 (9 Nov 2026) - learning: the Names of Allah",
+ "builds_on": "LOCK 1 places, LOCK 2 Idris (after meeting him), LOCK 8 private record pattern. Placeholders: {n}, {m}.",
+ "numbers": {
+  "goal": 99
+ },
+ "button": "Read the calligraphy",
+ "names": [
+  {
+   "id": "salam",
+   "place": "masjid",
+   "ar": "السَّلَام",
+   "tr": "As-Salam",
+   "en": "The Source of Peace",
+   "where": "Carved above the masjid door.",
+   "idris": "Idris traces the letters with his finger. “As-Salam. Every peace you have ever felt came from Him. That is why we say salam to each other.”",
+   "ref": "Quran 59:23"
+  },
+  {
+   "id": "razzaq",
+   "place": "board",
+   "ar": "الرَّزَّاق",
+   "tr": "Ar-Razzaq",
+   "en": "The Provider",
+   "where": "Painted on the lintel over Salma's oven.",
+   "idris": "Idris smiles at the bread queue. “Ar-Razzaq. Salma bakes, but the bread is His gift. When you feed people, you only pass it on.”",
+   "ref": "Quran 51:58"
+  },
+  {
+   "id": "hasib",
+   "place": "scales",
+   "ar": "الحَسِيب",
+   "tr": "Al-Hasib",
+   "en": "The One Who Takes Account",
+   "where": "Cut into the beam of the market scales.",
+   "idris": "Idris taps the beam. “Al-Hasib. Old Musa weighs the grain. Allah weighs everything else - even what nobody saw.”",
+   "ref": "Quran 4:86"
+  }
+ ],
+ "panel": {
+  "kicker": "The Names of Allah",
+  "count": "Names you have learned: {n} / {m}",
+  "to_map": "Back to the market map"
+ }
+}

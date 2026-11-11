@@ -82,6 +82,12 @@ static func load_qurans_school() -> Dictionary:
 	return parsed
 
 
+static func load_names_of_allah() -> Dictionary:
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/names_of_allah.json"))
+	assert(parsed is Dictionary, "Approved Names of Allah data must be an object")
+	return parsed
+
+
 static func format_count(number: int) -> String:
 	var value := str(number)
 	for index in range(value.length() - 3, 0, -3):

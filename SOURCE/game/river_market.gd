@@ -14,6 +14,7 @@ const EidAlAdha = preload("res://game/eid_al_adha.gd")
 const Zakat = preload("res://game/zakat.gd")
 const Pilgrims = preload("res://game/pilgrims.gd")
 const QuransSchool = preload("res://game/qurans_school.gd")
+const NamesOfAllah = preload("res://game/names_of_allah.gd")
 const OpenPurse = preload("res://game/open_purse.gd")
 const BreadGrab = preload("res://game/bread_grab.gd")
 const MarketStall = preload("res://game/market_stall.gd")
@@ -57,6 +58,7 @@ var eid_al_adha: EidAlAdha
 var zakat: Zakat
 var pilgrims: Pilgrims
 var qurans_school: QuransSchool
+var names_of_allah: NamesOfAllah
 var market_day: MarketDay
 var night: bool:
 	get: return clock.night
@@ -99,6 +101,7 @@ func _ready() -> void:
 	pilgrims = Pilgrims.new(Foundations.load_pilgrims(), clock, progress)
 	idris_recovery.setup(Foundations.load_idris_recovery(), progress)
 	qurans_school = QuransSchool.new(Foundations.load_qurans_school(), clock, progress)
+	names_of_allah = NamesOfAllah.new(Foundations.load_names_of_allah())
 	open_purse.setup(chapter, progress, clock)
 	bread_grab.setup(chapter, progress, clock)
 	market_stall.setup(Foundations.load_market_stall(), Foundations.load_clothes(), progress, clock)
@@ -131,7 +134,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road, ramadan, iftar_giving, eid_al_fitr, zakat, eid_al_adha, pilgrims, qurans_school)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road, ramadan, iftar_giving, eid_al_fitr, zakat, eid_al_adha, pilgrims, qurans_school, names_of_allah)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -165,6 +168,7 @@ func _ready() -> void:
 	ui.pilgrim_sent.connect(_send_pilgrim)
 	ui.qurans_school_requested.connect(_show_qurans_school)
 	ui.qurans_school_paid.connect(_pay_qurans_school)
+	ui.calligraphy_requested.connect(_read_calligraphy)
 	clock.adhan_started.connect(_show_adhan)
 	ui.use_requested.connect(use_place)
 	ui.goal_requested.connect(show_goal)
@@ -313,6 +317,9 @@ func _ready() -> void:
 	elif "--capture-qurans-school" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_qurans_school.gd").new()
 		capture_runner.run(self)
+	elif "--capture-names-of-allah" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_names_of_allah.gd").new()
+		capture_runner.run(self)
 
 func _process(delta: float) -> void:
 	if ui.screen not in ["title", "arrival", "all_prayers_title"]:
@@ -390,6 +397,7 @@ func begin_game() -> void:
 	zakat.reset()
 	pilgrims.reset()
 	qurans_school.reset()
+	names_of_allah.reset()
 	_arrival_sunset = false
 	player.position = world.point(data.start_place)
 	player.velocity = Vector3.ZERO
@@ -512,7 +520,7 @@ func show_screen(screen: String) -> void:
 	var loan_view: bool = screen in MarketUI.LOAN_SCREENS or (screen == "reputation" and ui.screen in MarketUI.LOAN_SCREENS)
 	if screen == "feeding" or screen in MarketUI.GRAB_SCREENS:
 		world.oven_camera.make_current()
-	elif screen in ["iftar_giving", "fitr", "eid", "zakat", "qurans_school"]:
+	elif screen in ["iftar_giving", "fitr", "eid", "zakat", "qurans_school", "names_of_allah"]:
 		world.iftar_giving_camera.make_current()
 	elif screen in MarketUI.DRY_FOUNTAIN_SCREENS or (screen == "reputation" and ui.screen == "fountain_done"):
 		world.qasims_done_camera.make_current()
@@ -538,7 +546,7 @@ func show_screen(screen: String) -> void:
 		world.jabirs_goats_camera.make_current()
 	elif screen != "reputation" or ui.screen != "grab_after":
 		player.camera.make_current()
-	player.visible = not loan_view and screen not in ["harm_done", "eid", "zakat", "pilgrims", "qurans_school"] and screen not in MarketUI.ADHA_SCREENS
+	player.visible = not loan_view and screen not in ["harm_done", "eid", "zakat", "pilgrims", "qurans_school", "names_of_allah"] and screen not in MarketUI.ADHA_SCREENS
 	ui.show_screen(screen)
 	player.enabled = screen == "game" or screen == "market_map"
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if screen == "game" else Input.MOUSE_MODE_VISIBLE
@@ -752,6 +760,15 @@ func _show_qurans_school() -> void:
 func _pay_qurans_school(kind: String) -> void:
 	if ui.screen == "qurans_school" and current_place == "masjid" and qurans_school.pay(kind, open_purse.page_read):
 		show_screen("qurans_school")
+
+
+func _read_calligraphy() -> void:
+	if ui.screen not in ["game", "market_map"]:
+		return
+	update_state()
+	if names_of_allah.learn_at(current_place, idris_met):
+		_stop_travel()
+		show_screen("names_of_allah")
 
 
 func show_open_purse() -> void:
@@ -1189,7 +1206,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif ui.screen == "city_map": show_screen("market_map")
 		elif ui.screen == "world_map": show_screen("city_map")
 		elif ui.screen == "market_map": show_screen("game")
-		elif ui.screen in ["purse", "purse_morning", "reputation", "stall", "loom", "bag", "talk", "feeding", "iftar_giving", "fitr", "eid", "zakat", "pilgrims", "qurans_school"] or ui.screen in MarketUI.DRY_FOUNTAIN_SCREENS: show_screen("market_map")
+		elif ui.screen in ["purse", "purse_morning", "reputation", "stall", "loom", "bag", "talk", "feeding", "iftar_giving", "fitr", "eid", "zakat", "pilgrims", "qurans_school", "names_of_allah"] or ui.screen in MarketUI.DRY_FOUNTAIN_SCREENS: show_screen("market_map")
 		elif ui.screen in ["board", "task", "result", "lesson", "goal"]: show_screen("game")
 		else: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	elif event.is_action_pressed("market_map") and ui.screen != "title":
