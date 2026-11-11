@@ -179,6 +179,7 @@ func _run() -> void:
 	check_real_prayer_times()
 	await check_prayer_reminder_runtime()
 	await check_partnership_runtime()
+	await check_gate_of_trust_runtime()
 	finish()
 
 
@@ -3412,6 +3413,153 @@ func check_partnership_legacy_slot() -> void:
 	var actual := MarketSave.snapshot(app)
 	actual.erase("partnership")
 	check(actual == old, "an older slot restores all prior gameplay fields")
+
+
+func check_gate_of_trust_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/GATE_OF_TRUST/RECORD/gate_of_trust_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/gate_of_trust.json")
+	var copy: Dictionary = app.gate_of_trust.data
+	check(not locked.is_empty() and runtime == locked, "the Gate of Trust uses byte-identical LOCK 32 data")
+	check(copy == JSON.parse_string(runtime.get_string_from_utf8()), "the Gate of Trust loads its approved runtime data")
+	app.set_process(false)
+	reset_at_market_place("gate", 198, 8)
+	var threshold := int(data.numbers.gate_trust)
+	for blocked: Array in [[threshold - 1, true], [threshold, false]]:
+		app.progress.trust = blocked[0]
+		app.progress.lesson_done = blocked[1]
+		app.update_state()
+		check(find_button(app.ui, copy.gate_open_button) == null and find_button(app.ui, copy.road_button) == null,
+			"no new gate action with trust %d and scales lesson %s" % blocked)
+		check(find_button(app.ui, data.ui.place_actions.gate) != null, "the earlier gate action stays available")
+		app.open_trust_gate()
+		app.travel_to_jisra()
+		check(app.ui.screen == "market_map" and not app.progress.gate_open and app.minute_of_day == 600,
+			"blocked gate actions cannot open the gate or advance time")
+	app.progress.trust = threshold
+	app.progress.lesson_done = true
+	move_market_fixture("board")
+	app.open_trust_gate()
+	check(find_button(app.ui, copy.gate_open_button) == null and not app.progress.gate_open, "the opening is Gate-only")
+	move_market_fixture("gate")
+	app.travel_to_jisra()
+	check(not app.gate_of_trust.in_jisra and app.minute_of_day == 600, "travel cannot bypass the closed gate")
+	await press_button(copy.gate_open_button, "at 100 trust with the scales lesson the gate can open")
+	check(app.ui.screen == "gate_opening" and has_visible_label(app.ui, str(copy.opening.kicker).to_upper())
+		and has_visible_label(app.ui, copy.opening.title) and visible_text().contains(copy.opening.text),
+		"the opening panel uses the locked kicker, title and story")
+	check(app.progress.gate_open and app.world.gate_open and app.world.gate_body.collision_layer == 0,
+		"opening lifts the physical gate")
+	await press_button(copy.opening.no, "the player can stay at the gate")
+	check(app.ui.screen == "market_map" and app.current_place == "gate" and app.minute_of_day == 600
+		and find_button(app.ui, copy.gate_open_button) == null, "staying at the gate remembers the opening without travel")
+	await press_button(copy.road_button, "the opened gate offers the road directly")
+	check(app.ui.screen == "jisra" and app.gate_of_trust.in_jisra and app.day == 8 and app.minute_of_day == 690,
+		"the road east takes exactly 90 minutes")
+	check(has_visible_label(app.ui, str(copy.jisra.kicker).to_upper()) and has_visible_label(app.ui, copy.jisra.title)
+		and visible_text().contains(copy.jisra.text), "Jisra uses its locked kicker, title and story")
+	check_gate_of_trust_meter(copy.jisra.meter, 10)
+	check(find_button(app.ui, str(identity.clock.pray_here).format({"prayer": "Dhuhr"})) == null,
+		"Jisra offers no prayer button before Dhuhr")
+	await press_button(copy.jisra.back, "return to the Gate of Trust without watching the bridge")
+	check(app.ui.screen == "market_map" and app.current_place == "gate" and not app.gate_of_trust.in_jisra
+		and app.day == 8 and app.minute_of_day == 780, "the road back takes exactly 90 minutes")
+	check_gate_of_trust_meter(data.ui.hud.trust_label, threshold)
+	check(find_button(app.ui, copy.road_button) != null and app.progress.coins == 198, "the route remains open and costs no coins")
+
+	for branch: Array in [["quiet", 2, 10, 2], ["pay", 3, 13, 0], ["speak", 198, 15, 198]]:
+		await check_jisra_toll(copy, branch)
+	await check_jisra_prayer_and_save(copy)
+
+
+func check_jisra_toll(copy: Dictionary, branch: Array) -> void:
+	var choice: String = branch[0]
+	reset_at_market_place("gate", branch[1], 8)
+	app.progress.trust = int(data.numbers.gate_trust)
+	app.progress.lesson_done = true
+	app.update_state()
+	await press_button(copy.gate_open_button, "open a fresh gate for the %s branch" % choice)
+	await press_button(copy.opening.go, "travel from the opening panel for the %s branch" % choice)
+	await press_button(copy.jisra.watch, "watch the bridge for the %s branch" % choice)
+	check(app.ui.screen == "jisra_toll" and has_visible_label(app.ui, str(copy.toll.kicker).to_upper())
+		and has_visible_label(app.ui, copy.toll.title) and visible_text().contains(copy.toll.text),
+		"the toll uses its locked kicker, title and story")
+	if branch[1] == 2:
+		check(find_button(app.ui, copy.toll.pay) == null, "two coins hide the payment button")
+		app.choose_jisra_toll("pay")
+		check(app.gate_of_trust.toll_choice.is_empty() and app.progress.coins == 2, "an unaffordable payment changes nothing")
+	else:
+		check(find_button(app.ui, copy.toll.pay) != null, "the pay button appears with at least three coins")
+	await press_button(copy.toll[choice], "the %s choice is usable" % choice)
+	check(app.ui.screen == "jisra_toll" and visible_text().contains(copy.toll["out_" + choice]),
+		"the %s choice shows its locked outcome" % choice)
+	check(find_button(app.ui, copy.toll.speak) == null and find_button(app.ui, copy.toll.pay) == null
+		and find_button(app.ui, copy.toll.quiet) == null, "the result replaces all the choices")
+	for repeated: String in ["speak", "pay", "quiet"]:
+		app.choose_jisra_toll(repeated)
+	check(app.gate_of_trust.toll_choice == choice and app.gate_of_trust.jisra_trust == branch[2]
+		and app.progress.trust == int(data.numbers.gate_trust) and app.progress.coins == branch[3]
+		and has_visible_label(app.ui, market_coins_caption()), "the %s choice applies its exact trust and coin effects only once" % choice)
+	check_gate_of_trust_meter(copy.jisra.meter, branch[2])
+	await press_button(copy.toll.to_town, "the %s result can return to Jisra" % choice)
+	app.watch_jisra_bridge()
+	check(app.ui.screen == "jisra" and find_button(app.ui, copy.jisra.watch) == null,
+		"a finished toll cannot be watched again")
+
+
+func check_jisra_prayer_and_save(copy: Dictionary) -> void:
+	# Continue the speak branch and use the real pause and title controls to reload.
+	var prayer: String = str(identity.clock.pray_here).format({"prayer": "Dhuhr"})
+	app.clock.advance_to(8, 740, false)
+	app.update_state()
+	var alone_before: int = app.clock.totals().alone_elsewhere
+	await press_button(prayer, "Jisra offers Pray Dhuhr here during the open window")
+	check(app.clock.record().rows[1].status == "alone" and app.clock.totals().alone_elsewhere == alone_before + 1
+		and app.minute_of_day == 750 and find_button(app.ui, prayer) == null, "Dhuhr in Jisra takes ten minutes and records prayer alone elsewhere")
+	await menus_escape()
+	check(app.ui.screen == "pause", "Jisra can be paused to save")
+	var saved := MarketSave.snapshot(app)
+	await press_button(app.menus.pause.quit, "save and quit from Jisra using the real menu")
+	var path: String = app.storage_directory.path_join(app.SAVE_FILENAME)
+	check(MarketSave.read_slot(path) == saved, "the save retains both towns, the clock and the resolved toll")
+	app.begin_game()
+	check(not app.gate_of_trust.in_jisra and not app.progress.gate_open and app.gate_of_trust.jisra_trust == 10
+		and app.gate_of_trust.toll_choice.is_empty(), "starting over resets Gate of Trust and Jisra state")
+	app.show_screen("title")
+	var continue_text: String = str(app.menus.title_continue).format({"d": app.ui.continue_date})
+	await press_button(continue_text, "Continue can reload the Jisra save")
+	check(app.ui.screen == "jisra" and app.progress.gate_open and app.gate_of_trust.in_jisra
+		and app.gate_of_trust.toll_choice == "speak" and app.progress.coins == 198 and app.minute_of_day == 750
+		and find_button(app.ui, copy.jisra.watch) == null, "Continue returns to Jisra with the toll still resolved")
+	check_gate_of_trust_meter(copy.jisra.meter, 15)
+
+	await press_button(copy.jisra.back, "return to River Market after loading")
+	app.clock.advance_to(8, 1020, false)
+	app.update_state()
+	await press_button(copy.road_button, "walk east while Asr is still open")
+	check(app.day == 8 and app.minute_of_day == 1110 and app.clock.record().rows[2].status == "missed",
+		"a prayer window ending on the road is recorded as missed")
+	await press_button(copy.jisra.back, "return after checking the missed prayer")
+	var legacy := MarketSave.snapshot(app)
+	legacy.erase("gate_of_trust")
+	var payload := var_to_bytes(legacy)
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	check(file != null, "prepare a pre-LOCK 32 save")
+	if file == null:
+		return
+	file.store_buffer(MarketSave._checksum(payload))
+	file.store_buffer(payload)
+	file.close()
+	check(MarketSave.read_slot(path) == legacy, "the save reader still accepts a pre-LOCK 32 slot")
+	app.show_screen("title")
+	await press_button(str(app.menus.title_continue).format({"d": app.ui.continue_date}), "Continue can load the earlier format")
+	check(app.ui.screen == "market_map" and app.progress.gate_open and not app.gate_of_trust.in_jisra
+		and app.gate_of_trust.jisra_trust == 10 and app.gate_of_trust.toll_choice.is_empty(),
+		"an older slot keeps the existing open gate and starts Jisra fresh")
+
+
+func check_gate_of_trust_meter(label: String, value: int) -> void:
+	check(has_visible_label(app.ui, label) and has_visible_label(app.ui, str(data.ui.hud.trust_value).format({"n": value})),
+		"the HUD displays %s at %d" % [label, value])
 
 
 func check_harm_in_the_road_runtime() -> void:

@@ -156,6 +156,12 @@ static func load_dry_fountain() -> Dictionary:
 	assert(parsed is Dictionary, "Approved dry fountain data must be an object")
 	return parsed
 
+static func load_gate_of_trust() -> Dictionary:
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/gate_of_trust.json"))
+	assert(parsed is Dictionary, "Approved Gate of Trust data must be an object")
+	return parsed
+
+
 static func load_partnership() -> Dictionary:
 	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/partnership.json"))
 	assert(parsed is Dictionary, "Approved partnership data must be an object")

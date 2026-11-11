@@ -30,6 +30,7 @@ const IdrisRecovery = preload("res://game/idris_recovery.gd")
 const DryFountain = preload("res://game/dry_fountain.gd")
 const RashidsLoan = preload("res://game/rashids_loan.gd")
 const Partnership = preload("res://game/partnership.gd")
+const GateOfTrust = preload("res://game/gate_of_trust.gd")
 const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
 
 const MarketSave = preload("res://game/market_save.gd")
@@ -73,6 +74,8 @@ var idris_recovery := IdrisRecovery.new()
 var dry_fountain := DryFountain.new()
 var rashids_loan := RashidsLoan.new()
 var partnership := Partnership.new()
+var gate_of_trust := GateOfTrust.new()
+var _gate_return_screen := "market_map"
 var harm_in_the_road := HarmInTheRoad.new()
 var world: Node3D
 var player: CharacterBody3D
@@ -120,6 +123,8 @@ func _ready() -> void:
 		return
 	if "--capture-partnership" in capture_args and not _set_capture_storage("--partnership-user-dir="):
 		return
+	if "--capture-gate-of-trust" in capture_args and not _set_capture_storage("--gate-of-trust-user-dir="):
+		return
 	menus = Foundations.load_menus()
 	reminder = Foundations.load_prayer_reminder()
 	data = Foundations.load_data()
@@ -132,6 +137,7 @@ func _ready() -> void:
 	market_day = MarketDay.new(Foundations.load_market_day(), clock, Foundations.load_regulars_at_prayer())
 	Foundations.configure_input(data)
 	progress.setup(data)
+	gate_of_trust.setup(Foundations.load_gate_of_trust(), progress)
 	zakat = Zakat.new(Foundations.load_zakat(), clock, progress)
 	pilgrims = Pilgrims.new(Foundations.load_pilgrims(), clock, progress)
 	idris_recovery.setup(Foundations.load_idris_recovery(), progress)
@@ -173,6 +179,7 @@ func _ready() -> void:
 	ui.menus = menus
 	ui.reminder = reminder
 	ui.partnership = partnership
+	ui.gate_of_trust = gate_of_trust
 	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road, ramadan, iftar_giving, eid_al_fitr, zakat, eid_al_adha, pilgrims, qurans_school, names_of_allah)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
@@ -256,6 +263,12 @@ func _ready() -> void:
 	ui.loan_answered.connect(answer_rashids_loan)
 	ui.partnership_requested.connect(show_partnership)
 	ui.partnership_answered.connect(answer_partnership)
+	ui.trust_gate_open_requested.connect(open_trust_gate)
+	ui.trust_gate_closed.connect(close_trust_gate)
+	ui.jisra_travel_requested.connect(travel_to_jisra)
+	ui.jisra_return_requested.connect(return_from_jisra)
+	ui.jisra_watch_requested.connect(watch_jisra_bridge)
+	ui.jisra_toll_chosen.connect(choose_jisra_toll)
 	ui.road_harm_requested.connect(move_road_harm)
 	ui.sealed_purse_offered.connect(show_sealed_purse_offer)
 	ui.sealed_purse_accepted.connect(accept_sealed_purse)
@@ -338,6 +351,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-rashids-loan" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_rashids_loan.gd").new()
+		capture_runner.run(self)
+	elif "--capture-gate-of-trust" in capture_args:
+		capture_runner = load("res://tests/capture_gate_of_trust.gd").new()
 		capture_runner.run(self)
 	elif "--capture-partnership" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_partnership.gd").new()
@@ -433,23 +449,28 @@ func _physics_process(_delta: float) -> void:
 func update_state() -> void:
 	if not is_instance_valid(player) or not is_instance_valid(ui):
 		return
-	current_place = ""
-	var nearest: float = data.player.use_radius
-	for id in data.places:
-		var point: Vector3 = world.point(id)
-		var distance := Vector2(player.position.x, player.position.z).distance_to(Vector2(point.x, point.z))
-		if distance <= nearest:
-			nearest = distance
-			current_place = id
+	current_place = "jisra" if gate_of_trust.in_jisra else _nearest_market_place()
 	if day != _daily_job_day:
 		_daily_job_day = day
 		progress.morning()
-	var world_night: bool = night or ui.screen in ["title", "settings", "all_prayers", "all_prayers_title", "calendar", "iftar", "iftar_giving", "fitr"] or (ui.screen == "arrival" and _arrival_sunset)
+	var world_night: bool = night or ui.screen in MarketUI.GATE_OF_TRUST_SCREENS or ui.screen in ["title", "settings", "all_prayers", "all_prayers_title", "calendar", "iftar", "iftar_giving", "fitr"] or (ui.screen == "arrival" and _arrival_sunset)
 	if world.night != world_night:
 		world.set_night(world_night)
 	zakat.assess_years()
 	pilgrims.resolve_returns()
 	ui.refresh(player.position, current_place, night, _salma_available())
+
+func _nearest_market_place() -> String:
+	var place := ""
+	var nearest: float = data.player.use_radius
+	for id: String in data.places:
+		var point: Vector3 = world.point(id)
+		var distance := Vector2(player.position.x, player.position.z).distance_to(Vector2(point.x, point.z))
+		if distance <= nearest:
+			nearest = distance
+			place = id
+	return place
+
 
 func _load_settings() -> void:
 	var settings := ConfigFile.new()
@@ -651,7 +672,7 @@ func continue_game() -> void:
 		show_screen("title")
 		return
 	MarketSave.restore(self, saved)
-	show_screen("market_map")
+	show_screen("jisra" if gate_of_trust.in_jisra else "market_map")
 
 
 func begin_game() -> void:
@@ -670,6 +691,7 @@ func begin_game() -> void:
 	dry_fountain.reset()
 	rashids_loan.reset()
 	partnership.reset()
+	gate_of_trust.reset()
 	harm_in_the_road.reset()
 	world.stop_faris_run()
 	world.set_inn_people_waiting(true)
@@ -829,6 +851,10 @@ func show_screen(screen: String) -> void:
 	var partnership_reputation: bool = screen == "reputation" and current_place == "weaver" and partnership.reputation_line() != null
 	if screen in ["title", "settings"]:
 		world.title_camera.make_current()
+	elif screen == "gate_opening":
+		world.gate_opening_camera.make_current()
+	elif screen in ["jisra", "jisra_toll"]:
+		world.jisra_camera.make_current()
 	elif partnership_view:
 		world.weaver_lane_camera.make_current()
 	elif partnership_reputation:
@@ -863,7 +889,7 @@ func show_screen(screen: String) -> void:
 		world.jabirs_goats_camera.make_current()
 	elif screen != "reputation" or ui.screen != "grab_after":
 		player.camera.make_current()
-	player.visible = not loan_view and not partnership_view and not partnership_reputation and screen not in ["title", "settings", "pause", "harm_done", "eid", "zakat", "pilgrims", "qurans_school", "names_of_allah"] and screen not in MarketUI.ADHA_SCREENS
+	player.visible = not loan_view and not partnership_view and not partnership_reputation and screen not in ["title", "settings", "pause", "harm_done", "eid", "zakat", "pilgrims", "qurans_school", "names_of_allah"] and screen not in MarketUI.ADHA_SCREENS and screen not in MarketUI.GATE_OF_TRUST_SCREENS
 	var paused := screen in PAUSE_SCREENS or screen in ["title", "all_prayers_title"]
 	player.set_physics_process(not paused)
 	world.set_scene_motion_paused(paused)
@@ -883,6 +909,8 @@ func _show_adhan(message: String) -> void:
 		_prayer_adhan = message
 
 func pray_here() -> void:
+	if gate_of_trust.in_jisra and ui.screen != "jisra":
+		return
 	update_state()
 	_do_prayer(clock.pray.bind(current_place == "masjid"))
 
@@ -1447,6 +1475,61 @@ func use_place() -> void:
 				ui.show_toast(data.ui.not_built, ui.screen == "market_map")
 		_: pass
 
+func open_trust_gate() -> void:
+	update_state()
+	if not _can_use_trust_gate() or progress.gate_open:
+		return
+	_gate_return_screen = ui.screen
+	_stop_travel()
+	progress.ask_gate()
+	world.open_gate()
+	show_screen("gate_opening")
+
+
+func close_trust_gate() -> void:
+	if ui.screen == "gate_opening":
+		show_screen(_gate_return_screen)
+
+
+func travel_to_jisra() -> void:
+	update_state()
+	if not progress.gate_open or (ui.screen != "gate_opening" and not _can_use_trust_gate()):
+		return
+	_stop_travel()
+	gate_of_trust.in_jisra = true
+	_walk_jisra_road("jisra")
+
+
+func return_from_jisra() -> void:
+	if ui.screen != "jisra" or not gate_of_trust.in_jisra:
+		return
+	gate_of_trust.in_jisra = false
+	player.position = world.point("gate")
+	_stop_travel()
+	_walk_jisra_road("market_map")
+
+
+func _walk_jisra_road(arrival_screen: String) -> void:
+	show_screen(arrival_screen)
+	clock.advance_to(day, minute_of_day + int(gate_of_trust.data.numbers.travel_minutes))
+	update_state()
+
+
+func watch_jisra_bridge() -> void:
+	if ui.screen == "jisra" and gate_of_trust.in_jisra and gate_of_trust.toll_choice.is_empty():
+		show_screen("jisra_toll")
+
+
+func choose_jisra_toll(choice: String) -> void:
+	if ui.screen == "jisra_toll" and gate_of_trust.choose_toll(choice):
+		show_screen("jisra_toll")
+
+
+func _can_use_trust_gate() -> bool:
+	return (ui.screen in ["game", "market_map"] and current_place == "gate"
+		and gate_of_trust.can_use_gate())
+
+
 func show_goal() -> void:
 	show_screen("goal")
 
@@ -1504,6 +1587,17 @@ func _unhandled_input(event: InputEvent) -> void:
 				close_settings()
 			else:
 				_resume_game()
+		return
+	if ui.screen in MarketUI.GATE_OF_TRUST_SCREENS:
+		if event.is_action_pressed("close"):
+			_pause_return = ui.screen
+			show_screen("pause")
+		elif event.is_action_pressed("pray") and ui.screen == "jisra":
+			pray_here()
+		return
+	if gate_of_trust.in_jisra and ui.screen == "prayer_record":
+		if event.is_action_pressed("close"):
+			close_prayer_record()
 		return
 	if ui.screen == "calendar":
 		if event.is_action_pressed("close"):

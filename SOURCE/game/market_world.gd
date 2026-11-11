@@ -28,6 +28,8 @@ var oven_camera: Camera3D
 var iftar_giving_camera: Camera3D
 var dice_house_camera: Camera3D
 var qasims_offer_camera: Camera3D
+var gate_opening_camera: Camera3D
+var jisra_camera: Camera3D
 var qasims_done_camera: Camera3D
 var jabirs_goats_camera: Camera3D
 var sealed_purse_offer_camera: Camera3D
@@ -116,7 +118,14 @@ func setup(source: Dictionary) -> void:
 	var pier := point("pier")
 	var quay_view := point("quay").lerp(pier, 0.25) + height_at_eye
 	quay_view.z = (float(quay.z_from) + float(quay.z_to)) / 2.0
-	qasims_offer_camera = _story_camera(quay_view, Vector3(pier.x, quay_view.y, quay_view.z))
+	var quay_target := Vector3(pier.x, quay_view.y, quay_view.z)
+	qasims_offer_camera = _story_camera(quay_view, quay_target)
+	jisra_camera = _story_camera(quay_view, quay_target)
+	jisra_camera.set_cull_mask_value(STREET_FIGURES_LAYER, false)
+	var gate := point("gate") + height_at_eye
+	var gate_approach := (point("gate") - point("a1")).normalized()
+	gate_opening_camera = _story_camera(gate - gate_approach * float(data.camera.distance_behind), gate)
+	gate_opening_camera.set_cull_mask_value(STREET_FIGURES_LAYER, false)
 	var lane_view := point("a2") + height_at_eye
 	qasims_done_camera = _story_camera(lane_view, point("board") + height_at_eye)
 	var gate_lane := point("a1") + height_at_eye

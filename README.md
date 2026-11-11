@@ -94,6 +94,9 @@ the pause menu and **Later** dismisses the reminder.
 LOCK 31 adds Layla's second-loom offer in Weaver's lane while she's at work and your trust is
 at least 40. Putting in 60 coins makes you partners on equal terms. Collect your share every
 seven in-game days. Layla refuses a fixed weekly return.
+LOCK 32 opens the road east from the Gate of Trust. With 100 River Market trust and the scales lesson
+complete, open the gate and walk 90 in-game minutes to Jisra. Jisra tracks its own trust and shares the
+same wallet and clock. At the bridge of boats, choose how to respond to Hamid's toll once per game.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

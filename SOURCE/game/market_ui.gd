@@ -81,6 +81,12 @@ signal loan_requested
 signal loan_answered(choice: String)
 signal partnership_requested
 signal partnership_answered(choice: String)
+signal trust_gate_open_requested
+signal trust_gate_closed
+signal jisra_travel_requested
+signal jisra_return_requested
+signal jisra_watch_requested
+signal jisra_toll_chosen(choice: String)
 signal road_harm_requested
 signal sealed_purse_offered
 signal sealed_purse_accepted
@@ -113,6 +119,7 @@ const IdrisRecovery = preload("res://game/idris_recovery.gd")
 const DryFountain = preload("res://game/dry_fountain.gd")
 const RashidsLoan = preload("res://game/rashids_loan.gd")
 const Partnership = preload("res://game/partnership.gd")
+const GateOfTrust = preload("res://game/gate_of_trust.gd")
 const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
 const Ramadan = preload("res://game/ramadan.gd")
 const EidAlFitr = preload("res://game/eid_al_fitr.gd")
@@ -151,6 +158,7 @@ const JABIRS_GOATS_SCREENS := ["jabirs_offer", "jabirs_bought", "jabirs_told"]
 const DRY_FOUNTAIN_SCREENS := ["dry_fountain", "fountain_done"]
 const LOAN_SCREENS := ["loan_ask", "loan_lent", "loan_riba", "loan_due", "loan_after", "loan_last"]
 const PARTNERSHIP_SCREENS := ["partnership_ask", "partnership_agreed", "partnership_riba", "partnership_week"]
+const GATE_OF_TRUST_SCREENS := ["gate_opening", "jisra", "jisra_toll"]
 const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_refused", "purse_morning", "reputation", "harm_done", "pilgrims", "qurans_school", "names_of_allah"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS + DRY_FOUNTAIN_SCREENS + LOAN_SCREENS + PARTNERSHIP_SCREENS
 var data: Dictionary = {}
 var identity: Dictionary = {}
@@ -179,6 +187,7 @@ var idris_recovery: IdrisRecovery
 var dry_fountain: DryFountain
 var rashids_loan: RashidsLoan
 var partnership: Partnership
+var gate_of_trust: GateOfTrust
 var harm_in_the_road: HarmInTheRoad
 var _road_harm: Dictionary = {}
 var _loan_offer := RashidsLoan.Offer.HIDDEN
@@ -492,6 +501,9 @@ func _rebuild_screen() -> void:
 		"partnership_ask", "partnership_agreed", "partnership_riba", "partnership_week":
 			_build_hud()
 			_build_partnership()
+		"gate_opening", "jisra", "jisra_toll":
+			_build_hud()
+			_build_gate_of_trust()
 		"harm_done":
 			_build_hud()
 			_build_road_harm_done()
@@ -662,6 +674,8 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 		var masjid_line: String = clock.masjid_line() if at_masjid else ""
 		if screen in ["game", "market_map"]:
 			rebuild = rebuild or prayer != _prayer_label or make_up != _make_up_label or masjid_line != _masjid_line
+		elif screen == "jisra":
+			rebuild = rebuild or prayer != _prayer_label
 		_prayer_label = prayer
 		_make_up_label = make_up
 		_masjid_line = masjid_line
@@ -1021,7 +1035,7 @@ func _story_text(panel: Panel, value: String, y: float, bold: bool = false) -> f
 	body.add_theme_font_size_override("normal_font_size", 23)
 	body.add_theme_font_size_override("bold_font_size", 23)
 	body.add_theme_color_override("default_color", PAPER)
-	if screen in CHAPTER_SCREENS or screen in ADHA_SCREENS:
+	if screen in CHAPTER_SCREENS or screen in ADHA_SCREENS or screen in GATE_OF_TRUST_SCREENS:
 		body.add_theme_constant_override("line_separation", 5)
 	panel.add_child(body)
 
@@ -1070,10 +1084,13 @@ func _build_hud() -> void:
 		coin_hit.modulate = Color(1, 1, 1, 0)
 		coin_hit.pressed.connect(func(): bag_requested.emit())
 		coins.add_child(coin_hit)
-	var trust_width := roundf(352 * text_multiplier)
+	var at_jisra := gate_of_trust.in_jisra
+	var trust_value: int = gate_of_trust.jisra_trust if at_jisra else progress.trust
+	var trust_label: String = gate_of_trust.data.jisra.meter if at_jisra else data.ui.hud.trust_label
+	var trust_width := roundf((306 if at_jisra else 352) * text_multiplier)
 	var trust := _panel(Vector2(1877 - trust_width, 42), Vector2(trust_width, 70), Color("302411"))
-	_label(trust, str(data.ui.hud.trust_label), Vector2(18, 7), Vector2(225 * text_multiplier, 37), 24, PAPER)
-	var value: String = str(data.ui.hud.trust_value).format({"n": progress.trust})
+	_label(trust, trust_label, Vector2(18, 7), Vector2(225 * text_multiplier, 37), 24, PAPER)
+	var value: String = str(data.ui.hud.trust_value).format({"n": trust_value})
 	var amount := _label(trust, value, Vector2(trust_width - 111 * text_multiplier, 7), Vector2(93 * text_multiplier, 37), 24, PAPER)
 	amount.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	var track := ColorRect.new()
@@ -1082,13 +1099,13 @@ func _build_hud() -> void:
 	track.color = Color("514737")
 	trust.add_child(track)
 	var fill := ColorRect.new()
-	fill.size = Vector2(track.size.x * float(progress.trust) / float(data.numbers.trust_max), 10)
+	fill.size = Vector2(track.size.x * float(trust_value) / float(data.numbers.trust_max), 10)
 	fill.color = GOLD
 	track.add_child(fill)
 	for index in range(first, content.get_child_count()):
 		content.get_child(index).set_meta("fixed_layer", true)
 	_scale_panel = scale_panel
-	if screen in ["pause", "settings", "arrival", "idris", "purse_salma", "purse_page", "purse_refused", "stall_change", "all_prayers", "calendar"] or screen in GRAB_SCREENS:
+	if at_jisra or screen == "gate_opening" or screen in ["pause", "settings", "arrival", "idris", "purse_salma", "purse_page", "purse_refused", "stall_change", "all_prayers", "calendar"] or screen in GRAB_SCREENS:
 		return
 	var hit := Button.new()
 	hit.flat = true
@@ -1925,6 +1942,40 @@ func _build_partnership() -> void:
 	_chapter_finish(panel, y)
 
 
+func _build_gate_of_trust() -> void:
+	var key := "opening" if screen == "gate_opening" else screen.trim_prefix("jisra_")
+	var copy: Dictionary = gate_of_trust.data[key]
+	var panel := _chapter_panel(copy.kicker, copy.title, true)
+	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
+	style.set_corner_radius_all(18)
+	var x := 34.0
+	var y := 111.0 + _story_text(panel, copy.text, 111.0) + 26.0
+	match screen:
+		"gate_opening":
+			x += _chapter_button(panel, copy.go, Vector2(x, y), func(): jisra_travel_requested.emit(), true)
+			_chapter_button(panel, copy.no, Vector2(x, y), func(): trust_gate_closed.emit())
+		"jisra":
+			if gate_of_trust.toll_choice.is_empty():
+				x += _chapter_button(panel, copy.watch, Vector2(x, y), func(): jisra_watch_requested.emit(), true)
+			var prayer: String = clock.prayer_label(false)
+			if not prayer.is_empty():
+				x += _chapter_button(panel, prayer, Vector2(x, y), func(): pray_requested.emit())
+			_chapter_button(panel, copy.back, Vector2(x, y), func(): jisra_return_requested.emit())
+		"jisra_toll":
+			if gate_of_trust.toll_choice.is_empty():
+				for choice: String in GateOfTrust.TOLL_CHOICES:
+					if choice == "pay" and not gate_of_trust.can_pay_toll():
+						continue
+					_chapter_button(panel, copy[choice], Vector2(x, y),
+						func(): jisra_toll_chosen.emit(choice), choice == "speak", true)
+					y += 69.0
+				y -= 69.0
+			else:
+				y += _story_text(panel, copy["out_" + gate_of_trust.toll_choice], y) + 22.0
+				_chapter_button(panel, copy.to_town, Vector2(x, y), func(): screen_requested.emit("jisra"))
+	_chapter_finish(panel, y)
+
+
 func _build_road_harm_done() -> void:
 	var copy: Dictionary = harm_in_the_road.data.panel
 	var harm := harm_in_the_road.moved_harm
@@ -2578,7 +2629,11 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var zakat_width := _button_width(zakat.data.masjid_button) + 18.0 if _zakat_available else 0.0
 	var pilgrims_width := _button_width(pilgrims.data.gate_button) + 18.0 if _pilgrims_available else 0.0
 	var school_width := _button_width(qurans_school.data.masjid_button) + 18.0 if _qurans_school_available else 0.0
-	var last_actions_width := eid_width + zakat_width + pilgrims_width + school_width
+	var gate_button := ""
+	if place_id == "gate" and gate_of_trust.can_use_gate():
+		gate_button = gate_of_trust.data.road_button if progress.gate_open else gate_of_trust.data.gate_open_button
+	var gate_width := _button_width(gate_button, true) + 18.0 if not gate_button.is_empty() else 0.0
+	var last_actions_width := eid_width + zakat_width + pilgrims_width + school_width + gate_width
 	var eid_at := Vector2(total_width + 1.0, 0.0)
 	var eid_height := 0.0
 	if last_actions_width > 0.0:
@@ -2732,6 +2787,14 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if _qurans_school_available:
 		_button(qurans_school.data.masjid_button, eid_at + Vector2(x + eid_line_width + zakat_width, bar_y + 8.0),
 			Vector2(school_width - 18.0, 56), func(): qurans_school_requested.emit())
+	if gate_width > 0.0:
+		var gate_action := func():
+			if progress.gate_open:
+				jisra_travel_requested.emit()
+			else:
+				trust_gate_open_requested.emit()
+		var gate_at := eid_at + Vector2(x + eid_line_width + zakat_width + pilgrims_width + school_width, bar_y + 8.0)
+		_button(gate_button, gate_at, Vector2(gate_width - 18.0, 56), gate_action, true)
 	if _calligraphy_available:
 		_button(names_of_allah.data.button, calligraphy_at + Vector2(x, bar_y + 8.0),
 			Vector2(calligraphy_width - 18.0, 56), func(): calligraphy_requested.emit())

@@ -37,6 +37,7 @@ const COMPONENT_FIELDS := {
 	"dry_fountain": ["paid", "named", "finished_day"],
 	"rashids_loan": ["outcome", "_state", "_since_day"],
 	"partnership": ["_partner_day", "_weeks_collected", "_refused"],
+	"gate_of_trust": ["in_jisra", "jisra_trust", "toll_choice"],
 	"harm_in_the_road": ["count", "done_day", "moved_harm"],
 	"ramadan": ["_taken", "_rested"],
 	"eid_al_fitr": ["_stood_nights", "_fitr_years", "_eid_days"],
@@ -102,8 +103,8 @@ static func read_slot(path: String) -> Dictionary:
 	if not state.get("meals_given") is int or not _has_fields(state.get("market"), MARKET_FIELDS):
 		return {}
 	for component: String in COMPONENT_FIELDS:
-		# Slots made before LOCK 31 have no partnership state.
-		if component == "partnership" and not state.has(component):
+		# Earlier slots may predate these components.
+		if component in ["partnership", "gate_of_trust"] and not state.has(component):
 			continue
 		if not _has_fields(state.get(component), COMPONENT_FIELDS[component]):
 			return {}
@@ -116,8 +117,8 @@ static func restore(game: Node3D, state: Dictionary) -> void:
 	for component: String in COMPONENT_FIELDS:
 		if values.has(component):
 			_restore_fields(game.get(component), values[component], COMPONENT_FIELDS[component])
-		elif component == "partnership":
-			game.partnership.reset()
+		elif component in ["partnership", "gate_of_trust"]:
+			game.get(component).reset()
 	game.feeding.meal_counter.total = values.meals_given
 	game.zakat.close_panel()
 	game.ui.known_words = game.known_words

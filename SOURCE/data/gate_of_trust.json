@@ -1,0 +1,40 @@
+{
+ "version": "LOCK 32 V1 (9 Nov 2026) - chapter 1: through the Gate of Trust - Jisra",
+ "builds_on": "LOCK 1 gate rule (trust 100 + scales lesson), LOCK 2 towns (Jisra, from jisr \"bridge\"), LOCK 2 prayer, LOCK 18 clock. Placeholders: {n}, {prayer}.",
+ "numbers": {
+  "travel_minutes": 90,
+  "jisra_start": 10,
+  "speak_trust": 5,
+  "pay_trust": 3,
+  "pay_coins": 3
+ },
+ "gate_open_button": "The gatekeepers will open the gate",
+ "road_button": "Take the road east to Jisra",
+ "opening": {
+  "kicker": "River Market · the Gate of Trust",
+  "title": "The gate opens",
+  "text": "The gatekeepers lift the great bar. “River Market speaks for you, and you weigh fairly,” the older one says. “The road east is yours.” Beyond the arch the river road runs out across the fields.",
+  "go": "Take the road east to Jisra",
+  "no": "Not yet"
+ },
+ "jisra": {
+  "kicker": "Jisra · the bridge of boats",
+  "title": "Jisra",
+  "text": "The river road crosses here on a bridge of boats roped together, rising and falling with the water. Hamid the toll keeper sits at the near end with a wooden box. Nobody here knows your name.",
+  "watch": "Watch the bridge",
+  "back": "Back to Ilmara",
+  "meter": "Trust · Jisra"
+ },
+ "toll": {
+  "kicker": "Jisra · the toll",
+  "title": "One coin and three",
+  "text": "A merchant in silk drops one coin in Hamid's box and leads his camels across. Behind him comes a family with a donkey and two tired children. Hamid holds up three fingers.",
+  "speak": "Say something to Hamid",
+  "pay": "Pay the family's toll yourself",
+  "quiet": "Say nothing",
+  "out_speak": "Hamid's face reddens. The boatmen are listening. He takes one coin from the family, the same as the merchant, and waves them on. He does not look at you again.",
+  "out_pay": "You drop three coins in the box. The mother thanks you. Hamid shrugs and pockets the difference - tomorrow the next poor family will pay three.",
+  "out_quiet": "The family pays three coins and crosses. The boatmen exchange a look. Nobody says anything.",
+  "to_town": "Back to Jisra"
+ }
+}

@@ -139,6 +139,10 @@ func _initialize() -> void:
 		var runner := load("res://tests/capture_regulars_remember.gd")
 		quit(0 if _compare_master_set("res://../GAME/APPROVED/REGULARS_REMEMBER/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
 		return
+	if "--gate-of-trust" in OS.get_cmdline_user_args():
+		var runner := load("res://tests/capture_gate_of_trust.gd")
+		quit(0 if _compare_master_set("res://../GAME/APPROVED/GATE_OF_TRUST/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
+		return
 	if "--partnership" in OS.get_cmdline_user_args():
 		var runner := load("res://tests/capture_partnership.gd")
 		quit(0 if _compare_master_set("res://../GAME/APPROVED/PARTNERSHIP/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)

@@ -1,0 +1,1180 @@
+{
+	"checks": [
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival reaches the Inn with 198 coins",
+			"passed": true
+		},
+		{
+			"description": "hidden: The gatekeepers will open the gate",
+			"passed": true
+		},
+		{
+			"description": "hidden: The gatekeepers will open the gate",
+			"passed": true
+		},
+		{
+			"description": "shown: Ask the gatekeepers",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Ask the gatekeepers",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: gj11_gate__trust_99_closed__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: gj11_gate__trust_99_closed__build.png",
+			"passed": true
+		},
+		{
+			"description": "shown: The gatekeepers will open the gate",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: The gatekeepers will open the gate",
+			"passed": true
+		},
+		{
+			"description": "hidden: Take the road east to Jisra",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: gj01_gate__gatekeepers_will_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: gj01_gate__gatekeepers_will_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The gatekeepers will open the gate",
+			"passed": true
+		},
+		{
+			"description": "production screen: gate_opening",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: RIVER MARKET · THE GATE OF TRUST",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: The gate opens",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: The gatekeepers lift the great bar. “River Market speaks for you, and you weigh fairly,” the older one says. “The road east is yours.” Beyond the arch the river road runs out across the fields.",
+			"passed": true
+		},
+		{
+			"description": "the gate opens and clears its collision",
+			"passed": true
+		},
+		{
+			"description": "the gate finishes swinging before capture",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: gj02_gate__the_gate_opens__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: gj02_gate__the_gate_opens__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Not yet",
+			"passed": true
+		},
+		{
+			"description": "production screen: market_map",
+			"passed": true
+		},
+		{
+			"description": "Not yet stays at the gate and does not advance time",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the road east to Jisra",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: JISRA · THE BRIDGE OF BOATS",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: The river road crosses here on a bridge of boats roped together, rising and falling with the water. Hamid the toll keeper sits at the near end with a wooden box. Nobody here knows your name.",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Trust · Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: 10 / 100",
+			"passed": true
+		},
+		{
+			"description": "shown: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "the eastward walk advances 90 minutes to Jisra",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: gj03_jisra__bridge_of_boats__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: gj03_jisra__bridge_of_boats__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra_toll",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: JISRA · THE TOLL",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: One coin and three",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: A merchant in silk drops one coin in Hamid's box and leads his camels across. Behind him comes a family with a donkey and two tired children. Hamid holds up three fingers.",
+			"passed": true
+		},
+		{
+			"description": "shown: Pay the family's toll yourself",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pay the family's toll yourself",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: gj04_toll__one_coin_and_three__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: gj04_toll__one_coin_and_three__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Say something to Hamid",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra_toll",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: JISRA · THE TOLL",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: One coin and three",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: A merchant in silk drops one coin in Hamid's box and leads his camels across. Behind him comes a family with a donkey and two tired children. Hamid holds up three fingers.",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Hamid's face reddens. The boatmen are listening. He takes one coin from the family, the same as the merchant, and waves them on. He does not look at you again.",
+			"passed": true
+		},
+		{
+			"description": "hidden: Say something to Hamid",
+			"passed": true
+		},
+		{
+			"description": "hidden: Pay the family's toll yourself",
+			"passed": true
+		},
+		{
+			"description": "hidden: Say nothing",
+			"passed": true
+		},
+		{
+			"description": "toll wallet and separate River Market trust: speak",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Trust · Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: 15 / 100",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: gj05_toll__said_something__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: gj05_toll__said_something__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to Jisra",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra",
+			"passed": true
+		},
+		{
+			"description": "hidden: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: gj06_jisra__after_the_toll__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: gj06_jisra__after_the_toll__build.png",
+			"passed": true
+		},
+		{
+			"description": "production screen: pause",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Save and quit to title",
+			"passed": true
+		},
+		{
+			"description": "production screen: title",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue · Thursday 8 Sha'ban · 10:30",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra",
+			"passed": true
+		},
+		{
+			"description": "hidden: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Trust · Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: 15 / 100",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival reaches the Inn with 198 coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The gatekeepers will open the gate",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the road east to Jisra",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: JISRA · THE BRIDGE OF BOATS",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: The river road crosses here on a bridge of boats roped together, rising and falling with the water. Hamid the toll keeper sits at the near end with a wooden box. Nobody here knows your name.",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Trust · Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: 10 / 100",
+			"passed": true
+		},
+		{
+			"description": "shown: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "the eastward walk advances 90 minutes to Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra_toll",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay the family's toll yourself",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra_toll",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: JISRA · THE TOLL",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: One coin and three",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: A merchant in silk drops one coin in Hamid's box and leads his camels across. Behind him comes a family with a donkey and two tired children. Hamid holds up three fingers.",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: You drop three coins in the box. The mother thanks you. Hamid shrugs and pockets the difference - tomorrow the next poor family will pay three.",
+			"passed": true
+		},
+		{
+			"description": "hidden: Say something to Hamid",
+			"passed": true
+		},
+		{
+			"description": "hidden: Pay the family's toll yourself",
+			"passed": true
+		},
+		{
+			"description": "hidden: Say nothing",
+			"passed": true
+		},
+		{
+			"description": "toll wallet and separate River Market trust: pay",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Trust · Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: 13 / 100",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: gj07_toll__paid_their_toll__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: gj07_toll__paid_their_toll__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to Jisra",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra",
+			"passed": true
+		},
+		{
+			"description": "hidden: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival reaches the Inn with 198 coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The gatekeepers will open the gate",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the road east to Jisra",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: JISRA · THE BRIDGE OF BOATS",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: The river road crosses here on a bridge of boats roped together, rising and falling with the water. Hamid the toll keeper sits at the near end with a wooden box. Nobody here knows your name.",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Trust · Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: 10 / 100",
+			"passed": true
+		},
+		{
+			"description": "shown: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "the eastward walk advances 90 minutes to Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra_toll",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Say nothing",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra_toll",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: JISRA · THE TOLL",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: One coin and three",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: A merchant in silk drops one coin in Hamid's box and leads his camels across. Behind him comes a family with a donkey and two tired children. Hamid holds up three fingers.",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: The family pays three coins and crosses. The boatmen exchange a look. Nobody says anything.",
+			"passed": true
+		},
+		{
+			"description": "hidden: Say something to Hamid",
+			"passed": true
+		},
+		{
+			"description": "hidden: Pay the family's toll yourself",
+			"passed": true
+		},
+		{
+			"description": "hidden: Say nothing",
+			"passed": true
+		},
+		{
+			"description": "toll wallet and separate River Market trust: quiet",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Trust · Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: 10 / 100",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: gj08_toll__said_nothing__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: gj08_toll__said_nothing__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to Jisra",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra",
+			"passed": true
+		},
+		{
+			"description": "hidden: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "shown: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: gj09_jisra__pray_dhuhr_here__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: gj09_jisra__pray_dhuhr_here__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to Ilmara",
+			"passed": true
+		},
+		{
+			"description": "production screen: market_map",
+			"passed": true
+		},
+		{
+			"description": "the westward walk advances 90 minutes and returns to the gate",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Trust · River Market",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: 100 / 100",
+			"passed": true
+		},
+		{
+			"description": "shown: Take the road east to Jisra",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Take the road east to Jisra",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: gj10_gate__back_road_east__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: gj10_gate__back_road_east__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the road east to Jisra",
+			"passed": true
+		},
+		{
+			"description": "shown: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "hidden: Pray Dhuhr here",
+			"passed": true
+		},
+		{
+			"description": "Dhuhr in Jisra is recorded alone",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival reaches the Inn with 198 coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: The gatekeepers will open the gate",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the road east to Jisra",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: JISRA · THE BRIDGE OF BOATS",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: The river road crosses here on a bridge of boats roped together, rising and falling with the water. Hamid the toll keeper sits at the near end with a wooden box. Nobody here knows your name.",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Trust · Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: 10 / 100",
+			"passed": true
+		},
+		{
+			"description": "shown: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "the eastward walk advances 90 minutes to Jisra",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Watch the bridge",
+			"passed": true
+		},
+		{
+			"description": "production screen: jisra_toll",
+			"passed": true
+		},
+		{
+			"description": "hidden: Pay the family's toll yourself",
+			"passed": true
+		},
+		{
+			"description": "shown: Say something to Hamid",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Say something to Hamid",
+			"passed": true
+		},
+		{
+			"description": "shown: Say nothing",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Say nothing",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: gj12_toll__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: gj12_toll__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "all 12 locked states captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Fair arrival gives 198 coins. The passive clock is paused. Stage Thursday day 8 at 09:00, River Market trust at 99 or 100 and the scales lesson learned, except for the missing-lesson test. Independent fresh arrivals stage each toll branch. The low-wallet fixture holds two coins. The Jisra prayer fixture is 12:20.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native 1920x1080 Godot viewport. Production buttons and clicks run the gate, road, toll, prayer and save flows.",
+	"renderer": "forward_plus",
+	"screenshots": [
+		{
+			"file": "gj11_gate__trust_99_closed__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "gj01_gate__gatekeepers_will_open__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "gj02_gate__the_gate_opens__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "gj03_jisra__bridge_of_boats__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "gj04_toll__one_coin_and_three__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "gj05_toll__said_something__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "gj06_jisra__after_the_toll__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "gj07_toll__paid_their_toll__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "gj08_toll__said_nothing__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "gj09_jisra__pray_dhuhr_here__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "gj10_gate__back_road_east__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "gj12_toll__not_enough_coins__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"gj01_gate__gatekeepers_will_open__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 540,
+			"night": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"toll_choice": "",
+			"trust": 100
+		},
+		"gj02_gate__the_gate_opens__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 540,
+			"night": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "gate_opening",
+			"tasks": {},
+			"toll_choice": "",
+			"trust": 100
+		},
+		"gj03_jisra__bridge_of_boats__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 630,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "jisra",
+			"tasks": {},
+			"toll_choice": "",
+			"trust": 100
+		},
+		"gj04_toll__one_coin_and_three__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 630,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "jisra_toll",
+			"tasks": {},
+			"toll_choice": "",
+			"trust": 100
+		},
+		"gj05_toll__said_something__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 15,
+			"lesson_done": true,
+			"minute_of_day": 630,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "jisra_toll",
+			"tasks": {},
+			"toll_choice": "speak",
+			"trust": 100
+		},
+		"gj06_jisra__after_the_toll__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 15,
+			"lesson_done": true,
+			"minute_of_day": 630,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "jisra",
+			"tasks": {},
+			"toll_choice": "speak",
+			"trust": 100
+		},
+		"gj07_toll__paid_their_toll__build.png": {
+			"coins": 195,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 13,
+			"lesson_done": true,
+			"minute_of_day": 630,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"screen": "jisra_toll",
+			"tasks": {},
+			"toll_choice": "pay",
+			"trust": 100
+		},
+		"gj08_toll__said_nothing__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 630,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"screen": "jisra_toll",
+			"tasks": {},
+			"toll_choice": "quiet",
+			"trust": 100
+		},
+		"gj09_jisra__pray_dhuhr_here__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 740,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"screen": "jisra",
+			"tasks": {},
+			"toll_choice": "quiet",
+			"trust": 100
+		},
+		"gj10_gate__back_road_east__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 830,
+			"night": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"toll_choice": "quiet",
+			"trust": 100
+		},
+		"gj11_gate__trust_99_closed__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 540,
+			"night": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000826869567390531,
+				7.28581762313843
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"toll_choice": "",
+			"trust": 99
+		},
+		"gj12_toll__not_enough_coins__build.png": {
+			"coins": 2,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": true,
+			"jisra_trust": 10,
+			"lesson_done": true,
+			"minute_of_day": 630,
+			"night": false,
+			"place": "jisra",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"screen": "jisra_toll",
+			"tasks": {},
+			"toll_choice": "",
+			"trust": 100
+		}
+	},
+	"timestamp_utc": "2026-11-11T21:19:54Z"
+}

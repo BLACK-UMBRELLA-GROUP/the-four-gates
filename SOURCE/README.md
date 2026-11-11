@@ -502,3 +502,20 @@ Run `godot --path SOURCE -- --capture-partnership --partnership-user-dir=/absolu
 for the 12 native viewport captures. Run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --partnership`
 to put each master beside its capture. Both commands accept `--partnership-output=/absolute/path`.
+
+## LOCK 32 — The Gate of Trust and Jisra
+
+At the Gate of Trust with 100 River Market trust and the market scales lesson complete, choose
+**The gatekeepers will open the gate**. **Not yet** returns to the gate and remembers the opening.
+**Take the road east to Jisra** advances the shared clock by 90 minutes. **Back to Ilmara** takes
+another 90 minutes and restores the River Market trust display.
+
+Choose **Watch the bridge** to play **One coin and three** once. Speaking adds five Jisra trust,
+paying costs three coins and adds three Jisra trust, and saying nothing leaves both values as they are.
+Prayers offered in Jisra are recorded as prayed alone. A save in Jisra continues in town with the
+same wallet, prayer record, trust and toll choice.
+
+Run `godot --path SOURCE -- --capture-gate-of-trust --gate-of-trust-user-dir=/absolute/fresh/path`
+to capture the 12 states from the native viewport. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --gate-of-trust`
+to place each master beside its capture. Both commands accept `--gate-of-trust-output=/absolute/path`.
