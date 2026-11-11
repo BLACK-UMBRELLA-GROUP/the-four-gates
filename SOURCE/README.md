@@ -347,3 +347,18 @@ Run `godot --path SOURCE -- --capture-iftar-giving` for the ten native viewport 
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --iftar-giving`
 for the master-left pairs. Both commands accept `--iftar-giving-output=/absolute/path`.
 See `LINE27_CHECKS.json` for the native checks and `BUILD.json` for provenance and verified images.
+
+### The last ten nights and Eid al-Fitr
+
+At the Masjid, **Stand in prayer through the night** is available once per night belonging
+to 21–30 Ramadan, from 23:00 the evening before through 04:44. Standing passes 60 game
+minutes. **Give zakat al-fitr** costs two coins once per game year and is available from
+28 Ramadan through 08:59 on 1 Shawwal. **Pray the Eid prayer** is available once at the
+Masjid from 06:30 through 08:59 on 1 Shawwal. The Eid greeting appears in place bars all day.
+**All your prayers** adds the three private rows below the earlier Ramadan rows.
+
+Run `godot --path SOURCE -- --capture-eid-al-fitr` for the native viewport captures in
+`GAME/APPROVED/EID_AL_FITR/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --eid-al-fitr`
+for the master-left pairs. Both commands accept `--eid-al-fitr-output=/absolute/path`.
+See `LINE28_CHECKS.json` for the native checks and `BUILD.json` for provenance and verified images.

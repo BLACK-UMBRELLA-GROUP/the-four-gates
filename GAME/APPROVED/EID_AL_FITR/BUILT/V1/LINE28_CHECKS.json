@@ -1,0 +1,1548 @@
+{
+	"checks": [
+		{
+			"description": "runtime Eid al-Fitr data matches the locked bytes",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the live Inn map",
+			"passed": true
+		},
+		{
+			"description": "the arrival wallet and trust match the locked setup",
+			"passed": true
+		},
+		{
+			"description": "live map at masjid",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 39 minute 1390",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Stand in prayer through the night",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y04_masjid__night_of_the_11th_none__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y04_masjid__night_of_the_11th_none__build.png",
+			"passed": true
+		},
+		{
+			"description": "live map at masjid",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 49 minute 1000",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Stand in prayer through the night",
+			"passed": true
+		},
+		{
+			"description": "text shown: Fasting · iftar at 18:10",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Fasting · iftar at 18:10",
+			"passed": true
+		},
+		{
+			"description": "button shown: Pay for iftar",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pay for iftar",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y03_masjid__20_ramadan_afternoon_none__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y03_masjid__20_ramadan_afternoon_none__build.png",
+			"passed": true
+		},
+		{
+			"description": "live map at masjid",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 49 minute 1390",
+			"passed": true
+		},
+		{
+			"description": "button shown: Stand in prayer through the night",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Stand in prayer through the night",
+			"passed": true
+		},
+		{
+			"description": "button shown: Pray Isha here",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray Isha here",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y01_masjid__night_of_the_21st__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y01_masjid__night_of_the_21st__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Stand in prayer through the night",
+			"passed": true
+		},
+		{
+			"description": "standing advances the clock from 23:10 to 00:10",
+			"passed": true
+		},
+		{
+			"description": "the native map displays the full locked night prayer toast",
+			"passed": true
+		},
+		{
+			"description": "the night prayer toast fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Stand in prayer through the night",
+			"passed": true
+		},
+		{
+			"description": "button shown: Pray Isha here",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray Isha here",
+			"passed": true
+		},
+		{
+			"description": "night prayer leaves coins, trust and public reputation unchanged",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y02b_masjid__night_prayer_toast__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y02b_masjid__night_prayer_toast__build.png",
+			"passed": true
+		},
+		{
+			"description": "the ordinary toast timer settles before y02",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y02_masjid__after_standing_0010__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y02_masjid__after_standing_0010__build.png",
+			"passed": true
+		},
+		{
+			"description": "live map at masjid",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 50 minute 1390",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Stand in prayer through the night",
+			"passed": true
+		},
+		{
+			"description": "standing on another eligible night advances the clock normally",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Stand in prayer through the night",
+			"passed": true
+		},
+		{
+			"description": "live map at masjid",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 60 minute 400",
+			"passed": true
+		},
+		{
+			"description": "button shown: Give zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Give zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "button shown: Pray the Eid prayer",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray the Eid prayer",
+			"passed": true
+		},
+		{
+			"description": "text shown: Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "the greeting follows the Eid prayer button",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y10_masjid__eid_morning__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y10_masjid__eid_morning__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray the Eid prayer",
+			"passed": true
+		},
+		{
+			"description": "the native eid panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: 1 SHAWWAL",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: 1 SHAWWAL",
+			"passed": true
+		},
+		{
+			"description": "text shown: Eid al-Fitr",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Eid al-Fitr",
+			"passed": true
+		},
+		{
+			"description": "text shown: The whole of River Market prays in the open ground by the masjid. Afterwards Rashid hugs you, Salma's children run past in new clothes, and Yunus the muezzin presses sweets into your hand: “Eid Mubarak!”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: The whole of River Market prays in the open ground by the masjid. Afterwards Rashid hugs you, Salma's children run past in new clothes, and Yunus the muezzin presses sweets into your hand: “Eid Mubarak!”",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "Eid prayer leaves the clock at 06:40",
+			"passed": true
+		},
+		{
+			"description": "Eid prayer leaves coins, trust and public reputation unchanged",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y11_eid__the_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y11_eid__the_prayer__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the Eid panel returns to the Masjid on the market map",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Pray the Eid prayer",
+			"passed": true
+		},
+		{
+			"description": "text shown: Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "live map at spice",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 60 minute 600",
+			"passed": true
+		},
+		{
+			"description": "text shown: Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Pray the Eid prayer",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Give zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y12_spice__eid_mubarak_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y12_spice__eid_mubarak_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "live map at masjid",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 60 minute 600",
+			"passed": true
+		},
+		{
+			"description": "the native clock opens Today's prayers",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: All your prayers",
+			"passed": true
+		},
+		{
+			"description": "Today's prayers opens All your prayers",
+			"passed": true
+		},
+		{
+			"description": "text shown: No prayer times have passed yet.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: No prayer times have passed yet.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Nights of tarawih",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Nights of tarawih",
+			"passed": true
+		},
+		{
+			"description": "text shown: Nights stood in the last ten",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Nights stood in the last ten",
+			"passed": true
+		},
+		{
+			"description": "private row follows the previous row: Nights stood in the last ten",
+			"passed": true
+		},
+		{
+			"description": "rendered private row: Nights stood in the last ten = 2",
+			"passed": true
+		},
+		{
+			"description": "text shown: Zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "private row follows the previous row: Zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "rendered private row: Zakat al-fitr = not yet",
+			"passed": true
+		},
+		{
+			"description": "text shown: Eid prayer",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Eid prayer",
+			"passed": true
+		},
+		{
+			"description": "private row follows the previous row: Eid prayer",
+			"passed": true
+		},
+		{
+			"description": "rendered private row: Eid prayer = prayed",
+			"passed": true
+		},
+		{
+			"description": "text shown: ONLY YOU SEE THIS. PRAYER GIVES NO COINS AND NO TRUST.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: ONLY YOU SEE THIS. PRAYER GIVES NO COINS AND NO TRUST.",
+			"passed": true
+		},
+		{
+			"description": "the privacy note follows the three new rows",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y13_prayers__end_of_ramadan_record__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y13_prayers__end_of_ramadan_record__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market",
+			"passed": true
+		},
+		{
+			"description": "live map at masjid",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 61 minute 400",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Stand in prayer through the night",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Give zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Pray the Eid prayer",
+			"passed": true
+		},
+		{
+			"description": "text hidden: Eid Mubarak · no fasting today",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y14_masjid__2_shawwal_none__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y14_masjid__2_shawwal_none__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the live Inn map",
+			"passed": true
+		},
+		{
+			"description": "the arrival wallet and trust match the locked setup",
+			"passed": true
+		},
+		{
+			"description": "live map at masjid",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 57 minute 600",
+			"passed": true
+		},
+		{
+			"description": "button shown: Give zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Give zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "text shown: Fasting · iftar at 18:10",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Fasting · iftar at 18:10",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y05_masjid__give_zakat_al_fitr_28_ramadan__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y05_masjid__give_zakat_al_fitr_28_ramadan__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "the native fitr panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: THE MASJID · END OF RAMADAN",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: THE MASJID · END OF RAMADAN",
+			"passed": true
+		},
+		{
+			"description": "text shown: Zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "text shown: Idris weighs a measure of dates into the sack for the poor. “Before the Eid prayer,” he says, “so that every home in River Market can eat on Eid.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Idris weighs a measure of dates into the sack for the poor. “Before the Eid prayer,” he says, “so that every home in River Market can eat on Eid.”",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button shown: Give a measure of dates · 2 coins",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Give a measure of dates · 2 coins",
+			"passed": true
+		},
+		{
+			"description": "text hidden: Your measure is in the sack.",
+			"passed": true
+		},
+		{
+			"description": "text hidden: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y06_fitr__panel__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y06_fitr__panel__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give a measure of dates · 2 coins",
+			"passed": true
+		},
+		{
+			"description": "the native fitr panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: THE MASJID · END OF RAMADAN",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: THE MASJID · END OF RAMADAN",
+			"passed": true
+		},
+		{
+			"description": "text shown: Zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "text shown: Idris weighs a measure of dates into the sack for the poor. “Before the Eid prayer,” he says, “so that every home in River Market can eat on Eid.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Idris weighs a measure of dates into the sack for the poor. “Before the Eid prayer,” he says, “so that every home in River Market can eat on Eid.”",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Give a measure of dates · 2 coins",
+			"passed": true
+		},
+		{
+			"description": "text shown: Your measure is in the sack.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Your measure is in the sack.",
+			"passed": true
+		},
+		{
+			"description": "the live payment only removes the locked coin cost",
+			"passed": true
+		},
+		{
+			"description": "zakat al-fitr payment leaves the clock unchanged",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y07_fitr__given__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y07_fitr__given__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the zakat al-fitr panel returns to the Masjid on the market map",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Give zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y08_masjid__fitr_gone_after_giving__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y08_masjid__fitr_gone_after_giving__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the live Inn map",
+			"passed": true
+		},
+		{
+			"description": "the arrival wallet and trust match the locked setup",
+			"passed": true
+		},
+		{
+			"description": "live map at masjid",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 57 minute 600",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "the native fitr panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: THE MASJID · END OF RAMADAN",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: THE MASJID · END OF RAMADAN",
+			"passed": true
+		},
+		{
+			"description": "text shown: Zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Zakat al-fitr",
+			"passed": true
+		},
+		{
+			"description": "text shown: Idris weighs a measure of dates into the sack for the poor. “Before the Eid prayer,” he says, “so that every home in River Market can eat on Eid.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Idris weighs a measure of dates into the sack for the poor. “Before the Eid prayer,” he says, “so that every home in River Market can eat on Eid.”",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Give a measure of dates · 2 coins",
+			"passed": true
+		},
+		{
+			"description": "text shown: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "text hidden: Your measure is in the sack.",
+			"passed": true
+		},
+		{
+			"description": "the unaffordable panel leaves coins, trust and public reputation unchanged",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: y09_fitr__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: y09_fitr__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "all fourteen master states and the additional toast have native captures",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Passive clock ticks are paused. Fair arrivals supply 198 coins, trust is set to 45, and y09 uses one coin. The player is placed at the actual place marker and the live clock skips unplayed prayer windows. y13 follows two real night-prayer clicks and one real Eid-prayer click, with no zakat al-fitr payment. Each state records the live date. y02 is the settled map and y02b shows the exact toast before it clears.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport. Production buttons handle fair arrivals, night prayer, the zakat al-fitr and Eid panels, the payment, and opening the private record.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "y04_masjid__night_of_the_11th_none__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y03_masjid__20_ramadan_afternoon_none__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y01_masjid__night_of_the_21st__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y02b_masjid__night_prayer_toast__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y02_masjid__after_standing_0010__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y10_masjid__eid_morning__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y11_eid__the_prayer__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y12_spice__eid_mubarak_line__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y13_prayers__end_of_ramadan_record__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y14_masjid__2_shawwal_none__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y05_masjid__give_zakat_al_fitr_28_ramadan__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y06_fitr__panel__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y07_fitr__given__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y08_masjid__fitr_gone_after_giving__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "y09_fitr__not_enough_coins__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"y01_masjid__night_of_the_21st__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Wednesday 20 Ramadan",
+			"day": 49,
+			"eid_al_fitr": {
+				"eid": "not yet",
+				"fitr": "not yet",
+				"nights": "0"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1390,
+			"night": true,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 20,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"y02_masjid__after_standing_0010__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Thursday 21 Ramadan",
+			"day": 50,
+			"eid_al_fitr": {
+				"eid": "not yet",
+				"fitr": "not yet",
+				"nights": "1"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 10,
+			"night": true,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 20,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"y02b_masjid__night_prayer_toast__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Thursday 21 Ramadan",
+			"day": 50,
+			"eid_al_fitr": {
+				"eid": "not yet",
+				"fitr": "not yet",
+				"nights": "1"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 10,
+			"night": true,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 20,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"y03_masjid__20_ramadan_afternoon_none__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Wednesday 20 Ramadan",
+			"day": 49,
+			"eid_al_fitr": {
+				"eid": "not yet",
+				"fitr": "not yet",
+				"nights": "0"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1000,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 19,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"y04_masjid__night_of_the_11th_none__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Sunday 10 Ramadan",
+			"day": 39,
+			"eid_al_fitr": {
+				"eid": "not yet",
+				"fitr": "not yet",
+				"nights": "0"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1390,
+			"night": true,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 10,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"y05_masjid__give_zakat_al_fitr_28_ramadan__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Thursday 28 Ramadan",
+			"day": 57,
+			"eid_al_fitr": {
+				"eid": "not yet",
+				"fitr": "not yet",
+				"nights": "0"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 27,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"y06_fitr__panel__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Thursday 28 Ramadan",
+			"day": 57,
+			"eid_al_fitr": {
+				"eid": "not yet",
+				"fitr": "not yet",
+				"nights": "0"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 27,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "fitr",
+			"tasks": {},
+			"trust": 45
+		},
+		"y07_fitr__given__build.png": {
+			"coins": 196,
+			"daily_count": 0,
+			"date": "Thursday 28 Ramadan",
+			"day": 57,
+			"eid_al_fitr": {
+				"eid": "not yet",
+				"fitr": "given",
+				"nights": "0"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 27,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "fitr",
+			"tasks": {},
+			"trust": 45
+		},
+		"y08_masjid__fitr_gone_after_giving__build.png": {
+			"coins": 196,
+			"daily_count": 0,
+			"date": "Thursday 28 Ramadan",
+			"day": 57,
+			"eid_al_fitr": {
+				"eid": "not yet",
+				"fitr": "given",
+				"nights": "0"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 27,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"y09_fitr__not_enough_coins__build.png": {
+			"coins": 1,
+			"daily_count": 0,
+			"date": "Thursday 28 Ramadan",
+			"day": 57,
+			"eid_al_fitr": {
+				"eid": "not yet",
+				"fitr": "not yet",
+				"nights": "0"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 27,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "fitr",
+			"tasks": {},
+			"trust": 45
+		},
+		"y10_masjid__eid_morning__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Sunday 1 Shawwal",
+			"day": 60,
+			"eid_al_fitr": {
+				"eid": "not yet",
+				"fitr": "not yet",
+				"nights": "2"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 400,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 30,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"y11_eid__the_prayer__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Sunday 1 Shawwal",
+			"day": 60,
+			"eid_al_fitr": {
+				"eid": "prayed",
+				"fitr": "not yet",
+				"nights": "2"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 400,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 30,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "eid",
+			"tasks": {},
+			"trust": 45
+		},
+		"y12_spice__eid_mubarak_line__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Sunday 1 Shawwal",
+			"day": 60,
+			"eid_al_fitr": {
+				"eid": "prayed",
+				"fitr": "not yet",
+				"nights": "2"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 30,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"y13_prayers__end_of_ramadan_record__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Sunday 1 Shawwal",
+			"day": 60,
+			"eid_al_fitr": {
+				"eid": "prayed",
+				"fitr": "not yet",
+				"nights": "2"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 30,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "all_prayers",
+			"tasks": {},
+			"trust": 45
+		},
+		"y14_masjid__2_shawwal_none__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Monday 2 Shawwal",
+			"day": 61,
+			"eid_al_fitr": {
+				"eid": "prayed",
+				"fitr": "not yet",
+				"nights": "2"
+			},
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 400,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 30,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		}
+	},
+	"timestamp_utc": "2026-11-11T18:33:45Z"
+}
