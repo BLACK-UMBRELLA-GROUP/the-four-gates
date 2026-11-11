@@ -79,6 +79,10 @@ func reputation_lines() -> Array:
 	return lines
 
 
+func has_public_school_payment() -> bool:
+	return children_in_school > 0 and _public_school
+
+
 func counters() -> String:
 	var qurans := str(data.panel.counter).format({
 		"n": Foundations.format_count(qurans_given),

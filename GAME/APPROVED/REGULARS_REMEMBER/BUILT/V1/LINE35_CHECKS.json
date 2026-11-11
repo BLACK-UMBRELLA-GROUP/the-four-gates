@@ -1,0 +1,1638 @@
+{
+	"checks": [
+		{
+			"description": "runtime dialogue matches LOCK 28 V1 byte for byte",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records loan_riba",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm01_rashid__thirty_six_for_thirty",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Rashid",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Rashid",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm01_rashid__thirty_six_for_thirty",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Rashid nods and holds up a pinch of cumin for you to smell.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Thirty-six for thirty. I have not forgotten.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm01_rashid__thirty_six_for_thirty__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm01_rashid__thirty_six_for_thirty__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records loan_demand",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm02_rashid__still_owe_mansur",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Rashid",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Rashid",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm02_rashid__still_owe_mansur",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Rashid nods and holds up a pinch of cumin for you to smell.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “I still owe Mansur because of you.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm02_rashid__still_owe_mansur__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm02_rashid__still_owe_mansur__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records loan_forgive",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records dice_seen",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm03_rashid__dice_before_kindness",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Rashid",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Rashid",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm03_rashid__dice_before_kindness",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Rashid nods and holds up a pinch of cumin for you to smell.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “They say you dice behind the blue cloth. Is that where my customers' coins go?”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm03_rashid__dice_before_kindness__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm03_rashid__dice_before_kindness__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records loan_forgive",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm04_rashid__ten_coins_let_go",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Rashid",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Rashid",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm04_rashid__ten_coins_let_go",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Rashid nods and holds up a pinch of cumin for you to smell.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Ten coins you let go. I tell everyone who buys pepper.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm04_rashid__ten_coins_let_go__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm04_rashid__ten_coins_let_go__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records loan_wait",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm05_rashid__you_waited",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Rashid",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Rashid",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm05_rashid__you_waited",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Rashid nods and holds up a pinch of cumin for you to smell.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “You waited for me. If you ever need time, I will wait for you.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm05_rashid__you_waited__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm05_rashid__you_waited__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records fountain_named",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records jars_seen",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm06_salma__the_jars",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Salma",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Salma",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm06_salma__the_jars",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Salma wipes flour from her hands and smiles.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “I saw the jars at the quay at night. I said nothing. Others will.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm06_salma__the_jars__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm06_salma__the_jars__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records feeds",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records fountain_named",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm07_salma__your_fountain",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Salma",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Salma",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm07_salma__your_fountain",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Salma wipes flour from her hands and smiles.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “My children drink from your fountain every morning.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm07_salma__your_fountain__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm07_salma__your_fountain__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records feeds",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm08_salma__your_bread",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Salma",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Salma",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm08_salma__your_bread",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Salma wipes flour from her hands and smiles.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Half this street has eaten your bread. They know who paid.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm08_salma__your_bread__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm08_salma__your_bread__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records fountain_named",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records school",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm09_layla__faris_slate",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Layla",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Layla",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm09_layla__faris_slate",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Layla looks up and studies the cloth you are wearing.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Still in your foreign clothes? People will keep calling you the foreigner.”",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Faris showed me his slate. He can write his name now.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm09_layla__faris_slate__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm09_layla__faris_slate__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records fountain_named",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm10_layla__the_fountain",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Layla",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Layla",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm10_layla__the_fountain",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Layla looks up and studies the cloth you are wearing.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Still in your foreign clothes? People will keep calling you the foreigner.”",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “I wash my threads at your fountain. The colours have never been brighter.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm10_layla__the_fountain__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm10_layla__the_fountain__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records jars_seen",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm11_jamal__qasims_boat",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Jamal",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Jamal",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm11_jamal__qasims_boat",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Jamal lifts a hand to you between orders.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Qasim's boat ties up at my quay at night. I know what it carries, and who carries it.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm11_jamal__qasims_boat__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm11_jamal__qasims_boat__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records umrah_jamal",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm12_jamal__because_of_you",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Jamal",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Jamal",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm12_jamal__because_of_you",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Jamal lifts a hand to you between orders.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “I saw the Kaaba. Because of you. I will never forget it.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm12_jamal__because_of_you__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm12_jamal__because_of_you__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records umrah_jamal_secret",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm13_jamal__allah_knows_who",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Jamal",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Jamal",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm13_jamal__allah_knows_who",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Jamal lifts a hand to you between orders.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Someone sent me to Makkah. Allah knows who. I pray for them every night.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm13_jamal__allah_knows_who__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm13_jamal__allah_knows_who__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records name_hasib",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records umrah_musa",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm14_musa__then_the_kaaba",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Old Musa",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Old Musa",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm14_musa__then_the_kaaba",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Old Musa makes room for you beside the scales.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Come, I will show you how the scales tell the truth.”",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Fifty years at the scales, and then the Kaaba. I pray for you every night.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm14_musa__then_the_kaaba__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm14_musa__then_the_kaaba__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records name_hasib",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records umrah_musa_secret",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm15_musa__someone_paid",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Old Musa",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Old Musa",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm15_musa__someone_paid",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Old Musa makes room for you beside the scales.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Come, I will show you how the scales tell the truth.”",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Someone paid for my Umrah. I will never know who. Allah knows.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm15_musa__someone_paid__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm15_musa__someone_paid__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "earlier gameplay records name_hasib",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm16_musa__al_hasib",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Old Musa",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Old Musa",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm16_musa__al_hasib",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Old Musa makes room for you beside the scales.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Come, I will show you how the scales tell the truth.”",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “You read the word on my beam. Al-Hasib. Then you understand my work.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm16_musa__al_hasib__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm16_musa__al_hasib__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "fair arrival and the Idris meeting give the gameplay fixture",
+			"passed": true
+		},
+		{
+			"description": "no memory event is staged",
+			"passed": true
+		},
+		{
+			"description": "live market at the witness's place on Thursday at 10:00: rm17_layla__no_memory_yet",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Talk to Layla",
+			"passed": true
+		},
+		{
+			"description": "the actual Talk button opens Layla",
+			"passed": true
+		},
+		{
+			"description": "exact tier, prior fact and at most one memory in order: rm17_layla__no_memory_yet",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "existing button fits below the dialogue: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: Layla looks up and studies the cloth you are wearing.",
+			"passed": true
+		},
+		{
+			"description": "visible dialogue fits: “Still in your foreign clothes? People will keep calling you the foreigner.”",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: rm17_layla__no_memory_yet__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: rm17_layla__no_memory_yet__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the witness's place",
+			"passed": true
+		},
+		{
+			"description": "all 17 approved states have native captures",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Fair arrival and the Idris meeting precede each case. Passive time is paused. The player is positioned at the speaker's live marker at 10:00 on Thursday day 36, after public or anonymous pilgrims can return. Wallet and trust are staged at 198 and 45 to match the masters.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport. Production Talk buttons are clicked through viewport-local input. Earlier gameplay methods create each independent history.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "rm01_rashid__thirty_six_for_thirty__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm02_rashid__still_owe_mansur__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm03_rashid__dice_before_kindness__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm04_rashid__ten_coins_let_go__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm05_rashid__you_waited__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm06_salma__the_jars__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm07_salma__your_fountain__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm08_salma__your_bread__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm09_layla__faris_slate__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm10_layla__the_fountain__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm11_jamal__qasims_boat__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm12_jamal__because_of_you__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm13_jamal__allah_knows_who__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm14_musa__then_the_kaaba__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm15_musa__someone_paid__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm16_musa__al_hasib__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "rm17_layla__no_memory_yet__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"rm01_rashid__thirty_six_for_thirty__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"loan_riba"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "talk",
+			"speaker": "rashid",
+			"story_lines": [
+				"Rashid nods and holds up a pinch of cumin for you to smell.",
+				"“Thirty-six for thirty. I have not forgotten.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm02_rashid__still_owe_mansur__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"loan_demand"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "talk",
+			"speaker": "rashid",
+			"story_lines": [
+				"Rashid nods and holds up a pinch of cumin for you to smell.",
+				"“I still owe Mansur because of you.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm03_rashid__dice_before_kindness__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"dice_seen",
+				"loan_forgive"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "talk",
+			"speaker": "rashid",
+			"story_lines": [
+				"Rashid nods and holds up a pinch of cumin for you to smell.",
+				"“They say you dice behind the blue cloth. Is that where my customers' coins go?”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm04_rashid__ten_coins_let_go__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"loan_forgive"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "talk",
+			"speaker": "rashid",
+			"story_lines": [
+				"Rashid nods and holds up a pinch of cumin for you to smell.",
+				"“Ten coins you let go. I tell everyone who buys pepper.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm05_rashid__you_waited__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"loan_wait"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "talk",
+			"speaker": "rashid",
+			"story_lines": [
+				"Rashid nods and holds up a pinch of cumin for you to smell.",
+				"“You waited for me. If you ever need time, I will wait for you.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm06_salma__the_jars__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"jars_seen",
+				"fountain_named"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "talk",
+			"speaker": "salma",
+			"story_lines": [
+				"Salma wipes flour from her hands and smiles.",
+				"“I saw the jars at the quay at night. I said nothing. Others will.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm07_salma__your_fountain__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"fountain_named",
+				"feeds"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "talk",
+			"speaker": "salma",
+			"story_lines": [
+				"Salma wipes flour from her hands and smiles.",
+				"“My children drink from your fountain every morning.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm08_salma__your_bread__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"feeds"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "talk",
+			"speaker": "salma",
+			"story_lines": [
+				"Salma wipes flour from her hands and smiles.",
+				"“Half this street has eaten your bread. They know who paid.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm09_layla__faris_slate__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"school",
+				"fountain_named"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "talk",
+			"speaker": "layla",
+			"story_lines": [
+				"Layla looks up and studies the cloth you are wearing.",
+				"“Still in your foreign clothes? People will keep calling you the foreigner.”",
+				"“Faris showed me his slate. He can write his name now.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm10_layla__the_fountain__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"fountain_named"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "talk",
+			"speaker": "layla",
+			"story_lines": [
+				"Layla looks up and studies the cloth you are wearing.",
+				"“Still in your foreign clothes? People will keep calling you the foreigner.”",
+				"“I wash my threads at your fountain. The colours have never been brighter.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm11_jamal__qasims_boat__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"jars_seen"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "talk",
+			"speaker": "jamal",
+			"story_lines": [
+				"Jamal lifts a hand to you between orders.",
+				"“Qasim's boat ties up at my quay at night. I know what it carries, and who carries it.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm12_jamal__because_of_you__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"umrah_jamal"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "talk",
+			"speaker": "jamal",
+			"story_lines": [
+				"Jamal lifts a hand to you between orders.",
+				"“I saw the Kaaba. Because of you. I will never forget it.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm13_jamal__allah_knows_who__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"umrah_jamal_secret"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "talk",
+			"speaker": "jamal",
+			"story_lines": [
+				"Jamal lifts a hand to you between orders.",
+				"“Someone sent me to Makkah. Allah knows who. I pray for them every night.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm14_musa__then_the_kaaba__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"umrah_musa",
+				"name_hasib"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "scales",
+			"player": [
+				104.0,
+				0.0,
+				44.0
+			],
+			"screen": "talk",
+			"speaker": "musa",
+			"story_lines": [
+				"Old Musa makes room for you beside the scales.",
+				"“Come, I will show you how the scales tell the truth.”",
+				"“Fifty years at the scales, and then the Kaaba. I pray for you every night.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm15_musa__someone_paid__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"umrah_musa_secret",
+				"name_hasib"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "scales",
+			"player": [
+				104.0,
+				0.0,
+				44.0
+			],
+			"screen": "talk",
+			"speaker": "musa",
+			"story_lines": [
+				"Old Musa makes room for you beside the scales.",
+				"“Come, I will show you how the scales tell the truth.”",
+				"“Someone paid for my Umrah. I will never know who. Allah knows.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm16_musa__al_hasib__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				"name_hasib"
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "scales",
+			"player": [
+				104.0,
+				0.0,
+				44.0
+			],
+			"screen": "talk",
+			"speaker": "musa",
+			"story_lines": [
+				"Old Musa makes room for you beside the scales.",
+				"“Come, I will show you how the scales tell the truth.”",
+				"“You read the word on my beam. Al-Hasib. Then you understand my work.”"
+			],
+			"tasks": {},
+			"trust": 45
+		},
+		"rm17_layla__no_memory_yet__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 36,
+			"events": [
+				""
+			],
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "talk",
+			"speaker": "layla",
+			"story_lines": [
+				"Layla looks up and studies the cloth you are wearing.",
+				"“Still in your foreign clothes? People will keep calling you the foreigner.”"
+			],
+			"tasks": {},
+			"trust": 45
+		}
+	},
+	"timestamp_utc": "2026-11-11T20:21:44Z"
+}

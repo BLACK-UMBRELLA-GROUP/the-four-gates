@@ -83,6 +83,8 @@ LOCK 26 adds **Read the calligraphy** at the Masjid, Task board and Market scale
 The three Names have a private count out of 99. Learning a Name leaves coins, trust and reputation unchanged.
 LOCK 27 sends Rashid, Jamal and Old Musa to the Masjid during Dhuhr and Asr. Their places say where
 they are, and the Masjid lists who's there. The stall and loan controls return when Rashid comes back.
+LOCK 28 gives Salma, Rashid, Layla, Jamal and Old Musa one memory in their talk panels when they
+know about something you did. A pilgrim you sent in secret can thank an unnamed giver after returning.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

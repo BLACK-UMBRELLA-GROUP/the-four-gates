@@ -1,0 +1,860 @@
+{
+  "line": 35,
+  "lock": "LOCK 28 V1",
+  "brief": "DOC-TFG-0095",
+  "tested_base_commit_sha": "9d6fbe537abbfb7fb5675779bca2d43e1ec7ea9e",
+  "capture_source": "Tested base plus the line 35 changes in the commit containing this receipt. The source hashes below are for the tested files.",
+  "godot_version": "4.7.2-stable (official)",
+  "godot_binary_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T20:21:44Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Native Godot viewport. Production Talk buttons are clicked through viewport-local input. Earlier gameplay methods create each independent history.",
+  "fixture": "Fair arrival and the Idris meeting precede each case. Passive time is paused. The player is positioned at the speaker's live marker at 10:00 on Thursday day 36, after public or anonymous pilgrims can return. Wallet and trust are staged at 198 and 45 to match the masters.",
+  "design_clarification": "The Nov 11 setup clarification was read from the designer's local spec edit. The 45-trust masters and LOCK 6 use the friendly line. The spec's wary label describes the setup incorrectly. The existing threshold and depicted copy are preserved.",
+  "headless_checks_passed": 5180,
+  "native_checks_passed": 270,
+  "native_approval_prompts": 0,
+  "approved_inputs": [
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BRIEFS/BUILD_BRIEF_2026-11-09_REGULARS_REMEMBER.md",
+      "bytes": 2240,
+      "sha256": "fbf5eb031cf2044c0cbf29a982ab7174c72e305c2458d491c0652fd5c0c90673"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/RECORD/LOCK_RECORD.md",
+      "bytes": 822,
+      "sha256": "61ac15cb8168200805b8d28c7057f0896c7806f51ba457ee96831dd67d072835"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/RECORD/REGULARS_REMEMBER_SPEC_CURRENT_VERSION_V1.md",
+      "bytes": 4262,
+      "sha256": "07bbb82d318906389e92830cb8d6b5bd02763ecdb926b4cf53754a3d18dbecb0"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/RECORD/regulars_remember_data_V1.json",
+      "bytes": 2004,
+      "sha256": "6da5b91cf38de39858651d4a8694a7b827a6c17ee3dffa66b03c8e4a77a200f2"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm01_rashid__thirty_six_for_thirty.png",
+      "bytes": 326523,
+      "sha256": "809b54ddb0ae0df7678809941ca94a362b2b568af6129945a05a4da8e2e348bf"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm02_rashid__still_owe_mansur.png",
+      "bytes": 327225,
+      "sha256": "5c39cdf010ab596b6d916d8e18efce05a78f20d3ffc942c435b7cbc3c8c317f8"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm03_rashid__dice_before_kindness.png",
+      "bytes": 329428,
+      "sha256": "2039e5765e775c692ee2587a1d85c4497ba70d99c8a7d967b5236558abfca64f"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm04_rashid__ten_coins_let_go.png",
+      "bytes": 328456,
+      "sha256": "4a1ecbfcf35c9c0699a7bb5d805683015bddb36c68d5dbfec9c113a4d973b747"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm05_rashid__you_waited.png",
+      "bytes": 327785,
+      "sha256": "269ea817b911b2545008fc70e0cb6a29d2aa58009c9c503d685d45d2b2971a46"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm06_salma__the_jars.png",
+      "bytes": 325595,
+      "sha256": "7ad96387b1718c341631070a00841a1ae31d014810fb4f4d3032be6e156630d9"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm07_salma__your_fountain.png",
+      "bytes": 324294,
+      "sha256": "3a58424af6f40db78a1df016252fe3a1d1a79d5759d0b89d6bd10d163ca62077"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm08_salma__your_bread.png",
+      "bytes": 325599,
+      "sha256": "839420b313d3cdf7ead9256b7fff56d192bb022f827f67029ad5879359f99bfe"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm09_layla__faris_slate.png",
+      "bytes": 273598,
+      "sha256": "2fe732f665fc473f49b946e28bdef50113dda2082fc72390e288e3de231b3a03"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm10_layla__the_fountain.png",
+      "bytes": 272661,
+      "sha256": "898ded78366d9cc4ee250595898585009e429b01d3df5cd44f75cc8a108b2869"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm11_jamal__qasims_boat.png",
+      "bytes": 132536,
+      "sha256": "e550dbc2143e975493a6eeeccb497fdddfc292e0c176454c4abfc488d47018b4"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm12_jamal__because_of_you.png",
+      "bytes": 131836,
+      "sha256": "ba20e70c19811aebdf6b97c21e0f6935f5ccd68e1c22fdc428bbe455c13c830a"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm13_jamal__allah_knows_who.png",
+      "bytes": 133155,
+      "sha256": "789f6001396aecd5954dd71b7f01ce72d321dbc4fac24701d1b0f5e52a3b55ca"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm14_musa__then_the_kaaba.png",
+      "bytes": 328719,
+      "sha256": "54d8eeee0cb82aa3e41a86f15f767f25652902a617d9ae97e7fceacc5bc8d018"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm15_musa__someone_paid.png",
+      "bytes": 324314,
+      "sha256": "2e5759a3bed55877abd138c518700bd5edc861011d36e794bca83c069166c1cd"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm16_musa__al_hasib.png",
+      "bytes": 323713,
+      "sha256": "14b097707d4a8815a7def85599ce9709593f594e8f280621e8b12c3499358a2a"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/MASTERS/rm17_layla__no_memory_yet.png",
+      "bytes": 280169,
+      "sha256": "d1e070588a95a9787185d2d94ff1fbe5bc60cd36f5141f3c2f1ad0e4e74810e4"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "SOURCE/data/calendar.json",
+      "bytes": 1552,
+      "sha256": "f3916e3a791113ae682f768442193ab2b0349fde6c81a8305c41094fa4407647"
+    },
+    {
+      "path": "SOURCE/data/chapter1.json",
+      "bytes": 7699,
+      "sha256": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0"
+    },
+    {
+      "path": "SOURCE/data/clothes.json",
+      "bytes": 2888,
+      "sha256": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e"
+    },
+    {
+      "path": "SOURCE/data/dice_house.json",
+      "bytes": 1460,
+      "sha256": "d769f3698748af05e5498e13de397a701c0aebf740eae006f4547e2b53e21c80"
+    },
+    {
+      "path": "SOURCE/data/dry_fountain.json",
+      "bytes": 1373,
+      "sha256": "1eeaf232e9f43cbd9ddc411dae127dc34a0a6f89c6666819e416cf25ef79117f"
+    },
+    {
+      "path": "SOURCE/data/eid_al_adha.json",
+      "bytes": 2647,
+      "sha256": "52ace3b3d275173235220eb7ebfde7b2eb15cc4f15adb73520b9ec5b3018d4c3"
+    },
+    {
+      "path": "SOURCE/data/eid_al_fitr.json",
+      "bytes": 1665,
+      "sha256": "28dc157a37e0fb758773a320e745330673194bbf04707cb5f48293948ff51167"
+    },
+    {
+      "path": "SOURCE/data/feeding.json",
+      "bytes": 1470,
+      "sha256": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7"
+    },
+    {
+      "path": "SOURCE/data/foundations.json",
+      "bytes": 11978,
+      "sha256": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf"
+    },
+    {
+      "path": "SOURCE/data/harm_in_the_road.json",
+      "bytes": 1052,
+      "sha256": "26dc6570e4646c6487c01cba4cfec9d7f9873735445cfffcb68736b1d4c945a1"
+    },
+    {
+      "path": "SOURCE/data/identity.json",
+      "bytes": 14838,
+      "sha256": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647"
+    },
+    {
+      "path": "SOURCE/data/idris_has_heard.json",
+      "bytes": 742,
+      "sha256": "392e1d296199d473dca7e3f8a166a91d9e28d0f2c23461203642483d3a3a527e"
+    },
+    {
+      "path": "SOURCE/data/iftar_giving.json",
+      "bytes": 1573,
+      "sha256": "2b6c25508849062c9af59d4250a8658fd4b04f312c344e7adfdbbf2f7641beea"
+    },
+    {
+      "path": "SOURCE/data/jabirs_goats.json",
+      "bytes": 1857,
+      "sha256": "dd62e7b0f917e8db3c30c3b30435bb3098496598344252ffd8e98808f0ba2d99"
+    },
+    {
+      "path": "SOURCE/data/market_day.json",
+      "bytes": 1071,
+      "sha256": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05"
+    },
+    {
+      "path": "SOURCE/data/market_stall.json",
+      "bytes": 2593,
+      "sha256": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604"
+    },
+    {
+      "path": "SOURCE/data/names_of_allah.json",
+      "bytes": 1475,
+      "sha256": "c51268c4c1cd6fe55f847e1bdae094fceeda9205cd32bcce77f649530fbedea5"
+    },
+    {
+      "path": "SOURCE/data/pilgrims.json",
+      "bytes": 2452,
+      "sha256": "940e40446d0c056b26c2852df7833b310f03b1fda78f348fac68929682b97d32"
+    },
+    {
+      "path": "SOURCE/data/prayer_record.json",
+      "bytes": 1009,
+      "sha256": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9"
+    },
+    {
+      "path": "SOURCE/data/qasims_jars.json",
+      "bytes": 1352,
+      "sha256": "c7a2c0a56d676ef6606769f94075ec537707875eecf8767d8dac43fda2c34bfb"
+    },
+    {
+      "path": "SOURCE/data/qurans_school.json",
+      "bytes": 1803,
+      "sha256": "4ac1114a3fae49b1989a629581e7679d2e19d71e1a92853cfa7557f7c3755cc5"
+    },
+    {
+      "path": "SOURCE/data/ramadan.json",
+      "bytes": 1181,
+      "sha256": "e2870da793e0923ac619736e2d60d3ca2c927bdae59f7ccb7c37439333e3e4dc"
+    },
+    {
+      "path": "SOURCE/data/rashids_loan.json",
+      "bytes": 2776,
+      "sha256": "89d162d30ea41ef7c65d2de0bf07ea3fae81d02e4b424c1933991a6ceba2893f"
+    },
+    {
+      "path": "SOURCE/data/regulars_at_prayer.json",
+      "bytes": 560,
+      "sha256": "7fa321659c51119e59e54b41440219848602dedfcfa2de6e67567e5ace316160"
+    },
+    {
+      "path": "SOURCE/data/regulars_remember.json",
+      "bytes": 2004,
+      "sha256": "6da5b91cf38de39858651d4a8694a7b827a6c17ee3dffa66b03c8e4a77a200f2"
+    },
+    {
+      "path": "SOURCE/data/sealed_purse.json",
+      "bytes": 1902,
+      "sha256": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a"
+    },
+    {
+      "path": "SOURCE/data/talking.json",
+      "bytes": 3854,
+      "sha256": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4"
+    },
+    {
+      "path": "SOURCE/data/zakat.json",
+      "bytes": 1628,
+      "sha256": "29b93397edf4dc940a803f94685e943b27f6930c9b20d0410119a2ccb9263984"
+    },
+    {
+      "path": "SOURCE/game/bread_grab.gd",
+      "bytes": 1345,
+      "sha256": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468"
+    },
+    {
+      "path": "SOURCE/game/dice_house.gd",
+      "bytes": 2080,
+      "sha256": "17513513173a8d6729b9600baa2ec0999571716df233128f1a44cb249e88e0d5"
+    },
+    {
+      "path": "SOURCE/game/dry_fountain.gd",
+      "bytes": 1322,
+      "sha256": "f49d81661ec0af2495bffe9e102cafc5c9545149a5f1cf87bed6f2bd10162e95"
+    },
+    {
+      "path": "SOURCE/game/eid_al_adha.gd",
+      "bytes": 4783,
+      "sha256": "97ad5bd46318024f0a20a14e923459cd8477b28679ad28061a6e20c62a03cf07"
+    },
+    {
+      "path": "SOURCE/game/eid_al_fitr.gd",
+      "bytes": 3225,
+      "sha256": "ada3689c7bde66a6c778b882083b1cd2e25fd549e336944be3cde0342e9522b2"
+    },
+    {
+      "path": "SOURCE/game/feeding.gd",
+      "bytes": 2156,
+      "sha256": "545a2ffd4491db4fed2da1020a2168bf285db9e9eef57aebba01547fd59d113f"
+    },
+    {
+      "path": "SOURCE/game/foundations.gd",
+      "bytes": 8105,
+      "sha256": "3e53c6ff1af71827808e294376e9a8d4e3e6b75158e96b806da81a148faa3ae8"
+    },
+    {
+      "path": "SOURCE/game/harm_in_the_road.gd",
+      "bytes": 1017,
+      "sha256": "dd288040b79c39c00470cd4b6ce5ab23d8d49f11c9f9ac6e09e4875019f5c50e"
+    },
+    {
+      "path": "SOURCE/game/hijri_calendar.gd",
+      "bytes": 2169,
+      "sha256": "cf5518070e1b8d87d8965babd287f9e4242753f622dbb098327e7acb7abd9155"
+    },
+    {
+      "path": "SOURCE/game/idris_recovery.gd",
+      "bytes": 1019,
+      "sha256": "6cb5d86d23ef6fab7fe1579c0bc80ee270008627f2493b5b33fab0dd4fa0635e"
+    },
+    {
+      "path": "SOURCE/game/iftar_giving.gd",
+      "bytes": 452,
+      "sha256": "6da651e0e374253f746b47565c61cd26451c1f6de24d2e2ae04ba7a314e8fda3"
+    },
+    {
+      "path": "SOURCE/game/jabirs_goats.gd",
+      "bytes": 1858,
+      "sha256": "5cae78452ff85fd392a85378fa044394810755b31f76dfc980a6c5c95c19f1d6"
+    },
+    {
+      "path": "SOURCE/game/lesson_canvas.gd",
+      "bytes": 1218,
+      "sha256": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c"
+    },
+    {
+      "path": "SOURCE/game/map_canvas.gd",
+      "bytes": 13421,
+      "sha256": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba"
+    },
+    {
+      "path": "SOURCE/game/market_day.gd",
+      "bytes": 1954,
+      "sha256": "51fb568d91dc9988ec384d88e187524d5641e910ecbec98232b0935e3e8c2d00"
+    },
+    {
+      "path": "SOURCE/game/market_player.gd",
+      "bytes": 4286,
+      "sha256": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2"
+    },
+    {
+      "path": "SOURCE/game/market_stall.gd",
+      "bytes": 4413,
+      "sha256": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56"
+    },
+    {
+      "path": "SOURCE/game/market_ui.gd",
+      "bytes": 120248,
+      "sha256": "6d1229770df3523cd95e916017f5c9f929f4b8fa9b8d362061ce144c9f234f0e"
+    },
+    {
+      "path": "SOURCE/game/market_world.gd",
+      "bytes": 16495,
+      "sha256": "ed830fb38da942b1f81b66c9dd4d734eb74dc84b555930d725303304afe217a8"
+    },
+    {
+      "path": "SOURCE/game/names_of_allah.gd",
+      "bytes": 802,
+      "sha256": "8d376ca58ec5e2ea1f2a8bb6709b2f6c66b05e697548b6be5fc4039428faab92"
+    },
+    {
+      "path": "SOURCE/game/open_purse.gd",
+      "bytes": 3329,
+      "sha256": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9"
+    },
+    {
+      "path": "SOURCE/game/pilgrims.gd",
+      "bytes": 3344,
+      "sha256": "cbcebb7fcb23c0edf2e21e95cb4ff614a69a61a6a3cbe9793cd0c3a0f5271dea"
+    },
+    {
+      "path": "SOURCE/game/prayer_clock.gd",
+      "bytes": 13098,
+      "sha256": "39307557861b06bf10308763c469a40508564d00e6210bf718f4ade488d780c3"
+    },
+    {
+      "path": "SOURCE/game/qasims_jars.gd",
+      "bytes": 1521,
+      "sha256": "b136d4f3c187fc775c811e010de6c848e7ebc00b51b8464e7f77c0b8f1f40c6a"
+    },
+    {
+      "path": "SOURCE/game/qurans_school.gd",
+      "bytes": 2673,
+      "sha256": "7fbde7dcbfcff6b559cc364d83627cdb9a2f3a6db14807708078b0dc3f89789a"
+    },
+    {
+      "path": "SOURCE/game/ramadan.gd",
+      "bytes": 2736,
+      "sha256": "b6b09c71b01b8f070bab577d9374cbe7ffee2e906bc8f7b942c17cb270e47a18"
+    },
+    {
+      "path": "SOURCE/game/rashids_loan.gd",
+      "bytes": 2586,
+      "sha256": "0ecd01729c296de41f7b4f9ce3404b88386fa6bb19d2d97b8959671d9836074a"
+    },
+    {
+      "path": "SOURCE/game/river_market.gd",
+      "bytes": 46803,
+      "sha256": "9408841db36311aab33420bdf86650dd2e668f0f4d8c2e6e0ed09e617f4cfd42"
+    },
+    {
+      "path": "SOURCE/game/river_market.tscn",
+      "bytes": 171,
+      "sha256": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe"
+    },
+    {
+      "path": "SOURCE/game/sealed_purse.gd",
+      "bytes": 1725,
+      "sha256": "e3b46ae422a91cd824057e43881c80bb254dac24da5031163ac093d491bef7ab"
+    },
+    {
+      "path": "SOURCE/game/talking.gd",
+      "bytes": 2823,
+      "sha256": "ad0c1490a862e2dc301ec93f91d276b93b915127f8a1a2c5ae53727b767467d1"
+    },
+    {
+      "path": "SOURCE/game/task_progress.gd",
+      "bytes": 3214,
+      "sha256": "0777fd340c6c2f0a8ed3ed724307e07fc2fe8228d1539d3c8d6f12602654b777"
+    },
+    {
+      "path": "SOURCE/game/zakat.gd",
+      "bytes": 3028,
+      "sha256": "9a3e1bdad4eff6b47a5af62324d7f17052ba66f5db04e278159925870656ca7d"
+    },
+    {
+      "path": "SOURCE/project.godot",
+      "bytes": 1690,
+      "sha256": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45"
+    },
+    {
+      "path": "SOURCE/tests/capture_identity.gd",
+      "bytes": 10390,
+      "sha256": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32"
+    },
+    {
+      "path": "SOURCE/tests/capture_regulars_remember.gd",
+      "bytes": 7872,
+      "sha256": "f788b9cfa3d01f51db6523e723964d7511bab3435d04bf54ad03d3e12bcf9769"
+    },
+    {
+      "path": "SOURCE/tests/capture_tasks.gd",
+      "bytes": 11310,
+      "sha256": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003"
+    },
+    {
+      "path": "SOURCE/tests/create_comparisons.gd",
+      "bytes": 10333,
+      "sha256": "56b78d6d69fcddf6c2a4d255250897cb340d51b51a545f9eb393d7c2450ae01e"
+    },
+    {
+      "path": "SOURCE/tests/regulars_remember_fixture.gd",
+      "bytes": 2951,
+      "sha256": "9a28a9707bf312a3a5a36e5228a698d814ffbc707ff435bda51c3bcfdb318e2c"
+    },
+    {
+      "path": "SOURCE/tests/run_tests.gd",
+      "bytes": 293472,
+      "sha256": "25ece62fb1977d4e5e8d1c2663867642538667ff927f15578c4fff0bf95b807b"
+    }
+  ],
+  "compression": {
+    "method": "Lossless PNG optimization. Reopened all final images and compared their dimensions and decoded RGBA pixels against the originals, and each comparison half against its locked master or native capture.",
+    "original_image_bytes": 17773010,
+    "final_image_bytes": 16540765
+  },
+  "visual_differences": [
+    "All panels use the existing Godot fonts, panel edges and button widths. The slightly wider greeting shifts the next two buttons right. Every locked paragraph stays on a single line. rm17 has no memory row.",
+    "All captures use Thursday 10:00 with 198 coins and trust 45, as pictured. Thursday day 36 shows 7 Ramadan in the live HUD instead of the masters' 1 Sha'ban and has a wider date card.",
+    "The native camera shows existing placeholder geometry, capsules and labels. rm01–05 show Spice Row and Rashid, rm06–08 the Task Board and Salma, rm09/10/17 Weaver's Lane and Layla, and rm14–16 Market Scales and Old Musa. rm11–13 show Jamal and a sunlit quay, while the masters show a moonlit quay. rm12's quay shadows differ slightly from rm11 and rm13."
+  ],
+  "evidence": [
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm01_rashid__thirty_six_for_thirty__build.png",
+      "bytes": 134358,
+      "sha256": "b7a1120968c4904399699effa44f88fe3a9575c74f434feb06ac662f6648bc66",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 136987,
+      "decoded_rgba_sha256": "677a72043b94f84c75c83f67ebedce850be6676633fa4bf8f83d15b25bfc7bf9"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm01_rashid__thirty_six_for_thirty__master_beside_build.png",
+      "bytes": 871098,
+      "sha256": "f1312a55bb4a04148bcbe24c641d2d1f682233f64015fa383f3432e08421f5bc",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 946792,
+      "decoded_rgba_sha256": "34e41cf7975d6619547cd064f6ef99a886fa16cc80c87b1e65eda08027c8cdda"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm02_rashid__still_owe_mansur__build.png",
+      "bytes": 133131,
+      "sha256": "21e968214c9be1fe94b19bb67b689d0c8a9cd4b19e5cbd1b40ef1621c42b4ecb",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 136083,
+      "decoded_rgba_sha256": "61308aaa319749e5448a5211061911cadc37d9ae5202b4253efc4e90021cee14"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm02_rashid__still_owe_mansur__master_beside_build.png",
+      "bytes": 873007,
+      "sha256": "ed6a379f7e040d6faf7140c86e196d092b6e471f7b693c0e529ce369f15f84c7",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 946577,
+      "decoded_rgba_sha256": "2167a96b6f9ac1f35d6b1b78cbbd0dcb9ae7e32518d795db2c62907980d87502"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm03_rashid__dice_before_kindness__build.png",
+      "bytes": 137686,
+      "sha256": "2c5e745fd30ce154f15d5f1559182aee8b4c630f63718c7a9715a9003cfd5527",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 140494,
+      "decoded_rgba_sha256": "0358ae67bc28b393dccc194537cada96d21bfd509d0f5477ddedc68b07935b50"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm03_rashid__dice_before_kindness__master_beside_build.png",
+      "bytes": 884099,
+      "sha256": "69e647c03c84e45a136d36c37c41800bbbd7be8458a6af8a2682be482068adb7",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 958934,
+      "decoded_rgba_sha256": "cfb9d356c96db76b2fa5d184815dc4ae95fe2b6cf78485bab824df59d05e5e96"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm04_rashid__ten_coins_let_go__build.png",
+      "bytes": 133433,
+      "sha256": "2cef367c48ca86076b0f677528142c98ae20aac3a0235dc826dd518653cf01d0",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 135643,
+      "decoded_rgba_sha256": "e5121e1ad0eb65ea6a82768b65b37ff678d9406a85341316aa9ad1a1faad220b"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm04_rashid__ten_coins_let_go__master_beside_build.png",
+      "bytes": 875897,
+      "sha256": "239cde733d75a709c28e5f39f4577038930dfda161fb989a55ac294b9baf6fa6",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 950667,
+      "decoded_rgba_sha256": "738e9b279d5739ce7262d0a2f872f4062f91189a74a9795f9d9bf0f6f6ee1d50"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm05_rashid__you_waited__build.png",
+      "bytes": 134185,
+      "sha256": "db0f6b246cc2af7ddb73cddb67da4f8af9e5485a8e898ef529f1222e981fd236",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 136247,
+      "decoded_rgba_sha256": "083f69a1862336b25a1b7d23bc28d8be9241c1700c0b35465da576eab9c0ca01"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm05_rashid__you_waited__master_beside_build.png",
+      "bytes": 872973,
+      "sha256": "151a859df347580ce19770f0a2ae90fdb05ec753ccbeb20c1de053d786d931ce",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 946107,
+      "decoded_rgba_sha256": "4cccc03bef6f018be06df1daedf73280ec3a45fb41813ab60cecce3ae01aa89d"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm06_salma__the_jars__build.png",
+      "bytes": 217449,
+      "sha256": "cceb67249906ab2cb4fccdf93414b04a9bc8594cc837ae615bbc15bcdcc75932",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 222360,
+      "decoded_rgba_sha256": "c44907846b17fae83610427044c4686865ecfaa0281eb101a3d7fe61722617aa"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm06_salma__the_jars__master_beside_build.png",
+      "bytes": 957555,
+      "sha256": "292977021c7096ffad9724a7826242d6cc0fab2bda4e9c26f239538d4dc18b57",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 1038599,
+      "decoded_rgba_sha256": "1917f0c0f0ec1b712dff454f6c39ba6df32a317d137fa6978843cb0097d703b6"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm07_salma__your_fountain__build.png",
+      "bytes": 204365,
+      "sha256": "fb71940cdab8b0e48854e9f019abd032fa28b0b9bfff01305fb1868dbcf51897",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 207486,
+      "decoded_rgba_sha256": "bc0e585037df3f0d541ff222a0a49c8e86e230aced9c107ba1c49866b9b8f8cf"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm07_salma__your_fountain__master_beside_build.png",
+      "bytes": 938780,
+      "sha256": "4b178efd5314bd5c79ae3e8345a1985b07804e9ba1c5696007d44ace05048f63",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 1018736,
+      "decoded_rgba_sha256": "07dfbb609b35103e2a922140a0343bc28e703a08d5c1968e6567fc99775086c7"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm08_salma__your_bread__build.png",
+      "bytes": 201218,
+      "sha256": "329ead881fb7f30f5fa47ab70c184e5fa8ace76515a43c88809305b7a2b99ffa",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 203526,
+      "decoded_rgba_sha256": "be3ed824210807945f07af63e1c103d1f3c143f35e2bfb9ac68ac5ca68d05d24"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm08_salma__your_bread__master_beside_build.png",
+      "bytes": 938376,
+      "sha256": "b53fc3d25170622f7c485ccb259e55b798b39f045a99192da56c7fd5e2ddb47a",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 1018320,
+      "decoded_rgba_sha256": "873ed4af7f5ed333a07d307189745cdf1c30e18b3bf67224acdbfb8eb16307a7"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm09_layla__faris_slate__build.png",
+      "bytes": 146872,
+      "sha256": "b3f3b0450cecb6d933959b6c6e04c7e7f095b187a2dd51bbebb00deda8f25400",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 149720,
+      "decoded_rgba_sha256": "5fc121571b4a6ffb192f4ae5317631978427dbcbea0145da686d951390049a2d"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm09_layla__faris_slate__master_beside_build.png",
+      "bytes": 761659,
+      "sha256": "e5851ef0c8f83478f7357b0b21f44c1888752489770ff7a66ef9299947480599",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 825659,
+      "decoded_rgba_sha256": "ccddccb6f987b71070914c53f5d2a5ff30cfdd5da5fe63431c8ea8edf8b8810e"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm10_layla__the_fountain__build.png",
+      "bytes": 146721,
+      "sha256": "ebce95bca0409d3da2fd67e70a897007d7e829feb8bceafde4ba5892bc1f92d3",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 149780,
+      "decoded_rgba_sha256": "adb79e0578b472eddadb2606684ccad8f5b8e32f4a9a0d6387c3ab991c561981"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm10_layla__the_fountain__master_beside_build.png",
+      "bytes": 764014,
+      "sha256": "990fa30c2db0c1c8f89872303fb9c74dc3e0c3c7d250a0326f4c0d2e9a6ff5a1",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 825967,
+      "decoded_rgba_sha256": "6370b2c6352fd4b478681cfd65a465c695fbf4458694d66403428bda3fbe1f77"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm11_jamal__qasims_boat__build.png",
+      "bytes": 204831,
+      "sha256": "7e19a87d0df07111410f0b8de3a0615ccbc87defce85fccce6b9ee311ab0f7c4",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 210335,
+      "decoded_rgba_sha256": "6355efefaeb28a0ff746c84db6eeaca146945753f339c19a151a67b75b9d2dc6"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm11_jamal__qasims_boat__master_beside_build.png",
+      "bytes": 492912,
+      "sha256": "f6be6fbe3ab52905887cee46d481b3a6293c2c7cbd2321e166bc25db976d8086",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 539703,
+      "decoded_rgba_sha256": "993e1d94c8762a1d6eae3962e78e4d8162e258dc270dcb7a957c40a5e4fa8531"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm12_jamal__because_of_you__build.png",
+      "bytes": 195468,
+      "sha256": "533f137a5d0f3ef07f226642ea393ace50d63724d45ba1d365a1aad8ec011c00",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 200279,
+      "decoded_rgba_sha256": "3f2677229245b6397cb442badd5b5cdda640723d3806c4708a2b864fe974893e"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm12_jamal__because_of_you__master_beside_build.png",
+      "bytes": 479681,
+      "sha256": "b2356528a2c85dca5a0e783e8fc8b530b5124b50daec6dc71207461d2f5c6192",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 523962,
+      "decoded_rgba_sha256": "39a5c364213fa9ce089e45b41732a35db2c5ffa4556b981b9ad6139d30c9358b"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm13_jamal__allah_knows_who__build.png",
+      "bytes": 195611,
+      "sha256": "d2faa80082ce1a919337d9a5fd65a6721154453056091671bf636225b7416ec6",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 200122,
+      "decoded_rgba_sha256": "81990e18aaf5924fc97487f6920a0c7b23ac668f774171caa8481327521566c7"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm13_jamal__allah_knows_who__master_beside_build.png",
+      "bytes": 481858,
+      "sha256": "d2acc7401cb91f2974376a94493cd4ff31d2d99801231e22e3a12a1e423f5199",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 526960,
+      "decoded_rgba_sha256": "6d83b800cfd7b28ab4823de0d2dbd0827b1b3d37e29e45605adc7c19a0b25f2f"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm14_musa__then_the_kaaba__build.png",
+      "bytes": 173286,
+      "sha256": "3d646f40231c818417f7b2256b8d087e78940123610dac60468e6a64392a8ef3",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 178017,
+      "decoded_rgba_sha256": "bc3afa4b9e616ed32ce9b77bbea36b0aecb0dfd16f51c090b6d81cdc4801ed4b"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm14_musa__then_the_kaaba__master_beside_build.png",
+      "bytes": 914803,
+      "sha256": "8b84ea9db2103aa598da168e4ec7232d4071cbcfaab027e92d937ad8a85d16b3",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 992106,
+      "decoded_rgba_sha256": "e71b0b26b00d1ad30963bd77f270a9d1e44e3f63773949283fad80258e034e76"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm15_musa__someone_paid__build.png",
+      "bytes": 170591,
+      "sha256": "1586da36770420ae0909f3af6c36d9531b4f787858b2da5485a1e6cd5647eb73",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 175231,
+      "decoded_rgba_sha256": "2e27858c8abce877ea5ee6e2befc1f93fb68b74a55d943d27121da86f705c9c6"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm15_musa__someone_paid__master_beside_build.png",
+      "bytes": 906458,
+      "sha256": "06c13fa6f4410db67ca0996df3367ab5ee00306557278bd0501c3dc1c99ba0bf",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 983148,
+      "decoded_rgba_sha256": "c196930d61759e349d0a1bc7adb88a2f73611b5e688248c12aa5c006d0cc679a"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm16_musa__al_hasib__build.png",
+      "bytes": 171556,
+      "sha256": "6eb22da00305e3ee809a053bf7a2e96a1da226d54b2c7300d3d87806487b4b21",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 176004,
+      "decoded_rgba_sha256": "4533d76cee1135429d892d9a57a55a7057fed6c8e54093a4764a5c998d3ea9cd"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm16_musa__al_hasib__master_beside_build.png",
+      "bytes": 905950,
+      "sha256": "e86f2768857eb8f3273838e85cf43cae59e7a4c7688b4ea08cb4371b2f9f1e0d",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 982951,
+      "decoded_rgba_sha256": "f351424a453da2beba566cadbb57bdf5a51a9e81a6853399b50a6a2a998a4008"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm17_layla__no_memory_yet__build.png",
+      "bytes": 145407,
+      "sha256": "aa710f26d56515852a02fbeea2f59b349447f1092d023390777ef0b6d7f560ab",
+      "size_px": [
+        1920,
+        1080
+      ],
+      "original_bytes": 148674,
+      "decoded_rgba_sha256": "671323db325fbecc1cce0d9c9b8b2849098173d530236e920699e5bb219bf4e0"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/rm17_layla__no_memory_yet__master_beside_build.png",
+      "bytes": 775477,
+      "sha256": "236ba5d8d84e886ca8560e75a883a612f9873145be57ef54d80ba375e4c5e96f",
+      "size_px": [
+        3840,
+        1080
+      ],
+      "original_bytes": 840834,
+      "decoded_rgba_sha256": "f89f7408f1875953c33c44a51e841139f7e1bacf6e9a193ddccf023508cf2a34"
+    },
+    {
+      "path": "GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/LINE35_CHECKS.json",
+      "bytes": 40790,
+      "sha256": "3e2fb0a9a7c3a56a9520cfc056345ebf512400b7108ec9dfd659452025d94d34"
+    }
+  ]
+}

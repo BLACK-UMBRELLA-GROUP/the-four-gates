@@ -105,7 +105,7 @@ func _ready() -> void:
 	open_purse.setup(chapter, progress, clock)
 	bread_grab.setup(chapter, progress, clock)
 	market_stall.setup(Foundations.load_market_stall(), Foundations.load_clothes(), progress, clock)
-	talking.setup(Foundations.load_talking(), progress, bread_grab, market_stall)
+	talking.setup(Foundations.load_talking(), progress, bread_grab, market_stall, Foundations.load_regulars_remember().memories)
 	feeding.setup(Foundations.load_feeding(), progress, clock)
 	iftar_giving = IftarGiving.new(ramadan)
 	iftar_giving.setup(Foundations.load_iftar_giving(), progress, clock, feeding.meal_counter)
@@ -322,6 +322,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-regulars-at-prayer" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_regulars_at_prayer.gd").new()
+		capture_runner.run(self)
+	elif "--capture-regulars-remember" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_regulars_remember.gd").new()
 		capture_runner.run(self)
 
 func _process(delta: float) -> void:

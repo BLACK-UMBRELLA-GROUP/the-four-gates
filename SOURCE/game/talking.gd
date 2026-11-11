@@ -1,5 +1,5 @@
 extends RefCounted
-## LOCK 6 greetings and dialogue based on events the regulars know about.
+## LOCK 6 dialogue and LOCK 28 memories from each regular's own knowledge.
 
 const TaskProgress = preload("res://game/task_progress.gd")
 const BreadGrab = preload("res://game/bread_grab.gd")
@@ -13,10 +13,12 @@ var _progress: TaskProgress
 var _bread_grab: BreadGrab
 var _stall: MarketStall
 var _by_place: Dictionary = {}
+var _memories: Dictionary
 
 
-func setup(source: Dictionary, progress: TaskProgress, bread_grab: BreadGrab, stall: MarketStall) -> void:
+func setup(source: Dictionary, progress: TaskProgress, bread_grab: BreadGrab, stall: MarketStall, memories: Dictionary) -> void:
 	data = source
+	_memories = memories
 	_progress = progress
 	_bread_grab = bread_grab
 	_stall = stall
@@ -59,7 +61,7 @@ func tier_line() -> String:
 	return person.tier.friendly
 
 
-func memory_line() -> String:
+func fact_line() -> String:
 	var fact := ""
 	match person.id:
 		"salma":
@@ -85,6 +87,13 @@ func memory_line() -> String:
 		"musa":
 			fact = "learned" if _progress.lesson_done else "not_learned"
 	return person.facts.get(fact, "")
+
+
+func memory_line(active_keys: Dictionary) -> String:
+	for entry: Array in _memories.get(person.get("id", ""), []):
+		if active_keys.get(entry[0], false):
+			return entry[1]
+	return ""
 
 
 func greet() -> bool:

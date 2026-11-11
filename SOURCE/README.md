@@ -441,3 +441,15 @@ Friday Dhuhr closure still applies.
 Run `godot --path SOURCE -- --capture-regulars-at-prayer` for the eight native viewport captures.
 Run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --regulars-at-prayer`
 to put each master beside its capture. Both commands accept `--regulars-at-prayer-output=/absolute/path`.
+
+## LOCK 28 The regulars remember
+
+The talk panel shows the regular's trust-tier line, any earlier fact, then the first applicable
+memory from their own list. Greeting replies and market tips still come after it. Secret feeding,
+school payments and fountain gifts never earn an attributed memory. After returning, a secretly
+funded pilgrim can thank an unnamed giver in their own talk panel.
+
+Run `godot --path SOURCE -- --capture-regulars-remember` for the 17 native viewport captures.
+Run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --regulars-remember`
+to put each master beside its capture. Both commands accept `--regulars-remember-output=/absolute/path`.
+See `LINE35_CHECKS.json` and `BUILD.json` in `GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/`.

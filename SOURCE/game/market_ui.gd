@@ -1965,7 +1965,25 @@ func _build_talking() -> void:
 	var panel := _chapter_panel(kicker, "%s, %s" % [regular.name, regular.role])
 	var y := 111.0
 	y += _story_text(panel, talking.tier_line(), y) + 21.0
-	var memory := talking.memory_line()
+	var fact := talking.fact_line()
+	if not fact.is_empty():
+		y += _story_text(panel, fact, y) + 21.0
+	var memory := talking.memory_line({
+		"jars_seen": qasims_jars.runs >= int(qasims_jars.data.numbers.seen_from_runs),
+		"dice_seen": dice_house.nights >= int(dice_house.data.numbers.seen_from_visits),
+		"fountain_named": dry_fountain.is_running() and dry_fountain.named,
+		"feeds": feeding.has_public_feeding(),
+		"loan_riba": rashids_loan.outcome == "riba",
+		"loan_demand": rashids_loan.outcome == "demand",
+		"loan_forgive": rashids_loan.outcome == "forgive",
+		"loan_wait": rashids_loan.outcome == "wait",
+		"school": qurans_school.has_public_school_payment(),
+		"umrah_jamal": pilgrims.home_from_trip("jamal", false),
+		"umrah_musa": pilgrims.home_from_trip("musa", false),
+		"umrah_jamal_secret": pilgrims.home_from_trip("jamal", true),
+		"umrah_musa_secret": pilgrims.home_from_trip("musa", true),
+		"name_hasib": "hasib" in names_of_allah.learned,
+	})
 	if not memory.is_empty():
 		y += _story_text(panel, memory, y) + 21.0
 	if not talking.reply.is_empty():

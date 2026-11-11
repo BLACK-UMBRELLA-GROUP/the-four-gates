@@ -69,7 +69,11 @@ func pay(id: String, knows_sirr: bool) -> bool:
 
 
 func reputation_line() -> Variant:
-	return data.say.feeds if _last_public_day >= 0 else null
+	return data.say.feeds if has_public_feeding() else null
+
+
+func has_public_feeding() -> bool:
+	return _last_public_day >= 0
 
 
 func counter() -> String:

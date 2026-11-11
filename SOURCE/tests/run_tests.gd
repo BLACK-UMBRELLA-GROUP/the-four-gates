@@ -7,6 +7,7 @@ const OpenPurse = preload("res://game/open_purse.gd")
 const TaskProgress = preload("res://game/task_progress.gd")
 const MarketStall = preload("res://game/market_stall.gd")
 const MarketDay = preload("res://game/market_day.gd")
+const RegularsRememberFixture = preload("res://tests/regulars_remember_fixture.gd")
 
 var checks := 0
 var failures := 0
@@ -159,6 +160,7 @@ func _run() -> void:
 	await check_qurans_school_runtime()
 	await check_names_of_allah_runtime()
 	check_regulars_at_prayer_runtime()
+	await check_regulars_remember_runtime()
 	finish()
 
 
@@ -4523,3 +4525,143 @@ func check_masjid_prayer_attendance(prayer: String, copy: Dictionary) -> void:
 			check(label.position.x >= 0 and label.global_position.y >= calligraphy.get_global_rect().end.y
 				and app.get_viewport().get_visible_rect().encloses(label.get_global_rect()),
 				"the Masjid notice fits below the calligraphy action on " + context)
+
+
+func check_regulars_remember_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/REGULARS_REMEMBER/RECORD/regulars_remember_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/regulars_remember.json")
+	check(not approved.is_empty() and runtime == approved, "regulars remember uses byte-identical LOCK 28 data")
+	var memories: Dictionary = JSON.parse_string(approved.get_string_from_utf8()).memories
+	var fixtures := {}
+	for entries: Array in memories.values():
+		for entry: Array in entries:
+			fixtures[entry[0]] = true
+
+	app.set_process(false)
+	for event: String in fixtures:
+		start_regulars_remember_fixture()
+		check(RegularsRememberFixture.apply_event(app, event), "earlier gameplay records " + event)
+		stage_regulars_remember_morning()
+		for regular: Dictionary in app.talking.data.people:
+			var expected := ""
+			for entry: Array in memories[regular.id]:
+				if entry[0] == event:
+					expected = entry[1]
+					break
+			check_regulars_remember_panel(regular, expected)
+		app.show_screen("reputation")
+		for entries: Array in memories.values():
+			for entry: Array in entries:
+				check(not visible_text().contains(entry[1]), "private dialogue stays out of What people say: %s / %s" % [event, entry[0]])
+		await process_frame
+
+	start_regulars_remember_fixture()
+	stage_regulars_remember_morning()
+	for regular: Dictionary in app.talking.data.people:
+		check_regulars_remember_panel(regular, "")
+		var later_keys := {}
+		var entries: Array = memories[regular.id]
+		for index in range(entries.size() - 1, -1, -1):
+			var entry: Array = entries[index]
+			later_keys[entry[0]] = true
+			check(app.talking.memory_line(later_keys) == entry[1],
+				"%s selects %s before every lower-priority active key" % [regular.id, entry[0]])
+		check(app.talking.memory_line({}) == "", "no active key gives no line for " + regular.id)
+
+	check_regulars_remember_boundaries()
+	await process_frame
+	app.set_process(true)
+
+
+func start_regulars_remember_fixture() -> void:
+	reset_at_market_place("inn", 198)
+	app.progress.trust = 45
+	app.idris_met = true
+	app.ui.idris_met = true
+
+
+func stage_regulars_remember_morning() -> void:
+	app.clock.skip_to(36, RegularsRememberFixture.MORNING)
+	app.progress.trust = 45
+	app.update_state()
+
+
+func check_regulars_remember_boundaries() -> void:
+	start_regulars_remember_fixture()
+	var salma: Dictionary = app.talking.regular_at("board")
+	var rashid: Dictionary = app.talking.regular_at("spice")
+	var layla: Dictionary = app.talking.regular_at("weaver")
+	var jamal: Dictionary = app.talking.regular_at("quay")
+	var musa: Dictionary = app.talking.regular_at("scales")
+	check(app.dry_fountain.pay("named"), "make a named fountain payment before it runs")
+	check(RegularsRememberFixture.visit_dice_house(app, int(app.dice_house.data.numbers.seen_from_visits) - 1),
+		"visit the dice house without reaching the trust hit")
+	check(RegularsRememberFixture.carry_jars(app, int(app.qasims_jars.data.numbers.seen_from_runs) - 1),
+		"carry jars without reaching the trust hit")
+	app.clock.skip_to(app.day + 1, RegularsRememberFixture.MORNING)
+	for regular: Dictionary in [salma, rashid, layla, jamal]:
+		check_regulars_remember_panel(regular, "")
+
+	start_regulars_remember_fixture()
+	app.progress.coins = 250
+	var reputation: Array = app.ui.reputation_lines()
+	check(RegularsRememberFixture.finish_fountain(app, "secret"), "finish an anonymous fountain")
+	check(RegularsRememberFixture.feed(app, true), "feed the town in secret")
+	check(RegularsRememberFixture.fund_school(app, "school", true), "sponsor school in secret")
+	check(RegularsRememberFixture.send_pilgrim(app, "jamal", true), "send Jamal in secret")
+	check(RegularsRememberFixture.send_pilgrim(app, "musa", true), "send Musa in secret")
+	for regular: Dictionary in [salma, layla, jamal, musa]:
+		check_regulars_remember_panel(regular, "")
+	check(RegularsRememberFixture.fund_school(app, "quran", false), "pay publicly for a Quran after a secret school payment")
+	check_regulars_remember_panel(layla, "")
+	reputation.append(app.qurans_school.data.say.qurans)
+	stage_regulars_remember_morning()
+	check(app.ui.reputation_lines() == reputation, "secret returns and gifts add no line to town reputation")
+
+	start_regulars_remember_fixture()
+	check(RegularsRememberFixture.send_pilgrim(app, "jamal", false), "send Jamal publicly")
+	check(RegularsRememberFixture.send_pilgrim(app, "musa", false), "send Musa publicly")
+	app.clock.skip_to(app.day + int(app.pilgrims.data.numbers.umrah_days) - 1, RegularsRememberFixture.MORNING)
+	check_regulars_remember_panel(jamal, "")
+	check_regulars_remember_panel(musa, "")
+
+	start_regulars_remember_fixture()
+	check(app.rashids_loan.answer_ask("lend"), "Rashid accepts the original loan before a repayment choice")
+	check_regulars_remember_panel(rashid, "")
+
+
+func check_regulars_remember_panel(regular: Dictionary, memory: String) -> void:
+	move_market_fixture(regular.place)
+	app.show_talking()
+	if app.ui.screen != "talk":
+		check(false, "live talk panel opened for " + regular.id)
+		return
+	var expected: Array[String] = [regular.tier.friendly]
+	match regular.id:
+		"layla":
+			expected.append(regular.facts.traveller)
+		"musa":
+			expected.append(regular.facts.not_learned)
+	if not memory.is_empty():
+		expected.append(memory)
+	check_regulars_remember_lines(expected, regular.id)
+	if not memory.is_empty():
+		app.greet_regular()
+		expected.append(app.talking.data.panel.reply)
+		check_regulars_remember_lines(expected, regular.id + " greeting after memory")
+		app.ask_regular()
+		expected[-1] = regular.tip
+		check_regulars_remember_lines(expected, regular.id + " tip after memory")
+
+
+func check_regulars_remember_lines(expected: Array[String], context: String) -> void:
+	var labels := RegularsRememberFixture.story_lines(app.ui.content)
+	var actual: Array[String] = []
+	for label in labels:
+		actual.append(label.get_parsed_text())
+	check(actual == expected, "talk shows exact lines in order, once each: " + context)
+	var panel: Dictionary = app.talking.data.panel
+	var goodbye := find_button(app.ui, panel.bye)
+	check(goodbye != null and not labels.is_empty()
+		and goodbye.get_global_rect().position.y >= labels[-1].get_global_rect().end.y,
+		"the dialogue precedes the original controls: " + context)

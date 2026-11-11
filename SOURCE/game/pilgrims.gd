@@ -78,11 +78,15 @@ func resolve_returns() -> void:
 				_progress.apply_trust(int(_numbers.return_trust))
 
 
+func home_from_trip(id: String, secret: bool) -> bool:
+	var trip: Dictionary = _trips.get(id, {})
+	return not trip.is_empty() and trip.home and trip.secret == secret
+
+
 func reputation_lines() -> Array:
 	var lines := []
 	for pilgrim: Dictionary in data.pilgrims:
-		var trip: Dictionary = _trips.get(pilgrim.id, {})
-		if not trip.is_empty() and trip.home and not trip.secret:
+		if home_from_trip(pilgrim.id, false):
 			lines.append(pilgrim.say)
 	return lines
 
