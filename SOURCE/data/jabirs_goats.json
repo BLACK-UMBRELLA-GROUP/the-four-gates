@@ -1,0 +1,62 @@
+{
+ "version": "LOCK 13 V1 (8 Nov 2026) - temptations: Jabir's goats",
+ "builds_on": "LOCK 1 trust, LOCK 2 clock and gate, LOCK 3 What people say, LOCK 11 build-up rule. Placeholders: {n}.",
+ "numbers": {
+  "open_from": 900,
+  "open_until": 1080,
+  "price": 10,
+  "butcher_pays": 30,
+  "tell_trust": 3,
+  "talk_from_deals": 2,
+  "seen_from_deals": 4,
+  "seen_trust": -5,
+  "fence_from_deals": 10,
+  "fence_trust": -10
+ },
+ "gate_button": "A drover with two goats",
+ "offer": {
+  "kicker": "The Gate of Trust · afternoon",
+  "title": "Jabir the drover",
+  "text": "Two fat goats on a rope. Each has a crescent burned into its ear: the mark of Saeed, the herder from the river fields. Jabir grins. “Saeed won't miss two. Ten coins for both, and the butcher by the gate pays thirty.”",
+  "buy": "Buy them for {n} coins",
+  "not_enough": "not enough coins",
+  "tell": "Tell Saeed",
+  "no": "Walk away"
+ },
+ "bought": {
+  "kicker": "The butcher by the gate",
+  "title": "Thirty coins",
+  "text": "You pay Jabir ten coins and lead the goats to the butcher, who pays thirty and asks nothing. Jabir winks: “More tomorrow.”",
+  "deals": "Deals with Jabir: {n}",
+  "to_map": "Back to the market map"
+ },
+ "told": {
+  "kicker": "The river fields",
+  "title": "Saeed the herder",
+  "text": "Saeed comes running with his stick and finds his goats tied at the gate. He grips your hand and will not let go. By evening Jabir is gone from the gate, and he does not come back.",
+  "to_rep": "What people say",
+  "to_map": "Back to the market map"
+ },
+ "say": {
+  "told": [
+   "Brought back Saeed's goats",
+   "Saeed the herder",
+   1
+  ],
+  "talk": [
+   "Buys cheap goats from Jabir",
+   "the butcher",
+   0
+  ],
+  "seen": [
+   "Bought Saeed's goats",
+   "Saeed the herder",
+   -1
+  ],
+  "fence": [
+   "Deals in stolen animals",
+   "the whole market",
+   -1
+  ]
+ }
+}

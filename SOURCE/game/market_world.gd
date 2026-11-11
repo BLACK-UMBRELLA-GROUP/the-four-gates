@@ -24,6 +24,7 @@ var oven_camera: Camera3D
 var dice_house_camera: Camera3D
 var qasims_offer_camera: Camera3D
 var qasims_done_camera: Camera3D
+var jabirs_goats_camera: Camera3D
 var sealed_purse_offer_camera: Camera3D
 var sealed_purse_coin_camera: Camera3D
 var sealed_purse_delivery_camera: Camera3D
@@ -108,6 +109,8 @@ func setup(source: Dictionary) -> void:
 	qasims_offer_camera = _story_camera(quay_view, Vector3(pier.x, quay_view.y, quay_view.z))
 	var lane_view := point("a2") + height_at_eye
 	qasims_done_camera = _story_camera(lane_view, point("board") + height_at_eye)
+	var gate_lane := point("a1") + height_at_eye
+	jabirs_goats_camera = _story_camera(gate_lane, point(data.square.centre) + height_at_eye)
 
 
 func point(id: String) -> Vector3:

@@ -251,3 +251,12 @@ offer open. Repeated runs change **What people say** and can lower River Market 
 `GAME/APPROVED/QASIMS_JARS/BUILT/V1/`. Run
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --qasims-jars`
 to pair the captures with their masters. Both commands accept `--qasims-jars-output=/absolute/path`.
+
+LOCK 13 adds **A drover with two goats** at the Gate of Trust from 15:00 through 17:59. Buy for ten coins
+and sell for thirty, walk away, or tell Saeed. The game allows one purchase per calendar day. Telling
+Saeed ends the offer. Repeated purchases and telling Saeed change trust and **What people say**.
+
+`godot --path SOURCE -- --capture-jabirs-goats` records all twelve LOCK 13 states under
+`GAME/APPROVED/JABIRS_GOATS/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --jabirs-goats`
+to pair the captures with their masters. Both commands accept `--jabirs-goats-output=/absolute/path`.

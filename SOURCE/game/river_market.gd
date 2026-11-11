@@ -16,6 +16,7 @@ const Feeding = preload("res://game/feeding.gd")
 const SealedPurse = preload("res://game/sealed_purse.gd")
 const DiceHouse = preload("res://game/dice_house.gd")
 const QasimsJars = preload("res://game/qasims_jars.gd")
+const JabirsGoats = preload("res://game/jabirs_goats.gd")
 
 var data: Dictionary
 var identity: Dictionary
@@ -28,6 +29,7 @@ var feeding := Feeding.new()
 var sealed_purse := SealedPurse.new()
 var dice_house := DiceHouse.new()
 var qasims_jars := QasimsJars.new()
+var jabirs_goats := JabirsGoats.new()
 var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
@@ -78,6 +80,7 @@ func _ready() -> void:
 	sealed_purse.setup(Foundations.load_sealed_purse(), progress, market_day, karim_opens, karim_closes)
 	dice_house.setup(Foundations.load_dice_house(), progress, clock)
 	qasims_jars.setup(Foundations.load_qasims_jars(), progress, clock)
+	jabirs_goats.setup(Foundations.load_jabirs_goats(), progress, clock)
 	world = MarketWorld.new()
 	add_child(world)
 	world.setup(data)
@@ -91,7 +94,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -150,6 +153,9 @@ func _ready() -> void:
 	ui.qasims_offer_opened.connect(show_qasims_offer)
 	ui.qasims_offer_answered.connect(answer_qasims_offer)
 	ui.qasims_done_left.connect(leave_qasims_done)
+	ui.jabirs_offer_opened.connect(show_jabirs_offer)
+	ui.jabirs_offer_answered.connect(answer_jabirs_offer)
+	ui.jabirs_result_left.connect(leave_jabirs_result)
 	show_screen("title")
 	update_state()
 	if "--capture-foundations" in OS.get_cmdline_user_args():
@@ -206,6 +212,9 @@ func _ready() -> void:
 	elif "--capture-qasims-jars" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_qasims_jars.gd").new()
 		capture_runner.run(self)
+	elif "--capture-jabirs-goats" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_jabirs_goats.gd").new()
+		capture_runner.run(self)
 
 func _process(delta: float) -> void:
 	if ui.screen not in ["title", "arrival", "all_prayers_title"]:
@@ -258,6 +267,7 @@ func begin_game() -> void:
 	sealed_purse.reset()
 	dice_house.reset()
 	qasims_jars.reset()
+	jabirs_goats.reset()
 	world.stop_faris_run()
 	world.set_inn_people_waiting(true)
 	world.reset_gate()
@@ -402,6 +412,10 @@ func show_screen(screen: String) -> void:
 		world.sealed_purse_delivery_camera.make_current()
 	elif screen == "reputation" and ui.screen == "sealed_purse_delivery":
 		world.sealed_purse_reputation_camera.make_current()
+	elif screen in MarketUI.JABIRS_GOATS_SCREENS:
+		world.jabirs_goats_camera.make_current()
+	elif screen == "reputation" and (ui.screen == "jabirs_told" or (ui.screen in ["game", "market_map"] and current_place == "gate" and not jabirs_goats.reputation_lines().is_empty())):
+		world.jabirs_goats_camera.make_current()
 	elif screen != "reputation" or ui.screen != "grab_after":
 		player.camera.make_current()
 	ui.show_screen(screen)
@@ -614,6 +628,28 @@ func leave_qasims_done() -> void:
 		show_screen("market_map")
 
 
+func show_jabirs_offer() -> void:
+	if current_place == "gate" and ui.screen in ["game", "market_map"] and jabirs_goats.can_offer():
+		_stop_travel()
+		show_screen("jabirs_offer")
+
+
+func answer_jabirs_offer(action: String) -> void:
+	if ui.screen != "jabirs_offer":
+		return
+	if action == "walk" or not jabirs_goats.can_offer():
+		show_screen("market_map")
+	elif action == "buy" and jabirs_goats.buy():
+		show_screen("jabirs_bought")
+	elif action == "tell" and jabirs_goats.tell_saeed():
+		show_screen("jabirs_told")
+
+
+func leave_jabirs_result(to_reputation: bool) -> void:
+	if ui.screen == "jabirs_told" or (ui.screen == "jabirs_bought" and not to_reputation):
+		show_screen("reputation" if to_reputation else "market_map")
+
+
 func show_stall() -> void:
 	if current_place != "spice" or ui.screen not in ["game", "market_map"]:
 		return
@@ -788,7 +824,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				show_screen("market_map")
 		return
-	if ui.screen in MarketUI.DICE_HOUSE_SCREENS or ui.screen in MarketUI.QASIMS_JARS_SCREENS:
+	if ui.screen in MarketUI.DICE_HOUSE_SCREENS or ui.screen in MarketUI.QASIMS_JARS_SCREENS or ui.screen in MarketUI.JABIRS_GOATS_SCREENS:
 		if event.is_action_pressed("close"):
 			show_screen("market_map")
 		return

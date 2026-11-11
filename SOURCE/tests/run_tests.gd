@@ -141,6 +141,7 @@ func _run() -> void:
 	await check_sealed_purse_runtime()
 	await check_dice_house_runtime()
 	await check_qasims_jars_runtime()
+	await check_jabirs_goats_runtime()
 	finish()
 
 
@@ -2639,3 +2640,159 @@ func check_qasims_jars_talk(jars: Dictionary) -> void:
 	app.progress.apply_trust(int(app.sealed_purse.data.numbers.offer_from_trust) - app.progress.trust)
 	check(app.sealed_purse.accept() and app.sealed_purse.choose_coin(false) and app.sealed_purse.deliver(), "fixture adds the sealed-purse reputation line")
 	check(app.ui.reputation_lines() == [dice.say.talk, jars.say.smuggler, app.sealed_purse.data.say.honest], "the single jars line follows the dice line and precedes the sealed purse")
+
+
+func check_jabirs_goats_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/JABIRS_GOATS/RECORD/jabirs_goats_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/jabirs_goats.json")
+	var goats: Dictionary = app.jabirs_goats.data
+	check(not locked.is_empty() and locked == runtime, "Jabir's goats copy LOCK 13 byte for byte")
+	check(goats == JSON.parse_string(runtime.get_string_from_utf8()), "the goats use the locked runtime data")
+	app.set_process(false)
+	reset_at_market_place("gate", 198)
+	app.progress.apply_trust(45 - app.progress.trust)
+	for slot: Array in [[899, false], [900, true], [1079, true], [1080, false]]:
+		set_market_day_time(3, slot[0])
+		check((find_button(app.ui, goats.gate_button) != null) == slot[1], "Jabir's gate action at minute %d" % slot[0])
+		if not slot[1]:
+			app.show_jabirs_offer()
+			check(app.ui.screen == "market_map", "the offer cannot open outside the afternoon window")
+	set_market_day_time(3, 960)
+	move_market_fixture("quay")
+	check(find_button(app.ui, goats.gate_button) == null, "Jabir appears only at the Gate of Trust")
+	app.show_jabirs_offer()
+	check(app.ui.screen == "market_map", "the offer cannot open at the Quay")
+	move_market_fixture("gate")
+	app.show_screen("game")
+	await press_button(goats.gate_button, "the Gate of Trust street bar opens the offer")
+	check_jabirs_panel("jabirs_offer", goats.offer)
+	var price := int(goats.numbers.price)
+	var buy_caption := str(goats.offer.buy).format({"n": price})
+	var buy_button: Button = find_button(app.ui, buy_caption)
+	var tell_button: Button = find_button(app.ui, goats.offer.tell)
+	var walk_button: Button = find_button(app.ui, goats.offer.no)
+	if buy_button != null and tell_button != null and walk_button != null:
+		check(buy_button.position.x < tell_button.position.x and tell_button.position.x < walk_button.position.x, "the offer lays out Buy, Tell Saeed and Walk away in locked order")
+	else:
+		check(false, "the affordable offer contains all three choices")
+	await press_button(goats.offer.no, "Walk away is a real button")
+	check(app.ui.screen == "market_map" and app.current_place == "gate" and app.day == 3 and app.minute_of_day == 960, "walking away returns to the Gate of Trust map without advancing time")
+	check(app.jabirs_goats.deals == 0 and not app.jabirs_goats.told and app.ui.reputation_lines().is_empty(), "walking away adds no deal, report or talk")
+	check_wallet(45, 198, "walking away changes neither trust nor coins")
+
+	app.progress.coins = price - 1
+	app.update_state()
+	await press_button(goats.gate_button, "the offer remains available with too few coins")
+	check(find_button(app.ui, buy_caption) == null and has_visible_label(app.ui, goats.offer.not_enough), "too few coins show the locked notice in place of Buy")
+	check(find_button(app.ui, goats.offer.tell) != null and find_button(app.ui, goats.offer.no) != null, "Tell Saeed and Walk away stay available with too few coins")
+	app.answer_jabirs_offer("buy")
+	check_wallet(45, price - 1, "a direct buy request below the locked price cannot change the wallet or trust")
+	check(app.jabirs_goats.deals == 0 and not app.jabirs_goats.told, "an unaffordable buy does not count or remove the offer")
+	app.show_screen("market_map")
+	app.progress.coins = 198
+	app.update_state()
+	await press_button(goats.gate_button, "walking away or being unable to buy leaves the offer available that day")
+	await press_button(buy_caption, "Buy them for ten coins is a real button")
+	check_jabirs_panel("jabirs_bought", goats.bought)
+	check(has_visible_label(app.ui, str(goats.bought.deals).format({"n": 1}).to_upper()), "the result shows the first deal's count")
+	check(app.jabirs_goats.deals == 1 and app.day == 3 and app.minute_of_day == 960, "buying counts one deal without advancing the calendar or clock")
+	check_wallet(45, 218, "the first deal adds net twenty coins and leaves trust unchanged")
+	check(app.ui.reputation_lines().is_empty(), "one deal adds no What people say line")
+	await press_button(goats.bought.to_map, "the buy result has a usable map button")
+	check(app.ui.screen == "market_map" and app.current_place == "gate", "the buy result returns to the gate map")
+	set_market_day_time(3, 1079)
+	check(find_button(app.ui, goats.gate_button) == null, "the action remains hidden for the rest of the calendar day")
+	app.show_jabirs_offer()
+	app.answer_jabirs_offer("buy")
+	check(app.ui.screen == "market_map" and app.jabirs_goats.deals == 1, "a direct action cannot repeat a deal that day")
+	check_wallet(45, 218, "a repeated deal request changes neither trust nor coins")
+	await check_jabirs_goats_talk(goats)
+
+	reset_at_market_place("gate", price)
+	check(app.jabirs_goats.deals == 0 and not app.jabirs_goats.told and app.ui.reputation_lines().is_empty(), "a new playthrough clears deals, the report and the talk")
+	app.progress.apply_trust(3 - app.progress.trust)
+	for day in range(3, 7):
+		set_market_day_time(day, 900)
+		app.show_jabirs_offer()
+		app.answer_jabirs_offer("buy")
+		app.leave_jabirs_result(false)
+	check(app.jabirs_goats.deals == 4 and app.progress.coins == price + 80 and app.progress.trust == 0, "the exact price can buy, and the fourth deal clamps trust to zero")
+	app.progress.apply_trust(99 - app.progress.trust)
+	set_market_day_time(7, 900)
+	app.show_jabirs_offer()
+	app.answer_jabirs_offer("tell")
+	check(app.progress.trust == 100, "telling Saeed clamps trust to one hundred")
+	await press_button(goats.told.to_map, "the Tell Saeed result has a usable direct map button")
+	check(app.ui.screen == "market_map" and app.current_place == "gate", "the told result can return directly to the gate map")
+	app.set_process(true)
+
+
+func check_jabirs_panel(screen: String, copy: Dictionary) -> void:
+	check(app.ui.screen == screen and visible_text().contains(copy.text), "the locked story appears in " + screen)
+	check(has_visible_label(app.ui, copy.title) and has_visible_label(app.ui, str(copy.kicker).to_upper()), "the locked title and kicker appear in " + screen)
+
+
+func check_jabirs_goats_talk(goats: Dictionary) -> void:
+	var expected_trust := 45
+	var expected_line: Array = []
+	for deal in range(2, 12):
+		var day := deal + 2
+		set_market_day_time(day, 900)
+		check(find_button(app.ui, goats.gate_button) != null, "Jabir returns on the next calendar day: %d" % day)
+		app.show_jabirs_offer()
+		app.answer_jabirs_offer("buy")
+		match deal:
+			2:
+				expected_line = goats.say.talk
+			4:
+				expected_line = goats.say.seen
+				expected_trust += int(goats.numbers.seen_trust)
+			10:
+				expected_line = goats.say.fence
+				expected_trust += int(goats.numbers.fence_trust)
+		check(app.ui.screen == "jabirs_bought" and app.jabirs_goats.deals == deal, "deal %d is counted once" % deal)
+		check(app.dice_house.nights == 0 and app.qasims_jars.runs == 0, "deal %d does not count as a dice visit or a jar run" % deal)
+		check_wallet(expected_trust, 198 + 20 * deal, "deal %d pays once and applies only its threshold penalty" % deal)
+		app.leave_jabirs_result(false)
+		check(app.ui.reputation_lines() == [expected_line], "deal %d shows only the highest reached goat line" % deal)
+		if deal in [2, 4, 10]:
+			await press_button(app.chapter.purse.morning.to_rep, "open What people say after %d goat deals" % deal)
+			check_jabirs_reputation_row(expected_line)
+			await press_button(app.chapter.rep.to_map, "return to the gate after checking the goats line")
+
+	var dice: Dictionary = app.dice_house.data
+	var jars: Dictionary = app.qasims_jars.data
+	for day in [14, 15]:
+		set_market_day_time(day, 1200)
+		check(app.dice_house.enter() and app.qasims_jars.carry(), "dice and jars still count an evening after goat deals")
+	app.update_state()
+	check(app.dice_house.nights == 2 and app.qasims_jars.runs == 2 and app.jabirs_goats.deals == 11, "the two evening activities leave the goat deal count unchanged")
+	check_wallet(expected_trust, 418 + 2 * int(jars.numbers.pay), "night activities preserve goat trust thresholds and pay only the two jar fees")
+	set_market_day_time(16, 960)
+	await press_button(goats.gate_button, "Jabir returns before Saeed has been told")
+	await press_button(goats.offer.tell, "Tell Saeed is a real button")
+	check_jabirs_panel("jabirs_told", goats.told)
+	check(app.jabirs_goats.told and app.jabirs_goats.deals == 11, "telling Saeed keeps prior deals and ends future offers")
+	var told_trust := expected_trust + int(goats.numbers.tell_trust)
+	var told_coins := 418 + 2 * int(jars.numbers.pay)
+	check_wallet(told_trust, told_coins, "telling Saeed adds three trust without changing coins")
+	app.answer_jabirs_offer("tell")
+	await press_button(goats.told.to_rep, "the Tell Saeed result opens What people say")
+	check_jabirs_reputation_row(goats.say.fence)
+	check_jabirs_reputation_row(goats.say.told)
+	check(app.ui.reputation_lines() == [dice.say.talk, jars.say.talk, goats.say.fence, goats.say.told], "both goat lines follow jars and the highest deal line comes before the report")
+	await press_button(app.chapter.rep.to_map, "return to the gate after telling Saeed")
+	for day in [16, 17, 30]:
+		set_market_day_time(day, 960)
+		check(find_button(app.ui, goats.gate_button) == null, "the gate action remains gone after reporting: day %d" % day)
+		app.show_jabirs_offer()
+		app.answer_jabirs_offer("tell")
+		check(app.ui.screen == "market_map" and app.jabirs_goats.deals == 11, "the reported offer cannot be reopened on day %d" % day)
+		check_wallet(told_trust, told_coins, "the report's trust reward cannot be collected again")
+	app.progress.apply_trust(int(app.sealed_purse.data.numbers.offer_from_trust) - app.progress.trust)
+	check(app.sealed_purse.accept() and app.sealed_purse.choose_coin(false) and app.sealed_purse.deliver(), "fixture adds the following sealed-purse line")
+	check(app.ui.reputation_lines() == [dice.say.talk, jars.say.talk, goats.say.fence, goats.say.told, app.sealed_purse.data.say.honest], "the goat lines precede the sealed-purse outcome in What people say")
+
+
+func check_jabirs_reputation_row(line: Array) -> void:
+	check(app.ui.screen == "reputation" and has_visible_label(app.ui, "“%s”" % line[0]) and has_visible_label(app.ui, str(line[1]).to_upper()) and has_visible_label(app.ui, app.chapter.rep.tone[str(int(line[2]))]), "What people say renders the locked quote, source and tone: " + str(line[0]))

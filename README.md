@@ -46,6 +46,9 @@ LOCK 11 adds Mansur's invitation at the Inn after Isha and the dice house behind
 Returning on more nights changes what the market says and can lower River Market trust.
 LOCK 12 adds Qasim’s offer at the Quay between 19:30 and 04:44. Carry the jars for twenty coins once per
 night, or walk away. Repeat runs add a line in **What people say** and can lower River Market trust.
+LOCK 13 adds Jabir’s offer at the Gate of Trust from 15:00 through 17:59. Buy the stolen goats for a
+twenty-coin profit once per day, walk away, or tell Saeed to end the offer. Repeated deals and telling
+Saeed affect River Market trust and **What people say**.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

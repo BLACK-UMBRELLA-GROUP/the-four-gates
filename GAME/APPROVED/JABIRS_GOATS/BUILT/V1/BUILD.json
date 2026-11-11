@@ -1,0 +1,511 @@
+{
+  "line": 20,
+  "lock": "LOCK 13 V1",
+  "brief": "DOC-TFG-0050",
+  "tested_base_commit_sha": "c63c8217e978dae7cea7b638978846ff810ede50",
+  "capture_source": "Line 20 candidate on the tested base. The 11 November Codex daily task note identifies the single containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T16:49:26Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Real native Godot viewport. Viewport-local clicks exercise fair arrival, the route to the Gate of Trust, the offer choices, the return to the gate map and What people say.",
+  "fixture": "Passive clock ticks are paused. Fair arrival supplies 198 coins; the harness seeds starting trust at 45 and skips to a later non-Friday morning (j01), then 16:00 (j02–j05). Later deals occur through the production offer on distinct calendar days (j10–j12). A second fair arrival starts the separate branch with six coins temporarily set for j06. The fair wallet is restored for the report to Saeed and the following afternoon (j07–j09).",
+  "source_files": [
+    {
+      "path": "SOURCE/data/chapter1.json",
+      "bytes": 7699,
+      "sha256": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0"
+    },
+    {
+      "path": "SOURCE/data/clothes.json",
+      "bytes": 2888,
+      "sha256": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e"
+    },
+    {
+      "path": "SOURCE/data/dice_house.json",
+      "bytes": 1460,
+      "sha256": "d769f3698748af05e5498e13de397a701c0aebf740eae006f4547e2b53e21c80"
+    },
+    {
+      "path": "SOURCE/data/feeding.json",
+      "bytes": 1470,
+      "sha256": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7"
+    },
+    {
+      "path": "SOURCE/data/foundations.json",
+      "bytes": 11978,
+      "sha256": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf"
+    },
+    {
+      "path": "SOURCE/data/identity.json",
+      "bytes": 14838,
+      "sha256": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647"
+    },
+    {
+      "path": "SOURCE/data/jabirs_goats.json",
+      "bytes": 1857,
+      "sha256": "dd62e7b0f917e8db3c30c3b30435bb3098496598344252ffd8e98808f0ba2d99"
+    },
+    {
+      "path": "SOURCE/data/market_day.json",
+      "bytes": 1071,
+      "sha256": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05"
+    },
+    {
+      "path": "SOURCE/data/market_stall.json",
+      "bytes": 2593,
+      "sha256": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604"
+    },
+    {
+      "path": "SOURCE/data/prayer_record.json",
+      "bytes": 1009,
+      "sha256": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9"
+    },
+    {
+      "path": "SOURCE/data/qasims_jars.json",
+      "bytes": 1352,
+      "sha256": "c7a2c0a56d676ef6606769f94075ec537707875eecf8767d8dac43fda2c34bfb"
+    },
+    {
+      "path": "SOURCE/data/sealed_purse.json",
+      "bytes": 1902,
+      "sha256": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a"
+    },
+    {
+      "path": "SOURCE/data/talking.json",
+      "bytes": 3854,
+      "sha256": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4"
+    },
+    {
+      "path": "SOURCE/game/bread_grab.gd",
+      "bytes": 1345,
+      "sha256": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468"
+    },
+    {
+      "path": "SOURCE/game/dice_house.gd",
+      "bytes": 2041,
+      "sha256": "3cb3a93728a73c7a1970da154d1aa27719afa19b4c95aeec099acf11738f3e22"
+    },
+    {
+      "path": "SOURCE/game/feeding.gd",
+      "bytes": 1760,
+      "sha256": "a818d69fb277ed6125f20d06a47e997c03c25dee99094de4651a2acb11df6b80"
+    },
+    {
+      "path": "SOURCE/game/foundations.gd",
+      "bytes": 4392,
+      "sha256": "95773b0b186e5d4ed99fa21606812cfeda9880ee01c38123df641a3f50191f8c"
+    },
+    {
+      "path": "SOURCE/game/jabirs_goats.gd",
+      "bytes": 1821,
+      "sha256": "78be9c8770b560016c551c9a4e0b925bfc2e769071e57a8338fa4ca5c63e2a50"
+    },
+    {
+      "path": "SOURCE/game/lesson_canvas.gd",
+      "bytes": 1218,
+      "sha256": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c"
+    },
+    {
+      "path": "SOURCE/game/map_canvas.gd",
+      "bytes": 13421,
+      "sha256": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba"
+    },
+    {
+      "path": "SOURCE/game/market_day.gd",
+      "bytes": 1065,
+      "sha256": "3cb77474a4fd5fffb10caa13954c0369a3759235cd60449a258fa202ce702b38"
+    },
+    {
+      "path": "SOURCE/game/market_player.gd",
+      "bytes": 4286,
+      "sha256": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2"
+    },
+    {
+      "path": "SOURCE/game/market_stall.gd",
+      "bytes": 4413,
+      "sha256": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56"
+    },
+    {
+      "path": "SOURCE/game/market_ui.gd",
+      "bytes": 78721,
+      "sha256": "cff91ffc4528f165e7a4d03914cc376ddee5c64cf79d75e8f829186e06461bc0"
+    },
+    {
+      "path": "SOURCE/game/market_world.gd",
+      "bytes": 16355,
+      "sha256": "77a47e0747cc22b29f02292f4d0bfa0f1ff70c40fd30ed82f97113da555d22f1"
+    },
+    {
+      "path": "SOURCE/game/open_purse.gd",
+      "bytes": 3329,
+      "sha256": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9"
+    },
+    {
+      "path": "SOURCE/game/prayer_clock.gd",
+      "bytes": 11985,
+      "sha256": "6ba6f3202bc7759ee63b1aa5defce6d4c19f9485bddcb832b9518d48193a3c23"
+    },
+    {
+      "path": "SOURCE/game/qasims_jars.gd",
+      "bytes": 1484,
+      "sha256": "4cd3760752d0bc0fb821bbd32888bfc20cb923611e158b6d4a795319806eb011"
+    },
+    {
+      "path": "SOURCE/game/river_market.gd",
+      "bytes": 32640,
+      "sha256": "472578f17d01e31bf1648f0c08a13cd1ad9f50c0800f25fadb49ddcbe5a27fa6"
+    },
+    {
+      "path": "SOURCE/game/river_market.tscn",
+      "bytes": 171,
+      "sha256": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe"
+    },
+    {
+      "path": "SOURCE/game/sealed_purse.gd",
+      "bytes": 1725,
+      "sha256": "e3b46ae422a91cd824057e43881c80bb254dac24da5031163ac093d491bef7ab"
+    },
+    {
+      "path": "SOURCE/game/talking.gd",
+      "bytes": 2568,
+      "sha256": "546458aedd4c3c74f06e498f2160c8622fc5524a3f9d9ab49ec6cd0891bd0f86"
+    },
+    {
+      "path": "SOURCE/game/task_progress.gd",
+      "bytes": 2977,
+      "sha256": "ec252cac5837000910f107051f4d63d16a77f3327c83f316f7e31d5dcf16cbc2"
+    },
+    {
+      "path": "SOURCE/look_test/capture_helper.gd",
+      "bytes": 4967,
+      "sha256": "919939ac60ec7e8a269a90263272f6c9aa029a6a9de839a419a61af34d480fb8"
+    },
+    {
+      "path": "SOURCE/main.tscn",
+      "bytes": 54,
+      "sha256": "109e5b49d1caed038c97365a9c4fb995c5541bfd0b30d9ef1568af98bb815a94"
+    },
+    {
+      "path": "SOURCE/project.godot",
+      "bytes": 1690,
+      "sha256": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45"
+    },
+    {
+      "path": "SOURCE/tests/capture_identity.gd",
+      "bytes": 10390,
+      "sha256": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32"
+    },
+    {
+      "path": "SOURCE/tests/capture_jabirs_goats.gd",
+      "bytes": 11990,
+      "sha256": "ae6fd709c9a21b0e3fd6d3de5fe33bd11abaa5383a7bad4990c5cdb58b355b08"
+    },
+    {
+      "path": "SOURCE/tests/capture_qasims_jars.gd",
+      "bytes": 9781,
+      "sha256": "cac0f3cf7550c0a8b0e6e4ae3d4de52fbdab8986784ad4397a88f79be790d494"
+    },
+    {
+      "path": "SOURCE/tests/create_comparisons.gd",
+      "bytes": 6498,
+      "sha256": "f1927366d3206fa4bc788ca89cb440ea3e0dfabc62d49c9b028a9fe3d920cdad"
+    },
+    {
+      "path": "SOURCE/tests/run_tests.gd",
+      "bytes": 171377,
+      "sha256": "1bd754d78521350d0abcfcdbd8c454f6f8b34f8f72e39b72cbd8cb9ee575cc50"
+    }
+  ],
+  "locked_and_clarification_inputs": [
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/BRIEFS/BUILD_BRIEF_2026-11-08_JABIRS_GOATS.md",
+      "bytes": 2455,
+      "sha256": "3b664501ec9285546ec52a3c6e248885fe5984dc9d6cc1fceb872bdd602f8931"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/MASTERS/j01_gate__morning_no_drover.png",
+      "bytes": 63117,
+      "sha256": "5abb0c6e4713e97211af238c7c1da1c4e545ab622df4cb1625e8b89e3527167a"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/MASTERS/j02_gate__drover_with_goats.png",
+      "bytes": 67251,
+      "sha256": "634e55bddbdc62b8671cca65f7c6067c9033fec9b8523e29de03985e5f51bf11"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/MASTERS/j03_goats__jabirs_offer.png",
+      "bytes": 331787,
+      "sha256": "3d4176dae799d088d9eadc886f3504729fb0b16e8d070ff2a0b76b0c68f4a62c"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/MASTERS/j04_goats__thirty_coins.png",
+      "bytes": 326979,
+      "sha256": "ff9f7e1327195800c1d281f04e9c62589b3525172355d74a253624ca9595a2c8"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/MASTERS/j05_gate__no_drover_same_day.png",
+      "bytes": 64606,
+      "sha256": "4d56533ac1bb09b8c7e0812429bf847f166424634a9abb391efead0986356504"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/MASTERS/j06_goats__not_enough_coins.png",
+      "bytes": 332452,
+      "sha256": "5dc1ca0ea4f23940db79b18df952928fb697f73b0049ca762d915016ce821387"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/MASTERS/j07_goats__told_saeed.png",
+      "bytes": 331645,
+      "sha256": "cf8c28a4193e3374e86f47ffa0423b996fd9977555e13761fd81d0ad07a1c9ef"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/MASTERS/j08_people_say__brought_back.png",
+      "bytes": 323976,
+      "sha256": "9d3998a2f822e8850223c515240b6923aea392e56a0d88a2cfefb77e6554870e"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/MASTERS/j09_gate__jabir_gone_for_good.png",
+      "bytes": 64055,
+      "sha256": "e4d938c296b91e4bd921cc93726849c880e2624988368346a038625971b91c29"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/MASTERS/j10_people_say__talk_2_deals.png",
+      "bytes": 326226,
+      "sha256": "f0f84f227936e82a08f2c381295d4dec5faec893a9a19c53553a7a6f2a01511a"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/MASTERS/j11_people_say__seen_4_deals.png",
+      "bytes": 326221,
+      "sha256": "542736a6553e97781f5e4a69434e806db52543d26cbb5dc8087fad4578f9de15"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/MASTERS/j12_people_say__fence_10_deals.png",
+      "bytes": 323100,
+      "sha256": "8fbf7b586eeb666ff295886f2f92f32cd987c572a7f1281ae7281ea6077793b0"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/RECORD/JABIRS_GOATS_SPEC_CURRENT_VERSION_V1.md",
+      "bytes": 5333,
+      "sha256": "a4cceacf03f2f91c82eef901ad5780934e67a59b02b0c57d6e9ed66575b36b02"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/RECORD/LOCK_RECORD.md",
+      "bytes": 756,
+      "sha256": "fc15e02eb1b06c19bca6c8a0df855ae8948828f20b08c75559850a815023df56"
+    },
+    {
+      "path": "GAME/APPROVED/JABIRS_GOATS/RECORD/jabirs_goats_data_V1.json",
+      "bytes": 1857,
+      "sha256": "dd62e7b0f917e8db3c30c3b30435bb3098496598344252ffd8e98808f0ba2d99"
+    },
+    {
+      "path": "GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md",
+      "bytes": 1995,
+      "sha256": "f2abfee4dcc542086c5dcd23242a52986a6d29f28935f48b88e1bbbc6fbfdae6"
+    }
+  ],
+  "base_spec_sha256": "bfd89870531cd559e6182aa6685cdaf0bb71213acc812b8497599da1b7fc65bb",
+  "tests": {
+    "headless": {
+      "passed": 3002,
+      "total": 3002
+    },
+    "native": {
+      "passed": 229,
+      "total": 229
+    },
+    "qasims_jars_native_regression": {
+      "passed": 153,
+      "total": 153
+    }
+  },
+  "native_checks_receipt": {
+    "path": "GAME/APPROVED/JABIRS_GOATS/BUILT/V1/LINE20_CHECKS.json",
+    "bytes": 29938,
+    "sha256": "1be5198bd4fde993c4a126df67769863b95be53388bfe2674e3369a0202f0e99"
+  },
+  "png_evidence": {
+    "original_png_bytes": 11271303,
+    "compressed_png_bytes": 10229028,
+    "method": "Lossless PNG optimization. Reopened every final PNG and compared its RGBA pixels, dimensions and both halves of each pair.",
+    "files": [
+      {
+        "file": "j01_gate__morning_no_drover__build.png",
+        "sha256": "e0045adb9991cc9e0583b45fa20a52270db930031e75e20125cf3492cd5bad03",
+        "bytes": 168098,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "j01_gate__morning_no_drover__master_beside_build.png",
+        "sha256": "fcebaa706baad55d635861a3dfd1530f5ba27d357d8a82c37908f5bd59cf2fbd",
+        "bytes": 329497,
+        "width": 3840,
+        "height": 1080
+      },
+      {
+        "file": "j02_gate__drover_with_goats__build.png",
+        "sha256": "1f7759e98437bcb9fedd1620503b4ea1530bd8b6b2cbbb7dbe360155a30bb750",
+        "bytes": 180780,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "j02_gate__drover_with_goats__master_beside_build.png",
+        "sha256": "0122aa2209b1bb1bdc328be4bfc94afd406362cee57c27b06ffefd3e389f2b72",
+        "bytes": 355798,
+        "width": 3840,
+        "height": 1080
+      },
+      {
+        "file": "j03_goats__jabirs_offer__build.png",
+        "sha256": "803a961b97a6c476aa62e8da16a59b8da695265d505b39962cb8e34a0ac45f77",
+        "bytes": 165435,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "j03_goats__jabirs_offer__master_beside_build.png",
+        "sha256": "9ceff6e910c7f3277ca56f1bab45e59fbdffeeca6f507e8b3b1814a89a4f314b",
+        "bytes": 896666,
+        "width": 3840,
+        "height": 1080
+      },
+      {
+        "file": "j04_goats__thirty_coins__build.png",
+        "sha256": "bdb5e5d5cfe95154cbb1439975d7b1cdf3ced1dbb47bce6ec5f388f023151201",
+        "bytes": 141384,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "j04_goats__thirty_coins__master_beside_build.png",
+        "sha256": "c9cba557ce03cadb89036949b54f74c9c0b20f586aca2ba0a49952d53f971db6",
+        "bytes": 848642,
+        "width": 3840,
+        "height": 1080
+      },
+      {
+        "file": "j05_gate__no_drover_same_day__build.png",
+        "sha256": "7abc400e80989ed86128ebe13180356bd4275a3fe353444ed5d049831fc06f52",
+        "bytes": 177402,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "j05_gate__no_drover_same_day__master_beside_build.png",
+        "sha256": "76a6d719505c3d2167d8b2a7b1373ce15375286c87c2da59570226fe5def22e6",
+        "bytes": 342890,
+        "width": 3840,
+        "height": 1080
+      },
+      {
+        "file": "j06_goats__not_enough_coins__build.png",
+        "sha256": "2666e21a1735ba64db8ad66683895f3bf1c738f3dff2a0b3902d685b6d9903c2",
+        "bytes": 162194,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "j06_goats__not_enough_coins__master_beside_build.png",
+        "sha256": "5f300ec6148d0e29560cdfdd7344eb8de5e0c5406e4fd85977038a3ace90bb3f",
+        "bytes": 889137,
+        "width": 3840,
+        "height": 1080
+      },
+      {
+        "file": "j07_goats__told_saeed__build.png",
+        "sha256": "fbd6d4756816934b7d6ca703212ad69e0c2d305d6fd57b532a876ba5c15336e0",
+        "bytes": 151506,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "j07_goats__told_saeed__master_beside_build.png",
+        "sha256": "30bb25c2727a8a56d92b7ebd08e49dd6560a6c9f4446d133e69a3244a40a3737",
+        "bytes": 874600,
+        "width": 3840,
+        "height": 1080
+      },
+      {
+        "file": "j08_people_say__brought_back__build.png",
+        "sha256": "e87943ff946fd1b77e7900b8da5cf965c867625be869ee4ae605e68797a364bc",
+        "bytes": 146432,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "j08_people_say__brought_back__master_beside_build.png",
+        "sha256": "aa622f88cf6373c3ccf28f41bd9b06a2a76c1b2b3d48a10414824a8a273bcce5",
+        "bytes": 851572,
+        "width": 3840,
+        "height": 1080
+      },
+      {
+        "file": "j09_gate__jabir_gone_for_good__build.png",
+        "sha256": "21c7deec6992b54d0d38b9481e5fcb02fa376e243a48cbfd940fd5a8e64eb37a",
+        "bytes": 177679,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "j09_gate__jabir_gone_for_good__master_beside_build.png",
+        "sha256": "5a3849a8ba7db52fba76b8a215c04ca6c202ecbf093a3169b332c7edc6606852",
+        "bytes": 341871,
+        "width": 3840,
+        "height": 1080
+      },
+      {
+        "file": "j10_people_say__talk_2_deals__build.png",
+        "sha256": "df8330e4fbc7cd96445c439398d9e742ee85440ec20a8b52f9333e2daebc3ac4",
+        "bytes": 153020,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "j10_people_say__talk_2_deals__master_beside_build.png",
+        "sha256": "30a7e1e97d53199033f591bdf6dfa935c0f1ea3d812ac4628195cfb6c4379d17",
+        "bytes": 863708,
+        "width": 3840,
+        "height": 1080
+      },
+      {
+        "file": "j11_people_say__seen_4_deals__build.png",
+        "sha256": "1cbd93598714fb8fbf80432bea566e73f3c688224a76f2e0e6b698a29476cf16",
+        "bytes": 148298,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "j11_people_say__seen_4_deals__master_beside_build.png",
+        "sha256": "adfb3601f9b53943c1606f803c19a209ee993a5cbdd4f78cb09a231912aabb68",
+        "bytes": 857912,
+        "width": 3840,
+        "height": 1080
+      },
+      {
+        "file": "j12_people_say__fence_10_deals__build.png",
+        "sha256": "7953b0e7f3e682d1ed9f1413817129a47292b8de82289495f84f280a0691337f",
+        "bytes": 149081,
+        "width": 1920,
+        "height": 1080
+      },
+      {
+        "file": "j12_people_say__fence_10_deals__master_beside_build.png",
+        "sha256": "072c4761c34261655d67fdd07651ecb864e67a1372dc602b149759a5d176f1b0",
+        "bytes": 855426,
+        "width": 3840,
+        "height": 1080
+      }
+    ]
+  },
+  "visual_differences": {
+    "all": "The native HUD shows the actual weekdays and uses different type metrics, alignment, widths and trust bar styling. The same locked choices, response text, reputation sources and tones are shown.",
+    "j01_j02_j05_j09": "The active gate and player markers, map outlines, lantern shading, grid and label styling differ. Live bar sizing and position change how much of the canal label is covered. The inherited Make up Dhuhr action remains visible. The j02 gate bar wraps below navigation. The j05 and j09 prayer buttons shift above the gate bar. The comparison excludes the transient Asr call per the spec.",
+    "j03_j04_j06_j07_j08_j10_j11_j12": "The camera frames the existing placeholder lane leading away from the Gate of Trust, with simple block buildings, a blue sky and a plain ground plane. The masters show a furnished storefront, tiled street, hanging lanterns and a distant arch. The native panels differ in opacity, edge treatment, line wrapping, type spacing, vertical spacing and button widths. The reputation panel also differs in rule contrast and padding.",
+    "j10_j11_j12": "The live wallet follows purchases across calendar days, showing 238, 278 and 398 coins. Each master shows a 198-coin fixture. Trust is 45, 40 and 30 respectively in both."
+  },
+  "pre_release_scholar_review": "Pending under OA-AIOS-432. LOCK 13 §1 cites Quran 2:188 as the design reference for knowingly buying and profiting from someone else's stolen property. Review this portrayal and notifying the owner before public release. DOC-TFG-0320 has no dedicated LOCK 13 row."
+}

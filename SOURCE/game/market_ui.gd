@@ -58,6 +58,9 @@ signal dice_house_left
 signal qasims_offer_opened
 signal qasims_offer_answered(carry: bool)
 signal qasims_done_left
+signal jabirs_offer_opened
+signal jabirs_offer_answered(action: String)
+signal jabirs_result_left(to_reputation: bool)
 
 const MapCanvas = preload("res://game/map_canvas.gd")
 const LessonCanvas = preload("res://game/lesson_canvas.gd")
@@ -69,6 +72,7 @@ const Feeding = preload("res://game/feeding.gd")
 const SealedPurse = preload("res://game/sealed_purse.gd")
 const DiceHouse = preload("res://game/dice_house.gd")
 const QasimsJars = preload("res://game/qasims_jars.gd")
+const JabirsGoats = preload("res://game/jabirs_goats.gd")
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
@@ -80,7 +84,8 @@ const PRAYER_TOTAL_ROWS := [
 const SEALED_PURSE_SCREENS := ["sealed_purse_offer", "sealed_purse_coin", "sealed_purse_delivery"]
 const DICE_HOUSE_SCREENS := ["dice_invite", "dice_house"]
 const QASIMS_JARS_SCREENS := ["qasims_offer", "qasims_done"]
-const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_morning", "reputation"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS
+const JABIRS_GOATS_SCREENS := ["jabirs_offer", "jabirs_bought", "jabirs_told"]
+const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_morning", "reputation"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS
 var data: Dictionary = {}
 var identity: Dictionary = {}
 var chapter: Dictionary
@@ -94,8 +99,10 @@ var feeding: Feeding
 var sealed_purse: SealedPurse
 var dice_house: DiceHouse
 var qasims_jars: QasimsJars
+var jabirs_goats: JabirsGoats
 var _dice_caption := ""
 var _qasims_caption := ""
+var _jabirs_caption := ""
 var _feeding_available := false
 var _sealed_offer_available := false
 var _regular_status := MarketDay.Status.OPEN
@@ -149,7 +156,7 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars, jabirs_goats_value: JabirsGoats) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
@@ -163,6 +170,7 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	sealed_purse = sealed_purse_value
 	dice_house = dice_house_value
 	qasims_jars = qasims_jars_value
+	jabirs_goats = jabirs_goats_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -318,6 +326,9 @@ func _rebuild_screen() -> void:
 		"qasims_offer", "qasims_done":
 			_build_hud()
 			_build_qasims_jars()
+		"jabirs_offer", "jabirs_bought", "jabirs_told":
+			_build_hud()
+			_build_jabirs_goats()
 		"stall_change":
 			_build_hud()
 			_build_stall_change()
@@ -368,6 +379,10 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	var qasims_caption := qasims_jars.quay_caption() if place_value == "quay" else ""
 	if qasims_caption != _qasims_caption:
 		_qasims_caption = qasims_caption
+		rebuild = rebuild or screen in ["game", "market_map"]
+	var jabirs_caption := jabirs_goats.gate_caption() if place_value == "gate" else ""
+	if jabirs_caption != _jabirs_caption:
+		_jabirs_caption = jabirs_caption
 		rebuild = rebuild or screen in ["game", "market_map"]
 	var can_feed := place_value == "quay" and market_stall.count("bread") > 0
 	if can_feed != _can_feed:
@@ -1149,6 +1164,35 @@ func _build_qasims_jars() -> void:
 	_chapter_finish(panel, y)
 
 
+func _build_jabirs_goats() -> void:
+	var copy: Dictionary = jabirs_goats.data[screen.trim_prefix("jabirs_")]
+	var panel := _chapter_panel(copy.kicker, copy.title, true)
+	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
+	style.set_corner_radius_all(18)
+	var y := 111.0 + _story_text(panel, copy.text, 111.0) + 16.0
+	var x := 34.0
+	match screen:
+		"jabirs_offer":
+			if jabirs_goats.can_afford():
+				var caption := str(copy.buy).format({"n": int(jabirs_goats.data.numbers.price)})
+				x += _chapter_button(panel, caption, Vector2(x, y), func(): jabirs_offer_answered.emit("buy"), true)
+			else:
+				var notice: String = copy.not_enough
+				var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+				_label(panel, notice, Vector2(x, y), Vector2(width + 4.0, 56), 23, PAPER)
+				x += width + 20.0
+			x += _chapter_button(panel, copy.tell, Vector2(x, y), func(): jabirs_offer_answered.emit("tell"))
+			_chapter_button(panel, copy.no, Vector2(x, y), func(): jabirs_offer_answered.emit("walk"))
+		"jabirs_bought":
+			_spaced_caption(panel, str(copy.deals).format({"n": jabirs_goats.deals}), y)
+			y += 36.0
+			_chapter_button(panel, copy.to_map, Vector2(x, y), func(): jabirs_result_left.emit(false))
+		"jabirs_told":
+			x += _chapter_button(panel, copy.to_rep, Vector2(x, y), func(): jabirs_result_left.emit(true), true)
+			_chapter_button(panel, copy.to_map, Vector2(x, y), func(): jabirs_result_left.emit(false))
+	_chapter_finish(panel, y)
+
+
 func _build_feeding() -> void:
 	var copy: Dictionary = feeding.data.panel
 	var panel := _chapter_panel(copy.kicker, copy.title, true)
@@ -1361,6 +1405,7 @@ func reputation_lines() -> Array:
 	var jars_line: Variant = qasims_jars.reputation_line()
 	if jars_line != null:
 		lines.append(jars_line)
+	lines.append_array(jabirs_goats.reputation_lines())
 	var purse_line: Variant = sealed_purse.reputation_line()
 	if purse_line != null:
 		lines.append(purse_line)
@@ -1506,6 +1551,9 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		extra_text = chapter.grab.ask_button
 		extra_action = func(): bread_grab_ask_requested.emit()
 		extra_primary = true
+	elif not _jabirs_caption.is_empty():
+		extra_text = _jabirs_caption
+		extra_action = func(): jabirs_offer_opened.emit()
 	var extra_width := _button_width(extra_text, extra_primary) + 18.0 if not extra_text.is_empty() else 0.0
 	var talk_text := talking.button_at(place_id)
 	var talk_notice := ""
@@ -1533,7 +1581,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var total_width := name_width + line_width + action_width + feeding_width + dice_width + jars_width + extra_width + purse_width + talk_width + 55.0
 	var carrying_footer := carrying and (place_id == "board" or total_width + carrying_width > 1836.0)
 	var inline_carrying_width := 0.0 if carrying_footer else carrying_width
-	var wrap := (not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or jars_width > 0.0 or carrying) and x + total_width + inline_carrying_width + _prayer_buttons_width(_prayer_label) > 1878.0
+	var wrap := (not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or jars_width > 0.0 or not _jabirs_caption.is_empty() or carrying) and x + total_width + inline_carrying_width + _prayer_buttons_width(_prayer_label) > 1878.0
 	var waiting := _board_prompt == BreadGrab.Prompt.WAIT
 	var bar_y := 891.0 if waiting else 965.0
 	var nav_y := 814.0 if waiting else 890.0
