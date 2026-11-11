@@ -25,7 +25,7 @@ func reset() -> void:
 
 
 func fasting_line() -> String:
-	if not _is_ramadan(_clock.day) or _rested.has(_clock.day):
+	if not is_ramadan_day(_clock.day) or _rested.has(_clock.day):
 		return ""
 	if _clock.minute_of_day < int(_numbers.fast_from) or _clock.minute_of_day >= int(_numbers.iftar_from):
 		return ""
@@ -35,7 +35,7 @@ func fasting_line() -> String:
 
 
 func action_at(place: String) -> Action:
-	if not _is_ramadan(_clock.day):
+	if not is_ramadan_day(_clock.day):
 		return Action.NONE
 	if place == "inn" and _available(Action.SUHOOR, _numbers.suhoor_from, _numbers.fast_from):
 		return Action.SUHOOR
@@ -60,7 +60,7 @@ func rest_until(wake_day: int, wake_minute: int) -> void:
 	var first := _clock.day + int(_clock.minute_of_day >= iftar)
 	var last := wake_day - int(wake_minute < iftar)
 	for day in range(first, last + 1):
-		if _is_ramadan(day):
+		if is_ramadan_day(day):
 			_rested[day] = true
 
 
@@ -69,7 +69,7 @@ func record() -> Dictionary:
 	var fasted := 0
 	var latest_fast := _clock.day - int(_clock.minute_of_day < int(_numbers.iftar_from))
 	for day in range(1, _clock.day + 1):
-		if _is_ramadan(day):
+		if is_ramadan_day(day):
 			reached = true
 			if day <= latest_fast and not _rested.has(day):
 				fasted += 1
@@ -78,7 +78,7 @@ func record() -> Dictionary:
 	return {"fasted": fasted, "suhoor": _taken[Action.SUHOOR].size(), "tarawih": _taken[Action.TARAWIH].size()}
 
 
-func _is_ramadan(day: int) -> bool:
+func is_ramadan_day(day: int) -> bool:
 	return _clock.calendar.month_index(day - 1) == int(_numbers.month)
 
 

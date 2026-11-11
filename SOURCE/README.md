@@ -334,3 +334,16 @@ Run `godot --path SOURCE -- --capture-ramadan` to capture the eleven native stat
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --ramadan` for the
 master-left comparisons. Both commands accept `--ramadan-output=/absolute/path`.
 See `LINE26_CHECKS.json` for the capture checks and `BUILD.json` for the verified source and images.
+
+### Iftar for the fasting
+
+During Ramadan, **Pay for iftar** appears at the Masjid from 16:00 through 18:09. Dates and water
+for twenty cost four coins. Soup and bread for fifty cost fifteen. The first public payment each day
+adds one trust and **Feeds the fasting** appears in **What people say**. Reading the first scholar's
+page unlocks secret payment. Both choices add to the same 10,000-meal goal as **Feed the poor**.
+
+Run `godot --path SOURCE -- --capture-iftar-giving` for the ten native viewport captures in
+`GAME/APPROVED/IFTAR_GIVING/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --iftar-giving`
+for the master-left pairs. Both commands accept `--iftar-giving-output=/absolute/path`.
+See `LINE27_CHECKS.json` for the native checks and `BUILD.json` for provenance and verified images.

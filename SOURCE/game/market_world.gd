@@ -21,6 +21,7 @@ var rashid: MeshInstance3D
 var layla: MeshInstance3D
 var talking_people: Dictionary = {}
 var oven_camera: Camera3D
+var iftar_giving_camera: Camera3D
 var dice_house_camera: Camera3D
 var qasims_offer_camera: Camera3D
 var qasims_done_camera: Camera3D
@@ -111,6 +112,8 @@ func setup(source: Dictionary) -> void:
 	qasims_done_camera = _story_camera(lane_view, point("board") + height_at_eye)
 	var gate_lane := point("a1") + height_at_eye
 	jabirs_goats_camera = _story_camera(gate_lane, point(data.square.centre) + height_at_eye)
+	var masjid_view := point("masjid") + height_at_eye
+	iftar_giving_camera = _story_camera(masjid_view, point("board") + height_at_eye)
 
 
 func point(id: String) -> Vector3:

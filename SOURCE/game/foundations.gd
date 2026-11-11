@@ -54,6 +54,12 @@ static func load_ramadan() -> Dictionary:
 	assert(parsed is Dictionary, "Approved Ramadan data must be an object")
 	return parsed
 
+static func load_iftar_giving() -> Dictionary:
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/iftar_giving.json"))
+	assert(parsed is Dictionary, "Approved iftar giving data is required")
+	return parsed
+
+
 static func load_feeding() -> Dictionary:
 	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/feeding.json"))
 	assert(parsed is Dictionary, "Approved feeding data must be an object")

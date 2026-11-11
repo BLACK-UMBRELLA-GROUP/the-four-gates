@@ -15,6 +15,7 @@ const MarketStall = preload("res://game/market_stall.gd")
 const Talking = preload("res://game/talking.gd")
 const MarketDay = preload("res://game/market_day.gd")
 const Feeding = preload("res://game/feeding.gd")
+const IftarGiving = preload("res://game/iftar_giving.gd")
 const SealedPurse = preload("res://game/sealed_purse.gd")
 const DiceHouse = preload("res://game/dice_house.gd")
 const QasimsJars = preload("res://game/qasims_jars.gd")
@@ -32,6 +33,7 @@ var bread_grab := BreadGrab.new()
 var market_stall := MarketStall.new()
 var talking := Talking.new()
 var feeding := Feeding.new()
+var iftar_giving: IftarGiving
 var sealed_purse := SealedPurse.new()
 var dice_house := DiceHouse.new()
 var qasims_jars := QasimsJars.new()
@@ -88,6 +90,8 @@ func _ready() -> void:
 	market_stall.setup(Foundations.load_market_stall(), Foundations.load_clothes(), progress, clock)
 	talking.setup(Foundations.load_talking(), progress, bread_grab, market_stall)
 	feeding.setup(Foundations.load_feeding(), progress, clock)
+	iftar_giving = IftarGiving.new(ramadan)
+	iftar_giving.setup(Foundations.load_iftar_giving(), progress, clock, feeding.meal_counter)
 	# LOCK 10's hours match the clock data's 06:30 start and 18:10 Maghrib.
 	var karim_opens := _minutes(str(identity.clock.start).get_slice(" ", 0))
 	var maghrib: Array = identity.clock.prayers.filter(func(prayer): return prayer.name == "Maghrib")
@@ -112,7 +116,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road, ramadan)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road, ramadan, iftar_giving)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -164,6 +168,8 @@ func _ready() -> void:
 	ui.tip_requested.connect(ask_regular)
 	ui.feeding_requested.connect(show_feeding)
 	ui.feeding_paid.connect(pay_for_feeding)
+	ui.iftar_giving_requested.connect(show_iftar_giving)
+	ui.iftar_giving_paid.connect(pay_for_iftar)
 	ui.dry_fountain_requested.connect(show_dry_fountain)
 	ui.dry_fountain_paid.connect(pay_for_dry_fountain)
 	ui.loan_requested.connect(show_rashids_loan)
@@ -260,6 +266,9 @@ func _ready() -> void:
 	elif "--capture-ramadan" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_ramadan.gd").new()
 		capture_runner.run(self)
+	elif "--capture-iftar-giving" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_iftar_giving.gd").new()
+		capture_runner.run(self)
 
 func _process(delta: float) -> void:
 	if ui.screen not in ["title", "arrival", "all_prayers_title"]:
@@ -297,7 +306,7 @@ func update_state() -> void:
 	if day != _daily_job_day:
 		_daily_job_day = day
 		progress.morning()
-	var world_night: bool = night or ui.screen in ["all_prayers", "all_prayers_title", "calendar", "iftar"] or (ui.screen == "arrival" and _arrival_sunset)
+	var world_night: bool = night or ui.screen in ["all_prayers", "all_prayers_title", "calendar", "iftar", "iftar_giving"] or (ui.screen == "arrival" and _arrival_sunset)
 	if world.night != world_night:
 		world.set_night(world_night)
 	ui.refresh(player.position, current_place, night, _salma_available())
@@ -310,6 +319,7 @@ func begin_game() -> void:
 	market_stall.reset()
 	talking.reset()
 	feeding.reset()
+	iftar_giving.reset()
 	sealed_purse.reset()
 	dice_house.reset()
 	qasims_jars.reset()
@@ -449,6 +459,8 @@ func show_screen(screen: String) -> void:
 	var loan_view: bool = screen in MarketUI.LOAN_SCREENS or (screen == "reputation" and ui.screen in MarketUI.LOAN_SCREENS)
 	if screen == "feeding" or screen in MarketUI.GRAB_SCREENS:
 		world.oven_camera.make_current()
+	elif screen == "iftar_giving":
+		world.iftar_giving_camera.make_current()
 	elif screen in MarketUI.DRY_FOUNTAIN_SCREENS or (screen == "reputation" and ui.screen == "fountain_done"):
 		world.qasims_done_camera.make_current()
 	elif screen in MarketUI.DICE_HOUSE_SCREENS:
@@ -663,6 +675,19 @@ func show_feeding() -> void:
 func pay_for_feeding(id: String) -> void:
 	if ui.screen == "feeding" and feeding.pay(id, known_words.has("sirr")):
 		show_screen("feeding")
+
+
+func show_iftar_giving() -> void:
+	if ui.screen not in ["game", "market_map"] or not iftar_giving.available_at(current_place):
+		return
+	_stop_travel()
+	iftar_giving.open_panel()
+	show_screen("iftar_giving")
+
+
+func pay_for_iftar(id: String) -> void:
+	if ui.screen == "iftar_giving" and iftar_giving.available_at(current_place) and iftar_giving.pay(id, known_words.has("sirr")):
+		show_screen("iftar_giving")
 
 
 func show_dry_fountain() -> void:
@@ -996,7 +1021,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif ui.screen == "city_map": show_screen("market_map")
 		elif ui.screen == "world_map": show_screen("city_map")
 		elif ui.screen == "market_map": show_screen("game")
-		elif ui.screen in ["purse", "purse_morning", "reputation", "stall", "loom", "bag", "talk", "feeding"] or ui.screen in MarketUI.DRY_FOUNTAIN_SCREENS: show_screen("market_map")
+		elif ui.screen in ["purse", "purse_morning", "reputation", "stall", "loom", "bag", "talk", "feeding", "iftar_giving"] or ui.screen in MarketUI.DRY_FOUNTAIN_SCREENS: show_screen("market_map")
 		elif ui.screen in ["board", "task", "result", "lesson", "goal"]: show_screen("game")
 		else: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	elif event.is_action_pressed("market_map") and ui.screen != "title":

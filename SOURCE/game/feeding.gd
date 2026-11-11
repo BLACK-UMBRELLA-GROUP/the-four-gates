@@ -4,8 +4,19 @@ extends RefCounted
 const TaskProgress = preload("res://game/task_progress.gd")
 const PrayerClock = preload("res://game/prayer_clock.gd")
 
+class MealCounter:
+	var total := 0
+	var goal: int
+
+	func _init(goal_value: int) -> void:
+		goal = goal_value
+
+
 var data: Dictionary
-var meals_given := 0
+var meal_counter: MealCounter
+var meals_given: int:
+	get: return meal_counter.total
+var _owns_meal_counter := false
 var secret_selected := false
 var message: String
 var _last_public_day := -1
@@ -13,15 +24,18 @@ var _progress: TaskProgress
 var _clock: PrayerClock
 
 
-func setup(source: Dictionary, progress: TaskProgress, clock: PrayerClock) -> void:
+func setup(source: Dictionary, progress: TaskProgress, clock: PrayerClock, shared_counter: MealCounter = null) -> void:
 	data = source
 	_progress = progress
 	_clock = clock
+	_owns_meal_counter = shared_counter == null
+	meal_counter = MealCounter.new(int(data.numbers.goal_meals)) if _owns_meal_counter else shared_counter
 	reset()
 
 
 func reset() -> void:
-	meals_given = 0
+	if _owns_meal_counter:
+		meal_counter.total = 0
 	_last_public_day = -1
 	open_panel()
 
@@ -44,7 +58,7 @@ func pay(id: String, knows_sirr: bool) -> bool:
 		if not can_afford(option):
 			return false
 		_progress.coins -= int(option.cost)
-		meals_given += int(option.meals)
+		meal_counter.total += int(option.meals)
 		if not secret_selected and _last_public_day != _clock.day:
 			_progress.apply_trust(int(data.numbers.trust_per_day))
 			_last_public_day = _clock.day
@@ -60,7 +74,7 @@ func reputation_line() -> Variant:
 func counter() -> String:
 	return str(data.panel.counter).format({
 		"n": _group_digits(meals_given),
-		"m": _group_digits(int(data.numbers.goal_meals)),
+		"m": _group_digits(meal_counter.goal),
 	})
 
 

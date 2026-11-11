@@ -150,6 +150,7 @@ func _run() -> void:
 	await check_harm_in_the_road_runtime()
 	await check_calendar_runtime()
 	await check_ramadan_runtime()
+	await check_iftar_giving_runtime()
 	finish()
 
 
@@ -187,14 +188,19 @@ func find_button(node: Node, label: String, skip: Node = null) -> Button:
 
 
 func has_visible_label(node: Node, expected: String) -> bool:
+	return find_visible_label(node, expected) != null
+
+
+func find_visible_label(node: Node, expected: String) -> Label:
 	if node is Control and not node.is_visible_in_tree():
-		return false
+		return null
 	if node is Label and node.text == expected:
-		return true
+		return node
 	for child in node.get_children():
-		if has_visible_label(child, expected):
-			return true
-	return false
+		var label := find_visible_label(child, expected)
+		if label != null:
+			return label
+	return null
 
 
 func key_event(code: Key, pressed: bool) -> void:
@@ -3479,3 +3485,103 @@ func check_ramadan_runtime() -> void:
 func stage_ramadan(day: int, minute: int, place: String) -> void:
 	app.clock.advance_to(day, minute, false)
 	move_market_fixture(place)
+
+
+
+func check_iftar_giving_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/IFTAR_GIVING/RECORD/iftar_giving_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/iftar_giving.json")
+	var giving: Dictionary = app.iftar_giving.data
+	var copy: Dictionary = giving.panel
+	var dates: Dictionary = giving.options[0]
+	var soup: Dictionary = giving.options[1]
+	var pay_dates: String = str(copy.pay).format({"n": int(dates.cost)})
+	var pay_soup: String = str(copy.pay).format({"n": int(soup.cost)})
+	check(not approved.is_empty() and approved == runtime, "iftar giving data copies LOCK 20 byte for byte")
+	check(giving == JSON.parse_string(runtime.get_string_from_utf8()), "iftar giving uses the approved runtime data")
+	app.set_process(false)
+
+	reset_at_market_place("masjid", 198)
+	var trust: int = app.progress.trust
+	for fixture: Vector2i in [Vector2i(29, 1000), Vector2i(30, 959)]:
+		stage_ramadan(fixture.x, fixture.y, "masjid")
+		check(find_button(app.ui, giving.masjid_button) == null, "iftar giving is absent before Ramadan or 16:00")
+		app.show_iftar_giving()
+		check(app.ui.screen == "market_map", "an unavailable iftar panel cannot be opened directly")
+	app.clock.advance_to(30, 960, false)
+	app.update_state()
+	check(find_button(app.ui, giving.masjid_button) != null, "iftar giving appears at 16:00 without reopening the map")
+	stage_ramadan(30, 1000, "board")
+	check(find_button(app.ui, giving.masjid_button) == null, "iftar giving is exclusive to the Masjid")
+	stage_ramadan(30, 1000, "masjid")
+	var button := find_button(app.ui, giving.masjid_button)
+	var fasting := find_visible_label(app.ui, app.ramadan.fasting_line())
+	check(button != null and fasting != null and button.global_position.x < fasting.global_position.x, "Pay for iftar precedes the fasting line")
+	await press_button(giving.masjid_button, "the Masjid opens the iftar giving panel")
+	check(app.ui.screen == "iftar_giving" and visible_text().contains(copy.intro), "the iftar panel uses the locked introduction")
+	check(has_visible_label(app.ui, str(copy.kicker).to_upper()) and has_visible_label(app.ui, copy.title), "the iftar panel shows the locked kicker and title")
+	for option: Dictionary in giving.options:
+		check(has_visible_label(app.ui, option.name) and has_visible_label(app.ui, option.line), "each iftar option shows its locked name and description")
+	check(find_button(app.ui, copy.secret_label) == null and has_visible_label(app.ui, str(copy.secret_locked).to_upper()), "iftar giving is public before reading the first page")
+	check(has_visible_label(app.ui, "MEALS FOR THE POOR: 0 / 10,000"), "iftar opens with the shared meal goal")
+
+	await press_button(pay_dates, "the dates and water can be paid for")
+	check_wallet(trust + 1, 194, "first public dates add one trust and cost four coins")
+	check(app.feeding.meals_given == 20 and has_visible_label(app.ui, "MEALS FOR THE POOR: 20 / 10,000"), "dates add twenty to the same meal counter as LOCK 9")
+	check(visible_text().contains(copy.done_public), "the first public payment shows Idris's locked reply")
+	await press_button(pay_soup, "the soup and bread can be paid for")
+	check_wallet(trust + 1, 179, "same-day soup costs fifteen coins and adds no more trust")
+	check(app.feeding.meals_given == 70 and has_visible_label(app.ui, "MEALS FOR THE POOR: 70 / 10,000"), "soup adds fifty more to the shared counter")
+	check(app.ui.reputation_lines() == [giving.say.feeds], "public iftar adds the locked line once")
+	await press_button(copy.back, "iftar giving returns to the market map")
+	stage_ramadan(31, 600, "board")
+	var feeding_option: Dictionary = app.feeding.data.options[0]
+	await press_button(app.feeding.data.place_button, "ordinary feeding remains available")
+	check(has_visible_label(app.ui, "MEALS FOR THE POOR: 70 / 10,000"), "Salma displays the meals paid for at the Masjid")
+	await press_button(str(app.feeding.data.panel.pay).format({"n": int(feeding_option.cost)}), "ordinary feeding also adds to the shared counter")
+	stage_ramadan(31, 1089, "masjid")
+	await press_button(giving.masjid_button, "iftar giving is still available at 18:09")
+	check(visible_text().contains(copy.intro) and has_visible_label(app.ui, "MEALS FOR THE POOR: 80 / 10,000"), "reopening clears the last iftar result and displays Salma's contribution")
+	await press_button(pay_dates, "a new day allows its own public iftar trust award")
+	check_wallet(trust + 3, 170, "iftar and ordinary feeding use separate daily trust awards")
+	app.talking.greeted = {"salma": true, "rashid": true, "layla": true}
+	check(app.ui.reputation_lines() == [app.feeding.data.say.feeds, giving.say.feeds, app.talking.data.say.greets], "the iftar reputation line follows LOCK 9 and precedes greetings")
+	app.clock.advance_to(31, 1090, false)
+	app.update_state()
+	app.pay_for_iftar(dates.id)
+	check_wallet(trust + 3, 170, "an already open panel cannot take payment at Maghrib")
+	await press_button(copy.back, "back returns to the Masjid after the iftar giving window ends")
+	check(find_button(app.ui, giving.masjid_button) == null and find_button(app.ui, app.ramadan.data.iftar_button) != null, "at 18:10 giving closes and the existing Ramadan iftar opens")
+	stage_ramadan(60, 1000, "masjid")
+	check(find_button(app.ui, giving.masjid_button) == null, "iftar giving ends with Ramadan")
+
+	reset_at_market_place("masjid", 3)
+	stage_ramadan(30, 1000, "masjid")
+	await press_button(giving.masjid_button, "the panel opens even with insufficient coins")
+	check(visible_text().count(copy.not_enough) == 2 and find_button(app.ui, pay_dates) == null and find_button(app.ui, pay_soup) == null, "unaffordable rows show the locked notice and offer no payment")
+	app.pay_for_iftar(dates.id)
+	check_wallet(trust, 3, "an unaffordable payment leaves the wallet and trust intact")
+	check(app.iftar_giving.meals_given == 0 and app.ui.reputation_lines().is_empty(), "an unaffordable payment adds no meals or reputation")
+
+	reset_at_market_place("inn", 198)
+	await press_button(app.chapter.places.inn, "enter the open purse to learn about secret giving")
+	await press_button(app.chapter.purse.ask_baker, "ask Salma about the waiting people")
+	await press_button(app.chapter.purse.baker.back, "return to the purse")
+	await press_button(str(app.chapter.purse.take_page).format({"teacher": app.chapter.teacher}), "reading page one unlocks secret giving")
+	await press_button(app.chapter.page.back, "return from the first scholar page")
+	await press_button(app.chapter.purse.not_now, "leave without a gift")
+	stage_ramadan(30, 1000, "masjid")
+	app.show_screen("game")
+	await press_button(giving.masjid_button, "iftar giving also opens from the street")
+	var checkbox := find_button(app.ui, copy.secret_label) as CheckBox
+	check(checkbox != null and not checkbox.button_pressed, "Idris's secret choice starts unchecked after page one")
+	if checkbox != null:
+		checkbox.button_pressed = true
+	check(has_visible_label(app.ui, str(copy.secret_on).to_upper()), "ticking the checkbox shows the locked secret hint")
+	await press_button(pay_dates, "secret dates use the ordinary payment control")
+	check_wallet(trust, 194, "secret dates cost four coins and grant no trust")
+	check(app.feeding.meals_given == 20 and visible_text().contains(copy.done_secret), "secret dates add meals and show Idris's secret reply")
+	check(app.ui.reputation_lines().is_empty(), "a secret iftar leaves no public reputation line")
+	reset_at_market_place("masjid", 198)
+	check(app.iftar_giving.meals_given == 0 and app.iftar_giving.reputation_line() == null, "restarting resets the shared meal counter and iftar reputation")
+	app.set_process(true)
