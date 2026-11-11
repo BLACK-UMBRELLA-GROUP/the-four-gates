@@ -22,10 +22,19 @@ func _init(source: Dictionary, night_cost: int) -> void:
 
 func date(on_day: int) -> Dictionary:
 	var offset := posmod(_arrival_offset + on_day, year_days)
+	var month := _month_index_at(offset)
+	return {"d": offset - _month_offsets[month] + 1, "m": data.months[month][0]}
+
+
+func month_index(on_day: int) -> int:
+	return _month_index_at(posmod(_arrival_offset + on_day, year_days))
+
+
+func _month_index_at(offset: int) -> int:
 	for index in range(_month_offsets.size() - 1, -1, -1):
 		if offset >= _month_offsets[index]:
-			return {"d": offset - _month_offsets[index] + 1, "m": data.months[index][0]}
-	return {}
+			return index
+	return 0
 
 
 func rest_cost(days: int) -> int:

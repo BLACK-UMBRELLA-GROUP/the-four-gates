@@ -320,3 +320,17 @@ Run `godot --path SOURCE -- --capture-calendar` for the eleven native states in
 to put each master beside its capture.
 Both commands accept `--calendar-output=/absolute/path`. See `LINE25_CHECKS.json` for the capture checks
 and `BUILD.json` for the verified source and evidence.
+
+### Ramadan
+
+LOCK 19 adds the Ramadan fasting line to place bars from 04:45 through 18:09. At the Inn,
+**Eat suhoor** is available from 03:30 through 04:44. At the Masjid, **Break your fast with the people**
+is available from 18:10 through 19:29, and **Pray tarawih** is available from 19:45 through 22:59.
+Each action is available once per day. Tarawih passes 60 game minutes. **All your prayers** includes
+the private Ramadan record once Ramadan begins.
+
+Run `godot --path SOURCE -- --capture-ramadan` to capture the eleven native states in
+`GAME/APPROVED/RAMADAN/BUILT/V1/`. Use
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --ramadan` for the
+master-left comparisons. Both commands accept `--ramadan-output=/absolute/path`.
+See `LINE26_CHECKS.json` for the capture checks and `BUILD.json` for the verified source and images.

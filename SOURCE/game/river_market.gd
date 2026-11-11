@@ -8,6 +8,7 @@ const MarketUI = preload("res://game/market_ui.gd")
 const TaskProgress = preload("res://game/task_progress.gd")
 const PrayerClock = preload("res://game/prayer_clock.gd")
 const HijriCalendar = preload("res://game/hijri_calendar.gd")
+const Ramadan = preload("res://game/ramadan.gd")
 const OpenPurse = preload("res://game/open_purse.gd")
 const BreadGrab = preload("res://game/bread_grab.gd")
 const MarketStall = preload("res://game/market_stall.gd")
@@ -43,6 +44,7 @@ var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
 var clock: PrayerClock
+var ramadan: Ramadan
 var market_day: MarketDay
 var night: bool:
 	get: return clock.night
@@ -76,6 +78,7 @@ func _ready() -> void:
 	chapter = Foundations.load_chapter1()
 	var calendar := HijriCalendar.new(Foundations.load_calendar(), int(identity.arrival.inn_night))
 	clock = PrayerClock.new(identity.clock, calendar)
+	ramadan = Ramadan.new(Foundations.load_ramadan(), clock)
 	market_day = MarketDay.new(Foundations.load_market_day(), clock)
 	Foundations.configure_input(data)
 	progress.setup(data)
@@ -109,7 +112,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road, ramadan)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -129,6 +132,7 @@ func _ready() -> void:
 	ui.calendar_requested.connect(_show_calendar)
 	ui.calendar_closed.connect(_close_calendar)
 	ui.calendar_rest_requested.connect(_rest_for_days)
+	ui.ramadan_requested.connect(_do_ramadan_action)
 	clock.adhan_started.connect(_show_adhan)
 	ui.use_requested.connect(use_place)
 	ui.goal_requested.connect(show_goal)
@@ -253,6 +257,9 @@ func _ready() -> void:
 	elif "--capture-calendar" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_calendar.gd").new()
 		capture_runner.run(self)
+	elif "--capture-ramadan" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_ramadan.gd").new()
+		capture_runner.run(self)
 
 func _process(delta: float) -> void:
 	if ui.screen not in ["title", "arrival", "all_prayers_title"]:
@@ -290,7 +297,7 @@ func update_state() -> void:
 	if day != _daily_job_day:
 		_daily_job_day = day
 		progress.morning()
-	var world_night: bool = night or ui.screen in ["all_prayers", "all_prayers_title", "calendar"] or (ui.screen == "arrival" and _arrival_sunset)
+	var world_night: bool = night or ui.screen in ["all_prayers", "all_prayers_title", "calendar", "iftar"] or (ui.screen == "arrival" and _arrival_sunset)
 	if world.night != world_night:
 		world.set_night(world_night)
 	ui.refresh(player.position, current_place, night, _salma_available())
@@ -321,6 +328,7 @@ func begin_game() -> void:
 	known_words.clear()
 	paid_nights = 0
 	clock.reset()
+	ramadan.reset()
 	_arrival_sunset = false
 	player.position = world.point(data.start_place)
 	player.velocity = Vector3.ZERO
@@ -538,11 +546,33 @@ func _rest_for_days(days: int) -> void:
 	if progress.coins < cost:
 		return
 	progress.coins -= cost
-	clock.skip_to(day + days, int(calendar.data.numbers.wake_minute), true)
+	var wake_minute := int(calendar.data.numbers.wake_minute)
+	ramadan.rest_until(day + days, wake_minute)
+	clock.skip_to(day + days, wake_minute, true)
 	_close_calendar()
 	var fields := clock.date_fields(day)
 	fields.n = days
 	ui.show_toast(str(calendar.data.rested_toast).format(fields), ui.screen == "market_map")
+
+func _do_ramadan_action(action: Ramadan.Action) -> void:
+	if ui.screen not in ["game", "market_map"]:
+		return
+	update_state()
+	if not ramadan.take(action, current_place):
+		return
+	match action:
+		Ramadan.Action.SUHOOR:
+			update_state()
+			ui.show_toast(ramadan.data.suhoor_toast, ui.screen == "market_map")
+		Ramadan.Action.IFTAR:
+			_stop_travel()
+			show_screen("iftar")
+		Ramadan.Action.TARAWIH:
+			_do_prayer(func() -> String:
+				clock.advance_to(day, minute_of_day + int(ramadan.data.numbers.tarawih_minutes))
+				return ramadan.data.tarawih_toast
+			)
+
 
 func show_open_purse() -> void:
 	if current_place == "inn" and ui.screen in ["game", "market_map"] and not open_purse.done:
@@ -923,6 +953,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if ui.screen == "calendar":
 		if event.is_action_pressed("close"):
 			_close_calendar()
+		return
+	if ui.screen == "iftar":
+		if event.is_action_pressed("close"):
+			show_screen("market_map")
 		return
 	if ui.screen in ["all_prayers", "all_prayers_title"]:
 		if event.is_action_pressed("close"):

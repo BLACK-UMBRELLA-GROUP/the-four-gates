@@ -1,0 +1,974 @@
+{
+	"checks": [
+		{
+			"description": "runtime Ramadan data matches the locked bytes",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the live Inn map",
+			"passed": true
+		},
+		{
+			"description": "capture wallet and trust match the locked setup",
+			"passed": true
+		},
+		{
+			"description": "live map at inn",
+			"passed": true
+		},
+		{
+			"description": "capture clock is at day 30 minute 240",
+			"passed": true
+		},
+		{
+			"description": "visible button shown: Eat suhoor",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Eat suhoor",
+			"passed": true
+		},
+		{
+			"description": "locked fasting line hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: n01_inn__eat_suhoor_1_ramadan__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: n01_inn__eat_suhoor_1_ramadan__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Eat suhoor",
+			"passed": true
+		},
+		{
+			"description": "visible locked action toast: You eat bread and dates by lamplight before Fajr.",
+			"passed": true
+		},
+		{
+			"description": "action toast fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "visible button hidden: Eat suhoor",
+			"passed": true
+		},
+		{
+			"description": "suhoor leaves the clock at 04:00",
+			"passed": true
+		},
+		{
+			"description": "suhoor updates the private count once",
+			"passed": true
+		},
+		{
+			"description": "suhoor leaves coins, trust and What people say unchanged",
+			"passed": true
+		},
+		{
+			"description": "the suhoor toast settles before n02",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: n02_inn__after_suhoor__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: n02_inn__after_suhoor__build.png",
+			"passed": true
+		},
+		{
+			"description": "live map at spice",
+			"passed": true
+		},
+		{
+			"description": "capture clock is at day 30 minute 600",
+			"passed": true
+		},
+		{
+			"description": "locked fasting line shown",
+			"passed": true
+		},
+		{
+			"description": "fasting line fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "the fasting line and the locked rope action both render",
+			"passed": true
+		},
+		{
+			"description": "the fasting line follows the rope action",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: n03_spice__fasting_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: n03_spice__fasting_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the live Inn map",
+			"passed": true
+		},
+		{
+			"description": "capture wallet and trust match the locked setup",
+			"passed": true
+		},
+		{
+			"description": "live map at inn",
+			"passed": true
+		},
+		{
+			"description": "capture clock is at day 29 minute 240",
+			"passed": true
+		},
+		{
+			"description": "visible button hidden: Eat suhoor",
+			"passed": true
+		},
+		{
+			"description": "locked fasting line hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: n10_inn__no_suhoor_before_ramadan__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: n10_inn__no_suhoor_before_ramadan__build.png",
+			"passed": true
+		},
+		{
+			"description": "live map at spice",
+			"passed": true
+		},
+		{
+			"description": "capture clock is at day 29 minute 600",
+			"passed": true
+		},
+		{
+			"description": "locked fasting line hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: n09_spice__29_shaban_no_fast__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: n09_spice__29_shaban_no_fast__build.png",
+			"passed": true
+		},
+		{
+			"description": "the native clock opens Today's prayers",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: All your prayers",
+			"passed": true
+		},
+		{
+			"description": "Today's prayers opens the private All your prayers panel",
+			"passed": true
+		},
+		{
+			"description": "the prayer totals omit Ramadan before it begins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market",
+			"passed": true
+		},
+		{
+			"description": "live map at spice",
+			"passed": true
+		},
+		{
+			"description": "capture clock is at day 30 minute 1095",
+			"passed": true
+		},
+		{
+			"description": "locked fasting line hidden",
+			"passed": true
+		},
+		{
+			"description": "visible button hidden: Break your fast with the people",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: n11_spice__after_maghrib_no_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: n11_spice__after_maghrib_no_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "live map at masjid",
+			"passed": true
+		},
+		{
+			"description": "capture clock is at day 30 minute 1095",
+			"passed": true
+		},
+		{
+			"description": "locked fasting line hidden",
+			"passed": true
+		},
+		{
+			"description": "visible button shown: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "visible button shown: Break your fast with the people",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Break your fast with the people",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: n04_masjid__break_your_fast__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: n04_masjid__break_your_fast__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Break your fast with the people",
+			"passed": true
+		},
+		{
+			"description": "the live iftar action opens the iftar panel",
+			"passed": true
+		},
+		{
+			"description": "visible iftar words fit: THE MASJID · MAGHRIB",
+			"passed": true
+		},
+		{
+			"description": "visible iftar words fit: Iftar",
+			"passed": true
+		},
+		{
+			"description": "visible iftar words fit: Yunus calls the adhan from the roof. Idris passes you a date and a cup of water. The men who sold you pepper this morning sit beside you on the mats, and nobody is a stranger tonight.",
+			"passed": true
+		},
+		{
+			"description": "visible button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "iftar leaves the clock at 18:15",
+			"passed": true
+		},
+		{
+			"description": "iftar leaves coins, trust and What people say unchanged",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: n05_iftar__with_the_people__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: n05_iftar__with_the_people__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the iftar panel returns to the Masjid on the market map",
+			"passed": true
+		},
+		{
+			"description": "visible button hidden: Break your fast with the people",
+			"passed": true
+		},
+		{
+			"description": "visible button shown: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray with the congregation",
+			"passed": true
+		},
+		{
+			"description": "live map at masjid",
+			"passed": true
+		},
+		{
+			"description": "capture clock is at day 30 minute 1200",
+			"passed": true
+		},
+		{
+			"description": "visible button shown: Pray Isha here",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray Isha here",
+			"passed": true
+		},
+		{
+			"description": "visible button shown: Pray tarawih",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray tarawih",
+			"passed": true
+		},
+		{
+			"description": "n06 tarawih is inline with the market navigation",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: n06_masjid__pray_tarawih__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: n06_masjid__pray_tarawih__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pray tarawih",
+			"passed": true
+		},
+		{
+			"description": "visible locked action toast: You stand behind Idris for the night prayer. The masjid is full and the Quran fills it.",
+			"passed": true
+		},
+		{
+			"description": "action toast fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "visible button hidden: Pray tarawih",
+			"passed": true
+		},
+		{
+			"description": "visible button shown: Pray Isha here",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Pray Isha here",
+			"passed": true
+		},
+		{
+			"description": "tarawih advances 20:00 to 21:00",
+			"passed": true
+		},
+		{
+			"description": "tarawih leaves coins, trust and What people say unchanged",
+			"passed": true
+		},
+		{
+			"description": "the tarawih toast settles before n07",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: n07_masjid__after_tarawih_2100__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: n07_masjid__after_tarawih_2100__build.png",
+			"passed": true
+		},
+		{
+			"description": "the native clock opens Today's prayers",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: All your prayers",
+			"passed": true
+		},
+		{
+			"description": "Today's prayers opens the private All your prayers panel",
+			"passed": true
+		},
+		{
+			"description": "the locked Ramadan title follows the prayer rows",
+			"passed": true
+		},
+		{
+			"description": "locked Ramadan row in order: Days fasted",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned Ramadan count: Days fasted = 3",
+			"passed": true
+		},
+		{
+			"description": "locked Ramadan row in order: Suhoor",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned Ramadan count: Suhoor = 0",
+			"passed": true
+		},
+		{
+			"description": "locked Ramadan row in order: Nights of tarawih",
+			"passed": true
+		},
+		{
+			"description": "rendered right-aligned Ramadan count: Nights of tarawih = 1",
+			"passed": true
+		},
+		{
+			"description": "the existing privacy note follows the Ramadan rows",
+			"passed": true
+		},
+		{
+			"description": "the prior prayer rows come from nine real expired prayer windows",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: n08_prayers__ramadan_record__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: n08_prayers__ramadan_record__build.png",
+			"passed": true
+		},
+		{
+			"description": "all eleven masters have native captures",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Passive clock ticks are paused. Fair arrivals supply 198 coins and trust is set to 45. After each arrival, the clock resets to remove the arrival-only prayer misses. The real player is placed at the named market marker and the real clock is set to the named state with unplayed prayer windows excluded. For n08, a fresh arrival leaves Suhoor at zero; the actual tarawih button adds one night. A clock skip excludes the earlier Isha at 04:45 on 2 Ramadan, then normal time passes to 21:00 on 3 Ramadan to accrue nine misses. No rendered words or Ramadan/prayer counts are seeded.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport. Real viewport clicks drive fair arrivals, Ramadan actions, the Iftar panel and both prayer record views.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "n01_inn__eat_suhoor_1_ramadan__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "n02_inn__after_suhoor__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "n03_spice__fasting_line__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "n10_inn__no_suhoor_before_ramadan__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "n09_spice__29_shaban_no_fast__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "n11_spice__after_maghrib_no_line__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "n04_masjid__break_your_fast__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "n05_iftar__with_the_people__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "n06_masjid__pray_tarawih__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "n07_masjid__after_tarawih_2100__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "n08_prayers__ramadan_record__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"settled_toasts": "The visible action toasts are checked against locked data immediately, then n02 and n07 capture the map after the ordinary toast timer expires.",
+	"states": {
+		"n01_inn__eat_suhoor_1_ramadan__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Friday 1 Ramadan",
+			"day": 30,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 240,
+			"night": true,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 0,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"n02_inn__after_suhoor__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Friday 1 Ramadan",
+			"day": 30,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 240,
+			"night": true,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 0,
+				"suhoor": 1,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"n03_spice__fasting_line__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Friday 1 Ramadan",
+			"day": 30,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 0,
+				"suhoor": 1,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"n04_masjid__break_your_fast__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Friday 1 Ramadan",
+			"day": 30,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1095,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 1,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"n05_iftar__with_the_people__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Friday 1 Ramadan",
+			"day": 30,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1095,
+			"night": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 1,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "iftar",
+			"tasks": {},
+			"trust": 45
+		},
+		"n06_masjid__pray_tarawih__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Friday 1 Ramadan",
+			"day": 30,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1200,
+			"night": true,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 1,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"n07_masjid__after_tarawih_2100__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Friday 1 Ramadan",
+			"day": 30,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1260,
+			"night": true,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 1,
+				"suhoor": 0,
+				"tarawih": 1
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"n08_prayers__ramadan_record__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Sunday 3 Ramadan",
+			"day": 32,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1260,
+			"night": true,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 9,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 3,
+				"suhoor": 0,
+				"tarawih": 1
+			},
+			"screen": "all_prayers",
+			"tasks": {},
+			"trust": 45
+		},
+		"n09_spice__29_shaban_no_fast__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Thursday 29 Sha'ban",
+			"day": 29,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"n10_inn__no_suhoor_before_ramadan__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Thursday 29 Sha'ban",
+			"day": 29,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 240,
+			"night": true,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"n11_spice__after_maghrib_no_line__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"date": "Friday 1 Ramadan",
+			"day": 30,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1095,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"prayer_totals": {
+				"alone_elsewhere": 0,
+				"alone_masjid": 0,
+				"dhuhr_fri": 0,
+				"friday": 0,
+				"jamaah": 0,
+				"madeup": 0,
+				"missed": 0,
+				"on_time": 0
+			},
+			"ramadan": {
+				"fasted": 1,
+				"suhoor": 0,
+				"tarawih": 0
+			},
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		}
+	},
+	"timestamp_utc": "2026-11-11T18:07:41Z"
+}

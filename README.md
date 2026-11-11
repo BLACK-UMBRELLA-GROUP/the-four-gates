@@ -63,6 +63,8 @@ and 19:29. Moving it takes five game minutes, and only the result panel shows th
 LOCK 18 shows the Hijri date on the clock and adds **Rest for days** at the Inn. Open it for the
 coming dates or rest for three or seven days. Prayer windows that end during the rest are excluded
 from your private totals.
+LOCK 19 adds Ramadan fasting from Fajr to Maghrib, suhoor at the Inn and iftar and tarawih at the Masjid.
+**All your prayers** shows your private Ramadan record once Ramadan begins.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

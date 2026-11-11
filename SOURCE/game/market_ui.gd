@@ -20,6 +20,7 @@ signal record_closed
 signal calendar_requested
 signal calendar_closed
 signal calendar_rest_requested(days: int)
+signal ramadan_requested(action: Ramadan.Action)
 signal use_requested
 signal goal_requested
 signal destination_requested(place_id: String)
@@ -85,6 +86,13 @@ const IdrisRecovery = preload("res://game/idris_recovery.gd")
 const DryFountain = preload("res://game/dry_fountain.gd")
 const RashidsLoan = preload("res://game/rashids_loan.gd")
 const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
+const Ramadan = preload("res://game/ramadan.gd")
+const RAMADAN_BUTTONS := {
+	Ramadan.Action.SUHOOR: "suhoor_button",
+	Ramadan.Action.IFTAR: "iftar_button",
+	Ramadan.Action.TARAWIH: "tarawih_button",
+}
+const RAMADAN_RECORD_ROWS := ["fasted", "suhoor", "tarawih"]
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
@@ -104,6 +112,7 @@ var data: Dictionary = {}
 var identity: Dictionary = {}
 var chapter: Dictionary
 var prayer_record: Dictionary
+var ramadan: Ramadan
 var open_purse: RefCounted
 var bread_grab: BreadGrab
 var market_stall: MarketStall
@@ -155,6 +164,9 @@ var _record_kicker: Label
 var _record_names: Array[Label] = []
 var _record_values: Array[Label] = []
 var _shown_prayer_totals: Dictionary
+var _shown_ramadan_totals: Dictionary
+var _fasting_line := ""
+var _ramadan_action := Ramadan.Action.NONE
 var _clock_day := -1
 var _clock_minute := -1
 var _prayer_label := ""
@@ -177,7 +189,7 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars, jabirs_goats_value: JabirsGoats, idris_recovery_value: IdrisRecovery, dry_fountain_value: DryFountain, rashids_loan_value: RashidsLoan, harm_in_the_road_value: HarmInTheRoad) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars, jabirs_goats_value: JabirsGoats, idris_recovery_value: IdrisRecovery, dry_fountain_value: DryFountain, rashids_loan_value: RashidsLoan, harm_in_the_road_value: HarmInTheRoad, ramadan_value: Ramadan) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
@@ -196,6 +208,7 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	dry_fountain = dry_fountain_value
 	rashids_loan = rashids_loan_value
 	harm_in_the_road = harm_in_the_road_value
+	ramadan = ramadan_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -297,6 +310,9 @@ func _rebuild_screen() -> void:
 		"calendar":
 			_build_hud()
 			_build_calendar()
+		"iftar":
+			_build_hud()
+			_build_iftar()
 		"prayer_record":
 			_build_hud()
 			_build_prayer_record()
@@ -438,6 +454,12 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 		if road_harm != _road_harm:
 			_road_harm = road_harm
 			rebuild = true
+		var fasting := ramadan.fasting_line()
+		var ramadan_action := ramadan.action_at(place_value)
+		if fasting != _fasting_line or ramadan_action != _ramadan_action:
+			_fasting_line = fasting
+			_ramadan_action = ramadan_action
+			rebuild = true
 	var can_feed := place_value == "quay" and market_stall.count("bread") > 0
 	if can_feed != _can_feed:
 		_can_feed = can_feed
@@ -466,7 +488,7 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	if map.visible:
 		map.queue_redraw()
 	if screen == "all_prayers" and clock_changed:
-		rebuild = rebuild or clock.totals() != _shown_prayer_totals
+		rebuild = rebuild or clock.totals() != _shown_prayer_totals or ramadan.record() != _shown_ramadan_totals
 	if rebuild and screen not in ["title", "all_prayers_title"]:
 		_rebuild_screen()
 	elif clock_changed:
@@ -782,6 +804,19 @@ func _calendar_button(panel: Panel, value: String, at: Vector2, callback: Callab
 	return width
 
 
+func _build_iftar() -> void:
+	var copy: Dictionary = ramadan.data.iftar
+	var panel := _panel(Vector2(365, 445), Vector2(1190, 276), Color("1b130be6"))
+	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
+	style.set_corner_radius_all(18)
+	_heading(panel, copy.kicker, copy.title, true)
+	var button_y := 132.0 + maxf(60.0, _story_text(panel, copy.text, 112))
+	_button(copy.to_map, Vector2(34, button_y), Vector2(_button_width(copy.to_map), 56),
+		func(): screen_requested.emit("market_map"), false, panel)
+	panel.size.y = button_y + 84.0
+	panel.position.y = 583.0 - panel.size.y / 2.0
+
+
 func _build_prayer_record() -> void:
 	var record_copy: Dictionary = identity.clock.record
 	var panel := _panel(Vector2(365, 322), Vector2(1190, 524), Color("1b130bf2"))
@@ -807,10 +842,13 @@ func _build_prayer_record() -> void:
 
 func _build_prayer_totals() -> void:
 	_shown_prayer_totals = clock.totals()
+	_shown_ramadan_totals = ramadan.record()
 	var copy: Dictionary = prayer_record.panel
 	var empty: bool = int(_shown_prayer_totals.on_time) + int(_shown_prayer_totals.madeup) + int(_shown_prayer_totals.missed) == 0
 	var top := 443.0 if empty else 283.0
-	var panel := _panel(Vector2(365, top), Vector2(1190, 281 if empty else 600), Color("1b130be6"))
+	var height := 281.0 if empty else 600.0
+	var ramadan_height := 169.0 if not _shown_ramadan_totals.is_empty() else 0.0
+	var panel := _panel(Vector2(365, top - ceilf(ramadan_height / 2.0)), Vector2(1190, height + ramadan_height), Color("1b130be6"))
 	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
 	style.set_corner_radius_all(18)
 	_spaced_caption(panel, copy.kicker, 26)
@@ -823,22 +861,35 @@ func _build_prayer_totals() -> void:
 			var row: String = PRAYER_TOTAL_ROWS[index]
 			var y := 113.0 + index * 45.3
 			var indented := index >= 1 and index <= 3
-			var line := ColorRect.new()
-			line.position = Vector2(34, y)
-			line.size = Vector2(1122, 1)
-			line.color = Color("88612555")
-			line.mouse_filter = Control.MOUSE_FILTER_IGNORE
-			panel.add_child(line)
-			_label(panel, prayer_record.rows[row], Vector2(64 if indented else 34, y), Vector2(960, 45), 23, PAPER, not indented)
-			var value := _label(panel, str(prayer_record.count).format({"n": _shown_prayer_totals[row]}), Vector2(1000, y), Vector2(156, 45), 23, Color("ffd27e"))
-			value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+			var count: String = str(prayer_record.count).format({"n": _shown_prayer_totals[row]})
+			_prayer_total_row(panel, y, prayer_record.rows[row], count, indented)
 	var footer := 197.0 if empty else 517.0
+	if ramadan_height > 0.0:
+		var record: Dictionary = ramadan.data.record
+		_spaced_caption(panel, record.title, footer - 35.0)
+		for index in RAMADAN_RECORD_ROWS.size():
+			var row: String = RAMADAN_RECORD_ROWS[index]
+			var count: String = str(record.count).format({"n": _shown_ramadan_totals[row]})
+			_prayer_total_row(panel, footer - 8.0 + index * 45.3, record[row], count)
+		footer += ramadan_height
 	_spaced_caption(panel, copy.note, footer - 40)
 	if screen == "all_prayers_title":
 		_button(copy.back_title, Vector2(34, footer), Vector2(109, 56), func(): screen_requested.emit("title"), true, panel)
 	else:
 		_button(copy.back_market, Vector2(34, footer), Vector2(247, 56), func(): record_closed.emit(), true, panel)
 		_button(copy.today, Vector2(294, footer), Vector2(210, 56), func(): screen_requested.emit("prayer_record"), false, panel)
+
+func _prayer_total_row(panel: Panel, y: float, caption: String, count: String, indented: bool = false) -> void:
+	var line := ColorRect.new()
+	line.position = Vector2(34, y)
+	line.size = Vector2(1122, 1)
+	line.color = Color("88612555")
+	line.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel.add_child(line)
+	_label(panel, caption, Vector2(64 if indented else 34, y), Vector2(960, 45), 23, PAPER, not indented)
+	var value := _label(panel, count, Vector2(1000, y), Vector2(156, 45), 23, Color("ffd27e"))
+	value.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+
 
 func _spaced_caption(panel: Panel, value: String, y: float) -> Label:
 	var caption := _label(panel, value.to_upper(), Vector2(34, y), Vector2(1122, 28), 16, Color("e9bd70"))
@@ -1690,18 +1741,22 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var label_size := 23 if deliver else 24
 	var carrying_text: String = sealed_purse.data.carrying if carrying else ""
 	var carrying_width := font.get_string_size(carrying_text, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0 if carrying else 0.0
+	var fasting := _fasting_line
+	var fasting_width := font.get_string_size(fasting, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0 if not fasting.is_empty() else 0.0
 	if place_id.is_empty() or not data.places.has(place_id):
 		var idle: String = data.ui.place_bar.idle
 		var idle_width: float = font.get_string_size(idle, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
-		var idle_total := idle_width + carrying_width + 36.0
-		var idle_wrap := carrying and x + idle_total + _prayer_buttons_width(_prayer_label) > 1878.0
+		var idle_total := idle_width + fasting_width + carrying_width + 36.0
+		var idle_wrap := (carrying or fasting_width > 0.0) and x + idle_total + _prayer_buttons_width(_prayer_label) > 1878.0
 		var idle_nav := 890.0 if idle_wrap else 974.0
 		var prayer_x := _build_prayer_buttons(x, 0.0 if idle_wrap else idle_total, idle_nav if idle_wrap else 973.0)
 		x = 42.0 if idle_wrap else prayer_x
 		var idle_panel := _panel(Vector2(x, 965), Vector2(idle_total, 73), Color("191c19"))
 		_label(idle_panel, idle, Vector2(18, 15), Vector2(idle_width + 4, 42), 24, PAPER)
+		if fasting_width > 0.0:
+			_label(idle_panel, fasting, Vector2(idle_width + 36.0, 15), Vector2(fasting_width, 42), 24, PAPER)
 		if carrying:
-			_label(idle_panel, carrying_text, Vector2(idle_width + 36.0, 15), Vector2(carrying_width, 42), 24, PAPER)
+			_label(idle_panel, carrying_text, Vector2(idle_width + fasting_width + 36.0, 15), Vector2(carrying_width, 42), 24, PAPER)
 		return idle_nav
 	var place: Dictionary = data.places[place_id]
 	var name_value: String = place.name
@@ -1825,13 +1880,33 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var harm_bar_width := total_width
 	if harm_available:
 		harm_bar_width = 1836.0 if harm_row_height > 0.0 else harm_button_at.x + harm_button_width + 18.0
-	var carrying_footer := carrying and (place_id == "board" or harm_row_height > 0.0 or harm_bar_width + carrying_width > 1836.0)
+	var ramadan_action := _ramadan_action
+	var ramadan_primary := ramadan_action in [Ramadan.Action.SUHOOR, Ramadan.Action.IFTAR]
+	var action_text: String = ramadan.data[RAMADAN_BUTTONS[ramadan_action]] if ramadan_action != Ramadan.Action.NONE else ""
+	var ramadan_width := fasting_width
+	if not action_text.is_empty():
+		ramadan_width = _button_width(action_text, ramadan_primary) + 18.0
+	var base_height := (147.0 if waiting else 73.0) + (73.0 if talk_footer else 0.0) + harm_row_height
+	var ramadan_at := Vector2(total_width + 1.0, 0.0)
+	var bar_width := harm_bar_width
+	var ramadan_height := 0.0
+	if ramadan_width > 0.0:
+		if harm_available:
+			ramadan_at = harm_button_at + Vector2(harm_button_width + 18.0, 0.0)
+		elif waiting or talk_footer:
+			ramadan_at = Vector2(18.0, base_height)
+		if ramadan_at.x + ramadan_width > 1836.0:
+			ramadan_at = Vector2(18.0, base_height)
+		ramadan_height = maxf(0.0, ramadan_at.y + 73.0 - base_height)
+		bar_width = 1836.0 if ramadan_height > 0.0 else maxf(bar_width, ramadan_at.x + ramadan_width)
+	var carrying_footer := carrying and (place_id == "board" or harm_row_height > 0.0 or ramadan_height > 0.0 or bar_width + carrying_width > 1836.0)
 	var inline_carrying_width := 0.0 if carrying_footer else carrying_width
-	var wrap := (harm_available or not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or calendar_width > 0.0 or jars_width > 0.0 or loan_width > 0.0 or not _jabirs_caption.is_empty() or carrying) and x + harm_bar_width + inline_carrying_width + _prayer_buttons_width(_prayer_label) > 1878.0
+	var prayer_width := _prayer_buttons_width("" if ramadan_width > 0.0 and place_id == "masjid" else _prayer_label)
+	var wrap := (harm_available or not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or calendar_width > 0.0 or jars_width > 0.0 or loan_width > 0.0 or not _jabirs_caption.is_empty() or carrying or ramadan_width > 0.0) and x + bar_width + inline_carrying_width + prayer_width > 1878.0
 	if cool_width > 0.0:
-		wrap = wrap or x + harm_bar_width + inline_carrying_width + _prayer_buttons_width("") > 1878.0
-	var bar_y := (891.0 if waiting else 965.0) - harm_row_height
-	var nav_y := (814.0 if waiting else 890.0) - harm_row_height
+		wrap = wrap or x + bar_width + inline_carrying_width + _prayer_buttons_width("") > 1878.0
+	var bar_y := (891.0 if waiting else 965.0) - harm_row_height - ramadan_height
+	var nav_y := (814.0 if waiting else 890.0) - harm_row_height - ramadan_height
 	if talk_footer:
 		bar_y -= 73.0
 		nav_y -= 73.0
@@ -1842,15 +1917,15 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		_build_prayer_buttons(x, 0.0, nav_y)
 		x = 42.0
 	else:
-		x = _build_prayer_buttons(x, harm_bar_width + inline_carrying_width)
-	var width := harm_bar_width + inline_carrying_width
+		x = _build_prayer_buttons(x, bar_width + inline_carrying_width)
+	var width := bar_width + inline_carrying_width
 	if waiting:
 		width = maxf(width, font.get_string_size(chapter.grab.wait_line, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 36.0)
 	if carrying_footer:
 		width = maxf(width, carrying_width + 18.0)
 	if place_id == "board":
 		width = maxf(width, 1836.0)
-	var height := (147.0 if waiting else 73.0) + (50.0 if carrying_footer else 0.0) + (73.0 if talk_footer else 0.0) + harm_row_height
+	var height := base_height + ramadan_height + (50.0 if carrying_footer else 0.0)
 	var panel := _panel(Vector2(x, bar_y), Vector2(width, height), Color("191c19"))
 	_label(panel, name_value, Vector2(18, 15), Vector2(name_width + 4, 42), label_size, PAPER, true)
 	_label(panel, line_value, Vector2(18 + name_width, 15), Vector2(line_width + 4, 42), label_size, PAPER)
@@ -1892,7 +1967,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var talk_x := x + 18.0 if talk_footer else extra_x + purse_width
 	var talk_y := 0.0
 	if talk_footer:
-		talk_y = 73.0 + (50.0 if carrying_footer and not harm_available else 0.0)
+		talk_y = 73.0 + (50.0 if carrying_footer and not harm_available and ramadan_width == 0.0 else 0.0)
 		if harm_available and waiting:
 			talk_y += 74.0
 	if not talk_notice.is_empty():
@@ -1904,13 +1979,18 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if harm_available:
 		_label(panel, _road_harm.bar, harm_label_at + Vector2(0, 15), Vector2(harm_label_width, 42), label_size, PAPER)
 		_button(_road_harm.move, harm_button_at + Vector2(x, bar_y + 8), Vector2(harm_button_width, 56), func(): road_harm_requested.emit())
+	if not fasting.is_empty():
+		_label(panel, fasting, ramadan_at + Vector2(0, 15), Vector2(fasting_width, 42), label_size, PAPER)
+	elif ramadan_action != Ramadan.Action.NONE:
+		_button(action_text, ramadan_at + Vector2(x, bar_y + 8), Vector2(ramadan_width - 18.0, 56),
+			func(): ramadan_requested.emit(ramadan_action), ramadan_primary)
 	if carrying_footer:
-		var carrying_y := height - 50.0 if harm_available else 73.0
+		var carrying_y := height - 50.0 if harm_available or ramadan_width > 0.0 else 73.0
 		_label(panel, carrying_text, Vector2(18, carrying_y), Vector2(carrying_width, 42), label_size, PAPER)
 	elif carrying:
-		_label(panel, carrying_text, Vector2(harm_bar_width + 2.0, 15), Vector2(carrying_width - 18.0, 42), label_size, PAPER)
+		_label(panel, carrying_text, Vector2(bar_width + 2.0, 15), Vector2(carrying_width - 18.0, 42), label_size, PAPER)
 	if waiting:
-		_label(panel, chapter.grab.wait_line, Vector2(18, 87 + (50 if carrying_footer and not harm_available else 0)), Vector2(width - 36, 42), 24, PAPER)
+		_label(panel, chapter.grab.wait_line, Vector2(18, 87 + (50 if carrying_footer and not harm_available and ramadan_width == 0.0 else 0)), Vector2(width - 36, 42), 24, PAPER)
 	return nav_y if wrap or separate_board_row or carrying_footer else 974.0
 
 func _style(background: Color, border: Color = Color("886125")) -> StyleBoxFlat:
