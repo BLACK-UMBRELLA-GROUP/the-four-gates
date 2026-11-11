@@ -34,6 +34,8 @@ var sealed_purse_offer_camera: Camera3D
 var sealed_purse_coin_camera: Camera3D
 var sealed_purse_delivery_camera: Camera3D
 var spice_row_camera: Camera3D
+var weaver_lane_camera: Camera3D
+var weaver_reputation_camera: Camera3D
 var _faris_start: Vector3
 var _faris_run: Tween
 
@@ -175,6 +177,15 @@ func setup_chapter_people(chapter: Dictionary, regulars: Array) -> void:
 	oven_camera = Camera3D.new()
 	add_child(oven_camera)
 	var distance := float(data.camera.distance_behind)
+	var lane_height := Vector3.UP * float(data.camera.height_above_feet)
+	var weaver_view := point("weaver") - along_weaver_lane * distance + lane_height
+	var lane_target := point(data.square.centre) + lane_height
+	weaver_lane_camera = _story_camera(weaver_view, lane_target)
+	weaver_lane_camera.set_cull_mask_value(STREET_FIGURES_LAYER, false)
+	# LOCK 31 frames What people say at an angle down the same lane.
+	var lane_side := along_weaver_lane.cross(Vector3.UP) * (float(data.street_width) / 2.0)
+	weaver_reputation_camera = _story_camera(weaver_view, lane_target + lane_side)
+	weaver_reputation_camera.set_cull_mask_value(STREET_FIGURES_LAYER, false)
 	var height := float(data.camera.height_above_feet) + float(data.player.capsule_height)
 	oven_camera.position = oven_at + along_square * distance + beside_oven * 2.0 + Vector3.UP * height
 	oven_camera.look_at(oven_at + along_square * float(data.player.capsule_height))

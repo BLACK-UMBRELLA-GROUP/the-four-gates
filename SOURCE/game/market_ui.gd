@@ -79,6 +79,8 @@ signal dry_fountain_requested
 signal dry_fountain_paid(choice: String)
 signal loan_requested
 signal loan_answered(choice: String)
+signal partnership_requested
+signal partnership_answered(choice: String)
 signal road_harm_requested
 signal sealed_purse_offered
 signal sealed_purse_accepted
@@ -110,6 +112,7 @@ const JabirsGoats = preload("res://game/jabirs_goats.gd")
 const IdrisRecovery = preload("res://game/idris_recovery.gd")
 const DryFountain = preload("res://game/dry_fountain.gd")
 const RashidsLoan = preload("res://game/rashids_loan.gd")
+const Partnership = preload("res://game/partnership.gd")
 const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
 const Ramadan = preload("res://game/ramadan.gd")
 const EidAlFitr = preload("res://game/eid_al_fitr.gd")
@@ -147,7 +150,8 @@ const QASIMS_JARS_SCREENS := ["qasims_offer", "qasims_done"]
 const JABIRS_GOATS_SCREENS := ["jabirs_offer", "jabirs_bought", "jabirs_told"]
 const DRY_FOUNTAIN_SCREENS := ["dry_fountain", "fountain_done"]
 const LOAN_SCREENS := ["loan_ask", "loan_lent", "loan_riba", "loan_due", "loan_after", "loan_last"]
-const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_refused", "purse_morning", "reputation", "harm_done", "pilgrims", "qurans_school", "names_of_allah"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS + DRY_FOUNTAIN_SCREENS + LOAN_SCREENS
+const PARTNERSHIP_SCREENS := ["partnership_ask", "partnership_agreed", "partnership_riba", "partnership_week"]
+const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_refused", "purse_morning", "reputation", "harm_done", "pilgrims", "qurans_school", "names_of_allah"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS + DRY_FOUNTAIN_SCREENS + LOAN_SCREENS + PARTNERSHIP_SCREENS
 var data: Dictionary = {}
 var identity: Dictionary = {}
 var chapter: Dictionary
@@ -174,9 +178,12 @@ var jabirs_goats: JabirsGoats
 var idris_recovery: IdrisRecovery
 var dry_fountain: DryFountain
 var rashids_loan: RashidsLoan
+var partnership: Partnership
 var harm_in_the_road: HarmInTheRoad
 var _road_harm: Dictionary = {}
 var _loan_offer := RashidsLoan.Offer.HIDDEN
+var _partnership_offer := Partnership.Offer.HIDDEN
+var _partnership_caption := ""
 var _last_idris_cool := false
 var _dice_caption := ""
 var _qasims_caption := ""
@@ -482,6 +489,9 @@ func _rebuild_screen() -> void:
 		"loan_ask", "loan_lent", "loan_riba", "loan_due", "loan_after", "loan_last":
 			_build_hud()
 			_build_rashids_loan()
+		"partnership_ask", "partnership_agreed", "partnership_riba", "partnership_week":
+			_build_hud()
+			_build_partnership()
 		"harm_done":
 			_build_hud()
 			_build_road_harm_done()
@@ -597,6 +607,19 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	var loan_offer := rashids_loan.offer() if place_value == "spice" else RashidsLoan.Offer.HIDDEN
 	if loan_offer != _loan_offer:
 		_loan_offer = loan_offer
+		rebuild = rebuild or screen in ["game", "market_map"]
+	var partnership_offer := partnership.offer() if place_value == "weaver" else Partnership.Offer.HIDDEN
+	var partnership_caption := ""
+	match partnership_offer:
+		Partnership.Offer.ASK:
+			partnership_caption = partnership.data.ask_button
+		Partnership.Offer.RUNNING:
+			partnership_caption = str(partnership.data.running).format({"n": partnership.days_until_share()})
+		Partnership.Offer.DUE:
+			partnership_caption = partnership.data.share_button
+	if partnership_offer != _partnership_offer or partnership_caption != _partnership_caption:
+		_partnership_offer = partnership_offer
+		_partnership_caption = partnership_caption
 		rebuild = rebuild or screen in ["game", "market_map"]
 	if screen in ["game", "market_map"] or screen in ADHA_SCREENS:
 		var adha_action := eid_al_adha.action_at(place_value)
@@ -1877,6 +1900,31 @@ func _build_rashids_loan() -> void:
 	_chapter_finish(panel, y)
 
 
+func _build_partnership() -> void:
+	var panel_key := screen.trim_prefix("partnership_")
+	var copy: Dictionary = partnership.data[panel_key]
+	var is_week := panel_key == "week"
+	var kicker: String = partnership.week_kicker() if is_week else copy.kicker
+	var story: String = partnership.week_story() if is_week else copy.text
+	var panel := _chapter_panel(kicker, copy.title, true)
+	var y := 111.0 + _story_text(panel, story, 111.0) + 16.0
+	var to_map := func(): screen_requested.emit("market_map")
+	if panel_key == "ask":
+		if partnership.can_afford():
+			var amounts := {"n": int(partnership.data.numbers.capital), "m": int(partnership.data.numbers.fixed_ask)}
+			_chapter_button(panel, str(copy.partner).format(amounts), Vector2(34, y), func(): partnership_answered.emit("partner"), true, true)
+			y += 69.0
+			_chapter_button(panel, str(copy.fixed).format(amounts), Vector2(34, y), func(): partnership_answered.emit("fixed"), false, true)
+			y += 69.0
+		else:
+			_label(panel, copy.not_enough, Vector2(34, y), Vector2(1120, 32), 23, PAPER)
+			y += 44.0
+		_chapter_button(panel, copy.no, Vector2(34, y), to_map, false, true)
+	else:
+		_chapter_button(panel, copy.to_map, Vector2(34, y), to_map, false, true)
+	_chapter_finish(panel, y)
+
+
 func _build_road_harm_done() -> void:
 	var copy: Dictionary = harm_in_the_road.data.panel
 	var harm := harm_in_the_road.moved_harm
@@ -2241,6 +2289,9 @@ func reputation_lines() -> Array:
 	var loan_line: Variant = rashids_loan.reputation_line()
 	if loan_line != null:
 		lines.append(loan_line)
+	var partnership_line: Variant = partnership.reputation_line()
+	if partnership_line != null:
+		lines.append(partnership_line)
 	var idris_line: Variant = idris_recovery.reputation_line()
 	if idris_line != null:
 		lines.append(idris_line)
@@ -2437,6 +2488,11 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		RashidsLoan.Offer.ASK, RashidsLoan.Offer.DUE, RashidsLoan.Offer.LAST:
 			loan_caption = rashids_loan.data.pay_button if loan_primary else rashids_loan.data.ask_button
 			loan_width = _button_width(loan_caption, loan_primary) + 18.0
+	var partnership_width := 0.0
+	var partnership_running := _partnership_offer == Partnership.Offer.RUNNING
+	var partnership_primary := _partnership_offer == Partnership.Offer.DUE
+	if not _partnership_caption.is_empty():
+		partnership_width = (font.get_string_size(_partnership_caption, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x if partnership_running else _button_width(_partnership_caption, partnership_primary)) + 18.0
 	var feeding_width := _button_width(feeding.data.place_button) + 18.0 if _feeding_available else 0.0
 	var purse_text := ""
 	var purse_action: Callable
@@ -2458,7 +2514,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if not cool_notice.is_empty():
 		cool_width = font.get_string_size(cool_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x + 18.0
 	var inline_talk_width := 0.0 if talk_footer else talk_width
-	var total_width := cool_width + name_width + line_width + action_width + loan_width + fountain_width + feeding_width + iftar_giving_width + dice_width + calendar_width + jars_width + extra_width + purse_width + inline_talk_width + 55.0
+	var total_width := cool_width + name_width + line_width + action_width + partnership_width + loan_width + fountain_width + feeding_width + iftar_giving_width + dice_width + calendar_width + jars_width + extra_width + purse_width + inline_talk_width + 55.0
 	var waiting := _board_prompt == BreadGrab.Prompt.WAIT
 	var harm_available := not _road_harm.is_empty()
 	var harm_label_at := Vector2.ZERO
@@ -2568,7 +2624,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var compact_reduction := 24.0 if compact_spice_bar else 0.0
 	var caption_y := 15.0 - compact_reduction / 2.0
 	var prayer_width := _prayer_buttons_width("" if ramadan_width > 0.0 and place_id == "masjid" else _prayer_label)
-	var wrap := (harm_available or not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or calendar_width > 0.0 or jars_width > 0.0 or loan_width > 0.0 or not _jabirs_caption.is_empty() or carrying or ramadan_width > 0.0 or iftar_giving_width > 0.0 or last_actions_width > 0.0 or _calligraphy_available) and x + bar_width + inline_carrying_width + prayer_width > 1878.0
+	var wrap := (harm_available or not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or calendar_width > 0.0 or jars_width > 0.0 or loan_width > 0.0 or partnership_width > 0.0 or not _jabirs_caption.is_empty() or carrying or ramadan_width > 0.0 or iftar_giving_width > 0.0 or last_actions_width > 0.0 or _calligraphy_available) and x + bar_width + inline_carrying_width + prayer_width > 1878.0
 	if cool_width > 0.0:
 		wrap = wrap or x + bar_width + inline_carrying_width + _prayer_buttons_width("") > 1878.0
 	var bar_y := (891.0 if waiting else 965.0) - harm_row_height - extra_rows_height - attendance_height + compact_reduction
@@ -2598,12 +2654,18 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var panel := _panel(Vector2(x, bar_y), Vector2(width, height + attendance_height), Color("191c19"))
 	_label(panel, name_value, Vector2(18, caption_y), Vector2(name_width + 4, 42), label_size, PAPER, true)
 	_label(panel, line_value, Vector2(18 + name_width, caption_y), Vector2(line_width + 4, 42), label_size, PAPER)
-	var action_x := x + total_width - action_width - loan_width - fountain_width - feeding_width - iftar_giving_width - dice_width - calendar_width - jars_width - extra_width - purse_width - inline_talk_width - cool_width - 17.0
+	var action_x := x + total_width - action_width - partnership_width - loan_width - fountain_width - feeding_width - iftar_giving_width - dice_width - calendar_width - jars_width - extra_width - purse_width - inline_talk_width - cool_width - 17.0
 	if shop_notice.is_empty():
 		_button(action, Vector2(action_x, bar_y + 8.0), Vector2(action_width, 56), func(): use_requested.emit(), true)
 	else:
 		_label(panel, shop_notice, Vector2(action_x - x, caption_y), Vector2(action_width + 4.0, 42), 24, PAPER)
 	var extra_x := action_x + action_width + 18.0
+	if partnership_width > 0.0:
+		if partnership_running:
+			_label(panel, _partnership_caption, Vector2(extra_x - x, caption_y), Vector2(partnership_width, 42), label_size, PAPER)
+		else:
+			_button(_partnership_caption, Vector2(extra_x, bar_y + 8.0), Vector2(partnership_width - 18.0, 56), func(): partnership_requested.emit(), partnership_primary)
+		extra_x += partnership_width
 	if loan_width > 0.0:
 		if _loan_offer == RashidsLoan.Offer.OWED:
 			_label(panel, loan_caption, Vector2(extra_x - x, 15), Vector2(loan_width, 42), label_size, PAPER)

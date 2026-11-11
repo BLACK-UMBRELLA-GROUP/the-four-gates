@@ -489,3 +489,16 @@ Capture the seven locked states with
 Create the paired images with
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --prayer-reminder`.
 Both commands accept `--reminder-output=/absolute/path`.
+
+## LOCK 31 A partnership with Layla
+
+Visit Weaver's lane while Layla is at her loom with at least 40 River Market trust. The second-loom
+offer asks for 60 coins and splits the profit and loss equally. Layla refuses a fixed weekly return
+and lowers trust by 3. If you become partners, return to the lane to collect each weekly share.
+The agreement or refusal and any collected weeks persist in the single save slot. Each choice adds
+its line under **What people say**.
+
+Run `godot --path SOURCE -- --capture-partnership --partnership-user-dir=/absolute/fresh/path`
+for the 12 native viewport captures. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --partnership`
+to put each master beside its capture. Both commands accept `--partnership-output=/absolute/path`.

@@ -91,6 +91,9 @@ walking speed separately from the save.
 LOCK 30 adds the optional **Real-life prayer reminder** in **Settings**. It starts off. Choose a city
 and Standard or Hanafi Asr to see today's local prayer times. While playing, **Pause and pray** opens
 the pause menu and **Later** dismisses the reminder.
+LOCK 31 adds Layla's second-loom offer in Weaver's lane while she's at work and your trust is
+at least 40. Putting in 60 coins makes you partners on equal terms. Collect your share every
+seven in-game days. Layla refuses a fixed weekly return.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

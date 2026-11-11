@@ -1,0 +1,443 @@
+{
+  "line": 38,
+  "lock": "LOCK 31 V1",
+  "brief": "DOC-TFG-0104",
+  "tested_base_commit_sha": "85eff1da409abdfedc250c314ac825c1d36604c1",
+  "capture_source": "The tested base and the line 38 changes in the source/evidence commit containing this receipt. Source hashes identify the final files used for capture and verification.",
+  "godot_version": "4.7.2-stable (official)",
+  "godot_binary_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T21:07:13Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Native Godot viewport. Clicks drive fair arrivals, the physical walk to Weaver's lane, the offer, the weekly collections and What people say.",
+  "fixture": "The passive clock is paused. Fair arrival supplies 198 coins. Trust is set to 45, except for the trust checks including ps11 at 35. The wallet is temporarily set to 20 for ps12. The game starts at the Inn and walks to Layla. The offer opens on Thursday day 8 at 10:00. The clock advances without passive ticks to test Layla's hours and each due date. The fixed-return and partnership branches each start from a fresh arrival.",
+  "spec_clarification": "The as-read spec includes the designer's 11 November clarification for later non-Friday 10:00 captures. The locked data and masters match the tested base.",
+  "spec_at_tested_base_sha256": "ce09558e234184cf15358e3d8794772cec2f93c4b2a83e95e17ff7bc0c796300",
+  "headless_checks_passed": 5544,
+  "independent_headless_checks_passed": {
+    "progress_restart": 24,
+    "player_movement": 39,
+    "look_controls": 28
+  },
+  "native_checks_passed": 345,
+  "native_approval_prompts": 0,
+  "approved_inputs": [
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/BRIEFS/BUILD_BRIEF_2026-11-09_PARTNERSHIP.md",
+      "bytes": 2230,
+      "sha256": "658a3858e28f856d8d78be7f367633886dc1fad549e16c95e0424a2b2ff913b3"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/RECORD/LOCK_RECORD.md",
+      "bytes": 666,
+      "sha256": "48cfe4665bffbbe7621e6524302b9c1ef2b6db4d40045377aa9e1612fa666a4b"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/RECORD/PARTNERSHIP_SPEC_CURRENT_VERSION_V1.md",
+      "bytes": 4258,
+      "sha256": "05e93de96a4fbc41a5646cff83e56189f38b5ae4a6a1620e98be3ad513a62064"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/RECORD/partnership_data_V1.json",
+      "bytes": 2135,
+      "sha256": "59f2d6f536d7daa769f119cd6b7b7048af5b89345eb491ea0fe0dc6f4cb7a3bd"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/MASTERS/ps01_weaver__second_loom.png",
+      "bytes": 69525,
+      "sha256": "d541c389b15bec4261b02bb52e6ad500fdb3f82dfe476e17eb49b0aa03ad84a0"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/MASTERS/ps02_partner__the_offer.png",
+      "bytes": 247157,
+      "sha256": "ee739c504962d2e3e694eb11ba4ea137bed92f7dc9fe4cc561e964592e0bceb0"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/MASTERS/ps03_partner__whatever_happens_refused.png",
+      "bytes": 283930,
+      "sha256": "ad49b787ed07702daedd0fb678b6dae3017b793fc0390417c0ecbfdb85459eab"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/MASTERS/ps04_people_say__wanted_a_sure_profit.png",
+      "bytes": 325891,
+      "sha256": "128194a73f65e31a87defb83c696a2211764dac580f978ec9e7364d4c81070f4"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/MASTERS/ps05_partner__partners.png",
+      "bytes": 281065,
+      "sha256": "e1480157bbd2628acf8575ef314d7fa47b3d82feb43b1c5d6ff7891b1ed40295"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/MASTERS/ps06_weaver__next_share_in_7_days.png",
+      "bytes": 71109,
+      "sha256": "cc224848f7252661048326ef92cbc6ab7305caf934f77a9e7f693ce482a824db"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/MASTERS/ps07_weaver__layla_has_your_share.png",
+      "bytes": 70103,
+      "sha256": "97000867cc1438471a0c9f3b11a970d0a65ff5c7a2d9f77361a38079706ddb37"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/MASTERS/ps08_share__week_1_five_coins.png",
+      "bytes": 287055,
+      "sha256": "abb1f2c358e3aaa913db0e4538134944099897e3e23e690956e3c39d49f3a277"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/MASTERS/ps09_share__week_3_bad_week.png",
+      "bytes": 281221,
+      "sha256": "02ed83055554243559d04b7ff2213ffed54d863d18a07c59676e2a8cf88243b3"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/MASTERS/ps10_people_say__fair_share.png",
+      "bytes": 323736,
+      "sha256": "04a4b57d69e6ff23833eaf199dc7998ffb74b87142d166c52536e2548c2aa616"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/MASTERS/ps11_weaver__trust_too_low.png",
+      "bytes": 67932,
+      "sha256": "e3484880eb80aaf6ebfc4216efb7511b192a0fe10538837c38e7d4a5ac04f4b8"
+    },
+    {
+      "path": "GAME/APPROVED/PARTNERSHIP/MASTERS/ps12_partner__not_enough_coins.png",
+      "bytes": 270744,
+      "sha256": "d771a7c487b97f531563577147ae024adf43403b2d25a336cbfa38ea44d193f9"
+    }
+  ],
+  "runtime_source_sha256": {
+    "SOURCE/data/calendar.json": "f3916e3a791113ae682f768442193ab2b0349fde6c81a8305c41094fa4407647",
+    "SOURCE/data/chapter1.json": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0",
+    "SOURCE/data/clothes.json": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e",
+    "SOURCE/data/dice_house.json": "d769f3698748af05e5498e13de397a701c0aebf740eae006f4547e2b53e21c80",
+    "SOURCE/data/dry_fountain.json": "1eeaf232e9f43cbd9ddc411dae127dc34a0a6f89c6666819e416cf25ef79117f",
+    "SOURCE/data/eid_al_adha.json": "52ace3b3d275173235220eb7ebfde7b2eb15cc4f15adb73520b9ec5b3018d4c3",
+    "SOURCE/data/eid_al_fitr.json": "28dc157a37e0fb758773a320e745330673194bbf04707cb5f48293948ff51167",
+    "SOURCE/data/feeding.json": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7",
+    "SOURCE/data/foundations.json": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf",
+    "SOURCE/data/harm_in_the_road.json": "26dc6570e4646c6487c01cba4cfec9d7f9873735445cfffcb68736b1d4c945a1",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/data/idris_has_heard.json": "392e1d296199d473dca7e3f8a166a91d9e28d0f2c23461203642483d3a3a527e",
+    "SOURCE/data/iftar_giving.json": "2b6c25508849062c9af59d4250a8658fd4b04f312c344e7adfdbbf2f7641beea",
+    "SOURCE/data/jabirs_goats.json": "dd62e7b0f917e8db3c30c3b30435bb3098496598344252ffd8e98808f0ba2d99",
+    "SOURCE/data/market_day.json": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05",
+    "SOURCE/data/market_stall.json": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604",
+    "SOURCE/data/menus.json": "e33cce8462b6cc07e68b21d8f8ca88986d7bef7646eb3e25c1f2df79f4adfb3e",
+    "SOURCE/data/names_of_allah.json": "c51268c4c1cd6fe55f847e1bdae094fceeda9205cd32bcce77f649530fbedea5",
+    "SOURCE/data/partnership.json": "59f2d6f536d7daa769f119cd6b7b7048af5b89345eb491ea0fe0dc6f4cb7a3bd",
+    "SOURCE/data/pilgrims.json": "940e40446d0c056b26c2852df7833b310f03b1fda78f348fac68929682b97d32",
+    "SOURCE/data/prayer_record.json": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9",
+    "SOURCE/data/prayer_reminder.json": "c0aa631f2e1a50c748194b32559c8a387fbc4e3988be9d74f9d8839d4c2ae723",
+    "SOURCE/data/qasims_jars.json": "c7a2c0a56d676ef6606769f94075ec537707875eecf8767d8dac43fda2c34bfb",
+    "SOURCE/data/qurans_school.json": "4ac1114a3fae49b1989a629581e7679d2e19d71e1a92853cfa7557f7c3755cc5",
+    "SOURCE/data/ramadan.json": "e2870da793e0923ac619736e2d60d3ca2c927bdae59f7ccb7c37439333e3e4dc",
+    "SOURCE/data/rashids_loan.json": "89d162d30ea41ef7c65d2de0bf07ea3fae81d02e4b424c1933991a6ceba2893f",
+    "SOURCE/data/regulars_at_prayer.json": "7fa321659c51119e59e54b41440219848602dedfcfa2de6e67567e5ace316160",
+    "SOURCE/data/regulars_remember.json": "6da5b91cf38de39858651d4a8694a7b827a6c17ee3dffa66b03c8e4a77a200f2",
+    "SOURCE/data/sealed_purse.json": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a",
+    "SOURCE/data/talking.json": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4",
+    "SOURCE/data/zakat.json": "29b93397edf4dc940a803f94685e943b27f6930c9b20d0410119a2ccb9263984",
+    "SOURCE/game/bread_grab.gd": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468",
+    "SOURCE/game/dice_house.gd": "17513513173a8d6729b9600baa2ec0999571716df233128f1a44cb249e88e0d5",
+    "SOURCE/game/dry_fountain.gd": "f49d81661ec0af2495bffe9e102cafc5c9545149a5f1cf87bed6f2bd10162e95",
+    "SOURCE/game/eid_al_adha.gd": "97ad5bd46318024f0a20a14e923459cd8477b28679ad28061a6e20c62a03cf07",
+    "SOURCE/game/eid_al_fitr.gd": "ada3689c7bde66a6c778b882083b1cd2e25fd549e336944be3cde0342e9522b2",
+    "SOURCE/game/feeding.gd": "545a2ffd4491db4fed2da1020a2168bf285db9e9eef57aebba01547fd59d113f",
+    "SOURCE/game/foundations.gd": "e3588f3abf552e80790be817857e92322af9f2f65eb0386cde5eec453c9ffd68",
+    "SOURCE/game/harm_in_the_road.gd": "dd288040b79c39c00470cd4b6ce5ab23d8d49f11c9f9ac6e09e4875019f5c50e",
+    "SOURCE/game/hijri_calendar.gd": "cf5518070e1b8d87d8965babd287f9e4242753f622dbb098327e7acb7abd9155",
+    "SOURCE/game/idris_recovery.gd": "6cb5d86d23ef6fab7fe1579c0bc80ee270008627f2493b5b33fab0dd4fa0635e",
+    "SOURCE/game/iftar_giving.gd": "6da651e0e374253f746b47565c61cd26451c1f6de24d2e2ae04ba7a314e8fda3",
+    "SOURCE/game/jabirs_goats.gd": "5cae78452ff85fd392a85378fa044394810755b31f76dfc980a6c5c95c19f1d6",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "ce887435e1ceba5a4bd191c30a39bce68c65364a67e7f9f673111943c226926b",
+    "SOURCE/game/market_day.gd": "51fb568d91dc9988ec384d88e187524d5641e910ecbec98232b0935e3e8c2d00",
+    "SOURCE/game/market_player.gd": "93e8c01a197127de7fedd25a4de19f77d1322d980ae9d3c6dcc6287f0fda6473",
+    "SOURCE/game/market_save.gd": "7b8bd6a18fce835b393ea7c7054e59080c5953d18ad82e678c7e5e65d7d47718",
+    "SOURCE/game/market_stall.gd": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56",
+    "SOURCE/game/market_ui.gd": "36f855ec30cf2e089390ee5cfd5ea251caa0507bd69363884c2661a769fe969c",
+    "SOURCE/game/market_world.gd": "25932d88f886e5b1470ab34a0a871d3ebd88f581e537974781305ebab56d6bde",
+    "SOURCE/game/names_of_allah.gd": "8d376ca58ec5e2ea1f2a8bb6709b2f6c66b05e697548b6be5fc4039428faab92",
+    "SOURCE/game/open_purse.gd": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9",
+    "SOURCE/game/partnership.gd": "49fe9a2838520509df8f3d4cec58afe2c0f59685e7e559019f5ed6916e8261c0",
+    "SOURCE/game/pilgrims.gd": "cbcebb7fcb23c0edf2e21e95cb4ff614a69a61a6a3cbe9793cd0c3a0f5271dea",
+    "SOURCE/game/prayer_clock.gd": "37829e88bd6156c62ebf0358e8ed5be054886bd562a173c064f921d795efa313",
+    "SOURCE/game/qasims_jars.gd": "b136d4f3c187fc775c811e010de6c848e7ebc00b51b8464e7f77c0b8f1f40c6a",
+    "SOURCE/game/qurans_school.gd": "7fbde7dcbfcff6b559cc364d83627cdb9a2f3a6db14807708078b0dc3f89789a",
+    "SOURCE/game/ramadan.gd": "b6b09c71b01b8f070bab577d9374cbe7ffee2e906bc8f7b942c17cb270e47a18",
+    "SOURCE/game/rashids_loan.gd": "0ecd01729c296de41f7b4f9ce3404b88386fa6bb19d2d97b8959671d9836074a",
+    "SOURCE/game/real_prayer_times.gd": "2a8b0051cfd83ef5fe1ab7e8e363bbcdafd23e5f4b65c1da85a5d76575635b90",
+    "SOURCE/game/river_market.gd": "d518b00da560899df4dd71fad962187e94ec562387ffc85b1dae70a645c524da",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/game/sealed_purse.gd": "e3b46ae422a91cd824057e43881c80bb254dac24da5031163ac093d491bef7ab",
+    "SOURCE/game/talking.gd": "ad0c1490a862e2dc301ec93f91d276b93b915127f8a1a2c5ae53727b767467d1",
+    "SOURCE/game/task_progress.gd": "0777fd340c6c2f0a8ed3ed724307e07fc2fe8228d1539d3c8d6f12602654b777",
+    "SOURCE/game/zakat.gd": "9a3e1bdad4eff6b47a5af62324d7f17052ba66f5db04e278159925870656ca7d",
+    "SOURCE/look_test/camera.gd": "ce8e0199b3952f07dedf09af39dffbe1a784f9b6d0608d43f4b7649b5f277f83",
+    "SOURCE/look_test/capture_helper.gd": "919939ac60ec7e8a269a90263272f6c9aa029a6a9de839a419a61af34d480fb8",
+    "SOURCE/look_test/look_test.tscn": "2260de32d8589e450fae42548cbd4b098b590c8511e30e408ef94194b4f3b40a",
+    "SOURCE/main.tscn": "109e5b49d1caed038c97365a9c4fb995c5541bfd0b30d9ef1568af98bb815a94",
+    "SOURCE/project.godot": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45",
+    "SOURCE/tests/capture_arrival.gd": "fb2e560362904750caf2079a56b864ffa6273d803c1c4ef21d281fbba5770f8f",
+    "SOURCE/tests/capture_bread_grab.gd": "133d2420f2a7f8bc938c4808004cfc73359141205ae5665da5284bfc774824af",
+    "SOURCE/tests/capture_calendar.gd": "bc606c1869ba7ce424eed972e39af6e5cc2cf60ffa993f9eee6e09fb64725faf",
+    "SOURCE/tests/capture_clock.gd": "0961206c776bf5e2d408ac08cd0dd0ba352d7eaa087bea99d8fec15cafb97f7b",
+    "SOURCE/tests/capture_clothes.gd": "a406a8d17b04c4b8a30b57864b96b4a83924826f66166a6f60eb8957dfd8979e",
+    "SOURCE/tests/capture_dice_house.gd": "28ade5c6f8fefc6e9825680d35bdff3e3746f3947d629c6563512e40888c30ee",
+    "SOURCE/tests/capture_dry_fountain.gd": "281128079dc7ed8fffa3ed9cdf623cf014bde3ee0175d4ad318e98fd08c9245c",
+    "SOURCE/tests/capture_eid_al_adha.gd": "38b22dde23024f68b045225768b21344f7f0cf39ce2877acdc47192ea301e7d9",
+    "SOURCE/tests/capture_eid_al_fitr.gd": "75d59f7ec35597abd04a5647bf4f691c2408f6c9df39981fd19dbf4469cea38a",
+    "SOURCE/tests/capture_feeding.gd": "ba73712f611de91c22267b9826d7742c358e522226af69386527d239c43c2f4f",
+    "SOURCE/tests/capture_foundations.gd": "9438293266619c670d86a24a005ede07624529debf5856290ff40a858e48f27d",
+    "SOURCE/tests/capture_gate.gd": "5fa04d7873b38e2c806a286189c8646bd462d623052b651d342ecae8471e3f38",
+    "SOURCE/tests/capture_harm_in_the_road.gd": "b2b249800133580ae7753facd005a0e7b829266a8c734e725b07ba8ec2c896a1",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/capture_idris.gd": "def0ffe118e73920b7168bf83ca8579791200eb4451b0aeb9f146fc644dc4111",
+    "SOURCE/tests/capture_idris_recovery.gd": "6b5ca269d02d8d8699b4787ff0fb8a3b378859507251a703dc5300e1a856f79a",
+    "SOURCE/tests/capture_iftar_giving.gd": "df46101888eb75dbd1e053070b72cb6d0a625407ce73e78980817d66273df126",
+    "SOURCE/tests/capture_jabirs_goats.gd": "f339f4eadd9571026273699aef8521f563def360cb3cf9429180cff22b259875",
+    "SOURCE/tests/capture_market_day.gd": "8dd6701b8c4ff833a82844e4f09aa6f4b44eee9f000a045209521e27ebf1a03a",
+    "SOURCE/tests/capture_market_stall.gd": "e6d105a7b695f92279c562e3063f798ef4bc842f3ebf0378c1179dbdb1285cd0",
+    "SOURCE/tests/capture_menus.gd": "888527b114cb3c82efd2d3ac15f3d49548c95388deffb908078e6f9f42e6756e",
+    "SOURCE/tests/capture_names_of_allah.gd": "bd0b6d5ab1be9b8f3e52298e3b121b5642cb870209aa39b47de7079c1ae399ea",
+    "SOURCE/tests/capture_open_purse.gd": "8bea68a179b553ee4f534002a9c495b51150d1e50348732cb0ff439498cd3da4",
+    "SOURCE/tests/capture_partnership.gd": "26def4a1323e75a5d8a55ee552def1030b8a0c3bc4ec53bab02389f0ba1b6570",
+    "SOURCE/tests/capture_pilgrims.gd": "2bf611ef06c3484a03b695768f47e22ba39a94ea600b931521824fcc760c3822",
+    "SOURCE/tests/capture_prayer_record.gd": "45078ab03379b2eec2c354bdee8084edfe7f9911b72be12811a7aa1614907363",
+    "SOURCE/tests/capture_prayer_reminder.gd": "392fbe7fcc2fa34a5d41af91ebf7d708cce7484e2df6c6832ec7ec87979d514c",
+    "SOURCE/tests/capture_qasims_jars.gd": "89588b50aa1470de923ac10be4e3adce1c1cf7379a3b50a25a73db03f11611a1",
+    "SOURCE/tests/capture_qurans_school.gd": "cd94e6b29b0ecbaa3306703cc98b45272c944793cdd2703c3c059d43184f26bb",
+    "SOURCE/tests/capture_ramadan.gd": "e4c947bc655d367cd8d99cfe6f132eec4790b64b37d0a7069c097cae0a307c54",
+    "SOURCE/tests/capture_rashids_loan.gd": "f2130a50f689a5471b9161e4fac7b47e5a3dc07ae50b151c8b54e2a51856e2c2",
+    "SOURCE/tests/capture_regulars_at_prayer.gd": "36cb733358fa893d6a0fc0cf2e4140adb646c7483e1f9cef1ae2bcf2d96ca76f",
+    "SOURCE/tests/capture_regulars_remember.gd": "f788b9cfa3d01f51db6523e723964d7511bab3435d04bf54ad03d3e12bcf9769",
+    "SOURCE/tests/capture_sealed_purse.gd": "0f4c3bb3e7ac20b85b6bfdf029a67e237fcfe84bbcb6cf594d4a97d0d7ced5d9",
+    "SOURCE/tests/capture_talking.gd": "ac12b3ba5f862805b38863520046b94736482770760b59a0b523b583607e1fc9",
+    "SOURCE/tests/capture_tasks.gd": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003",
+    "SOURCE/tests/capture_zakat.gd": "beedda79972005692925ed748337659ede562f5a97862b02650826e113eb175e",
+    "SOURCE/tests/create_comparisons.gd": "5641d2b59ea765b637ee72d73cb103af42da2d6dea12fd58e4d36710d6bde655",
+    "SOURCE/tests/regulars_remember_fixture.gd": "9a28a9707bf312a3a5a36e5228a698d814ffbc707ff435bda51c3bcfdb318e2c",
+    "SOURCE/tests/run_tests.gd": "6f0ad73eeced34f9f1c4eb7cd32c56ce21b1efd262bab542d7bfdf1d7d4759b6",
+    "SOURCE/tests/test_look_controls.gd": "65fada00fbc85a9680d7374f5015cdd916cc2d9f4d927de267b4c1fcc3dcd83f",
+    "SOURCE/tests/test_player_movement.gd": "081aa954164599270c18caef8f1a5bf731da6c185e1d0f4c912f832003ac653a",
+    "SOURCE/tests/test_progress_restart.gd": "2f9fe0ed8692640e548dd4d137b9f30d04dc514ffb918e87d57b37cbb4ec8393"
+  },
+  "checks_receipt": {
+    "path": "GAME/APPROVED/PARTNERSHIP/BUILT/V1/LINE38_CHECKS.json",
+    "bytes": 40264,
+    "sha256": "45b11005255761eabcad1528f9a2e94e51c61849d93acea0dec324994fa68d31"
+  },
+  "evidence_verification": {
+    "compression": "Lossless IDAT recompression. PNG metadata and uncompressed scanlines match all originals. Godot verified the pixels and both halves of all 12 comparisons.",
+    "before_bytes": 10094228,
+    "after_bytes": 9922867,
+    "capture_dimensions": [
+      1920,
+      1080
+    ],
+    "comparison_dimensions": [
+      3840,
+      1080
+    ]
+  },
+  "visual_differences": {
+    "all": "The in-game Thursday dates move forward seven days to 8, 15 or 29 Sha'ban at 10:00. The native HUD uses slightly different widths, border/opacity, font metrics and square trust bar ends. The amounts, trust and countdown match.",
+    "ps01, ps06, ps07, ps11": "Native label outlines, gate/marker drawing, button metrics, spacing and bar opacity differ. The walked player's white dot sits just right of the Weaver marker. The existing Make up Dhuhr control is visible. Different bar width and opacity affect the Quay marker, navigation overlap and canal-caption visibility. ps01, ps06 and ps11 show shards where the master shows thorns. ps07 shows a rope where the master shows shards. Button order, colour treatment and countdown match.",
+    "ps02, ps03, ps05, ps08, ps09, ps12": "The native straight Weaver's lane view uses the existing placeholder walls, road, blue sky, and Godot materials and lighting. Panel position, borders, corner radii, opacity, type metrics and spacing differ slightly. Copy, control order and emphasis match.",
+    "ps04, ps10": "The native angled Weaver's lane view uses the existing placeholder geometry and lighting. The panel is slightly shorter, letter spacing is tighter, and navigation buttons are wider. The quote, source, tone and destinations match."
+  },
+  "images": [
+    {
+      "file": "ps01_weaver__second_loom__build.png",
+      "width": 1920,
+      "height": 1080,
+      "original_bytes": 179159,
+      "bytes": 171385,
+      "sha256": "1e47e665404b8eb0f2f85fa3c7bb58724fb18c5f9f2a600ff340e2ed7e58ad88"
+    },
+    {
+      "file": "ps01_weaver__second_loom__master_beside_build.png",
+      "width": 3840,
+      "height": 1080,
+      "original_bytes": 393808,
+      "bytes": 368749,
+      "sha256": "4a9206fc592d449e53c9a4ef8369cedd4d30dbe02caef9bc83e40795143fe8fe"
+    },
+    {
+      "file": "ps02_partner__the_offer__build.png",
+      "width": 1920,
+      "height": 1080,
+      "original_bytes": 138957,
+      "bytes": 136958,
+      "sha256": "1f63da23c4833e6c3faa1b3ec362deea8f01bb57a7724d29238a3f4ff692ec15"
+    },
+    {
+      "file": "ps02_partner__the_offer__master_beside_build.png",
+      "width": 3840,
+      "height": 1080,
+      "original_bytes": 751029,
+      "bytes": 744808,
+      "sha256": "cc2cf37d46bc6f3b256c587cb4b532bc04e84d8409c2b0c670df1087c8a32811"
+    },
+    {
+      "file": "ps03_partner__whatever_happens_refused__build.png",
+      "width": 1920,
+      "height": 1080,
+      "original_bytes": 131680,
+      "bytes": 129859,
+      "sha256": "c9e183b7239bde3085470cf3869501611a97a31855d40cd97825e59360bb6791"
+    },
+    {
+      "file": "ps03_partner__whatever_happens_refused__master_beside_build.png",
+      "width": 3840,
+      "height": 1080,
+      "original_bytes": 825357,
+      "bytes": 822727,
+      "sha256": "91151ad88e5abb0b781326241f8d0cd888ff9bae7a77ed758c38e9952ab8cc5e"
+    },
+    {
+      "file": "ps04_people_say__wanted_a_sure_profit__build.png",
+      "width": 1920,
+      "height": 1080,
+      "original_bytes": 135388,
+      "bytes": 134588,
+      "sha256": "42c9616a7dd969a1214881198fa1cad368cf3cb28b2a7622a631e23822d517be"
+    },
+    {
+      "file": "ps04_people_say__wanted_a_sure_profit__master_beside_build.png",
+      "width": 3840,
+      "height": 1080,
+      "original_bytes": 936986,
+      "bytes": 935846,
+      "sha256": "d2f1038f98addd9bd15d0cc370b95f53913a31797a86bfa4360c5d62b824f348"
+    },
+    {
+      "file": "ps05_partner__partners__build.png",
+      "width": 1920,
+      "height": 1080,
+      "original_bytes": 130825,
+      "bytes": 128732,
+      "sha256": "6d3938ae3f9124813948310b1817de4d9ab19be68616bce54bf88bce70c9f38b"
+    },
+    {
+      "file": "ps05_partner__partners__master_beside_build.png",
+      "width": 3840,
+      "height": 1080,
+      "original_bytes": 818192,
+      "bytes": 815649,
+      "sha256": "1aa7ecb82782fed9334ebacd5db3bbbbe081408b5554288a746144ad23dbec2f"
+    },
+    {
+      "file": "ps06_weaver__next_share_in_7_days__build.png",
+      "width": 1920,
+      "height": 1080,
+      "original_bytes": 180061,
+      "bytes": 172246,
+      "sha256": "4a3a61a0495bf18d45b7cd0acd4f8d29a4154f2c740180dba009457de060e049"
+    },
+    {
+      "file": "ps06_weaver__next_share_in_7_days__master_beside_build.png",
+      "width": 3840,
+      "height": 1080,
+      "original_bytes": 400581,
+      "bytes": 374615,
+      "sha256": "29c81ad93e5019395a01d0e7a2eef840798b3220d97bef90be93be0bfe11e285"
+    },
+    {
+      "file": "ps07_weaver__layla_has_your_share__build.png",
+      "width": 1920,
+      "height": 1080,
+      "original_bytes": 178663,
+      "bytes": 170936,
+      "sha256": "9bb851ee0b983c83ae0f3a4b5d94b912ced447af90ddc0a6306da6c221c8c4c9"
+    },
+    {
+      "file": "ps07_weaver__layla_has_your_share__master_beside_build.png",
+      "width": 3840,
+      "height": 1080,
+      "original_bytes": 394215,
+      "bytes": 369541,
+      "sha256": "6debdba09c50d57cc07134ca23cc49d85ccf68bab5e1e9da9bb9374c162777f8"
+    },
+    {
+      "file": "ps08_share__week_1_five_coins__build.png",
+      "width": 1920,
+      "height": 1080,
+      "original_bytes": 132914,
+      "bytes": 130246,
+      "sha256": "8e411ae1cfac984593c239d12b1d366573445b9c9f09b7994aed78ba918739a1"
+    },
+    {
+      "file": "ps08_share__week_1_five_coins__master_beside_build.png",
+      "width": 3840,
+      "height": 1080,
+      "original_bytes": 835836,
+      "bytes": 832379,
+      "sha256": "30bfcb0b50adf0b74e11f314b64bd43c1de51c098d6a6d515cb05ca534270b8b"
+    },
+    {
+      "file": "ps09_share__week_3_bad_week__build.png",
+      "width": 1920,
+      "height": 1080,
+      "original_bytes": 131894,
+      "bytes": 129881,
+      "sha256": "0ee8920c8166e8f1786c4df2a0f06500f0ac2b210b69cbee835cf78d88e9fe2a"
+    },
+    {
+      "file": "ps09_share__week_3_bad_week__master_beside_build.png",
+      "width": 3840,
+      "height": 1080,
+      "original_bytes": 819283,
+      "bytes": 816125,
+      "sha256": "9511bba766e5b47f4a538f1856a8a582ecbaf428377023201ca0df10a8acab2b"
+    },
+    {
+      "file": "ps10_people_say__fair_share__build.png",
+      "width": 1920,
+      "height": 1080,
+      "original_bytes": 133579,
+      "bytes": 132686,
+      "sha256": "c76063cad13745d0fb074cb0d9d6801ff41b3e6a21ddaa2e23f65c2635823ed0"
+    },
+    {
+      "file": "ps10_people_say__fair_share__master_beside_build.png",
+      "width": 3840,
+      "height": 1080,
+      "original_bytes": 931956,
+      "bytes": 930447,
+      "sha256": "edcb0202073f6a3a2abeff91eb2bbfa21011a8285717e17955b2c3f3b4872ba3"
+    },
+    {
+      "file": "ps11_weaver__trust_too_low__build.png",
+      "width": 1920,
+      "height": 1080,
+      "original_bytes": 181956,
+      "bytes": 174431,
+      "sha256": "091ea8cadcee8ece43d3f6ebe61e49849f9811197bd49684074d611b1c0ac6c4"
+    },
+    {
+      "file": "ps11_weaver__trust_too_low__master_beside_build.png",
+      "width": 3840,
+      "height": 1080,
+      "original_bytes": 393448,
+      "bytes": 367632,
+      "sha256": "1231ece524b251d15a3671588efb0fd9e6caffba84611ad6b5414d7506179c47"
+    },
+    {
+      "file": "ps12_partner__not_enough_coins__build.png",
+      "width": 1920,
+      "height": 1080,
+      "original_bytes": 136511,
+      "bytes": 133722,
+      "sha256": "4ef1df5056abe26c5db1f7b42c9768c6b3f8d8ba50a672c7f07efe5da2636108"
+    },
+    {
+      "file": "ps12_partner__not_enough_coins__master_beside_build.png",
+      "width": 3840,
+      "height": 1080,
+      "original_bytes": 801950,
+      "bytes": 798679,
+      "sha256": "30a8f0954c5f76fb2e57d161cbb3cd072781d118080baff04702b8e974c55364"
+    }
+  ]
+}

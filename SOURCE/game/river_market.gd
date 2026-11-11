@@ -29,6 +29,7 @@ const JabirsGoats = preload("res://game/jabirs_goats.gd")
 const IdrisRecovery = preload("res://game/idris_recovery.gd")
 const DryFountain = preload("res://game/dry_fountain.gd")
 const RashidsLoan = preload("res://game/rashids_loan.gd")
+const Partnership = preload("res://game/partnership.gd")
 const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
 
 const MarketSave = preload("res://game/market_save.gd")
@@ -71,6 +72,7 @@ var jabirs_goats := JabirsGoats.new()
 var idris_recovery := IdrisRecovery.new()
 var dry_fountain := DryFountain.new()
 var rashids_loan := RashidsLoan.new()
+var partnership := Partnership.new()
 var harm_in_the_road := HarmInTheRoad.new()
 var world: Node3D
 var player: CharacterBody3D
@@ -116,6 +118,8 @@ func _ready() -> void:
 		return
 	if "--capture-prayer-reminder" in capture_args and not _set_capture_storage("--reminder-user-dir="):
 		return
+	if "--capture-partnership" in capture_args and not _set_capture_storage("--partnership-user-dir="):
+		return
 	menus = Foundations.load_menus()
 	reminder = Foundations.load_prayer_reminder()
 	data = Foundations.load_data()
@@ -151,6 +155,7 @@ func _ready() -> void:
 	eid_al_adha = EidAlAdha.new(Foundations.load_eid_al_adha(), clock, progress, jabirs_goats, feeding.meal_counter)
 	dry_fountain.setup(Foundations.load_dry_fountain(), progress, clock)
 	rashids_loan.setup(Foundations.load_rashids_loan(), progress, clock, market_day)
+	partnership.setup(Foundations.load_partnership(), progress, clock, market_day)
 	harm_in_the_road.setup(Foundations.load_harm_in_the_road(), clock)
 	world = MarketWorld.new()
 	add_child(world)
@@ -167,6 +172,7 @@ func _ready() -> void:
 	add_child(ui)
 	ui.menus = menus
 	ui.reminder = reminder
+	ui.partnership = partnership
 	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road, ramadan, iftar_giving, eid_al_fitr, zakat, eid_al_adha, pilgrims, qurans_school, names_of_allah)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
@@ -248,6 +254,8 @@ func _ready() -> void:
 	ui.dry_fountain_paid.connect(pay_for_dry_fountain)
 	ui.loan_requested.connect(show_rashids_loan)
 	ui.loan_answered.connect(answer_rashids_loan)
+	ui.partnership_requested.connect(show_partnership)
+	ui.partnership_answered.connect(answer_partnership)
 	ui.road_harm_requested.connect(move_road_harm)
 	ui.sealed_purse_offered.connect(show_sealed_purse_offer)
 	ui.sealed_purse_accepted.connect(accept_sealed_purse)
@@ -330,6 +338,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-rashids-loan" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_rashids_loan.gd").new()
+		capture_runner.run(self)
+	elif "--capture-partnership" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_partnership.gd").new()
 		capture_runner.run(self)
 	elif "--capture-harm-in-the-road" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_harm_in_the_road.gd").new()
@@ -658,6 +669,7 @@ func begin_game() -> void:
 	jabirs_goats.reset()
 	dry_fountain.reset()
 	rashids_loan.reset()
+	partnership.reset()
 	harm_in_the_road.reset()
 	world.stop_faris_run()
 	world.set_inn_people_waiting(true)
@@ -813,8 +825,14 @@ func show_screen(screen: String) -> void:
 	elif previous in REMINDER_EXCLUDED_SCREENS:
 		_reminder_next_check = 0
 	var loan_view: bool = screen in MarketUI.LOAN_SCREENS or (screen == "reputation" and ui.screen in MarketUI.LOAN_SCREENS)
+	var partnership_view: bool = screen in MarketUI.PARTNERSHIP_SCREENS
+	var partnership_reputation: bool = screen == "reputation" and current_place == "weaver" and partnership.reputation_line() != null
 	if screen in ["title", "settings"]:
 		world.title_camera.make_current()
+	elif partnership_view:
+		world.weaver_lane_camera.make_current()
+	elif partnership_reputation:
+		world.weaver_reputation_camera.make_current()
 	elif screen == "pause":
 		world.spice_row_camera.make_current()
 	elif screen == "feeding" or screen in MarketUI.GRAB_SCREENS:
@@ -845,7 +863,7 @@ func show_screen(screen: String) -> void:
 		world.jabirs_goats_camera.make_current()
 	elif screen != "reputation" or ui.screen != "grab_after":
 		player.camera.make_current()
-	player.visible = not loan_view and screen not in ["title", "settings", "pause", "harm_done", "eid", "zakat", "pilgrims", "qurans_school", "names_of_allah"] and screen not in MarketUI.ADHA_SCREENS
+	player.visible = not loan_view and not partnership_view and not partnership_reputation and screen not in ["title", "settings", "pause", "harm_done", "eid", "zakat", "pilgrims", "qurans_school", "names_of_allah"] and screen not in MarketUI.ADHA_SCREENS
 	var paused := screen in PAUSE_SCREENS or screen in ["title", "all_prayers_title"]
 	player.set_physics_process(not paused)
 	world.set_scene_motion_paused(paused)
@@ -1209,6 +1227,24 @@ func answer_rashids_loan(choice: String) -> void:
 		show_screen("loan_lent" if choice == "lend" else "loan_riba")
 	elif ui.screen == "loan_due" and rashids_loan.answer_due(choice):
 		show_screen("loan_after")
+
+
+func show_partnership() -> void:
+	if current_place != "weaver" or ui.screen not in ["game", "market_map"]:
+		return
+	match partnership.offer():
+		Partnership.Offer.ASK:
+			_stop_travel()
+			show_screen("partnership_ask")
+		Partnership.Offer.DUE:
+			if partnership.collect_share():
+				_stop_travel()
+				show_screen("partnership_week")
+
+
+func answer_partnership(choice: String) -> void:
+	if ui.screen == "partnership_ask" and partnership.answer(choice):
+		show_screen("partnership_agreed" if choice == "partner" else "partnership_riba")
 
 
 func move_road_harm() -> void:

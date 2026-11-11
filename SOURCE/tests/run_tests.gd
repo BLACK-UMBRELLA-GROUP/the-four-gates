@@ -178,6 +178,7 @@ func _run() -> void:
 	await check_menus_runtime()
 	check_real_prayer_times()
 	await check_prayer_reminder_runtime()
+	await check_partnership_runtime()
 	finish()
 
 
@@ -3236,6 +3237,181 @@ func check_loan_repayment(loan: Dictionary, choice: String) -> void:
 			check(app.dice_house.enter(), "fixture adds the later Idris line")
 		var lines: Array = app.ui.reputation_lines()
 		check(lines.count(loan.say.demand) == 1 and lines.find(app.dry_fountain.data.say.named) + 1 == lines.find(loan.say.demand) and lines.find(loan.say.demand) + 1 == lines.find(app.idris_recovery.data.say.cool), "the loan line appears directly between the fountain and Idris")
+
+
+func check_partnership_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/PARTNERSHIP/RECORD/partnership_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/partnership.json")
+	var copy: Dictionary = app.partnership.data
+	check(not locked.is_empty() and locked == runtime, "the partnership uses byte-identical LOCK 31 data")
+	check(copy == JSON.parse_string(runtime.get_string_from_utf8()), "the partnership loads the approved runtime data")
+	app.set_process(false)
+	await check_partnership_refusal(copy)
+	await check_partnership_shares(copy)
+
+
+func check_partnership_refusal(copy: Dictionary) -> void:
+	var amounts := {"n": 60, "m": 5}
+	var partner := str(copy.ask.partner).format(amounts)
+	var fixed := str(copy.ask.fixed).format(amounts)
+	reset_at_market_place("weaver", 59, 8)
+	app.progress.apply_trust(39 - app.progress.trust)
+	app.update_state()
+	check(find_button(app.ui, copy.ask_button) == null, "the second loom is hidden below 40 trust")
+	app.show_partnership()
+	check(app.ui.screen == "market_map", "a direct low-trust request cannot open the offer")
+
+	app.progress.apply_trust(1)
+	var hours: Dictionary = app.market_day.data.hours.layla
+	for time: Array in [[8, int(hours.open) - 1], [8, int(hours.close)], [9, 725]]:
+		set_market_day_time(time[0], time[1])
+		check(find_button(app.ui, copy.ask_button) == null, "the partnership is hidden when Layla is away: %s" % [time])
+		app.show_partnership()
+		check(app.ui.screen == "market_map", "a direct request cannot open the partnership when Layla is away")
+	set_market_day_time(8, 725)
+	check(find_button(app.ui, copy.ask_button) != null, "Layla remains at her loom during ordinary Dhuhr")
+	set_market_day_time(8, 600)
+	move_market_fixture("board")
+	app.show_partnership()
+	check(app.ui.screen == "market_map" and find_button(app.ui, copy.ask_button) == null, "the partnership is only in Weaver's lane")
+	move_market_fixture("weaver")
+	var loom := find_button(app.ui, app.market_stall.clothes_data.place.weaver_button)
+	var ask := find_button(app.ui, copy.ask_button)
+	var talk := find_button(app.ui, app.talking.button_at("weaver"))
+	check(loom != null and ask != null and talk != null and loom.get_global_rect().end.x <= ask.global_position.x
+		and ask.get_global_rect().end.x <= talk.global_position.x, "at exactly 40 trust, the offer fits after the loom and before Talk")
+
+	await press_button(copy.ask_button, "open Layla's offer with fewer than 60 coins")
+	check(app.ui.screen == "partnership_ask" and has_visible_label(app.ui, copy.ask.title)
+		and visible_text().contains(copy.ask.text), "the offer uses the locked title and story")
+	check(has_visible_label(app.ui, copy.ask.not_enough) and find_button(app.ui, partner) == null
+		and find_button(app.ui, fixed) == null, "the locked funds message replaces both choices")
+	app.answer_partnership("partner")
+	app.answer_partnership("fixed")
+	check_wallet(40, 59, "unaffordable offers move no coins or trust")
+	await press_button(copy.ask.no, "Not now returns to the map")
+	check(app.ui.screen == "market_map" and find_button(app.ui, copy.ask_button) != null, "Not now leaves the offer available")
+
+	app.progress.coins = 60
+	app.update_state()
+	await press_button(copy.ask_button, "reopen Layla's offer with exactly 60 coins")
+	check(find_button(app.ui, partner) != null, "the contribution wording and exact affordable amount are available")
+	await press_button(fixed, "ask for the locked fixed return")
+	check(app.ui.screen == "partnership_riba" and has_visible_label(app.ui, copy.riba.title)
+		and visible_text().contains(copy.riba.text), "Layla uses the locked refusal")
+	check_wallet(37, 60, "the fixed return moves no coins and costs 3 trust")
+	await press_button(copy.riba.to_map, "the refusal goes back to the market map")
+	check(app.ui.screen == "market_map" and find_button(app.ui, copy.ask_button) == null, "the refusal removes the offer")
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say after the refusal")
+	check_reputation_row(copy.say.riba)
+	check(app.ui.reputation_lines() == [copy.say.riba], "the refusal adds only the locked bad line")
+	app.progress.apply_trust(100)
+	set_market_day_time(22, 600)
+	await press_button(app.chapter.rep.to_map, "return to Weaver's lane after trust recovers")
+	app.show_partnership()
+	check(app.ui.screen == "market_map" and find_button(app.ui, copy.ask_button) == null, "refusal remains permanent after time and trust recover")
+	check_partnership_save_round_trip()
+
+
+func check_partnership_shares(copy: Dictionary) -> void:
+	const START_DAY := 8
+	const TRUST := 45
+	reset_at_market_place("spice", 228, START_DAY)
+	app.progress.apply_trust(TRUST - int(app.rashids_loan.data.numbers.riba_trust) - app.progress.trust)
+	check(app.rashids_loan.answer_ask("lend_more"), "fixture adds Rashid's earlier refusal line")
+	move_market_fixture("weaver")
+	await press_button(copy.ask_button, "open the partnership on a fresh run")
+	await press_button(str(copy.ask.partner).format({"n": 60}), "put in the 60-coin contribution")
+	check(app.ui.screen == "partnership_agreed" and has_visible_label(app.ui, copy.agreed.title)
+		and visible_text().contains(copy.agreed.text), "the acceptance gives the exact profit and loss terms")
+	check_wallet(TRUST, 168, "the partnership takes 60 coins once and leaves trust unchanged")
+	app.answer_partnership("partner")
+	check_wallet(TRUST, 168, "repeating the accepted choice cannot charge twice")
+	await press_button(copy.agreed.to_map, "return to Weaver's lane as partners")
+	check(has_visible_label(app.ui, str(copy.running).format({"n": 7})), "the first share is seven calendar days away")
+
+	var coins := 168
+	var profits := [10, 6, 0, 12, 10]
+	var shares := [5, 3, 0, 6, 5]
+	for week: int in range(1, profits.size() + 1):
+		var due_day := START_DAY + 7 * week
+		set_market_day_time(due_day - 1, 600)
+		check(has_visible_label(app.ui, str(copy.running).format({"n": 1}))
+			and find_button(app.ui, copy.share_button) == null, "week %d is unavailable a day early" % week)
+		app.show_partnership()
+		check_wallet(TRUST, coins, "an early share request changes nothing")
+		set_market_day_time(due_day, int(app.market_day.data.hours.layla.open) - 1)
+		check(find_button(app.ui, copy.share_button) == null, "the due share waits until Layla's hours")
+		set_market_day_time(due_day, int(app.market_day.data.hours.layla.open))
+		await press_button(copy.share_button, "collect week %d on its seventh day" % week)
+		var profit: int = profits[week - 1]
+		var share: int = shares[week - 1]
+		var story: String = copy.week.none if profit == 0 else str(copy.week.good).format({"m": profit, "n": share})
+		check(app.ui.screen == "partnership_week" and has_visible_label(app.ui, str(copy.week.kicker).format({"n": week}).to_upper())
+			and has_visible_label(app.ui, copy.week.title) and visible_text().contains(story), "week %d uses the locked share panel" % week)
+		coins += share
+		check_wallet(TRUST, coins, "week %d credits the right half of the profit" % week)
+		await press_button(copy.week.to_map, "go back after collecting week %d" % week)
+		app.show_partnership()
+		check(app.ui.screen == "market_map" and find_button(app.ui, copy.share_button) == null, "week %d cannot pay twice" % week)
+		check_wallet(TRUST, coins, "a duplicate share request changes nothing")
+	check_partnership_save_round_trip()
+
+	# Collection remains anchored to the original partnership date after a missed visit.
+	set_market_day_time(START_DAY + 7 * 7, 600)
+	await press_button(copy.share_button, "catch up the older due share first")
+	check(has_visible_label(app.ui, str(copy.week.kicker).format({"n": 6}).to_upper()), "the oldest outstanding share is week six")
+	check_wallet(TRUST, coins + 3, "a late week six still credits three coins")
+	await press_button(copy.week.to_map, "go back after the first overdue share")
+	await press_button(copy.share_button, "catch up the next due share")
+	check(has_visible_label(app.ui, str(copy.week.kicker).format({"n": 7}).to_upper())
+		and visible_text().contains(copy.week.none), "the zero-profit week stays seventh even when collected late")
+	check_wallet(TRUST, coins + 3, "the overdue bad week leaves the wallet alone")
+	await press_button(copy.week.to_map, "return to the map after catching up")
+
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say after becoming partners")
+	check_reputation_row(copy.say.partner)
+	check(app.ui.reputation_lines() == [app.rashids_loan.data.say.riba, copy.say.partner],
+		"the partnership line follows Rashid's loan and appears only once")
+	check_partnership_legacy_slot()
+	app.begin_game()
+	check(app.partnership.reputation_line() == null, "starting over clears partnership progress")
+
+
+func check_partnership_save_round_trip() -> void:
+	var path: String = app.storage_directory.path_join("partnership-test.save")
+	var original := MarketSave.snapshot(app)
+	check(MarketSave.save_slot(app, path) == OK, "save the real partnership state")
+	var restored := MarketSave.read_slot(path)
+	check(restored == original, "the save retains the partnership alongside earlier market state")
+	if restored.is_empty():
+		return
+	app.partnership.reset()
+	MarketSave.restore(app, restored)
+	check(MarketSave.snapshot(app) == original, "loading restores the refusal or agreement and collected weeks")
+
+
+func check_partnership_legacy_slot() -> void:
+	var path: String = app.storage_directory.path_join("before-partnership-test.save")
+	var old := MarketSave.snapshot(app)
+	old.erase("partnership")
+	var payload := var_to_bytes(old)
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	check(file != null, "prepare a save in the pre-partnership format")
+	if file == null:
+		return
+	file.store_buffer(MarketSave._checksum(payload))
+	file.store_buffer(payload)
+	file.close()
+	var restored := MarketSave.read_slot(path)
+	check(restored == old, "a pre-partnership slot still passes the save reader")
+	if restored.is_empty():
+		return
+	MarketSave.restore(app, restored)
+	check(app.partnership.reputation_line() == null, "loading an older slot starts Layla's offer fresh")
+	var actual := MarketSave.snapshot(app)
+	actual.erase("partnership")
+	check(actual == old, "an older slot restores all prior gameplay fields")
 
 
 func check_harm_in_the_road_runtime() -> void:

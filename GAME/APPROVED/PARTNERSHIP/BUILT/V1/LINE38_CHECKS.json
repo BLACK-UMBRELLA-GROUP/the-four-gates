@@ -1,0 +1,1676 @@
+{
+	"checks": [
+		{
+			"description": "runtime partnership data matches the locked bytes",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the market map at the Inn",
+			"passed": true
+		},
+		{
+			"description": "fair arrival supplies 198 coins",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "native map marker starts the route to weaver",
+			"passed": true
+		},
+		{
+			"description": "native physical street route reaches weaver",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ps11_weaver__trust_too_low__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ps11_weaver__trust_too_low__build.png",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button shown: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ps01_weaver__second_loom__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ps01_weaver__second_loom__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "production panel opens: partnership_ask",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: WEAVER'S LANE",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: WEAVER'S LANE",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: A second loom",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: A second loom",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Layla points at an empty corner. “Another loom there and my niece could weave beside me. Sixty coins. I cannot borrow it - but I could take a partner.”",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Layla points at an empty corner. “Another loom there and my niece could weave beside me. Sixty coins. I cannot borrow it - but I could take a partner.”",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Put in 60 coins · share the profit half and half",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Put in 60 coins · ask 5 coins every week, whatever happens",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ps12_partner__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ps12_partner__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Not now",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button shown: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "Not now leaves the offer available: wallet 20 and trust 45",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "production panel opens: partnership_ask",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: WEAVER'S LANE",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: WEAVER'S LANE",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: A second loom",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: A second loom",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Layla points at an empty corner. “Another loom there and my niece could weave beside me. Sixty coins. I cannot borrow it - but I could take a partner.”",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Layla points at an empty corner. “Another loom there and my niece could weave beside me. Sixty coins. I cannot borrow it - but I could take a partner.”",
+			"passed": true
+		},
+		{
+			"description": "button shown: Put in 60 coins · share the profit half and half",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Put in 60 coins · share the profit half and half",
+			"passed": true
+		},
+		{
+			"description": "offer choice fits in the panel",
+			"passed": true
+		},
+		{
+			"description": "offer choice is stacked in locked order",
+			"passed": true
+		},
+		{
+			"description": "button shown: Put in 60 coins · ask 5 coins every week, whatever happens",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Put in 60 coins · ask 5 coins every week, whatever happens",
+			"passed": true
+		},
+		{
+			"description": "offer choice fits in the panel",
+			"passed": true
+		},
+		{
+			"description": "offer choice is stacked in locked order",
+			"passed": true
+		},
+		{
+			"description": "button shown: Not now",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Not now",
+			"passed": true
+		},
+		{
+			"description": "offer choice fits in the panel",
+			"passed": true
+		},
+		{
+			"description": "offer choice is stacked in locked order",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ps02_partner__the_offer__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ps02_partner__the_offer__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Put in 60 coins · ask 5 coins every week, whatever happens",
+			"passed": true
+		},
+		{
+			"description": "production panel opens: partnership_riba",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: WEAVER'S LANE",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: WEAVER'S LANE",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Whatever happens?",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Whatever happens?",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Layla stops the loom. “Five every week even when the river floods my dye pits? That is not a partner. That is a lender taking interest. No.”",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Layla stops the loom. “Five every week even when the river floods my dye pits? That is not a partner. That is a lender taking interest. No.”",
+			"passed": true
+		},
+		{
+			"description": "fixed return refused: wallet 198 and trust 42",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ps03_partner__whatever_happens_refused__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ps03_partner__whatever_happens_refused__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "What people say shows one locked line for riba",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: “Wanted a sure profit from Layla”",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: “Wanted a sure profit from Layla”",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: LAYLA THE WEAVER",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: LAYLA THE WEAVER",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: bad",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: bad",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ps04_people_say__wanted_a_sure_profit__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ps04_people_say__wanted_a_sure_profit__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the market map at the Inn",
+			"passed": true
+		},
+		{
+			"description": "fair arrival supplies 198 coins",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "native map marker starts the route to weaver",
+			"passed": true
+		},
+		{
+			"description": "native physical street route reaches weaver",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Put in 60 coins · share the profit half and half",
+			"passed": true
+		},
+		{
+			"description": "production panel opens: partnership_agreed",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: WEAVER'S LANE",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: WEAVER'S LANE",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Partners",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Partners",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: You shake hands over the empty corner. “Half of what the loom earns is yours, and half of what it loses is yours too,” Layla says. “That is a partnership.”",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: You shake hands over the empty corner. “Half of what the loom earns is yours, and half of what it loses is yours too,” Layla says. “That is a partnership.”",
+			"passed": true
+		},
+		{
+			"description": "partnership starts with the capital paid: wallet 138 and trust 45",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ps05_partner__partners__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ps05_partner__partners__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Partner in Layla's second loom · next share in 7 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Partner in Layla's second loom · next share in 7 days",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ps06_weaver__next_share_in_7_days__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ps06_weaver__next_share_in_7_days__build.png",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Partner in Layla's second loom · next share in 1 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Partner in Layla's second loom · next share in 1 days",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button shown: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ps07_weaver__layla_has_your_share__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ps07_weaver__layla_has_your_share__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "production panel opens: partnership_week",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: WEAVER'S LANE · WEEK 1",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: WEAVER'S LANE · WEEK 1",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Your share",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Layla counts the week's profit from the second loom: 10 coins. She pushes half across to you: 5 coins.",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Layla counts the week's profit from the second loom: 10 coins. She pushes half across to you: 5 coins.",
+			"passed": true
+		},
+		{
+			"description": "week 1 pays 5: wallet 143 and trust 45",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ps08_share__week_1_five_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ps08_share__week_1_five_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Partner in Layla's second loom · next share in 7 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Partner in Layla's second loom · next share in 7 days",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Partner in Layla's second loom · next share in 1 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Partner in Layla's second loom · next share in 1 days",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button shown: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "production panel opens: partnership_week",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: WEAVER'S LANE · WEEK 2",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: WEAVER'S LANE · WEEK 2",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Your share",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Layla counts the week's profit from the second loom: 6 coins. She pushes half across to you: 3 coins.",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Layla counts the week's profit from the second loom: 6 coins. She pushes half across to you: 3 coins.",
+			"passed": true
+		},
+		{
+			"description": "week 2 pays 3: wallet 146 and trust 45",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Partner in Layla's second loom · next share in 7 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Partner in Layla's second loom · next share in 7 days",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Partner in Layla's second loom · next share in 1 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Partner in Layla's second loom · next share in 1 days",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button shown: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "production panel opens: partnership_week",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: WEAVER'S LANE · WEEK 3",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: WEAVER'S LANE · WEEK 3",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Your share",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: A bad week. The river flooded the dye pits and the loom earned nothing. “Nothing for me, nothing for you,” Layla says. “That is what sharing means.”",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: A bad week. The river flooded the dye pits and the loom earned nothing. “Nothing for me, nothing for you,” Layla says. “That is what sharing means.”",
+			"passed": true
+		},
+		{
+			"description": "week 3 pays 0: wallet 146 and trust 45",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ps09_share__week_3_bad_week__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ps09_share__week_3_bad_week__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Partner in Layla's second loom · next share in 7 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Partner in Layla's second loom · next share in 7 days",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "What people say shows one locked line for partner",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: “Took a fair share in Layla's loom”",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: “Took a fair share in Layla's loom”",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: LAYLA THE WEAVER",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: LAYLA THE WEAVER",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: good",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: good",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: ps10_people_say__fair_share__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: ps10_people_say__fair_share__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Partner in Layla's second loom · next share in 1 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Partner in Layla's second loom · next share in 1 days",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button shown: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "production panel opens: partnership_week",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: WEAVER'S LANE · WEEK 4",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: WEAVER'S LANE · WEEK 4",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Your share",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Layla counts the week's profit from the second loom: 12 coins. She pushes half across to you: 6 coins.",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Layla counts the week's profit from the second loom: 12 coins. She pushes half across to you: 6 coins.",
+			"passed": true
+		},
+		{
+			"description": "week 4 pays 6: wallet 152 and trust 45",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Partner in Layla's second loom · next share in 7 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Partner in Layla's second loom · next share in 7 days",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Partner in Layla's second loom · next share in 1 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Partner in Layla's second loom · next share in 1 days",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button shown: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "production panel opens: partnership_week",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: WEAVER'S LANE · WEEK 5",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: WEAVER'S LANE · WEEK 5",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Your share",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Layla counts the week's profit from the second loom: 10 coins. She pushes half across to you: 5 coins.",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Layla counts the week's profit from the second loom: 10 coins. She pushes half across to you: 5 coins.",
+			"passed": true
+		},
+		{
+			"description": "week 5 pays 5: wallet 157 and trust 45",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "market map is at Weaver's lane",
+			"passed": true
+		},
+		{
+			"description": "button shown: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button fits in viewport: Visit Layla's loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla wants a second loom",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Layla has your share",
+			"passed": true
+		},
+		{
+			"description": "visible locked label: Partner in Layla's second loom · next share in 7 days",
+			"passed": true
+		},
+		{
+			"description": "label fits in viewport: Partner in Layla's second loom · next share in 7 days",
+			"passed": true
+		},
+		{
+			"description": "partnership item follows the loom button",
+			"passed": true
+		},
+		{
+			"description": "all 12 locked states were captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "The passive clock is paused. Fair arrival supplies 198 coins. Trust is set to 45, except for the trust checks including ps11 at 35. The wallet is temporarily set to 20 for ps12. The game starts at the Inn and walks to Layla. The offer opens on Thursday day 8 at 10:00. The clock advances without passive ticks to test Layla's hours and each due date. The fixed-return and partnership branches each start from a fresh arrival.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport. Clicks drive fair arrivals, the physical walk to Weaver's lane, the offer, the weekly collections and What people say.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "ps11_weaver__trust_too_low__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ps01_weaver__second_loom__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ps12_partner__not_enough_coins__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ps02_partner__the_offer__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ps03_partner__whatever_happens_refused__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ps04_people_say__wanted_a_sure_profit__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ps05_partner__partners__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ps06_weaver__next_share_in_7_days__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ps07_weaver__layla_has_your_share__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ps08_share__week_1_five_coins__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ps09_share__week_3_bad_week__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "ps10_people_say__fair_share__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"ps01_weaver__second_loom__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				44.0414505004883,
+				0.0,
+				38.4077568054199
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"ps02_partner__the_offer__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				44.0414505004883,
+				0.0,
+				38.4077568054199
+			],
+			"screen": "partnership_ask",
+			"tasks": {},
+			"trust": 45
+		},
+		"ps03_partner__whatever_happens_refused__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				44.0414505004883,
+				0.0,
+				38.4077568054199
+			],
+			"screen": "partnership_riba",
+			"tasks": {},
+			"trust": 42
+		},
+		"ps04_people_say__wanted_a_sure_profit__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				44.0414505004883,
+				0.0,
+				38.4077568054199
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 42
+		},
+		"ps05_partner__partners__build.png": {
+			"coins": 138,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				44.0414505004883,
+				0.0,
+				38.4077568054199
+			],
+			"screen": "partnership_agreed",
+			"tasks": {},
+			"trust": 45
+		},
+		"ps06_weaver__next_share_in_7_days__build.png": {
+			"coins": 138,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				44.0414505004883,
+				0.0,
+				38.4077568054199
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"ps07_weaver__layla_has_your_share__build.png": {
+			"coins": 138,
+			"daily_count": 0,
+			"day": 15,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				44.0414505004883,
+				0.0,
+				38.4077568054199
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 45
+		},
+		"ps08_share__week_1_five_coins__build.png": {
+			"coins": 143,
+			"daily_count": 0,
+			"day": 15,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				44.0414505004883,
+				0.0,
+				38.4077568054199
+			],
+			"screen": "partnership_week",
+			"tasks": {},
+			"trust": 45
+		},
+		"ps09_share__week_3_bad_week__build.png": {
+			"coins": 146,
+			"daily_count": 0,
+			"day": 29,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				44.0414505004883,
+				0.0,
+				38.4077568054199
+			],
+			"screen": "partnership_week",
+			"tasks": {},
+			"trust": 45
+		},
+		"ps10_people_say__fair_share__build.png": {
+			"coins": 146,
+			"daily_count": 0,
+			"day": 29,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				44.0414505004883,
+				0.0,
+				38.4077568054199
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 45
+		},
+		"ps11_weaver__trust_too_low__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				44.0414505004883,
+				0.0,
+				38.4077568054199
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 35
+		},
+		"ps12_partner__not_enough_coins__build.png": {
+			"coins": 20,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				44.0414505004883,
+				0.0,
+				38.4077568054199
+			],
+			"screen": "partnership_ask",
+			"tasks": {},
+			"trust": 45
+		}
+	},
+	"timestamp_utc": "2026-11-11T21:07:13Z"
+}
