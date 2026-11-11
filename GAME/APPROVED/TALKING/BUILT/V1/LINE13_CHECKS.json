@@ -1,0 +1,1859 @@
+{
+	"capsule_positions": {
+		"jamal": [
+			51.0,
+			0.899999976158142,
+			73.5999984741211
+		],
+		"layla": [
+			41.5999984741211,
+			0.899999976158142,
+			40.2000007629395
+		],
+		"musa": [
+			105.800003051758,
+			0.899999976158142,
+			44.0
+		],
+		"rashid": [
+			150.10791015625,
+			0.899999976158142,
+			26.2731418609619
+		],
+		"salma": [
+			85.6049880981445,
+			0.899999976158142,
+			36.0149536132812
+		]
+	},
+	"checks": [
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the Inn market map",
+			"passed": true
+		},
+		{
+			"description": "visible placeholder capsule for Salma",
+			"passed": true
+		},
+		{
+			"description": "capsule bears the locked name Salma",
+			"passed": true
+		},
+		{
+			"description": "capsule is at Task board",
+			"passed": true
+		},
+		{
+			"description": "visible placeholder capsule for Rashid",
+			"passed": true
+		},
+		{
+			"description": "capsule bears the locked name Rashid",
+			"passed": true
+		},
+		{
+			"description": "capsule is at Spice row",
+			"passed": true
+		},
+		{
+			"description": "visible placeholder capsule for Layla",
+			"passed": true
+		},
+		{
+			"description": "capsule bears the locked name Layla",
+			"passed": true
+		},
+		{
+			"description": "capsule is at Weaver’s lane",
+			"passed": true
+		},
+		{
+			"description": "visible placeholder capsule for Jamal",
+			"passed": true
+		},
+		{
+			"description": "capsule bears the locked name Jamal",
+			"passed": true
+		},
+		{
+			"description": "capsule is at Quay",
+			"passed": true
+		},
+		{
+			"description": "visible placeholder capsule for Old Musa",
+			"passed": true
+		},
+		{
+			"description": "capsule bears the locked name Old Musa",
+			"passed": true
+		},
+		{
+			"description": "capsule is at Market scales",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Task board",
+			"passed": true
+		},
+		{
+			"description": "task board shows its previous actions and Talk to Salma",
+			"passed": true
+		},
+		{
+			"description": "Talk to Salma follows the previous place actions",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t01_market_map__square_talk_to_salma__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t01_market_map__square_talk_to_salma__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Salma",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Salma",
+			"passed": true
+		},
+		{
+			"description": "Talk to Salma opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Salma and their place",
+			"passed": true
+		},
+		{
+			"description": "Salma shows only the wary trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Salma shows only the wary trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Salma shows only the wary trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Salma memory visibility: grab_lie",
+			"passed": true
+		},
+		{
+			"description": "Salma memory visibility: grab_truth",
+			"passed": true
+		},
+		{
+			"description": "Salma memory visibility: grab_pay",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Salma",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t02_talk__salma_wary__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t02_talk__salma_wary__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "Salma gives the locked greeting reply",
+			"passed": true
+		},
+		{
+			"description": "the greeting becomes a label for Salma",
+			"passed": true
+		},
+		{
+			"description": "trust after greeting Salma is 20",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t03_talk__salma_greeted__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t03_talk__salma_greeted__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "Salma gives their locked market tip",
+			"passed": true
+		},
+		{
+			"description": "asking replaces Salma's greeting reply",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t04_talk__salma_tip__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t04_talk__salma_tip__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Task board",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Salma",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Salma",
+			"passed": true
+		},
+		{
+			"description": "Talk to Salma opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Salma and their place",
+			"passed": true
+		},
+		{
+			"description": "Salma shows only the wary trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Salma shows only the wary trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Salma shows only the wary trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Salma memory visibility: grab_lie",
+			"passed": true
+		},
+		{
+			"description": "Salma memory visibility: grab_truth",
+			"passed": true
+		},
+		{
+			"description": "Salma memory visibility: grab_pay",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Salma",
+			"passed": true
+		},
+		{
+			"description": "reopening Salma keeps her greeted status",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Spice row",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Rashid",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Rashid",
+			"passed": true
+		},
+		{
+			"description": "Talk to Rashid opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Rashid and their place",
+			"passed": true
+		},
+		{
+			"description": "Rashid shows only the wary trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Rashid shows only the wary trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Rashid shows only the wary trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Rashid memory visibility: returned",
+			"passed": true
+		},
+		{
+			"description": "Rashid memory visibility: kept",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Rashid",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "Rashid gives the locked greeting reply",
+			"passed": true
+		},
+		{
+			"description": "the greeting becomes a label for Rashid",
+			"passed": true
+		},
+		{
+			"description": "trust after greeting Rashid is 20",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "Rashid gives their locked market tip",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "two different greetings add no reputation line",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Weaver’s lane",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Layla",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Layla",
+			"passed": true
+		},
+		{
+			"description": "Talk to Layla opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Layla and their place",
+			"passed": true
+		},
+		{
+			"description": "Layla shows only the wary trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Layla shows only the wary trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Layla shows only the wary trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Layla memory visibility: own_cloth",
+			"passed": true
+		},
+		{
+			"description": "Layla memory visibility: traveller",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Layla",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "Layla gives the locked greeting reply",
+			"passed": true
+		},
+		{
+			"description": "the greeting becomes a label for Layla",
+			"passed": true
+		},
+		{
+			"description": "trust after greeting Layla is 21",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "Layla gives their locked market tip",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Task board",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "the third greeting adds only the locked reputation row in the clean session",
+			"passed": true
+		},
+		{
+			"description": "the native reputation panel shows the greeting and its source",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t15_people_say__greets_everyone__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t15_people_say__greets_everyone__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Quay",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Jamal",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Jamal",
+			"passed": true
+		},
+		{
+			"description": "Talk to Jamal opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Jamal and their place",
+			"passed": true
+		},
+		{
+			"description": "Jamal shows only the wary trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Jamal shows only the wary trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Jamal shows only the wary trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Jamal memory visibility: fed",
+			"passed": true
+		},
+		{
+			"description": "Jamal memory visibility: boat",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Jamal",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "Jamal gives the locked greeting reply",
+			"passed": true
+		},
+		{
+			"description": "the greeting becomes a label for Jamal",
+			"passed": true
+		},
+		{
+			"description": "trust after greeting Jamal is 21",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "Jamal gives their locked market tip",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Market scales",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Old Musa",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Old Musa",
+			"passed": true
+		},
+		{
+			"description": "Talk to Old Musa opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Old Musa and their place",
+			"passed": true
+		},
+		{
+			"description": "Old Musa shows only the wary trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Old Musa shows only the wary trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Old Musa shows only the wary trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Old Musa memory visibility: learned",
+			"passed": true
+		},
+		{
+			"description": "Old Musa memory visibility: not_learned",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Old Musa",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: “As-salamu alaykum”",
+			"passed": true
+		},
+		{
+			"description": "Old Musa gives the locked greeting reply",
+			"passed": true
+		},
+		{
+			"description": "the greeting becomes a label for Old Musa",
+			"passed": true
+		},
+		{
+			"description": "trust after greeting Old Musa is 21",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "Old Musa gives their locked market tip",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "each regular has one greeting recorded",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the Inn market map",
+			"passed": true
+		},
+		{
+			"description": "the truth answer sets up Salma's memory",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Task board",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Salma",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Salma",
+			"passed": true
+		},
+		{
+			"description": "Talk to Salma opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Salma and their place",
+			"passed": true
+		},
+		{
+			"description": "Salma shows only the friendly trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Salma shows only the friendly trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Salma shows only the friendly trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Salma memory visibility: grab_lie",
+			"passed": true
+		},
+		{
+			"description": "Salma memory visibility: grab_truth",
+			"passed": true
+		},
+		{
+			"description": "Salma memory visibility: grab_pay",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Salma",
+			"passed": true
+		},
+		{
+			"description": "the memory does not consume Salma's greeting",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t05_talk__salma_friendly_truth__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t05_talk__salma_friendly_truth__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "the payment answer sets up Salma's memory",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Task board",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Salma",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Salma",
+			"passed": true
+		},
+		{
+			"description": "Talk to Salma opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Salma and their place",
+			"passed": true
+		},
+		{
+			"description": "Salma shows only the warm trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Salma shows only the warm trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Salma shows only the warm trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Salma memory visibility: grab_lie",
+			"passed": true
+		},
+		{
+			"description": "Salma memory visibility: grab_truth",
+			"passed": true
+		},
+		{
+			"description": "Salma memory visibility: grab_pay",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Salma",
+			"passed": true
+		},
+		{
+			"description": "the memory does not consume Salma's greeting",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t06_talk__salma_warm_paid__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t06_talk__salma_warm_paid__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "returning extra change sets up Rashid's memory",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Spice row",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Rashid",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Rashid",
+			"passed": true
+		},
+		{
+			"description": "Talk to Rashid opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Rashid and their place",
+			"passed": true
+		},
+		{
+			"description": "Rashid shows only the friendly trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Rashid shows only the friendly trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Rashid shows only the friendly trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Rashid memory visibility: returned",
+			"passed": true
+		},
+		{
+			"description": "Rashid memory visibility: kept",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Rashid",
+			"passed": true
+		},
+		{
+			"description": "the memory does not consume Rashid's greeting",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t07_talk__rashid_returned__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t07_talk__rashid_returned__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "keeping the extra change sets up Rashid's discovery",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Spice row",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Rashid",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Rashid",
+			"passed": true
+		},
+		{
+			"description": "Talk to Rashid opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Rashid and their place",
+			"passed": true
+		},
+		{
+			"description": "Rashid shows only the wary trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Rashid shows only the wary trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Rashid shows only the wary trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Rashid memory visibility: returned",
+			"passed": true
+		},
+		{
+			"description": "Rashid memory visibility: kept",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Rashid",
+			"passed": true
+		},
+		{
+			"description": "the memory does not consume Rashid's greeting",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t08_talk__rashid_kept__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t08_talk__rashid_kept__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "buying and wearing Layla's work clothes sets up her memory",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Weaver’s lane",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Layla",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Layla",
+			"passed": true
+		},
+		{
+			"description": "Talk to Layla opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Layla and their place",
+			"passed": true
+		},
+		{
+			"description": "Layla shows only the friendly trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Layla shows only the friendly trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Layla shows only the friendly trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Layla memory visibility: own_cloth",
+			"passed": true
+		},
+		{
+			"description": "Layla memory visibility: traveller",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Layla",
+			"passed": true
+		},
+		{
+			"description": "the memory does not consume Layla's greeting",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t09_talk__layla_her_cloth__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t09_talk__layla_her_cloth__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Weaver’s lane",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Layla",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Layla",
+			"passed": true
+		},
+		{
+			"description": "Talk to Layla opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Layla and their place",
+			"passed": true
+		},
+		{
+			"description": "Layla shows only the wary trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Layla shows only the wary trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Layla shows only the wary trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Layla memory visibility: own_cloth",
+			"passed": true
+		},
+		{
+			"description": "Layla memory visibility: traveller",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Layla",
+			"passed": true
+		},
+		{
+			"description": "the memory does not consume Layla's greeting",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t10_talk__layla_traveller__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t10_talk__layla_traveller__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "completing the boat job sets up Jamal's memory",
+			"passed": true
+		},
+		{
+			"description": "giving Faris bread sets up Jamal's other memory",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Quay",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Jamal",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Jamal",
+			"passed": true
+		},
+		{
+			"description": "Talk to Jamal opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Jamal and their place",
+			"passed": true
+		},
+		{
+			"description": "Jamal shows only the friendly trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Jamal shows only the friendly trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Jamal shows only the friendly trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Jamal memory visibility: fed",
+			"passed": true
+		},
+		{
+			"description": "Jamal memory visibility: boat",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Jamal",
+			"passed": true
+		},
+		{
+			"description": "the memory does not consume Jamal's greeting",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t11_talk__jamal_fed__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t11_talk__jamal_fed__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Quay",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Jamal",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Jamal",
+			"passed": true
+		},
+		{
+			"description": "Talk to Jamal opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Jamal and their place",
+			"passed": true
+		},
+		{
+			"description": "Jamal shows only the friendly trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Jamal shows only the friendly trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Jamal shows only the friendly trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Jamal memory visibility: fed",
+			"passed": true
+		},
+		{
+			"description": "Jamal memory visibility: boat",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Jamal",
+			"passed": true
+		},
+		{
+			"description": "the memory does not consume Jamal's greeting",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t12_talk__jamal_boat__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t12_talk__jamal_boat__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "passing the scales lesson sets up Old Musa's memory",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Market scales",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Old Musa",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Old Musa",
+			"passed": true
+		},
+		{
+			"description": "Talk to Old Musa opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Old Musa and their place",
+			"passed": true
+		},
+		{
+			"description": "Old Musa shows only the warm trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Old Musa shows only the warm trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Old Musa shows only the warm trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Old Musa memory visibility: learned",
+			"passed": true
+		},
+		{
+			"description": "Old Musa memory visibility: not_learned",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Old Musa",
+			"passed": true
+		},
+		{
+			"description": "the memory does not consume Old Musa's greeting",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t13_talk__musa_warm_learned__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t13_talk__musa_warm_learned__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "fixture positions the player at Market scales",
+			"passed": true
+		},
+		{
+			"description": "visible place action: Talk to Old Musa",
+			"passed": true
+		},
+		{
+			"description": "place action fits the viewport: Talk to Old Musa",
+			"passed": true
+		},
+		{
+			"description": "Talk to Old Musa opens the native talk panel",
+			"passed": true
+		},
+		{
+			"description": "the panel identifies Old Musa and their place",
+			"passed": true
+		},
+		{
+			"description": "Old Musa shows only the wary trust line: wary",
+			"passed": true
+		},
+		{
+			"description": "Old Musa shows only the wary trust line: friendly",
+			"passed": true
+		},
+		{
+			"description": "Old Musa shows only the wary trust line: warm",
+			"passed": true
+		},
+		{
+			"description": "Old Musa memory visibility: learned",
+			"passed": true
+		},
+		{
+			"description": "Old Musa memory visibility: not_learned",
+			"passed": true
+		},
+		{
+			"description": "new conversation starts without a reply or tip: Old Musa",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask about the market",
+			"passed": true
+		},
+		{
+			"description": "Old Musa gives their locked market tip",
+			"passed": true
+		},
+		{
+			"description": "asking before greeting leaves the greeting available",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: t14_talk__musa_tip__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: t14_talk__musa_tip__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goodbye",
+			"passed": true
+		},
+		{
+			"description": "Goodbye returns to the same market map place",
+			"passed": true
+		},
+		{
+			"description": "all 15 master states were captured",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Fair arrival, followed by Thursday day 8 at 10:00. Captures t01–t04 and t15 earn greetings in a clean session. A new fair arrival starts the memory cases. Earlier gameplay methods set up the histories independently; the wallet and trust are staged to the masters for those captures. Rashid's kept-change purchase is staged on the previous day and discovered on Thursday.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport. Real viewport clicks open each talk panel, greet, ask, say goodbye and open What people say. The harness pauses passive clock ticks and stages positions and camera direction at the live locations.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "t01_market_map__square_talk_to_salma__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t02_talk__salma_wary__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t03_talk__salma_greeted__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t04_talk__salma_tip__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t15_people_say__greets_everyone__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t05_talk__salma_friendly_truth__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t06_talk__salma_warm_paid__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t07_talk__rashid_returned__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t08_talk__rashid_kept__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t09_talk__layla_her_cloth__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t10_talk__layla_traveller__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t11_talk__jamal_fed__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t12_talk__jamal_boat__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t13_talk__musa_warm_learned__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "t14_talk__musa_tip__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"t01_market_map__square_talk_to_salma__build.png": {
+			"boat_job_done": false,
+			"bread_grab_answer": "",
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"t02_talk__salma_wary__build.png": {
+			"boat_job_done": false,
+			"bread_grab_answer": "",
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "talk",
+			"speaker": "salma",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"t03_talk__salma_greeted__build.png": {
+			"boat_job_done": false,
+			"bread_grab_answer": "",
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [
+				"salma"
+			],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "talk",
+			"speaker": "salma",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"t04_talk__salma_tip__build.png": {
+			"boat_job_done": false,
+			"bread_grab_answer": "",
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [
+				"salma"
+			],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "talk",
+			"speaker": "salma",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"t05_talk__salma_friendly_truth__build.png": {
+			"boat_job_done": false,
+			"bread_grab_answer": "truth",
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "talk",
+			"speaker": "salma",
+			"tasks": {},
+			"trust": 55,
+			"worn": "traveller"
+		},
+		"t06_talk__salma_warm_paid__build.png": {
+			"boat_job_done": false,
+			"bread_grab_answer": "pay",
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "talk",
+			"speaker": "salma",
+			"tasks": {},
+			"trust": 85,
+			"worn": "traveller"
+		},
+		"t07_talk__rashid_returned__build.png": {
+			"boat_job_done": false,
+			"bread_grab_answer": "",
+			"change_state": 2,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "talk",
+			"speaker": "rashid",
+			"tasks": {},
+			"trust": 55,
+			"worn": "traveller"
+		},
+		"t08_talk__rashid_kept__build.png": {
+			"boat_job_done": false,
+			"bread_grab_answer": "",
+			"change_state": 4,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "spice",
+			"player": [
+				149.600006103516,
+				0.0,
+				28.0
+			],
+			"screen": "talk",
+			"speaker": "rashid",
+			"tasks": {},
+			"trust": 17,
+			"worn": "traveller"
+		},
+		"t09_talk__layla_her_cloth__build.png": {
+			"boat_job_done": false,
+			"bread_grab_answer": "",
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "talk",
+			"speaker": "layla",
+			"tasks": {},
+			"trust": 55,
+			"worn": "work"
+		},
+		"t10_talk__layla_traveller__build.png": {
+			"boat_job_done": false,
+			"bread_grab_answer": "",
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "weaver",
+			"player": [
+				41.5999984741211,
+				0.0,
+				38.4000015258789
+			],
+			"screen": "talk",
+			"speaker": "layla",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"t11_talk__jamal_fed__build.png": {
+			"boat_job_done": true,
+			"bread_grab_answer": "",
+			"change_state": 2,
+			"coins": 198,
+			"daily_count": 1,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "talk",
+			"speaker": "jamal",
+			"tasks": {},
+			"trust": 55,
+			"worn": "traveller"
+		},
+		"t12_talk__jamal_boat__build.png": {
+			"boat_job_done": true,
+			"bread_grab_answer": "",
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 1,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "quay",
+			"player": [
+				52.7999992370605,
+				0.0,
+				73.5999984741211
+			],
+			"screen": "talk",
+			"speaker": "jamal",
+			"tasks": {},
+			"trust": 55,
+			"worn": "traveller"
+		},
+		"t13_talk__musa_warm_learned__build.png": {
+			"boat_job_done": true,
+			"bread_grab_answer": "",
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 1,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [],
+			"lesson_done": true,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "scales",
+			"player": [
+				104.0,
+				0.0,
+				44.0
+			],
+			"screen": "talk",
+			"speaker": "musa",
+			"tasks": {},
+			"trust": 85,
+			"worn": "traveller"
+		},
+		"t14_talk__musa_tip__build.png": {
+			"boat_job_done": false,
+			"bread_grab_answer": "",
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [],
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "scales",
+			"player": [
+				104.0,
+				0.0,
+				44.0
+			],
+			"screen": "talk",
+			"speaker": "musa",
+			"tasks": {},
+			"trust": 20,
+			"worn": "traveller"
+		},
+		"t15_people_say__greets_everyone__build.png": {
+			"boat_job_done": false,
+			"bread_grab_answer": "",
+			"change_state": 0,
+			"coins": 198,
+			"daily_count": 0,
+			"day": 8,
+			"gate_open": false,
+			"greeted": [
+				"salma",
+				"rashid",
+				"layla"
+			],
+			"lesson_done": false,
+			"lines": [
+				[
+					"Greets everyone",
+					"the street",
+					1.0
+				]
+			],
+			"minute_of_day": 600,
+			"night": false,
+			"place": "board",
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "reputation",
+			"tasks": {},
+			"trust": 21,
+			"worn": "traveller"
+		}
+	},
+	"timestamp_utc": "2026-11-11T15:29:18Z"
+}

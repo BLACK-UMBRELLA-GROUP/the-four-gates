@@ -125,6 +125,7 @@ func _run() -> void:
 	await check_bread_grab_runtime()
 	await check_market_stall_runtime()
 	await check_clothes_runtime()
+	await check_talking_runtime()
 	finish()
 
 
@@ -1827,7 +1828,7 @@ func check_clothes_runtime() -> void:
 	check(shop.count("traveller") == 1 and shop.worn_clothes == "traveller", "the traveller starts with their own clothes on")
 	check(shop.capacity() == int(clothes.numbers.pouch) and shop.carried() == 0, "the starting pouch holds six and worn clothes take no space")
 	check(app.world.layla.mesh is CapsuleMesh and app.world.layla.get_child(0).text == str(loom.title).get_slice("'s", 0), "Layla has the locked name above her capsule")
-	check(shop.reputation_lines().is_empty(), "the traveller's clothes add no reputation")
+	check(app.ui.reputation_lines().is_empty(), "the traveller's clothes add no reputation")
 	move_market_fixture("quay")
 	app.show_loom()
 	check(app.ui.screen == "market_map" and find_button(app.ui, clothes.place.weaver_button) == null, "the loom action belongs only at weaver's lane")
@@ -1955,3 +1956,108 @@ func check_outfit_reputation(shop: MarketStall) -> void:
 	check(visible_text().contains(clothes.loom.not_enough) and find_button(app.ui, clothes.loom.buy.format({"n": int(clothes.leather_bag.price)})) == null, "unaffordable clothes and bag show the locked status")
 	app.buy_loom_item(clothes.leather_bag.id)
 	check(app.progress.coins == 0 and shop.capacity() == int(clothes.numbers.pouch), "an unaffordable leather bag cannot change the wallet or capacity")
+
+
+func check_talking_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/TALKING/RECORD/talking_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/talking.json")
+	check(not approved.is_empty() and approved == runtime, "talking runtime is byte-identical to the LOCK")
+	var talking: Dictionary = app.talking.data
+	check(talking == JSON.parse_string(runtime.get_string_from_utf8()), "talking reads the locked runtime data")
+	reset_at_market_place("inn", 100)
+	for regular: Dictionary in talking.people:
+		check(find_button(app.ui, str(talking.talk_button).format({"name": regular.name})) == null, "no talk action at the Inn: " + regular.id)
+	check(app.world.talking_people.size() == talking.people.size(), "each regular has exactly one mapped capsule")
+	var start_trust: int = app.progress.trust
+	for index in talking.people.size():
+		var regular: Dictionary = talking.people[index]
+		var person: MeshInstance3D = app.world.talking_people[regular.id]
+		check(person.mesh is CapsuleMesh and person.get_child(0).text == regular.name, "capsule has the approved name: " + regular.id)
+		check(horizontal_distance(person.position, app.world.point(regular.place)) <= 2.0 * float(data.player.capsule_height), "capsule stands beside the locked place: " + regular.id)
+		await open_talk_fixture(regular, talking)
+		for trust: int in [39, 40, 79, 80]:
+			app.progress.trust = trust
+			await frames(1)
+			var tier := "wary" if trust == 39 else ("warm" if trust == 80 else "friendly")
+			for key: String in regular.tier:
+				check(visible_text().contains(regular.tier[key]) == (key == tier), "only the correct tier line appears at %d: %s %s" % [trust, regular.id, key])
+		app.progress.trust = start_trust + (int(talking.numbers.greet_trust) if index >= int(talking.numbers.greet_count) else 0)
+		await frames(1)
+		await press_button(talking.panel.ask, "ask " + regular.name + " for their tip")
+		check(visible_text().contains(regular.tip) and not visible_text().contains(talking.panel.reply), "ask shows the person's tip")
+		await press_button(talking.panel.greet, "greet " + regular.name)
+		check(visible_text().contains(talking.panel.reply) and not visible_text().contains(regular.tip), "greeting replaces the tip with the reply")
+		check(has_visible_label(app.ui, talking.panel.greeted) and find_button(app.ui, talking.panel.greet) == null, "greeted is a label instead of a repeat button")
+		var qualified: bool = index + 1 >= int(talking.numbers.greet_count)
+		var expected_trust := start_trust + (int(talking.numbers.greet_trust) if qualified else 0)
+		check(app.progress.trust == expected_trust, "trust is awarded only at the third different greeting")
+		check(app.ui.reputation_lines().has(talking.say.greets) == qualified, "greeting reputation appears at the third greeting")
+		app.greet_regular()
+		check(app.progress.trust == expected_trust and app.talking.greeted.size() == index + 1, "a duplicate greeting changes neither trust nor count")
+		await press_button(talking.panel.bye, "say goodbye to " + regular.name)
+		check(app.ui.screen == "market_map" and app.current_place == regular.place, "goodbye returns to the same place on the market map")
+		await open_talk_fixture(regular, talking)
+		check(has_visible_label(app.ui, talking.panel.greeted) and not visible_text().contains(talking.panel.reply), "reopening retains the greeting and clears the old reply")
+		await press_button(talking.panel.bye, "leave the reopened conversation")
+	check(app.progress.coins == 100, "dialogue actions leave the wallet alone")
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say after greetings")
+	check(visible_text().contains(talking.say.greets[0]), "What people say shows the exact locked greeting line")
+	await check_talking_memories(talking)
+	reset_at_market_place("board", 100)
+	check(app.talking.greeted.is_empty() and not app.ui.reputation_lines().has(talking.say.greets), "a new session resets greetings and reputation")
+
+
+func open_talk_fixture(regular: Dictionary, talking: Dictionary) -> void:
+	move_market_fixture(regular.place)
+	var caption: String = str(talking.talk_button).format({"name": regular.name})
+	await press_button(caption, "open the approved place-bar action for " + regular.name)
+	check(app.ui.screen == "talk" and visible_text().contains("%s, %s" % [regular.name, regular.role]), "talk opens the correct named panel")
+
+
+func check_talking_memories(talking: Dictionary) -> void:
+	var salma: Dictionary = talking.people[0]
+	await open_talk_fixture(salma, talking)
+	for answer: String in ["", "quiet", "lie", "truth", "pay"]:
+		app.bread_grab.answer_id = answer
+		check_talking_memory(salma, "grab_" + answer)
+
+	var rashid: Dictionary = talking.people[1]
+	await open_talk_fixture(rashid, talking)
+	var change_cases := {MarketStall.Change.NONE: "", MarketStall.Change.PENDING: "", MarketStall.Change.KEPT: "", MarketStall.Change.RETURNED: "returned", MarketStall.Change.FOUND: "kept"}
+	for state: int in change_cases:
+		app.market_stall.change_state = state
+		check_talking_memory(rashid, change_cases[state])
+
+	var layla: Dictionary = talking.people[2]
+	await open_talk_fixture(layla, talking)
+	for outfit: Dictionary in app.market_stall.clothes_data.clothes:
+		app.market_stall.worn_clothes = outfit.id
+		var fact := "own_cloth" if outfit.seller == layla.name else ("traveller" if outfit.id == "traveller" else "")
+		check_talking_memory(layla, fact)
+
+	var jamal: Dictionary = talking.people[3]
+	await open_talk_fixture(jamal, talking)
+	check_talking_memory(jamal, "")
+	app.progress.boat_job_done = true
+	check_talking_memory(jamal, "boat")
+	app.market_stall.fed_faris = true
+	check_talking_memory(jamal, "fed")
+	app.progress.boat_job_done = false
+	check_talking_memory(jamal, "fed")
+
+	var musa: Dictionary = talking.people[4]
+	await open_talk_fixture(musa, talking)
+	check_talking_memory(musa, "not_learned")
+	app.progress.lesson_done = true
+	check_talking_memory(musa, "learned")
+	app.market_stall.worn_clothes = "work"
+	var lines: Array = app.ui.reputation_lines()
+	var shop: Dictionary = app.market_stall.data
+	check(lines.slice(-4) == [shop.say.kept, shop.say.fed, talking.say.greets, app.market_stall.clothes_data.say.work], "greetings follow trade and bread and come immediately before clothing")
+
+
+func check_talking_memory(regular: Dictionary, fact: String) -> void:
+	app.show_screen("talk")
+	var copy := visible_text()
+	for key: String in regular.facts:
+		check(copy.contains(regular.facts[key]) == (key == fact), "only the applicable memory is visible: %s %s %s" % [regular.id, fact, key])

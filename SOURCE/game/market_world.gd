@@ -19,6 +19,7 @@ var faris_at_oven: Node3D
 var faris_at_quay: MeshInstance3D
 var rashid: MeshInstance3D
 var layla: MeshInstance3D
+var talking_people: Dictionary = {}
 var oven_camera: Camera3D
 var _faris_start: Vector3
 var _faris_run: Tween
@@ -99,7 +100,7 @@ func point(id: String) -> Vector3:
 	return Vector3(source.x, 0.0, source.z)
 
 
-func setup_chapter_people(chapter: Dictionary, market_stall: Dictionary, clothes: Dictionary) -> void:
+func setup_chapter_people(chapter: Dictionary, regulars: Array) -> void:
 	_inn_people = Node3D.new()
 	_inn_people.name = "InnPeople"
 	_inn_people.position = point("inn")
@@ -118,21 +119,27 @@ func setup_chapter_people(chapter: Dictionary, market_stall: Dictionary, clothes
 			faris_name = display_name
 		index += 1
 
+	var spacing := float(data.player.capsule_height)
 	var along_spice_row := (point("sp1") - point("spice")).normalized()
-	var by_stall := point("spice") + along_spice_row.cross(Vector3.UP) * float(data.player.capsule_height)
-	rashid = _add_chapter_person(self, str(market_stall.stall.title).get_slice("'s", 0), by_stall)
 	var along_weaver_lane := (point(data.square.centre) - point("weaver")).normalized()
-	var by_loom := point("weaver") + along_weaver_lane.cross(Vector3.UP) * float(data.player.capsule_height)
-	layla = _add_chapter_person(self, str(clothes.loom.title).get_slice("'s", 0), by_loom)
-	var by_quay := point("quay") + Vector3.RIGHT * float(data.player.capsule_height)
-	faris_at_quay = _add_chapter_person(self, faris_name, by_quay)
-
 	var along_square := (point(data.square.centre) - point("board")).normalized()
-	var oven_at := point("board") + along_square * float(data.player.capsule_height)
-	var oven_size := Vector3(1.0, 0.9, 0.85) * float(data.player.capsule_height)
+	var oven_at := point("board") + along_square * spacing
+	var oven_size := Vector3(1.0, 0.9, 0.85) * spacing
 	_box(oven_at + Vector3.UP * oven_size.y / 2.0, oven_size, Color("8b5c41"), false)
-	var beside_oven := along_square.cross(Vector3.UP) * float(data.player.capsule_height)
-	salma = _add_chapter_person(self, str(chapter.purse.baker.title).get_slice(" ", 0), oven_at + beside_oven)
+	var beside_oven := along_square.cross(Vector3.UP) * spacing
+	var positions := {
+		"board": oven_at + beside_oven,
+		"spice": point("spice") + along_spice_row.cross(Vector3.UP) * spacing,
+		"weaver": point("weaver") + along_weaver_lane.cross(Vector3.UP) * spacing,
+		"quay": point("quay") - Vector3.RIGHT * spacing,
+		"scales": point("scales") + Vector3.RIGHT * spacing,
+	}
+	for regular: Dictionary in regulars:
+		talking_people[regular.id] = _add_chapter_person(self, regular.name, positions[regular.place])
+	salma = talking_people.salma
+	rashid = talking_people.rashid
+	layla = talking_people.layla
+	faris_at_quay = _add_chapter_person(self, faris_name, point("quay") + Vector3.RIGHT * spacing)
 	faris_at_oven = _add_chapter_person(self, faris_name, oven_at - beside_oven)
 	_faris_start = faris_at_oven.position
 	faris_at_oven.hide()

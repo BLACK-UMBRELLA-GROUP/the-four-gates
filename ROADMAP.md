@@ -15,7 +15,7 @@ designed and locked by the Founder before it is built.
 | Player and camera | 10 | A third-person character who walks, runs, climbs steps and interacts, with a smooth camera. Done 2026-11-06 (LOCK 1). |
 | First district | 16 | One explorable market quarter with streets, a river edge, shops and day and night lighting (lanterns at night). |
 | Tasks and money | 12 | A task board and three starter tasks that pay coins, with a simple wallet and shop. Done 2026-11-11 (LOCK 4). |
-| Characters and dialogue | 10 | Talkable townspeople, a dialogue system and choices that change how people treat you. |
+| Characters and dialogue | 10 | Talkable townspeople, a dialogue system and choices that change how people treat you. Done 2026-11-11 (LOCK 6). |
 | Learning thread | 8 | A first scholar's errand that teaches something about the period through play. Done 2026-11-11 (LOCK 3 part 1). |
 | Save, menus and polish | 8 | Save and load, a pause menu, settings, and a playable build for Mac (LOCKs 29, 101). |
 | Documentation and tests | 4 | Setup guide, credits, and automated checks for the scripts. |

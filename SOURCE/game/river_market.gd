@@ -10,6 +10,7 @@ const PrayerClock = preload("res://game/prayer_clock.gd")
 const OpenPurse = preload("res://game/open_purse.gd")
 const BreadGrab = preload("res://game/bread_grab.gd")
 const MarketStall = preload("res://game/market_stall.gd")
+const Talking = preload("res://game/talking.gd")
 
 var data: Dictionary
 var identity: Dictionary
@@ -17,6 +18,7 @@ var chapter: Dictionary
 var open_purse := OpenPurse.new()
 var bread_grab := BreadGrab.new()
 var market_stall := MarketStall.new()
+var talking := Talking.new()
 var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
@@ -56,17 +58,18 @@ func _ready() -> void:
 	open_purse.setup(chapter, progress, clock)
 	bread_grab.setup(chapter, progress, clock)
 	market_stall.setup(Foundations.load_market_stall(), Foundations.load_clothes(), progress, clock)
+	talking.setup(Foundations.load_talking(), progress, bread_grab, market_stall)
 	world = MarketWorld.new()
 	add_child(world)
 	world.setup(data)
-	world.setup_chapter_people(chapter, market_stall.data, market_stall.clothes_data)
+	world.setup_chapter_people(chapter, talking.data.people)
 	player = MarketPlayer.new()
 	add_child(player)
 	player.setup(data)
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -109,6 +112,9 @@ func _ready() -> void:
 	ui.loom_purchase_requested.connect(buy_loom_item)
 	ui.wear_requested.connect(wear_clothes)
 	ui.bread_given.connect(give_bread_to_faris)
+	ui.talk_requested.connect(show_talking)
+	ui.greeting_requested.connect(greet_regular)
+	ui.tip_requested.connect(ask_regular)
 	show_screen("title")
 	update_state()
 	if "--capture-foundations" in OS.get_cmdline_user_args():
@@ -143,6 +149,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-clothes" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_clothes.gd").new()
+		capture_runner.run(self)
+	elif "--capture-talking" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_talking.gd").new()
 		capture_runner.run(self)
 
 func _process(delta: float) -> void:
@@ -191,6 +200,7 @@ func begin_game() -> void:
 	open_purse.reset()
 	bread_grab.reset()
 	market_stall.reset()
+	talking.reset()
 	world.stop_faris_run()
 	world.set_inn_people_waiting(true)
 	world.reset_gate()
@@ -495,6 +505,24 @@ func give_bread_to_faris() -> void:
 		ui.show_toast(market_stall.data.feed, ui.screen == "market_map")
 
 
+func show_talking() -> void:
+	update_state()
+	if ui.screen in ["game", "market_map"] and talking.open_at(current_place):
+		_stop_travel()
+		show_screen("talk")
+
+
+func greet_regular() -> void:
+	if ui.screen == "talk" and talking.greet():
+		show_screen("talk")
+
+
+func ask_regular() -> void:
+	if ui.screen == "talk":
+		talking.ask()
+		show_screen("talk")
+
+
 func use_place() -> void:
 	update_state()
 	match current_place:
@@ -597,7 +625,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif ui.screen == "city_map": show_screen("market_map")
 		elif ui.screen == "world_map": show_screen("city_map")
 		elif ui.screen == "market_map": show_screen("game")
-		elif ui.screen in ["purse", "purse_morning", "reputation", "stall", "loom", "bag"]: show_screen("market_map")
+		elif ui.screen in ["purse", "purse_morning", "reputation", "stall", "loom", "bag", "talk"]: show_screen("market_map")
 		elif ui.screen in ["board", "task", "result", "lesson", "goal"]: show_screen("game")
 		else: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	elif event.is_action_pressed("market_map") and ui.screen != "title":

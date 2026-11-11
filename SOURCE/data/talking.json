@@ -1,0 +1,109 @@
+{
+  "version": "LOCK 6 V1 (8 Nov 2026) - talking to people",
+  "builds_on": "LOCK 1-5. Lines depend on River Market trust (tiers) and on what this person saw or heard. Placeholders: {name}.",
+  "numbers": {
+    "wary_below": 40,
+    "warm_from": 80,
+    "greet_count": 3,
+    "greet_trust": 1
+  },
+  "talk_button": "Talk to {name}",
+  "panel": {
+    "kicker": "River Market · {place}",
+    "greet": "“As-salamu alaykum”",
+    "ask": "Ask about the market",
+    "bye": "Goodbye",
+    "reply": "“Wa alaykum as-salam.”",
+    "greeted": "greeted"
+  },
+  "people": [
+    {
+      "id": "salma",
+      "name": "Salma",
+      "role": "the baker",
+      "place": "board",
+      "tier": {
+        "wary": "Salma keeps kneading and barely looks up.",
+        "friendly": "Salma wipes flour from her hands and smiles.",
+        "warm": "Salma tears off a piece of warm bread and holds it out to you."
+      },
+      "facts": {
+        "grab_lie": "“You looked me in the eye once and lied. I remember.”",
+        "grab_truth": "“You told me the truth about the bread. Not everyone would.”",
+        "grab_pay": "“Faris carries my wood now. I know who paid for that loaf.”"
+      },
+      "tip": "“Everyone passes my oven. If someone in this street is in trouble, I hear it first.”"
+    },
+    {
+      "id": "rashid",
+      "name": "Rashid",
+      "role": "the spice seller",
+      "place": "spice",
+      "tier": {
+        "wary": "Rashid watches your hands while you stand at his stall.",
+        "friendly": "Rashid nods and holds up a pinch of cumin for you to smell.",
+        "warm": "Rashid calls you over before you even reach his stall."
+      },
+      "facts": {
+        "returned": "“The one who gave back my coins! Come, smell this saffron.”",
+        "kept": "“Count your change, foreigner. I count mine.”"
+      },
+      "tip": "“Prices go up when the boats are late. Buy before the river rises.”"
+    },
+    {
+      "id": "layla",
+      "name": "Layla",
+      "role": "the weaver",
+      "place": "weaver",
+      "tier": {
+        "wary": "Layla keeps her eyes on her loom.",
+        "friendly": "Layla looks up and studies the cloth you are wearing.",
+        "warm": "Layla stops her loom to talk to you."
+      },
+      "facts": {
+        "own_cloth": "“My cloth suits you. Wear it well.”",
+        "traveller": "“Still in your foreign clothes? People will keep calling you the foreigner.”"
+      },
+      "tip": "“Good cloth lasts years. Cheap cloth lasts a season. People are the same.”"
+    },
+    {
+      "id": "jamal",
+      "name": "Jamal",
+      "role": "the boat master",
+      "place": "quay",
+      "tier": {
+        "wary": "Jamal shouts orders at the boatmen and ignores you.",
+        "friendly": "Jamal lifts a hand to you between orders.",
+        "warm": "Jamal grins and claps you on the shoulder."
+      },
+      "facts": {
+        "fed": "“The boy Faris says you fed him. Good.”",
+        "boat": "“Good hands on the ropes. Come back tomorrow.”"
+      },
+      "tip": "“A boat comes in every morning. There is always work for those who come early.”"
+    },
+    {
+      "id": "musa",
+      "name": "Old Musa",
+      "role": "the scale-keeper",
+      "place": "scales",
+      "tier": {
+        "wary": "Old Musa squints at you over his scales.",
+        "friendly": "Old Musa makes room for you beside the scales.",
+        "warm": "Old Musa tells you a story about the market when he was young."
+      },
+      "facts": {
+        "learned": "“You read a scale well now. Nobody will cheat you twice.”",
+        "not_learned": "“Come, I will show you how the scales tell the truth.”"
+      },
+      "tip": "“A scale does not lie. Only the hand on it does.”"
+    }
+  ],
+  "say": {
+    "greets": [
+      "Greets everyone",
+      "the street",
+      1
+    ]
+  }
+}

@@ -49,6 +49,10 @@ when there is space, and the leather bag upgrade can be bought even when the pou
 At the Quay, **Give bread to Faris** appears
 while the bag holds bread. **What people say** shows the resulting reputation lines.
 
+Use **Talk to {name}** at the Task board, Spice row, Weaver’s lane, Quay or Market scales to talk to the local regular.
+You can greet each person once and ask for their market tip. **Goodbye** returns to the map. The third different
+greeting adds one trust and the **Greets everyone** line in **What people say**.
+
 WASD moves, mouse turns the third-person camera, Shift runs, E uses the nearby place, M opens/closes the market map,
 G opens the goal panel, T waits until the next prayer, P prays when available, and Esc closes panels or releases
 the mouse. Click the world to capture the mouse again. Map place markers choose a walking route along the approved streets; the player moves
@@ -188,3 +192,8 @@ Use a separate output folder when running the stall checks against the current w
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --clothes` for the 15 comparisons.
 Both commands accept `--clothes-output=/absolute/path`. See `LINE12_CHECKS.json` for the viewport checks and fixtures,
 and `BUILD.json` for provenance, visual differences and verified PNG hashes.
+
+`godot --path SOURCE -- --capture-talking` captures the 15 LOCK 6 states in `GAME/APPROVED/TALKING/BUILT/V1/`.
+Run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --talking` for the 15 comparisons.
+Both commands accept `--talking-output=/absolute/path`. See `LINE13_CHECKS.json` for the viewport checks and fixture states,
+and `BUILD.json` for source provenance, visual differences and verified PNG hashes.

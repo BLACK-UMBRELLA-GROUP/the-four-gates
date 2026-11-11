@@ -1,0 +1,309 @@
+{
+  "id": "DOC-TFG-0029",
+  "queue_line": 13,
+  "lock": "LOCK 6 V1",
+  "tested_base_commit_sha": "65cc2c0765c73df75b68f04ab77aae4a78ede2cb",
+  "capture_source": "Native run from the line 13 worktree on the tested base. The daily task note gives the commit containing the captured source and evidence.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native Godot debug viewport, forward_plus / metal on Apple M2 (Apple8)",
+  "timestamp_utc": "2026-11-11T15:29:18Z",
+  "method": "Native Godot viewport. Real viewport clicks open each talk panel, greet, ask, say goodbye and open What people say. The harness pauses passive clock ticks and stages positions and camera direction at the live locations.",
+  "fixture": "Fair arrival, followed by Thursday day 8 at 10:00. Captures t01–t04 and t15 earn greetings in a clean session. A new fair arrival starts the memory cases. Earlier gameplay methods set up the histories independently; the wallet and trust are staged to the masters for those captures. Rashid's kept-change purchase is staged on the previous day and discovered on Thursday.",
+  "locked_inputs_as_read_sha256": {
+    "GAME/APPROVED/TALKING/BRIEFS/BUILD_BRIEF_2026-11-08_TALKING.md": "b58c53fd5bf3dce2a20beabc1f1e1df71354acbf9b9a8e34701327705b27bce6",
+    "GAME/APPROVED/TALKING/RECORD/LOCK_RECORD.md": "763a1547613ed2030a6f36d59ce93f3cc7f40644a12cafe4c66d00c25209837c",
+    "GAME/APPROVED/TALKING/RECORD/TALKING_SPEC_CURRENT_VERSION_V1.md": "6c395dc1b265bd58bf4971fbb6d24c3ce5af13c6116d07c8a7939f7564834695",
+    "GAME/APPROVED/TALKING/RECORD/talking_data_V1.json": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4",
+    "GAME/APPROVED/TALKING/MASTERS/t01_market_map__square_talk_to_salma.png": "ceb12b6002660612f6246e932af26dc26982e8ef7ac1819aef469d7afab59c2d",
+    "GAME/APPROVED/TALKING/MASTERS/t02_talk__salma_wary.png": "43337dc08b668ccafa2bd5dd8cf80c3247779ac815a02512f4a47a96d42fc478",
+    "GAME/APPROVED/TALKING/MASTERS/t03_talk__salma_greeted.png": "a63d50f35ef6c857d0391ca689cefd110aa292a8ae648139e612d71b052dd55e",
+    "GAME/APPROVED/TALKING/MASTERS/t04_talk__salma_tip.png": "c0ef036505a5a73135cf26bfd17cdf0296f1980534c141a4d48234cc47ebd34b",
+    "GAME/APPROVED/TALKING/MASTERS/t05_talk__salma_friendly_truth.png": "96ffc4781f089e5756296ac0e2d843b1666ddb5f46faa25f0d941dbc255654c7",
+    "GAME/APPROVED/TALKING/MASTERS/t06_talk__salma_warm_paid.png": "569ef4b34b8c44eafeeeec3ee829ea0ceb02c18e1d4a83b96e948e3ac58ab926",
+    "GAME/APPROVED/TALKING/MASTERS/t07_talk__rashid_returned.png": "421dbd0880c7536b33c1cd63082fc0d89090ec8adb7d4c18df4093c21b4f5e0c",
+    "GAME/APPROVED/TALKING/MASTERS/t08_talk__rashid_kept.png": "b35fd97c7af4cf5c61b983f93c6c73cc237379235031cfb0d3ab841acdd78152",
+    "GAME/APPROVED/TALKING/MASTERS/t09_talk__layla_her_cloth.png": "e8eaecc87abf03daa8d5065348d19a2cc70334b44206c7b65575ed575723110b",
+    "GAME/APPROVED/TALKING/MASTERS/t10_talk__layla_traveller.png": "55056cbc2f90f17ac5b0147348c9c9eafc9accd40efec3c8b369607d24adb3e4",
+    "GAME/APPROVED/TALKING/MASTERS/t11_talk__jamal_fed.png": "c5b8eb96b1aec4ee5d0b2eb1f25bff450fed79da2dd43b14f324360fdf02fec9",
+    "GAME/APPROVED/TALKING/MASTERS/t12_talk__jamal_boat.png": "214b4cd81686b6215e347ce0d286c911513d62a677c5bf37a7e80eb4deacef0f",
+    "GAME/APPROVED/TALKING/MASTERS/t13_talk__musa_warm_learned.png": "ac9f0cc2656b9eca72445bb3b17346181f3c26681a6f0fe75b8e783690a4ff30",
+    "GAME/APPROVED/TALKING/MASTERS/t14_talk__musa_tip.png": "bb2cda1e275b2fc2772e37378b9fd159aaa72d9ee4bd6215d8f126140f38743b",
+    "GAME/APPROVED/TALKING/MASTERS/t15_people_say__greets_everyone.png": "35a46909507b9079fdd5102f407492313a04440d35bd33c737f8d63bd8639d57",
+    "GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md": "f2abfee4dcc542086c5dcd23242a52986a6d29f28935f48b88e1bbbc6fbfdae6"
+  },
+  "captured_source_sha256": {
+    "SOURCE/data/chapter1.json": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0",
+    "SOURCE/data/clothes.json": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e",
+    "SOURCE/data/foundations.json": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/data/market_stall.json": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604",
+    "SOURCE/data/talking.json": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4",
+    "SOURCE/game/bread_grab.gd": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468",
+    "SOURCE/game/foundations.gd": "8d65b82d6adb6a8e7deea28c8b699c56645af88912ccbfccf8a59e4ff6e9f753",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_stall.gd": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56",
+    "SOURCE/game/market_ui.gd": "7b550d005a489c3cd4660f1a24d91b61400bba76441eb69ed462f12790f7fed9",
+    "SOURCE/game/market_world.gd": "eaf1865a7fbde3193e796882c9c7c93a1979e2a4db7c51b7c7d2604e32f7eb2f",
+    "SOURCE/game/open_purse.gd": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9",
+    "SOURCE/game/prayer_clock.gd": "795dedbfb854c598637bde149e82fada2e63a3af04887002f0d0c16b4fb199be",
+    "SOURCE/game/river_market.gd": "fa3115663e0f32407842d7123dd1819023d5d0d0a3125e227f741267da312140",
+    "SOURCE/game/talking.gd": "d389050052b2bc6e394c5ea49c2918c6035c703fd970705d8ea3db489e3cbfd4",
+    "SOURCE/game/task_progress.gd": "ec252cac5837000910f107051f4d63d16a77f3327c83f316f7e31d5dcf16cbc2",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/look_test/capture_helper.gd": "919939ac60ec7e8a269a90263272f6c9aa029a6a9de839a419a61af34d480fb8",
+    "SOURCE/project.godot": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/capture_talking.gd": "ac12b3ba5f862805b38863520046b94736482770760b59a0b523b583607e1fc9",
+    "SOURCE/tests/capture_clothes.gd": "a406a8d17b04c4b8a30b57864b96b4a83924826f66166a6f60eb8957dfd8979e",
+    "SOURCE/tests/create_comparisons.gd": "dcc41c831349ead999f7a740e7f1f5f162e4056b16b496e4b28983f708b9ab3f",
+    "SOURCE/tests/run_tests.gd": "b22f8ed3f16973992f21fcd2f379c8d841f8ff7d2847f6bd8d18dd5d3d0a350c"
+  },
+  "tests": {
+    "headless": {
+      "passed": 2020,
+      "total": 2020
+    },
+    "native_talking": {
+      "passed": 341,
+      "total": 341,
+      "receipt": "LINE13_CHECKS.json",
+      "sha256": "5654e1bc43fd85d35ec343dc53c6190d6682c75471457cc7dedf6a2cf7bfea5a",
+      "bytes": 41193
+    },
+    "native_clothes_regression": {
+      "passed": 201,
+      "total": 201,
+      "output": "Separate local output. The published LOCK 5 evidence is preserved."
+    },
+    "comparisons_verified_pixel_for_pixel": 15
+  },
+  "visual_differences": {
+    "shared": "The native HUD and panels use their existing font metrics, tracking, bar fills, outlines, opacity and corner radii. This changes small text, button width, spacing and panel edges. The capture runs on Thursday day 8 at 10:00. The pictured coins and trust, dialogue, conditions, and order match.",
+    "t01": "The live map has marker rings, outlined labels and live gate and street geometry. The two toolbar rows and the canal caption are spaced differently. Talk to Salma follows Read the board and the oven action.",
+    "t02–t06": "Live placeholder square, oven, player and Salma replace the prototype market backdrop. The greeted label and adjacent controls have small spacing differences in t03 and t04.",
+    "t07–t08": "Live Spice row and the player and Rashid capsules replace the reused prototype market backdrop. Rashid's name appears above the panel at right.",
+    "t09–t10": "Live Weaver’s lane has plain greybox walls and visible capsules. The lane name uses the existing place data's typographic apostrophe.",
+    "t11–t12": "Live 10:00 daylight at the Quay, with the named Jamal capsule and canal. The prototype frames show a moonlit quay with the same 10:00 HUD.",
+    "t13–t14": "Live Market scales backdrop and the large nearby Old Musa capsule and label replace the reused market backdrop.",
+    "t15": "The live square and capsules show behind the reputation panel. The existing line, source, tone and footer layout has different spacing and button widths."
+  },
+  "compression": {
+    "method": "Lossless PNG IDAT recompression. Verified CRCs, identical inflated scanlines and metadata, dimensions, file sizes and SHA-256. Godot decoded both halves of all 15 compressed comparisons pixel-for-pixel against their sources.",
+    "bytes_before": 16437998,
+    "bytes_after": 16281136
+  },
+  "files": {
+    "t01_market_map__square_talk_to_salma__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 177382,
+      "bytes": 170142,
+      "sha256": "a9e1d49c1c122dbbe53755bbaad0fd104b53369f5c4047c66989be810de7c54b"
+    },
+    "t01_market_map__square_talk_to_salma__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 385985,
+      "bytes": 361489,
+      "sha256": "ba240f1ba1b9141130650ef9c3d3b5713d971cfcf2c7a75dbaa6374d8ebe351d"
+    },
+    "t02_talk__salma_wary__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 204694,
+      "bytes": 201967,
+      "sha256": "fef59060ad325aa9b513fdfcf68a7c9e0c45faf04387a933e3966573bfa8657d"
+    },
+    "t02_talk__salma_wary__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 1067325,
+      "bytes": 1062552,
+      "sha256": "e1a4b39bf05e09f46804f238b273d194cc9975131aeb406b6a55e18909ab6765"
+    },
+    "t03_talk__salma_greeted__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 199130,
+      "bytes": 195502,
+      "sha256": "24e2b57a7b5ae5ef0bd481f056a2e538d2a508faa00f6d35718a028d9ba38d46"
+    },
+    "t03_talk__salma_greeted__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 1056614,
+      "bytes": 1051378,
+      "sha256": "707fbc3aab0383b15b6905cef02efef89311cd3c2a46a8719ab2f49f8cc8de47"
+    },
+    "t04_talk__salma_tip__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 199462,
+      "bytes": 196223,
+      "sha256": "afcfc5d116aaf608cf756e19175f6cf007f7c77816138100b12fc542143ca3ff"
+    },
+    "t04_talk__salma_tip__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 1062618,
+      "bytes": 1058662,
+      "sha256": "6203965e01f0ef5408935e0ab183d355ebf17982e5258aa6af71ff3e4ca1b09a"
+    },
+    "t05_talk__salma_friendly_truth__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 224150,
+      "bytes": 219122,
+      "sha256": "33ed71c97e968c99ba00e21c5e4c0c98c9782c858c81971d4fac078a6931a04b"
+    },
+    "t05_talk__salma_friendly_truth__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 1086185,
+      "bytes": 1082091,
+      "sha256": "2b1e13e07c141788aad57331fc904ef10c6c2ceff70f5bbc6165072c2e8a4ffe"
+    },
+    "t06_talk__salma_warm_paid__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 213740,
+      "bytes": 209556,
+      "sha256": "8766368ca257544213a5f5bc897a37089889ff7707866de9c576d60fafdced80"
+    },
+    "t06_talk__salma_warm_paid__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 1081254,
+      "bytes": 1075591,
+      "sha256": "47ba03c3c682e1a60b2af23c0de301b4cee09a05bb2915749e360b1e9a38a24c"
+    },
+    "t07_talk__rashid_returned__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 139546,
+      "bytes": 136710,
+      "sha256": "7b1fb11b52bb132f010006ade910449bcedcbe38f4cfe2e9dd08c00bf7812114"
+    },
+    "t07_talk__rashid_returned__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 1000394,
+      "bytes": 995283,
+      "sha256": "7e969be55ad7813d192f43d81a4225a0146a39f3ed741d8834a7560108b2c2a3"
+    },
+    "t08_talk__rashid_kept__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 134491,
+      "bytes": 131826,
+      "sha256": "e4f27a1ef373311312eb980777728d441ef4208dea2df0980a7555c989916fe9"
+    },
+    "t08_talk__rashid_kept__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 991794,
+      "bytes": 989029,
+      "sha256": "b454c7a1a3e387f7594f1d87ca69c9b47688b89ef8ab81d2d30e8ae624f3aeee"
+    },
+    "t09_talk__layla_her_cloth__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 144484,
+      "bytes": 141291,
+      "sha256": "9403365190ea642a856291d5c2383e5f869c9127405d8e5c13202972ee49de56"
+    },
+    "t09_talk__layla_her_cloth__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 861873,
+      "bytes": 857804,
+      "sha256": "c34e8c5abd377b884746cf830414a2f054027fbb7b1f4acd29deed684cd4f064"
+    },
+    "t10_talk__layla_traveller__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 141388,
+      "bytes": 138730,
+      "sha256": "28b15c24328876156f35119b3cc5d32138a744d1822d6c4bc6dea62147e4cc3e"
+    },
+    "t10_talk__layla_traveller__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 865273,
+      "bytes": 859584,
+      "sha256": "d6e43a134dfc5889b21425ef3437c0f7e3fb5694881517767a99c4391d9c3432"
+    },
+    "t11_talk__jamal_fed__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 200789,
+      "bytes": 194681,
+      "sha256": "47a4fad18558228655d501b10a8c5a0f8bbaa19f797ff80e09a2157f1bf6232b"
+    },
+    "t11_talk__jamal_fed__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 575923,
+      "bytes": 564755,
+      "sha256": "599a1e944e6816c33aacad534be41c8837d7aacd6fc546d9d443b0810058125c"
+    },
+    "t12_talk__jamal_boat__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 197007,
+      "bytes": 191402,
+      "sha256": "3d0608100576903da111f7bd8d64882eccf85ce3540835de245b9c6840b24e95"
+    },
+    "t12_talk__jamal_boat__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 568055,
+      "bytes": 558836,
+      "sha256": "1d2117e831531516b2322aff65bdef1e359d154f3d5492074d80da80b198431a"
+    },
+    "t13_talk__musa_warm_learned__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 175420,
+      "bytes": 170438,
+      "sha256": "5a0b47df872540e79c0d2b1939333cf046e211897f78bc8efda26af8fb4be7ed"
+    },
+    "t13_talk__musa_warm_learned__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 1032822,
+      "bytes": 1028989,
+      "sha256": "f5900c6ec36252d80b809a3b0e0160e58a46da8749dba8277160057703f99662"
+    },
+    "t14_talk__musa_tip__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 171380,
+      "bytes": 167516,
+      "sha256": "b15455375b0bbbaa8ad9e8c4a0ca7fe1e53873aee40abcd1d81b6b11f07c5bf0"
+    },
+    "t14_talk__musa_tip__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 1031059,
+      "bytes": 1028460,
+      "sha256": "3302bcc0ae1173fd34363d848796b614793959358d2ca8daf3f273df564e4c4a"
+    },
+    "t15_people_say__greets_everyone__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before": 202633,
+      "bytes": 200404,
+      "sha256": "f80ff786ad54b94fc5b562c30d9574b6cd518ff47b31f63ed28bfaf5b3ced14b"
+    },
+    "t15_people_say__greets_everyone__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before": 1045128,
+      "bytes": 1041123,
+      "sha256": "a06fd913c896b1c950d905623570d6bcaa59cea85a2b281404ffa1259239d8eb"
+    }
+  }
+}

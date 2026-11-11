@@ -13,7 +13,7 @@ var change_state := Change.NONE
 var stall_notice := ""
 var worn_clothes := ""
 var _kept_day := 0
-var _fed_faris := false
+var fed_faris := false
 var _bag: Dictionary = {}
 var _progress: TaskProgress
 var _clock: PrayerClock
@@ -36,7 +36,7 @@ func reset() -> void:
 	stall_notice = ""
 	worn_clothes = ""
 	_kept_day = 0
-	_fed_faris = false
+	fed_faris = false
 	_bag.clear()
 	for outfit: Dictionary in clothes_data.clothes:
 		if outfit.get("start", false):
@@ -151,25 +151,26 @@ func give_bread() -> bool:
 	if count("bread") == 0:
 		return false
 	_bag["bread"] -= 1
-	if not _fed_faris:
-		_fed_faris = true
+	if not fed_faris:
+		fed_faris = true
 		_progress.apply_trust(int(data.numbers.feed_trust))
 	return true
 
 
-func reputation_lines() -> Array:
+func trade_reputation_lines() -> Array:
 	var lines: Array = []
 	if change_state == Change.RETURNED:
 		lines.append(data.say.returned)
 	elif change_state == Change.FOUND:
 		lines.append(data.say.kept)
-	if _fed_faris:
+	if fed_faris:
 		lines.append(data.say.fed)
-	if worn_clothes == "clothes":
-		lines.append(data.say.clothes)
-	elif worn_clothes == "best":
-		if _clock.is_friday():
-			lines.append(clothes_data.say.best_friday)
-	elif clothes_data.say.has(worn_clothes):
-		lines.append(clothes_data.say[worn_clothes])
 	return lines
+
+
+func clothing_reputation_line() -> Variant:
+	if worn_clothes == "clothes":
+		return data.say.clothes
+	if worn_clothes == "best":
+		return clothes_data.say.best_friday if _clock.is_friday() else null
+	return clothes_data.say.get(worn_clothes)

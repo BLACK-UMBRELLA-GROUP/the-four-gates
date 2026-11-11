@@ -31,6 +31,8 @@ to give it to Faris. What people say shows how River Market responds.
 LOCK 5 opens Layla’s loom at Weaver’s lane and adds a wardrobe to the bag. The pouch holds six things and the
 leather bag holds twelve. Bread, dates and unworn clothes count towards the limit. What people say can change
 with the clothes you wear.
+LOCK 6 lets you talk to five River Market regulars. Their dialogue follows trust and what each person knows.
+The third different salam greeting adds one trust and a line in What people say.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 
