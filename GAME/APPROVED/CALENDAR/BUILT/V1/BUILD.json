@@ -1,0 +1,344 @@
+{
+  "line": 25,
+  "lock": "LOCK 18 V1",
+  "brief": "DOC-TFG-0065",
+  "tested_base_commit_sha": "3473077620546931d6c095092ddc4f9741ea7a2a",
+  "capture_source": "Line 25 candidate over the tested base. The 11 November Codex task note identifies the containing source and evidence commit.",
+  "godot_version": "4.7.2-stable (official)",
+  "godot_binary_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T17:55:16Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Native Godot viewport. Viewport clicks drive the fair arrival, the Inn calendar, both rest durations and the private prayer totals.",
+  "fixture": "Passive ticks are paused. Fair arrivals supply 198 coins and trust is set to 45. k01/k02/k10 use the live arrival at 18:15 on day index 0 to preserve the exact Hijri date and countdowns. k05/k06/k07/k08/k09 stage the exact day at 10:00 from a reset clock with no prior misses. k10 sets the wallet to 10. k11 resets the clock after a fresh arrival and stages day index 0 at 10:00 so there are no prior misses. Resting is performed via the live buttons. No prayer totals or displayed text are seeded.",
+  "approved_inputs": [
+    {
+      "path": "GAME/APPROVED/CALENDAR/BRIEFS/BUILD_BRIEF_2026-11-09_CALENDAR.md",
+      "bytes": 2515,
+      "sha256": "bd5d650b8777bb27c66e62ef4cef3779222ad6ba381f354b95adfc4cc85a78a5"
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/RECORD/CALENDAR_SPEC_CURRENT_VERSION_V1.md",
+      "bytes": 5362,
+      "sha256": "8f6639939d811d2a29961e3df9f3f16e68b673f017a22e69eda9cedd690473ba",
+      "version_read": "Current working copy including the designer's 11 Nov setup and day-index clarifications."
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/RECORD/LOCK_RECORD.md",
+      "bytes": 800,
+      "sha256": "637ac3eef0426128dc5e8ccc7da0b0060b0e3ad1fea8a1a051aa48477a2e6e10"
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/RECORD/calendar_data_V1.json",
+      "bytes": 1552,
+      "sha256": "f3916e3a791113ae682f768442193ab2b0349fde6c81a8305c41094fa4407647"
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/MASTERS/k01_inn__date_on_clock_rest_button.png",
+      "bytes": 66673,
+      "sha256": "c6f4fd39bcfa43db13d13322d41c073e7d297bbe19523f8c674d9452d793d165"
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/MASTERS/k02_calendar__coming_up_day0.png",
+      "bytes": 224443,
+      "sha256": "6327a90c763444f0d26f293ece0a036f8e349acb0e6bf87dab8bd577978168df"
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/MASTERS/k03_inn__woke_sunday_4_shaban.png",
+      "bytes": 91392,
+      "sha256": "6f378eb9603f6364ece03066575c8560fcab5c16b196a2dc68682c2fa2999097"
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/MASTERS/k04_calendar__after_3_days.png",
+      "bytes": 232219,
+      "sha256": "a11c31d52a353f8d21df291396dde7dbec51db7f4cc0a17327d2edc085b886a5"
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/MASTERS/k05_inn__29_shaban.png",
+      "bytes": 66811,
+      "sha256": "5f94c3fb475a5a40d1a738ddfe9ccfdee1c9b54cab697d0544936006d0789612"
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/MASTERS/k06_calendar__ramadan_today.png",
+      "bytes": 231142,
+      "sha256": "237bf8ab0448833f83cad3653ce4ccd8527b0cd57d8269bc5b5eb8320221d1c3"
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/MASTERS/k07_inn__1_shawwal.png",
+      "bytes": 66724,
+      "sha256": "ea653069680963d66f802aecb7db683398870ea5d152b7ed1f16993e68f1ca75"
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/MASTERS/k08_calendar__eid_al_adha_today.png",
+      "bytes": 229854,
+      "sha256": "38f782b7ebd1222410ab80eeacd59cf429b7f289515873cbe0a3ea63219bec2e"
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/MASTERS/k09_calendar__zakat_year_ends_today.png",
+      "bytes": 233919,
+      "sha256": "59ae5ece8ce212be5442dfc3d77d79714057420f976f559147438db2656446e2"
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/MASTERS/k10_calendar__not_enough_for_7.png",
+      "bytes": 237125,
+      "sha256": "08f795da0604c00876f7de4257e99e385ad99c2137ce6c49f41c13031e538dc9"
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/MASTERS/k11_prayers__rested_days_not_counted.png",
+      "bytes": 255219,
+      "sha256": "fd0f6a7b9d6e0495f81e7105924cddd71d1b1e33a365f67c22aed51afbf94a8f"
+    }
+  ],
+  "captured_source": [
+    {
+      "path": "SOURCE/project.godot",
+      "bytes": 1690,
+      "sha256": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45"
+    },
+    {
+      "path": "SOURCE/game/river_market.tscn",
+      "bytes": 171,
+      "sha256": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe"
+    },
+    {
+      "path": "SOURCE/game/foundations.gd",
+      "bytes": 5580,
+      "sha256": "e3bf3a57b6fcf658f6c30826b1a775f3639094802b072ecf94720e868b806921"
+    },
+    {
+      "path": "SOURCE/game/hijri_calendar.gd",
+      "bytes": 1838,
+      "sha256": "f2f4d3eca9e2950adac46286688ce01620d8ec0d027460b2d80ebe73c791d23b"
+    },
+    {
+      "path": "SOURCE/game/prayer_clock.gd",
+      "bytes": 12710,
+      "sha256": "9e85b7e45d6b300cbb094703195f870fff2d72c73f57a6c334f5c982ede0858c"
+    },
+    {
+      "path": "SOURCE/game/market_ui.gd",
+      "bytes": 93000,
+      "sha256": "c3412ad5b9fa069da7b18ca5ae060270960eb8bccefbe505c421ff2b76cdd48c"
+    },
+    {
+      "path": "SOURCE/game/river_market.gd",
+      "bytes": 37722,
+      "sha256": "0c441230e694262ea66e998abccc6bc2da5f82f3f9a2746ca0bebec2b0e13028"
+    },
+    {
+      "path": "SOURCE/game/market_world.gd",
+      "bytes": 16327,
+      "sha256": "e738fe12acf43d085617d73ebce56ce0e9a9e1bc10afc8f04631aa88da3ec7a0"
+    },
+    {
+      "path": "SOURCE/game/market_player.gd",
+      "bytes": 4286,
+      "sha256": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2"
+    },
+    {
+      "path": "SOURCE/game/map_canvas.gd",
+      "bytes": 13421,
+      "sha256": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba"
+    },
+    {
+      "path": "SOURCE/data/calendar.json",
+      "bytes": 1552,
+      "sha256": "f3916e3a791113ae682f768442193ab2b0349fde6c81a8305c41094fa4407647"
+    },
+    {
+      "path": "SOURCE/data/identity.json",
+      "bytes": 14838,
+      "sha256": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647"
+    },
+    {
+      "path": "SOURCE/data/prayer_record.json",
+      "bytes": 1009,
+      "sha256": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9"
+    },
+    {
+      "path": "SOURCE/tests/capture_calendar.gd",
+      "bytes": 12596,
+      "sha256": "bc606c1869ba7ce424eed972e39af6e5cc2cf60ffa993f9eee6e09fb64725faf"
+    },
+    {
+      "path": "SOURCE/tests/create_comparisons.gd",
+      "bytes": 7785,
+      "sha256": "6781f6af458191f2e4bbc7e15a31ffb9db966df71ea785685bdd6a5007bad1ad"
+    },
+    {
+      "path": "SOURCE/tests/run_tests.gd",
+      "bytes": 211431,
+      "sha256": "34de74f801743f04362867580c484b99fa4486f50183e02cec21549fcdb71dc8"
+    }
+  ],
+  "checks_receipt": {
+    "path": "GAME/APPROVED/CALENDAR/BUILT/V1/LINE25_CHECKS.json",
+    "bytes": 30634,
+    "sha256": "56c4b5871a84b1c78a8d2d64e2a6927789fe338221aa5a6316c8ce37a54c0ec9"
+  },
+  "headless_checks": 3535,
+  "native_checks": 240,
+  "compression": {
+    "method": "Lossless PNG recompression with post-compression verification of decoded pixels, dimensions and both halves of each comparison.",
+    "bytes_before": 8258049,
+    "bytes_after": 7994488
+  },
+  "evidence": [
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k01_inn__date_on_clock_rest_button__build.png",
+      "bytes": 180437,
+      "sha256": "8a2a8c9c06e21dffbfbd2e6dede000e40cbc5812c2b71c9eb68d6e7c37232f16",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k01_inn__date_on_clock_rest_button__master_beside_build.png",
+      "bytes": 374315,
+      "sha256": "b150b38331d329a99e557fee4a88e8124e2ea32bcd7d77096dd5932a43a1ad7c",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k02_calendar__coming_up_day0__build.png",
+      "bytes": 131585,
+      "sha256": "7ddcb36427a552220cf2e1e6be0b19a33af4cd58f7427fa309008f5c916ce553",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k02_calendar__coming_up_day0__master_beside_build.png",
+      "bytes": 665083,
+      "sha256": "f989b2f002db2978117848b232219527572303f771e7034c0299dc4eba52e950",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k03_inn__woke_sunday_4_shaban__build.png",
+      "bytes": 236040,
+      "sha256": "cc8fa1299fef05ae5ea13502020222730650ff58d090bbcb4b35e6b348c52bfc",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k03_inn__woke_sunday_4_shaban__master_beside_build.png",
+      "bytes": 481001,
+      "sha256": "4f32bead6cfb26a2660c7c800a8daa634394a6528efbb3f83ea7f5dee899994a",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k04_calendar__after_3_days__build.png",
+      "bytes": 129380,
+      "sha256": "43f3c0aa5d96b9cdbe4830a1b784bc155cc09b5c9dfc4d0984efb4217dc38fff",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k04_calendar__after_3_days__master_beside_build.png",
+      "bytes": 671493,
+      "sha256": "d3a022416e4949be28b67fe9d10112787db89eca7aa94e2a5132af335424d225",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k05_inn__29_shaban__build.png",
+      "bytes": 172801,
+      "sha256": "6b62906bd1646fe032dc041156ce5ff24f854c4c112f25b02830d505d62ab689",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k05_inn__29_shaban__master_beside_build.png",
+      "bytes": 367105,
+      "sha256": "3f196ab2ba8a1f9059471635bb61324538d85cc500edfa42889d97c4498a7e21",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k06_calendar__ramadan_today__build.png",
+      "bytes": 125553,
+      "sha256": "e5407cb2f5687a90d9f2dce0c3a17c8dde330ce5ffb514e1ff11d3f41c474ef0",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k06_calendar__ramadan_today__master_beside_build.png",
+      "bytes": 674071,
+      "sha256": "8ecf61df51a9220637c94acfb60a21e0d1d04aae47510a483fea8a195ed21e06",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k07_inn__1_shawwal__build.png",
+      "bytes": 172061,
+      "sha256": "0c20391bec34f47a38dbf173ba033951db08c62b4b0a452ed6d5f659cf33d29f",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k07_inn__1_shawwal__master_beside_build.png",
+      "bytes": 365426,
+      "sha256": "8e6aa6e62be482cfa5f5d0cc728ec129f29e2f20a8fff725a7c1fb999e3dee2c",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k08_calendar__eid_al_adha_today__build.png",
+      "bytes": 126667,
+      "sha256": "d24b1b252c080ab12854f5adb4048de2133c004b3f9cc989fafd43069fe40dd4",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k08_calendar__eid_al_adha_today__master_beside_build.png",
+      "bytes": 667932,
+      "sha256": "7210f2ec21cf8acc13be781e7e3c1ec8b823d264c882be16b0ee451cfbb38026",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k09_calendar__zakat_year_ends_today__build.png",
+      "bytes": 128082,
+      "sha256": "ffbbfca56a0f4737aae0fb6006716db490da686dcb65d5a401b5dad2c9c4e864",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k09_calendar__zakat_year_ends_today__master_beside_build.png",
+      "bytes": 682494,
+      "sha256": "ed94f497d77c1c2151f76e5369d07ad41f760e56b8f03f76c541c694e8742095",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k10_calendar__not_enough_for_7__build.png",
+      "bytes": 130795,
+      "sha256": "3e7e2cdf8665b74832bfef630f31868f3306b80f61e4d4c752823e3090587564",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k10_calendar__not_enough_for_7__master_beside_build.png",
+      "bytes": 688023,
+      "sha256": "9162107ae91c159be10c63ac9094ee679bee8a24bfbf17d6184f90a62592fad2",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k11_prayers__rested_days_not_counted__build.png",
+      "bytes": 113131,
+      "sha256": "3aa362bc894842ca8fdea9f27246bb96183b85728ca3f69e7b6ce7230d989039",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/CALENDAR/BUILT/V1/k11_prayers__rested_days_not_counted__master_beside_build.png",
+      "bytes": 711013,
+      "sha256": "2b44e07d1edb1dc2eaa26d5935950dce6f24c40095293889b1d8683cd4f5a1b2",
+      "width": 3840,
+      "height": 1080
+    }
+  ]
+}

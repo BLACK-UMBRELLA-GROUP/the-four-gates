@@ -59,7 +59,7 @@ the mouse. Click the world to capture the mouse again. Map place markers choose 
 physically. Use Rest until morning at the Inn to spend the prepaid night, pay two coins, or sweep the stable if
 the wallet falls short. Each route wakes at 04:40 the next day.
 
-The game starts at 06:30 on Thursday, after the first Fajr window. A day takes 48 real minutes. The clock drives
+The game starts at 06:30 on Thursday 1 Sha'ban, after the first Fajr window. A day takes 48 real minutes. The clock drives
 day and night lighting and announces when prayers begin. Use the Masjid action to pray in congregation during
 its window, or use P or the on-screen action to pray where you are. On Friday, the Masjid offers Friday prayer
 during congregation. Elsewhere and after congregation, pray Dhuhr. Click the clock to see the private prayer
@@ -306,3 +306,17 @@ Run `godot --path SOURCE -- --capture-harm-in-the-road` for the nine native stat
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --harm-in-the-road`
 to put each master beside its capture. Both commands accept `--harm-in-the-road-output=/absolute/path`.
 `LINE24_CHECKS.json` records the capture fixtures and `BUILD.json` records the source and image checks.
+
+### The calendar
+
+LOCK 18 adds the fixed Hijri date to the clock. At the Inn, **Rest for days** shows the next Ramadan,
+Eids, Day of Arafah and end of your zakat year. Rest for three days for six coins or seven days for
+fourteen coins. Both options wake at 04:40. Prayer windows that end while resting are excluded from
+the private record totals. The one-night **Rest until morning** action remains available.
+
+Run `godot --path SOURCE -- --capture-calendar` for the eleven native states in
+`GAME/APPROVED/CALENDAR/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --calendar`
+to put each master beside its capture.
+Both commands accept `--calendar-output=/absolute/path`. See `LINE25_CHECKS.json` for the capture checks
+and `BUILD.json` for the verified source and evidence.

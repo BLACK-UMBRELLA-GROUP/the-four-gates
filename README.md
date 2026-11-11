@@ -60,6 +60,9 @@ least 30. Lend 30 coins without increase, then return after three calendar days.
 ten, let the ten go or collect all thirty. Rashid refuses interest, and the outcome appears in **What people say**.
 LOCK 17 adds one piece of harm on the road each day in River Market. Check the place bar between 06:30
 and 19:29. Moving it takes five game minutes, and only the result panel shows the private count.
+LOCK 18 shows the Hijri date on the clock and adds **Rest for days** at the Inn. Open it for the
+coming dates or rest for three or seven days. Prayer windows that end during the rest are excluded
+from your private totals.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

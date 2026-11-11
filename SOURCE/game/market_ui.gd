@@ -17,6 +17,9 @@ signal pray_requested
 signal make_up_requested
 signal record_requested
 signal record_closed
+signal calendar_requested
+signal calendar_closed
+signal calendar_rest_requested(days: int)
 signal use_requested
 signal goal_requested
 signal destination_requested(place_id: String)
@@ -291,6 +294,9 @@ func _rebuild_screen() -> void:
 			_button(identity.ui.title_back, Vector2(42, 983), Vector2(105, 55), func(): screen_requested.emit("title"))
 			_button(identity.ui.city_map, Vector2(170, 983), Vector2(138, 55), func(): screen_requested.emit("city_map"))
 			_button(identity.ui.river_market, Vector2(331, 983), Vector2(176, 55), func(): screen_requested.emit("market_map"))
+		"calendar":
+			_build_hud()
+			_build_calendar()
 		"prayer_record":
 			_build_hud()
 			_build_prayer_record()
@@ -438,6 +444,8 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 		rebuild = rebuild or screen in ["game", "market_map"]
 	place_id = place_value
 	night = night_value
+	if screen == "calendar" and _clock_day != clock.day:
+		rebuild = true
 	if clock_changed or place_changed:
 		_clock_day = clock.day
 		_clock_minute = clock.minute_of_day
@@ -689,7 +697,7 @@ func _build_hud() -> void:
 	fill.size = Vector2(315 * float(progress.trust) / float(data.numbers.trust_max), 10)
 	fill.color = GOLD
 	track.add_child(fill)
-	if screen in ["arrival", "idris", "purse_salma", "purse_page", "purse_refused", "stall_change", "all_prayers"] or screen in GRAB_SCREENS:
+	if screen in ["arrival", "idris", "purse_salma", "purse_page", "purse_refused", "stall_change", "all_prayers", "calendar"] or screen in GRAB_SCREENS:
 		return
 	var hit := Button.new()
 	hit.flat = true
@@ -705,7 +713,7 @@ func _build_clock_hud() -> void:
 	_clock_prayer = _label(clock_panel, "", Vector2(14, 40), Vector2(257, 34), 24, Color("ffd27e"), true)
 	_clock_time.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_clock_prayer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	if screen not in ["arrival", "idris", "prayer_record", "all_prayers", "purse_salma", "purse_page", "purse_refused", "stall_change"] and screen not in GRAB_SCREENS:
+	if screen not in ["arrival", "idris", "prayer_record", "all_prayers", "calendar", "purse_salma", "purse_page", "purse_refused", "stall_change"] and screen not in GRAB_SCREENS:
 		_clock_hit = Button.new()
 		_clock_hit.flat = true
 		_clock_hit.modulate = Color(1, 1, 1, 0)
@@ -719,13 +727,60 @@ func _update_clock_hud() -> void:
 	var values: Dictionary = clock.hud(place_id == "masjid")
 	_clock_time.text = values.time
 	_clock_prayer.text = values.prayer
-	var width := maxf(285, bold_font.get_string_size(values.prayer, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 42)
+	var date_width := font.get_string_size(values.time, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+	var prayer_width := bold_font.get_string_size(values.prayer, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+	var width := maxf(285.0, maxf(date_width, prayer_width) + 42.0)
 	clock_panel.position = Vector2(850 - width / 2, 42)
 	clock_panel.size.x = width
 	_clock_time.size.x = width - 28
 	_clock_prayer.size.x = width - 28
 	if is_instance_valid(_clock_hit):
 		_clock_hit.size = clock_panel.size
+
+func _build_calendar() -> void:
+	var calendar: RefCounted = clock.calendar
+	var copy: Dictionary = calendar.data.panel
+	var panel := _panel(Vector2(365, 361), Vector2(1190, 445), Color("1b130be6"))
+	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
+	style.set_corner_radius_all(18)
+	_heading(panel, copy.kicker, copy.title, true)
+	var today: String = str(copy.today).format(clock.date_fields(clock.day))
+	_label(panel, today, Vector2(34, 110), Vector2(1122, 36), 23, PAPER)
+	_spaced_caption(panel, copy.coming, 158)
+	var rows: Array[Dictionary] = calendar.coming_dates(clock.day - 1)
+	for index in rows.size():
+		var y := 184.0 + index * 27.0
+		var row := rows[index]
+		var rule := ColorRect.new()
+		rule.position = Vector2(34, y)
+		rule.size = Vector2(1122, 1)
+		rule.color = Color("394668")
+		rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		panel.add_child(rule)
+		_label(panel, row.label, Vector2(34, y + 1), Vector2(460, 26), 14, PAPER)
+		_label(panel, row.value, Vector2(498, y + 1), Vector2(658, 26), 14, PAPER)
+	_spaced_caption(panel, copy.note, 321)
+	var at := Vector2(34, 361)
+	for days: int in calendar.rest_days:
+		var cost: int = calendar.rest_cost(days)
+		if progress.coins >= cost:
+			var option: String = str(copy.rest).format({"n": days, "c": cost})
+			at.x += _calendar_button(panel, option, at, func(): calendar_rest_requested.emit(days), true) + 13.0
+		else:
+			var shortage: String = str(copy.not_enough).format({"n": days})
+			var width := font.get_string_size(shortage, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+			_label(panel, shortage, at, Vector2(width, 31), 23, PAPER)
+			at.x += width + 13.0
+	_calendar_button(panel, copy.not_now, at, func(): calendar_closed.emit(), false)
+
+
+func _calendar_button(panel: Panel, value: String, at: Vector2, callback: Callable, primary: bool) -> float:
+	var face := bold_font if primary else font
+	var width := face.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x + 38.0
+	var button := _button(value, at, Vector2(width, 56), callback, primary, panel)
+	button.add_theme_font_size_override("font_size", 23)
+	return width
+
 
 func _build_prayer_record() -> void:
 	var record_copy: Dictionary = identity.clock.record
@@ -1740,13 +1795,14 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if deliver:
 		purse_width -= 16.0
 	var dice_width := _button_width(_dice_caption) + 18.0 if not _dice_caption.is_empty() else 0.0
+	var calendar_width := _button_width(clock.calendar.data.inn_button) + 18.0 if place_id == "inn" else 0.0
 	var jars_width := _button_width(_qasims_caption) + 18.0 if not _qasims_caption.is_empty() else 0.0
 	var cool_notice: String = idris_recovery.data.masjid_line if place_id == "masjid" and idris_recovery.cool else ""
 	var cool_width := 0.0
 	if not cool_notice.is_empty():
 		cool_width = font.get_string_size(cool_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0
 	var inline_talk_width := 0.0 if talk_footer else talk_width
-	var total_width := cool_width + name_width + line_width + action_width + loan_width + fountain_width + feeding_width + dice_width + jars_width + extra_width + purse_width + inline_talk_width + 55.0
+	var total_width := cool_width + name_width + line_width + action_width + loan_width + fountain_width + feeding_width + dice_width + calendar_width + jars_width + extra_width + purse_width + inline_talk_width + 55.0
 	var waiting := _board_prompt == BreadGrab.Prompt.WAIT
 	var harm_available := not _road_harm.is_empty()
 	var harm_label_at := Vector2.ZERO
@@ -1771,7 +1827,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		harm_bar_width = 1836.0 if harm_row_height > 0.0 else harm_button_at.x + harm_button_width + 18.0
 	var carrying_footer := carrying and (place_id == "board" or harm_row_height > 0.0 or harm_bar_width + carrying_width > 1836.0)
 	var inline_carrying_width := 0.0 if carrying_footer else carrying_width
-	var wrap := (harm_available or not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or jars_width > 0.0 or loan_width > 0.0 or not _jabirs_caption.is_empty() or carrying) and x + harm_bar_width + inline_carrying_width + _prayer_buttons_width(_prayer_label) > 1878.0
+	var wrap := (harm_available or not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or calendar_width > 0.0 or jars_width > 0.0 or loan_width > 0.0 or not _jabirs_caption.is_empty() or carrying) and x + harm_bar_width + inline_carrying_width + _prayer_buttons_width(_prayer_label) > 1878.0
 	if cool_width > 0.0:
 		wrap = wrap or x + harm_bar_width + inline_carrying_width + _prayer_buttons_width("") > 1878.0
 	var bar_y := (891.0 if waiting else 965.0) - harm_row_height
@@ -1798,7 +1854,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var panel := _panel(Vector2(x, bar_y), Vector2(width, height), Color("191c19"))
 	_label(panel, name_value, Vector2(18, 15), Vector2(name_width + 4, 42), label_size, PAPER, true)
 	_label(panel, line_value, Vector2(18 + name_width, 15), Vector2(line_width + 4, 42), label_size, PAPER)
-	var action_x := x + total_width - action_width - loan_width - fountain_width - feeding_width - dice_width - jars_width - extra_width - purse_width - inline_talk_width - cool_width - 17.0
+	var action_x := x + total_width - action_width - loan_width - fountain_width - feeding_width - dice_width - calendar_width - jars_width - extra_width - purse_width - inline_talk_width - cool_width - 17.0
 	if shop_notice.is_empty():
 		_button(action, Vector2(action_x, bar_y + 8.0), Vector2(action_width, 56), func(): use_requested.emit(), true)
 	else:
@@ -1822,6 +1878,9 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if dice_width > 0.0:
 		_button(_dice_caption, Vector2(extra_x, bar_y + 8.0), Vector2(dice_width - 18.0, 56), func(): dice_door_opened.emit())
 		extra_x += dice_width
+	if calendar_width > 0.0:
+		_button(clock.calendar.data.inn_button, Vector2(extra_x, bar_y + 8.0), Vector2(calendar_width - 18.0, 56), func(): calendar_requested.emit())
+		extra_x += calendar_width
 	if jars_width > 0.0:
 		_button(_qasims_caption, Vector2(extra_x, bar_y + 8.0), Vector2(jars_width - 18.0, 56), func(): qasims_offer_opened.emit())
 		extra_x += jars_width

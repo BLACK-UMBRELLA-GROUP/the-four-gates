@@ -7,6 +7,7 @@ const MarketPlayer = preload("res://game/market_player.gd")
 const MarketUI = preload("res://game/market_ui.gd")
 const TaskProgress = preload("res://game/task_progress.gd")
 const PrayerClock = preload("res://game/prayer_clock.gd")
+const HijriCalendar = preload("res://game/hijri_calendar.gd")
 const OpenPurse = preload("res://game/open_purse.gd")
 const BreadGrab = preload("res://game/bread_grab.gd")
 const MarketStall = preload("res://game/market_stall.gd")
@@ -66,13 +67,15 @@ var _arrival_sunset := false
 var _idris_reply := ""
 var _idris_new_word := ""
 var _record_return_screen := "game"
+var _calendar_return_screen := "market_map"
 var _prayer_adhan: Variant = null
 
 func _ready() -> void:
 	data = Foundations.load_data()
 	identity = Foundations.load_identity()
 	chapter = Foundations.load_chapter1()
-	clock = PrayerClock.new(identity.clock)
+	var calendar := HijriCalendar.new(Foundations.load_calendar(), int(identity.arrival.inn_night))
+	clock = PrayerClock.new(identity.clock, calendar)
 	market_day = MarketDay.new(Foundations.load_market_day(), clock)
 	Foundations.configure_input(data)
 	progress.setup(data)
@@ -123,6 +126,9 @@ func _ready() -> void:
 	ui.make_up_requested.connect(make_up_prayer)
 	ui.record_requested.connect(show_prayer_record)
 	ui.record_closed.connect(close_prayer_record)
+	ui.calendar_requested.connect(_show_calendar)
+	ui.calendar_closed.connect(_close_calendar)
+	ui.calendar_rest_requested.connect(_rest_for_days)
 	clock.adhan_started.connect(_show_adhan)
 	ui.use_requested.connect(use_place)
 	ui.goal_requested.connect(show_goal)
@@ -244,6 +250,9 @@ func _ready() -> void:
 	elif "--capture-harm-in-the-road" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_harm_in_the_road.gd").new()
 		capture_runner.run(self)
+	elif "--capture-calendar" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_calendar.gd").new()
+		capture_runner.run(self)
 
 func _process(delta: float) -> void:
 	if ui.screen not in ["title", "arrival", "all_prayers_title"]:
@@ -281,7 +290,7 @@ func update_state() -> void:
 	if day != _daily_job_day:
 		_daily_job_day = day
 		progress.morning()
-	var world_night: bool = night or ui.screen in ["all_prayers", "all_prayers_title"] or (ui.screen == "arrival" and _arrival_sunset)
+	var world_night: bool = night or ui.screen in ["all_prayers", "all_prayers_title", "calendar"] or (ui.screen == "arrival" and _arrival_sunset)
 	if world.night != world_night:
 		world.set_night(world_night)
 	ui.refresh(player.position, current_place, night, _salma_available())
@@ -511,6 +520,29 @@ func _rest_at_inn() -> void:
 	clock.advance_to(day + 1, _minutes(str(identity.inn.wakes_at).get_slice(" ", 0)), false)
 	update_state()
 	ui.show_toast(message, ui.screen == "market_map")
+
+func _show_calendar() -> void:
+	if current_place == "inn" and ui.screen in ["game", "market_map"]:
+		_stop_travel()
+		_calendar_return_screen = ui.screen
+		show_screen("calendar")
+
+func _close_calendar() -> void:
+	show_screen(_calendar_return_screen)
+
+func _rest_for_days(days: int) -> void:
+	var calendar := clock.calendar
+	if ui.screen != "calendar" or current_place != "inn" or not calendar.rest_days.has(days):
+		return
+	var cost := calendar.rest_cost(days)
+	if progress.coins < cost:
+		return
+	progress.coins -= cost
+	clock.skip_to(day + days, int(calendar.data.numbers.wake_minute), true)
+	_close_calendar()
+	var fields := clock.date_fields(day)
+	fields.n = days
+	ui.show_toast(str(calendar.data.rested_toast).format(fields), ui.screen == "market_map")
 
 func show_open_purse() -> void:
 	if current_place == "inn" and ui.screen in ["game", "market_map"] and not open_purse.done:
@@ -888,6 +920,10 @@ func do_daily_job() -> void:
 		ui.show_toast(data.daily_job.toast)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if ui.screen == "calendar":
+		if event.is_action_pressed("close"):
+			_close_calendar()
+		return
 	if ui.screen in ["all_prayers", "all_prayers_title"]:
 		if event.is_action_pressed("close"):
 			show_screen("title" if ui.screen == "all_prayers_title" else "prayer_record")

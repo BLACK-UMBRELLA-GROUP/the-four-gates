@@ -114,6 +114,7 @@ func _run() -> void:
 		return
 	check_prayer_clock()
 	check_prayer_totals()
+	check_calendar_dates()
 	if "--clock-only" in OS.get_cmdline_user_args():
 		await check_prayer_runtime()
 		finish()
@@ -146,6 +147,7 @@ func _run() -> void:
 	await check_dry_fountain_runtime()
 	await check_rashids_loan_runtime()
 	await check_harm_in_the_road_runtime()
+	await check_calendar_runtime()
 	finish()
 
 
@@ -1093,9 +1095,9 @@ func check_arrival_lesson(cheated: bool) -> void:
 
 func check_prayer_clock() -> void:
 	var source: Dictionary = identity.clock
-	var clock := PrayerClock.new(source)
+	var clock := PrayerClock.new(source, app.clock.calendar)
 	check(clock.day == 1 and clock.minute_of_day == 390 and not clock.night, "clock starts on Thursday at 06:30 in daylight")
-	check(clock.hud().time == "Thursday · 06:30", "HUD uses the locked weekday and time format")
+	check(clock.hud().time == "Thursday 1 Sha'ban · 06:30", "HUD uses the locked weekday, Hijri date and time format")
 	check(clock.record().kicker == "Thursday · day 1", "record identifies the current day")
 	check(clock.record().rows[0].text == "04:45 · not counted" and clock.make_up_label().is_empty(), "day 1 Fajr ended before play and cannot be made up")
 	clock.advance_to(1, 600)
@@ -1131,7 +1133,7 @@ func check_prayer_clock() -> void:
 		var ends: int = schedule[index][2]
 		var iqamah: int = schedule[index][3]
 		var adhan: Array[String] = []
-		clock = PrayerClock.new(source)
+		clock = PrayerClock.new(source, app.clock.calendar)
 		clock.adhan_started.connect(func(message: String): adhan.append(message))
 		clock.advance_to(3, begins - 1, false)
 		clock.wait_until_next_prayer()
@@ -1150,7 +1152,7 @@ func check_prayer_clock() -> void:
 		if index < schedule.size() - 1:
 			check(clock.record().rows[index].status == "missed", "a skipped slot is missed at its end: " + name)
 
-	clock = PrayerClock.new(source)
+	clock = PrayerClock.new(source, app.clock.calendar)
 	clock.advance_to(2, 6 * 60 + 5)
 	check(clock.record().rows[0].status == "missed", "day 2 Fajr is missed as soon as its window ends")
 	check(clock.make_up_label() == "Make up Fajr", "Friday Fajr is offered for make-up")
@@ -1180,7 +1182,7 @@ func check_prayer_clock() -> void:
 
 
 func check_prayer_totals() -> void:
-	var clock := PrayerClock.new(identity.clock)
+	var clock := PrayerClock.new(identity.clock, app.clock.calendar)
 	var empty := {
 		"on_time": 0, "jamaah": 0, "alone_masjid": 0, "alone_elsewhere": 0,
 		"friday": 0, "dhuhr_fri": 0, "madeup": 0, "missed": 0,
@@ -1385,7 +1387,7 @@ func check_open_purse_rules() -> void:
 	check(not runtime.is_empty() and runtime == approved, "chapter 1 runtime is the byte-identical LOCK 3 V2 file")
 	var purse := OpenPurse.new()
 	var progress := TaskProgress.new()
-	var clock := PrayerClock.new(identity.clock)
+	var clock := PrayerClock.new(identity.clock, app.clock.calendar)
 	progress.setup(data)
 	progress.coins = 100
 	purse.setup(chapter, progress, clock)
@@ -1731,9 +1733,9 @@ func check_market_stall_runtime() -> void:
 	await check_market_stall_bag_and_feed(market)
 
 
-func reset_at_market_place(place: String, coins: int) -> void:
+func reset_at_market_place(place: String, coins: int, on_day: int = 3) -> void:
 	app.begin_game()
-	app.clock.advance_to(3, 10 * 60, false)
+	app.clock.advance_to(on_day, 10 * 60, false)
 	app.progress.coins = coins
 	move_market_fixture(place)
 
@@ -3266,4 +3268,93 @@ func check_harm_in_the_road_runtime() -> void:
 	check(app.harm_in_the_road.count == 2, "the private count accumulates across market days")
 	app.begin_game()
 	check(app.harm_in_the_road.count == 0 and app.harm_in_the_road.done_day == -1, "starting a new playthrough clears the private harm record")
+	app.set_process(true)
+
+
+func check_calendar_dates() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/CALENDAR/RECORD/calendar_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/calendar.json")
+	check(not locked.is_empty() and locked == runtime, "the calendar copies LOCK 18 byte for byte")
+	var calendar: RefCounted = app.clock.calendar
+	check(calendar.data == JSON.parse_string(runtime.get_string_from_utf8()), "the calendar reads the locked runtime data")
+	var expected := {
+		-1: "Wednesday 30 Rajab", 0: "Thursday 1 Sha'ban", 28: "Thursday 29 Sha'ban",
+		29: "Friday 1 Ramadan", 59: "Sunday 1 Shawwal", 127: "Friday 10 Dhu al-Hijjah",
+		147: "Thursday 1 Muharram", 354: "Monday 1 Sha'ban",
+	}
+	for index: int in expected:
+		check(app.clock.date_label(index + 1) == expected[index], "the calendar formats day %d" % index)
+
+	var row_labels := ["Ramadan begins", "Eid al-Fitr", "The Day of Arafah", "Eid al-Adha", "Your zakat year ends"]
+	var date_values := {
+		0: ["1 Ramadan · in 29 days", "1 Shawwal · in 59 days", "9 Dhu al-Hijjah · in 126 days", "10 Dhu al-Hijjah · in 127 days", "1 Sha'ban · in 354 days"],
+		29: ["today", "1 Shawwal · in 30 days", "9 Dhu al-Hijjah · in 97 days", "10 Dhu al-Hijjah · in 98 days", "1 Sha'ban · in 325 days"],
+		127: ["1 Ramadan · in 256 days", "1 Shawwal · in 286 days", "9 Dhu al-Hijjah · in 353 days", "today", "1 Sha'ban · in 227 days"],
+		354: ["1 Ramadan · in 29 days", "1 Shawwal · in 59 days", "9 Dhu al-Hijjah · in 126 days", "10 Dhu al-Hijjah · in 127 days", "today"],
+	}
+	for index: int in date_values:
+		var rows: Array[Dictionary] = calendar.coming_dates(index)
+		check(rows.map(func(row): return row.label) == row_labels, "coming dates keep the locked row order on day %d" % index)
+		check(rows.map(func(row): return row.value) == date_values[index], "coming dates give the exact countdowns on day %d" % index)
+	check(calendar.coming_dates(355)[4].value == "1 Sha'ban · in 353 days", "the zakat year starts counting again after its anniversary")
+	check(calendar.coming_dates(708)[4].value == "today", "the second zakat anniversary also shows today")
+
+
+func check_calendar_runtime() -> void:
+	app.set_process(false)
+	var copy: Dictionary = app.clock.calendar.data
+	var panel: Dictionary = copy.panel
+	var three := str(panel.rest).format({"n": 3, "c": 6})
+	var seven := str(panel.rest).format({"n": 7, "c": 14})
+	reset_at_market_place("quay", 198)
+	check(find_button(app.ui, copy.inn_button) == null, "multi-day rest is offered only at the Inn")
+	reset_at_market_place("inn", 198, 1)
+	var before: Dictionary = app.clock.totals()
+	var prepaid: int = app.paid_nights
+	await press_button(copy.inn_button, "the Inn offers the locked rest-for-days button")
+	check(app.ui.screen == "calendar" and has_visible_label(app.ui, panel.today.format({"w": "Thursday", "d": 1, "m": "Sha'ban"})), "the panel opens at the current Hijri date")
+	check(has_visible_label(app.ui, "1 Sha'ban · in 354 days"), "the arrival panel shows a full year until zakat")
+	await press_button(panel.not_now, "Not now closes the calendar")
+	check(app.ui.screen == "market_map" and app.progress.coins == 198 and app.day == 1, "closing the panel leaves the player, coins and time at the Inn")
+	await press_button(copy.inn_button, "the calendar can reopen")
+	await press_button(three, "three days is a working six-coin option")
+	check(app.day == 4 and app.minute_of_day == 280 and app.progress.coins == 192, "three days cost six coins and wake on day index 3 at 04:40")
+	check(app.current_place == "inn" and app.ui.screen == "market_map" and app.paid_nights == prepaid, "rest returns to the Inn without consuming prepaid nights")
+	check(has_visible_label(app.ui, "You rest for 3 days. You wake before Fajr on Sunday 4 Sha'ban."), "rest shows the locked dated toast")
+	check(app.clock.totals() == before and app.clock.make_up_label().is_empty(), "rested prayers add no totals or make-up opportunities")
+	check(app.clock.hud().prayer == "Isha now · 5 min left", "the Isha window ending after waking is still active")
+	app.clock.advance_to(4, 285, false)
+	check(app.clock.totals().missed == 1, "the Isha window is missed if it ends after waking without prayer")
+
+	reset_at_market_place("inn", 10, 1)
+	await press_button(copy.inn_button, "the calendar opens with a short purse")
+	check(find_button(app.ui, three) != null and find_button(app.ui, seven) == null, "ten coins offer three days and block seven")
+	check(has_visible_label(app.ui, panel.not_enough.format({"n": 7})), "the shortage uses locked copy")
+	app.ui.calendar_rest_requested.emit(7)
+	check(app.ui.screen == "calendar" and app.progress.coins == 10 and app.day == 1, "an unaffordable rest cannot charge coins or jump the clock")
+	app.progress.coins = 5
+	app.update_state()
+	check(find_button(app.ui, three) == null and find_button(app.ui, seven) == null, "both options are blocked below six coins")
+	check(has_visible_label(app.ui, panel.not_enough.format({"n": 3})), "three days also has its own shortage label")
+
+	reset_at_market_place("inn", 198, 1)
+	app.clock.advance_to(1, 12 * 60 + 5, false)
+	app.clock.pray(false)
+	app.clock.advance_to(1, 18 * 60 + 10, false)
+	app.update_state()
+	before = app.clock.totals()
+	var make_up: String = app.clock.make_up_label()
+	await press_button(copy.inn_button, "the calendar opens after earlier prayer activity")
+	await press_button(seven, "seven days is a working fourteen-coin option")
+	check(app.day == 8 and app.minute_of_day == 280 and app.progress.coins == 184, "seven days cost fourteen coins and wake on day index 7 at 04:40")
+	check(before.on_time == 1 and before.missed == 1 and app.clock.totals() == before, "rest preserves completed or missed prayer windows already ended at its start")
+	check(app.clock.make_up_label() == make_up and make_up == "Make up Asr", "rest preserves the earlier Asr make-up at the exact end of its window")
+
+	var clock := PrayerClock.new(identity.clock, app.clock.calendar)
+	clock.advance_to(1, 12 * 60 + 5, false)
+	clock.pray(true)
+	clock.skip_to(2, 6 * 60 + 5, true)
+	check(clock.totals().on_time == 0 and clock.has_prayed_in_congregation(), "a completed window ending during the rest is excluded from totals while its prior congregation still counts for reputation")
+	check(clock.record().rows[0].text == "04:45 · rested · not counted", "a window ending exactly at wake time shows the locked rested status in Today's prayers")
+	check(clock.totals().missed == 0 and clock.make_up_label().is_empty(), "the exact wake boundary is excluded from totals and make-up")
 	app.set_process(true)

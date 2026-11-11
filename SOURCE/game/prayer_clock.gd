@@ -3,9 +3,12 @@ extends RefCounted
 
 signal adhan_started(toast: String)
 
+const HijriCalendar = preload("res://game/hijri_calendar.gd")
+
 const MINUTES_PER_HOUR := 60
 const MINUTES_PER_DAY := 24 * MINUTES_PER_HOUR
 
+var calendar: HijriCalendar
 var day: int:
 	get:
 		return floori(float(_time) / MINUTES_PER_DAY) + 1
@@ -29,11 +32,13 @@ var _fraction := 0.0
 var _first_counted: int
 var _oldest_unfinished: int
 var _completed: Dictionary = {}
+var _rested: Dictionary = {}
 var _alone_at_masjid: Dictionary = {}
 
 
-func _init(source: Dictionary) -> void:
+func _init(source: Dictionary, calendar_value: HijriCalendar) -> void:
 	_data = source
+	calendar = calendar_value
 	var start_parts: PackedStringArray = str(source.start).split(" on day ")
 	_start = _at(int(start_parts[1]), _parse_time(start_parts[0]))
 	var night_parts: PackedStringArray = str(source.night).split(" ")
@@ -61,6 +66,7 @@ func reset() -> void:
 	_time = _start
 	_fraction = 0.0
 	_completed.clear()
+	_rested.clear()
 	_alone_at_masjid.clear()
 	_first_counted = _latest_started()
 	if _ends(_first_counted) < _start:
@@ -93,16 +99,20 @@ func advance_to(target_day: int, target_minute: int, announce: bool = true) -> v
 		_advance(target, announce)
 
 
-func skip_to(target_day: int, target_minute: int) -> void:
+func skip_to(target_day: int, target_minute: int, resting: bool = false) -> void:
 	var target := _at(target_day, target_minute)
 	if target <= _time:
 		return
-	# Keep earlier misses and completed prayers. Only windows ending during
-	# this jump are excluded from the record and from make-up.
+	# Only windows ending during the jump are eligible for exclusion. A rest
+	# also excludes completed slots from the record, while retaining their
+	# underlying completion for existing game rules.
 	var prayer := maxi(_latest_started(), _first_counted)
 	while _ends(prayer) <= target:
-		if _ends(prayer) > _time and not _completed.has(prayer):
-			_completed[prayer] = "not_counted"
+		if _ends(prayer) > _time:
+			if resting:
+				_rested[prayer] = true
+			elif not _completed.has(prayer):
+				_completed[prayer] = "not_counted"
 		prayer += 1
 	_advance_oldest_unfinished()
 	advance_to(target_day, target_minute, false)
@@ -167,9 +177,19 @@ func masjid_line() -> String:
 	return str(_data.masjid_after_prayed).format({"prayer": _completed_name(prayer)})
 
 
+func date_fields(on_day: int) -> Dictionary:
+	var fields := calendar.date(on_day - 1)
+	fields.w = _weekday(on_day)
+	return fields
+
+
+func date_label(on_day: int) -> String:
+	return str(calendar.data.hud_date).format(date_fields(on_day))
+
+
 func hud(at_masjid: bool = false) -> Dictionary:
 	var time_label: String = str(_data.hud_line1).format({
-		"weekday": _weekday(day),
+		"weekday": date_label(day),
 		"hh:mm": _format_time(minute_of_day),
 	})
 	var prayer := _latest_started()
@@ -248,7 +268,7 @@ func _complete(prayer: int, status: String) -> void:
 
 
 func _advance_oldest_unfinished() -> void:
-	while _completed.has(_oldest_unfinished):
+	while _completed.has(_oldest_unfinished) or _rested.has(_oldest_unfinished):
 		_oldest_unfinished += 1
 
 
@@ -266,6 +286,8 @@ func _makeup_target() -> int:
 func _record_status(prayer: int) -> String:
 	if prayer < _first_counted:
 		return "not_counted"
+	if _rested.has(prayer):
+		return "rested"
 	if _completed.has(prayer):
 		return _completed[prayer]
 	if _time < _begins(prayer):
@@ -275,6 +297,8 @@ func _record_status(prayer: int) -> String:
 
 func _record_detail(prayer: int, status: String, starts: String) -> String:
 	match status:
+		"rested":
+			return calendar.data.rested_status
 		"not_counted":
 			return _data.record.not_counted
 		"later":
@@ -286,7 +310,7 @@ func _record_detail(prayer: int, status: String, starts: String) -> String:
 
 
 func _is_missed(prayer: int) -> bool:
-	return prayer >= _first_counted and _time >= _ends(prayer) and not _completed.has(prayer)
+	return prayer >= _first_counted and _time >= _ends(prayer) and not _completed.has(prayer) and not _rested.has(prayer)
 
 
 func _is_active(prayer: int) -> bool:

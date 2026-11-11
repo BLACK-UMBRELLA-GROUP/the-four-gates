@@ -87,6 +87,10 @@ func _initialize() -> void:
 		var runner := load("res://tests/capture_harm_in_the_road.gd")
 		quit(0 if _compare_master_set("res://../GAME/APPROVED/HARM_IN_THE_ROAD/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
 		return
+	if "--calendar" in OS.get_cmdline_user_args():
+		var runner := load("res://tests/capture_calendar.gd")
+		quit(0 if _compare_master_set("res://../GAME/APPROVED/CALENDAR/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
+		return
 	quit(0 if _compare_master_set(folder + "MASTERS/", folder + evidence, names) else 1)
 
 func _compare_master_set(masters: String, evidence: String, stems: Array) -> bool:
