@@ -8,6 +8,7 @@ var camera_pivot: Node3D
 var yaw := 0.0
 var pitch := 0.0
 var enabled := false
+var walk_multiplier := 1.0
 var test_move_axis := Vector2.ZERO
 var test_running := false
 var stepped_last_frame := false
@@ -81,7 +82,7 @@ func _physics_process(delta: float) -> void:
 	if enabled:
 		axis += Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 	axis = axis.limit_length()
-	var speed: float = data.player.run_speed if test_running or (enabled and Input.is_action_pressed("run")) else data.player.walk_speed
+	var speed: float = data.player.run_speed if test_running or (enabled and Input.is_action_pressed("run")) else float(data.player.walk_speed) * walk_multiplier
 	var direction := Basis(Vector3.UP, yaw) * Vector3(axis.x, 0.0, axis.y)
 	velocity.x = direction.x * speed
 	velocity.z = direction.z * speed

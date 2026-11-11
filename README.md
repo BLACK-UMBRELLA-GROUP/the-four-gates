@@ -85,6 +85,9 @@ LOCK 27 sends Rashid, Jamal and Old Musa to the Masjid during Dhuhr and Asr. The
 they are, and the Masjid lists who's there. The stall and loan controls return when Rashid comes back.
 LOCK 28 gives Salma, Rashid, Layla, Jamal and Old Musa one memory in their talk panels when they
 know about something you did. A pilgrim you sent in secret can thank an unnamed giver after returning.
+LOCK 29 opens **Paused** with Esc on the River Market map. **Save game** and **Save and quit to title**
+replace the same local save. **Continue** restores the saved session. **Settings** keeps text size and
+walking speed separately from the save.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

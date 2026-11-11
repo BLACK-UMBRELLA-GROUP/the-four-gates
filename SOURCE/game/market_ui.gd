@@ -2,6 +2,12 @@ extends CanvasLayer
 ## Interface from approved masters. Only placement, colour and drawing measurements
 ## live here; all displayed content is read from the approved data dictionary.
 
+signal continue_requested
+signal settings_requested
+signal settings_closed
+signal menu_setting_changed(setting: String, enabled: bool)
+signal resume_requested
+signal save_requested(quit_to_title: bool)
 signal begin_requested
 signal arrival_choice_requested(index: int)
 signal arrival_continue_requested
@@ -190,6 +196,14 @@ var _attendance_prayer := ""
 var _can_feed := false
 var _board_prompt := BreadGrab.Prompt.NONE
 var language_words: Dictionary
+var menus: Dictionary
+var continue_date := ""
+var saved_date := ""
+var settings_has_hud := false
+var large_text := false
+var fast_walk := false
+var text_multiplier := 1.0
+var _scale_panel := false
 var screen := "title"
 var player_position := Vector3.ZERO
 var place_id := ""
@@ -324,6 +338,9 @@ func show_screen(value: String) -> void:
 func _rebuild_screen() -> void:
 	var previous_wardrobe := content.find_child("WardrobeScroll", true, false) as ScrollContainer if screen == "bag" else null
 	var wardrobe_scroll := previous_wardrobe.scroll_vertical if previous_wardrobe != null else 0
+	var old_panel_scroll := content.get_node_or_null("LargePanelScroll") as ScrollContainer
+	var panel_scroll := Vector2i(old_panel_scroll.scroll_horizontal, old_panel_scroll.scroll_vertical) if old_panel_scroll != null else Vector2i.ZERO
+	_scale_panel = large_text and screen not in ["title", "game", "market_map", "city_map", "world_map"]
 	clock_panel = null
 	_clock_hit = null
 	_record_names.clear()
@@ -333,6 +350,7 @@ func _rebuild_screen() -> void:
 		child.queue_free()
 	map.visible = screen in ["market_map", "city_map", "world_map"]
 	map.mode = screen
+	map.text_multiplier = text_multiplier
 	map.night = night
 	map.player_position = player_position
 	map.selected_place = place_id
@@ -341,6 +359,14 @@ func _rebuild_screen() -> void:
 	match screen:
 		"title":
 			_build_title()
+		"pause":
+			_build_hud()
+			_build_pause()
+		"settings":
+			_add_title_shade()
+			if settings_has_hud:
+				_build_hud()
+			_build_settings()
 		"arrival":
 			_build_hud()
 			_build_arrival()
@@ -479,6 +505,9 @@ func _rebuild_screen() -> void:
 		"talk":
 			_build_hud()
 			_build_talking()
+	if _scale_panel:
+		_layout_large_panel(panel_scroll)
+	_scale_panel = false
 	_last_coins = progress.coins
 	_last_trust = progress.trust
 	_last_daily_count = progress.daily_count
@@ -628,17 +657,17 @@ func show_toast(value: String, compact: bool = false, follow_with: String = "") 
 	toast_label.clip_text = use_compact
 	toast_label.text = value
 	if use_compact:
-		var width := minf(1800, font.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, 20).x + 44)
+		var width := minf(1800, font.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(20)).x + 44)
 		toast_panel.position = Vector2((1920 - width) / 2.0, 900)
 		toast_panel.size = Vector2(width, 48)
 		toast_label.position = Vector2(20, 0)
-		toast_label.add_theme_font_size_override("font_size", 20)
+		toast_label.add_theme_font_size_override("font_size", _font_size(20))
 		toast_label.size = Vector2(width - 40, 48)
 	else:
 		toast_panel.position = Vector2(460, 844)
 		toast_panel.size = Vector2(1000, 68)
 		toast_label.position = Vector2(20, 10)
-		toast_label.add_theme_font_size_override("font_size", 25)
+		toast_label.add_theme_font_size_override("font_size", _font_size(25))
 		toast_label.size = Vector2(960, 48)
 	_toast_seconds = 3.5
 	_following_toast = follow_with
@@ -658,6 +687,7 @@ func _add_title_shade() -> void:
 	shade.color = Color(0, 0, 0, 0.24)
 	shade.size = Vector2(1920, 1080)
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	shade.set_meta("fixed_layer", true)
 	content.add_child(shade)
 
 func _build_title() -> void:
@@ -666,10 +696,10 @@ func _build_title() -> void:
 	var title_value: String = data.title_screen.title
 	var title_width := 0.0
 	for glyph in title_value:
-		title_width += title_font.get_string_size(glyph, HORIZONTAL_ALIGNMENT_LEFT, -1, 112).x + 14
+		title_width += title_font.get_string_size(glyph, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(112)).x + 14
 	var title_x: float = (1920 - title_width + 14) / 2.0
 	for glyph in title_value:
-		var glyph_width := title_font.get_string_size(glyph, HORIZONTAL_ALIGNMENT_LEFT, -1, 112).x
+		var glyph_width := title_font.get_string_size(glyph, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(112)).x
 		var letter := _label(content, glyph, Vector2(title_x, 360), Vector2(glyph_width + 2, 150), 112, Color("ffda87"), true)
 		letter.add_theme_font_override("font", title_font)
 		title_x += glyph_width + 14
@@ -677,9 +707,103 @@ func _build_title() -> void:
 	city_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	var subtitle := _label(content, str(data.title_screen.line), Vector2(380, 594), Vector2(1160, 52), 28, PAPER)
 	subtitle.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_button(data.ui.buttons.begin, Vector2(729, 680), Vector2(107, 56), func(): begin_requested.emit(), true)
-	_button(prayer_record.title_button, Vector2(859, 680), Vector2(179, 56), func(): screen_requested.emit("all_prayers_title"))
-	_button(data.ui.buttons.settings, Vector2(1061, 680), Vector2(130, 56), func(): show_toast(data.title_screen.settings_toast))
+	var has_save := not continue_date.is_empty()
+	var continue_text: String = str(menus.title_continue).format({"d": continue_date})
+	var continue_width := _menu_button_width(continue_text, true) if has_save else 0.0
+	var begin_width := 107.0 * text_multiplier
+	var prayers_width := 179.0 * text_multiplier
+	var settings_width := 130.0 * text_multiplier
+	var title_gap := 23.0
+	var x := (1920.0 - begin_width - prayers_width - settings_width - title_gap * 2.0) / 2.0
+	if has_save:
+		x -= (continue_width + title_gap) / 2.0
+		_menu_button(content, continue_text, Vector2(x, 680), Vector2(continue_width, 56), func(): continue_requested.emit(), true)
+		x += continue_width + title_gap
+	_menu_button(content, data.ui.buttons.begin, Vector2(x, 680), Vector2(begin_width, 56), func(): begin_requested.emit(), not has_save)
+	x += begin_width + title_gap
+	_menu_button(content, prayer_record.title_button, Vector2(x, 680), Vector2(prayers_width, 56), func(): screen_requested.emit("all_prayers_title"))
+	x += prayers_width + title_gap
+	_menu_button(content, data.ui.buttons.settings, Vector2(x, 680), Vector2(settings_width, 56), func(): settings_requested.emit())
+
+
+func _build_pause() -> void:
+	var copy: Dictionary = menus.pause
+	var has_receipt := not saved_date.is_empty()
+	var panel := _menu_panel(copy.title, Vector2(572, 456 if has_receipt else 422))
+	var y := 91.0
+	if has_receipt:
+		_menu_caption(panel, str(copy.saved).format({"d": saved_date}), y - 6.0, 28.0)
+		y += 34.0
+	var buttons := [
+		[copy.resume, func(): resume_requested.emit()],
+		[copy.save, func(): save_requested.emit(false)],
+		[copy.settings, func(): settings_requested.emit()],
+		[copy.quit, func(): save_requested.emit(true)],
+	]
+	for index in buttons.size():
+		var row: Array = buttons[index]
+		var button := _menu_button(panel, row[0], Vector2(34, y), Vector2(504, 56), row[1], index == 0)
+		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		for state in ["normal", "hover", "pressed"]:
+			button.get_theme_stylebox(state).content_margin_left = 23
+		y += 69.0
+	_menu_caption(panel, copy.hint, y - 10.0, 28.0)
+
+
+func _build_settings() -> void:
+	var copy: Dictionary = menus.settings
+	var panel := _menu_panel(copy.title, Vector2(660, 386))
+	_setting_row(panel, copy.text_size, "large_text", copy.large, large_text, 89.0)
+	_setting_row(panel, copy.walk, "fast_walk", copy.fast, fast_walk, 162.0)
+	_menu_caption(panel, copy.later, 236.0, 54.0)
+	_menu_button(panel, copy.back, Vector2(34, 301), Vector2(99, 56), func(): settings_closed.emit(), true)
+
+
+func _setting_row(panel: Panel, caption: String, key: String, other: String, selected: bool, top: float) -> void:
+	_chapter_row_rule(panel, top, 34, panel.size.x - 68)
+	_label(panel, caption, Vector2(34, top + 13), Vector2(300, 48), 23, PAPER, true)
+	var edge := panel.size.x - 34.0
+	var choices := [str(menus.settings.normal), other]
+	for index: int in [1, 0]:
+		var text_value: String = choices[index]
+		var enabled := index == 1
+		var active := enabled == selected
+		var width := font.get_string_size(text_value, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(23)).x + 30.0
+		edge -= width
+		var button := _menu_button(panel, text_value, Vector2(edge, top + 13), Vector2(width, 48), func(): menu_setting_changed.emit(key, enabled), active)
+		button.name = key + ("_alternate" if enabled else "_normal")
+		button.add_theme_font_override("font", font)
+		for state in ["normal", "hover", "pressed"]:
+			var style := button.get_theme_stylebox(state) as StyleBoxFlat
+			style.set_corner_radius_all(24)
+			if not active:
+				style.border_color = Color("33416b")
+
+
+func _menu_panel(caption: String, extent: Vector2) -> Panel:
+	var panel := _panel(Vector2(960, 583) - extent / 2.0, extent, Color("1b130bf2"))
+	(panel.get_theme_stylebox("panel") as StyleBoxFlat).set_corner_radius_all(18)
+	var heading := _label(panel, caption, Vector2(34, 28), Vector2(extent.x - 68, 49), 36, Color("ffd27e"), true)
+	heading.add_theme_font_override("font", title_font)
+	return panel
+
+
+func _menu_caption(panel: Panel, caption: String, y: float, height: float) -> void:
+	var label := _label(panel, caption.to_upper(), Vector2(34, y), Vector2(panel.size.x - 68, height), 16, Color("e9bd70"))
+	label.add_theme_font_override("font", _spaced_caption_font)
+	label.add_theme_constant_override("line_spacing", 4)
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+
+
+func _menu_button_width(caption: String, primary: bool) -> float:
+	var face := bold_font if primary else font
+	return ceilf(face.get_string_size(caption, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(23)).x + 46.0)
+
+
+func _menu_button(parent: Control, caption: String, at: Vector2, extent: Vector2, action: Callable, primary: bool = false) -> Button:
+	var button := _button(caption, at, extent, action, primary, parent)
+	button.add_theme_font_size_override("font_size", _font_size(23))
+	return button
 
 func _build_arrival() -> void:
 	var arrival: Dictionary = identity.arrival
@@ -687,10 +811,10 @@ func _build_arrival() -> void:
 	var beat: Dictionary = {} if done else arrival.beats[arrival_beat]
 	var line: String = (arrival.end_fair if arrival_fair else arrival.end_cheated) if done else beat.text
 	var line_width := 1120.0
-	var line_height := font.get_multiline_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, line_width, 23).y
+	var line_height := font.get_multiline_string_size(line, HORIZONTAL_ALIGNMENT_LEFT, line_width, _font_size(23)).y
 	var reply_height := 0.0
 	if not arrival_reply.is_empty():
-		reply_height = bold_font.get_multiline_string_size(arrival_reply, HORIZONTAL_ALIGNMENT_LEFT, line_width, 23).y
+		reply_height = bold_font.get_multiline_string_size(arrival_reply, HORIZONTAL_ALIGNMENT_LEFT, line_width, _font_size(23)).y
 	var buttons_height: float = 56.0 if done or not arrival_reply.is_empty() else 70.0 * beat.choices.size() - 14.0
 	var extra_height := 44.0 if done else (reply_height + 16.0 if reply_height > 0.0 else 0.0)
 	var height := 138.0 + line_height + extra_height + buttons_height
@@ -729,7 +853,7 @@ func _arrival_button(value: String, at: Vector2, callback: Callable, primary: bo
 
 func _button_width(value: String, primary: bool = false) -> float:
 	var face := bold_font if primary else font
-	return face.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 44.0
+	return face.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x + 44.0
 
 func _build_idris() -> void:
 	var teacher: Dictionary = identity.teacher
@@ -817,9 +941,12 @@ func _story_text(panel: Panel, value: String, y: float, bold: bool = false) -> f
 	return body.get_content_height()
 
 func _build_hud() -> void:
+	var first := content.get_child_count()
+	var scale_panel := _scale_panel
+	_scale_panel = false
 	_build_clock_hud()
 	var coin_text: String = str(data.ui.hud.coins).format({"n": progress.coins})
-	var coin_width := bold_font.get_string_size(coin_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+	var coin_width := bold_font.get_string_size(coin_text, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x
 	var coins := _panel(Vector2(42, 42), Vector2(coin_width + 36, 53), Color("302411"))
 	_label(coins, coin_text, Vector2(18, 7), Vector2(coin_width + 2, 38), 24, Color("ffd27e"), true)
 	if screen in BAG_ENTRY_SCREENS:
@@ -830,21 +957,25 @@ func _build_hud() -> void:
 		coin_hit.modulate = Color(1, 1, 1, 0)
 		coin_hit.pressed.connect(func(): bag_requested.emit())
 		coins.add_child(coin_hit)
-	var trust := _panel(Vector2(1525, 42), Vector2(352, 70), Color("302411"))
-	_label(trust, str(data.ui.hud.trust_label), Vector2(18, 7), Vector2(225, 37), 24, PAPER)
+	var trust_width := roundf(352 * text_multiplier)
+	var trust := _panel(Vector2(1877 - trust_width, 42), Vector2(trust_width, 70), Color("302411"))
+	_label(trust, str(data.ui.hud.trust_label), Vector2(18, 7), Vector2(225 * text_multiplier, 37), 24, PAPER)
 	var value: String = str(data.ui.hud.trust_value).format({"n": progress.trust})
-	var amount := _label(trust, value, Vector2(241, 7), Vector2(93, 37), 24, PAPER)
+	var amount := _label(trust, value, Vector2(trust_width - 111 * text_multiplier, 7), Vector2(93 * text_multiplier, 37), 24, PAPER)
 	amount.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	var track := ColorRect.new()
 	track.position = Vector2(18, 50)
-	track.size = Vector2(315, 10)
+	track.size = Vector2(trust_width - 37, 10)
 	track.color = Color("514737")
 	trust.add_child(track)
 	var fill := ColorRect.new()
-	fill.size = Vector2(315 * float(progress.trust) / float(data.numbers.trust_max), 10)
+	fill.size = Vector2(track.size.x * float(progress.trust) / float(data.numbers.trust_max), 10)
 	fill.color = GOLD
 	track.add_child(fill)
-	if screen in ["arrival", "idris", "purse_salma", "purse_page", "purse_refused", "stall_change", "all_prayers", "calendar"] or screen in GRAB_SCREENS:
+	for index in range(first, content.get_child_count()):
+		content.get_child(index).set_meta("fixed_layer", true)
+	_scale_panel = scale_panel
+	if screen in ["pause", "settings", "arrival", "idris", "purse_salma", "purse_page", "purse_refused", "stall_change", "all_prayers", "calendar"] or screen in GRAB_SCREENS:
 		return
 	var hit := Button.new()
 	hit.flat = true
@@ -860,7 +991,7 @@ func _build_clock_hud() -> void:
 	_clock_prayer = _label(clock_panel, "", Vector2(14, 40), Vector2(257, 34), 24, Color("ffd27e"), true)
 	_clock_time.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_clock_prayer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	if screen not in ["arrival", "idris", "prayer_record", "all_prayers", "calendar", "zakat", "purse_salma", "purse_page", "purse_refused", "stall_change"] and screen not in GRAB_SCREENS and screen not in ADHA_SCREENS:
+	if screen not in ["pause", "settings", "arrival", "idris", "prayer_record", "all_prayers", "calendar", "zakat", "purse_salma", "purse_page", "purse_refused", "stall_change"] and screen not in GRAB_SCREENS and screen not in ADHA_SCREENS:
 		_clock_hit = Button.new()
 		_clock_hit.flat = true
 		_clock_hit.modulate = Color(1, 1, 1, 0)
@@ -874,8 +1005,8 @@ func _update_clock_hud() -> void:
 	var values: Dictionary = clock.hud(place_id == "masjid")
 	_clock_time.text = values.time
 	_clock_prayer.text = values.prayer
-	var date_width := font.get_string_size(values.time, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
-	var prayer_width := bold_font.get_string_size(values.prayer, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+	var date_width := font.get_string_size(values.time, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x
+	var prayer_width := bold_font.get_string_size(values.prayer, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x
 	var width := maxf(285.0, maxf(date_width, prayer_width) + 42.0)
 	clock_panel.position = Vector2(850 - width / 2, 42)
 	clock_panel.size.x = width
@@ -915,7 +1046,7 @@ func _build_calendar() -> void:
 			at.x += _calendar_button(panel, option, at, func(): calendar_rest_requested.emit(days), true) + 13.0
 		else:
 			var shortage: String = str(copy.not_enough).format({"n": days})
-			var width := font.get_string_size(shortage, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+			var width := font.get_string_size(shortage, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(23)).x
 			_label(panel, shortage, at, Vector2(width, 31), 23, PAPER)
 			at.x += width + 13.0
 	_calendar_button(panel, copy.not_now, at, func(): calendar_closed.emit(), false)
@@ -923,7 +1054,7 @@ func _build_calendar() -> void:
 
 func _calendar_button(panel: Panel, value: String, at: Vector2, callback: Callable, primary: bool) -> float:
 	var face := bold_font if primary else font
-	var width := face.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x + 38.0
+	var width := face.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(23)).x + 38.0
 	var button := _button(value, at, Vector2(width, 56), callback, primary, panel)
 	button.add_theme_font_size_override("font_size", 23)
 	return width
@@ -962,7 +1093,7 @@ func _build_eid_panel() -> void:
 			else:
 				notice = copy.not_enough
 		if not notice.is_empty():
-			var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+			var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(23)).x
 			_label(panel, notice, Vector2(x, y), Vector2(width, 56), 23, PAPER)
 			x += width + 14.0
 	_calendar_button(panel, copy.to_map, Vector2(x, y), func(): screen_requested.emit("market_map"), false)
@@ -982,7 +1113,7 @@ func _build_adha_panel() -> void:
 			y += _story_text(panel, copy.remembers, y) + 14.0
 		if eid_al_adha.owns_sheep() or (_adha_action == EidAlAdha.Action.SHEEP and not eid_al_adha.can_afford_sheep()):
 			var notice: String = copy.bought if eid_al_adha.owns_sheep() else copy.not_enough
-			var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+			var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(23)).x
 			_label(panel, notice, Vector2(x, y), Vector2(width, 56), 23, PAPER)
 			x += width + 14.0
 		elif _adha_action == EidAlAdha.Action.SHEEP:
@@ -1208,7 +1339,7 @@ func _board_status(panel: Panel, y: float, value: String) -> void:
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 
 func _board_button(value: String, y: float, callback: Callable) -> void:
-	var width := bold_font.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 46
+	var width := bold_font.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x + 46
 	_button(value, Vector2(1521 - width, y + 13), Vector2(width, 56), callback, true)
 
 func _build_task() -> void:
@@ -1235,7 +1366,7 @@ func _build_result() -> void:
 	_heading(panel, result.label, result.title)
 	_label(panel, result.line, Vector2(34, 106), Vector2(1122, 48), 24, PAPER)
 	var coins_text: String = str(data.ui.result.coins).format({"n": int(result.coins)})
-	var coin_width := bold_font.get_string_size(coins_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+	var coin_width := bold_font.get_string_size(coins_text, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x
 	_label(panel, coins_text, Vector2(34, 155), Vector2(coin_width + 3, 40), 24, Color("a5d7a0"), true)
 	_label(panel, " · ", Vector2(34 + coin_width, 155), Vector2(24, 40), 24, PAPER)
 	var trust_text: String = str(data.ui.result.trust).format({"sign": "+" if result.trust >= 0 else "-", "n": absi(int(result.trust))})
@@ -1261,7 +1392,7 @@ func _build_lesson() -> void:
 	var x := 399.0
 	for index in range(data.lesson.options.size()):
 		var text: String = data.lesson.options[index]
-		var width := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 46
+		var width := font.get_string_size(text, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x + 46
 		_button(text, Vector2(x, top + 409), Vector2(width, 56), func(): weight_requested.emit(index))
 		x += width + 14
 	var back_y := top + 478
@@ -1269,7 +1400,7 @@ func _build_lesson() -> void:
 		var feedback: String = data.lesson.tip_text if progress.tried_weight == int(data.lesson.false_weight_index) else data.lesson.level_text
 		_label(panel, feedback.format({"n": progress.tried_weight + 1}).to_upper(), Vector2(34, 467), Vector2(1122, 28), 16, Color("e9bd70"))
 		var answer: String = str(data.lesson.answer_button).format({"n": progress.tried_weight + 1})
-		var width := bold_font.get_string_size(answer, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 46
+		var width := bold_font.get_string_size(answer, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x + 46
 		_button(answer, Vector2(399, top + 506), Vector2(width, 56), func(): answer_requested.emit(), true)
 		back_y = top + 576
 	_button(data.ui.buttons.back_to_market_map, Vector2(399, back_y), Vector2(307, 56), func(): screen_requested.emit("market_map"))
@@ -1368,7 +1499,7 @@ func _purse_person_row(panel: Panel, purse: Dictionary, person: Dictionary, y: f
 
 	var action_width := _button_width(public_label, true)
 	if not status.is_empty():
-		action_width = font.get_string_size(status, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+		action_width = font.get_string_size(status, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(23)).x
 	elif open_purse.page_read:
 		action_width += _button_width(secret_label) + 8.0
 	var body_width := 1120.0 - action_width - 20.0
@@ -1534,7 +1665,7 @@ func _build_dice_house() -> void:
 				x += _chapter_button(panel, caption, Vector2(x, y), func(): dice_bet_placed.emit(bet), true)
 			else:
 				var notice: String = copy.not_enough
-				var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+				var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(23)).x
 				_label(panel, notice, Vector2(x, y), Vector2(width + 4.0, 32), 23, PAPER)
 				x += width + 12.0
 		_chapter_button(panel, copy.leave, Vector2(x, y), func(): dice_house_left.emit())
@@ -1573,7 +1704,7 @@ func _build_jabirs_goats() -> void:
 				x += _chapter_button(panel, caption, Vector2(x, y), func(): jabirs_offer_answered.emit("buy"), true)
 			else:
 				var notice: String = copy.not_enough
-				var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+				var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(23)).x
 				_label(panel, notice, Vector2(x, y), Vector2(width + 4.0, 56), 23, PAPER)
 				x += width + 20.0
 			x += _chapter_button(panel, copy.tell, Vector2(x, y), func(): jabirs_offer_answered.emit("tell"))
@@ -1606,7 +1737,7 @@ func _build_dry_fountain() -> void:
 		var part := {"n": int(dry_fountain.data.numbers.part)}
 		if not dry_fountain.can_afford():
 			var notice: String = copy.not_enough
-			var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+			var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(23)).x
 			_label(panel, notice, Vector2(x, y), Vector2(width + 4.0, 56), 23, PAPER)
 			x += width + 20.0
 		elif dry_fountain.paid == 0:
@@ -1634,7 +1765,7 @@ func _build_rashids_loan() -> void:
 				x += _chapter_button(panel, str(copy.lend_more).format(amounts), Vector2(x, y), func(): loan_answered.emit("lend_more"))
 			else:
 				var notice: String = copy.not_enough
-				var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+				var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(23)).x
 				_label(panel, notice, Vector2(x, y), Vector2(width + 4.0, 56), 23, PAPER)
 				x += width + 20.0
 			_chapter_button(panel, copy.no, Vector2(x, y), func(): screen_requested.emit("market_map"))
@@ -1806,7 +1937,7 @@ func _build_pilgrims() -> void:
 
 func _pilgrim_row(panel: Panel, pilgrim: Dictionary, copy: Dictionary, y: float) -> void:
 	_chapter_row_rule(panel, y)
-	var name_width := bold_font.get_string_size(pilgrim.name, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+	var name_width := bold_font.get_string_size(pilgrim.name, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(23)).x
 	_label(panel, pilgrim.name, Vector2(34, y + 2), Vector2(name_width, 31), 23, PAPER, true)
 	var kind: String = pilgrims.data.kind_hajj if pilgrim.kind == "hajj" else pilgrims.data.kind_umrah
 	_label(panel, " · " + kind, Vector2(34 + name_width, y + 2), Vector2(120, 31), 23, PAPER)
@@ -1860,7 +1991,7 @@ func _build_loom() -> void:
 		var status := market_stall.loom_status(item)
 		if status.is_empty():
 			var caption: String = str(loom.buy).format({"n": int(item.price)})
-			var buy_width := bold_font.get_string_size(caption, HORIZONTAL_ALIGNMENT_LEFT, -1, 20).x + 32.0
+			var buy_width := bold_font.get_string_size(caption, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(20)).x + 32.0
 			var button := _button(caption, Vector2(x, y + 69), Vector2(buy_width, 39), func(): loom_purchase_requested.emit(id), true, panel)
 			button.add_theme_font_size_override("font_size", 20)
 			row_has_buy_button = true
@@ -1991,7 +2122,7 @@ func _build_talking() -> void:
 	var x := 34.0
 	if talking.greeted.has(regular.id):
 		var status: String = copy.greeted
-		var width := font.get_string_size(status, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+		var width := font.get_string_size(status, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(23)).x
 		_label(panel, status, Vector2(x, y), Vector2(width + 4.0, 56), 23, PAPER)
 		x += width + 20.0
 	else:
@@ -2113,13 +2244,13 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var deliver := place_id == "gate" and carrying
 	var label_size := 23 if deliver else 24
 	var carrying_text: String = sealed_purse.data.carrying if carrying else ""
-	var carrying_width := font.get_string_size(carrying_text, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0 if carrying else 0.0
+	var carrying_width := font.get_string_size(carrying_text, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x + 18.0 if carrying else 0.0
 	var fasting := _fasting_line
-	var fasting_width := font.get_string_size(fasting, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0 if not fasting.is_empty() else 0.0
-	var eid_line_width := font.get_string_size(_eid_line, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0 if not _eid_line.is_empty() else 0.0
+	var fasting_width := font.get_string_size(fasting, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x + 18.0 if not fasting.is_empty() else 0.0
+	var eid_line_width := font.get_string_size(_eid_line, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x + 18.0 if not _eid_line.is_empty() else 0.0
 	if place_id.is_empty() or not data.places.has(place_id):
 		var idle: String = data.ui.place_bar.idle
-		var idle_width: float = font.get_string_size(idle, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+		var idle_width: float = font.get_string_size(idle, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x
 		var idle_total := idle_width + fasting_width + carrying_width + eid_line_width + 36.0
 		var idle_wrap := (carrying or fasting_width > 0.0 or eid_line_width > 0.0) and x + idle_total + _prayer_buttons_width(_prayer_label) > 1878.0
 		var idle_nav := 890.0 if idle_wrap else 974.0
@@ -2152,8 +2283,8 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		action = masjid_actions.after_meeting if idris_met else masjid_actions.none_yet
 		if not _prayer_label.is_empty():
 			action = _prayer_label
-	var name_width := bold_font.get_string_size(name_value, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x
-	var line_width := font.get_string_size(line_value, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x
+	var name_width := bold_font.get_string_size(name_value, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x
+	var line_width := font.get_string_size(line_value, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x
 	var shop_notice := ""
 	if _regular_status != MarketDay.Status.OPEN and place_id in ["spice", "weaver"]:
 		var copy: Dictionary = market_day.data.text
@@ -2164,7 +2295,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 				shop_notice = copy.shop_closed_friday
 			MarketDay.Status.OUTSIDE_HOURS:
 				shop_notice = copy.stall_closed_night if place_id == "spice" else copy.loom_closed_night
-	var action_width := _button_width(action, true) + 2.0 if shop_notice.is_empty() else font.get_string_size(shop_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+	var action_width := _button_width(action, true) + 2.0 if shop_notice.is_empty() else font.get_string_size(shop_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x
 	if deliver:
 		action_width -= 12.0
 	var extra_text := ""
@@ -2195,14 +2326,14 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 			talk_width = _button_width(talk_text) + 18.0
 		else:
 			talk_notice = market_day.talk_notice(talking.regular_at(place_id).id, _regular_status)
-			talk_width = font.get_string_size(talk_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 18.0
+			talk_width = font.get_string_size(talk_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x + 18.0
 	var talk_footer := place_id == "board" and talk_width > 0.0 and _feeding_available and extra_width > 0.0
 	var fountain_caption := ""
 	var fountain_width := 0.0
 	if place_id == "board":
 		if dry_fountain.is_running():
 			fountain_caption = str(dry_fountain.data.running).format({"n": dry_fountain.days_running()})
-			fountain_width = font.get_string_size(fountain_caption, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0
+			fountain_width = font.get_string_size(fountain_caption, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x + 18.0
 		else:
 			fountain_caption = dry_fountain.data.board_button
 			fountain_width = _button_width(fountain_caption) + 18.0
@@ -2212,7 +2343,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	match _loan_offer:
 		RashidsLoan.Offer.OWED:
 			loan_caption = str(rashids_loan.data.owed).format({"n": rashids_loan.amount_owed()})
-			loan_width = font.get_string_size(loan_caption, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0
+			loan_width = font.get_string_size(loan_caption, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x + 18.0
 		RashidsLoan.Offer.ASK, RashidsLoan.Offer.DUE, RashidsLoan.Offer.LAST:
 			loan_caption = rashids_loan.data.pay_button if loan_primary else rashids_loan.data.ask_button
 			loan_width = _button_width(loan_caption, loan_primary) + 18.0
@@ -2235,7 +2366,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var cool_notice: String = idris_recovery.data.masjid_line if place_id == "masjid" and idris_recovery.cool else ""
 	var cool_width := 0.0
 	if not cool_notice.is_empty():
-		cool_width = font.get_string_size(cool_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0
+		cool_width = font.get_string_size(cool_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x + 18.0
 	var inline_talk_width := 0.0 if talk_footer else talk_width
 	var total_width := cool_width + name_width + line_width + action_width + loan_width + fountain_width + feeding_width + iftar_giving_width + dice_width + calendar_width + jars_width + extra_width + purse_width + inline_talk_width + 55.0
 	var waiting := _board_prompt == BreadGrab.Prompt.WAIT
@@ -2248,7 +2379,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if harm_available:
 		var inner_right := 1836.0 - 18.0
 		var previous_rows := (147.0 if waiting else 73.0) + (73.0 if talk_footer else 0.0)
-		harm_label_width = font.get_string_size(_road_harm.bar, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0
+		harm_label_width = font.get_string_size(_road_harm.bar, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x + 18.0
 		harm_button_width = _button_width(_road_harm.move)
 		harm_label_at = Vector2(total_width + 1.0, 0.0)
 		if waiting or talk_footer or harm_label_at.x + harm_label_width > inner_right:
@@ -2366,7 +2497,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		x = _build_prayer_buttons(x, bar_width + inline_carrying_width)
 	var width := bar_width + inline_carrying_width
 	if waiting:
-		width = maxf(width, font.get_string_size(chapter.grab.wait_line, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 36.0)
+		width = maxf(width, font.get_string_size(chapter.grab.wait_line, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x + 36.0)
 	if carrying_footer:
 		width = maxf(width, carrying_width + 18.0)
 	if place_id == "board":
@@ -2463,6 +2594,56 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		_label(panel, attendance_notice, Vector2(18, height + 4.0), Vector2(width - 36.0, 42), label_size, PAPER)
 	return nav_y if separate_navigation else 974.0
 
+func _font_size(normal: int) -> int:
+	return normal if _scale_panel else roundi(normal * text_multiplier)
+
+
+func _layout_large_panel(old_scroll: Vector2i) -> void:
+	var controls: Array[Control] = []
+	var bounds := Rect2()
+	var top := 22.0
+	for child: Control in content.get_children():
+		if child.has_meta("fixed_layer"):
+			if child is Panel:
+				top = 130.0
+			continue
+		controls.append(child)
+		var rect := Rect2(child.position, child.size)
+		bounds = rect if controls.size() == 1 else bounds.merge(rect)
+	if controls.is_empty() or not bounds.has_area():
+		return
+	var available := Rect2(22, top, 1876, 1058.0 - top)
+	var extent := bounds.size * text_multiplier
+	var origin := (bounds.get_center() - extent / 2.0).max(available.position)
+	origin = origin.min((available.end - extent).max(available.position))
+	var group := Control.new()
+	group.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	group.size = bounds.size
+	group.scale = Vector2.ONE * text_multiplier
+	if extent.x > available.size.x or extent.y > available.size.y:
+		var scroll := ScrollContainer.new()
+		scroll.name = "LargePanelScroll"
+		scroll.position = origin
+		scroll.size = extent.min(available.size)
+		scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+		scroll.vertical_scroll_mode = ScrollContainer.SCROLL_MODE_AUTO
+		scroll.follow_focus = true
+		content.add_child(scroll)
+		var scroll_body := Control.new()
+		scroll_body.custom_minimum_size = extent
+		scroll_body.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		scroll.add_child(scroll_body)
+		scroll_body.add_child(group)
+		scroll.set_deferred("scroll_horizontal", old_scroll.x)
+		scroll.set_deferred("scroll_vertical", old_scroll.y)
+	else:
+		content.add_child(group)
+		group.position = origin
+	for child in controls:
+		child.position -= bounds.position
+		child.reparent(group, false)
+
+
 func _style(background: Color, border: Color = Color("886125")) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
 	style.bg_color = background
@@ -2488,7 +2669,7 @@ func _label(parent: Node, value: String, at: Vector2, extent: Vector2, size_valu
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	label.add_theme_font_override("font", bold_font if bold else font)
-	label.add_theme_font_size_override("font_size", size_value)
+	label.add_theme_font_size_override("font_size", _font_size(size_value))
 	label.add_theme_color_override("font_color", color)
 	parent.add_child(label)
 	return label
@@ -2500,7 +2681,7 @@ func _button(value: String, at: Vector2, extent: Vector2, callback: Callable, pr
 	button.size = extent
 	button.mouse_filter = Control.MOUSE_FILTER_STOP
 	button.add_theme_font_override("font", bold_font if primary else font)
-	button.add_theme_font_size_override("font_size", 24)
+	button.add_theme_font_size_override("font_size", _font_size(24))
 	button.add_theme_color_override("font_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_hover_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_pressed_color", INK if primary else PAPER)

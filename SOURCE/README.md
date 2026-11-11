@@ -453,3 +453,23 @@ Run `godot --path SOURCE -- --capture-regulars-remember` for the 17 native viewp
 Run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --regulars-remember`
 to put each master beside its capture. Both commands accept `--regulars-remember-output=/absolute/path`.
 See `LINE35_CHECKS.json` and `BUILD.json` in `GAME/APPROVED/REGULARS_REMEMBER/BUILT/V1/`.
+
+## LOCK 29 Pause, save and settings
+
+Press Esc on the River Market map to pause, then Esc again or **Resume** to return.
+**Save game** keeps the menu open and shows the in-game date and time.
+**Save and quit to title** saves to the same slot and returns to the title.
+A dated **Continue** loads the saved session. **Begin** starts a new session and
+the existing slot is kept until the next save.
+
+**Settings** opens from the title or pause. **Large** scales text to 115% and tall
+panels can be scrolled. **Fast** doubles walking speed. Esc or **Back** returns to
+the previous menu. Godot stores the slot in `user://market.save` and preferences
+separately in `user://settings.cfg`.
+
+Run the headless suite with `godot --headless --path SOURCE --script res://tests/run_tests.gd`.
+For the nine native viewport captures, run
+`godot --path SOURCE -- --capture-menus --menus-user-dir=/absolute/fresh/path`
+with a fresh fixture directory. Then run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --menus`
+to place each master beside its capture. Both commands accept `--menus-output=/absolute/path`.

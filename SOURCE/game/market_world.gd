@@ -20,6 +20,10 @@ var faris_at_quay: MeshInstance3D
 var rashid: MeshInstance3D
 var layla: MeshInstance3D
 var talking_people: Dictionary = {}
+# Hide named street figures from the static title and settings backdrop.
+const STREET_FIGURES_LAYER := 2
+
+var title_camera: Camera3D
 var oven_camera: Camera3D
 var iftar_giving_camera: Camera3D
 var dice_house_camera: Camera3D
@@ -104,6 +108,9 @@ func setup(source: Dictionary) -> void:
 	set_night(false)
 
 	var height_at_eye := Vector3.UP * float(data.camera.height_above_feet)
+	var title_at := point(data.start_place) + height_at_eye + Vector3.BACK * float(data.camera.distance_behind)
+	title_camera = _story_camera(title_at, title_at + Vector3.FORWARD)
+	title_camera.set_cull_mask_value(STREET_FIGURES_LAYER, false)
 	var pier := point("pier")
 	var quay_view := point("quay").lerp(pier, 0.25) + height_at_eye
 	quay_view.z = (float(quay.z_from) + float(quay.z_to)) / 2.0
@@ -238,11 +245,14 @@ func _add_chapter_person(parent: Node3D, display_name: String, at: Vector3) -> M
 	mesh.radius = data.player.capsule_radius
 	var person := MeshInstance3D.new()
 	person.mesh = mesh
+	person.layers = 1 << (STREET_FIGURES_LAYER - 1)
 	person.material_override = _material(Color("9c664a"))
 	person.position = at + Vector3.UP * mesh.height / 2.0
 	parent.add_child(person)
 	var label := Label3D.new()
 	label.text = display_name
+	label.layers = person.layers
+	label.set_meta("normal_font_size", label.font_size)
 	label.position.y = mesh.height / 2.0 + mesh.radius
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	person.add_child(label)
@@ -252,6 +262,20 @@ func _add_chapter_person(parent: Node3D, display_name: String, at: Vector3) -> M
 func _point2(id: String) -> Vector2:
 	var p := point(id)
 	return Vector2(p.x, p.z)
+
+
+func set_scene_motion_paused(paused: bool) -> void:
+	for tween in [gate_tween, _faris_run]:
+		if tween != null and tween.is_valid():
+			if paused:
+				tween.pause()
+			else:
+				tween.play()
+
+
+func set_text_multiplier(multiplier: float) -> void:
+	for label in find_children("*", "Label3D", true, false):
+		label.font_size = roundi(int(label.get_meta("normal_font_size")) * multiplier)
 
 
 func set_night(value: bool) -> void:
@@ -305,14 +329,20 @@ func _build_gate() -> void:
 	gate_body.reparent(gate_hinge, true)
 
 
-func open_gate() -> void:
-	if gate_open:
+func open_gate(animated: bool = true) -> void:
+	if gate_open and animated:
 		return
 	gate_open = true
 	gate_body.collision_layer = 0
 	gate_body.collision_mask = 0
+	var open_angle := -PI / 2.0
+	if not animated:
+		if gate_tween != null:
+			gate_tween.kill()
+		gate_hinge.rotation.y = open_angle
+		return
 	gate_tween = create_tween()
-	gate_tween.tween_property(gate_hinge, "rotation:y", -PI / 2.0, 0.8)
+	gate_tween.tween_property(gate_hinge, "rotation:y", open_angle, 0.8)
 
 
 func reset_gate() -> void:

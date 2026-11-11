@@ -16,6 +16,7 @@ var night := false
 var player_position := Vector3.ZERO
 var selected_place := ""
 var gate_open := false
+var text_multiplier := 1.0
 var font: Font = SystemFont.new()
 var bold_font: Font = SystemFont.new()
 const PAPER := Color("f5e8cd")
@@ -60,6 +61,7 @@ func _rounded(rect: Rect2, color: Color, radius: float = 5.0, border: Color = Co
 	draw_style_box(style, rect)
 
 func _text(value: String, at: Vector2, size: int, color: Color, bold: bool = false, outline: bool = false, centered: bool = false, stroke: Color = PAPER) -> void:
+	size = roundi(size * text_multiplier)
 	var face: Font = bold_font if bold else font
 	if centered:
 		at.x -= face.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, size).x / 2.0
@@ -183,7 +185,7 @@ func _draw_city() -> void:
 		var label: String = identity.city.gates[gate_keys[index]]
 		var at: Vector2 = labels[index]
 		if index == 3:
-			at.x -= bold_font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, 38).x
+			at.x -= bold_font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, roundi(38 * text_multiplier)).x
 		_text(label, at, 38, PAPER, true, false, index in [1, 2])
 	draw_circle(Vector2(1248, 652), 22, INK, true, -1, true)
 	draw_circle(Vector2(1248, 652), 16, Color.WHITE, true, -1, true)

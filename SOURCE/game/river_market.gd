@@ -31,6 +31,16 @@ const DryFountain = preload("res://game/dry_fountain.gd")
 const RashidsLoan = preload("res://game/rashids_loan.gd")
 const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
 
+const MarketSave = preload("res://game/market_save.gd")
+const PAUSE_SCREENS := ["pause", "settings"]
+const SAVE_FILENAME := "market.save"
+const SETTINGS_FILENAME := "settings.cfg"
+
+var storage_directory := "user://"
+var menus: Dictionary
+var _settings_return := "title"
+var _large_text := false
+var _fast_walk := false
 var data: Dictionary
 var identity: Dictionary
 var chapter: Dictionary
@@ -87,6 +97,19 @@ var _calendar_return_screen := "market_map"
 var _prayer_adhan: Variant = null
 
 func _ready() -> void:
+	if "--capture-menus" in OS.get_cmdline_user_args():
+		for argument: String in OS.get_cmdline_user_args():
+			if argument.begins_with("--menus-user-dir="):
+				storage_directory = argument.trim_prefix("--menus-user-dir=")
+		if (not storage_directory.is_absolute_path() or storage_directory.begins_with("user://")
+				or FileAccess.file_exists(storage_directory.path_join(SAVE_FILENAME))
+				or FileAccess.file_exists(storage_directory.path_join(SETTINGS_FILENAME))):
+			push_error("Pass a fresh absolute --menus-user-dir for native menu capture")
+			set_process(false)
+			set_physics_process(false)
+			get_tree().quit(1)
+			return
+	menus = Foundations.load_menus()
 	data = Foundations.load_data()
 	identity = Foundations.load_identity()
 	chapter = Foundations.load_chapter1()
@@ -134,9 +157,17 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
+	ui.menus = menus
 	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan, harm_in_the_road, ramadan, iftar_giving, eid_al_fitr, zakat, eid_al_adha, pilgrims, qurans_school, names_of_allah)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
+	ui.continue_requested.connect(continue_game)
+	ui.settings_requested.connect(open_settings)
+	ui.settings_closed.connect(close_settings)
+	ui.menu_setting_changed.connect(change_menu_setting)
+	ui.resume_requested.connect(func(): show_screen("market_map"))
+	ui.save_requested.connect(save_game)
+	_load_settings()
 	ui.arrival_choice_requested.connect(choose_arrival)
 	ui.arrival_continue_requested.connect(continue_arrival)
 	ui.arrival_walk_requested.connect(walk_from_arrival)
@@ -326,13 +357,20 @@ func _ready() -> void:
 	elif "--capture-regulars-remember" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_regulars_remember.gd").new()
 		capture_runner.run(self)
+	elif "--capture-menus" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_menus.gd").new()
+		capture_runner.run(self)
 
 func _process(delta: float) -> void:
+	if ui.screen in PAUSE_SCREENS:
+		return
 	if ui.screen not in ["title", "arrival", "all_prayers_title"]:
 		clock.advance_seconds(delta)
 	update_state()
 
 func _physics_process(_delta: float) -> void:
+	if ui.screen in PAUSE_SCREENS:
+		return
 	if ui.screen not in ["game", "market_map"]:
 		player.test_move_axis = Vector2.ZERO
 		return
@@ -363,12 +401,90 @@ func update_state() -> void:
 	if day != _daily_job_day:
 		_daily_job_day = day
 		progress.morning()
-	var world_night: bool = night or ui.screen in ["all_prayers", "all_prayers_title", "calendar", "iftar", "iftar_giving", "fitr"] or (ui.screen == "arrival" and _arrival_sunset)
+	var world_night: bool = night or ui.screen in ["title", "settings", "all_prayers", "all_prayers_title", "calendar", "iftar", "iftar_giving", "fitr"] or (ui.screen == "arrival" and _arrival_sunset)
 	if world.night != world_night:
 		world.set_night(world_night)
 	zakat.assess_years()
 	pilgrims.resolve_returns()
 	ui.refresh(player.position, current_place, night, _salma_available())
+
+func _load_settings() -> void:
+	var settings := ConfigFile.new()
+	if settings.load(storage_directory.path_join(SETTINGS_FILENAME)) == OK:
+		_large_text = settings.get_value("settings", "large_text", false) == true
+		_fast_walk = settings.get_value("settings", "fast_walk", false) == true
+	_apply_settings()
+
+
+func _apply_settings() -> void:
+	ui.large_text = _large_text
+	ui.fast_walk = _fast_walk
+	var text_multiplier: float = float(menus.numbers.large_text_percent) / 100.0 if _large_text else 1.0
+	ui.text_multiplier = text_multiplier
+	world.set_text_multiplier(text_multiplier)
+	player.walk_multiplier = float(menus.numbers.walk_fast) / float(menus.numbers.walk_normal) if _fast_walk else 1.0
+
+
+func open_settings() -> void:
+	if ui.screen not in ["pause", "title"]:
+		return
+	_settings_return = ui.screen
+	show_screen("settings")
+
+
+func close_settings() -> void:
+	if ui.screen == "settings":
+		show_screen(_settings_return)
+
+
+func change_menu_setting(setting: String, enabled: bool) -> void:
+	if ui.screen != "settings" or setting not in ["large_text", "fast_walk"]:
+		return
+	var large := enabled if setting == "large_text" else _large_text
+	var fast := enabled if setting == "fast_walk" else _fast_walk
+	var settings := ConfigFile.new()
+	settings.set_value("settings", "large_text", large)
+	settings.set_value("settings", "fast_walk", fast)
+	var filename := storage_directory.path_join(SETTINGS_FILENAME)
+	var pending := "%s.pending-%d" % [filename, OS.get_process_id()]
+	var error := DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(storage_directory))
+	if error == OK:
+		error = settings.save(pending)
+	if error == OK:
+		error = DirAccess.rename_absolute(pending, filename)
+	if error != OK:
+		push_error("Could not write game settings: " + error_string(error))
+		return
+	_large_text = large
+	_fast_walk = fast
+	_apply_settings()
+	ui.show_screen("settings")
+
+
+func save_game(quit_to_title: bool) -> void:
+	if ui.screen != "pause":
+		return
+	var error := MarketSave.save_slot(self, storage_directory.path_join(SAVE_FILENAME))
+	if error != OK:
+		push_error("Could not save the game: " + error_string(error))
+		return
+	if quit_to_title:
+		show_screen("title")
+	else:
+		ui.saved_date = clock.time_label(day, minute_of_day)
+		ui.show_screen("pause")
+
+
+func continue_game() -> void:
+	if ui.screen != "title":
+		return
+	var saved := MarketSave.read_slot(storage_directory.path_join(SAVE_FILENAME))
+	if saved.is_empty():
+		show_screen("title")
+		return
+	MarketSave.restore(self, saved)
+	show_screen("market_map")
+
 
 func begin_game() -> void:
 	progress.setup(data)
@@ -392,6 +508,10 @@ func begin_game() -> void:
 	arrival_beat = 0
 	arrival_reply = ""
 	arrival_fair = null
+	idris_beat = 0
+	_idris_reply = ""
+	_idris_new_word = ""
+	_daily_job_day = 0
 	idris_met = false
 	ui.idris_met = false
 	known_words.clear()
@@ -521,10 +641,21 @@ func _minutes(time: String) -> int:
 	return int(time.get_slice(":", 0)) * 60 + int(time.get_slice(":", 1))
 
 func show_screen(screen: String) -> void:
+	var previous: String = ui.screen
+	if screen == "pause" and previous != "settings":
+		ui.saved_date = ""
+	if screen == "title":
+		var saved := MarketSave.read_slot(storage_directory.path_join(SAVE_FILENAME))
+		ui.continue_date = "" if saved.is_empty() else clock.time_label(saved.day, saved.minute_of_day)
+	ui.settings_has_hud = _settings_return == "pause"
 	if ui.screen == "zakat" and screen != "zakat":
 		zakat.close_panel()
 	var loan_view: bool = screen in MarketUI.LOAN_SCREENS or (screen == "reputation" and ui.screen in MarketUI.LOAN_SCREENS)
-	if screen == "feeding" or screen in MarketUI.GRAB_SCREENS:
+	if screen in ["title", "settings"]:
+		world.title_camera.make_current()
+	elif screen == "pause":
+		world.spice_row_camera.make_current()
+	elif screen == "feeding" or screen in MarketUI.GRAB_SCREENS:
 		world.oven_camera.make_current()
 	elif screen in ["iftar_giving", "fitr", "eid", "zakat", "qurans_school", "names_of_allah"]:
 		world.iftar_giving_camera.make_current()
@@ -552,7 +683,10 @@ func show_screen(screen: String) -> void:
 		world.jabirs_goats_camera.make_current()
 	elif screen != "reputation" or ui.screen != "grab_after":
 		player.camera.make_current()
-	player.visible = not loan_view and screen not in ["harm_done", "eid", "zakat", "pilgrims", "qurans_school", "names_of_allah"] and screen not in MarketUI.ADHA_SCREENS
+	player.visible = not loan_view and screen not in ["title", "settings", "pause", "harm_done", "eid", "zakat", "pilgrims", "qurans_school", "names_of_allah"] and screen not in MarketUI.ADHA_SCREENS
+	var paused := screen in PAUSE_SCREENS or screen in ["title", "all_prayers_title"]
+	player.set_physics_process(not paused)
+	world.set_scene_motion_paused(paused)
 	ui.show_screen(screen)
 	player.enabled = screen == "game" or screen == "market_map"
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if screen == "game" else Input.MOUSE_MODE_VISIBLE
@@ -1166,6 +1300,13 @@ func do_daily_job() -> void:
 		ui.show_toast(data.daily_job.toast)
 
 func _unhandled_input(event: InputEvent) -> void:
+	if ui.screen in PAUSE_SCREENS:
+		if event.is_action_pressed("close"):
+			if ui.screen == "settings":
+				close_settings()
+			else:
+				show_screen("market_map")
+		return
 	if ui.screen == "calendar":
 		if event.is_action_pressed("close"):
 			_close_calendar()
@@ -1211,7 +1352,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if ui.screen == "prayer_record": close_prayer_record()
 		elif ui.screen == "city_map": show_screen("market_map")
 		elif ui.screen == "world_map": show_screen("city_map")
-		elif ui.screen == "market_map": show_screen("game")
+		elif ui.screen == "market_map": show_screen("pause")
 		elif ui.screen in ["purse", "purse_morning", "reputation", "stall", "loom", "bag", "talk", "feeding", "iftar_giving", "fitr", "eid", "zakat", "pilgrims", "qurans_school", "names_of_allah"] or ui.screen in MarketUI.DRY_FOUNTAIN_SCREENS: show_screen("market_map")
 		elif ui.screen in ["board", "task", "result", "lesson", "goal"]: show_screen("game")
 		else: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

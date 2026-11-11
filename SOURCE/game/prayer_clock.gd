@@ -187,11 +187,14 @@ func date_label(on_day: int) -> String:
 	return str(calendar.data.hud_date).format(date_fields(on_day))
 
 
-func hud(at_masjid: bool = false) -> Dictionary:
-	var time_label: String = str(_data.hud_line1).format({
-		"weekday": date_label(day),
-		"hh:mm": _format_time(minute_of_day),
+func time_label(on_day: int, minute: int) -> String:
+	return str(_data.hud_line1).format({
+		"weekday": date_label(on_day),
+		"hh:mm": _format_time(minute),
 	})
+
+
+func hud(at_masjid: bool = false) -> Dictionary:
 	var prayer := _latest_started()
 	var prayer_label_text: String
 	if not _is_active(prayer):
@@ -205,7 +208,7 @@ func hud(at_masjid: bool = false) -> Dictionary:
 	else:
 		var name: String = _scheduled_name(prayer) if _can_join(prayer, at_masjid) else _prayer(prayer).name
 		prayer_label_text = _hud_duration(_data.hud_now, name, _ends(prayer) - _time)
-	return {"time": time_label, "prayer": prayer_label_text}
+	return {"time": time_label(day, minute_of_day), "prayer": prayer_label_text}
 
 
 func record() -> Dictionary:

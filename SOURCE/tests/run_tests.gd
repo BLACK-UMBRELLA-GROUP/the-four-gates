@@ -7,6 +7,7 @@ const OpenPurse = preload("res://game/open_purse.gd")
 const TaskProgress = preload("res://game/task_progress.gd")
 const MarketStall = preload("res://game/market_stall.gd")
 const MarketDay = preload("res://game/market_day.gd")
+const MarketSave = preload("res://game/market_save.gd")
 const RegularsRememberFixture = preload("res://tests/regulars_remember_fixture.gd")
 
 var checks := 0
@@ -68,6 +69,10 @@ func _run() -> void:
 		finish()
 		return
 	app = scene.instantiate()
+	var storage := OS.get_environment("TFG_MENUS_TEST_DIR")
+	if storage.is_empty():
+		storage = "user://line36-tests-%d" % OS.get_process_id()
+	app.storage_directory = storage
 	root.add_child(app)
 	await frames(3)
 	data = app.data
@@ -77,11 +82,10 @@ func _run() -> void:
 	check(visible_text().contains(identity.city.name), "title uses the locked city name")
 	check(visible_text().contains(data.ui.buttons.begin), "title has Begin")
 	check(visible_text().contains(data.ui.buttons.settings), "title has Settings")
-	var settings_button: Button = find_button(app.ui, data.ui.buttons.settings)
-	if settings_button != null:
-		settings_button.pressed.emit()
-		await frames(1)
-	check(visible_text().contains(data.title_screen.settings_toast), "Settings button shows its approved temporary toast")
+	await press_button(data.ui.buttons.settings, "title Settings opens its real menu")
+	check(app.ui.screen == "settings" and not app.ui.settings_has_hud, "title Settings has no gameplay HUD")
+	await press_button(app.menus.settings.back, "Settings has a usable Back button")
+	check(app.ui.screen == "title", "Back returns from settings to title")
 	var prayer_record: Dictionary = app.ui.prayer_record
 	await press_button(prayer_record.title_button, "title offers a usable Your prayers button")
 	check(app.ui.screen == "all_prayers_title" and has_visible_label(app.ui, prayer_record.panel.empty), "title opens the totals with the exact empty copy before any prayer status")
@@ -161,6 +165,7 @@ func _run() -> void:
 	await check_names_of_allah_runtime()
 	check_regulars_at_prayer_runtime()
 	await check_regulars_remember_runtime()
+	await check_menus_runtime()
 	finish()
 
 
@@ -4665,3 +4670,207 @@ func check_regulars_remember_lines(expected: Array[String], context: String) -> 
 	check(goodbye != null and not labels.is_empty()
 		and goodbye.get_global_rect().position.y >= labels[-1].get_global_rect().end.y,
 		"the dialogue precedes the original controls: " + context)
+
+
+func check_menus_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/MENUS/RECORD/menus_data_V1.json")
+	check(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/menus.json"),
+		"menu runtime data is byte-identical to LOCK 29")
+	var menus: Dictionary = app.menus
+	var pause: Dictionary = menus.pause
+	var settings: Dictionary = menus.settings
+	var storage: String = app.storage_directory
+	var slot := storage.path_join(app.SAVE_FILENAME)
+	var prefs := storage.path_join(app.SETTINGS_FILENAME)
+	app.show_screen("title")
+	check(app.ui.continue_date.is_empty(), "fresh title has no dated Continue")
+	await press_button(data.ui.buttons.settings, "title opens Settings")
+	var normal_header := find_visible_label(app.ui, settings.title)
+	var normal_font := normal_header.get_theme_font_size("font_size")
+	await press_button(settings.large, "Large is a real setting button")
+	var large_header := find_visible_label(app.ui, settings.title)
+	var effective_font := large_header.get_theme_font_size("font_size") * large_header.get_global_transform().get_scale().y
+	check(is_equal_approx(effective_font / normal_font, float(menus.numbers.large_text_percent) / 100.0),
+		"Large scales the actual settings text by 115 percent")
+	await press_control(app.ui.find_child("large_text_normal", true, false), "Normal resets the actual text size")
+	await menus_escape()
+	check(app.ui.screen == "title", "Esc returns from title settings to the title")
+	await press_button(data.ui.buttons.begin, "new session starts at Begin")
+	for beat in app.identity.arrival.beats:
+		app.choose_arrival(0)
+		app.continue_arrival()
+	app.meet_idris_from_arrival()
+	for beat in app.identity.teacher.beats:
+		app.choose_idris(0)
+		app.continue_idris()
+	app.leave_idris()
+	await place_at_quay()
+
+	var normal_distance := await menu_walk_distance()
+	await menus_escape()
+	check(app.ui.screen == "pause", "Esc from the market map opens Paused")
+	var frozen: Dictionary = MarketSave.snapshot(app)
+	key_event(KEY_T, true)
+	key_event(KEY_W, true)
+	await frames(15)
+	key_event(KEY_W, false)
+	key_event(KEY_T, false)
+	check(MarketSave.snapshot(app) == frozen, "pause freezes clock, player movement and gameplay shortcuts")
+	await press_button(pause.settings, "pause Settings opens the menu")
+	check(app.ui.screen == "settings" and app.ui.settings_has_hud, "pause settings retain the HUD")
+	await press_button(settings.large, "Large applies from pause")
+	await press_button(settings.fast, "Fast applies from pause")
+	await menus_escape()
+	check(app.ui.screen == "pause", "Esc from pause settings returns to pause")
+	await menus_escape()
+	check(app.ui.screen == "market_map", "Esc closes pause to the map")
+	var fast_distance := await menu_walk_distance()
+	check(normal_distance > 0.1 and absf(fast_distance / normal_distance - 2.0) < 0.12,
+		"Fast doubles actual market walking distance")
+	var coin_text: String = str(data.ui.hud.coins).format({"n": app.progress.coins})
+	var coin_label := find_visible_label(app.ui, coin_text)
+	check(coin_label != null and coin_label.get_theme_font_size("font_size") == 28
+		and is_equal_approx(app.ui.map.text_multiplier, 1.15),
+		"Large also reaches the live HUD and drawn map text")
+
+	app.set_process(false)
+	seed_menu_save()
+	app.show_screen("all_prayers")
+	await frames(3)
+	var scroll := app.ui.find_child("LargePanelScroll", true, false) as ScrollContainer
+	var last_button := find_button(app.ui, app.ui.prayer_record.panel.back_market)
+	check(scroll != null and last_button != null, "the enlarged full prayer record scrolls and keeps its footer button")
+	if scroll != null and last_button != null:
+		scroll.ensure_control_visible(last_button)
+		await frames(2)
+		check(scroll.get_global_rect().has_point(last_button.get_global_rect().get_center()),
+			"focus scrolling brings the enlarged record footer into reach")
+		scroll.scroll_vertical = ceili(scroll.get_v_scroll_bar().max_value)
+		await frames(2)
+		check(scroll.get_global_rect().encloses(last_button.get_global_rect()), "scrolling to the bottom reveals the entire footer")
+	app.show_screen("market_map")
+	await menus_escape()
+	var original: Dictionary = MarketSave.snapshot(app)
+	var date: String = app.clock.time_label(app.day, app.minute_of_day)
+	await press_button(pause.save, "Save game is usable from pause")
+	check(app.ui.screen == "pause" and app.ui.saved_date == date, "Save game shows the exact saved in-game date")
+	check(MarketSave.read_slot(slot) == original, "disk round-trip preserves the whole gameplay snapshot and typed values")
+	var prefs_hash := FileAccess.get_sha256(prefs)
+	var save_hash := FileAccess.get_sha256(slot)
+	await press_button(pause.settings, "reopen settings over an existing save")
+	await press_control(app.ui.find_child("large_text_normal", true, false), "Normal can be persisted independently of the save")
+	check(FileAccess.get_sha256(slot) == save_hash and FileAccess.get_sha256(prefs) != prefs_hash,
+		"changing settings leaves the gameplay save byte-for-byte unchanged")
+	await press_button(settings.back, "Back from settings returns to pause")
+	check(app.ui.screen == "pause" and app.ui.saved_date == date, "Back retains the pause save receipt")
+	await press_button(pause.resume, "Resume returns to the market map")
+	check(app.ui.screen == "market_map", "Resume shows the market map")
+	await menus_escape()
+	check(app.ui.saved_date.is_empty(), "a new pause has no stale receipt")
+	app.progress.coins += 17
+	app.clock.skip_to(app.day, app.minute_of_day + 1)
+	app.update_state()
+	var overwritten: Dictionary = MarketSave.snapshot(app)
+	var overwritten_date: String = app.clock.time_label(app.day, app.minute_of_day)
+	await press_button(pause.quit, "Save and quit is usable from pause")
+	var continue_text: String = str(menus.title_continue).format({"d": overwritten_date})
+	check(app.ui.screen == "title" and app.ui.continue_date == overwritten_date
+		and find_button(app.ui, continue_text) != null, "Save and quit shows dated Continue on the title")
+	check(MarketSave.read_slot(slot) == overwritten and FileAccess.get_sha256(slot) != save_hash,
+		"the second save replaces the single slot")
+
+	var scene := load("res://game/river_market.tscn") as PackedScene
+	root.remove_child(app)
+	app.queue_free()
+	app = scene.instantiate()
+	app.storage_directory = storage
+	root.add_child(app)
+	app.set_process(false)
+	check(not app.ui.large_text and app.ui.fast_walk and is_equal_approx(app.player.walk_multiplier, 2.0),
+		"relaunch reads latest separate settings with their real effects")
+	check(app.ui.continue_date == overwritten_date, "a fresh scene sees the saved date")
+	var continue_button := find_button(app.ui, continue_text)
+	check(continue_button != null, "relaunch has the production Continue button")
+	if continue_button != null:
+		continue_button.pressed.emit()
+		check(app.ui.screen == "market_map", "Continue loads onto the map after relaunch")
+		var restored: Dictionary = MarketSave.snapshot(app)
+		for part: String in overwritten:
+			check(restored.get(part) == overwritten[part], "Continue restores saved " + part)
+		check(app.ui.idris_met and app.ui.known_words == app.known_words
+			and app.world.gate_open and app.world.gate_body.collision_layer == 0,
+			"Continue reprojects learned words and the physically open gate")
+		check(app.ui.fast_walk and not app.ui.large_text, "loading gameplay preserves the independent settings")
+	app.show_screen("title")
+	await press_button(data.ui.buttons.begin, "Begin starts a new game even when Continue exists")
+	check(app.ui.screen == "arrival" and app.progress.tasks.is_empty() and not app.idris_met and not app.world.gate_open,
+		"Begin clears the previous session's gameplay")
+	check(MarketSave.read_slot(slot) == overwritten and app.ui.fast_walk, "Begin preserves both the saved slot and settings")
+	app.show_screen("title")
+	var corrupt := FileAccess.open(slot, FileAccess.WRITE)
+	corrupt.store_string("invalid save")
+	corrupt.close()
+	app.show_screen("title")
+	check(app.ui.continue_date.is_empty() and MarketSave.read_slot(slot).is_empty(), "a corrupt slot never offers Continue")
+
+
+func menus_escape() -> void:
+	key_event(KEY_ESCAPE, true)
+	key_event(KEY_ESCAPE, false)
+	await frames(2)
+
+
+func menu_walk_distance() -> float:
+	await place_at_quay()
+	var origin: Vector3 = app.player.position
+	Input.action_press("move_forward")
+	await frames(12)
+	Input.action_release("move_forward")
+	return horizontal_distance(origin, app.player.position)
+
+
+func seed_menu_save() -> void:
+	# Set up independent histories in the real state holders so every earlier LOCK
+	# exercises non-default values during the same save/restore.
+	var day: int = app.clock.calendar.year_days + 8
+	app.clock.skip_to(day, 600)
+	app.player.position = app.world.point("inn")
+	app.player.velocity = Vector3.ZERO
+	app.player.yaw = 0.35
+	app.player.pitch = -0.2
+	app.player.update_camera()
+	app.progress.coins = 700
+	app.progress.trust = 90
+	app.progress.lesson_done = true
+	app.progress.gate_open = true
+	app.world.open_gate(false)
+	for task: Dictionary in data.tasks:
+		app.progress.choose_task(task.id, "quick")
+	app.update_state()
+	app.progress.do_daily_job()
+	app.clock._completed[12] = "alone"
+	app.open_purse.page_read = true
+	app.open_purse.done = true
+	app.bread_grab._seen_day = 2
+	app.market_stall._bag["bread"] = 2
+	app.talking.open_at("quay")
+	app.talking.greeted[app.talking.person.id] = true
+	app.feeding._last_public_day = day
+	app.feeding.meal_counter.total = 43
+	app.iftar_giving._last_public_day = day - 3
+	app.sealed_purse.state = app.sealed_purse.State.WHOLE
+	app.dice_house.nights = 1
+	app.qasims_jars.runs = 2
+	app.jabirs_goats.deals = 3
+	app.idris_recovery.cool_point = 8
+	app.dry_fountain.paid = 5
+	app.rashids_loan._state = app.rashids_loan.State.WAITING
+	app.rashids_loan._since_day = day - 1
+	app.harm_in_the_road.count = 4
+	app.ramadan._rested[43] = true
+	app.eid_al_fitr._fitr_years[0] = true
+	app.eid_al_adha._sacrifice_day = 272
+	app.pilgrims.umrah_paid = 1
+	app.pilgrims._trips["jamal"] = {"home_day": day + 10, "secret": true, "home": false}
+	app.qurans_school.pay("school", false)
+	app.names_of_allah.learn_at("scales", true)
