@@ -1,0 +1,1822 @@
+{
+	"checks": [
+		{
+			"description": "runtime Pilgrims data matches the locked bytes",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the live Inn map",
+			"passed": true
+		},
+		{
+			"description": "new arrival starts with no trips or reputation",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 61 minute 419",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Abbas takes pilgrims",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 61 minute 420",
+			"passed": true
+		},
+		{
+			"description": "button shown: Abbas takes pilgrims",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Abbas takes pilgrims",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 61 minute 600",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: b01_gate__abbas_takes_pilgrims__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: b01_gate__abbas_takes_pilgrims__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Abbas takes pilgrims",
+			"passed": true
+		},
+		{
+			"description": "the native Pilgrims panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Umrah trips paid: 0 / 1,000 · Hajj trips paid: 0 / 100",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Umrah trips paid: 0 / 1,000 · Hajj trips paid: 0 / 100",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the visible back button stays on the same row as the counters",
+			"passed": true
+		},
+		{
+			"description": "live trip counters are 0 Umrah and 0 Hajj",
+			"passed": true
+		},
+		{
+			"description": "text shown: (You can give in secret once you have read the scholar's first page.)",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: (You can give in secret once you have read the scholar's first page.)",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Ask Abbas not to say who paid",
+			"passed": true
+		},
+		{
+			"description": "send action for Old Musa: shown",
+			"passed": true
+		},
+		{
+			"description": "send action has locked wording and cost",
+			"passed": true
+		},
+		{
+			"description": "send action fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "send action for Yunus the muezzin: shown",
+			"passed": true
+		},
+		{
+			"description": "send action has locked wording and cost",
+			"passed": true
+		},
+		{
+			"description": "send action fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "send action for Jamal the boat master: shown",
+			"passed": true
+		},
+		{
+			"description": "send action has locked wording and cost",
+			"passed": true
+		},
+		{
+			"description": "send action fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "send action for Idris the imam: shown",
+			"passed": true
+		},
+		{
+			"description": "send action has locked wording and cost",
+			"passed": true
+		},
+		{
+			"description": "send action fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: b02_pilgrim__shawwal_all_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: b02_pilgrim__shawwal_all_open__build.png",
+			"passed": true
+		},
+		{
+			"description": "send action for Old Musa: shown",
+			"passed": true
+		},
+		{
+			"description": "send action has locked wording and cost",
+			"passed": true
+		},
+		{
+			"description": "send action fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "sending Old Musa spends the locked cost and leaves trust unchanged",
+			"passed": true
+		},
+		{
+			"description": "the native Pilgrims panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Umrah trips paid: 1 / 1,000 · Hajj trips paid: 0 / 100",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Umrah trips paid: 1 / 1,000 · Hajj trips paid: 0 / 100",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the visible back button stays on the same row as the counters",
+			"passed": true
+		},
+		{
+			"description": "live trip counters are 1 Umrah and 0 Hajj",
+			"passed": true
+		},
+		{
+			"description": "text shown: on the road · home in 30 days",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: on the road · home in 30 days",
+			"passed": true
+		},
+		{
+			"description": "send action for Old Musa: hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: b03_pilgrim__musa_on_the_road__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: b03_pilgrim__musa_on_the_road__build.png",
+			"passed": true
+		},
+		{
+			"description": "send action for Idris the imam: shown",
+			"passed": true
+		},
+		{
+			"description": "send action has locked wording and cost",
+			"passed": true
+		},
+		{
+			"description": "send action fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "sending Idris the imam spends the locked cost and leaves trust unchanged",
+			"passed": true
+		},
+		{
+			"description": "the native Pilgrims panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Umrah trips paid: 1 / 1,000 · Hajj trips paid: 1 / 100",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Umrah trips paid: 1 / 1,000 · Hajj trips paid: 1 / 100",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the visible back button stays on the same row as the counters",
+			"passed": true
+		},
+		{
+			"description": "live trip counters are 1 Umrah and 1 Hajj",
+			"passed": true
+		},
+		{
+			"description": "text shown: on the road · home in 82 days",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: on the road · home in 82 days",
+			"passed": true
+		},
+		{
+			"description": "send action for Idris the imam: hidden",
+			"passed": true
+		},
+		{
+			"description": "a public trip creates no reputation before the return",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: b04_pilgrim__idris_on_hajj__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: b04_pilgrim__idris_on_hajj__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the visible Back button returns to the map",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 91 minute 600",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Abbas takes pilgrims",
+			"passed": true
+		},
+		{
+			"description": "the native Pilgrims panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Umrah trips paid: 1 / 1,000 · Hajj trips paid: 1 / 100",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Umrah trips paid: 1 / 1,000 · Hajj trips paid: 1 / 100",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the visible back button stays on the same row as the counters",
+			"passed": true
+		},
+		{
+			"description": "live trip counters are 1 Umrah and 1 Hajj",
+			"passed": true
+		},
+		{
+			"description": "text shown: came home",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: came home",
+			"passed": true
+		},
+		{
+			"description": "text shown: on the road · home in 52 days",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: on the road · home in 52 days",
+			"passed": true
+		},
+		{
+			"description": "send action for Old Musa: hidden",
+			"passed": true
+		},
+		{
+			"description": "Old Musa's public return awards the locked trust once",
+			"passed": true
+		},
+		{
+			"description": "refreshing the day does not repeat the return trust",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: b05_pilgrim__musa_came_home__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: b05_pilgrim__musa_came_home__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "the returned public trip is the sole reputation row",
+			"passed": true
+		},
+		{
+			"description": "text shown: “Sent Old Musa on Umrah”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: “Sent Old Musa on Umrah”",
+			"passed": true
+		},
+		{
+			"description": "text shown: Old Musa, the scale-keeper",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Old Musa, the scale-keeper",
+			"passed": true
+		},
+		{
+			"description": "text shown: good",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: good",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: b06_people_say__sent_musa__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: b06_people_say__sent_musa__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the live Inn map",
+			"passed": true
+		},
+		{
+			"description": "new arrival starts with no trips or reputation",
+			"passed": true
+		},
+		{
+			"description": "live map at inn",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 61 minute 600",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: People are waiting at the door",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask Salma the baker about them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the page to Idris",
+			"passed": true
+		},
+		{
+			"description": "the native scholar page unlocks secret giving",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the people",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Not now",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 61 minute 600",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Abbas takes pilgrims",
+			"passed": true
+		},
+		{
+			"description": "the native Pilgrims panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Umrah trips paid: 0 / 1,000 · Hajj trips paid: 0 / 100",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Umrah trips paid: 0 / 1,000 · Hajj trips paid: 0 / 100",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the visible back button stays on the same row as the counters",
+			"passed": true
+		},
+		{
+			"description": "live trip counters are 0 Umrah and 0 Hajj",
+			"passed": true
+		},
+		{
+			"description": "text hidden: (You can give in secret once you have read the scholar's first page.)",
+			"passed": true
+		},
+		{
+			"description": "button shown: Ask Abbas not to say who paid",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Ask Abbas not to say who paid",
+			"passed": true
+		},
+		{
+			"description": "the live checkbox matches the secret selection",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask Abbas not to say who paid",
+			"passed": true
+		},
+		{
+			"description": "button shown: Ask Abbas not to say who paid",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Ask Abbas not to say who paid",
+			"passed": true
+		},
+		{
+			"description": "the live checkbox matches the secret selection",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: b07_pilgrim__secret_ticked__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: b07_pilgrim__secret_ticked__build.png",
+			"passed": true
+		},
+		{
+			"description": "send action for Yunus the muezzin: shown",
+			"passed": true
+		},
+		{
+			"description": "send action has locked wording and cost",
+			"passed": true
+		},
+		{
+			"description": "send action fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "sending Yunus the muezzin spends the locked cost and leaves trust unchanged",
+			"passed": true
+		},
+		{
+			"description": "the native Pilgrims panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Umrah trips paid: 1 / 1,000 · Hajj trips paid: 0 / 100",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Umrah trips paid: 1 / 1,000 · Hajj trips paid: 0 / 100",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the visible back button stays on the same row as the counters",
+			"passed": true
+		},
+		{
+			"description": "live trip counters are 1 Umrah and 0 Hajj",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 91 minute 600",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Abbas takes pilgrims",
+			"passed": true
+		},
+		{
+			"description": "text shown: came home",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: came home",
+			"passed": true
+		},
+		{
+			"description": "send action for Yunus the muezzin: hidden",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "the secret return leaves trust at 45",
+			"passed": true
+		},
+		{
+			"description": "V2 leaves no reputation row after the secret return",
+			"passed": true
+		},
+		{
+			"description": "text shown: Nobody in River Market talks about you yet. To them you are just “the foreigner”.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Nobody in River Market talks about you yet. To them you are just “the foreigner”.",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: b08_people_say__secret_no_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: b08_people_say__secret_no_line__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the live Inn map",
+			"passed": true
+		},
+		{
+			"description": "new arrival starts with no trips or reputation",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 31 minute 600",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Abbas takes pilgrims",
+			"passed": true
+		},
+		{
+			"description": "the native Pilgrims panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Umrah trips paid: 0 / 1,000 · Hajj trips paid: 0 / 100",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Umrah trips paid: 0 / 1,000 · Hajj trips paid: 0 / 100",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the visible back button stays on the same row as the counters",
+			"passed": true
+		},
+		{
+			"description": "live trip counters are 0 Umrah and 0 Hajj",
+			"passed": true
+		},
+		{
+			"description": "text shown: Hajj names: 1 Shawwal - 25 Dhu al-Qa'dah",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Hajj names: 1 Shawwal - 25 Dhu al-Qa'dah",
+			"passed": true
+		},
+		{
+			"description": "send action for Old Musa: shown",
+			"passed": true
+		},
+		{
+			"description": "send action has locked wording and cost",
+			"passed": true
+		},
+		{
+			"description": "send action fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "send action for Yunus the muezzin: shown",
+			"passed": true
+		},
+		{
+			"description": "send action has locked wording and cost",
+			"passed": true
+		},
+		{
+			"description": "send action fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "send action for Jamal the boat master: shown",
+			"passed": true
+		},
+		{
+			"description": "send action has locked wording and cost",
+			"passed": true
+		},
+		{
+			"description": "send action fits the viewport",
+			"passed": true
+		},
+		{
+			"description": "send action for Idris the imam: hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: b09_pilgrim__ramadan_hajj_closed__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: b09_pilgrim__ramadan_hajj_closed__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 61 minute 600",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Abbas takes pilgrims",
+			"passed": true
+		},
+		{
+			"description": "the native Pilgrims panel is open",
+			"passed": true
+		},
+		{
+			"description": "text shown: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: The Gate of Trust · the pilgrim caravan",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas the caravan master",
+			"passed": true
+		},
+		{
+			"description": "text shown: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Abbas leads a caravan to Makkah every month, and the great Hajj caravan in Shawwal. “Your work is here,” he says. “But you could send someone who has dreamed of it all his life.”",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has weighed other men's goods for fifty years and never seen the Kaaba.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Calls the adhan five times a day and dreams of hearing it in Makkah.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has carried pilgrims across the river every year and never gone himself.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Has taught the rites of Hajj for forty years and never performed it.",
+			"passed": true
+		},
+		{
+			"description": "text shown: Umrah trips paid: 0 / 1,000 · Hajj trips paid: 0 / 100",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: Umrah trips paid: 0 / 1,000 · Hajj trips paid: 0 / 100",
+			"passed": true
+		},
+		{
+			"description": "button shown: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "the visible back button stays on the same row as the counters",
+			"passed": true
+		},
+		{
+			"description": "live trip counters are 0 Umrah and 0 Hajj",
+			"passed": true
+		},
+		{
+			"description": "text shown: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "text fits the viewport: not enough coins",
+			"passed": true
+		},
+		{
+			"description": "send action for Old Musa: hidden",
+			"passed": true
+		},
+		{
+			"description": "send action for Yunus the muezzin: hidden",
+			"passed": true
+		},
+		{
+			"description": "send action for Jamal the boat master: hidden",
+			"passed": true
+		},
+		{
+			"description": "send action for Idris the imam: hidden",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: b10_pilgrim__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: b10_pilgrim__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 61 minute 1079",
+			"passed": true
+		},
+		{
+			"description": "button shown: Abbas takes pilgrims",
+			"passed": true
+		},
+		{
+			"description": "button fits the viewport: Abbas takes pilgrims",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 61 minute 1080",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Abbas takes pilgrims",
+			"passed": true
+		},
+		{
+			"description": "live map at gate",
+			"passed": true
+		},
+		{
+			"description": "live clock at day 61 minute 1200",
+			"passed": true
+		},
+		{
+			"description": "button hidden: Abbas takes pilgrims",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: b11_gate__night_no_abbas__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: b11_gate__night_no_abbas__build.png",
+			"passed": true
+		},
+		{
+			"description": "all eleven locked master states have native captures",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Passive ticks paused. After fair arrival, skip_to sets the calendar and leaves skipped prayers unplayed. The player is placed at the named live place marker. The reputation fixtures face the square from a1 for the street backdrop. Coins and trust are staged at 300 and 45, with 30 coins for b10. Sending, the checkbox, trip returns, counters and reputation use production actions.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport. Real UI input drives arrival, Abbas, sending each trip, the first scholar page and What people say.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "b01_gate__abbas_takes_pilgrims__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "b02_pilgrim__shawwal_all_open__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "b03_pilgrim__musa_on_the_road__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "b04_pilgrim__idris_on_hajj__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "b05_pilgrim__musa_came_home__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "b06_people_say__sent_musa__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "b07_pilgrim__secret_ticked__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "b08_people_say__secret_no_line__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "b09_pilgrim__ramadan_hajj_closed__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "b10_pilgrim__not_enough_coins__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "b11_gate__night_no_abbas__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"b01_gate__abbas_takes_pilgrims__build.png": {
+			"coins": 300,
+			"daily_count": 0,
+			"date": "Monday 2 Shawwal",
+			"day_index": 60,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000826869567390531,
+				7.28581762313843
+			],
+			"screen": "market_map",
+			"secret_selected": false,
+			"tasks": {},
+			"trips_paid": [
+				0,
+				0
+			],
+			"trust": 45,
+			"what_people_say": []
+		},
+		"b02_pilgrim__shawwal_all_open__build.png": {
+			"coins": 300,
+			"daily_count": 0,
+			"date": "Monday 2 Shawwal",
+			"day_index": 60,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "pilgrims",
+			"secret_selected": false,
+			"tasks": {},
+			"trips_paid": [
+				0,
+				0
+			],
+			"trust": 45,
+			"what_people_say": []
+		},
+		"b03_pilgrim__musa_on_the_road__build.png": {
+			"coins": 260,
+			"daily_count": 0,
+			"date": "Monday 2 Shawwal",
+			"day_index": 60,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "pilgrims",
+			"secret_selected": false,
+			"tasks": {},
+			"trips_paid": [
+				1,
+				0
+			],
+			"trust": 45,
+			"what_people_say": []
+		},
+		"b04_pilgrim__idris_on_hajj__build.png": {
+			"coins": 140,
+			"daily_count": 0,
+			"date": "Monday 2 Shawwal",
+			"day_index": 60,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "pilgrims",
+			"secret_selected": false,
+			"tasks": {},
+			"trips_paid": [
+				1,
+				1
+			],
+			"trust": 45,
+			"what_people_say": []
+		},
+		"b05_pilgrim__musa_came_home__build.png": {
+			"coins": 140,
+			"daily_count": 0,
+			"date": "Wednesday 3 Dhu al-Qa'dah",
+			"day_index": 90,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "pilgrims",
+			"secret_selected": false,
+			"tasks": {},
+			"trips_paid": [
+				1,
+				1
+			],
+			"trust": 47,
+			"what_people_say": [
+				[
+					"Sent Old Musa on Umrah",
+					"Old Musa, the scale-keeper",
+					1.0
+				]
+			]
+		},
+		"b06_people_say__sent_musa__build.png": {
+			"coins": 140,
+			"daily_count": 0,
+			"date": "Wednesday 3 Dhu al-Qa'dah",
+			"day_index": 90,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "",
+			"player": [
+				120.0,
+				0.0,
+				19.2000007629395
+			],
+			"screen": "reputation",
+			"secret_selected": false,
+			"tasks": {},
+			"trips_paid": [
+				1,
+				1
+			],
+			"trust": 47,
+			"what_people_say": [
+				[
+					"Sent Old Musa on Umrah",
+					"Old Musa, the scale-keeper",
+					1.0
+				]
+			]
+		},
+		"b07_pilgrim__secret_ticked__build.png": {
+			"coins": 300,
+			"daily_count": 0,
+			"date": "Monday 2 Shawwal",
+			"day_index": 60,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000826869567390531,
+				7.28581762313843
+			],
+			"screen": "pilgrims",
+			"secret_selected": true,
+			"tasks": {},
+			"trips_paid": [
+				0,
+				0
+			],
+			"trust": 45,
+			"what_people_say": []
+		},
+		"b08_people_say__secret_no_line__build.png": {
+			"coins": 260,
+			"daily_count": 0,
+			"date": "Wednesday 3 Dhu al-Qa'dah",
+			"day_index": 90,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "",
+			"player": [
+				120.0,
+				0.0,
+				19.2000007629395
+			],
+			"screen": "reputation",
+			"secret_selected": false,
+			"tasks": {},
+			"trips_paid": [
+				1,
+				0
+			],
+			"trust": 45,
+			"what_people_say": []
+		},
+		"b09_pilgrim__ramadan_hajj_closed__build.png": {
+			"coins": 300,
+			"daily_count": 0,
+			"date": "Saturday 2 Ramadan",
+			"day_index": 30,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.0,
+				6.40000009536743
+			],
+			"screen": "pilgrims",
+			"secret_selected": false,
+			"tasks": {},
+			"trips_paid": [
+				0,
+				0
+			],
+			"trust": 45,
+			"what_people_say": []
+		},
+		"b10_pilgrim__not_enough_coins__build.png": {
+			"coins": 30,
+			"daily_count": 0,
+			"date": "Monday 2 Shawwal",
+			"day_index": 60,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "pilgrims",
+			"secret_selected": false,
+			"tasks": {},
+			"trips_paid": [
+				0,
+				0
+			],
+			"trust": 45,
+			"what_people_say": []
+		},
+		"b11_gate__night_no_abbas__build.png": {
+			"coins": 300,
+			"daily_count": 0,
+			"date": "Monday 2 Shawwal",
+			"day_index": 60,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 1200,
+			"night": true,
+			"place": "gate",
+			"player": [
+				127.199996948242,
+				0.000934048788622022,
+				7.30069589614868
+			],
+			"screen": "market_map",
+			"secret_selected": false,
+			"tasks": {},
+			"trips_paid": [
+				0,
+				0
+			],
+			"trust": 45,
+			"what_people_say": []
+		}
+	},
+	"timestamp_utc": "2026-11-11T19:21:34Z"
+}

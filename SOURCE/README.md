@@ -391,3 +391,19 @@ Run `godot --path SOURCE -- --capture-eid-al-adha` for the 18 native viewport ca
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --eid-al-adha`
 for the master-left comparisons. Both commands accept `--adha-output=/absolute/path`.
 See `LINE30_CHECKS.json` for the native checks and `BUILD.json` for provenance and verified images.
+
+## LOCK 24 V2 Pilgrims you send
+
+At the Gate of Trust from 07:00 through 17:59, choose **Abbas takes pilgrims**.
+Old Musa, Yunus and Jamal each cost 40 coins to send on Umrah and return after 30 days.
+Idris costs 120 coins to send on Hajj, with bookings open from 1 Shawwal through
+25 Dhu al-Qa'dah and return on 25 Dhu al-Hijjah. Each person can go once.
+After reading the scholar's first page, you can ask Abbas to keep the payment secret.
+Public returns add two trust and a line to **What people say**. The panel counts public and secret
+payments toward the 1,000 Umrah and 100 Hajj lifetime goals.
+
+Run `godot --path SOURCE -- --capture-pilgrims` for the 11 native viewport captures in
+`GAME/APPROVED/PILGRIMS/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --pilgrims`
+for master-left comparisons. Both commands accept `--pilgrims-output=/absolute/path`.
+See `LINE31_CHECKS.json` for the native checks and `BUILD.json` for provenance and verified images.

@@ -1,0 +1,579 @@
+{
+  "line": 31,
+  "lock": "LOCK 24 V2",
+  "brief": "DOC-TFG-0083",
+  "tested_base_commit_sha": "87105beb4cacf27e3044de944b9642d95cf31683",
+  "capture_source": "Line 31 working source over the tested base. The 11 November Codex task note identifies the commit containing the source and evidence.",
+  "godot_version": "4.7.2-stable (official)",
+  "godot_binary_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T19:21:34Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Native Godot viewport. Real UI input drives arrival, Abbas, sending each trip, the first scholar page and What people say.",
+  "fixture": "Passive ticks paused. After fair arrival, skip_to sets the calendar and leaves skipped prayers unplayed. The player is placed at the named live place marker. The reputation fixtures face the square from a1 for the street backdrop. Coins and trust are staged at 300 and 45, with 30 coins for b10. Sending, the checkbox, trip returns, counters and reputation use production actions.",
+  "headless_checks_passed": 4058,
+  "native_checks_passed": 365,
+  "native_regression_checks_passed": {
+    "feeding": 210,
+    "jabirs-goats": 229,
+    "calendar": 240,
+    "ramadan": 133,
+    "iftar-giving": 392,
+    "eid-al-fitr": 217,
+    "zakat": 539,
+    "eid-al-adha": 366
+  },
+  "approved_inputs": [
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BRIEFS/BUILD_BRIEF_2026-11-09_PILGRIMS.md",
+      "bytes": 2409,
+      "sha256": "b4dff8060be2e451330925d3a175ec38b0baa9074324c4b4cf377ae504e08436"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/RECORD/LOCK_RECORD.md",
+      "bytes": 1112,
+      "sha256": "5e0fa42b3ceb572b09cd24adb5fa644afc776e83af69a12a9de9a1730988a091"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/RECORD/PILGRIMS_SPEC_CURRENT_VERSION_V2.md",
+      "bytes": 4786,
+      "sha256": "6b0964065026e02ed04316ed42b629278305dfeb99f84ea9c6138ab380c5a676"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/RECORD/pilgrims_data_V2.json",
+      "bytes": 2452,
+      "sha256": "940e40446d0c056b26c2852df7833b310f03b1fda78f348fac68929682b97d32"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/MASTERS/b01_gate__abbas_takes_pilgrims.png",
+      "bytes": 68838,
+      "sha256": "9445f2af9c635db4478d069e3e6f2399de2387d9b118acd20a70fa7430850eea"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/MASTERS/b02_pilgrim__shawwal_all_open.png",
+      "bytes": 326259,
+      "sha256": "5b0616ad7af65387434f3e4bc1c43f310647910938f62f1011d9f1a6588a9670"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/MASTERS/b03_pilgrim__musa_on_the_road.png",
+      "bytes": 330445,
+      "sha256": "bc970e1feac956683446aae90bab774ddf2d365d91d87c12aecde160f034528e"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/MASTERS/b04_pilgrim__idris_on_hajj.png",
+      "bytes": 326009,
+      "sha256": "75b9a3c75fb5394f127b307b093e9343667c95f52935c4b440a1aa9e25ddecc0"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/MASTERS/b05_pilgrim__musa_came_home.png",
+      "bytes": 326422,
+      "sha256": "e61e4eef05636f09428a71c17a477d5bed76ec2bbba0c8ddc674e4b955401ac2"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/MASTERS/b06_people_say__sent_musa.png",
+      "bytes": 323937,
+      "sha256": "8d4c53be001952a828841836e01822414907ab52eabcb3fc1b6d8a5ed414becb"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/MASTERS/b07_pilgrim__secret_ticked.png",
+      "bytes": 324161,
+      "sha256": "29a673da0b95206af2d670e64c31d2b61e2c332147556aa6ea4c55752b1983a1"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/MASTERS/b08_people_say__secret_no_line.png",
+      "bytes": 329142,
+      "sha256": "dedfd001dbbc0868761004fb7ce833473bf56338753ffb5ace4f1c9c435200bc"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/MASTERS/b09_pilgrim__ramadan_hajj_closed.png",
+      "bytes": 329022,
+      "sha256": "84f8b635187372469019f3759ad8bca3cba5fd60e4dcbe1c87bb15a25d6421fa"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/MASTERS/b10_pilgrim__not_enough_coins.png",
+      "bytes": 331583,
+      "sha256": "599fa2fcaa153d221fc94a7b25d53768898e1ab72cd166394b0b1fc4703ccc98"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/MASTERS/b11_gate__night_no_abbas.png",
+      "bytes": 87875,
+      "sha256": "3f0241af132b93bb39803811ffa646b5013b42f3939efc8c64a166e80c963ee6"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "SOURCE/data/calendar.json",
+      "bytes": 1552,
+      "sha256": "f3916e3a791113ae682f768442193ab2b0349fde6c81a8305c41094fa4407647"
+    },
+    {
+      "path": "SOURCE/data/chapter1.json",
+      "bytes": 7699,
+      "sha256": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0"
+    },
+    {
+      "path": "SOURCE/data/clothes.json",
+      "bytes": 2888,
+      "sha256": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e"
+    },
+    {
+      "path": "SOURCE/data/dice_house.json",
+      "bytes": 1460,
+      "sha256": "d769f3698748af05e5498e13de397a701c0aebf740eae006f4547e2b53e21c80"
+    },
+    {
+      "path": "SOURCE/data/dry_fountain.json",
+      "bytes": 1373,
+      "sha256": "1eeaf232e9f43cbd9ddc411dae127dc34a0a6f89c6666819e416cf25ef79117f"
+    },
+    {
+      "path": "SOURCE/data/eid_al_adha.json",
+      "bytes": 2647,
+      "sha256": "52ace3b3d275173235220eb7ebfde7b2eb15cc4f15adb73520b9ec5b3018d4c3"
+    },
+    {
+      "path": "SOURCE/data/eid_al_fitr.json",
+      "bytes": 1665,
+      "sha256": "28dc157a37e0fb758773a320e745330673194bbf04707cb5f48293948ff51167"
+    },
+    {
+      "path": "SOURCE/data/feeding.json",
+      "bytes": 1470,
+      "sha256": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7"
+    },
+    {
+      "path": "SOURCE/data/foundations.json",
+      "bytes": 11978,
+      "sha256": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf"
+    },
+    {
+      "path": "SOURCE/data/harm_in_the_road.json",
+      "bytes": 1052,
+      "sha256": "26dc6570e4646c6487c01cba4cfec9d7f9873735445cfffcb68736b1d4c945a1"
+    },
+    {
+      "path": "SOURCE/data/identity.json",
+      "bytes": 14838,
+      "sha256": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647"
+    },
+    {
+      "path": "SOURCE/data/idris_has_heard.json",
+      "bytes": 742,
+      "sha256": "392e1d296199d473dca7e3f8a166a91d9e28d0f2c23461203642483d3a3a527e"
+    },
+    {
+      "path": "SOURCE/data/iftar_giving.json",
+      "bytes": 1573,
+      "sha256": "2b6c25508849062c9af59d4250a8658fd4b04f312c344e7adfdbbf2f7641beea"
+    },
+    {
+      "path": "SOURCE/data/jabirs_goats.json",
+      "bytes": 1857,
+      "sha256": "dd62e7b0f917e8db3c30c3b30435bb3098496598344252ffd8e98808f0ba2d99"
+    },
+    {
+      "path": "SOURCE/data/market_day.json",
+      "bytes": 1071,
+      "sha256": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05"
+    },
+    {
+      "path": "SOURCE/data/market_stall.json",
+      "bytes": 2593,
+      "sha256": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604"
+    },
+    {
+      "path": "SOURCE/data/pilgrims.json",
+      "bytes": 2452,
+      "sha256": "940e40446d0c056b26c2852df7833b310f03b1fda78f348fac68929682b97d32"
+    },
+    {
+      "path": "SOURCE/data/prayer_record.json",
+      "bytes": 1009,
+      "sha256": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9"
+    },
+    {
+      "path": "SOURCE/data/qasims_jars.json",
+      "bytes": 1352,
+      "sha256": "c7a2c0a56d676ef6606769f94075ec537707875eecf8767d8dac43fda2c34bfb"
+    },
+    {
+      "path": "SOURCE/data/ramadan.json",
+      "bytes": 1181,
+      "sha256": "e2870da793e0923ac619736e2d60d3ca2c927bdae59f7ccb7c37439333e3e4dc"
+    },
+    {
+      "path": "SOURCE/data/rashids_loan.json",
+      "bytes": 2776,
+      "sha256": "89d162d30ea41ef7c65d2de0bf07ea3fae81d02e4b424c1933991a6ceba2893f"
+    },
+    {
+      "path": "SOURCE/data/sealed_purse.json",
+      "bytes": 1902,
+      "sha256": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a"
+    },
+    {
+      "path": "SOURCE/data/talking.json",
+      "bytes": 3854,
+      "sha256": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4"
+    },
+    {
+      "path": "SOURCE/data/zakat.json",
+      "bytes": 1628,
+      "sha256": "29b93397edf4dc940a803f94685e943b27f6930c9b20d0410119a2ccb9263984"
+    },
+    {
+      "path": "SOURCE/game/bread_grab.gd",
+      "bytes": 1345,
+      "sha256": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468"
+    },
+    {
+      "path": "SOURCE/game/dice_house.gd",
+      "bytes": 2080,
+      "sha256": "17513513173a8d6729b9600baa2ec0999571716df233128f1a44cb249e88e0d5"
+    },
+    {
+      "path": "SOURCE/game/dry_fountain.gd",
+      "bytes": 1322,
+      "sha256": "f49d81661ec0af2495bffe9e102cafc5c9545149a5f1cf87bed6f2bd10162e95"
+    },
+    {
+      "path": "SOURCE/game/eid_al_adha.gd",
+      "bytes": 4783,
+      "sha256": "97ad5bd46318024f0a20a14e923459cd8477b28679ad28061a6e20c62a03cf07"
+    },
+    {
+      "path": "SOURCE/game/eid_al_fitr.gd",
+      "bytes": 3225,
+      "sha256": "ada3689c7bde66a6c778b882083b1cd2e25fd549e336944be3cde0342e9522b2"
+    },
+    {
+      "path": "SOURCE/game/feeding.gd",
+      "bytes": 2090,
+      "sha256": "cb75b6564194db6084c3e72c0671990de6ee756ecb27fb5743d0d03d41a1dd54"
+    },
+    {
+      "path": "SOURCE/game/foundations.gd",
+      "bytes": 7113,
+      "sha256": "d3e8a978134367429f2a85b0a20f14fffc59ea9d31409605c9a93a74d97a4416"
+    },
+    {
+      "path": "SOURCE/game/harm_in_the_road.gd",
+      "bytes": 1017,
+      "sha256": "dd288040b79c39c00470cd4b6ce5ab23d8d49f11c9f9ac6e09e4875019f5c50e"
+    },
+    {
+      "path": "SOURCE/game/hijri_calendar.gd",
+      "bytes": 2169,
+      "sha256": "cf5518070e1b8d87d8965babd287f9e4242753f622dbb098327e7acb7abd9155"
+    },
+    {
+      "path": "SOURCE/game/idris_recovery.gd",
+      "bytes": 1019,
+      "sha256": "6cb5d86d23ef6fab7fe1579c0bc80ee270008627f2493b5b33fab0dd4fa0635e"
+    },
+    {
+      "path": "SOURCE/game/iftar_giving.gd",
+      "bytes": 452,
+      "sha256": "6da651e0e374253f746b47565c61cd26451c1f6de24d2e2ae04ba7a314e8fda3"
+    },
+    {
+      "path": "SOURCE/game/jabirs_goats.gd",
+      "bytes": 1858,
+      "sha256": "5cae78452ff85fd392a85378fa044394810755b31f76dfc980a6c5c95c19f1d6"
+    },
+    {
+      "path": "SOURCE/game/lesson_canvas.gd",
+      "bytes": 1218,
+      "sha256": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c"
+    },
+    {
+      "path": "SOURCE/game/map_canvas.gd",
+      "bytes": 13421,
+      "sha256": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba"
+    },
+    {
+      "path": "SOURCE/game/market_day.gd",
+      "bytes": 1065,
+      "sha256": "3cb77474a4fd5fffb10caa13954c0369a3759235cd60449a258fa202ce702b38"
+    },
+    {
+      "path": "SOURCE/game/market_player.gd",
+      "bytes": 4286,
+      "sha256": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2"
+    },
+    {
+      "path": "SOURCE/game/market_stall.gd",
+      "bytes": 4413,
+      "sha256": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56"
+    },
+    {
+      "path": "SOURCE/game/market_ui.gd",
+      "bytes": 112304,
+      "sha256": "3204b874e085ffef733ff8d0c3faffed2472ec3153ae8dea176da47398e3bbfa"
+    },
+    {
+      "path": "SOURCE/game/market_world.gd",
+      "bytes": 16495,
+      "sha256": "ed830fb38da942b1f81b66c9dd4d734eb74dc84b555930d725303304afe217a8"
+    },
+    {
+      "path": "SOURCE/game/open_purse.gd",
+      "bytes": 3329,
+      "sha256": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9"
+    },
+    {
+      "path": "SOURCE/game/pilgrims.gd",
+      "bytes": 3248,
+      "sha256": "75c07f31419bf6fc4e3e2d5b94877c8ad964efc4c818269e0f921b832b91c7f5"
+    },
+    {
+      "path": "SOURCE/game/prayer_clock.gd",
+      "bytes": 12710,
+      "sha256": "9e85b7e45d6b300cbb094703195f870fff2d72c73f57a6c334f5c982ede0858c"
+    },
+    {
+      "path": "SOURCE/game/qasims_jars.gd",
+      "bytes": 1521,
+      "sha256": "b136d4f3c187fc775c811e010de6c848e7ebc00b51b8464e7f77c0b8f1f40c6a"
+    },
+    {
+      "path": "SOURCE/game/ramadan.gd",
+      "bytes": 2736,
+      "sha256": "b6b09c71b01b8f070bab577d9374cbe7ffee2e906bc8f7b942c17cb270e47a18"
+    },
+    {
+      "path": "SOURCE/game/rashids_loan.gd",
+      "bytes": 2586,
+      "sha256": "0ecd01729c296de41f7b4f9ce3404b88386fa6bb19d2d97b8959671d9836074a"
+    },
+    {
+      "path": "SOURCE/game/river_market.gd",
+      "bytes": 44735,
+      "sha256": "3f3fc30a36258888e9a19785e6ffc98220850a93ff72a08736d346d413ef3829"
+    },
+    {
+      "path": "SOURCE/game/river_market.tscn",
+      "bytes": 171,
+      "sha256": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe"
+    },
+    {
+      "path": "SOURCE/game/sealed_purse.gd",
+      "bytes": 1725,
+      "sha256": "e3b46ae422a91cd824057e43881c80bb254dac24da5031163ac093d491bef7ab"
+    },
+    {
+      "path": "SOURCE/game/talking.gd",
+      "bytes": 2568,
+      "sha256": "546458aedd4c3c74f06e498f2160c8622fc5524a3f9d9ab49ec6cd0891bd0f86"
+    },
+    {
+      "path": "SOURCE/game/task_progress.gd",
+      "bytes": 3214,
+      "sha256": "0777fd340c6c2f0a8ed3ed724307e07fc2fe8228d1539d3c8d6f12602654b777"
+    },
+    {
+      "path": "SOURCE/game/zakat.gd",
+      "bytes": 3028,
+      "sha256": "9a3e1bdad4eff6b47a5af62324d7f17052ba66f5db04e278159925870656ca7d"
+    },
+    {
+      "path": "SOURCE/look_test/capture_helper.gd",
+      "bytes": 4967,
+      "sha256": "919939ac60ec7e8a269a90263272f6c9aa029a6a9de839a419a61af34d480fb8"
+    },
+    {
+      "path": "SOURCE/project.godot",
+      "bytes": 1690,
+      "sha256": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45"
+    },
+    {
+      "path": "SOURCE/tests/capture_identity.gd",
+      "bytes": 10390,
+      "sha256": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32"
+    },
+    {
+      "path": "SOURCE/tests/capture_pilgrims.gd",
+      "bytes": 14160,
+      "sha256": "2bf611ef06c3484a03b695768f47e22ba39a94ea600b931521824fcc760c3822"
+    },
+    {
+      "path": "SOURCE/tests/create_comparisons.gd",
+      "bytes": 9267,
+      "sha256": "195f78aadb53e780f24f83ee826a7bb31e850d6f2a6eee454acf42539cbc82fa"
+    }
+  ],
+  "headless_test_source": {
+    "path": "SOURCE/tests/run_tests.gd",
+    "bytes": 267795,
+    "sha256": "c8e01202f13a1a551adb22d3494b02a1e5b731131f2ff4f290d99449e8f70387"
+  },
+  "compression": {
+    "method": "Lossless PNG optimisation. Dropped fully opaque alpha channels, preserved decoded RGBA pixels and dimensions.",
+    "original_image_bytes": 14784380,
+    "final_image_bytes": 13525056,
+    "verified_image_count": 22
+  },
+  "evidence": [
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/LINE31_CHECKS.json",
+      "bytes": 47106,
+      "sha256": "19ea7506cacd3818a8bc7e12c9accc6805979e3fcd95f902d9ec6ba801e64835"
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b01_gate__abbas_takes_pilgrims__build.png",
+      "bytes": 171478,
+      "sha256": "f259b8670aac5bb6b41e88239f05a66a248a6036b18f58e548a68e0d571cdff8",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b01_gate__abbas_takes_pilgrims__master_beside_build.png",
+      "bytes": 348232,
+      "sha256": "7f5c9fcac1eae21258d44af56d77b92bda5e2509066c5a03088da01426169e8d",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b02_pilgrim__shawwal_all_open__build.png",
+      "bytes": 402391,
+      "sha256": "948a92c2356d9e5c4de9ff8212392a6741ace1ce25e6ae48c5fa3b985116e737",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b02_pilgrim__shawwal_all_open__master_beside_build.png",
+      "bytes": 1153375,
+      "sha256": "83955be98e40a6c4f12bac00fd227091b2eeb45ec3ebaffe1a166190f3262c4b",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b03_pilgrim__musa_on_the_road__build.png",
+      "bytes": 368608,
+      "sha256": "f6a3a575883f4fe72c4813812c447044f1c6c44967cc88859d2bd783b7715233",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b03_pilgrim__musa_on_the_road__master_beside_build.png",
+      "bytes": 1125573,
+      "sha256": "68523c115a7db58d100b6590aae852dfc5fdcd7f3fa35c28b76941d6675f46b0",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b04_pilgrim__idris_on_hajj__build.png",
+      "bytes": 359459,
+      "sha256": "b3dcd5e8e8c91e4c5bbb57d2337b939e36fef0de84457ef07d391eb1817bc234",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b04_pilgrim__idris_on_hajj__master_beside_build.png",
+      "bytes": 1112169,
+      "sha256": "8e4631b2a15c0c261747c64b30d660ef0e3a725e472fbdb2699e9599f4d266cf",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b05_pilgrim__musa_came_home__build.png",
+      "bytes": 348674,
+      "sha256": "fab65034d27d61cde7437a7fd89e003fe498e589e945da9132668d5f315789b8",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b05_pilgrim__musa_came_home__master_beside_build.png",
+      "bytes": 1099473,
+      "sha256": "b884a8f240c50363bd84532d175e5c68eb5ab13674fddbc5d3d100ad2f443543",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b06_people_say__sent_musa__build.png",
+      "bytes": 125856,
+      "sha256": "dc9a7b09be288de15ad778c4d59e3147127abc1083c89ad38a1eecdc63b82cc3",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b06_people_say__sent_musa__master_beside_build.png",
+      "bytes": 832319,
+      "sha256": "2cf7e992ad0c27f948ad7b1b3c5c62eb71730aee5b65d60a4d718a89169a49e0",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b07_pilgrim__secret_ticked__build.png",
+      "bytes": 364231,
+      "sha256": "20576b971889207393fb091e345ea0cdf9dc1830b7cbf66a3a3e5031cdcbfad7",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b07_pilgrim__secret_ticked__master_beside_build.png",
+      "bytes": 1109086,
+      "sha256": "d3264d382e2f09ab7730a348d044c773195414af2e173a6949d6fb890ad3c09b",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b08_people_say__secret_no_line__build.png",
+      "bytes": 126685,
+      "sha256": "f17b88a65a1a292f42fcf68b7ff4c4536232b7350047440dc34388b12e0bb62f",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b08_people_say__secret_no_line__master_beside_build.png",
+      "bytes": 845852,
+      "sha256": "6e0c8c094a56cab44b4a026dbd300f321aabe06aeea2441d227ee5848b603781",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b09_pilgrim__ramadan_hajj_closed__build.png",
+      "bytes": 375170,
+      "sha256": "f8d326695b0cd92a9106454b42cdb251d68e993b6afb36441d33204ea1b95402",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b09_pilgrim__ramadan_hajj_closed__master_beside_build.png",
+      "bytes": 1130141,
+      "sha256": "a663685b714c57c6f0648811251c1537e682415403848c959afd2bd89b2f1081",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b10_pilgrim__not_enough_coins__build.png",
+      "bytes": 350517,
+      "sha256": "9ca3a7f8051ddf09e887ba8b2afdd73ae29f5256940a40bc159a9c9a80c047fb",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b10_pilgrim__not_enough_coins__master_beside_build.png",
+      "bytes": 1104310,
+      "sha256": "6b14666c13e3303d31b76313c0388e529a7626bdcdf7bedb6e9d6d6dc5c00fb8",
+      "width": 3840,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b11_gate__night_no_abbas__build.png",
+      "bytes": 230358,
+      "sha256": "2dea9fb65e8dde1731b29cdc645ece9843e7d3fda2d8815ebe9e8601a49ab4e3",
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "path": "GAME/APPROVED/PILGRIMS/BUILT/V1/b11_gate__night_no_abbas__master_beside_build.png",
+      "bytes": 441099,
+      "sha256": "6a0dd60a89277ab3c3d2569d9bb8edc624a2c38be0c37f517efe80c7794d2be3",
+      "width": 3840,
+      "height": 1080
+    }
+  ]
+}

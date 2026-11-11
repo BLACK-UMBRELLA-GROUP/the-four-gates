@@ -62,6 +62,8 @@ signal iftar_giving_requested
 signal iftar_giving_paid(id: String)
 signal zakat_requested
 signal zakat_paid(id: String)
+signal pilgrims_requested
+signal pilgrim_sent(id: String)
 signal dry_fountain_requested
 signal dry_fountain_paid(choice: String)
 signal loan_requested
@@ -102,6 +104,7 @@ const Ramadan = preload("res://game/ramadan.gd")
 const EidAlFitr = preload("res://game/eid_al_fitr.gd")
 const EidAlAdha = preload("res://game/eid_al_adha.gd")
 const Zakat = preload("res://game/zakat.gd")
+const Pilgrims = preload("res://game/pilgrims.gd")
 const RAMADAN_BUTTONS := {
 	Ramadan.Action.SUHOOR: "suhoor_button",
 	Ramadan.Action.IFTAR: "iftar_button",
@@ -131,7 +134,7 @@ const QASIMS_JARS_SCREENS := ["qasims_offer", "qasims_done"]
 const JABIRS_GOATS_SCREENS := ["jabirs_offer", "jabirs_bought", "jabirs_told"]
 const DRY_FOUNTAIN_SCREENS := ["dry_fountain", "fountain_done"]
 const LOAN_SCREENS := ["loan_ask", "loan_lent", "loan_riba", "loan_due", "loan_after", "loan_last"]
-const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_refused", "purse_morning", "reputation", "harm_done"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS + DRY_FOUNTAIN_SCREENS + LOAN_SCREENS
+const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_refused", "purse_morning", "reputation", "harm_done", "pilgrims"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS + DRY_FOUNTAIN_SCREENS + LOAN_SCREENS
 var data: Dictionary = {}
 var identity: Dictionary = {}
 var chapter: Dictionary
@@ -148,6 +151,7 @@ var eid_al_fitr: EidAlFitr
 var eid_al_adha: EidAlAdha
 var adha_sacrifice_receipt := ""
 var zakat: Zakat
+var pilgrims: Pilgrims
 var sealed_purse: SealedPurse
 var dice_house: DiceHouse
 var qasims_jars: QasimsJars
@@ -167,6 +171,7 @@ var _iftar_giving_available := false
 var _night_prayer_available := false
 var _fitr_available := false
 var _zakat_available := false
+var _pilgrims_available := false
 var _eid_prayer_available := false
 var _adha_action := EidAlAdha.Action.NONE
 var _eid_line := ""
@@ -228,7 +233,7 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars, jabirs_goats_value: JabirsGoats, idris_recovery_value: IdrisRecovery, dry_fountain_value: DryFountain, rashids_loan_value: RashidsLoan, harm_in_the_road_value: HarmInTheRoad, ramadan_value: Ramadan, iftar_giving_value: IftarGiving, eid_al_fitr_value: EidAlFitr, zakat_value: Zakat, eid_al_adha_value: EidAlAdha) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars, jabirs_goats_value: JabirsGoats, idris_recovery_value: IdrisRecovery, dry_fountain_value: DryFountain, rashids_loan_value: RashidsLoan, harm_in_the_road_value: HarmInTheRoad, ramadan_value: Ramadan, iftar_giving_value: IftarGiving, eid_al_fitr_value: EidAlFitr, zakat_value: Zakat, eid_al_adha_value: EidAlAdha, pilgrims_value: Pilgrims) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
@@ -252,6 +257,7 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	eid_al_fitr = eid_al_fitr_value
 	zakat = zakat_value
 	eid_al_adha = eid_al_adha_value
+	pilgrims = pilgrims_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -362,6 +368,9 @@ func _rebuild_screen() -> void:
 		"zakat":
 			_build_hud()
 			_build_zakat()
+		"pilgrims":
+			_build_hud()
+			_build_pilgrims()
 		"adha_sheep", "adha_eid", "adha_sacrifice":
 			_build_hud()
 			_build_adha_panel()
@@ -474,7 +483,7 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 		rebuild = rebuild or _last_idris_cool != idris_recovery.cool
 	if place_value == "board" and dry_fountain.is_running() and screen in ["game", "market_map"]:
 		rebuild = rebuild or _clock_day != clock.day
-	if screen == "reputation" and market_stall.worn_clothes == "best":
+	if screen in ["pilgrims", "reputation"]:
 		rebuild = rebuild or _clock_day != clock.day
 	var prompt := bread_grab.board_prompt(salma_present) if place_value == "board" else BreadGrab.Prompt.NONE
 	if prompt != _board_prompt:
@@ -491,6 +500,10 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	var zakat_available := zakat.available_at(place_value)
 	if zakat_available != _zakat_available:
 		_zakat_available = zakat_available
+		rebuild = rebuild or screen in ["game", "market_map"]
+	var pilgrims_available := pilgrims.available_at(place_value)
+	if pilgrims_available != _pilgrims_available:
+		_pilgrims_available = pilgrims_available
 		rebuild = rebuild or screen in ["game", "market_map"]
 	var fitr := eid_al_fitr.fitr_available_at(place_value)
 	if fitr != _fitr_available:
@@ -1643,21 +1656,7 @@ func _build_feeding(giving: Feeding, paid: Signal) -> void:
 	var checkbox: CheckBox
 	var hint_y := y + 3.0
 	if not locked:
-		checkbox = CheckBox.new()
-		checkbox.text = copy.secret_label
-		checkbox.position = Vector2(34, hint_y)
-		checkbox.size.y = 42.0
-		checkbox.add_theme_font_override("font", font)
-		checkbox.add_theme_font_size_override("font_size", 23)
-		checkbox.add_theme_constant_override("h_separation", 12)
-		var unchecked := Image.create_empty(14, 14, false, Image.FORMAT_RGBA8)
-		unchecked.fill(Color("898989"))
-		unchecked.fill_rect(Rect2i(1, 1, 12, 12), Color("343434"))
-		checkbox.add_theme_icon_override("unchecked", ImageTexture.create_from_image(unchecked))
-		for state in ["font_color", "font_hover_color", "font_focus_color", "font_pressed_color"]:
-			checkbox.add_theme_color_override(state, PAPER)
-		checkbox.button_pressed = giving.secret_selected
-		panel.add_child(checkbox)
+		checkbox = _secret_checkbox(panel, copy.secret_label, hint_y, giving.secret_selected)
 		hint_y += 45.0
 	var hint := _spaced_caption(panel, copy.secret_locked if locked else copy.secret_on, hint_y)
 	var counter := _spaced_caption(panel, giving.counter(), 0.0)
@@ -1671,6 +1670,79 @@ func _build_feeding(giving: Feeding, paid: Signal) -> void:
 	if checkbox != null:
 		checkbox.toggled.connect(layout_footer)
 	layout_footer.call(not locked and giving.secret_selected)
+
+
+func _secret_checkbox(panel: Panel, caption: String, y: float, selected: bool) -> CheckBox:
+	var checkbox := CheckBox.new()
+	checkbox.text = caption
+	checkbox.position = Vector2(34, y)
+	checkbox.size.y = 42.0
+	checkbox.add_theme_font_override("font", font)
+	checkbox.add_theme_font_size_override("font_size", 23)
+	checkbox.add_theme_constant_override("h_separation", 12)
+	var unchecked := Image.create_empty(14, 14, false, Image.FORMAT_RGBA8)
+	unchecked.fill(Color("898989"))
+	unchecked.fill_rect(Rect2i(1, 1, 12, 12), Color("343434"))
+	checkbox.add_theme_icon_override("unchecked", ImageTexture.create_from_image(unchecked))
+	for state in ["font_color", "font_hover_color", "font_focus_color", "font_pressed_color"]:
+		checkbox.add_theme_color_override(state, PAPER)
+	checkbox.button_pressed = selected
+	panel.add_child(checkbox)
+	return checkbox
+
+
+func _build_pilgrims() -> void:
+	var copy: Dictionary = pilgrims.data.panel
+	var panel := _chapter_panel(copy.kicker, copy.title, true)
+	var style := panel.get_theme_stylebox("panel") as StyleBoxFlat
+	style.set_corner_radius_all(18)
+	var y := 111.0 + _story_text(panel, copy.text, 111.0) + 10.0
+	for pilgrim: Dictionary in pilgrims.data.pilgrims:
+		_pilgrim_row(panel, pilgrim, copy, y)
+		y += 61.0
+
+	if open_purse.page_read:
+		var checkbox := _secret_checkbox(panel, copy.secret_label, y, pilgrims.secret_selected)
+		checkbox.toggled.connect(func(selected: bool): pilgrims.secret_selected = selected)
+		y += 45.0
+	else:
+		_spaced_caption(panel, copy.secret_locked, y)
+		y += 36.0
+	var back_width := _button_width(copy.back)
+	var counters := _spaced_caption(panel, pilgrims.counters(), y + 14.0)
+	counters.size.x = 1120.0 - back_width - 16.0
+	_button(copy.back, Vector2(1154.0 - back_width, y), Vector2(back_width, 56.0),
+		func(): screen_requested.emit("market_map"), false, panel)
+	_chapter_finish(panel, y)
+
+
+func _pilgrim_row(panel: Panel, pilgrim: Dictionary, copy: Dictionary, y: float) -> void:
+	_chapter_row_rule(panel, y)
+	var name_width := bold_font.get_string_size(pilgrim.name, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+	_label(panel, pilgrim.name, Vector2(34, y + 2), Vector2(name_width, 31), 23, PAPER, true)
+	var kind: String = pilgrims.data.kind_hajj if pilgrim.kind == "hajj" else pilgrims.data.kind_umrah
+	_label(panel, " · " + kind, Vector2(34 + name_width, y + 2), Vector2(120, 31), 23, PAPER)
+	_label(panel, pilgrim.line, Vector2(34, y + 32), Vector2(1000, 25), 18, PAPER)
+	var notice := ""
+	match pilgrims.status(pilgrim):
+		Pilgrims.Status.SEND:
+			var id: String = pilgrim.id
+			var caption := str(copy.send).format({"n": pilgrims.cost(pilgrim)})
+			var width := _button_width(caption, true)
+			var button := _button(caption, Vector2(1154.0 - width, y + 7), Vector2(width, 47),
+				func(): pilgrim_sent.emit(id), true, panel)
+			button.name = "SendPilgrim_" + id
+			return
+		Pilgrims.Status.NOT_ENOUGH:
+			notice = copy.not_enough
+		Pilgrims.Status.HAJJ_CLOSED:
+			notice = copy.hajj_closed
+		Pilgrims.Status.AWAY:
+			notice = str(copy.away).format({"n": pilgrims.days_until_home(pilgrim.id)})
+		Pilgrims.Status.HOME:
+			notice = copy.home
+	var label := _label(panel, notice, Vector2(634, y + 7), Vector2(520, 47), 23, PAPER)
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 
 
 func _build_stall_change() -> void:
@@ -1854,6 +1926,7 @@ func reputation_lines() -> Array:
 	var iftar_line: Variant = iftar_giving.reputation_line()
 	if iftar_line != null:
 		lines.append(iftar_line)
+	lines.append_array(pilgrims.reputation_lines())
 	var greeting: Variant = talking.reputation_line()
 	if greeting != null:
 		lines.append(greeting)
@@ -2116,7 +2189,8 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		button.width = _button_width(button.text, button.primary) + 18.0
 		eid_width += button.width
 	var zakat_width := _button_width(zakat.data.masjid_button) + 18.0 if _zakat_available else 0.0
-	var last_actions_width := eid_width + zakat_width
+	var pilgrims_width := _button_width(pilgrims.data.gate_button) + 18.0 if _pilgrims_available else 0.0
+	var last_actions_width := eid_width + zakat_width + pilgrims_width
 	var eid_at := Vector2(total_width + 1.0, 0.0)
 	var eid_height := 0.0
 	if last_actions_width > 0.0:
@@ -2227,6 +2301,9 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if _zakat_available:
 		_button(zakat.data.masjid_button, eid_at + Vector2(x + eid_line_width, bar_y + 8.0),
 			Vector2(zakat_width - 18.0, 56), func(): zakat_requested.emit())
+	if _pilgrims_available:
+		_button(pilgrims.data.gate_button, eid_at + Vector2(x + eid_line_width + zakat_width, bar_y + 8.0),
+			Vector2(pilgrims_width - 18.0, 56), func(): pilgrims_requested.emit())
 	if carrying_footer:
 		var carrying_y := height - 50.0 if harm_available or ramadan_width > 0.0 or eid_width > 0.0 else 73.0
 		_label(panel, carrying_text, Vector2(18, carrying_y), Vector2(carrying_width, 42), label_size, PAPER)

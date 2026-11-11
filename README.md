@@ -74,6 +74,8 @@ LOCK 22 assesses Zakat after each lunar year from arrival. Visit the Masjid for 
 LOCK 23 adds Saeed’s sheep at the Gate, the Day of Arafah intention at the Inn and the Eid al-Adha
 prayer at the Masjid. Sacrificing the sheep adds meals to the shared goal. **All your prayers** records
 the fast, prayer and sacrifice privately.
+LOCK 24 lets you pay Abbas at the Gate of Trust to send people on Umrah and Hajj. The caravan panel
+tracks the trips paid. Public returns add trust and appear in **What people say**. Secret returns stay private.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

@@ -41,11 +41,15 @@ func rest_cost(days: int) -> int:
 	return days * _night_cost
 
 
+func days_until_date(on_day: int, month: int, day_of_month: int) -> int:
+	var event_day := _offset(month, day_of_month) - _arrival_offset
+	return posmod(event_day - on_day, year_days)
+
+
 func coming_dates(on_day: int) -> Array[Dictionary]:
 	var rows: Array[Dictionary] = []
 	for event: Array in data.panel.events:
-		var event_day := _offset(int(event[1]), int(event[2])) - _arrival_offset
-		var days_until := posmod(event_day - on_day, year_days)
+		var days_until := days_until_date(on_day, int(event[1]), int(event[2]))
 		rows.append(_event_row(event[0], on_day, days_until))
 	var until_zakat := posmod(-on_day, year_days) if on_day > 0 else year_days - on_day
 	rows.append(_event_row(data.panel.zakat, on_day, until_zakat))

@@ -111,6 +111,10 @@ func _initialize() -> void:
 		var runner := load("res://tests/capture_eid_al_adha.gd")
 		quit(0 if _compare_master_set("res://../GAME/APPROVED/EID_AL_ADHA/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
 		return
+	if "--pilgrims" in OS.get_cmdline_user_args():
+		var runner := load("res://tests/capture_pilgrims.gd")
+		quit(0 if _compare_master_set("res://../GAME/APPROVED/PILGRIMS/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
+		return
 	quit(0 if _compare_master_set(folder + "MASTERS/", folder + evidence, names) else 1)
 
 func _compare_master_set(masters: String, evidence: String, stems: Array) -> bool:

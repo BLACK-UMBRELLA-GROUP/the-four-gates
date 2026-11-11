@@ -154,6 +154,7 @@ func _run() -> void:
 	await check_eid_al_fitr_runtime()
 	await check_zakat_runtime()
 	await check_eid_al_adha_runtime()
+	await check_pilgrims_runtime()
 	finish()
 
 
@@ -4085,3 +4086,120 @@ func check_adha_panel(screen: String, copy: Dictionary) -> void:
 	var text := visible_text()
 	check(app.ui.screen == screen and text.contains(str(copy.kicker).to_upper())
 		and has_visible_label(app.ui, copy.title) and text.contains(copy.text), "the " + screen + " panel shows its locked copy")
+
+
+func check_pilgrims_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/PILGRIMS/RECORD/pilgrims_data_V2.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/pilgrims.json")
+	var copy: Dictionary = app.pilgrims.data
+	check(not approved.is_empty() and approved == runtime, "pilgrims use the exact LOCK 24 V2 data")
+	check(copy == JSON.parse_string(runtime.get_string_from_utf8()), "the live pilgrim panel reads the locked runtime data")
+	app.set_process(false)
+	await check_pilgrim_booking(copy)
+	await check_pilgrim_returns(copy)
+	app.set_process(true)
+
+
+func check_pilgrim_booking(copy: Dictionary) -> void:
+	var panel: Dictionary = copy.panel
+	app.begin_game()
+	move_market_fixture("gate")
+	for boundary: Array in [[419, false], [420, true], [1079, true], [1080, false]]:
+		stage_ramadan(1, boundary[0], "gate")
+		check((find_button(app.ui, copy.gate_button) != null) == boundary[1],
+			"Abbas availability at Gate minute %d" % boundary[0])
+	app.ui.pilgrims_requested.emit()
+	check(app.ui.screen == "market_map", "a direct Abbas request after closing leaves the map open")
+
+	reset_at_market_place("quay", 300, 59)
+	check(find_button(app.ui, copy.gate_button) == null, "Abbas is Gate-only")
+	app.ui.pilgrims_requested.emit()
+	check(app.ui.screen == "market_map", "a direct Abbas request away from the Gate leaves the map open")
+	move_market_fixture("gate")
+	await press_button(copy.gate_button, "Abbas offers Umrah during Ramadan")
+	check(app.ui.screen == "pilgrims" and has_visible_label(app.ui, panel.title)
+		and visible_text().contains(panel.text) and has_visible_label(app.ui, str(panel.kicker).to_upper()),
+		"the caravan panel uses the locked heading and story")
+	check(has_visible_label(app.ui, panel.hajj_closed) and app.ui.find_child("SendPilgrim_idris", true, false) == null,
+		"the last day of Ramadan displays the locked Hajj booking window")
+	check(has_visible_label(app.ui, str(panel.secret_locked).to_upper()) and find_button(app.ui, panel.secret_label) == null,
+		"secret sending unlocks only after the first page")
+	check(has_visible_label(app.ui, "UMRAH TRIPS PAID: 0 / 1,000 · HAJJ TRIPS PAID: 0 / 100"), "the zero counters show the locked goals")
+	app.ui.pilgrim_sent.emit("idris")
+	check(app.progress.coins == 300 and app.pilgrims.hajj_paid == 0, "out-of-window Hajj requests do not charge")
+	for boundary: Array in [[60, true], [113, true], [114, false]]:
+		app.clock.advance_to(boundary[0], 600, false)
+		app.update_state()
+		check((app.ui.find_child("SendPilgrim_idris", true, false) != null) == boundary[1],
+			"Hajj is bookable from 1 Shawwal through 25 Dhu al-Qa'dah inclusive")
+	var back := find_button(app.ui, panel.back)
+	var counters := find_visible_label(app.ui, "UMRAH TRIPS PAID: 0 / 1,000 · HAJJ TRIPS PAID: 0 / 100")
+	check(back != null and counters != null and back.get_global_rect().encloses(
+		Rect2(Vector2(back.global_position.x, counters.global_position.y), Vector2(1, 1))),
+		"the counters and Back button share a visible footer row")
+	await press_button(panel.back, "Back returns to the market map")
+	check(app.ui.screen == "market_map", "Back closes Abbas")
+
+	reset_at_market_place("gate", 30, 61)
+	await press_button(copy.gate_button, "a short wallet can still view the pilgrim panel")
+	var text := visible_text()
+	check(text.count(panel.not_enough) == 4 and not text.contains("Send him ·"), "a 30-coin wallet shows four locked shortage notices")
+	app.ui.pilgrim_sent.emit("musa")
+	app.ui.pilgrim_sent.emit("idris")
+	app.ui.pilgrim_sent.emit("unknown")
+	check(app.progress.coins == 30 and app.pilgrims.umrah_paid == 0 and app.pilgrims.hajj_paid == 0,
+		"short wallets and invalid requests cannot book trips")
+
+
+func check_pilgrim_returns(copy: Dictionary) -> void:
+	var panel: Dictionary = copy.panel
+	reset_at_market_place("gate", 300, 61)
+	app.progress.trust = 45
+	app.open_purse.page_read = true
+	await press_button(copy.gate_button, "open Abbas on 2 Shawwal")
+	await press_control(app.ui.find_child("SendPilgrim_musa", true, false), "send Old Musa publicly for 40 coins")
+	check(app.progress.coins == 260 and app.pilgrims.umrah_paid == 1 and app.progress.trust == 45
+		and app.pilgrims.reputation_lines().is_empty(), "booking pays once and public trust waits for home")
+	check(has_visible_label(app.ui, str(panel.away).format({"n": 30})), "Umrah starts 30 days from home")
+	var secret := find_button(app.ui, panel.secret_label) as CheckBox
+	check(secret != null and not secret.button_pressed, "after the first page a new panel starts with the secret box clear")
+	if secret != null:
+		secret.button_pressed = true
+	await press_control(app.ui.find_child("SendPilgrim_yunus", true, false), "send Yunus with the secret option selected")
+	secret = find_button(app.ui, panel.secret_label) as CheckBox
+	check(secret != null and secret.button_pressed, "sending keeps the secret choice within the open panel")
+	if secret != null:
+		secret.button_pressed = false
+	await press_control(app.ui.find_child("SendPilgrim_idris", true, false), "send Idris publicly for 120 coins")
+	check(app.progress.coins == 100 and app.pilgrims.umrah_paid == 2 and app.pilgrims.hajj_paid == 1
+		and has_visible_label(app.ui, str(panel.away).format({"n": 82})), "the counters and Hajj's 82-day return update immediately")
+	app.ui.pilgrim_sent.emit("musa")
+	app.ui.pilgrim_sent.emit("idris")
+	check(app.progress.coins == 100, "a second request for an away pilgrim cannot charge")
+
+	app.clock.advance_to(90, 600, false)
+	app.update_state()
+	check(app.progress.trust == 45 and app.pilgrims.reputation_lines().is_empty()
+		and has_visible_label(app.ui, str(panel.away).format({"n": 1})), "the Umrah trips remain away after 29 days")
+	app.clock.advance_to(91, 0, false)
+	app.update_state()
+	check(app.progress.trust == 47 and app.pilgrims.reputation_lines() == [copy.pilgrims[0].say]
+		and visible_text().count(panel.home) == 2, "both Umrah pilgrims return at day 30 and only the public one adds trust and a line")
+	app.ui.pilgrim_sent.emit("musa")
+	app.update_state()
+	check(app.progress.trust == 47 and app.progress.coins == 100, "repeat updates and requests after return have no effect")
+	await press_button(panel.back, "return to the map with both Umrah trips home")
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say")
+	check(has_visible_label(app.ui, "“%s”" % copy.pilgrims[0].say[0]) and not visible_text().contains(copy.pilgrims[1].say[0]),
+		"the public Umrah wording is visible while the secret trip leaves no line")
+	app.clock.advance_to(FIRST_DHU_AL_HIJJAH + 23, 600, false)
+	app.update_state()
+	check(app.progress.trust == 47 and app.pilgrims.reputation_lines().size() == 1, "Idris remains away through 24 Dhu al-Hijjah")
+	app.clock.advance_to(FIRST_DHU_AL_HIJJAH + 24, 0, false)
+	app.update_state()
+	check(app.progress.trust == 49 and has_visible_label(app.ui, "“%s”" % copy.pilgrims[3].say[0])
+		and app.pilgrims.reputation_lines() == [copy.pilgrims[0].say, copy.pilgrims[3].say],
+		"Idris returns on 25 Dhu al-Hijjah and updates the open reputation panel")
+	reset_at_market_place("gate", 300, 61)
+	check(app.pilgrims.umrah_paid == 0 and app.pilgrims.hajj_paid == 0 and app.pilgrims.reputation_lines().is_empty(),
+		"a fresh playthrough resets the pilgrim trips and counters")

@@ -3,6 +3,7 @@ extends RefCounted
 
 const TaskProgress = preload("res://game/task_progress.gd")
 const PrayerClock = preload("res://game/prayer_clock.gd")
+const Foundations = preload("res://game/foundations.gd")
 
 class MealCounter:
 	var total := 0
@@ -73,13 +74,6 @@ func reputation_line() -> Variant:
 
 func counter() -> String:
 	return str(data.panel.counter).format({
-		"n": _group_digits(meals_given),
-		"m": _group_digits(meal_counter.goal),
+		"n": Foundations.format_count(meals_given),
+		"m": Foundations.format_count(meal_counter.goal),
 	})
-
-
-func _group_digits(number: int) -> String:
-	var value := str(number)
-	for index in range(value.length() - 3, 0, -3):
-		value = value.insert(index, ",")
-	return value
