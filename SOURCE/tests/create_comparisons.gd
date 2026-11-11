@@ -21,21 +21,20 @@ func _initialize() -> void:
 		return
 	if "--idris" in OS.get_cmdline_user_args():
 		var runner := load("res://tests/capture_idris.gd")
-		var idris_evidence: String = runner.evidence_folder()
-		var masters := "res://../GAME/APPROVED/IDENTITY/MASTERS/"
-		for stem: String in runner.MASTER_STEMS:
-			var captured: String = idris_evidence.path_join(stem)
-			if not _compare(masters + stem + ".png", captured + "__build.png", captured + "__master_beside_build.png"):
-				quit(1)
-				return
-		quit(0)
+		quit(0 if _compare_master_set("res://../GAME/APPROVED/IDENTITY/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
 		return
-	for stem: String in names:
-		var captured := folder + evidence + stem
-		if not _compare(folder + "MASTERS/" + stem + ".png", captured + "__build.png", captured + "__master_beside_build.png"):
-			quit(1)
-			return
-	quit(0)
+	if "--open-purse" in OS.get_cmdline_user_args():
+		var runner := load("res://tests/capture_open_purse.gd")
+		quit(0 if _compare_master_set("res://../GAME/APPROVED/CHAPTER_1/MASTERS/", runner.evidence_folder(), runner.MASTER_STEMS) else 1)
+		return
+	quit(0 if _compare_master_set(folder + "MASTERS/", folder + evidence, names) else 1)
+
+func _compare_master_set(masters: String, evidence: String, stems: Array) -> bool:
+	for stem: String in stems:
+		var captured := evidence.path_join(stem)
+		if not _compare(masters.path_join(stem + ".png"), captured + "__build.png", captured + "__master_beside_build.png"):
+			return false
+	return true
 
 func _compare_clock() -> bool:
 	var runner := load("res://tests/capture_clock.gd")

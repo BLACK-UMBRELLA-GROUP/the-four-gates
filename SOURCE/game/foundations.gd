@@ -19,6 +19,11 @@ static func load_identity() -> Dictionary:
 	assert(parsed is Dictionary, "Approved identity data must be an object")
 	return parsed
 
+static func load_chapter1() -> Dictionary:
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/chapter1.json"))
+	assert(parsed is Dictionary, "Approved chapter 1 data must be an object")
+	return parsed
+
 static func configure_input(data: Dictionary) -> void:
 	# The project declares the actions; the locked key names supply their events.
 	var movement: PackedStringArray = str(data.keys.move).split(" ", false)

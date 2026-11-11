@@ -27,6 +27,9 @@ The Ilmara title opens first. Begin starts the four arrival beats at the quay wi
 The open scale gives 200 coins and the smiling changer gives 120. Paying for the first night leaves 198 or 118.
 The sunset choice moves the clock to 18:15. Walk River Market opens the map at the Inn, Arrive again
 restarts the arrival, and Meet the old man opens Idris's meeting at the Masjid.
+At the Inn, choose **People are waiting at the door** to open the purse. Ask Salma about the people and
+take her page to Idris to learn how to give in secret. **End the day** shows the next morning at 07:00.
+The market map and morning panel both open **What people say**.
 The game uses placeholder shapes.
 LOCK 1 parts 1–3 provide the street layout, collision, capsule player, camera, maps and task board.
 Use E at the board to take the three tasks, choose the honest or quick way, earn coins/trust, put quick choices right
@@ -152,3 +155,9 @@ capture checks and visual differences.
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --idris` to pair each master with
 the corresponding build. Pass `--idris-output=/absolute/path` after either command to write to a separate directory.
 See `IDRIS/BUILD.json` for the test counts, capture fixtures and visual differences.
+
+`godot --path SOURCE -- --capture-open-purse` captures all 16 LOCK 3 V2 part 1 masters and two street views
+in `GAME/APPROVED/CHAPTER_1/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --open-purse` to put each
+master to the left of its native capture. Pass `--open-purse-output=/absolute/path` after either command
+to use a separate directory. See `BUILD.json` for the provenance, visual differences and verified PNG hashes.

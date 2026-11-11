@@ -13,6 +13,7 @@ var sun: DirectionalLight3D
 var environment: Environment
 var house_count := 0
 var _segments: Array = []
+var _inn_people: Node3D
 
 
 func setup(source: Dictionary) -> void:
@@ -88,6 +89,49 @@ func setup(source: Dictionary) -> void:
 func point(id: String) -> Vector3:
 	var source: Dictionary = data.street_points[id] if data.street_points.has(id) else data.places[id]
 	return Vector3(source.x, 0.0, source.z)
+
+
+func setup_chapter_people(chapter: Dictionary) -> void:
+	_inn_people = Node3D.new()
+	_inn_people.name = "InnPeople"
+	_inn_people.position = point("inn")
+	add_child(_inn_people)
+	var down_street := (point(data.places.inn.street) - point("inn")).normalized()
+	var toward_edge := Vector3.UP.cross(down_street) * (float(data.street_width) / 3.0)
+	var index := 0
+	for person: Dictionary in chapter.purse.people:
+		if person.hidden:
+			continue
+		var offset := toward_edge + down_street * (index + 1) * float(data.player.capsule_height)
+		_add_chapter_person(_inn_people, str(person.name).get_slice(",", 0), offset)
+		index += 1
+
+	var along_square := (point(data.square.centre) - point("board")).normalized()
+	var oven_at := point("board") + along_square * float(data.player.capsule_height)
+	var oven_size := Vector3(1.0, 0.9, 0.85) * float(data.player.capsule_height)
+	_box(oven_at + Vector3.UP * oven_size.y / 2.0, oven_size, Color("8b5c41"), false)
+	var beside_oven := along_square.cross(Vector3.UP) * float(data.player.capsule_height)
+	_add_chapter_person(self, str(chapter.purse.baker.title).get_slice(" ", 0), oven_at + beside_oven)
+
+
+func set_inn_people_waiting(waiting: bool) -> void:
+	_inn_people.visible = waiting
+
+
+func _add_chapter_person(parent: Node3D, display_name: String, at: Vector3) -> void:
+	var mesh := CapsuleMesh.new()
+	mesh.height = data.player.capsule_height
+	mesh.radius = data.player.capsule_radius
+	var person := MeshInstance3D.new()
+	person.mesh = mesh
+	person.material_override = _material(Color("9c664a"))
+	person.position = at + Vector3.UP * mesh.height / 2.0
+	parent.add_child(person)
+	var label := Label3D.new()
+	label.text = display_name
+	label.position.y = mesh.height / 2.0 + mesh.radius
+	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
+	person.add_child(label)
 
 
 func _point2(id: String) -> Vector2:

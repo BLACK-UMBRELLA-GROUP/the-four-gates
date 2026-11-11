@@ -21,6 +21,8 @@ LOCK 2 part 2 adds the arrival at the quay, two money-changers, overnight rest a
 the scales for travellers who used the smiling changer.
 LOCK 2 part 3 adds the 48-minute day, adhan, five prayer windows, Friday congregation at the Masjid and a private prayer record.
 LOCK 2 part 4 adds the first meeting with Idris and the words the traveller can learn by listening and replying.
+LOCK 3 part 1 adds the people at the inn door, public and secret gifts, the first scholar’s page with Idris,
+and **What people say** on the market map.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

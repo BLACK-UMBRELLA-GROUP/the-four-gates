@@ -1,5 +1,5 @@
 extends Node3D
-## River Market arrival, Idris, prayer, movement, tasks, scales lesson and gate progression.
+## River Market arrival, prayer, movement, tasks and chapter progression.
 
 const Foundations = preload("res://game/foundations.gd")
 const MarketWorld = preload("res://game/market_world.gd")
@@ -7,9 +7,12 @@ const MarketPlayer = preload("res://game/market_player.gd")
 const MarketUI = preload("res://game/market_ui.gd")
 const TaskProgress = preload("res://game/task_progress.gd")
 const PrayerClock = preload("res://game/prayer_clock.gd")
+const OpenPurse = preload("res://game/open_purse.gd")
 
 var data: Dictionary
 var identity: Dictionary
+var chapter: Dictionary
+var open_purse := OpenPurse.new()
 var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
@@ -42,19 +45,23 @@ var _prayer_adhan: Variant = null
 func _ready() -> void:
 	data = Foundations.load_data()
 	identity = Foundations.load_identity()
+	chapter = Foundations.load_chapter1()
 	clock = PrayerClock.new(identity.clock)
 	Foundations.configure_input(data)
 	progress.setup(data)
+	open_purse.setup(chapter, progress, clock)
 	world = MarketWorld.new()
 	add_child(world)
 	world.setup(data)
+	world.setup_chapter_people(chapter)
 	player = MarketPlayer.new()
 	add_child(player)
 	player.setup(data)
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock)
+	ui.setup(data, progress, identity, clock, chapter, open_purse)
+	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
 	ui.arrival_continue_requested.connect(continue_arrival)
@@ -80,6 +87,12 @@ func _ready() -> void:
 	ui.daily_job_requested.connect(do_daily_job)
 	ui.weight_requested.connect(try_weight)
 	ui.answer_requested.connect(answer_weight)
+	ui.purse_requested.connect(show_open_purse)
+	ui.salma_requested.connect(ask_salma)
+	ui.page_requested.connect(read_page_one)
+	ui.page_closed.connect(return_to_purse)
+	ui.gift_requested.connect(give_from_purse)
+	ui.end_purse_day_requested.connect(end_purse_day)
 	show_screen("title")
 	update_state()
 	if "--capture-foundations" in OS.get_cmdline_user_args():
@@ -102,6 +115,9 @@ func _ready() -> void:
 		capture_runner.run(self)
 	elif "--capture-idris" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_idris.gd").new()
+		capture_runner.run(self)
+	elif "--capture-open-purse" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_open_purse.gd").new()
 		capture_runner.run(self)
 
 func _process(delta: float) -> void:
@@ -147,6 +163,8 @@ func update_state() -> void:
 
 func begin_game() -> void:
 	progress.setup(data)
+	open_purse.reset()
+	world.set_inn_people_waiting(true)
 	world.reset_gate()
 	arrival_beat = 0
 	arrival_reply = ""
@@ -328,6 +346,48 @@ func _rest_at_inn() -> void:
 	update_state()
 	ui.show_toast(message, ui.screen == "market_map")
 
+func show_open_purse() -> void:
+	if current_place == "inn" and ui.screen in ["game", "market_map"] and not open_purse.done:
+		_stop_travel()
+		show_screen("purse")
+
+func ask_salma() -> void:
+	if ui.screen == "purse" and not open_purse.salma_asked:
+		open_purse.salma_asked = true
+		show_screen("purse_salma")
+
+func read_page_one() -> void:
+	if ui.screen in ["purse", "purse_salma"] and open_purse.salma_asked and not open_purse.page_read:
+		open_purse.page_read = true
+		known_words["sirr"] = true
+		_set_purse_scene_place("masjid")
+		show_screen("purse_page")
+
+func return_to_purse() -> void:
+	if ui.screen == "purse_page":
+		_set_purse_scene_place("inn")
+	if ui.screen in ["purse_salma", "purse_page"]:
+		show_screen("purse")
+
+func _set_purse_scene_place(place: String) -> void:
+	player.position = world.point(place)
+	_stop_travel()
+
+func _stop_travel() -> void:
+	player.velocity = Vector3.ZERO
+	player.test_move_axis = Vector2.ZERO
+	route.clear()
+	destination = ""
+
+func give_from_purse(id: String, secret: bool) -> void:
+	if ui.screen == "purse" and open_purse.give(id, secret):
+		show_screen("purse")
+
+func end_purse_day() -> void:
+	if ui.screen == "purse" and open_purse.end_day():
+		world.set_inn_people_waiting(false)
+		show_screen("purse_morning")
+
 func use_place() -> void:
 	update_state()
 	match current_place:
@@ -412,11 +472,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.is_action_pressed("close"):
 			leave_idris()
 		return
+	if ui.screen in ["purse_salma", "purse_page"]:
+		if event.is_action_pressed("close"):
+			return_to_purse()
+		return
 	if event.is_action_pressed("close"):
 		if ui.screen == "prayer_record": close_prayer_record()
 		elif ui.screen == "city_map": show_screen("market_map")
 		elif ui.screen == "world_map": show_screen("city_map")
 		elif ui.screen == "market_map": show_screen("game")
+		elif ui.screen in ["purse", "purse_morning", "reputation"]: show_screen("market_map")
 		elif ui.screen in ["board", "task", "result", "lesson", "goal"]: show_screen("game")
 		else: Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	elif event.is_action_pressed("market_map") and ui.screen != "title":

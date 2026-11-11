@@ -83,6 +83,25 @@ func advance_to(target_day: int, target_minute: int, announce: bool = true) -> v
 		_advance(target, announce)
 
 
+func skip_to(target_day: int, target_minute: int) -> void:
+	var target := _at(target_day, target_minute)
+	if target <= _time:
+		return
+	# Keep earlier misses and completed prayers. Only windows ending during
+	# this jump are excluded from the record and from make-up.
+	var prayer := maxi(_latest_started(), _first_counted)
+	while _ends(prayer) <= target:
+		if _ends(prayer) > _time and not _completed.has(prayer):
+			_completed[prayer] = "not_counted"
+		prayer += 1
+	_advance_oldest_unfinished()
+	advance_to(target_day, target_minute, false)
+
+
+func has_prayed_in_congregation() -> bool:
+	return _completed.values().has("jamaah")
+
+
 func wait_until_next_prayer() -> void:
 	_fraction = 0.0
 	_advance(_begins(_latest_started() + 1), true)
@@ -189,9 +208,13 @@ func _advance(target: int, announce: bool) -> void:
 
 func _complete(prayer: int, status: String) -> void:
 	_completed[prayer] = status
+	_advance_oldest_unfinished()
+	_advance(_time + int(_data.prayer_takes_minutes), true)
+
+
+func _advance_oldest_unfinished() -> void:
 	while _completed.has(_oldest_unfinished):
 		_oldest_unfinished += 1
-	_advance(_time + int(_data.prayer_takes_minutes), true)
 
 
 func _makeup_target() -> int:

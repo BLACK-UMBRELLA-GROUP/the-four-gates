@@ -1,0 +1,354 @@
+{
+  "id": "DOC-TFG-0019",
+  "queue_line": 9,
+  "lock": "LOCK 3 V2 part 1, QUESTIONS rows 7 and 8",
+  "tested_base_commit_sha": "9618caddab42a2f1efcba38bb3d96181bbe97b7e",
+  "capture_source": "Line 9 worktree on the tested base. SHA-256 below identifies the actual captured source. The daily report task note records the containing commit.",
+  "godot_version": "4.7.2-stable (official)",
+  "build_mode": "Native Godot debug viewport, forward_plus / metal on Apple M2 (Apple8)",
+  "timestamp_utc": "2026-11-11T14:05:11Z",
+  "method": "Native Godot viewport. Production GUI buttons receive viewport-local mouse clicks. Passive clock ticks are paused.",
+  "fixture": "Fair arrival sets the wallet. Later-day fixtures run on Saturday at 10:00 with no outstanding prayers. c07 sets five coins. c16 earns the LOCK 1/2 states with their live wallet and trust.",
+  "founder_decisions": [
+    "11 Nov reissue in dispatcher: “go”.",
+    "11 Nov daytime exception: “4 gates needs to improve a lot ... i want 50 by end of the day” and “Build in the day today (Recommended)”.",
+    "7 Nov LOCK 3: “LOCK it (Recommended)” and placeholder direction “the visual aint importantn”.",
+    "11 Nov LOCK 3 V2: “No jump: Salma asks later (Recommended)”.",
+    "11 Nov scholar review: “Yes, all LOCKs (Recommended)”."
+  ],
+  "built_from_sha256": {
+    "GAME/APPROVED/CHAPTER_1/BRIEFS/BUILD_BRIEF_2026-11-07_PART1_OPEN_PURSE.md": "3541bcec453e3689306df97e322bfb6c73d3fa5c03b9ee7a96abefa2e1fdd389",
+    "GAME/APPROVED/CHAPTER_1/RECORD/CHAPTER1_SPEC_CURRENT_VERSION_V2.md": "37683e899081afd2585371954fcbade41511e1f3b1b553bcdb2494c0b2d3b3d8",
+    "GAME/APPROVED/CHAPTER_1/RECORD/chapter1_data_V2.json": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0",
+    "GAME/APPROVED/CHAPTER_1/RECORD/LOCK_RECORD.md": "41b27fd672025d0a23907a4eaf55d0ef5fcfd1728d0da15daa041df092435800",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/FOUNDATIONS_SPEC_CURRENT_VERSION_V2.md": "cfe9038832646a04fbfc4933465a5a15d5b900b26e3ace6e317660f8b34d507f",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/foundations_data_V2.json": "96f9cab093fc7cd949a10663c44f4bb037556c7caa33cf0f4df0e4a5e03ba66f",
+    "GAME/APPROVED/FOUNDATIONS/RECORD/LOCK_RECORD.md": "8004223e256b130091ffa62bb39ed12a04a7c3a9f7daafdf541518d0281f0ea9",
+    "GAME/APPROVED/IDENTITY/RECORD/IDENTITY_SPEC_CURRENT_VERSION_V5.md": "3ca338e60c36ab86edaae99e873c28c4235ec020ef7626d081f70902de241c5d",
+    "GAME/APPROVED/IDENTITY/RECORD/identity_data_V3.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "GAME/APPROVED/IDENTITY/RECORD/LOCK_RECORD.md": "6632c23ba527fe7fd12b37874d8ef564ac12f8ec557f556b2f03287e8da1c498",
+    "GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md": "f2abfee4dcc542086c5dcd23242a52986a6d29f28935f48b88e1bbbc6fbfdae6",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c01_market_map__inn_people_waiting.png": "a782ae43026560627fcd8e89e0297c526f4033aeb6c1eed69fb5e0c7873163bb",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c02_purse__door_start.png": "2492b56018543509dc8abba5ce3a1d2a65c7c0f9f2af9dc2a7865c5eee4cb00d",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c03_purse__gave_in_public.png": "5ffdb51d712f04d8bcc57c46f6297b7a0e5e4f3e34776b9684f41d722279425f",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c04_purse__salma.png": "7d4f11b03460386798d9acf8863538e70d024f511a33a640dbbc41fa880a9bf3",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c05_page_1__giving_in_secret.png": "0e2cd9eeefbfeb64bf5c42a15c03ce22ae0471f18e87bb7e32d0fc9511390dd9",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c06_purse__secret_and_widow.png": "8aa229fbad6bf5ef424654f6bed1ff7db9802e7b3422060161f7aa076b70c957",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c07_purse__not_enough_coins.png": "f69a0ef5126c3e2004356c3838c32ed803b311da56842d284438e873565c5d4b",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c08_morning__public_and_liar.png": "590291431d4c7c726a109129fa11d455286d0f88fce9f64f3ff371001af052d2",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c09_people_say__gives_and_fooled.png": "c54bf04596c7d02d0530eb3d2de26d082c4db91c380d2d2666c3aef0f276d448",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c10_morning__in_secret.png": "3bbd9c8a2ff343a71cbd15739b61b8e828b4d0cd939645e83d82f88d0b5e1466",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c11_people_say__secret_note.png": "3922ab86b4050ca9711592a3a259bd2d83e75d9ca98ae53c89fdd4ea1420ae3b",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c12_morning__widow_in_public.png": "f477c9bf5091432f113b5e2900916fe4f9180aaa6d7dd5b7bc4776851f5fe593",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c13_morning__gave_nothing.png": "18667ebb83de5af1e7c9b3413540b1206f1d93c303b3ee6dba1016b9cf3d7507",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c14_people_say__purse_shut.png": "c9276f20740c8212ab9a84620c58725588a7dc03708c77198a791b1ea8668850",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c15_people_say__empty.png": "28eeb26b0e94c1f4be0b800ad114cab6b492253c1dcdcbb76c871725aec4e491",
+    "GAME/APPROVED/CHAPTER_1/MASTERS/c16_people_say__lock1_lines.png": "dc4f83f95503f0b4adc72932c73a01e2845ffe1171dfc7a90e3f6462b110cb9e"
+  },
+  "approval_records": {
+    "GAME/APPROVED/QUESTIONS.md row 7": {
+      "row_sha256": "10af1db189ac9321ed70824b006222288ee60bbf9c34ab8e1da0fe8820c9bb63",
+      "decision": "Scholar review follows the build and precedes public release for every LOCK."
+    },
+    "GAME/APPROVED/QUESTIONS.md row 8": {
+      "row_sha256": "5ea7de4f612ec58d26966b4a5abc54be787431b555fd75228fb3e99ed443ea13",
+      "decision": "Secret Tariq gift costs 20 and changes no trust. Only the public gift shows fire and fooled. A secret gift triggers secret_note."
+    }
+  },
+  "scholar_review": {
+    "tracking": "OA-AIOS-432 / DOC-TFG-0320",
+    "item": "LOCK 3 page 1, Sahih al-Bukhari 1423",
+    "status": "Pending before any public release, as approved in QUESTIONS row 7."
+  },
+  "captured_source_sha256": {
+    "SOURCE/project.godot": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45",
+    "SOURCE/data/chapter1.json": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0",
+    "SOURCE/data/foundations.json": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf",
+    "SOURCE/data/identity.json": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647",
+    "SOURCE/game/foundations.gd": "1aaa16cd4542337d2aadbfa03eea6fef667052cb053a8a92bece37459f539aa0",
+    "SOURCE/game/lesson_canvas.gd": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c",
+    "SOURCE/game/map_canvas.gd": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba",
+    "SOURCE/game/market_player.gd": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2",
+    "SOURCE/game/market_ui.gd": "261dccb536753bc8467e53a74eccc4168fad84f36dfbcf9647544734a5aab9b3",
+    "SOURCE/game/market_world.gd": "0b4121ebb8aeb8a7bc4ddf07b14b2b0007e7c32bd54bc5a391a8f4298dfe93a0",
+    "SOURCE/game/open_purse.gd": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9",
+    "SOURCE/game/prayer_clock.gd": "97816e45b9724bc203f095d5344aa59aaeb613da2c5fc3356a17ec16a3092d6e",
+    "SOURCE/game/river_market.gd": "5bb5d2df214841fb21634a3589412807e81a159c15f5f21502799780d883131a",
+    "SOURCE/game/task_progress.gd": "ec252cac5837000910f107051f4d63d16a77f3327c83f316f7e31d5dcf16cbc2",
+    "SOURCE/game/river_market.tscn": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe",
+    "SOURCE/tests/capture_identity.gd": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32",
+    "SOURCE/tests/capture_open_purse.gd": "8bea68a179b553ee4f534002a9c495b51150d1e50348732cb0ff439498cd3da4",
+    "SOURCE/tests/capture_tasks.gd": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003",
+    "SOURCE/tests/create_comparisons.gd": "9c5ea3fd06582b5795f91930543591d05d72ac12e64734a2380f3cffbd93d7e2",
+    "SOURCE/tests/run_tests.gd": "3d6d6f791bff16f423987897d7b9af55a7ba74f7430b8ad7d874651a0bef180e"
+  },
+  "verification": {
+    "headless": {
+      "passed": 1352,
+      "total": 1352
+    },
+    "native": {
+      "passed": 110,
+      "total": 110,
+      "captures": 18,
+      "comparison_pairs": 16
+    },
+    "approved_data_is_byte_identical": true,
+    "checks_json": {
+      "bytes": 21892,
+      "sha256": "2200085f553ff3c6ef61588322be61ca26e6b5de8089eedf7f00aa2dcf7fa3d2"
+    }
+  },
+  "visual_differences": {
+    "all": "Godot fonts, tracking, colours, anti-aliasing, panel tint, spacing, borders and button dimensions differ slightly. HUD uses the approved later-day setup, with Saturday at 10:00 and Sunday at 07:00. Sunday shows Dhuhr where the masters show Friday prayer.",
+    "c01": "Live map label outlines, stroke weights, gate rim and player marker differ slightly. The inn bar is wider, with the same controls in the locked order.",
+    "c02–c07": "Live Inn and Masjid greyboxes, visible player and regular capsules, and camera framing replace the prototype street art. Some text wraps differently. Faris wraps to two lines in c06 and c07. In c05 the learned word uses the LOCK 2 formatting and the data’s mixed-case Sirran.",
+    "c08–c16": "Morning and reputation panels use the live Inn or Masjid greybox. c16 shows 209 coins and 100 trust earned through the real task, boat, scales and prayer states. The master shows a fixture of 198 coins and 20 trust.",
+    "street_views": "Two extra captures document the named Inn capsules and Salma’s oven near the task board."
+  },
+  "compression": {
+    "method": "Lossless PNG optimization. All 34 final PNGs were reopened and compared as RGBA pixels with their original dimensions. All 16 master-left and build-right crops match their respective images.",
+    "png_bytes_before": 17667600,
+    "png_bytes_after": 16056457
+  },
+  "files": {
+    "c01_market_map__inn_people_waiting__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 171565,
+      "bytes": 164859,
+      "sha256": "23fe0471460128d986c207fcd13ce9816d734055070806c2e1e8e26c8ea2243a"
+    },
+    "c01_market_map__inn_people_waiting__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 371233,
+      "bytes": 327928,
+      "sha256": "f67ce3d848d4586561d5445238718c5133209762912be446f311fa7e9a52807c"
+    },
+    "c02_purse__door_start__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 220188,
+      "bytes": 212756,
+      "sha256": "1f7ff020294518fc0b6289e3f36d2cfea305073c5a43607ff39534dbb77f426a"
+    },
+    "c02_purse__door_start__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 901296,
+      "bytes": 811753,
+      "sha256": "2cfd02eed35b19b633c2e289ba7f4afa890a2764f54fede3212c7e3b1af04f56"
+    },
+    "c03_purse__gave_in_public__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 220269,
+      "bytes": 212483,
+      "sha256": "9310d5a3c720c9a8f9c99743eda0fb21ca2ee5465c5aaf8e64fabd55c37e9068"
+    },
+    "c03_purse__gave_in_public__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 905634,
+      "bytes": 814809,
+      "sha256": "be057eecd215e71264084341776350e46159217a3d3a89d11b34dbb532e0656a"
+    },
+    "c04_purse__salma__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 172714,
+      "bytes": 165571,
+      "sha256": "75eaa5e30a1f892e9f35d1c1ade992c63df630b71b73f0a16c5291c977c7e9d3"
+    },
+    "c04_purse__salma__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 806978,
+      "bytes": 724306,
+      "sha256": "bdc6fc451e3a2b57c80bc51fcc687cd981fe22529e7e54c41ca0de905d13b12e"
+    },
+    "c05_page_1__giving_in_secret__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 226018,
+      "bytes": 218739,
+      "sha256": "eba1fa9ab8d2c7191da8a4bf7ec1a2bc57c835fd41da14e1aa998c60942f3fdb"
+    },
+    "c05_page_1__giving_in_secret__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 1128767,
+      "bytes": 1012497,
+      "sha256": "526797cabd2e3bcff50d9fb5c5e5219a686ef1b04f84898586e2585dc136a096"
+    },
+    "c06_purse__secret_and_widow__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 236912,
+      "bytes": 230655,
+      "sha256": "3b5dca7db83bfc5cc9b6e9fae8cde3b23c1e407325f6417a02daeaa1368af243"
+    },
+    "c06_purse__secret_and_widow__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 917675,
+      "bytes": 825408,
+      "sha256": "c961f5b4c5bafeeb0dc7138c766b36a8fcc019b36985c06fc35110889d17419a"
+    },
+    "c07_purse__not_enough_coins__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 223630,
+      "bytes": 217140,
+      "sha256": "af54c617486185cf53f6ce0bc3c67aec9c83b5941f0bf3d07859d42304d179a2"
+    },
+    "c07_purse__not_enough_coins__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 905568,
+      "bytes": 815339,
+      "sha256": "8773db78c70c2930003ae944433d7737b88abd9b47bd98442f817a3ace8c7077"
+    },
+    "c08_morning__public_and_liar__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 175315,
+      "bytes": 167829,
+      "sha256": "ea1768a76da73eaa2e99842c6ee281a6f7583b6b4bfb960765c9ccfb9c1dddd7"
+    },
+    "c08_morning__public_and_liar__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 878005,
+      "bytes": 789280,
+      "sha256": "f0dbb62e8bd6cb87a4336bcaaf5b9c83fa3a3de1ba54a0c173dba361da5c9f77"
+    },
+    "c09_people_say__gives_and_fooled__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 152567,
+      "bytes": 146496,
+      "sha256": "65ecab069bdd9d73411c987ac1e3cf3f2f76c98380d706a1053d8bb12bec0aab"
+    },
+    "c09_people_say__gives_and_fooled__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 978447,
+      "bytes": 873997,
+      "sha256": "e3e2c7ceccf30c6007ac237b2efcfd3bcbb5f15e00ccb4b7703136f926b58e20"
+    },
+    "c10_morning__in_secret__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 157716,
+      "bytes": 152328,
+      "sha256": "20a264075e963de3d1f43d25f2818fb48c07f7be4ddca3498b81ac4ea42835ad"
+    },
+    "c10_morning__in_secret__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 866621,
+      "bytes": 776526,
+      "sha256": "44c8887294e8426e55defaa981fde6469d9fc64bfe8ec4de0c630955bd1814fe"
+    },
+    "c11_people_say__secret_note__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 156528,
+      "bytes": 151283,
+      "sha256": "8db6522ab19bf6f3977c2ef9360ff97ac65b181c5ee6a4ddb3b10173dfb4b2cb"
+    },
+    "c11_people_say__secret_note__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 1022245,
+      "bytes": 913427,
+      "sha256": "e3cddb114c8e232a0035aca4e175852638015768929cd4c50a7bdb0bbf002d6a"
+    },
+    "c12_morning__widow_in_public__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 149700,
+      "bytes": 144772,
+      "sha256": "fbbcde7482959cde03437e06781f28cdad6a89bb6233d83b0de8e38a447ac953"
+    },
+    "c12_morning__widow_in_public__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 879743,
+      "bytes": 788242,
+      "sha256": "cb16f8bc837c122822875c35618ac89f6d4c0bbd06d4260b5e2915d064503c6b"
+    },
+    "c13_morning__gave_nothing__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 142287,
+      "bytes": 135299,
+      "sha256": "41758bc8e29af93a4181e39841a6cd3436089472acc831d4fa20caf9769f1456"
+    },
+    "c13_morning__gave_nothing__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 885666,
+      "bytes": 792176,
+      "sha256": "73097930ff631487d9294b37d49b9bb9d6e1f2714364b1862a62e2115ad5ee70"
+    },
+    "c14_people_say__purse_shut__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 139800,
+      "bytes": 133232,
+      "sha256": "bf7154521968a268a16699a57c47c671e009a8680cc402e9065555c69a66a051"
+    },
+    "c14_people_say__purse_shut__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 973896,
+      "bytes": 870110,
+      "sha256": "edde0f1a594f1aa3f1a061fad13512191ff81d1d70bf676fb1e7cf45a5c53e9a"
+    },
+    "c15_people_say__empty__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 151806,
+      "bytes": 146501,
+      "sha256": "1384c37e4cbfdc652a5997849e9151142674f1bf6fd2e513fa98c15387850c4e"
+    },
+    "c15_people_say__empty__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 1005408,
+      "bytes": 899140,
+      "sha256": "93ed04e4d36fb38fa5e345ffab79350a68b27bc0fd02cf378165ee1d30e10d4c"
+    },
+    "c16_people_say__lock1_lines__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 195858,
+      "bytes": 189332,
+      "sha256": "c1da0682d214690c46d2485f0c0f90751c6b0c9669ea29b2d920cf6e4ff5fd97"
+    },
+    "c16_people_say__lock1_lines__master_beside_build.png": {
+      "width": 3840,
+      "height": 1080,
+      "bytes_before_optimization": 983266,
+      "bytes": 880757,
+      "sha256": "137e598b8190f09aa2b0c492ea49770d2308ca044001a91c0e0076ba9ca5f045"
+    },
+    "inn_door_people__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 143814,
+      "bytes": 139193,
+      "sha256": "0f878923c4db1d94f75454fc08bfc5cdbe395cadcf184b1c4c6dd89c373c0bb0"
+    },
+    "salma_at_the_oven__build.png": {
+      "width": 1920,
+      "height": 1080,
+      "bytes_before_optimization": 220465,
+      "bytes": 212294,
+      "sha256": "0ad77ed5be723a85f197272ef84ffa43ab909da134775bbe011cde39eb82a322"
+    }
+  }
+}

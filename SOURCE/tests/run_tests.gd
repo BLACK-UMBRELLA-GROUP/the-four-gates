@@ -2,6 +2,8 @@ extends SceneTree
 ## Plain, dependency-free checks against the real scene and physics world.
 
 const PrayerClock = preload("res://game/prayer_clock.gd")
+const OpenPurse = preload("res://game/open_purse.gd")
+const TaskProgress = preload("res://game/task_progress.gd")
 
 var checks := 0
 var failures := 0
@@ -117,6 +119,8 @@ func _run() -> void:
 	await check_arrival_and_inn()
 	await check_prayer_runtime()
 	await check_idris()
+	check_open_purse_rules()
+	await check_open_purse_runtime()
 	finish()
 
 
@@ -1277,6 +1281,213 @@ func check_idris() -> void:
 	app.show_screen("title")
 	await press_button(data.ui.buttons.begin, "Begin starts another session after meeting Idris")
 	check(app.known_words.is_empty() and not app.idris_met, "a new game clears the word store and meeting completion")
+
+
+func check_open_purse_rules() -> void:
+	var chapter: Dictionary = app.chapter
+	var runtime := FileAccess.get_file_as_bytes("res://data/chapter1.json")
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/CHAPTER_1/RECORD/chapter1_data_V2.json")
+	check(not runtime.is_empty() and runtime == approved, "chapter 1 runtime is the byte-identical LOCK 3 V2 file")
+	var purse := OpenPurse.new()
+	var progress := TaskProgress.new()
+	var clock := PrayerClock.new(identity.clock)
+	progress.setup(data)
+	progress.coins = 100
+	purse.setup(chapter, progress, clock)
+	check(purse.visible_people().size() == 3 and not purse.give("widow", false), "Umm Salim cannot receive a gift before Salma")
+	check(not purse.give("fire", true) and progress.coins == 100, "secret Tariq gift is blocked before reading")
+	purse.salma_asked = true
+	check(purse.visible_people().size() == 4, "Salma adds Umm Salim to the list")
+	purse.page_read = true
+	progress.coins = 5
+	check(not purse.give("fire", false) and not purse.give("fire", true) and progress.coins == 5, "unaffordable Tariq gifts are blocked in both modes")
+	progress.coins = int(chapter.purse.people[2].cost)
+	progress.trust = int(data.numbers.trust_max) - 1
+	check(purse.give("fire", false) and progress.coins == 0 and progress.trust == int(data.numbers.trust_max), "an exact-price public gift clamps trust at the existing maximum")
+	check(not purse.give("fire", true) and not purse.give("fire", false), "a given row rejects repeated gifts in both modes")
+
+	var options := ["", "public", "secret"]
+	for father: String in options:
+		for boy: String in options:
+			for fire: String in options:
+				for widow: String in options:
+					check_gift_combination(purse, progress, clock, {"father": father, "boy": boy, "fire": fire, "widow": widow})
+
+	purse.reset()
+	progress.setup(data)
+	clock.reset()
+	progress.coins = 100
+	progress.choose_task("scales_help", "quick")
+	progress.choose_task("purse", "quick")
+	progress.amend_task("purse")
+	progress.choose_task("spice", "honest")
+	progress.do_daily_job()
+	progress.morning()
+	progress.try_weight(int(data.lesson.false_weight_index))
+	progress.answer_weight()
+	clock.advance_to(1, 12 * 60 + 5, false)
+	clock.pray(true)
+	clock.advance_to(1, 18 * 60 + 10, false)
+	purse.salma_asked = true
+	purse.give("fire", false)
+	purse.give("widow", false)
+	var rep: Dictionary = chapter.rep
+	var expected: Array = [
+		[rep.task_honest, data.tasks[0].place, 1],
+		[rep.task_amended, data.tasks[1].place, 0],
+		[rep.task_quick, data.tasks[2].place, -1],
+		rep.boat, rep.learned, rep.masjid, rep.gives, rep.fooled, rep.widow_public,
+	]
+	check(purse.reputation_lines() == expected, "reputation preserves approved task, boat, lesson, congregation and public-gift order across days")
+	var wallet := Vector2i(progress.coins, progress.trust)
+	check(purse.end_day() and clock.day == 2 and clock.minute_of_day == int(chapter.numbers.next_morning_minute), "End the day jumps exactly to next day 07:00")
+	check(clock.record().rows[0].status == "not_counted", "Fajr ending in the jump is not counted")
+	check(Vector2i(progress.coins, progress.trust) == wallet and purse.reputation_lines() == expected, "End the day preserves wallet and reputation, including a completed congregation")
+	check(clock.make_up_label() == identity.clock.make_up.format({"prayer": "Asr"}), "a prayer already missed at the start of the jump remains eligible for make-up")
+	clock.make_up()
+	check(clock.make_up_label().is_empty(), "Maghrib, Isha and Fajr ending during the jump cannot be made up")
+	check(not purse.end_day() and not purse.give("boy", false) and clock.day == 2, "a finished purse rejects more gifts and a repeated jump")
+	purse.reset()
+	progress.setup(data)
+	clock.reset()
+	check(purse.reputation_lines().is_empty(), "new game clears all prior reputation sources")
+	clock.advance_to(1, 12 * 60 + 5, false)
+	clock.pray(false)
+	check(purse.reputation_lines().is_empty(), "praying alone does not create the congregation reputation line")
+
+
+func check_gift_combination(purse: OpenPurse, progress: TaskProgress, clock: PrayerClock, gifts: Dictionary) -> void:
+	purse.reset()
+	progress.setup(data)
+	clock.reset()
+	purse.salma_asked = true
+	purse.page_read = true
+	var chapter: Dictionary = app.chapter
+	var expected_coins := 100
+	var public_count := 0
+	var secret_count := 0
+	var accepted := true
+	progress.coins = expected_coins
+	for person: Dictionary in chapter.purse.people:
+		var mode: String = gifts[person.id]
+		if mode.is_empty():
+			continue
+		accepted = purse.give(person.id, mode == "secret") and accepted
+		expected_coins -= int(person.cost)
+		if mode == "public":
+			public_count += 1
+		else:
+			secret_count += 1
+	var description := str(gifts.values())
+	var expected_trust := int(data.numbers.start_trust) + public_count * int(chapter.numbers.gift_trust)
+	check(accepted and progress.coins == expected_coins and progress.trust == expected_trust, "gift combinations charge only locked costs and reward only public gifts: " + description)
+	check(purse.has_secret_gift() == (secret_count > 0), "secret note eligibility follows the actual gifts: " + description)
+
+	purse.end_day()
+	var morning: Dictionary = chapter.purse.morning
+	var expected_morning: Array = []
+	if public_count > 0:
+		expected_morning.append(str(morning.crowd).format({"n": 4 + 4 * public_count}))
+	else:
+		expected_morning.append(morning.quiet if secret_count > 0 else morning.none)
+	if gifts.father != "":
+		expected_morning.append(morning.father_public if gifts.father == "public" else morning.father_secret)
+	if gifts.boy != "":
+		expected_morning.append(morning.boy)
+	if gifts.fire == "public":
+		expected_morning.append(morning.fire)
+	if gifts.widow != "":
+		expected_morning.append(morning.widow_public if gifts.widow == "public" else morning.widow_secret)
+	check(purse.morning_lines() == expected_morning, "morning text stays in approved order, with public-only Tariq: " + description)
+
+	var rep: Dictionary = chapter.rep
+	var expected_rep: Array = []
+	if public_count > 0:
+		expected_rep.append(rep.gives)
+	if gifts.fire == "public":
+		expected_rep.append(rep.fooled)
+	if gifts.widow == "public":
+		expected_rep.append(rep.widow_public)
+	if public_count + secret_count == 0:
+		expected_rep.append(rep.shut)
+	check(purse.reputation_lines() == expected_rep, "gift reputation stays in approved order, with public-only Tariq: " + description)
+
+
+func check_open_purse_runtime() -> void:
+	var chapter: Dictionary = app.chapter
+	var purse: Dictionary = chapter.purse
+	var page: Dictionary = chapter.page
+	var rep: Dictionary = chapter.rep
+	var take_page: String = str(purse.take_page).format({"teacher": chapter.teacher})
+	for _beat: Dictionary in identity.arrival.beats:
+		app.choose_arrival(0)
+		app.continue_arrival()
+	await press_button(identity.arrival.buttons[1], "walk from Arrival into the market")
+	app.clock.skip_to(3, 10 * 60)
+	app.update_state()
+	check(app.current_place == "inn", "arrival places the player at the inn")
+	await press_button(purse.morning.to_rep, "the market map opens What people say")
+	check(app.ui.screen == "reputation" and visible_text().contains(rep.empty), "untouched reputation opens with the locked empty copy")
+	await press_button(rep.to_map, "the reputation panel returns to the map")
+	await press_button(chapter.places.inn, "the inn bar opens the waiting people")
+	check(app.ui.screen == "purse" and visible_text().to_lower().contains(str(purse.only_public).to_lower()), "the first door list explains that gifts are public")
+	check(not visible_text().contains(purse.people[3].name) and find_button(app.ui, purse.give_secret) == null, "before Salma and the page, neither Umm Salim nor secret buttons appear")
+	await press_button(purse.not_now, "Not now returns to the market map")
+	await press_button(chapter.places.inn, "Not now leaves the inn action available")
+	await press_button(purse.ask_baker, "the door list opens Salma")
+	check(app.ui.screen == "purse_salma" and visible_text().contains(purse.baker.lines[2]), "Salma shows the approved page discovery")
+	await press_button(purse.baker.back, "Salma can return to the door list")
+	check(visible_text().contains(purse.people[3].name) and find_button(app.ui, purse.give_secret) == null, "Salma reveals Umm Salim and reading still gates secrecy")
+	await press_button(take_page, "the discovered page opens with Idris")
+	var word: Dictionary = chapter.words.sirr
+	var learned_word := "%s (%s)" % [word.en, word.ar]
+	var hadith: String = str(page.hadith).format({"teacher": chapter.teacher, "word": learned_word})
+	check(app.ui.screen == "purse_page" and app.current_place == "masjid" and app.known_words.has("sirr"), "reading at the Masjid teaches sirr through the shared word store")
+	check(visible_text().to_lower().contains(hadith.to_lower()) and visible_text().to_lower().contains(str(page.source).to_lower()), "the page renders the full locked hadith and its source")
+	await press_button(page.back, "the page goes back to the inn door")
+	check(app.current_place == "inn" and find_button(app.ui, purse.give_secret) != null, "returning from Idris unlocks secret gift buttons at the inn")
+	var starting_coins: int = app.progress.coins
+	var starting_trust: int = app.progress.trust
+	app.progress.coins = 5
+	app.update_state()
+	var tariq_cost: int = int(purse.people[2].cost)
+	var give_tariq: String = str(purse.give).format({"n": tariq_cost})
+	check(visible_text().count(purse.not_enough) == 3 and find_button(app.ui, give_tariq) == null, "the poor door-list state shows three locked affordability messages")
+	app.progress.coins = starting_coins
+	app.update_state()
+	var public_tariq := find_button(app.ui, give_tariq)
+	var secret_tariq: Button = null
+	if public_tariq != null:
+		secret_tariq = find_button_in_row(app.ui, purse.give_secret, public_tariq.global_position.y)
+	check(secret_tariq != null, "Tariq has an actual In secret button on his row")
+	if secret_tariq != null:
+		secret_tariq.pressed.emit()
+		await frames(2)
+	check_wallet(starting_trust, starting_coins - tariq_cost, "the secret Tariq button charges the locked cost and gives zero trust")
+	check(visible_text().contains(purse.given_secret), "the door list shows the approved secret gift status")
+	await press_button(purse.end_day, "the door list can End the day")
+	check(app.ui.screen == "purse_morning" and app.day == 4 and app.minute_of_day == 7 * 60, "End the day shows the next morning at 07:00")
+	check(visible_text().contains(purse.morning.quiet) and not visible_text().contains(purse.morning.fire), "a secret Tariq gift produces a quiet morning without Tariq's identifying line")
+	await press_button(purse.morning.to_rep, "the morning panel opens What people say")
+	var text := visible_text()
+	check(text.contains(rep.empty) and text.to_lower().contains(str(rep.secret_note).to_lower()) and text.to_lower().contains(str(rep.towns_note).to_lower()) and not text.contains(rep.fooled[0]), "secret Tariq adds the private note and no identifying reputation line")
+	await press_button(rep.to_map, "the finished purse returns to the inn market map")
+	check(app.ui.screen == "market_map" and app.current_place == "inn" and find_button(app.ui, chapter.places.inn) == null, "the inn action disappears after the morning")
+	await press_button(purse.morning.to_rep, "reputation remains available from the market map")
+	await press_button(rep.to_goal, "reputation connects to the original goal panel")
+	check(app.ui.screen == "goal", "reputation's Goal opens the original panel")
+	app.begin_game()
+	check(not app.open_purse.done and not app.open_purse.page_read and not app.open_purse.salma_asked and app.open_purse.gift_status("fire").is_empty(), "a fresh game clears the open purse and gifts")
+
+
+func find_button_in_row(node: Node, caption: String, y: float) -> Button:
+	if node is Button and node.text == caption and is_equal_approx(node.global_position.y, y):
+		return node
+	for child in node.get_children():
+		var found := find_button_in_row(child, caption, y)
+		if found != null:
+			return found
+	return null
 
 
 func finish() -> void:

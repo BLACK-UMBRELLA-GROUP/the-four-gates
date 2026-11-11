@@ -26,14 +26,24 @@ signal amend_requested(task_id: String)
 signal daily_job_requested
 signal weight_requested(index: int)
 signal answer_requested
+signal purse_requested
+signal salma_requested
+signal page_requested
+signal page_closed
+signal gift_requested(id: String, secret: bool)
+signal end_purse_day_requested
 
 const MapCanvas = preload("res://game/map_canvas.gd")
 const LessonCanvas = preload("res://game/lesson_canvas.gd")
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
+const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_morning", "reputation"]
 var data: Dictionary = {}
 var identity: Dictionary = {}
+var chapter: Dictionary
+var open_purse: RefCounted
+var language_words: Dictionary
 var screen := "title"
 var player_position := Vector3.ZERO
 var place_id := ""
@@ -79,9 +89,13 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted) -> void:
 	data = source
 	identity = identity_value
+	chapter = chapter_value
+	open_purse = purse_value
+	language_words = identity.language.words.duplicate()
+	language_words.merge(chapter.words)
 	progress = progress_value
 	clock = clock_value
 	font.font_names = PackedStringArray(["Arial", "Helvetica", "sans-serif"])
@@ -155,13 +169,15 @@ func _rebuild_screen() -> void:
 			_build_idris()
 		"game", "market_map":
 			_build_hud()
-			var place_x := 491.0 if screen == "market_map" else 203.0
-			_build_place_bar(_build_prayer_buttons(place_x))
+			var place_x := 203.0
 			if screen == "market_map":
 				_button(data.ui.buttons.city_map, Vector2(42, 974), Vector2(138, 55), func(): screen_requested.emit("city_map"))
 				_button(data.ui.buttons.wait_prayer, Vector2(203, 974), Vector2(265, 55), func(): wait_requested.emit())
+				_button(chapter.purse.morning.to_rep, Vector2(491, 974), Vector2(219, 55), func(): screen_requested.emit("reputation"))
+				place_x = 732.0
 			else:
 				_button(data.ui.buttons.map, Vector2(42, 974), Vector2(138, 55), func(): screen_requested.emit("market_map"))
+			_build_place_bar(place_x)
 		"city_map":
 			_button(identity.ui.world_map, Vector2(42, 983), Vector2(158, 55), func(): screen_requested.emit("world_map"))
 			_button(identity.ui.river_market, Vector2(223, 983), Vector2(176, 55), func(): screen_requested.emit("market_map"))
@@ -188,6 +204,21 @@ func _rebuild_screen() -> void:
 		"goal":
 			_build_hud()
 			_build_goal()
+		"purse":
+			_build_hud()
+			_build_purse()
+		"purse_salma":
+			_build_hud()
+			_build_salma()
+		"purse_page":
+			_build_hud()
+			_build_page_one()
+		"purse_morning":
+			_build_hud()
+			_build_purse_morning()
+		"reputation":
+			_build_hud()
+			_build_reputation()
 	_last_coins = progress.coins
 	_last_trust = progress.trust
 	_last_daily_count = progress.daily_count
@@ -325,10 +356,13 @@ func _build_arrival() -> void:
 			y += 70.0
 
 func _arrival_button(value: String, at: Vector2, callback: Callable, primary: bool = false) -> float:
-	var face := bold_font if primary else font
-	var width := face.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 44.0
+	var width := _button_width(value, primary)
 	_button(value, at, Vector2(width, 56), callback, primary)
 	return width
+
+func _button_width(value: String, primary: bool = false) -> float:
+	var face := bold_font if primary else font
+	return face.get_string_size(value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 44.0
 
 func _build_idris() -> void:
 	var teacher: Dictionary = identity.teacher
@@ -339,13 +373,13 @@ func _build_idris() -> void:
 	var panel := _panel(Vector2.ZERO, Vector2(1188, 0), Color("1b130be8"))
 	_heading(panel, kicker, teacher.name if done else teacher.title_before)
 	var line: String = teacher.end if done else beat.text
-	var y := 111.0 + _idris_text(panel, line, 111.0) + 14.0
+	var y := 111.0 + _story_text(panel, line, 111.0) + 14.0
 	if done:
 		var count_line: String = teacher.words_you_know.format({"n": count})
 		_label(panel, count_line.to_upper(), Vector2(34, y), Vector2(1120, 28), 16, Color("e9bd70"))
 		y += 36.0
 	elif not idris_reply.is_empty():
-		y += _idris_text(panel, idris_reply, y, true) + 12.0
+		y += _story_text(panel, idris_reply, y, true) + 12.0
 		if not idris_new_word.is_empty():
 			var word: Dictionary = identity.language.words[idris_new_word]
 			var notice: String = teacher.new_word.format(word)
@@ -371,7 +405,7 @@ func _build_idris() -> void:
 				choose.get_theme_stylebox(state).content_margin_left = 22.0
 	_arrival_button(teacher.buttons.leave, at + Vector2(0, buttons_height), func(): idris_leave_requested.emit())
 
-func _idris_text(panel: Panel, value: String, y: float, bold: bool = false) -> float:
+func _story_text(panel: Panel, value: String, y: float, bold: bool = false) -> float:
 	var body := RichTextLabel.new()
 	body.position = Vector2(34, y)
 	body.size.x = 1120
@@ -383,15 +417,17 @@ func _idris_text(panel: Panel, value: String, y: float, bold: bool = false) -> f
 	body.add_theme_font_size_override("normal_font_size", 23)
 	body.add_theme_font_size_override("bold_font_size", 23)
 	body.add_theme_color_override("default_color", PAPER)
+	if screen in CHAPTER_SCREENS:
+		body.add_theme_constant_override("line_separation", 5)
 	panel.add_child(body)
 
 	var offset := 0
 	for marker: RegExMatch in _word_marker.search_all(value):
 		var id := marker.get_string(1)
-		if not identity.language.words.has(id):
+		if not language_words.has(id):
 			continue
 		body.add_text(value.substr(offset, marker.get_start() - offset))
-		var word: Dictionary = identity.language.words[id]
+		var word: Dictionary = language_words[id]
 		if known_words.has(id):
 			body.push_bold()
 			body.add_text(word.en)
@@ -433,7 +469,7 @@ func _build_hud() -> void:
 	fill.size = Vector2(315 * float(progress.trust) / float(data.numbers.trust_max), 10)
 	fill.color = GOLD
 	track.add_child(fill)
-	if screen in ["arrival", "idris"]:
+	if screen in ["arrival", "idris", "purse_salma", "purse_page"]:
 		return
 	var hit := Button.new()
 	hit.flat = true
@@ -449,7 +485,7 @@ func _build_clock_hud() -> void:
 	_clock_prayer = _label(clock_panel, "", Vector2(14, 40), Vector2(257, 34), 24, Color("ffd27e"), true)
 	_clock_time.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_clock_prayer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	if screen not in ["arrival", "idris", "prayer_record"]:
+	if screen not in ["arrival", "idris", "prayer_record", "purse_salma", "purse_page"]:
 		_clock_hit = Button.new()
 		_clock_hit.flat = true
 		_clock_hit.modulate = Color(1, 1, 1, 0)
@@ -665,17 +701,170 @@ func _build_goal() -> void:
 	_button(data.ui.buttons.back_to_market, Vector2(399, 804), Vector2(247, 56), func(): screen_requested.emit("game"), true)
 	_button(data.ui.buttons.map, Vector2(659, 804), Vector2(91, 56), func(): screen_requested.emit("market_map"))
 
-func _build_prayer_buttons(x: float) -> float:
-	if not _prayer_label.is_empty() and place_id != "masjid":
-		x += _arrival_button(_prayer_label, Vector2(x, 973), func(): pray_requested.emit(), true) + 22
+func _chapter_panel(kicker: String, title_value: String) -> Panel:
+	var panel := _panel(Vector2.ZERO, Vector2(1188, 0), Color("1b130be8"))
+	_heading(panel, kicker, title_value)
+	return panel
+
+func _chapter_finish(panel: Panel, button_y: float) -> void:
+	panel.size.y = button_y + 82.0
+	panel.position = Vector2(366, maxf(138.0, 583.0 - panel.size.y / 2.0))
+
+func _chapter_note(panel: Panel, value: String, y: float) -> float:
+	_label(panel, value.to_upper(), Vector2(34, y), Vector2(1120, 28), 16, Color("e9bd70"))
+	return y + 36.0
+
+func _chapter_button(panel: Panel, value: String, at: Vector2, callback: Callable, primary: bool = false, full_width: bool = false) -> float:
+	var width := 1120.0 if full_width else _button_width(value, primary)
+	var button := _button(value, at, Vector2(width, 56), callback, primary, panel)
+	if full_width:
+		button.alignment = HORIZONTAL_ALIGNMENT_LEFT
+		for state in ["normal", "hover", "pressed"]:
+			button.get_theme_stylebox(state).content_margin_left = 22.0
+	return width + 12.0
+
+func _chapter_row_rule(panel: Panel, y: float) -> void:
+	var rule := ColorRect.new()
+	rule.position = Vector2(34, y)
+	rule.size = Vector2(1120, 1)
+	rule.color = Color("88612566")
+	rule.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	panel.add_child(rule)
+
+func _build_purse() -> void:
+	var purse: Dictionary = chapter.purse
+	var panel := _chapter_panel(purse.kicker, purse.title)
+	var y := 111.0
+	y += _story_text(panel, purse.intro, y) + 16.0
+	for person: Dictionary in open_purse.visible_people():
+		y += _purse_person_row(panel, purse, person, y)
+	if not open_purse.page_read:
+		y = _chapter_note(panel, purse.only_public, y)
+	y += 10.0
+	var x := 34.0
+	if not open_purse.salma_asked:
+		x += _chapter_button(panel, purse.ask_baker, Vector2(x, y), func(): salma_requested.emit())
+	elif not open_purse.page_read:
+		x += _chapter_button(panel, str(purse.take_page).format({"teacher": chapter.teacher}), Vector2(x, y), func(): page_requested.emit())
+	x += _chapter_button(panel, purse.end_day, Vector2(x, y), func(): end_purse_day_requested.emit(), true)
+	_chapter_button(panel, purse.not_now, Vector2(x, y), func(): screen_requested.emit("market_map"))
+	_chapter_finish(panel, y)
+
+func _purse_person_row(panel: Panel, purse: Dictionary, person: Dictionary, y: float) -> float:
+	_chapter_row_rule(panel, y)
+	var id: String = person.id
+	var gift: String = open_purse.gift_status(id)
+	var cost := int(person.cost)
+	var public_label: String = str(purse.give).format({"n": cost})
+	var secret_label: String = purse.give_secret
+	var status := ""
+	if not gift.is_empty():
+		status = purse.given_public if gift == "public" else purse.given_secret
+	elif progress.coins < cost:
+		status = purse.not_enough
+
+	var action_width := _button_width(public_label, true)
+	if not status.is_empty():
+		action_width = font.get_string_size(status, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+	elif open_purse.page_read:
+		action_width += _button_width(secret_label) + 8.0
+	var body_width := 1120.0 - action_width - 20.0
+	var name_color := PAPER if gift.is_empty() else Color("b1a18b")
+	var body_color := Color("ebdab7") if gift.is_empty() else Color("b1a18b")
+	_label(panel, person.name, Vector2(34, y + 12), Vector2(body_width, 30), 23, name_color, true)
+	var ask := _label(panel, "", Vector2(34, y + 43), Vector2(body_width, 0), 20, body_color)
+	ask.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	ask.text = person.ask
+	ask.size.y = ask.get_minimum_size().y
+	var row_height := maxf(84.0, 57.0 + ask.size.y)
+	var action_at := Vector2(1154.0 - action_width, y + (row_height - 56.0) / 2.0)
+	if not status.is_empty():
+		var color := Color("ffd27e") if gift.is_empty() else Color("c4965b")
+		var label := _label(panel, status, action_at, Vector2(action_width, 56), 23, color)
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	else:
+		_chapter_button(panel, public_label, action_at, func(): gift_requested.emit(id, false), true)
+		if open_purse.page_read:
+			action_at.x += _button_width(public_label, true) + 8.0
+			_chapter_button(panel, secret_label, action_at, func(): gift_requested.emit(id, true))
+	return row_height
+
+func _build_salma() -> void:
+	var baker: Dictionary = chapter.purse.baker
+	var panel := _chapter_panel(chapter.purse.kicker, baker.title)
+	var y := 111.0
+	for line: String in baker.lines:
+		y += _story_text(panel, line, y) + 15.0
+	var take: String = str(chapter.purse.take_page).format({"teacher": chapter.teacher})
+	_chapter_button(panel, take, Vector2(34, y), func(): page_requested.emit(), true, true)
+	y += 69.0
+	_chapter_button(panel, baker.back, Vector2(34, y), func(): page_closed.emit(), false, true)
+	_chapter_finish(panel, y)
+
+func _build_page_one() -> void:
+	var page: Dictionary = chapter.page
+	var panel := _chapter_panel(page.kicker, page.title)
+	var y := 111.0
+	y += _story_text(panel, str(page.story).format({"teacher": chapter.teacher}), y) + 15.0
+	var hadith: String = str(page.hadith).format({"teacher": chapter.teacher, "word": "{sirr}"})
+	y += _story_text(panel, hadith, y) + 15.0
+	y = _chapter_note(panel, str(page.source) + " · " + str(page.learned).format(chapter.words.sirr), y)
+	_chapter_button(panel, page.back, Vector2(34, y), func(): page_closed.emit(), true, true)
+	_chapter_finish(panel, y)
+
+func _build_purse_morning() -> void:
+	var morning: Dictionary = chapter.purse.morning
+	var panel := _chapter_panel(morning.kicker, morning.title)
+	var y := 111.0
+	for line: String in open_purse.morning_lines():
+		y += _story_text(panel, line, y) + 15.0
+	var x := 34.0 + _chapter_button(panel, morning.to_rep, Vector2(34, y), func(): screen_requested.emit("reputation"), true)
+	_chapter_button(panel, morning.to_map, Vector2(x, y), func(): screen_requested.emit("market_map"))
+	_chapter_finish(panel, y)
+
+func _build_reputation() -> void:
+	var rep: Dictionary = chapter.rep
+	var panel := _chapter_panel(rep.kicker, str(rep.title).format({"n": progress.trust}))
+	var lines: Array = open_purse.reputation_lines()
+	var y := 111.0
+	if lines.is_empty():
+		y += _story_text(panel, rep.empty, y) + 15.0
+	var row_height := 70.0 if lines.size() > 6 else 81.0
+	for line: Array in lines:
+		_chapter_row_rule(panel, y)
+		_label(panel, "“%s”" % line[0], Vector2(34, y + 10), Vector2(1000, 32), 23, PAPER, true)
+		_label(panel, str(line[1]).to_upper(), Vector2(34, y + 42), Vector2(1000, 24), 16, Color("e9bd70"))
+		var tone: String = rep.tone[str(int(line[2]))]
+		var tag := _label(panel, tone, Vector2(1034, y + 16), Vector2(120, 48), 23, Color("ffd27e"))
+		tag.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		y += row_height
+	if open_purse.has_secret_gift():
+		y = _chapter_note(panel, rep.secret_note, y)
+	y = _chapter_note(panel, rep.towns_note, y)
+	var x := 34.0 + _chapter_button(panel, rep.to_map, Vector2(34, y), func(): screen_requested.emit("market_map"), true)
+	_chapter_button(panel, rep.to_goal, Vector2(x, y), func(): goal_requested.emit())
+	_chapter_finish(panel, y)
+
+func _build_prayer_buttons(x: float, place_width: float) -> float:
+	var prayer := _prayer_label if place_id != "masjid" else ""
+	var width := 0.0
+	if not prayer.is_empty():
+		width += _button_width(prayer, true) + 22.0
 	if not _make_up_label.is_empty():
-		x += _arrival_button(_make_up_label, Vector2(x, 973), func(): make_up_requested.emit()) + 22
-	return x
+		width += _button_width(_make_up_label) + 22.0
+	var separate_row := x + width + place_width > 1878.0
+	var at := Vector2(x, 898.0 if separate_row else 973.0)
+	if not prayer.is_empty():
+		at.x += _arrival_button(prayer, at, func(): pray_requested.emit(), true) + 22.0
+	if not _make_up_label.is_empty():
+		at.x += _arrival_button(_make_up_label, at, func(): make_up_requested.emit()) + 22.0
+	return x if separate_row else at.x
 
 func _build_place_bar(x: float) -> void:
 	if place_id.is_empty() or not data.places.has(place_id):
 		var idle: String = data.ui.place_bar.idle
 		var idle_width: float = font.get_string_size(idle, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
+		x = _build_prayer_buttons(x, idle_width + 36)
 		var idle_panel := _panel(Vector2(x, 965), Vector2(idle_width + 36, 73), Color("191c19"))
 		_label(idle_panel, idle, Vector2(18, 15), Vector2(idle_width + 4, 42), 24, PAPER)
 		return
@@ -696,11 +885,17 @@ func _build_place_bar(x: float) -> void:
 	var name_width := bold_font.get_string_size(name_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var line_width := font.get_string_size(line_value, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x
 	var button_width := bold_font.get_string_size(action, HORIZONTAL_ALIGNMENT_LEFT, -1, 24).x + 46
-	var total_width := name_width + line_width + button_width + 55
+	var purse_button: bool = place_id == "inn" and not open_purse.done
+	var purse_width := _button_width(chapter.places.inn) + 18.0 if purse_button else 0.0
+	var total_width := name_width + line_width + button_width + purse_width + 55.0
+	x = _build_prayer_buttons(x, total_width)
 	var panel := _panel(Vector2(x, 965), Vector2(total_width, 73), Color("191c19"))
 	_label(panel, name_value, Vector2(18, 15), Vector2(name_width + 4, 42), 24, PAPER, true)
 	_label(panel, line_value, Vector2(18 + name_width, 15), Vector2(line_width + 4, 42), 24, PAPER)
-	_button(action, Vector2(x + total_width - button_width - 17, 973), Vector2(button_width, 56), func(): use_requested.emit(), true)
+	var action_x := x + total_width - button_width - purse_width - 17.0
+	_button(action, Vector2(action_x, 973), Vector2(button_width, 56), func(): use_requested.emit(), true)
+	if purse_button:
+		_button(chapter.places.inn, Vector2(action_x + button_width + 18.0, 973), Vector2(purse_width - 18.0, 56), func(): purse_requested.emit())
 
 func _style(background: Color, border: Color = Color("886125")) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()
@@ -732,7 +927,7 @@ func _label(parent: Node, value: String, at: Vector2, extent: Vector2, size_valu
 	parent.add_child(label)
 	return label
 
-func _button(value: String, at: Vector2, extent: Vector2, callback: Callable, primary: bool = false) -> Button:
+func _button(value: String, at: Vector2, extent: Vector2, callback: Callable, primary: bool = false, parent: Node = null) -> Button:
 	var button := Button.new()
 	button.text = value
 	button.position = at
@@ -743,13 +938,13 @@ func _button(value: String, at: Vector2, extent: Vector2, callback: Callable, pr
 	button.add_theme_color_override("font_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_hover_color", INK if primary else PAPER)
 	button.add_theme_color_override("font_pressed_color", INK if primary else PAPER)
-	var task_panel := screen in ["arrival", "idris", "board", "task", "result", "lesson", "goal", "prayer_record"]
+	var task_panel := parent != null or screen in ["arrival", "idris", "board", "task", "result", "lesson", "goal", "prayer_record"]
 	var background := Color("1b130bf2") if task_panel else Color("191c19")
 	button.add_theme_stylebox_override("normal", _style(GOLD if primary else background))
 	button.add_theme_stylebox_override("hover", _style(GOLD.lightened(0.12) if primary else (background.lightened(0.1) if task_panel else Color("312b20"))))
 	button.add_theme_stylebox_override("pressed", _style(GOLD.darkened(0.12) if primary else (background.darkened(0.12) if task_panel else Color("0d100f"))))
 	button.pressed.connect(callback)
-	content.add_child(button)
+	(parent if parent != null else content).add_child(button)
 	return button
 
 func show_city_gate(index: int) -> void:

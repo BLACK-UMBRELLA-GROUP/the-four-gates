@@ -1,0 +1,992 @@
+{
+	"checks": [
+		{
+			"description": "visible real button exists: Begin",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Step off into the crowd",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Go to the one with the open scale",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Pay for one night",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Follow them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Continue",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Walk River Market",
+			"passed": true
+		},
+		{
+			"description": "fair arrival opens the Inn map with 198 coins",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c01_market_map__inn_people_waiting__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c01_market_map__inn_people_waiting__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: People are waiting at the door",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c02_purse__door_start__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c02_purse__door_start__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give 10 coins",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c03_purse__gave_in_public__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c03_purse__gave_in_public__build.png",
+			"passed": true
+		},
+		{
+			"description": "public Yusuf gift spends 10 and adds two trust",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask Salma the baker about them",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c04_purse__salma__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c04_purse__salma__build.png",
+			"passed": true
+		},
+		{
+			"description": "Salma reveals Umm Salim",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the page to Idris",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c05_page_1__giving_in_secret__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c05_page_1__giving_in_secret__build.png",
+			"passed": true
+		},
+		{
+			"description": "Idris reads at the Masjid and teaches sirr",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the people",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c06_purse__secret_and_widow__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c06_purse__secret_and_widow__build.png",
+			"passed": true
+		},
+		{
+			"description": "page returns to the people at the Inn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give 3 coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give 20 coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: End the day",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c08_morning__public_and_liar__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c08_morning__public_and_liar__build.png",
+			"passed": true
+		},
+		{
+			"description": "End the day shows next morning at 07:00 with the four public gift lines",
+			"passed": true
+		},
+		{
+			"description": "prayers ending during End the day are not counted",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c09_people_say__gives_and_fooled__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c09_people_say__gives_and_fooled__build.png",
+			"passed": true
+		},
+		{
+			"description": "public Tariq triggers the two ordered reputation lines",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "finished purse no longer opens from the Inn",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: People are waiting at the door",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask Salma the baker about them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the page to Idris",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the people",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c07_purse__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c07_purse__not_enough_coins__build.png",
+			"passed": true
+		},
+		{
+			"description": "unaffordable public Tariq gift has no button",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: People are waiting at the door",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask Salma the baker about them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the page to Idris",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the people",
+			"passed": true
+		},
+		{
+			"description": "found public gift on the same row: Give 10 coins",
+			"passed": true
+		},
+		{
+			"description": "native secret button gave to father",
+			"passed": true
+		},
+		{
+			"description": "found public gift on the same row: Give 8 coins",
+			"passed": true
+		},
+		{
+			"description": "native secret button gave to widow",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: End the day",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c10_morning__in_secret__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c10_morning__in_secret__build.png",
+			"passed": true
+		},
+		{
+			"description": "two secret gifts deduct only the locked costs",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c11_people_say__secret_note__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c11_people_say__secret_note__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: People are waiting at the door",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask Salma the baker about them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the people",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Give 8 coins",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: End the day",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c12_morning__widow_in_public__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c12_morning__widow_in_public__build.png",
+			"passed": true
+		},
+		{
+			"description": "public Umm Salim triggers the ordered good and bad lines",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c15_people_say__empty__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c15_people_say__empty__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the market map",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: People are waiting at the door",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: ‹ Not now",
+			"passed": true
+		},
+		{
+			"description": "Not now returns to the map with the door still open",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: People are waiting at the door",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: End the day",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c13_morning__gave_nothing__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c13_morning__gave_nothing__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c14_people_say__purse_shut__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c14_people_say__purse_shut__build.png",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: What people say",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: c16_people_say__lock1_lines__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: c16_people_say__lock1_lines__build.png",
+			"passed": true
+		},
+		{
+			"description": "c16 has all six ordered foundation, boat, scales and congregation rows",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Goal",
+			"passed": true
+		},
+		{
+			"description": "reputation opens the LOCK 1 goal panel",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: People are waiting at the door",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Ask Salma the baker about them",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Take the page to Idris",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: Back to the people",
+			"passed": true
+		},
+		{
+			"description": "found public gift on the same row: Give 20 coins",
+			"passed": true
+		},
+		{
+			"description": "native secret button gave to fire",
+			"passed": true
+		},
+		{
+			"description": "visible real button exists: End the day",
+			"passed": true
+		},
+		{
+			"description": "secret Tariq costs 20 and leaves trust at 20",
+			"passed": true
+		},
+		{
+			"description": "secret Tariq produces only the quiet morning and secret-note state",
+			"passed": true
+		},
+		{
+			"description": "all 16 master captures were saved",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: inn_door_people__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: inn_door_people__build.png",
+			"passed": true
+		},
+		{
+			"description": "native 1920x1080 image: salma_at_the_oven__build.png",
+			"passed": true
+		},
+		{
+			"description": "PNG saved: salma_at_the_oven__build.png",
+			"passed": true
+		},
+		{
+			"description": "native checks receipt is writable",
+			"passed": true
+		}
+	],
+	"driver": "metal",
+	"engine": "4.7.2-stable (official)",
+	"failures": 0,
+	"fixture": "Fair arrival sets the wallet. Later-day fixtures run on Saturday at 10:00 with no outstanding prayers. c07 sets five coins. c16 earns the LOCK 1/2 states with their live wallet and trust.",
+	"gpu": "Apple M2 (Apple8)",
+	"method": "Native Godot viewport. Production GUI buttons receive viewport-local mouse clicks. Passive clock ticks are paused.",
+	"renderer": "forward_plus",
+	"resolution": [
+		1920,
+		1080
+	],
+	"screenshots": [
+		{
+			"file": "c01_market_map__inn_people_waiting__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c02_purse__door_start__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c03_purse__gave_in_public__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c04_purse__salma__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c05_page_1__giving_in_secret__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c06_purse__secret_and_widow__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c08_morning__public_and_liar__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c09_people_say__gives_and_fooled__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c07_purse__not_enough_coins__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c10_morning__in_secret__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c11_people_say__secret_note__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c12_morning__widow_in_public__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c15_people_say__empty__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c13_morning__gave_nothing__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c14_people_say__purse_shut__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "c16_people_say__lock1_lines__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "inn_door_people__build.png",
+			"height": 1080,
+			"width": 1920
+		},
+		{
+			"file": "salma_at_the_oven__build.png",
+			"height": 1080,
+			"width": 1920
+		}
+	],
+	"states": {
+		"c01_market_map__inn_people_waiting__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": false,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": false,
+			"screen": "market_map",
+			"tasks": {},
+			"trust": 20
+		},
+		"c02_purse__door_start__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": false,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": false,
+			"screen": "purse",
+			"tasks": {},
+			"trust": 20
+		},
+		"c03_purse__gave_in_public__build.png": {
+			"coins": 188,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": false,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": false,
+			"screen": "purse",
+			"tasks": {},
+			"trust": 22
+		},
+		"c04_purse__salma__build.png": {
+			"coins": 188,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": false,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": false,
+			"screen": "purse_salma",
+			"tasks": {},
+			"trust": 22
+		},
+		"c05_page_1__giving_in_secret__build.png": {
+			"coins": 188,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": true,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"purse_done": false,
+			"screen": "purse_page",
+			"tasks": {},
+			"trust": 22
+		},
+		"c06_purse__secret_and_widow__build.png": {
+			"coins": 188,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": true,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": false,
+			"screen": "purse",
+			"tasks": {},
+			"trust": 22
+		},
+		"c07_purse__not_enough_coins__build.png": {
+			"coins": 5,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": true,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": false,
+			"screen": "purse",
+			"tasks": {},
+			"trust": 20
+		},
+		"c08_morning__public_and_liar__build.png": {
+			"coins": 165,
+			"daily_count": 0,
+			"day": 4,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				"By morning word has spread. 16 people are waiting at the inn door.",
+				"Yusuf walks past with Ali, who is on his feet again. He tells the whole street who paid.",
+				"Faris runs past the quay in new shoes.",
+				"Salma shakes her head: Tariq’s house never burned. He tries it on every new traveller - and now he is telling everyone how easy you were."
+			],
+			"minute_of_day": 420,
+			"night": false,
+			"page_read": true,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": true,
+			"screen": "purse_morning",
+			"tasks": {},
+			"trust": 26
+		},
+		"c09_people_say__gives_and_fooled__build.png": {
+			"coins": 165,
+			"daily_count": 0,
+			"day": 4,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				[
+					"Gives freely",
+					"the street",
+					1.0
+				],
+				[
+					"Easy to fool",
+					"Tariq, to anyone who listens",
+					-1.0
+				]
+			],
+			"minute_of_day": 420,
+			"night": false,
+			"page_read": true,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": true,
+			"screen": "reputation",
+			"secret_note": false,
+			"tasks": {},
+			"trust": 26
+		},
+		"c10_morning__in_secret__build.png": {
+			"coins": 180,
+			"daily_count": 0,
+			"day": 4,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				"The inn door is quiet this morning.",
+				"Yusuf tells everyone Rania was paid by someone he never saw. He does not know it was you.",
+				"Warm bread has been left at your door. You never find out who left it."
+			],
+			"minute_of_day": 420,
+			"night": false,
+			"page_read": true,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": true,
+			"screen": "purse_morning",
+			"tasks": {},
+			"trust": 20
+		},
+		"c11_people_say__secret_note__build.png": {
+			"coins": 180,
+			"daily_count": 0,
+			"day": 4,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [],
+			"minute_of_day": 420,
+			"night": false,
+			"page_read": true,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": true,
+			"screen": "reputation",
+			"secret_note": true,
+			"tasks": {},
+			"trust": 20
+		},
+		"c12_morning__widow_in_public__build.png": {
+			"coins": 190,
+			"daily_count": 0,
+			"day": 4,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				"By morning word has spread. 8 people are waiting at the inn door.",
+				"Umm Salim keeps her eyes down when she sees you. Half the street watched her take your coins."
+			],
+			"minute_of_day": 420,
+			"night": false,
+			"page_read": false,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": true,
+			"screen": "purse_morning",
+			"tasks": {},
+			"trust": 22
+		},
+		"c13_morning__gave_nothing__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 4,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				"Nobody is waiting any more. People say the foreigner keeps his purse shut."
+			],
+			"minute_of_day": 420,
+			"night": false,
+			"page_read": false,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": true,
+			"screen": "purse_morning",
+			"tasks": {},
+			"trust": 20
+		},
+		"c14_people_say__purse_shut__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 4,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [
+				[
+					"Keeps the purse shut",
+					"the street",
+					-1.0
+				]
+			],
+			"minute_of_day": 420,
+			"night": false,
+			"page_read": false,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": true,
+			"screen": "reputation",
+			"secret_note": false,
+			"tasks": {},
+			"trust": 20
+		},
+		"c15_people_say__empty__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": false,
+			"lines": [],
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": false,
+			"place": "inn",
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"purse_done": false,
+			"screen": "reputation",
+			"secret_note": false,
+			"tasks": {},
+			"trust": 20
+		},
+		"c16_people_say__lock1_lines__build.png": {
+			"coins": 209,
+			"daily_count": 1,
+			"day": 3,
+			"gate_open": false,
+			"lesson_done": true,
+			"lines": [
+				[
+					"Does honest work",
+					"Spice seller",
+					1
+				],
+				[
+					"Cut a corner, then put it right",
+					"Weaver’s lane",
+					0
+				],
+				[
+					"Does honest work",
+					"Market scales",
+					1
+				],
+				[
+					"Works hard on the quay",
+					"Jamal and the boatmen",
+					1.0
+				],
+				[
+					"Can read a scale",
+					"Old Musa, the scale-keeper",
+					1.0
+				],
+				[
+					"Comes to the masjid",
+					"Yunus the muezzin",
+					1.0
+				]
+			],
+			"minute_of_day": 600,
+			"night": false,
+			"page_read": false,
+			"place": "masjid",
+			"player": [
+				68.8000030517578,
+				0.0,
+				23.2000007629395
+			],
+			"purse_done": false,
+			"screen": "reputation",
+			"secret_note": false,
+			"tasks": {
+				"purse": {
+					"amended": true,
+					"choice": "quick",
+					"lost_trust": 20
+				},
+				"scales_help": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				},
+				"spice": {
+					"amended": false,
+					"choice": "honest",
+					"lost_trust": 0
+				}
+			},
+			"trust": 100
+		},
+		"inn_door_people__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				36.7999992370605,
+				0.0,
+				66.4000015258789
+			],
+			"screen": "game",
+			"tasks": {},
+			"trust": 20
+		},
+		"salma_at_the_oven__build.png": {
+			"coins": 198,
+			"daily_count": 0,
+			"gate_open": false,
+			"lesson_done": false,
+			"night": false,
+			"player": [
+				84.8000030517578,
+				0.0,
+				33.5999984741211
+			],
+			"screen": "game",
+			"tasks": {},
+			"trust": 20
+		}
+	},
+	"timestamp_utc": "2026-11-11T14:05:11Z"
+}

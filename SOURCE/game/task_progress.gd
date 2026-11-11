@@ -6,6 +6,7 @@ var trust: int = 0
 var coins: int = 0
 var tasks: Dictionary = {}
 var daily_count: int = 0
+var boat_job_done := false
 var lesson_done := false
 var tried_weight := -1
 var gate_open := false
@@ -17,6 +18,7 @@ func setup(source: Dictionary) -> void:
 	coins = int(data.numbers.start_coins)
 	tasks.clear()
 	daily_count = 0
+	boat_job_done = false
 	lesson_done = false
 	tried_weight = -1
 	gate_open = false
@@ -33,7 +35,7 @@ func answer_weight() -> bool:
 	if lesson_done or tried_weight != int(data.lesson.false_weight_index):
 		return false
 	lesson_done = true
-	_apply_trust(int(data.lesson.trust))
+	apply_trust(int(data.lesson.trust))
 	return true
 
 
@@ -53,7 +55,7 @@ func choose_task(id: String, choice: String) -> Dictionary:
 	if task.is_empty() or tasks.has(id) or choice not in ["honest", "quick"]:
 		return {}
 	var reward: Dictionary = task[choice]
-	var change := _apply_trust(int(reward.trust))
+	var change := apply_trust(int(reward.trust))
 	coins += int(reward.coins)
 	tasks[id] = {
 		"choice": choice,
@@ -84,7 +86,7 @@ func amend_task(id: String) -> bool:
 	if state.choice != "quick" or state.amended or coins < int(task.amends.cost):
 		return false
 	coins -= int(task.amends.cost)
-	_apply_trust(amend_reward(id))
+	apply_trust(amend_reward(id))
 	state.amended = true
 	return true
 
@@ -93,8 +95,9 @@ func do_daily_job() -> bool:
 	if daily_count >= int(data.daily_job.per_day):
 		return false
 	daily_count += 1
+	boat_job_done = true
 	coins += int(data.daily_job.coins)
-	_apply_trust(int(data.daily_job.trust))
+	apply_trust(int(data.daily_job.trust))
 	return true
 
 
@@ -102,7 +105,7 @@ func morning() -> void:
 	daily_count = 0
 
 
-func _apply_trust(amount: int) -> int:
+func apply_trust(amount: int) -> int:
 	var before := trust
 	trust = clampi(trust + amount, int(data.numbers.trust_min), int(data.numbers.trust_max))
 	return trust - before
