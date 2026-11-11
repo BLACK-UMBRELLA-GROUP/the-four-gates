@@ -1,0 +1,85 @@
+{
+ "version": "LOCK 16 V1 (9 Nov 2026) - wealth: Rashid's loan",
+ "builds_on": "LOCK 1 trust and coins, LOCK 4 Rashid's stall, LOCK 6 Rashid, LOCK 7 opening hours, LOCK 3 What people say. Placeholders: {n}.",
+ "numbers": {
+  "min_trust": 30,
+  "loan": 30,
+  "ask_back": 36,
+  "first_pay": 20,
+  "due_days": 3,
+  "more_days": 7,
+  "riba_trust": -5,
+  "wait_trust": 3,
+  "forgive_trust": 5,
+  "demand_trust": -5
+ },
+ "ask_button": "Rashid needs a loan",
+ "pay_button": "Rashid has your money",
+ "ask": {
+  "kicker": "Rashid's stall",
+  "title": "A loan",
+  "text": "The pepper caravan leaves tomorrow and Rashid is thirty coins short. He keeps his eyes on the scales: “Lend me thirty and I will pay you back in three days. Every coin.”",
+  "lend": "Lend {n} coins",
+  "lend_more": "Lend {n}, ask {m} back",
+  "no": "Not this time",
+  "not_enough": "not enough coins"
+ },
+ "riba": {
+  "kicker": "Rashid's stall",
+  "title": "Thirty-six",
+  "text": "Rashid's face closes. “Thirty-six back for thirty? That is riba, friend. I would rather go without.” He turns back to his sacks.",
+  "to_rep": "What people say",
+  "to_map": "Back to the market map"
+ },
+ "lent": {
+  "kicker": "Rashid's stall",
+  "title": "Lent",
+  "text": "Rashid takes the coins in both hands. “Three days,” he says. “You will see.”",
+  "to_map": "Back to the market map"
+ },
+ "due": {
+  "kicker": "Rashid's stall",
+  "title": "Twenty coins",
+  "text": "The caravan came back late and the pepper sold slowly. Rashid counts out twenty coins. “The other ten in a week. I swear it.”",
+  "wait": "Take the twenty and give him time",
+  "forgive": "Take the twenty and let the ten go",
+  "demand": "Demand all thirty now"
+ },
+ "after": {
+  "wait": "Rashid lets out a long breath. “A week. Thank you.”",
+  "forgive": "Rashid stares at you, then grips your hand across the scales. “I will not forget this.”",
+  "demand": "Rashid goes pale, leaves the stall and comes back an hour later with ten more coins. He does not say where he got them. Later you see him leaving the inn with Mansur.",
+  "to_rep": "What people say",
+  "to_map": "Back to the market map"
+ },
+ "last": {
+  "kicker": "Rashid's stall",
+  "title": "The last ten",
+  "text": "Rashid presses ten coins into your hand and holds on a moment. “You waited for me.”",
+  "to_rep": "What people say",
+  "to_map": "Back to the market map"
+ },
+ "owed": "Rashid owes you {n} coins",
+ "say": {
+  "riba": [
+   "Asked Rashid for interest",
+   "Rashid the spice seller",
+   -1
+  ],
+  "wait": [
+   "Gave Rashid time to pay",
+   "Rashid the spice seller",
+   1
+  ],
+  "forgive": [
+   "Let Rashid off ten coins",
+   "Rashid the spice seller",
+   1
+  ],
+  "demand": [
+   "Hounded Rashid for his debt",
+   "the spice sellers",
+   -1
+  ]
+ }
+}

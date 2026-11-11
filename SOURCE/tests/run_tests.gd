@@ -144,6 +144,7 @@ func _run() -> void:
 	await check_jabirs_goats_runtime()
 	await check_idris_recovery()
 	await check_dry_fountain_runtime()
+	await check_rashids_loan_runtime()
 	finish()
 
 
@@ -3058,3 +3059,141 @@ func check_secret_fountain(fountain: Dictionary) -> void:
 	check(visible_text().contains(done.secret) and not visible_text().contains(done.named), "the completion panel uses the secret outcome")
 	await press_button(done.to_rep, "the secret completion also opens What people say")
 	check(app.ui.screen == "reputation" and app.ui.reputation_lines().is_empty() and visible_text().contains(app.chapter.rep.empty), "secret completion leaves the empty reputation panel")
+
+
+func check_rashids_loan_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/RASHIDS_LOAN/RECORD/rashids_loan_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/rashids_loan.json")
+	var loan: Dictionary = app.rashids_loan.data
+	check(not locked.is_empty() and locked == runtime, "the loan copies LOCK 16 byte for byte")
+	check(loan == JSON.parse_string(runtime.get_string_from_utf8()), "the loan reads the approved runtime data")
+
+	await check_loan_offer_and_refusal(loan)
+	for choice in ["wait", "forgive", "demand"]:
+		await check_loan_repayment(loan, choice)
+	app.begin_game()
+	check(app.rashids_loan.reputation_line() == null, "starting over clears the loan outcome")
+
+
+func check_loan_offer_and_refusal(loan: Dictionary) -> void:
+	var amounts := {"n": int(loan.numbers.loan), "m": int(loan.numbers.ask_back)}
+	var lend := str(loan.ask.lend).format(amounts)
+	var interest := str(loan.ask.lend_more).format(amounts)
+	reset_at_market_place("spice", amounts.n - 1)
+	var trust := int(loan.numbers.min_trust)
+	app.progress.apply_trust(trust - 1 - app.progress.trust)
+	app.update_state()
+	check(find_button(app.ui, loan.ask_button) == null, "Rashid does not ask below the trust threshold")
+	app.show_rashids_loan()
+	check(app.ui.screen == "market_map", "the low-trust loan cannot be opened directly")
+	app.progress.apply_trust(1)
+	for time in [[8, 1200], [9, 725], [9, 759]]:
+		set_market_day_time(time[0], time[1])
+		check(find_button(app.ui, loan.ask_button) == null, "Rashid does not ask when his stall is closed: %s" % [time])
+		app.show_rashids_loan()
+		check(app.ui.screen == "market_map", "the closed-stall loan cannot be opened directly")
+	set_market_day_time(9, 760)
+	check(find_button(app.ui, loan.ask_button) != null, "Rashid asks at exactly the trust threshold after Friday prayer")
+	move_market_fixture("board")
+	app.show_rashids_loan()
+	check(app.ui.screen == "market_map" and find_button(app.ui, loan.ask_button) == null, "the loan is specific to the spice row")
+	move_market_fixture("spice")
+	var shop := find_button(app.ui, app.market_stall.data.place.spice_button)
+	var ask := find_button(app.ui, loan.ask_button)
+	var talk := find_button(app.ui, app.talking.button_at("spice"))
+	check(shop != null and ask != null and talk != null and shop.get_global_rect().end.x <= ask.global_position.x and ask.get_global_rect().end.x <= talk.global_position.x, "the ask fits between shopping and talking")
+	await press_button(loan.ask_button, "the spice row opens the loan ask")
+	check(app.ui.screen == "loan_ask" and visible_text().contains(loan.ask.text), "the ask shows the approved wording")
+	check(has_visible_label(app.ui, loan.ask.not_enough), "a wallet below 30 shows the locked message")
+	check(find_button(app.ui, lend) == null and find_button(app.ui, interest) == null, "both loan amounts are unavailable when unaffordable")
+	app.answer_rashids_loan("lend")
+	app.answer_rashids_loan("lend_more")
+	check_wallet(trust, amounts.n - 1, "unaffordable attempts cannot move coins or trust")
+	await press_button(loan.ask.no, "declining the ask returns to the map")
+	check(app.ui.screen == "market_map" and find_button(app.ui, loan.ask_button) != null, "declining leaves the ask open")
+
+	app.progress.coins = amounts.n
+	app.update_state()
+	await press_button(loan.ask_button, "the ask can be reopened")
+	check(find_button(app.ui, lend) != null, "the exact loan amount is sufficient")
+	await press_button(interest, "asking 36 for 30 opens the refusal")
+	check(app.ui.screen == "loan_riba" and visible_text().contains(loan.riba.text), "the refusal shows the locked reply")
+	check_wallet(trust + int(loan.numbers.riba_trust), amounts.n, "riba changes trust by −5 and moves no coins")
+	check(not app.idris_recovery.cool, "the refusal does not add a LOCK 14 temptation trigger")
+	await press_button(loan.riba.to_rep, "the refusal links to What people say")
+	check_reputation_row(loan.say.riba)
+	check(app.ui.reputation_lines() == [loan.say.riba], "the refusal adds one reputation line")
+	await press_button(app.chapter.rep.to_map, "return to the spice row after the refusal")
+	app.progress.apply_trust(45 - app.progress.trust)
+	set_market_day_time(15, 600)
+	check(find_button(app.ui, loan.ask_button) == null and find_button(app.ui, loan.pay_button) == null, "refusal ends the loan even after trust recovers")
+
+
+func check_loan_repayment(loan: Dictionary, choice: String) -> void:
+	const START_COINS := 198
+	const START_TRUST := 45
+	const LENDING_DAY := 8
+	var principal := int(loan.numbers.loan)
+	var first_pay := int(loan.numbers.first_pay)
+	var due_day := LENDING_DAY + int(loan.numbers.due_days)
+	var due_visit := due_day + 1
+	var trust := START_TRUST + int(loan.numbers[choice + "_trust"])
+	var lent_coins := START_COINS - principal
+	var coins := lent_coins + (principal if choice == "demand" else first_pay)
+	var owed_full := str(loan.owed).format({"n": principal})
+	var owed_rest := str(loan.owed).format({"n": principal - first_pay})
+	reset_at_market_place("spice", START_COINS)
+	app.progress.apply_trust(START_TRUST - app.progress.trust)
+	set_market_day_time(LENDING_DAY, 600)
+	await press_button(loan.ask_button, "open a fresh ask for " + choice)
+	await press_button(str(loan.ask.lend).format({"n": principal}), "lend 30 without increase")
+	check(app.ui.screen == "loan_lent" and visible_text().contains(loan.lent.text), "the loan uses the locked acceptance")
+	check_wallet(START_TRUST, lent_coins, "lending costs exactly 30 and leaves trust unchanged")
+	check(app.ui.reputation_lines().is_empty(), "lending alone adds no reputation line")
+	await press_button(loan.lent.to_map, "return to the spice row after lending")
+	check(has_visible_label(app.ui, owed_full), "the spice row shows a 30-coin balance")
+	set_market_day_time(LENDING_DAY + 1, 725)
+	check(not has_visible_label(app.ui, owed_full), "Rashid shows no balance while away at Friday prayer")
+	set_market_day_time(due_day - 1, 1000)
+	check(has_visible_label(app.ui, owed_full) and find_button(app.ui, loan.pay_button) == null, "the balance stays due later on calendar day two")
+	app.show_rashids_loan()
+	check(app.ui.screen == "market_map", "the balance cannot be collected early")
+	set_market_day_time(due_day, 480)
+	check(find_button(app.ui, loan.pay_button) != null, "day three unlocks collection even before the lending time of day")
+	set_market_day_time(due_visit, 600)
+	await press_button(loan.pay_button, "open the repayment panel a day after it became due")
+	check(app.ui.screen == "loan_due" and visible_text().contains(loan.due.text), "the due panel shows the locked offer")
+	check(find_button(app.ui, loan.due.wait) != null and find_button(app.ui, loan.due.forgive) != null and find_button(app.ui, loan.due.demand) != null, "the three repayment options are offered together")
+	await press_button(loan.due[choice], "choose " + choice)
+	check(app.ui.screen == "loan_after" and has_visible_label(app.ui, loan.due.title) and visible_text().contains(loan.after[choice]), "the choice keeps the due title and shows its locked result")
+	check_wallet(trust, coins, "the repayment applies the locked coin and trust changes")
+	app.answer_rashids_loan(choice)
+	check_wallet(trust, coins, "the repayment cannot be applied twice")
+	await press_button(loan.after.to_rep, "the result opens What people say")
+	check_reputation_row(loan.say[choice])
+	check(app.ui.reputation_lines() == [loan.say[choice]], "there is one reputation line for " + choice)
+	await press_button(app.chapter.rep.to_map, "return to the spice row from reputation")
+	if choice == "wait":
+		check(has_visible_label(app.ui, owed_rest), "the spice row now shows a 10-coin balance")
+		var last_day := due_visit + int(loan.numbers.more_days)
+		set_market_day_time(last_day - 1, 600)
+		check(has_visible_label(app.ui, owed_rest) and find_button(app.ui, loan.pay_button) == null, "six days after the actual due visit is still too early")
+		set_market_day_time(last_day, 600)
+		await press_button(loan.pay_button, "collect the last ten after seven days from the due visit")
+		check(app.ui.screen == "loan_last" and visible_text().contains(loan.last.text), "the last payment shows the locked story")
+		coins = START_COINS
+		check_wallet(trust, coins, "the final ten restore principal without another trust change")
+		await press_button(loan.last.to_rep, "the last payment links to reputation")
+		check(app.ui.reputation_lines() == [loan.say.wait], "collecting the last ten keeps the original line")
+		await press_button(app.chapter.rep.to_map, "return to the map after collecting the final ten")
+	check(find_button(app.ui, loan.ask_button) == null and find_button(app.ui, loan.pay_button) == null and not has_visible_label(app.ui, owed_rest), "repaid loans leave no bar action or balance")
+	app.show_rashids_loan()
+	check_wallet(trust, coins, "a closed loan cannot be collected again")
+	if choice == "demand":
+		for payment in ["named", "", ""]:
+			check(app.dry_fountain.pay(payment), "fixture adds the earlier named fountain line")
+		for night in range(20, 24):
+			set_market_day_time(night, 1200)
+			check(app.dice_house.enter(), "fixture adds the later Idris line")
+		var lines: Array = app.ui.reputation_lines()
+		check(lines.count(loan.say.demand) == 1 and lines.find(app.dry_fountain.data.say.named) + 1 == lines.find(loan.say.demand) and lines.find(loan.say.demand) + 1 == lines.find(app.idris_recovery.data.say.cool), "the loan line appears directly between the fountain and Idris")

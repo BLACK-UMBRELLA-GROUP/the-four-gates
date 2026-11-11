@@ -55,6 +55,9 @@ remains available throughout.
 LOCK 15 opens **The dry fountain** at the Task board. Repair it with three 20-coin payments. Choose whether
 to name yourself with the first payment. A named repair adds five trust and a **What people say** line
 when the water returns. The square shows how many days the fountain has run.
+LOCK 16 adds **Rashid needs a loan** at Spice row when Rashid is at the stall and River Market trust is at
+least 30. Lend 30 coins without increase, then return after three calendar days. Give Rashid time for the last
+ten, let the ten go or collect all thirty. Rashid refuses interest, and the outcome appears in **What people say**.
 The earlier disposable look test remains available as an explicit scene.
 See [ROADMAP.md](ROADMAP.md) for the planned game.
 

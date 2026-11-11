@@ -79,6 +79,11 @@ static func load_dry_fountain() -> Dictionary:
 	assert(parsed is Dictionary, "Approved dry fountain data must be an object")
 	return parsed
 
+static func load_rashids_loan() -> Dictionary:
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/rashids_loan.json"))
+	assert(parsed is Dictionary, "Approved Rashid's loan data must be an object")
+	return parsed
+
 static func load_clothes() -> Dictionary:
 	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/clothes.json"))
 	assert(parsed is Dictionary, "Approved clothes data must be an object")

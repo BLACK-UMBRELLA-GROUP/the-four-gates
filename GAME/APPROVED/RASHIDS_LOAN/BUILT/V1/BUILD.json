@@ -1,0 +1,736 @@
+{
+  "line": 23,
+  "lock": "LOCK 16 V1",
+  "brief": "DOC-TFG-0059",
+  "tested_base_commit_sha": "21fb84b2824a9fb35163bfd6ea2e0e8652748ff1",
+  "capture_source": "Line 23 candidate over the tested base. The 11 November Codex task note identifies the containing source and evidence commit.",
+  "godot_version": "4.7.2-stable (official)",
+  "build_mode": "Native Godot project debug run",
+  "timestamp_utc": "2026-11-11T17:30:34Z",
+  "renderer": "forward_plus",
+  "driver": "metal",
+  "gpu": "Apple M2 (Apple8)",
+  "method": "Real native Godot viewport. Viewport clicks drive fair arrivals, physical walks to Spice row, the loan choices, and the return to the market map.",
+  "fixture": "Passive clock ticks are paused. Fair arrival supplies 198 coins. Trust is seeded to 45 except for the threshold checks (25 for l17). The wallet is set to 20 for l18 and restored after declining. Offer frames use Thursday day 8 at 10:00, due frames Sunday day 11 at 10:00, and final repayment frames Sunday day 18 at 10:00. Friday prayer and night closures are checked between those fixtures. A fresh arrival starts each branch.",
+  "design_inputs": [
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BRIEFS/BUILD_BRIEF_2026-11-09_RASHIDS_LOAN.md",
+      "bytes": 2324,
+      "sha256": "f3c1323ebac52ab1b3460a78092e63f91f595680072a20534149fc284af0594d"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/RECORD/LOCK_RECORD.md",
+      "bytes": 660,
+      "sha256": "7aaaca03ae9164c62ec6dbaf88c292b2a2efea385c2198dc2893f82c2c4efe84"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/RECORD/RASHIDS_LOAN_SPEC_CURRENT_VERSION_V1.md",
+      "bytes": 5333,
+      "sha256": "9cc6444121fd331d9ff87ccbe965238c45a363c1dea06cc55ac08e3947de40c1"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/RECORD/rashids_loan_data_V1.json",
+      "bytes": 2776,
+      "sha256": "89d162d30ea41ef7c65d2de0bf07ea3fae81d02e4b424c1933991a6ceba2893f"
+    },
+    {
+      "path": "GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md",
+      "bytes": 1995,
+      "sha256": "f2abfee4dcc542086c5dcd23242a52986a6d29f28935f48b88e1bbbc6fbfdae6"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l01_spice__rashid_needs_a_loan.png",
+      "bytes": 65873,
+      "sha256": "817792c5c2f299a1f8b85af52bcbb3419d7d3d977e06dd892f08f9182d85e1b4"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l02_loan__the_ask.png",
+      "bytes": 329337,
+      "sha256": "430bcbeb725aacc437d456ee8cdb7bb905f8183482bd7d682212b63a7a033367"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l03_loan__that_is_riba.png",
+      "bytes": 329554,
+      "sha256": "29812988daf1c315c30e1f28a9f3545cf027d7d4d453b9d897db069b60c54591"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l04_people_say__asked_for_interest.png",
+      "bytes": 322231,
+      "sha256": "c3ace8a34b2e690a3280f788bdb576b0da9b872aa56f26b7f4bf5ac7ee834c71"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l05_loan__lent.png",
+      "bytes": 328238,
+      "sha256": "539f800ea1a48d6dfb661c681fec8295242cda39ee6fd8d722c4cce8967c64e8"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l06_spice__rashid_owes_30.png",
+      "bytes": 66040,
+      "sha256": "5c03678c976aa806909f5c0d5d3ae11668b971835eb68b724121bc0b551e9df3"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l07_spice__rashid_has_your_money.png",
+      "bytes": 66636,
+      "sha256": "5b18478b9a9a7d0943bf562d95d0b13339a191e9be8d99d4394fd391bcd03eb6"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l08_loan__twenty_coins.png",
+      "bytes": 326725,
+      "sha256": "5398fcf85c6c10c3c51f92d4b176eca5d358b8f746c2c21fceb9dff5942d9f72"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l09_loan__gave_time.png",
+      "bytes": 328478,
+      "sha256": "e6a51c8a8c60387e6e9603e6c85582c3d517baa01b9648125959d66c90469ee4"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l10_spice__rashid_owes_10.png",
+      "bytes": 65844,
+      "sha256": "37c5f0d92adeef0e0395436ca7ee48968b8b91c7711bbc7ebf006211531794a0"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l11_loan__the_last_ten.png",
+      "bytes": 327499,
+      "sha256": "65823ba40845071bf4c1cb2b73973b8dc245252424897e053eaa3685454a14a9"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l12_people_say__gave_time.png",
+      "bytes": 323808,
+      "sha256": "dcbbe1a793c5ae88c8b42b885ffe945f8243a83c0cfd6cf1249df198f3c509ef"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l13_loan__let_the_ten_go.png",
+      "bytes": 328678,
+      "sha256": "e86989ab16461202eff96bca9bdaecb2d96e12f810e54357281efbb27f22692d"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l14_people_say__let_off_ten.png",
+      "bytes": 323391,
+      "sha256": "29ed46a89f72ac7b12f2a00b8fd8fc44084044ab1e1f0fbef1d3963fb521b984"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l15_loan__demanded_all.png",
+      "bytes": 328876,
+      "sha256": "dbaf97c75cd84894adfcb0ddec1726acc2eaad330383fe1e106da9ed518879a9"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l16_people_say__hounded.png",
+      "bytes": 321822,
+      "sha256": "a50e0999518343ec4f524f2473f1acd7469dff9447570056a546750649ccc161"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l17_spice__trust_too_low.png",
+      "bytes": 63748,
+      "sha256": "7eb2d31ced00d260f057b61c5cfa696659e9d82a55aaa58b10789531b3ae6758"
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/MASTERS/l18_loan__not_enough_coins.png",
+      "bytes": 328965,
+      "sha256": "b7f7091e5af17c2050690dee8910fd97a683394c6b1b7bd580a65dcf4479793a"
+    }
+  ],
+  "source_files": [
+    {
+      "path": "SOURCE/data/chapter1.json",
+      "bytes": 7699,
+      "sha256": "85b6ba939133872512bda82edbdcad1c9f447f49f5c58a2cb71ad5e808cfd9a0"
+    },
+    {
+      "path": "SOURCE/data/clothes.json",
+      "bytes": 2888,
+      "sha256": "2f6eddc69ed14ef7b49e65e95a6697b51c1b80a57a5ca718014447c3d8715f0e"
+    },
+    {
+      "path": "SOURCE/data/dice_house.json",
+      "bytes": 1460,
+      "sha256": "d769f3698748af05e5498e13de397a701c0aebf740eae006f4547e2b53e21c80"
+    },
+    {
+      "path": "SOURCE/data/dry_fountain.json",
+      "bytes": 1373,
+      "sha256": "1eeaf232e9f43cbd9ddc411dae127dc34a0a6f89c6666819e416cf25ef79117f"
+    },
+    {
+      "path": "SOURCE/data/feeding.json",
+      "bytes": 1470,
+      "sha256": "ff28e836ed46f65e799515c8aa7b736804d7c617b58d7e302fd2c68c0b403ae7"
+    },
+    {
+      "path": "SOURCE/data/foundations.json",
+      "bytes": 11978,
+      "sha256": "054ede68d03bbaf925611dcb77d70eba09d7d5aaa73e1e0d31c63fb6da083cbf"
+    },
+    {
+      "path": "SOURCE/data/identity.json",
+      "bytes": 14838,
+      "sha256": "19ceb63fe3559d7247c1dfb7a05f119fd547c498494584d59a5fba59c77a9647"
+    },
+    {
+      "path": "SOURCE/data/idris_has_heard.json",
+      "bytes": 742,
+      "sha256": "392e1d296199d473dca7e3f8a166a91d9e28d0f2c23461203642483d3a3a527e"
+    },
+    {
+      "path": "SOURCE/data/jabirs_goats.json",
+      "bytes": 1857,
+      "sha256": "dd62e7b0f917e8db3c30c3b30435bb3098496598344252ffd8e98808f0ba2d99"
+    },
+    {
+      "path": "SOURCE/data/market_day.json",
+      "bytes": 1071,
+      "sha256": "fcf8c3e3332590390829ae4e2a74b3763d6b355430425adeb60e312ac54f1b05"
+    },
+    {
+      "path": "SOURCE/data/market_stall.json",
+      "bytes": 2593,
+      "sha256": "73d3f84826fcb122d68b256d209ad905204e6f73aa9e619ec8847c047589c604"
+    },
+    {
+      "path": "SOURCE/data/prayer_record.json",
+      "bytes": 1009,
+      "sha256": "26caaf9886910055160d8e2f93a4df302d03dd6ff9480e19873fa51937805cd9"
+    },
+    {
+      "path": "SOURCE/data/qasims_jars.json",
+      "bytes": 1352,
+      "sha256": "c7a2c0a56d676ef6606769f94075ec537707875eecf8767d8dac43fda2c34bfb"
+    },
+    {
+      "path": "SOURCE/data/rashids_loan.json",
+      "bytes": 2776,
+      "sha256": "89d162d30ea41ef7c65d2de0bf07ea3fae81d02e4b424c1933991a6ceba2893f"
+    },
+    {
+      "path": "SOURCE/data/sealed_purse.json",
+      "bytes": 1902,
+      "sha256": "d01d87887d1304029ee532bfc57693ef7895ea07abed9d71f01f4d741cd7b35a"
+    },
+    {
+      "path": "SOURCE/data/talking.json",
+      "bytes": 3854,
+      "sha256": "a46c3718fd8ff719ee9d6d2b0a16fabf56d1e65861dbaa84f5862469bcd25dc4"
+    },
+    {
+      "path": "SOURCE/game/bread_grab.gd",
+      "bytes": 1345,
+      "sha256": "61ba6bd6263f7355dada50d110c852a36cb72cad8121f817beb6ef2e0786f468"
+    },
+    {
+      "path": "SOURCE/game/dice_house.gd",
+      "bytes": 2080,
+      "sha256": "17513513173a8d6729b9600baa2ec0999571716df233128f1a44cb249e88e0d5"
+    },
+    {
+      "path": "SOURCE/game/dry_fountain.gd",
+      "bytes": 1322,
+      "sha256": "f49d81661ec0af2495bffe9e102cafc5c9545149a5f1cf87bed6f2bd10162e95"
+    },
+    {
+      "path": "SOURCE/game/feeding.gd",
+      "bytes": 1760,
+      "sha256": "a818d69fb277ed6125f20d06a47e997c03c25dee99094de4651a2acb11df6b80"
+    },
+    {
+      "path": "SOURCE/game/foundations.gd",
+      "bytes": 5108,
+      "sha256": "8e6d38fd568e989543fe9c6dcee70da545f18d5686b864912750b0ec28113211"
+    },
+    {
+      "path": "SOURCE/game/idris_recovery.gd",
+      "bytes": 1019,
+      "sha256": "6cb5d86d23ef6fab7fe1579c0bc80ee270008627f2493b5b33fab0dd4fa0635e"
+    },
+    {
+      "path": "SOURCE/game/jabirs_goats.gd",
+      "bytes": 1858,
+      "sha256": "5cae78452ff85fd392a85378fa044394810755b31f76dfc980a6c5c95c19f1d6"
+    },
+    {
+      "path": "SOURCE/game/lesson_canvas.gd",
+      "bytes": 1218,
+      "sha256": "71d9dd63260c0b72973cd3786e4b827f25b4602c2ec6784c269b3746e5c9aa8c"
+    },
+    {
+      "path": "SOURCE/game/map_canvas.gd",
+      "bytes": 13421,
+      "sha256": "3ab3541a3a30c715c54c88def5f9d3e2bac23b8f60cfd00fd8f922ffa82ad2ba"
+    },
+    {
+      "path": "SOURCE/game/market_day.gd",
+      "bytes": 1065,
+      "sha256": "3cb77474a4fd5fffb10caa13954c0369a3759235cd60449a258fa202ce702b38"
+    },
+    {
+      "path": "SOURCE/game/market_player.gd",
+      "bytes": 4286,
+      "sha256": "617ba3f6816ee25867bee07073c3173a4c75478f1286139eb8109112d05816f2"
+    },
+    {
+      "path": "SOURCE/game/market_stall.gd",
+      "bytes": 4413,
+      "sha256": "3b2c76a8f7c05867d0a3d54c3551330596f81e3fd13a6f836dc4153376662a56"
+    },
+    {
+      "path": "SOURCE/game/market_ui.gd",
+      "bytes": 87552,
+      "sha256": "c8617de4beef5feceb3369692045fa2b791ef43e29d0d62e51505ccd302cbedf"
+    },
+    {
+      "path": "SOURCE/game/market_world.gd",
+      "bytes": 16327,
+      "sha256": "e738fe12acf43d085617d73ebce56ce0e9a9e1bc10afc8f04631aa88da3ec7a0"
+    },
+    {
+      "path": "SOURCE/game/open_purse.gd",
+      "bytes": 3329,
+      "sha256": "6940c5775a5470d9160a17004d77c3ffeb3a830316389325bd2ca2f57f8e13a9"
+    },
+    {
+      "path": "SOURCE/game/prayer_clock.gd",
+      "bytes": 11985,
+      "sha256": "6ba6f3202bc7759ee63b1aa5defce6d4c19f9485bddcb832b9518d48193a3c23"
+    },
+    {
+      "path": "SOURCE/game/qasims_jars.gd",
+      "bytes": 1521,
+      "sha256": "b136d4f3c187fc775c811e010de6c848e7ebc00b51b8464e7f77c0b8f1f40c6a"
+    },
+    {
+      "path": "SOURCE/game/rashids_loan.gd",
+      "bytes": 2586,
+      "sha256": "0ecd01729c296de41f7b4f9ce3404b88386fa6bb19d2d97b8959671d9836074a"
+    },
+    {
+      "path": "SOURCE/game/river_market.gd",
+      "bytes": 35588,
+      "sha256": "5564c69654b879c33cf07cefd09b50a248ca8cfacbe2e72e004a28eb864f6adf"
+    },
+    {
+      "path": "SOURCE/game/river_market.tscn",
+      "bytes": 171,
+      "sha256": "e6cf7b8b8e48bf2bf9ca8cc3ec406c0eb1de31aa2ccfefb76b0ba9eda343ffbe"
+    },
+    {
+      "path": "SOURCE/game/sealed_purse.gd",
+      "bytes": 1725,
+      "sha256": "e3b46ae422a91cd824057e43881c80bb254dac24da5031163ac093d491bef7ab"
+    },
+    {
+      "path": "SOURCE/game/talking.gd",
+      "bytes": 2568,
+      "sha256": "546458aedd4c3c74f06e498f2160c8622fc5524a3f9d9ab49ec6cd0891bd0f86"
+    },
+    {
+      "path": "SOURCE/game/task_progress.gd",
+      "bytes": 3214,
+      "sha256": "0777fd340c6c2f0a8ed3ed724307e07fc2fe8228d1539d3c8d6f12602654b777"
+    },
+    {
+      "path": "SOURCE/project.godot",
+      "bytes": 1690,
+      "sha256": "e87303c1391e0b12a78d8e65ab4fc3dad12c393506e95fed3a42ef8d9ae81e45"
+    },
+    {
+      "path": "SOURCE/tests/capture_identity.gd",
+      "bytes": 10390,
+      "sha256": "60d39a431d6fd0701b0a48477f945e7be8f6b7f05bdc30670a251f715df8db32"
+    },
+    {
+      "path": "SOURCE/tests/capture_rashids_loan.gd",
+      "bytes": 14356,
+      "sha256": "f2130a50f689a5471b9161e4fac7b47e5a3dc07ae50b151c8b54e2a51856e2c2"
+    },
+    {
+      "path": "SOURCE/tests/capture_tasks.gd",
+      "bytes": 11310,
+      "sha256": "13e332ae569262b21e0e5d6c890bcdfd519e047cc30286ed22713e4c0648b003"
+    },
+    {
+      "path": "SOURCE/tests/create_comparisons.gd",
+      "bytes": 7273,
+      "sha256": "339b6121bc6dc8e72259b865636754ab660ee28799f280d0186bfc09aadc4b7f"
+    },
+    {
+      "path": "SOURCE/tests/run_tests.gd",
+      "bytes": 199560,
+      "sha256": "bd63c25fbe6e478b0a4fc4e6de509ffe2517733ffe83c55b659a27be790f374b"
+    }
+  ],
+  "checks": {
+    "headless": {
+      "passed": 3391,
+      "total": 3391,
+      "exit_code": 0
+    },
+    "native": {
+      "passed": 476,
+      "total": 476,
+      "exit_code": 0
+    },
+    "native_report": {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/LINE23_CHECKS.json",
+      "bytes": 54002,
+      "sha256": "505538fd7cf2b8b8734d3e879109de0c6ad289b20e205a22b7f88fffedac2ad5"
+    },
+    "comparisons": 18,
+    "native_regressions": {
+      "opening hours": {
+        "passed": 140,
+        "total": 140,
+        "captures": 10,
+        "exit_code": 0
+      },
+      "Idris": {
+        "passed": 117,
+        "total": 117,
+        "captures": 8,
+        "exit_code": 0
+      },
+      "fountain": {
+        "passed": 190,
+        "total": 190,
+        "captures": 9,
+        "exit_code": 0
+      }
+    }
+  },
+  "visual_review": [
+    "All 18 captures show the locked loan copy, ordering, state, and coin and trust changes. Capture days 8, 11 and 18 use 10:00.",
+    "HUD type, spacing, borders and fill use the existing native implementation.",
+    "l01/l06/l07/l10/l17 use the native map geometry, outlines, scale, gate icon and separate player/place markers. The existing Make up Dhuhr control is visible. The navigation and place bars use native offsets, widths and gaps. l17 places navigation above the place bar. The master puts it inline.",
+    "Story and reputation frames use the native placeholder Spice row. Native block walls, flat ground, lighting, shadows, sky and camera framing differ from the storefronts, awnings, lanterns, paving and arch in the masters.",
+    "Story panels use native type, wraps, border, corner radius, opacity, padding and button widths. The l08 row fits three choices within the panel. l18 centres the insufficient-coins label vertically alongside Not this time.",
+    "l04/l12/l14/l16 use the existing What people say layout. The heading, quote, source, tag, divider and town note use native type and spacing."
+  ],
+  "png_optimization": {
+    "method": "Lossless PNG recompression. Verified decoded pixels against original PNGs and verified both halves against the locked masters and final captures.",
+    "before_bytes": 16205350,
+    "after_bytes": 14652000
+  },
+  "png_files": [
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l01_spice__rashid_needs_a_loan__build.png",
+      "bytes": 174500,
+      "sha256": "b030cd4b009fef9ceb4c06a997b550fabf21321b50cf9b433e37dfa2e2f21e74",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l01_spice__rashid_needs_a_loan__master_beside_build.png",
+      "bytes": 343330,
+      "sha256": "47440a2d04760d1794c9241c55017987d0e909a4724b02a0369f1f82b9b0ca20",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l02_loan__the_ask__build.png",
+      "bytes": 116527,
+      "sha256": "f503384f4935c4f14ce31960ce73b073a97c466470c4d5c16ae348b77eb0237b",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l02_loan__the_ask__master_beside_build.png",
+      "bytes": 833088,
+      "sha256": "fbd5eb2c80bdc330978fc7dd2275301937c82aa6e4b2771989f59ffdcc93fec7",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l03_loan__that_is_riba__build.png",
+      "bytes": 106748,
+      "sha256": "d16a8f3788c7c4c90a52fefc36b5553b13772c7de7cbfccbdec6523419d1c3f0",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l03_loan__that_is_riba__master_beside_build.png",
+      "bytes": 819889,
+      "sha256": "6ba0bd4a0afe634d6051bcbf265e77b96b64fe449850e5913aa2bba29d3290d2",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l04_people_say__asked_for_interest__build.png",
+      "bytes": 109365,
+      "sha256": "7c40f93a698a6b44797615403d51ba1999916a73e24b3b2fd84297ef89d7b501",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l04_people_say__asked_for_interest__master_beside_build.png",
+      "bytes": 810425,
+      "sha256": "b783778c421bfe71feaf27f9a4dd55449cc182a939e55be8411ca9bc0d381143",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l05_loan__lent__build.png",
+      "bytes": 99970,
+      "sha256": "7e8f23bab719a1c5720150582ddcd422c3fb9bf43ba129a027862e16f1267674",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l05_loan__lent__master_beside_build.png",
+      "bytes": 808227,
+      "sha256": "deb90607e0fd42df294ef5bb693d355a95d03e95f754d72846878751f3cb72ee",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l06_spice__rashid_owes_30__build.png",
+      "bytes": 176162,
+      "sha256": "538bd7bc6b2991db613d21809587cec28be0df50be1ca3c801bca6f79bd207a1",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l06_spice__rashid_owes_30__master_beside_build.png",
+      "bytes": 345799,
+      "sha256": "81d2ab895dc0ca0ef0b135f7da4cdb3c631b41c97d62431f2ee283bdc2e37591",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l07_spice__rashid_has_your_money__build.png",
+      "bytes": 176483,
+      "sha256": "8f90de159d90ab1051406c20ed8ec15943297fc2df8e304f8417ac7e42ea8bee",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l07_spice__rashid_has_your_money__master_beside_build.png",
+      "bytes": 347372,
+      "sha256": "0cb170c13c55920e8ff5020821b868c62de9f72200db96e698b3828e7de4e281",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l08_loan__twenty_coins__build.png",
+      "bytes": 115540,
+      "sha256": "49abdcd7372ffe199cb22b36d319c685ed807ef99dd35e35da812ee0f4bf228e",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l08_loan__twenty_coins__master_beside_build.png",
+      "bytes": 823210,
+      "sha256": "01f6d83470973b60aa109e1f7a5a518708b45f0dee5ed126104a457aedb73955",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l09_loan__gave_time__build.png",
+      "bytes": 102936,
+      "sha256": "7bbd0b44fa2ed29e607f87e2cd8d9afe67338cb417db65a3a32fed86ee79fa1a",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l09_loan__gave_time__master_beside_build.png",
+      "bytes": 814863,
+      "sha256": "bde20fa8bf95e29955035ac20aefb84772cbaf3ae5a3e780b623447b1e1b8a88",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l10_spice__rashid_owes_10__build.png",
+      "bytes": 175993,
+      "sha256": "b1910b73442c9632a5272c56ea3068d0d707ae5ac635c7eeb0ffa135674b067d",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l10_spice__rashid_owes_10__master_beside_build.png",
+      "bytes": 345436,
+      "sha256": "eb15cb70c81b782e8441decc906d4a648f0bd402d0bdd226950bb4e2f4279fb7",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l11_loan__the_last_ten__build.png",
+      "bytes": 109861,
+      "sha256": "e70a42ab82c5fa9c6218a615c06cb276c11bd3d487ac5df13ddfaa32f18e80a1",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l11_loan__the_last_ten__master_beside_build.png",
+      "bytes": 818399,
+      "sha256": "135344c22fd378333c4cdf38f18174f030dff67469ef6a43ac97b4145aac4903",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l12_people_say__gave_time__build.png",
+      "bytes": 114798,
+      "sha256": "462599d1104bc2c6758e6550fae67c2c8d11e077141e638a4d1455dde95bd8ad",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l12_people_say__gave_time__master_beside_build.png",
+      "bytes": 817877,
+      "sha256": "2a0d6d7efe1822459f89885cd9bc1b0ea3a15e35e769f54171f5d32d6c830e14",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l13_loan__let_the_ten_go__build.png",
+      "bytes": 104220,
+      "sha256": "414922352982b175466020c9c192f14bd4da5fd915703f34cd6ef3ffa26af3e6",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l13_loan__let_the_ten_go__master_beside_build.png",
+      "bytes": 814392,
+      "sha256": "b2c6f2b62e23e3f36e9440cc3d1a10260ccd82be967f5601ac1bf6985cf81dcb",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l14_people_say__let_off_ten__build.png",
+      "bytes": 110274,
+      "sha256": "c0fce5a7881af8f83c1eebb3c3c34ba5240a5f342d6d1d4ab63914840c6a7df3",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l14_people_say__let_off_ten__master_beside_build.png",
+      "bytes": 809862,
+      "sha256": "848d33f6d61a6ce48b1b97425dbe53191f51ee818e213d2fe28a8a3f2071f867",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l15_loan__demanded_all__build.png",
+      "bytes": 112810,
+      "sha256": "50c08172e6d4d35540c56da18538fd5e629adebfb60b7b0b317622de916020e2",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l15_loan__demanded_all__master_beside_build.png",
+      "bytes": 827396,
+      "sha256": "f82c1fdeae5b5a88b9b9c093a8318e60c1a69a77da6f6a5978c13dc7427b9425",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l16_people_say__hounded__build.png",
+      "bytes": 109514,
+      "sha256": "8ee36fc18947c05ea52e241b58c6a8c1a57bcf4e459368d06f289a5e0ccaa62c",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l16_people_say__hounded__master_beside_build.png",
+      "bytes": 809776,
+      "sha256": "1f97ec400874347ed59333fa140481ed208e82e0c23cc0f454d2e4e55eda10bc",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l17_spice__trust_too_low__build.png",
+      "bytes": 174162,
+      "sha256": "a23518c31a22b66b4bf64b4d208371ebb90c121ac94b30d9a8849faab3d99133",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l17_spice__trust_too_low__master_beside_build.png",
+      "bytes": 335572,
+      "sha256": "b2462beab900da2883c6d0d169a7f4e93769f9b805c5d7548d230467b5bed047",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l18_loan__not_enough_coins__build.png",
+      "bytes": 112462,
+      "sha256": "b051914e88abd6f34c98b626a0b860d12cde777f6a9f2c524ed29df6a90eda70",
+      "dimensions": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "path": "GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/l18_loan__not_enough_coins__master_beside_build.png",
+      "bytes": 824762,
+      "sha256": "9feb9b671f610989ec46f9c9bc9b40501366d937ccd1b2acc5ec36f0ceb65969",
+      "dimensions": [
+        3840,
+        1080
+      ]
+    }
+  ]
+}

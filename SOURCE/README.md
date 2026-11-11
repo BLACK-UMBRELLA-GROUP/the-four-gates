@@ -282,3 +282,14 @@ square replaces the repair button with the days since completion, starting at ze
 `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --dry-fountain`
 to pair each capture with its master. Both commands accept `--dry-fountain-output=/absolute/path`.
 See `LINE22_CHECKS.json` for the capture fixtures and `BUILD.json` for provenance and verified PNGs.
+
+LOCK 16 offers a 30-coin loan at Spice row during Rashid's stall hours when River Market trust is at least
+30. Asking for 36 back is refused without a payment. Visit after three calendar days to give him time,
+let the last ten go or collect the full loan. Giving time pays twenty now and ten seven days after the
+due visit. Each outcome adds its own line to **What people say**.
+
+`godot --path SOURCE -- --capture-rashids-loan` records all 18 native LOCK 16 states in
+`GAME/APPROVED/RASHIDS_LOAN/BUILT/V1/`. Run
+`godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --rashids-loan`
+to place each master beside its native capture. Both commands accept `--rashids-loan-output=/absolute/path`.
+See `LINE23_CHECKS.json` for the capture fixtures and `BUILD.json` for provenance and verified PNGs.

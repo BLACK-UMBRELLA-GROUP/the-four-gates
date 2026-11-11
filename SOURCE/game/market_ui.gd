@@ -49,6 +49,8 @@ signal feeding_requested
 signal feeding_paid(id: String)
 signal dry_fountain_requested
 signal dry_fountain_paid(choice: String)
+signal loan_requested
+signal loan_answered(choice: String)
 signal sealed_purse_offered
 signal sealed_purse_accepted
 signal sealed_purse_coin_chosen(keep: bool)
@@ -77,6 +79,7 @@ const QasimsJars = preload("res://game/qasims_jars.gd")
 const JabirsGoats = preload("res://game/jabirs_goats.gd")
 const IdrisRecovery = preload("res://game/idris_recovery.gd")
 const DryFountain = preload("res://game/dry_fountain.gd")
+const RashidsLoan = preload("res://game/rashids_loan.gd")
 const PAPER := Color("f5e8cd")
 const GOLD := Color("f8ae36")
 const INK := Color("30200e")
@@ -90,7 +93,8 @@ const DICE_HOUSE_SCREENS := ["dice_invite", "dice_house"]
 const QASIMS_JARS_SCREENS := ["qasims_offer", "qasims_done"]
 const JABIRS_GOATS_SCREENS := ["jabirs_offer", "jabirs_bought", "jabirs_told"]
 const DRY_FOUNTAIN_SCREENS := ["dry_fountain", "fountain_done"]
-const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_refused", "purse_morning", "reputation"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS + DRY_FOUNTAIN_SCREENS
+const LOAN_SCREENS := ["loan_ask", "loan_lent", "loan_riba", "loan_due", "loan_after", "loan_last"]
+const CHAPTER_SCREENS := ["purse", "purse_salma", "purse_page", "purse_refused", "purse_morning", "reputation"] + GRAB_SCREENS + SEALED_PURSE_SCREENS + DICE_HOUSE_SCREENS + QASIMS_JARS_SCREENS + JABIRS_GOATS_SCREENS + DRY_FOUNTAIN_SCREENS + LOAN_SCREENS
 var data: Dictionary = {}
 var identity: Dictionary = {}
 var chapter: Dictionary
@@ -107,6 +111,8 @@ var qasims_jars: QasimsJars
 var jabirs_goats: JabirsGoats
 var idris_recovery: IdrisRecovery
 var dry_fountain: DryFountain
+var rashids_loan: RashidsLoan
+var _loan_offer := RashidsLoan.Offer.HIDDEN
 var _last_idris_cool := false
 var _dice_caption := ""
 var _qasims_caption := ""
@@ -164,7 +170,7 @@ var _last_daily_count := -1
 var _last_lesson := false
 var _last_gate := false
 
-func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars, jabirs_goats_value: JabirsGoats, idris_recovery_value: IdrisRecovery, dry_fountain_value: DryFountain) -> void:
+func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dictionary, clock_value: RefCounted, chapter_value: Dictionary, purse_value: RefCounted, grab_value: BreadGrab, stall_value: MarketStall, talking_value: Talking, market_day_value: MarketDay, prayer_record_value: Dictionary, feeding_value: Feeding, sealed_purse_value: SealedPurse, dice_house_value: DiceHouse, qasims_jars_value: QasimsJars, jabirs_goats_value: JabirsGoats, idris_recovery_value: IdrisRecovery, dry_fountain_value: DryFountain, rashids_loan_value: RashidsLoan) -> void:
 	data = source
 	identity = identity_value
 	chapter = chapter_value
@@ -181,6 +187,7 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	jabirs_goats = jabirs_goats_value
 	idris_recovery = idris_recovery_value
 	dry_fountain = dry_fountain_value
+	rashids_loan = rashids_loan_value
 	language_words = identity.language.words.duplicate()
 	language_words.merge(chapter.words)
 	progress = progress_value
@@ -330,6 +337,9 @@ func _rebuild_screen() -> void:
 		"dry_fountain", "fountain_done":
 			_build_hud()
 			_build_dry_fountain()
+		"loan_ask", "loan_lent", "loan_riba", "loan_due", "loan_after", "loan_last":
+			_build_hud()
+			_build_rashids_loan()
 		"feeding":
 			_build_hud()
 			_build_feeding()
@@ -404,6 +414,10 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	var jabirs_caption := jabirs_goats.gate_caption() if place_value == "gate" else ""
 	if jabirs_caption != _jabirs_caption:
 		_jabirs_caption = jabirs_caption
+		rebuild = rebuild or screen in ["game", "market_map"]
+	var loan_offer := rashids_loan.offer() if place_value == "spice" else RashidsLoan.Offer.HIDDEN
+	if loan_offer != _loan_offer:
+		_loan_offer = loan_offer
 		rebuild = rebuild or screen in ["game", "market_map"]
 	var can_feed := place_value == "quay" and market_stall.count("bread") > 0
 	if can_feed != _can_feed:
@@ -1252,6 +1266,44 @@ func _build_dry_fountain() -> void:
 	_chapter_finish(panel, y)
 
 
+func _build_rashids_loan() -> void:
+	var loan := rashids_loan.data
+	var panel_key := screen.trim_prefix("loan_")
+	var copy: Dictionary = loan.due if panel_key == "after" else loan[panel_key]
+	var story: String = loan.after[rashids_loan.outcome] if panel_key == "after" else copy.text
+	var panel := _chapter_panel(copy.kicker, copy.title, true)
+	var y := 111.0 + _story_text(panel, story, 111.0) + 16.0
+	var x := 34.0
+	match panel_key:
+		"ask":
+			if rashids_loan.can_afford():
+				var amounts := {"n": int(loan.numbers.loan), "m": int(loan.numbers.ask_back)}
+				x += _chapter_button(panel, str(copy.lend).format(amounts), Vector2(x, y), func(): loan_answered.emit("lend"), true)
+				x += _chapter_button(panel, str(copy.lend_more).format(amounts), Vector2(x, y), func(): loan_answered.emit("lend_more"))
+			else:
+				var notice: String = copy.not_enough
+				var width := font.get_string_size(notice, HORIZONTAL_ALIGNMENT_LEFT, -1, 23).x
+				_label(panel, notice, Vector2(x, y), Vector2(width + 4.0, 56), 23, PAPER)
+				x += width + 20.0
+			_chapter_button(panel, copy.no, Vector2(x, y), func(): screen_requested.emit("market_map"))
+		"due":
+			var gap := 12.0
+			var available := panel.size.x - 2.0 * (x + gap)
+			var natural_width := _button_width(copy.wait, true) + _button_width(copy.forgive, true) + _button_width(copy.demand)
+			var reduction := maxf(natural_width - available, 0.0) / 3.0
+			for choice: String in ["wait", "forgive", "demand"]:
+				var primary := choice != "demand"
+				var width := _button_width(copy[choice], primary) - reduction
+				_button(copy[choice], Vector2(x, y), Vector2(width, 56), func(): loan_answered.emit(choice), primary, panel)
+				x += width + gap
+		_:
+			var links: Dictionary = loan.after if panel_key == "after" else copy
+			if links.has("to_rep"):
+				x += _chapter_button(panel, links.to_rep, Vector2(x, y), func(): screen_requested.emit("reputation"), true)
+			_chapter_button(panel, links.to_map, Vector2(x, y), func(): screen_requested.emit("market_map"))
+	_chapter_finish(panel, y)
+
+
 func _build_feeding() -> void:
 	var copy: Dictionary = feeding.data.panel
 	var panel := _chapter_panel(copy.kicker, copy.title, true)
@@ -1468,6 +1520,9 @@ func reputation_lines() -> Array:
 	var fountain_line: Variant = dry_fountain.reputation_line()
 	if fountain_line != null:
 		lines.append(fountain_line)
+	var loan_line: Variant = rashids_loan.reputation_line()
+	if loan_line != null:
+		lines.append(loan_line)
 	var idris_line: Variant = idris_recovery.reputation_line()
 	if idris_line != null:
 		lines.append(idris_line)
@@ -1639,6 +1694,16 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		else:
 			fountain_caption = dry_fountain.data.board_button
 			fountain_width = _button_width(fountain_caption) + 18.0
+	var loan_caption := ""
+	var loan_width := 0.0
+	var loan_primary := _loan_offer in [RashidsLoan.Offer.DUE, RashidsLoan.Offer.LAST]
+	match _loan_offer:
+		RashidsLoan.Offer.OWED:
+			loan_caption = str(rashids_loan.data.owed).format({"n": rashids_loan.amount_owed()})
+			loan_width = font.get_string_size(loan_caption, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0
+		RashidsLoan.Offer.ASK, RashidsLoan.Offer.DUE, RashidsLoan.Offer.LAST:
+			loan_caption = rashids_loan.data.pay_button if loan_primary else rashids_loan.data.ask_button
+			loan_width = _button_width(loan_caption, loan_primary) + 18.0
 	var feeding_width := _button_width(feeding.data.place_button) + 18.0 if _feeding_available else 0.0
 	var purse_text := ""
 	var purse_action: Callable
@@ -1658,10 +1723,10 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if not cool_notice.is_empty():
 		cool_width = font.get_string_size(cool_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, label_size).x + 18.0
 	var inline_talk_width := 0.0 if talk_footer else talk_width
-	var total_width := cool_width + name_width + line_width + action_width + fountain_width + feeding_width + dice_width + jars_width + extra_width + purse_width + inline_talk_width + 55.0
+	var total_width := cool_width + name_width + line_width + action_width + loan_width + fountain_width + feeding_width + dice_width + jars_width + extra_width + purse_width + inline_talk_width + 55.0
 	var carrying_footer := carrying and (place_id == "board" or total_width + carrying_width > 1836.0)
 	var inline_carrying_width := 0.0 if carrying_footer else carrying_width
-	var wrap := (not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or jars_width > 0.0 or not _jabirs_caption.is_empty() or carrying) and x + total_width + inline_carrying_width + _prayer_buttons_width(_prayer_label) > 1878.0
+	var wrap := (not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or jars_width > 0.0 or loan_width > 0.0 or not _jabirs_caption.is_empty() or carrying) and x + total_width + inline_carrying_width + _prayer_buttons_width(_prayer_label) > 1878.0
 	if cool_width > 0.0:
 		wrap = wrap or x + total_width + inline_carrying_width + _prayer_buttons_width("") > 1878.0
 	var waiting := _board_prompt == BreadGrab.Prompt.WAIT
@@ -1689,12 +1754,18 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var panel := _panel(Vector2(x, bar_y), Vector2(width, height), Color("191c19"))
 	_label(panel, name_value, Vector2(18, 15), Vector2(name_width + 4, 42), label_size, PAPER, true)
 	_label(panel, line_value, Vector2(18 + name_width, 15), Vector2(line_width + 4, 42), label_size, PAPER)
-	var action_x := x + total_width - action_width - fountain_width - feeding_width - dice_width - jars_width - extra_width - purse_width - inline_talk_width - cool_width - 17.0
+	var action_x := x + total_width - action_width - loan_width - fountain_width - feeding_width - dice_width - jars_width - extra_width - purse_width - inline_talk_width - cool_width - 17.0
 	if shop_notice.is_empty():
 		_button(action, Vector2(action_x, bar_y + 8.0), Vector2(action_width, 56), func(): use_requested.emit(), true)
 	else:
 		_label(panel, shop_notice, Vector2(action_x - x, 15), Vector2(action_width + 4.0, 42), 24, PAPER)
 	var extra_x := action_x + action_width + 18.0
+	if loan_width > 0.0:
+		if _loan_offer == RashidsLoan.Offer.OWED:
+			_label(panel, loan_caption, Vector2(extra_x - x, 15), Vector2(loan_width, 42), label_size, PAPER)
+		else:
+			_button(loan_caption, Vector2(extra_x, bar_y + 8.0), Vector2(loan_width - 18.0, 56), func(): loan_requested.emit(), loan_primary)
+		extra_x += loan_width
 	if fountain_width > 0.0:
 		if dry_fountain.is_running():
 			_label(panel, fountain_caption, Vector2(extra_x - x, 15), Vector2(fountain_width, 42), label_size, PAPER)

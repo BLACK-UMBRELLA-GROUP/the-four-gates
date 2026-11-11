@@ -19,6 +19,7 @@ const QasimsJars = preload("res://game/qasims_jars.gd")
 const JabirsGoats = preload("res://game/jabirs_goats.gd")
 const IdrisRecovery = preload("res://game/idris_recovery.gd")
 const DryFountain = preload("res://game/dry_fountain.gd")
+const RashidsLoan = preload("res://game/rashids_loan.gd")
 
 var data: Dictionary
 var identity: Dictionary
@@ -34,6 +35,7 @@ var qasims_jars := QasimsJars.new()
 var jabirs_goats := JabirsGoats.new()
 var idris_recovery := IdrisRecovery.new()
 var dry_fountain := DryFountain.new()
+var rashids_loan := RashidsLoan.new()
 var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
@@ -87,6 +89,7 @@ func _ready() -> void:
 	qasims_jars.setup(Foundations.load_qasims_jars(), progress, clock)
 	jabirs_goats.setup(Foundations.load_jabirs_goats(), progress, clock)
 	dry_fountain.setup(Foundations.load_dry_fountain(), progress, clock)
+	rashids_loan.setup(Foundations.load_rashids_loan(), progress, clock, market_day)
 	world = MarketWorld.new()
 	add_child(world)
 	world.setup(data)
@@ -100,7 +103,7 @@ func _ready() -> void:
 	player.position = world.point(data.start_place)
 	ui = MarketUI.new()
 	add_child(ui)
-	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain)
+	ui.setup(data, progress, identity, clock, chapter, open_purse, bread_grab, market_stall, talking, market_day, Foundations.load_prayer_record(), feeding, sealed_purse, dice_house, qasims_jars, jabirs_goats, idris_recovery, dry_fountain, rashids_loan)
 	ui.known_words = known_words
 	ui.begin_requested.connect(begin_game)
 	ui.arrival_choice_requested.connect(choose_arrival)
@@ -150,6 +153,8 @@ func _ready() -> void:
 	ui.feeding_paid.connect(pay_for_feeding)
 	ui.dry_fountain_requested.connect(show_dry_fountain)
 	ui.dry_fountain_paid.connect(pay_for_dry_fountain)
+	ui.loan_requested.connect(show_rashids_loan)
+	ui.loan_answered.connect(answer_rashids_loan)
 	ui.sealed_purse_offered.connect(show_sealed_purse_offer)
 	ui.sealed_purse_accepted.connect(accept_sealed_purse)
 	ui.sealed_purse_coin_chosen.connect(choose_sealed_purse_coin)
@@ -229,6 +234,9 @@ func _ready() -> void:
 	elif "--capture-dry-fountain" in OS.get_cmdline_user_args():
 		capture_runner = load("res://tests/capture_dry_fountain.gd").new()
 		capture_runner.run(self)
+	elif "--capture-rashids-loan" in OS.get_cmdline_user_args():
+		capture_runner = load("res://tests/capture_rashids_loan.gd").new()
+		capture_runner.run(self)
 
 func _process(delta: float) -> void:
 	if ui.screen not in ["title", "arrival", "all_prayers_title"]:
@@ -284,6 +292,7 @@ func begin_game() -> void:
 	qasims_jars.reset()
 	jabirs_goats.reset()
 	dry_fountain.reset()
+	rashids_loan.reset()
 	world.stop_faris_run()
 	world.set_inn_people_waiting(true)
 	world.reset_gate()
@@ -412,6 +421,7 @@ func _minutes(time: String) -> int:
 	return int(time.get_slice(":", 0)) * 60 + int(time.get_slice(":", 1))
 
 func show_screen(screen: String) -> void:
+	var loan_view: bool = screen in MarketUI.LOAN_SCREENS or (screen == "reputation" and ui.screen in MarketUI.LOAN_SCREENS)
 	if screen == "feeding" or screen in MarketUI.GRAB_SCREENS:
 		world.oven_camera.make_current()
 	elif screen in MarketUI.DRY_FOUNTAIN_SCREENS or (screen == "reputation" and ui.screen == "fountain_done"):
@@ -428,14 +438,15 @@ func show_screen(screen: String) -> void:
 		world.sealed_purse_coin_camera.make_current()
 	elif screen == "sealed_purse_delivery":
 		world.sealed_purse_delivery_camera.make_current()
-	elif screen == "reputation" and ui.screen == "sealed_purse_delivery":
-		world.sealed_purse_reputation_camera.make_current()
+	elif loan_view or (screen == "reputation" and ui.screen == "sealed_purse_delivery"):
+		world.spice_row_camera.make_current()
 	elif screen in MarketUI.JABIRS_GOATS_SCREENS:
 		world.jabirs_goats_camera.make_current()
 	elif screen == "reputation" and (ui.screen == "jabirs_told" or (ui.screen in ["game", "market_map"] and current_place == "gate" and not jabirs_goats.reputation_lines().is_empty())):
 		world.jabirs_goats_camera.make_current()
 	elif screen != "reputation" or ui.screen != "grab_after":
 		player.camera.make_current()
+	player.visible = not loan_view
 	ui.show_screen(screen)
 	player.enabled = screen == "game" or screen == "market_map"
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if screen == "game" else Input.MOUSE_MODE_VISIBLE
@@ -591,6 +602,29 @@ func show_dry_fountain() -> void:
 func pay_for_dry_fountain(choice: String) -> void:
 	if ui.screen == "dry_fountain" and dry_fountain.pay(choice):
 		show_screen("fountain_done" if dry_fountain.is_running() else "dry_fountain")
+
+
+func show_rashids_loan() -> void:
+	if current_place != "spice" or ui.screen not in ["game", "market_map"]:
+		return
+	match rashids_loan.offer():
+		RashidsLoan.Offer.ASK:
+			_stop_travel()
+			show_screen("loan_ask")
+		RashidsLoan.Offer.DUE:
+			_stop_travel()
+			show_screen("loan_due")
+		RashidsLoan.Offer.LAST:
+			if rashids_loan.collect_last_payment():
+				_stop_travel()
+				show_screen("loan_last")
+
+
+func answer_rashids_loan(choice: String) -> void:
+	if ui.screen == "loan_ask" and rashids_loan.answer_ask(choice):
+		show_screen("loan_lent" if choice == "lend" else "loan_riba")
+	elif ui.screen == "loan_due" and rashids_loan.answer_due(choice):
+		show_screen("loan_after")
 
 
 func show_sealed_purse_offer() -> void:
@@ -860,7 +894,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			else:
 				show_screen("market_map")
 		return
-	if ui.screen in MarketUI.DICE_HOUSE_SCREENS or ui.screen in MarketUI.QASIMS_JARS_SCREENS or ui.screen in MarketUI.JABIRS_GOATS_SCREENS:
+	if ui.screen in MarketUI.DICE_HOUSE_SCREENS or ui.screen in MarketUI.QASIMS_JARS_SCREENS or ui.screen in MarketUI.JABIRS_GOATS_SCREENS or ui.screen in MarketUI.LOAN_SCREENS:
 		if event.is_action_pressed("close"):
 			show_screen("market_map")
 		return

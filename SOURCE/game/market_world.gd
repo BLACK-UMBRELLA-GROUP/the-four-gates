@@ -28,7 +28,7 @@ var jabirs_goats_camera: Camera3D
 var sealed_purse_offer_camera: Camera3D
 var sealed_purse_coin_camera: Camera3D
 var sealed_purse_delivery_camera: Camera3D
-var sealed_purse_reputation_camera: Camera3D
+var spice_row_camera: Camera3D
 var _faris_start: Vector3
 var _faris_run: Tween
 
@@ -200,7 +200,7 @@ func setup_sealed_purse_people(karim_name: String, abbas_name: String) -> void:
 	sealed_purse_coin_camera = _story_camera(on_the_way + height, on_the_way + toward_square * distance + height)
 	sealed_purse_delivery_camera = _story_camera(abbas_at - toward_gate * distance + height, gate + height)
 	var market_view := point("spice") + height
-	sealed_purse_reputation_camera = _story_camera(market_view, point("sp1") + height)
+	spice_row_camera = _story_camera(market_view, point("sp1") + height)
 
 
 func _story_camera(at: Vector3, target: Vector3) -> Camera3D:
