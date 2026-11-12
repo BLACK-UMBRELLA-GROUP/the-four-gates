@@ -56,7 +56,7 @@ Order per regular (first true wins): as in the data file.
 | rm14-rm16 | Old Musa: his Umrah; secret Umrah; Al-Hasib |
 | rm17 | Layla with no memory yet |
 
-Trust 45 (wary tier), set for the pictures. LOCK 6 fact lines (Layla's clothes, Old Musa's scales) show where LOCK 6 gives them.
+Trust 45 (friendly tier - LOCK 6's wary tier is under 40), set for the pictures. LOCK 6 fact lines (Layla's clothes, Old Musa's scales) show where LOCK 6 gives them.
 
 ## 4. Not in this LOCK (do not build)
 
@@ -65,6 +65,13 @@ Memories for Karim, Abbas, Saeed, Idris (his are LOCK 14), more than one memory 
 ## 5. Build rules
 
 Words only from `regulars_remember_data_V1.json` (copied byte for byte to `SOURCE/data/regulars_remember.json`) and the earlier data files. Placeholder shapes only; no art, no exports.
+
+## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
+
+| Date | QUESTIONS row | Clarification |
+|---|---|---|
+| 2026-11-11 | — | Masters are pictures with a set-up state: the HUD's weekday, time, date, coins and trust, and bar items or toasts from other LOCKs, are not evidence targets unless this spec names them. A master at "Thursday 10:00" is a set-up time (the live game reaches the market only after the arrival, 18:15 on day 1): test the same state at the same time on a later day that is not a Friday (Friday turns Dhuhr into Friday prayer) |
+| 2026-11-11 | — | §3 said trust 45 is the wary tier; LOCK 6 (wary under 40) makes it friendly, as the masters and the line 35 build show. Wording corrected; no rule change. |
 
 ## Version history
 

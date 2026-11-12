@@ -65,6 +65,14 @@ Harm objects as 3D models (a placeholder shape is allowed but not required), har
 
 Words and numbers only from `harm_in_the_road_data_V1.json` (copied byte for byte to `SOURCE/data/harm_in_the_road.json`) and the earlier data files. Placeholder shapes only; no art, no exports.
 
+## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
+
+| Date | QUESTIONS row | Clarification |
+|---|---|---|
+| 2026-11-11 | — | Masters are pictures with a set-up state: the HUD's weekday, time, date, coins and trust, and bar items or toasts from other LOCKs, are not evidence targets unless this spec names them. A master at "Thursday 10:00" is a set-up time (the live game reaches the market only after the arrival, 18:15 on day 1): test the same state at the same time on a later day that is not a Friday (Friday turns Dhuhr into Friday prayer) |
+| 2026-11-11 | — | Day number d is the game's day index: 0 on the arrival day. LOCK 2's record label "day {n}" shows d + 1 (arrival = "day 1") |
+| 2026-11-11 | — | Moving the harm (5 minutes) is normal time, like waiting: a prayer whose time ends in those minutes and was not prayed becomes missed (it is not a story jump) |
+
 ## Version history
 
 | Date | Version | Change |

@@ -34,3 +34,13 @@ owner: THE FOUR GATES chat
 
 Rules that always apply: text scene files only; no file over 50 MB; nothing from the keys folder; every word and number read
 from the data files at run time.
+
+## Answer note — 11 Nov 2026 (QUESTIONS row 5)
+
+| Point | Build it like this |
+|---|---|
+| Day 1 | Thursday day 1 starts 06:30, after Fajr ends: Fajr shows "04:45 · not counted" (`clock.record.not_counted`). Evidence `g22b_record__day1_not_counted` |
+| Missed and made up | Show them on Friday day 2: Fajr passes unprayed → "missed" and "Make up Fajr" (evidence `g23_market_map__day2_make_up`), then made up → "04:45 · made up" (evidence `g22_record__day2_made_up`). Masters g22/g23 show day 1 by mistake; follow this note, not their day |
+| g19 "Sit a while" | Shows the existing "Not built yet." toast until line 8 connects it to the Idris meeting |
+| Scholar check | Moved to after the build by the Founder (11 Nov): `GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md` row 1. It does not block this line |
+

@@ -77,6 +77,12 @@ Ending the partnership and taking the capital back, other partners, Layla's niec
 
 Words and numbers only from `partnership_data_V1.json` (copied byte for byte to `SOURCE/data/partnership.json`) and the earlier data files. Placeholder shapes only; no art, no exports.
 
+## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
+
+| Date | QUESTIONS row | Clarification |
+|---|---|---|
+| 2026-11-11 | — | Masters are pictures with a set-up state: the HUD's weekday, time, date, coins and trust, and bar items or toasts from other LOCKs, are not evidence targets unless this spec names them. A master at "Thursday 10:00" is a set-up time (the live game reaches the market only after the arrival, 18:15 on day 1): test the same state at the same time on a later day that is not a Friday (Friday turns Dhuhr into Friday prayer) |
+
 ## Version history
 
 | Date | Version | Change |

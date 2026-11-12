@@ -23,19 +23,19 @@ re-run the tool.
 | ID | File | KB |
 |---|---|---|
 | DOC-TFG-0001 | `GAME/OVERVIEW/Summary.md` | 18 |
-| DOC-TFG-0002 (large - search it) | `GAME/APPROVED/BUILD_QUEUE.md` | 35 |
-| DOC-TFG-0003 | `GAME/APPROVED/QUESTIONS.md` | 7 |
-| DOC-TFG-0004 | `SOURCE/README.md` | 9 |
+| DOC-TFG-0002 (large - search it) | `GAME/APPROVED/BUILD_QUEUE.md` | 36 |
+| DOC-TFG-0003 | `GAME/APPROVED/QUESTIONS.md` | 26 |
+| DOC-TFG-0004 (large - search it) | `SOURCE/README.md` | 36 |
 
 _Stop here unless you need to look up another ID._
 
-## Documents (319 live)
+## Documents (321 live)
 
 ### ADHAN_ROWS
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0235 | `GAME/APPROVED/ADHAN_ROWS/RECORD/ADHAN_ROWS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 75 - the adhan and the rows | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0236 | 2 |
+| DOC-TFG-0235 | `GAME/APPROVED/ADHAN_ROWS/RECORD/ADHAN_ROWS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 75 - the adhan and the rows | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0236 | 3 |
 | DOC-TFG-0236 | `GAME/APPROVED/ADHAN_ROWS/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the adhan and the rows - Shakeel's exact words for each LOCK, what it locks,… | AD-AIOS-115, DOC-TFG-0235 | 1 |
 | DOC-TFG-0237 | `GAME/APPROVED/ADHAN_ROWS/BRIEFS/BUILD_BRIEF_2026-11-09_ADHAN_ROWS.md` | PLAN | Build brief, LOCK 75 - the adhan and the rows | DOC-TFG-0235, DOC-TFG-0236, AD-AIOS-115 | 2 |
 
@@ -43,7 +43,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0274 | `GAME/APPROVED/ANIMALS/RECORD/ANIMALS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 88 - animals (donkey, camel, horse) and feeding them | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0275 | 3 |
+| DOC-TFG-0274 | `GAME/APPROVED/ANIMALS/RECORD/ANIMALS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 88 - animals (donkey, camel, horse) and feeding them | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0275 | 4 |
 | DOC-TFG-0275 | `GAME/APPROVED/ANIMALS/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES animals (donkey, camel, horse) and feeding them - Shakeel's exact words for… | AD-AIOS-115, DOC-TFG-0274 | 1 |
 | DOC-TFG-0276 | `GAME/APPROVED/ANIMALS/BRIEFS/BUILD_BRIEF_2026-11-09_ANIMALS.md` | PLAN | Build brief, LOCK 88 - animals (donkey, camel, horse) and feeding them | DOC-TFG-0274, DOC-TFG-0275, AD-AIOS-115 | 2 |
 
@@ -51,7 +51,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0277 | `GAME/APPROVED/BEES/RECORD/BEES_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 89 - a hive at Nahla | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0278 | 2 |
+| DOC-TFG-0277 | `GAME/APPROVED/BEES/RECORD/BEES_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 89 - a hive at Nahla | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0278 | 3 |
 | DOC-TFG-0278 | `GAME/APPROVED/BEES/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES a hive at Nahla - Shakeel's exact words for each LOCK, what it locks, and its… | AD-AIOS-115, DOC-TFG-0277 | 1 |
 | DOC-TFG-0279 | `GAME/APPROVED/BEES/BRIEFS/BUILD_BRIEF_2026-11-09_BEES.md` | PLAN | Build brief, LOCK 89 - a hive at Nahla | DOC-TFG-0277, DOC-TFG-0278, AD-AIOS-115 | 1 |
 
@@ -59,7 +59,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0136 | `GAME/APPROVED/BIRANA/RECORD/BIRANA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 42 - Birana, the wells (chapter 2): town, masjid, people; missions The dry well, The long wait, the… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0137 | 6 |
+| DOC-TFG-0136 | `GAME/APPROVED/BIRANA/RECORD/BIRANA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 42 - Birana, the wells (chapter 2): town, masjid, people; missions The dry well, The long wait, the… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0137 | 7 |
 | DOC-TFG-0137 | `GAME/APPROVED/BIRANA/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Birana, the dry well, the long wait and chapter 2 ends - Shakeel's exact… | AD-AIOS-115, DOC-TFG-0136 | 1 |
 | DOC-TFG-0138 | `GAME/APPROVED/BIRANA/BRIEFS/BUILD_BRIEF_2026-11-09_BIRANA.md` | PLAN | Build brief, LOCK 42 - Birana, the dry well, the long wait and chapter 2 ends | DOC-TFG-0136, DOC-TFG-0137, AD-AIOS-115 | 2 |
 
@@ -67,7 +67,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0283 | `GAME/APPROVED/BUSINESSES/RECORD/BUSINESSES_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 91 - a stall and a fishing boat | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0284 | 3 |
+| DOC-TFG-0283 | `GAME/APPROVED/BUSINESSES/RECORD/BUSINESSES_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 91 - a stall and a fishing boat | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0284 | 4 |
 | DOC-TFG-0284 | `GAME/APPROVED/BUSINESSES/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES a stall and a fishing boat - Shakeel's exact words for each LOCK, what it… | AD-AIOS-115, DOC-TFG-0283 | 1 |
 | DOC-TFG-0285 | `GAME/APPROVED/BUSINESSES/BRIEFS/BUILD_BRIEF_2026-11-09_BUSINESSES.md` | PLAN | Build brief, LOCK 91 - a stall and a fishing boat | DOC-TFG-0283, DOC-TFG-0284, AD-AIOS-115 | 2 |
 
@@ -75,7 +75,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0063 | `GAME/APPROVED/CALENDAR/RECORD/CALENDAR_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 18 - the game year - real Hijri months from 1 Sha'ban, the date on the clock, resting for days at the… | AD-AIOS-115, DOC-TFG-0011, DOC-TFG-0033, DOC-TFG-0064 | 4 |
+| DOC-TFG-0063 | `GAME/APPROVED/CALENDAR/RECORD/CALENDAR_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 18 - the game year - real Hijri months from 1 Sha'ban, the date on the clock, resting for days at the… | AD-AIOS-115, DOC-TFG-0011, DOC-TFG-0033, DOC-TFG-0064 | 5 |
 | DOC-TFG-0064 | `GAME/APPROVED/CALENDAR/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES calendar - Shakeel's exact words for each LOCK, what it locks, and its queue… | AD-AIOS-115, DOC-TFG-0063 | 1 |
 | DOC-TFG-0065 | `GAME/APPROVED/CALENDAR/BRIEFS/BUILD_BRIEF_2026-11-09_CALENDAR.md` | PLAN | Build brief, LOCK 18 - the calendar: Hijri date on the clock, resting for days, coming dates | DOC-TFG-0063, DOC-TFG-0064, AD-AIOS-115 | 2 |
 
@@ -83,16 +83,16 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0017 | `GAME/APPROVED/CHAPTER_1/RECORD/CHAPTER1_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 3 - chapter 1 first missions in River Market - the open purse, hadith page 1 (giving in secret), the… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0011, DOC-TFG-0018, DOC-TFG-0001 | 7 |
+| DOC-TFG-0017 | `GAME/APPROVED/CHAPTER_1/RECORD/CHAPTER1_SPEC_CURRENT_VERSION_V2.md` | SPEC | LOCK 3 - chapter 1 first missions in River Market - the open purse, hadith page 1 (giving in secret), the… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0011, DOC-TFG-0018, DOC-TFG-0001 | 10 |
 | DOC-TFG-0018 | `GAME/APPROVED/CHAPTER_1/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES chapter 1 - Shakeel's exact words for each LOCK, what it locks, and its queue… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0012, DOC-TFG-0007 | 1 |
 | DOC-TFG-0019 | `GAME/APPROVED/CHAPTER_1/BRIEFS/BUILD_BRIEF_2026-11-07_PART1_OPEN_PURSE.md` | PLAN | Build brief, LOCK 3 part 1 - the open purse at the inn door, hadith page 1 (giving in secret) and the What… | DOC-TFG-0017, DOC-TFG-0018, DOC-TFG-0011, DOC-TFG-0006, AD-AIOS-115 | 3 |
-| DOC-TFG-0020 | `GAME/APPROVED/CHAPTER_1/BRIEFS/BUILD_BRIEF_2026-11-07_PART2_BREAD_GRAB.md` | PLAN | Build brief, LOCK 3 part 2 - the bread grab, the first truth scene (see, be asked, answer) and its What… | DOC-TFG-0017, DOC-TFG-0018, DOC-TFG-0019, AD-AIOS-115 | 2 |
+| DOC-TFG-0020 | `GAME/APPROVED/CHAPTER_1/BRIEFS/BUILD_BRIEF_2026-11-07_PART2_BREAD_GRAB.md` | PLAN | Build brief, LOCK 3 part 2 - the bread grab, the first truth scene (see, be asked, answer) and its What… | DOC-TFG-0017, DOC-TFG-0018, DOC-TFG-0019, AD-AIOS-115 | 3 |
 
 ### CHAPTER_1_END
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0126 | `GAME/APPROVED/CHAPTER_1_END/RECORD/CHAPTER_1_END_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 39 - the end of chapter 1 with Idris, and the Gate of Patience opening | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0127 | 2 |
+| DOC-TFG-0126 | `GAME/APPROVED/CHAPTER_1_END/RECORD/CHAPTER_1_END_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 39 - the end of chapter 1 with Idris, and the Gate of Patience opening | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0127 | 3 |
 | DOC-TFG-0127 | `GAME/APPROVED/CHAPTER_1_END/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES chapter 1 ends - trust kept - Shakeel's exact words for each LOCK, what it… | AD-AIOS-115, DOC-TFG-0126 | 1 |
 | DOC-TFG-0128 | `GAME/APPROVED/CHAPTER_1_END/BRIEFS/BUILD_BRIEF_2026-11-09_CHAPTER_1_END.md` | PLAN | Build brief, LOCK 39 - chapter 1 ends - trust kept | DOC-TFG-0126, DOC-TFG-0127, AD-AIOS-115 | 2 |
 
@@ -108,7 +108,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0244 | `GAME/APPROVED/DHIKR/RECORD/DHIKR_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 78 - morning and evening remembrance | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0245 | 2 |
+| DOC-TFG-0244 | `GAME/APPROVED/DHIKR/RECORD/DHIKR_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 78 - morning and evening remembrance | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0245 | 3 |
 | DOC-TFG-0245 | `GAME/APPROVED/DHIKR/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES morning and evening remembrance - Shakeel's exact words for each LOCK, what… | AD-AIOS-115, DOC-TFG-0244 | 1 |
 | DOC-TFG-0246 | `GAME/APPROVED/DHIKR/BRIEFS/BUILD_BRIEF_2026-11-09_DHIKR.md` | PLAN | Build brief, LOCK 78 - morning and evening remembrance | DOC-TFG-0244, DOC-TFG-0245, AD-AIOS-115 | 1 |
 
@@ -116,7 +116,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0042 | `GAME/APPROVED/DICE_HOUSE/RECORD/DICE_HOUSE_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 11 - temptations, the dice house - Mansur's invitation after Isha, fair dice, and talk that builds up… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0011, DOC-TFG-0017, DOC-TFG-0030, DOC-TFG-0043 | 5 |
+| DOC-TFG-0042 | `GAME/APPROVED/DICE_HOUSE/RECORD/DICE_HOUSE_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 11 - temptations, the dice house - Mansur's invitation after Isha, fair dice, and talk that builds up… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0011, DOC-TFG-0017, DOC-TFG-0030, DOC-TFG-0043 | 6 |
 | DOC-TFG-0043 | `GAME/APPROVED/DICE_HOUSE/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES dice house - Shakeel's exact words for each LOCK, what it locks, and its… | AD-AIOS-115, DOC-TFG-0042 | 1 |
 | DOC-TFG-0044 | `GAME/APPROVED/DICE_HOUSE/BRIEFS/BUILD_BRIEF_2026-11-08_DICE_HOUSE.md` | PLAN | Build brief, LOCK 11 - the dice house: Mansur's invitation, fair dice, talk that builds up over nights | DOC-TFG-0042, DOC-TFG-0043, AD-AIOS-115 | 2 |
 
@@ -124,7 +124,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0054 | `GAME/APPROVED/DRY_FOUNTAIN/RECORD/DRY_FOUNTAIN_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 15 - wealth, the dry fountain - paying 60 coins in parts to make River Market's fountain run again,… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0017, DOC-TFG-0055 | 3 |
+| DOC-TFG-0054 | `GAME/APPROVED/DRY_FOUNTAIN/RECORD/DRY_FOUNTAIN_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 15 - wealth, the dry fountain - paying 60 coins in parts to make River Market's fountain run again,… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0017, DOC-TFG-0055 | 4 |
 | DOC-TFG-0055 | `GAME/APPROVED/DRY_FOUNTAIN/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES dry fountain - Shakeel's exact words for each LOCK, what it locks, and its… | AD-AIOS-115, DOC-TFG-0054 | 1 |
 | DOC-TFG-0056 | `GAME/APPROVED/DRY_FOUNTAIN/BRIEFS/BUILD_BRIEF_2026-11-09_DRY_FOUNTAIN.md` | PLAN | Build brief, LOCK 15 - the dry fountain: pay in parts, name or no name, the fountain runs for good | DOC-TFG-0054, DOC-TFG-0055, AD-AIOS-115 | 2 |
 
@@ -132,7 +132,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0078 | `GAME/APPROVED/EID_AL_ADHA/RECORD/EID_AL_ADHA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 23 - worship, Dhu al-Hijjah - Saeed's sheep, the Day of Arafah fast, the Eid al-Adha prayer, the… | AD-AIOS-115, DOC-TFG-0036, DOC-TFG-0048, DOC-TFG-0063, DOC-TFG-0066, DOC-TFG-0072, DOC-TFG-0079 | 4 |
+| DOC-TFG-0078 | `GAME/APPROVED/EID_AL_ADHA/RECORD/EID_AL_ADHA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 23 - worship, Dhu al-Hijjah - Saeed's sheep, the Day of Arafah fast, the Eid al-Adha prayer, the… | AD-AIOS-115, DOC-TFG-0036, DOC-TFG-0048, DOC-TFG-0063, DOC-TFG-0066, DOC-TFG-0072, DOC-TFG-0079 | 5 |
 | DOC-TFG-0079 | `GAME/APPROVED/EID_AL_ADHA/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Eid al-Adha - Shakeel's exact words for each LOCK, what it locks, and its… | AD-AIOS-115, DOC-TFG-0078 | 1 |
 | DOC-TFG-0080 | `GAME/APPROVED/EID_AL_ADHA/BRIEFS/BUILD_BRIEF_2026-11-09_EID_AL_ADHA.md` | PLAN | Build brief, LOCK 23 - Eid al-Adha: sheep, Arafah fast, Eid prayer, sacrifice, Tashreeq, record | DOC-TFG-0078, DOC-TFG-0079, AD-AIOS-115 | 2 |
 
@@ -148,7 +148,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0241 | `GAME/APPROVED/EXTRA_PRAYERS/RECORD/EXTRA_PRAYERS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 77 - the extra prayers (duha and the night prayer) | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0242 | 2 |
+| DOC-TFG-0241 | `GAME/APPROVED/EXTRA_PRAYERS/RECORD/EXTRA_PRAYERS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 77 - the extra prayers (duha and the night prayer) | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0242 | 3 |
 | DOC-TFG-0242 | `GAME/APPROVED/EXTRA_PRAYERS/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the extra prayers (duha and the night prayer) - Shakeel's exact words for… | AD-AIOS-115, DOC-TFG-0241 | 1 |
 | DOC-TFG-0243 | `GAME/APPROVED/EXTRA_PRAYERS/BRIEFS/BUILD_BRIEF_2026-11-09_EXTRA_PRAYERS.md` | PLAN | Build brief, LOCK 77 - the extra prayers (duha and the night prayer) | DOC-TFG-0241, DOC-TFG-0242, AD-AIOS-115 | 2 |
 
@@ -156,7 +156,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0292 | `GAME/APPROVED/FAMILY/RECORD/FAMILY_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 94 - a daughter and the aqiqah | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0293 | 3 |
+| DOC-TFG-0292 | `GAME/APPROVED/FAMILY/RECORD/FAMILY_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 94 - a daughter and the aqiqah | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0293 | 4 |
 | DOC-TFG-0293 | `GAME/APPROVED/FAMILY/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES a daughter and the aqiqah - Shakeel's exact words for each LOCK, what it… | AD-AIOS-115, DOC-TFG-0292 | 1 |
 | DOC-TFG-0294 | `GAME/APPROVED/FAMILY/BRIEFS/BUILD_BRIEF_2026-11-09_FAMILY.md` | PLAN | Build brief, LOCK 94 - a daughter and the aqiqah | DOC-TFG-0292, DOC-TFG-0293, AD-AIOS-115 | 1 |
 
@@ -164,7 +164,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0036 | `GAME/APPROVED/FEEDING/RECORD/FEEDING_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 9 - feeding the poor - paying Salma to bake bread for the hungry, in public or in secret; meals toward… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0027, DOC-TFG-0030, DOC-TFG-0037 | 2 |
+| DOC-TFG-0036 | `GAME/APPROVED/FEEDING/RECORD/FEEDING_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 9 - feeding the poor - paying Salma to bake bread for the hungry, in public or in secret; meals toward… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0027, DOC-TFG-0030, DOC-TFG-0037 | 3 |
 | DOC-TFG-0037 | `GAME/APPROVED/FEEDING/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES feeding the poor - Shakeel's exact words for each LOCK, what it locks, and… | AD-AIOS-115, DOC-TFG-0036 | 1 |
 | DOC-TFG-0038 | `GAME/APPROVED/FEEDING/BRIEFS/BUILD_BRIEF_2026-11-08_FEEDING.md` | PLAN | Build brief, LOCK 9 - feeding the poor at Salma's oven, in public or in secret | DOC-TFG-0036, DOC-TFG-0037, AD-AIOS-115 | 2 |
 
@@ -172,7 +172,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0163 | `GAME/APPROVED/FINALE_ENDING/RECORD/FINALE_ENDING_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 51 - the finale in River Market - The last page and Your choice (the ending) | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0164 | 2 |
+| DOC-TFG-0163 | `GAME/APPROVED/FINALE_ENDING/RECORD/FINALE_ENDING_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 51 - the finale in River Market - The last page and Your choice (the ending) | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0164 | 3 |
 | DOC-TFG-0164 | `GAME/APPROVED/FINALE_ENDING/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the hard year: the last page and your choice - Shakeel's exact words for each… | AD-AIOS-115, DOC-TFG-0163 | 1 |
 | DOC-TFG-0165 | `GAME/APPROVED/FINALE_ENDING/BRIEFS/BUILD_BRIEF_2026-11-09_FINALE_ENDING.md` | PLAN | Build brief, LOCK 51 - the hard year: the last page and your choice | DOC-TFG-0163, DOC-TFG-0164, AD-AIOS-115 | 2 |
 
@@ -180,7 +180,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0157 | `GAME/APPROVED/FINALE_HOARDERS/RECORD/FINALE_HOARDERS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 49 - the finale in River Market - The hoarders (with Jalal's payout) and The bread lines | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0158 | 4 |
+| DOC-TFG-0157 | `GAME/APPROVED/FINALE_HOARDERS/RECORD/FINALE_HOARDERS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 49 - the finale in River Market - The hoarders (with Jalal's payout) and The bread lines | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0158 | 5 |
 | DOC-TFG-0158 | `GAME/APPROVED/FINALE_HOARDERS/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the hard year: the hoarders and the bread lines - Shakeel's exact words for… | AD-AIOS-115, DOC-TFG-0157 | 1 |
 | DOC-TFG-0159 | `GAME/APPROVED/FINALE_HOARDERS/BRIEFS/BUILD_BRIEF_2026-11-09_FINALE_HOARDERS.md` | PLAN | Build brief, LOCK 49 - the hard year: the hoarders and the bread lines | DOC-TFG-0157, DOC-TFG-0158, AD-AIOS-115 | 2 |
 
@@ -206,7 +206,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0298 | `GAME/APPROVED/FOUNTAINS_TOWNS/RECORD/FOUNTAINS_TOWNS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 96 - a dry fountain in every town | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0299 | 3 |
+| DOC-TFG-0298 | `GAME/APPROVED/FOUNTAINS_TOWNS/RECORD/FOUNTAINS_TOWNS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 96 - a dry fountain in every town | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0299 | 4 |
 | DOC-TFG-0299 | `GAME/APPROVED/FOUNTAINS_TOWNS/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES a dry fountain in every town - Shakeel's exact words for each LOCK, what it… | AD-AIOS-115, DOC-TFG-0298 | 1 |
 | DOC-TFG-0300 | `GAME/APPROVED/FOUNTAINS_TOWNS/BRIEFS/BUILD_BRIEF_2026-11-09_FOUNTAINS_TOWNS.md` | PLAN | Build brief, LOCK 96 - a dry fountain in every town | DOC-TFG-0298, DOC-TFG-0299, AD-AIOS-115 | 2 |
 
@@ -222,7 +222,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0105 | `GAME/APPROVED/GATE_OF_TRUST/RECORD/GATE_OF_TRUST_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 32 - chapter 1 beyond the walls - the Gate of Trust opens at trust 100 after the scales lesson, the… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0017, DOC-TFG-0033, DOC-TFG-0063, DOC-TFG-0106 | 4 |
+| DOC-TFG-0105 | `GAME/APPROVED/GATE_OF_TRUST/RECORD/GATE_OF_TRUST_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 32 - chapter 1 beyond the walls - the Gate of Trust opens at trust 100 after the scales lesson, the… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0017, DOC-TFG-0033, DOC-TFG-0063, DOC-TFG-0106 | 5 |
 | DOC-TFG-0106 | `GAME/APPROVED/GATE_OF_TRUST/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Gate of Trust and Jisra - Shakeel's exact words for each LOCK, what it locks,… | AD-AIOS-115, DOC-TFG-0105 | 1 |
 | DOC-TFG-0107 | `GAME/APPROVED/GATE_OF_TRUST/BRIEFS/BUILD_BRIEF_2026-11-09_GATE_OF_TRUST.md` | PLAN | Build brief, LOCK 32 - the Gate of Trust opens, the road east and Jisra | DOC-TFG-0105, DOC-TFG-0106, AD-AIOS-115 | 2 |
 
@@ -230,7 +230,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0262 | `GAME/APPROVED/GOSSIP/RECORD/GOSSIP_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 84 - gossip at the square | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0263 | 2 |
+| DOC-TFG-0262 | `GAME/APPROVED/GOSSIP/RECORD/GOSSIP_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 84 - gossip at the square | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0263 | 3 |
 | DOC-TFG-0263 | `GAME/APPROVED/GOSSIP/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES gossip at the square - Shakeel's exact words for each LOCK, what it locks,… | AD-AIOS-115, DOC-TFG-0262 | 1 |
 | DOC-TFG-0264 | `GAME/APPROVED/GOSSIP/BRIEFS/BUILD_BRIEF_2026-11-09_GOSSIP.md` | PLAN | Build brief, LOCK 84 - gossip at the square | DOC-TFG-0262, DOC-TFG-0263, AD-AIOS-115 | 1 |
 
@@ -238,14 +238,14 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0002 | `GAME/APPROVED/BUILD_QUEUE.md` | REGISTER | Build queue - every LOCKed brief waits here; Codex builds WAITING lines at 01:00 or on GO (charters rule 9) | AD-AIOS-115, AD-AIOS-122 | 35 |
-| DOC-TFG-0003 | `GAME/APPROVED/QUESTIONS.md` | REGISTER | Codex's questions for the THE FOUR GATES chat - Codex never asks Shakeel in chat; he files the question… | AD-AIOS-116, AD-AIOS-122 | 7 |
+| DOC-TFG-0002 | `GAME/APPROVED/BUILD_QUEUE.md` | REGISTER | Build queue - every LOCKed brief waits here; Codex builds WAITING lines at 01:00 or on GO (charters rule 9) | AD-AIOS-115, AD-AIOS-122 | 36 |
+| DOC-TFG-0003 | `GAME/APPROVED/QUESTIONS.md` | REGISTER | Codex's questions for the THE FOUR GATES chat - Codex never asks Shakeel in chat; he files the question… | AD-AIOS-116, AD-AIOS-122 | 26 |
 
 ### HARM_IN_THE_ROAD
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0060 | `GAME/APPROVED/HARM_IN_THE_ROAD/RECORD/HARM_IN_THE_ROAD_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 17 - character and community, harm in the road - one harmful thing a day in River Market, moved unseen… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0011, DOC-TFG-0033, DOC-TFG-0061 | 3 |
+| DOC-TFG-0060 | `GAME/APPROVED/HARM_IN_THE_ROAD/RECORD/HARM_IN_THE_ROAD_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 17 - character and community, harm in the road - one harmful thing a day in River Market, moved unseen… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0011, DOC-TFG-0033, DOC-TFG-0061 | 4 |
 | DOC-TFG-0061 | `GAME/APPROVED/HARM_IN_THE_ROAD/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES harm in the road - Shakeel's exact words for each LOCK, what it locks, and… | AD-AIOS-115, DOC-TFG-0060 | 1 |
 | DOC-TFG-0062 | `GAME/APPROVED/HARM_IN_THE_ROAD/BRIEFS/BUILD_BRIEF_2026-11-09_HARM_IN_THE_ROAD.md` | PLAN | Build brief, LOCK 17 - harm in the road: daily harm, unseen moving, private count | DOC-TFG-0060, DOC-TFG-0061, AD-AIOS-115 | 2 |
 
@@ -253,7 +253,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0253 | `GAME/APPROVED/HOUSE_OF_LEARNING/RECORD/HOUSE_OF_LEARNING_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 81 - the House of Learning and copying | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0254 | 2 |
+| DOC-TFG-0253 | `GAME/APPROVED/HOUSE_OF_LEARNING/RECORD/HOUSE_OF_LEARNING_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 81 - the House of Learning and copying | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0254 | 3 |
 | DOC-TFG-0254 | `GAME/APPROVED/HOUSE_OF_LEARNING/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the House of Learning and copying - Shakeel's exact words for each LOCK, what… | AD-AIOS-115, DOC-TFG-0253 | 1 |
 | DOC-TFG-0255 | `GAME/APPROVED/HOUSE_OF_LEARNING/BRIEFS/BUILD_BRIEF_2026-11-09_HOUSE_OF_LEARNING.md` | PLAN | Build brief, LOCK 81 - the House of Learning and copying | DOC-TFG-0253, DOC-TFG-0254, AD-AIOS-115 | 2 |
 
@@ -265,14 +265,14 @@ _Stop here unless you need to look up another ID._
 | DOC-TFG-0012 | `GAME/APPROVED/IDENTITY/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES identity - Shakeel's exact words for each LOCK, what it locks, and its queue… | AD-AIOS-115, DOC-TFG-0011, DOC-TFG-0007 | 3 |
 | DOC-TFG-0013 | `GAME/APPROVED/IDENTITY/BRIEFS/BUILD_BRIEF_2026-11-06_PART1_NAMES_MAPS.md` | PLAN | Build brief, LOCK 2 part 1 - apply the LOCK 1 renames, add the identity data, the Inn and Masjid places, the… | DOC-TFG-0011, DOC-TFG-0012, DOC-TFG-0006, AD-AIOS-115 | 4 |
 | DOC-TFG-0014 | `GAME/APPROVED/IDENTITY/BRIEFS/BUILD_BRIEF_2026-11-06_PART2_ARRIVAL.md` | PLAN | Build brief, LOCK 2 part 2 - the arrival (quay, money-changers, inn, sunset), starting coins from the… | DOC-TFG-0011, DOC-TFG-0012, DOC-TFG-0006, AD-AIOS-115 | 3 |
-| DOC-TFG-0015 | `GAME/APPROVED/IDENTITY/BRIEFS/BUILD_BRIEF_2026-11-06_PART3_CLOCK.md` | PLAN | Build brief, LOCK 2 part 3 - the game clock (48-minute day), five prayer times, adhan, praying in… | DOC-TFG-0011, DOC-TFG-0012, DOC-TFG-0006, AD-AIOS-115 | 3 |
+| DOC-TFG-0015 | `GAME/APPROVED/IDENTITY/BRIEFS/BUILD_BRIEF_2026-11-06_PART3_CLOCK.md` | PLAN | Build brief, LOCK 2 part 3 - the game clock (48-minute day), five prayer times, adhan, praying in… | DOC-TFG-0011, DOC-TFG-0012, DOC-TFG-0006, AD-AIOS-115 | 4 |
 | DOC-TFG-0016 | `GAME/APPROVED/IDENTITY/BRIEFS/BUILD_BRIEF_2026-11-06_PART4_IDRIS.md` | PLAN | Build brief, LOCK 2 part 4 - the first meeting with Idris at the masjid and the language system (unknown… | DOC-TFG-0011, DOC-TFG-0012, DOC-TFG-0006, AD-AIOS-115 | 2 |
 
 ### IDRIS_HAS_HEARD
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0051 | `GAME/APPROVED/IDRIS_HAS_HEARD/RECORD/IDRIS_HAS_HEARD_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 14 - temptations, Idris has heard - Idris cools when temptation talk costs trust, holds back new pages… | AD-AIOS-115, DOC-TFG-0011, DOC-TFG-0017, DOC-TFG-0042, DOC-TFG-0045, DOC-TFG-0048, DOC-TFG-0052 | 4 |
+| DOC-TFG-0051 | `GAME/APPROVED/IDRIS_HAS_HEARD/RECORD/IDRIS_HAS_HEARD_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 14 - temptations, Idris has heard - Idris cools when temptation talk costs trust, holds back new pages… | AD-AIOS-115, DOC-TFG-0011, DOC-TFG-0017, DOC-TFG-0042, DOC-TFG-0045, DOC-TFG-0048, DOC-TFG-0052 | 5 |
 | DOC-TFG-0052 | `GAME/APPROVED/IDRIS_HAS_HEARD/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Idris has heard - Shakeel's exact words for each LOCK, what it locks, and its… | AD-AIOS-115, DOC-TFG-0051 | 1 |
 | DOC-TFG-0053 | `GAME/APPROVED/IDRIS_HAS_HEARD/BRIEFS/BUILD_BRIEF_2026-11-08_IDRIS_HAS_HEARD.md` | PLAN | Build brief, LOCK 14 - Idris has heard: cooling after temptation hits, page held back, never prayer, warming… | DOC-TFG-0051, DOC-TFG-0052, AD-AIOS-115 | 2 |
 
@@ -280,7 +280,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0069 | `GAME/APPROVED/IFTAR_GIVING/RECORD/IFTAR_GIVING_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 20 - wealth, iftar for the fasting - paying for dates or soup at the masjid before Maghrib in Ramadan,… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0036, DOC-TFG-0066, DOC-TFG-0070 | 3 |
+| DOC-TFG-0069 | `GAME/APPROVED/IFTAR_GIVING/RECORD/IFTAR_GIVING_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 20 - wealth, iftar for the fasting - paying for dates or soup at the masjid before Maghrib in Ramadan,… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0036, DOC-TFG-0066, DOC-TFG-0070 | 4 |
 | DOC-TFG-0070 | `GAME/APPROVED/IFTAR_GIVING/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES iftar giving - Shakeel's exact words for each LOCK, what it locks, and its… | AD-AIOS-115, DOC-TFG-0069 | 1 |
 | DOC-TFG-0071 | `GAME/APPROVED/IFTAR_GIVING/BRIEFS/BUILD_BRIEF_2026-11-09_IFTAR_GIVING.md` | PLAN | Build brief, LOCK 20 - iftar for the fasting: Ramadan feeding at the masjid, public or secret | DOC-TFG-0069, DOC-TFG-0070, AD-AIOS-115 | 2 |
 
@@ -288,7 +288,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0048 | `GAME/APPROVED/JABIRS_GOATS/RECORD/JABIRS_GOATS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 13 - temptations, Jabir's goats - buying stolen animals for profit, walking away, or telling the owner;… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0017, DOC-TFG-0027, DOC-TFG-0042, DOC-TFG-0049 | 4 |
+| DOC-TFG-0048 | `GAME/APPROVED/JABIRS_GOATS/RECORD/JABIRS_GOATS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 13 - temptations, Jabir's goats - buying stolen animals for profit, walking away, or telling the owner;… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0017, DOC-TFG-0027, DOC-TFG-0042, DOC-TFG-0049 | 5 |
 | DOC-TFG-0049 | `GAME/APPROVED/JABIRS_GOATS/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Jabir's goats - Shakeel's exact words for each LOCK, what it locks, and its… | AD-AIOS-115, DOC-TFG-0048 | 1 |
 | DOC-TFG-0050 | `GAME/APPROVED/JABIRS_GOATS/BRIEFS/BUILD_BRIEF_2026-11-08_JABIRS_GOATS.md` | PLAN | Build brief, LOCK 13 - Jabir's goats: buy stolen goats, walk away or tell Saeed; talk builds up | DOC-TFG-0048, DOC-TFG-0049, AD-AIOS-115 | 2 |
 
@@ -296,7 +296,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0108 | `GAME/APPROVED/JISRA_MASJID/RECORD/JISRA_MASJID_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 33 - Jisra's masjid (the boatmen's masjid, imam Uthman) and the private side mission "Masjids you have… | AD-AIOS-115, DOC-TFG-0033, DOC-TFG-0105, DOC-TFG-0109 | 3 |
+| DOC-TFG-0108 | `GAME/APPROVED/JISRA_MASJID/RECORD/JISRA_MASJID_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 33 - Jisra's masjid (the boatmen's masjid, imam Uthman) and the private side mission "Masjids you have… | AD-AIOS-115, DOC-TFG-0033, DOC-TFG-0105, DOC-TFG-0109 | 4 |
 | DOC-TFG-0109 | `GAME/APPROVED/JISRA_MASJID/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Jisra's masjid and the masjids-prayed-in count - Shakeel's exact words for… | AD-AIOS-115, DOC-TFG-0108 | 1 |
 | DOC-TFG-0110 | `GAME/APPROVED/JISRA_MASJID/BRIEFS/BUILD_BRIEF_2026-11-09_JISRA_MASJID.md` | PLAN | Build brief, LOCK 33 - Jisra's masjid and the masjids-prayed-in count | DOC-TFG-0108, DOC-TFG-0109, AD-AIOS-115 | 2 |
 
@@ -304,7 +304,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0114 | `GAME/APPROVED/JISRA_PEOPLE/RECORD/JISRA_PEOPLE_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 35 - Jisra's four people, carrying fish for Umm Hani, side mission The weak rope, and What Jisra says | AD-AIOS-115, DOC-TFG-0105, DOC-TFG-0111, DOC-TFG-0115 | 4 |
+| DOC-TFG-0114 | `GAME/APPROVED/JISRA_PEOPLE/RECORD/JISRA_PEOPLE_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 35 - Jisra's four people, carrying fish for Umm Hani, side mission The weak rope, and What Jisra says | AD-AIOS-115, DOC-TFG-0105, DOC-TFG-0111, DOC-TFG-0115 | 5 |
 | DOC-TFG-0115 | `GAME/APPROVED/JISRA_PEOPLE/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Jisra's people, work and the weak rope - Shakeel's exact words for each LOCK,… | AD-AIOS-115, DOC-TFG-0114 | 1 |
 | DOC-TFG-0116 | `GAME/APPROVED/JISRA_PEOPLE/BRIEFS/BUILD_BRIEF_2026-11-09_JISRA_PEOPLE.md` | PLAN | Build brief, LOCK 35 - Jisra's people, work and the weak rope | DOC-TFG-0114, DOC-TFG-0115, AD-AIOS-115 | 2 |
 
@@ -312,7 +312,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0280 | `GAME/APPROVED/LAND_AND_HOUSE/RECORD/LAND_AND_HOUSE_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 90 - a house, sleeping at home, and an orchard | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0281 | 3 |
+| DOC-TFG-0280 | `GAME/APPROVED/LAND_AND_HOUSE/RECORD/LAND_AND_HOUSE_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 90 - a house, sleeping at home, and an orchard | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0281 | 4 |
 | DOC-TFG-0281 | `GAME/APPROVED/LAND_AND_HOUSE/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES a house, sleeping at home, and an orchard - Shakeel's exact words for each… | AD-AIOS-115, DOC-TFG-0280 | 1 |
 | DOC-TFG-0282 | `GAME/APPROVED/LAND_AND_HOUSE/BRIEFS/BUILD_BRIEF_2026-11-09_LAND_AND_HOUSE.md` | PLAN | Build brief, LOCK 90 - a house, sleeping at home, and an orchard | DOC-TFG-0280, DOC-TFG-0281, AD-AIOS-115 | 2 |
 
@@ -334,7 +334,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0313 | `GAME/APPROVED/MAC_BUILD/RECORD/MAC_BUILD_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 101 - the Mac build | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0314 | 2 |
+| DOC-TFG-0313 | `GAME/APPROVED/MAC_BUILD/RECORD/MAC_BUILD_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 101 - the Mac build | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0314 | 3 |
 | DOC-TFG-0314 | `GAME/APPROVED/MAC_BUILD/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the Mac build - Shakeel's exact words for each LOCK, what it locks, and its… | AD-AIOS-115, DOC-TFG-0313 | 1 |
 | DOC-TFG-0315 | `GAME/APPROVED/MAC_BUILD/BRIEFS/BUILD_BRIEF_2026-11-09_MAC_BUILD.md` | PLAN | Build brief, LOCK 101 - the Mac build | DOC-TFG-0313, DOC-TFG-0314, AD-AIOS-115 | 1 |
 
@@ -358,7 +358,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0289 | `GAME/APPROVED/MARRIAGE/RECORD/MARRIAGE_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 93 - marriage | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0290 | 3 |
+| DOC-TFG-0289 | `GAME/APPROVED/MARRIAGE/RECORD/MARRIAGE_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 93 - marriage | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0290 | 4 |
 | DOC-TFG-0290 | `GAME/APPROVED/MARRIAGE/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES marriage - Shakeel's exact words for each LOCK, what it locks, and its queue… | AD-AIOS-115, DOC-TFG-0289 | 1 |
 | DOC-TFG-0291 | `GAME/APPROVED/MARRIAGE/BRIEFS/BUILD_BRIEF_2026-11-09_MARRIAGE.md` | PLAN | Build brief, LOCK 93 - marriage | DOC-TFG-0289, DOC-TFG-0290, AD-AIOS-115 | 1 |
 
@@ -366,7 +366,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0316 | `GAME/APPROVED/MASJIDS_OF_ILMARA/RECORD/MASJIDS_OF_ILMARA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 102 - the masjids of Ilmara (to reach 50) | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0317 | 2 |
+| DOC-TFG-0316 | `GAME/APPROVED/MASJIDS_OF_ILMARA/RECORD/MASJIDS_OF_ILMARA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 102 - the masjids of Ilmara (to reach 50) | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0317 | 3 |
 | DOC-TFG-0317 | `GAME/APPROVED/MASJIDS_OF_ILMARA/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the masjids of Ilmara (to reach 50) - Shakeel's exact words for each LOCK,… | AD-AIOS-115, DOC-TFG-0316 | 1 |
 | DOC-TFG-0318 | `GAME/APPROVED/MASJIDS_OF_ILMARA/BRIEFS/BUILD_BRIEF_2026-11-09_MASJIDS_OF_ILMARA.md` | PLAN | Build brief, LOCK 102 - the masjids of Ilmara (to reach 50) | DOC-TFG-0316, DOC-TFG-0317, AD-AIOS-115 | 2 |
 
@@ -374,7 +374,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0096 | `GAME/APPROVED/MENUS/RECORD/MENUS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 29 - menus - the Esc pause menu, saving and continuing, and the settings screen (text size, walking… | AD-AIOS-115, AD-AIOS-137, DOC-TFG-0006, DOC-TFG-0011, DOC-TFG-0063, DOC-TFG-0097 | 3 |
+| DOC-TFG-0096 | `GAME/APPROVED/MENUS/RECORD/MENUS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 29 - menus - the Esc pause menu, saving and continuing, and the settings screen (text size, walking… | AD-AIOS-115, AD-AIOS-137, DOC-TFG-0006, DOC-TFG-0011, DOC-TFG-0063, DOC-TFG-0097 | 4 |
 | DOC-TFG-0097 | `GAME/APPROVED/MENUS/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES menus - Shakeel's exact words for each LOCK, what it locks, and its queue lines | AD-AIOS-115, AD-AIOS-137, DOC-TFG-0096 | 1 |
 | DOC-TFG-0098 | `GAME/APPROVED/MENUS/BRIEFS/BUILD_BRIEF_2026-11-09_MENUS.md` | PLAN | Build brief, LOCK 29 - pause menu, save and continue, settings | DOC-TFG-0096, DOC-TFG-0097, AD-AIOS-115 | 2 |
 
@@ -382,7 +382,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0139 | `GAME/APPROVED/NAHLA/RECORD/NAHLA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 43 - Nahla, the beekeepers (chapter 3): town, masjid, people; missions The sick child and The… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0140 | 5 |
+| DOC-TFG-0139 | `GAME/APPROVED/NAHLA/RECORD/NAHLA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 43 - Nahla, the beekeepers (chapter 3): town, masjid, people; missions The sick child and The… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0140 | 6 |
 | DOC-TFG-0140 | `GAME/APPROVED/NAHLA/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Nahla, the sick child and the overloaded donkey - Shakeel's exact words for… | AD-AIOS-115, DOC-TFG-0139 | 1 |
 | DOC-TFG-0141 | `GAME/APPROVED/NAHLA/BRIEFS/BUILD_BRIEF_2026-11-09_NAHLA.md` | PLAN | Build brief, LOCK 43 - Nahla, the sick child and the overloaded donkey | DOC-TFG-0139, DOC-TFG-0140, AD-AIOS-115 | 2 |
 
@@ -406,7 +406,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0295 | `GAME/APPROVED/NAMES_TOWNS/RECORD/NAMES_TOWNS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 95 - 96 more Names of Allah in the towns | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0296 | 2 |
+| DOC-TFG-0295 | `GAME/APPROVED/NAMES_TOWNS/RECORD/NAMES_TOWNS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 95 - 96 more Names of Allah in the towns | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0296 | 3 |
 | DOC-TFG-0296 | `GAME/APPROVED/NAMES_TOWNS/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES 96 more Names of Allah in the towns - Shakeel's exact words for each LOCK,… | AD-AIOS-115, DOC-TFG-0295 | 1 |
 | DOC-TFG-0297 | `GAME/APPROVED/NAMES_TOWNS/BRIEFS/BUILD_BRIEF_2026-11-09_NAMES_TOWNS.md` | PLAN | Build brief, LOCK 95 - 96 more Names of Allah in the towns | DOC-TFG-0295, DOC-TFG-0296, AD-AIOS-115 | 2 |
 
@@ -417,12 +417,14 @@ _Stop here unless you need to look up another ID._
 | DOC-TFG-0001 | `GAME/OVERVIEW/Summary.md` | SPEC | What THE FOUR GATES is, in the Founder's words - the starting point for the THE FOUR GATES chat's design work | AD-AIOS-122 | 18 |
 | DOC-TFG-0129 | `GAME/OVERVIEW/LOCKS_INDEX.md` | REGISTER | Index of every THE FOUR GATES LOCK - one short row each (what it does, the Founder's words, spec ID, queue… | DOC-TFG-0001, AD-AIOS-115 | 21 |
 | DOC-TFG-0319 | `GAME/OVERVIEW/LOCKS_INDEX_2.md` | REGISTER | Index of THE FOUR GATES LOCKs 64 onward - one short row each; continues LOCKS_INDEX.md (DOC-TFG-0129), split… | DOC-TFG-0129, DOC-TFG-0001, AD-AIOS-115 | 7 |
+| DOC-TFG-0320 | `GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md` | REGISTER | The one list of THE FOUR GATES rulings that still need a scholar's check - moved to after the build by the… | OA-AIOS-432, AD-AIOS-138, DOC-TFG-0001 | 6 |
+| DOC-TFG-0321 | `GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md` | REGISTER | The one order of River Market's What people say lines across every LOCK - written out because the specs'… | DOC-TFG-0017, DOC-TFG-0001 | 1 |
 
 ### PAGES_CH01
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0202 | `GAME/APPROVED/PAGES_CH01/RECORD/PAGES_CH01_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 64 - pages 2-10 of the scholar's notebook - where each is found, through whom, and what Idris says when… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0111, DOC-TFG-0203 | 4 |
+| DOC-TFG-0202 | `GAME/APPROVED/PAGES_CH01/RECORD/PAGES_CH01_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 64 - pages 2-10 of the scholar's notebook - where each is found, through whom, and what Idris says when… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0111, DOC-TFG-0203 | 5 |
 | DOC-TFG-0203 | `GAME/APPROVED/PAGES_CH01/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the scholar's notebook, chapter 1 (intention and foundations, pages 2-10) -… | AD-AIOS-115, DOC-TFG-0202 | 1 |
 | DOC-TFG-0204 | `GAME/APPROVED/PAGES_CH01/BRIEFS/BUILD_BRIEF_2026-11-09_PAGES_CH01.md` | PLAN | Build brief, LOCK 64 - the scholar's notebook, chapter 1 (intention and foundations, pages 2-10) | DOC-TFG-0202, DOC-TFG-0203, AD-AIOS-115 | 2 |
 
@@ -454,7 +456,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0214 | `GAME/APPROVED/PAGES_CH05/RECORD/PAGES_CH05_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 68 - pages 41-50 of the scholar's notebook - where each is found, through whom, and what Idris says… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0111, DOC-TFG-0215 | 4 |
+| DOC-TFG-0214 | `GAME/APPROVED/PAGES_CH05/RECORD/PAGES_CH05_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 68 - pages 41-50 of the scholar's notebook - where each is found, through whom, and what Idris says… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0111, DOC-TFG-0215 | 5 |
 | DOC-TFG-0215 | `GAME/APPROVED/PAGES_CH05/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the scholar's notebook, chapter 5 (neighbours and community, pages 41-50) -… | AD-AIOS-115, DOC-TFG-0214 | 1 |
 | DOC-TFG-0216 | `GAME/APPROVED/PAGES_CH05/BRIEFS/BUILD_BRIEF_2026-11-09_PAGES_CH05.md` | PLAN | Build brief, LOCK 68 - the scholar's notebook, chapter 5 (neighbours and community, pages 41-50) | DOC-TFG-0214, DOC-TFG-0215, AD-AIOS-115 | 2 |
 
@@ -462,7 +464,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0217 | `GAME/APPROVED/PAGES_CH06/RECORD/PAGES_CH06_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 69 - pages 51-60 of the scholar's notebook - where each is found, through whom, and what Idris says… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0111, DOC-TFG-0218 | 4 |
+| DOC-TFG-0217 | `GAME/APPROVED/PAGES_CH06/RECORD/PAGES_CH06_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 69 - pages 51-60 of the scholar's notebook - where each is found, through whom, and what Idris says… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0111, DOC-TFG-0218 | 5 |
 | DOC-TFG-0218 | `GAME/APPROVED/PAGES_CH06/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the scholar's notebook, chapter 6 (worship, pages 51-60) - Shakeel's exact… | AD-AIOS-115, DOC-TFG-0217 | 1 |
 | DOC-TFG-0219 | `GAME/APPROVED/PAGES_CH06/BRIEFS/BUILD_BRIEF_2026-11-09_PAGES_CH06.md` | PLAN | Build brief, LOCK 69 - the scholar's notebook, chapter 6 (worship, pages 51-60) | DOC-TFG-0217, DOC-TFG-0218, AD-AIOS-115 | 2 |
 
@@ -486,7 +488,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0226 | `GAME/APPROVED/PAGES_CH09/RECORD/PAGES_CH09_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 72 - pages 81-90 of the scholar's notebook - where each is found, through whom, and what Idris says… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0111, DOC-TFG-0227 | 4 |
+| DOC-TFG-0226 | `GAME/APPROVED/PAGES_CH09/RECORD/PAGES_CH09_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 72 - pages 81-90 of the scholar's notebook - where each is found, through whom, and what Idris says… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0111, DOC-TFG-0227 | 5 |
 | DOC-TFG-0227 | `GAME/APPROVED/PAGES_CH09/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the scholar's notebook, chapter 9 (knowledge and patience, pages 81-90) -… | AD-AIOS-115, DOC-TFG-0226 | 1 |
 | DOC-TFG-0228 | `GAME/APPROVED/PAGES_CH09/BRIEFS/BUILD_BRIEF_2026-11-09_PAGES_CH09.md` | PLAN | Build brief, LOCK 72 - the scholar's notebook, chapter 9 (knowledge and patience, pages 81-90) | DOC-TFG-0226, DOC-TFG-0227, AD-AIOS-115 | 2 |
 
@@ -502,7 +504,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0102 | `GAME/APPROVED/PARTNERSHIP/RECORD/PARTNERSHIP_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 31 - wealth, a partnership with Layla - 60 coins for a second loom, profit shared by portion including… | AD-AIOS-115, DOC-TFG-0024, DOC-TFG-0027, DOC-TFG-0030, DOC-TFG-0057, DOC-TFG-0103 | 3 |
+| DOC-TFG-0102 | `GAME/APPROVED/PARTNERSHIP/RECORD/PARTNERSHIP_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 31 - wealth, a partnership with Layla - 60 coins for a second loom, profit shared by portion including… | AD-AIOS-115, DOC-TFG-0024, DOC-TFG-0027, DOC-TFG-0030, DOC-TFG-0057, DOC-TFG-0103 | 4 |
 | DOC-TFG-0103 | `GAME/APPROVED/PARTNERSHIP/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES partnership with Layla - Shakeel's exact words for each LOCK, what it locks,… | AD-AIOS-115, DOC-TFG-0102 | 1 |
 | DOC-TFG-0104 | `GAME/APPROVED/PARTNERSHIP/BRIEFS/BUILD_BRIEF_2026-11-09_PARTNERSHIP.md` | PLAN | Build brief, LOCK 31 - a partnership with Layla | DOC-TFG-0102, DOC-TFG-0103, AD-AIOS-115 | 2 |
 
@@ -518,7 +520,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0307 | `GAME/APPROVED/PRAYER_3D/RECORD/PRAYER_3D_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 99 - the prayer in 3D | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0308 | 2 |
+| DOC-TFG-0307 | `GAME/APPROVED/PRAYER_3D/RECORD/PRAYER_3D_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 99 - the prayer in 3D | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0308 | 3 |
 | DOC-TFG-0308 | `GAME/APPROVED/PRAYER_3D/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the prayer in 3D - Shakeel's exact words for each LOCK, what it locks, and… | AD-AIOS-115, DOC-TFG-0307 | 1 |
 | DOC-TFG-0309 | `GAME/APPROVED/PRAYER_3D/BRIEFS/BUILD_BRIEF_2026-11-09_PRAYER_3D.md` | PLAN | Build brief, LOCK 99 - the prayer in 3D | DOC-TFG-0307, DOC-TFG-0308, AD-AIOS-115 | 1 |
 
@@ -526,7 +528,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0033 | `GAME/APPROVED/PRAYER_RECORD/RECORD/PRAYER_RECORD_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 8 - all your prayers - private all-time prayer totals on the title screen and under today's record | AD-AIOS-115, DOC-TFG-0011, DOC-TFG-0034 | 2 |
+| DOC-TFG-0033 | `GAME/APPROVED/PRAYER_RECORD/RECORD/PRAYER_RECORD_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 8 - all your prayers - private all-time prayer totals on the title screen and under today's record | AD-AIOS-115, DOC-TFG-0011, DOC-TFG-0034 | 3 |
 | DOC-TFG-0034 | `GAME/APPROVED/PRAYER_RECORD/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES all your prayers - Shakeel's exact words for each LOCK, what it locks, and… | AD-AIOS-115, DOC-TFG-0033 | 1 |
 | DOC-TFG-0035 | `GAME/APPROVED/PRAYER_RECORD/BRIEFS/BUILD_BRIEF_2026-11-08_PRAYER_RECORD.md` | PLAN | Build brief, LOCK 8 - all your prayers: private totals on the title screen and under today's record | DOC-TFG-0033, DOC-TFG-0034, AD-AIOS-115 | 2 |
 
@@ -534,7 +536,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0099 | `GAME/APPROVED/PRAYER_REMINDER/RECORD/PRAYER_REMINDER_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 30 - settings, the real-life prayer reminder - off by default; city from a list (no location); Asr… | AD-AIOS-115, AD-AIOS-137, DOC-TFG-0011, DOC-TFG-0096, DOC-TFG-0100 | 4 |
+| DOC-TFG-0099 | `GAME/APPROVED/PRAYER_REMINDER/RECORD/PRAYER_REMINDER_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 30 - settings, the real-life prayer reminder - off by default; city from a list (no location); Asr… | AD-AIOS-115, AD-AIOS-137, DOC-TFG-0011, DOC-TFG-0096, DOC-TFG-0100 | 5 |
 | DOC-TFG-0100 | `GAME/APPROVED/PRAYER_REMINDER/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES real-life prayer reminder - Shakeel's exact words for each LOCK, what it… | AD-AIOS-115, AD-AIOS-137, DOC-TFG-0099 | 1 |
 | DOC-TFG-0101 | `GAME/APPROVED/PRAYER_REMINDER/BRIEFS/BUILD_BRIEF_2026-11-09_PRAYER_REMINDER.md` | PLAN | Build brief, LOCK 30 - the real-life prayer reminder in Settings | DOC-TFG-0099, DOC-TFG-0100, AD-AIOS-115 | 2 |
 
@@ -550,7 +552,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0250 | `GAME/APPROVED/PROPHETS_STORIES/RECORD/PROPHETS_STORIES_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 80 - stories of the prophets after Isha | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0251 | 3 |
+| DOC-TFG-0250 | `GAME/APPROVED/PROPHETS_STORIES/RECORD/PROPHETS_STORIES_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 80 - stories of the prophets after Isha | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0251 | 4 |
 | DOC-TFG-0251 | `GAME/APPROVED/PROPHETS_STORIES/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES stories of the prophets after Isha - Shakeel's exact words for each LOCK,… | AD-AIOS-115, DOC-TFG-0250 | 1 |
 | DOC-TFG-0252 | `GAME/APPROVED/PROPHETS_STORIES/BRIEFS/BUILD_BRIEF_2026-11-09_PROPHETS_STORIES.md` | PLAN | Build brief, LOCK 80 - stories of the prophets after Isha | DOC-TFG-0250, DOC-TFG-0251, AD-AIOS-115 | 2 |
 
@@ -582,7 +584,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0057 | `GAME/APPROVED/RASHIDS_LOAN/RECORD/RASHIDS_LOAN_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 16 - wealth, Rashid's loan - lending without increase, the refused interest, and giving time, letting… | AD-AIOS-115, DOC-TFG-0021, DOC-TFG-0027, DOC-TFG-0030, DOC-TFG-0042, DOC-TFG-0058 | 4 |
+| DOC-TFG-0057 | `GAME/APPROVED/RASHIDS_LOAN/RECORD/RASHIDS_LOAN_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 16 - wealth, Rashid's loan - lending without increase, the refused interest, and giving time, letting… | AD-AIOS-115, DOC-TFG-0021, DOC-TFG-0027, DOC-TFG-0030, DOC-TFG-0042, DOC-TFG-0058 | 5 |
 | DOC-TFG-0058 | `GAME/APPROVED/RASHIDS_LOAN/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Rashid's loan - Shakeel's exact words for each LOCK, what it locks, and its… | AD-AIOS-115, DOC-TFG-0057 | 1 |
 | DOC-TFG-0059 | `GAME/APPROVED/RASHIDS_LOAN/BRIEFS/BUILD_BRIEF_2026-11-09_RASHIDS_LOAN.md` | PLAN | Build brief, LOCK 16 - Rashid's loan: lend without increase, refused interest, time / let go / demand | DOC-TFG-0057, DOC-TFG-0058, AD-AIOS-115 | 2 |
 
@@ -590,7 +592,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0090 | `GAME/APPROVED/REGULARS_AT_PRAYER/RECORD/REGULARS_AT_PRAYER_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 27 - the market's day, the regulars go to prayer - Rashid, Jamal and Old Musa at the masjid for Dhuhr… | AD-AIOS-115, DOC-TFG-0011, DOC-TFG-0027, DOC-TFG-0030, DOC-TFG-0091 | 2 |
+| DOC-TFG-0090 | `GAME/APPROVED/REGULARS_AT_PRAYER/RECORD/REGULARS_AT_PRAYER_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 27 - the market's day, the regulars go to prayer - Rashid, Jamal and Old Musa at the masjid for Dhuhr… | AD-AIOS-115, DOC-TFG-0011, DOC-TFG-0027, DOC-TFG-0030, DOC-TFG-0091 | 3 |
 | DOC-TFG-0091 | `GAME/APPROVED/REGULARS_AT_PRAYER/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES regulars at prayer - Shakeel's exact words for each LOCK, what it locks, and… | AD-AIOS-115, DOC-TFG-0090 | 1 |
 | DOC-TFG-0092 | `GAME/APPROVED/REGULARS_AT_PRAYER/BRIEFS/BUILD_BRIEF_2026-11-09_REGULARS_AT_PRAYER.md` | PLAN | Build brief, LOCK 27 - the regulars go to prayer at Dhuhr and Asr | DOC-TFG-0090, DOC-TFG-0091, AD-AIOS-115 | 2 |
 
@@ -598,7 +600,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0093 | `GAME/APPROVED/REGULARS_REMEMBER/RECORD/REGULARS_REMEMBER_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 28 - characters, the regulars remember - one extra memory line in the LOCK 6 talk panel per regular,… | AD-AIOS-115, DOC-TFG-0027, DOC-TFG-0045, DOC-TFG-0054, DOC-TFG-0057, DOC-TFG-0081, DOC-TFG-0084, DOC-TFG-0087, DOC-TFG-0094 | 3 |
+| DOC-TFG-0093 | `GAME/APPROVED/REGULARS_REMEMBER/RECORD/REGULARS_REMEMBER_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 28 - characters, the regulars remember - one extra memory line in the LOCK 6 talk panel per regular,… | AD-AIOS-115, DOC-TFG-0027, DOC-TFG-0045, DOC-TFG-0054, DOC-TFG-0057, DOC-TFG-0081, DOC-TFG-0084, DOC-TFG-0087, DOC-TFG-0094 | 4 |
 | DOC-TFG-0094 | `GAME/APPROVED/REGULARS_REMEMBER/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES regulars remember - Shakeel's exact words for each LOCK, what it locks, and… | AD-AIOS-115, DOC-TFG-0093 | 1 |
 | DOC-TFG-0095 | `GAME/APPROVED/REGULARS_REMEMBER/BRIEFS/BUILD_BRIEF_2026-11-09_REGULARS_REMEMBER.md` | PLAN | Build brief, LOCK 28 - one memory line per regular in the talk panel | DOC-TFG-0093, DOC-TFG-0094, AD-AIOS-115 | 2 |
 
@@ -606,7 +608,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0304 | `GAME/APPROVED/REGULARS_ROUTES/RECORD/REGULARS_ROUTES_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 98 - the regulars walk their routes | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0305 | 2 |
+| DOC-TFG-0304 | `GAME/APPROVED/REGULARS_ROUTES/RECORD/REGULARS_ROUTES_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 98 - the regulars walk their routes | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0305 | 3 |
 | DOC-TFG-0305 | `GAME/APPROVED/REGULARS_ROUTES/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the regulars walk their routes - Shakeel's exact words for each LOCK, what it… | AD-AIOS-115, DOC-TFG-0304 | 1 |
 | DOC-TFG-0306 | `GAME/APPROVED/REGULARS_ROUTES/BRIEFS/BUILD_BRIEF_2026-11-09_REGULARS_ROUTES.md` | PLAN | Build brief, LOCK 98 - the regulars walk their routes | DOC-TFG-0304, DOC-TFG-0305, AD-AIOS-115 | 2 |
 
@@ -614,7 +616,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0117 | `GAME/APPROVED/ROAD_MAP/RECORD/ROAD_MAP_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 36 - the road map of the four gates and twelve towns, opening one after another, and the gates of… | AD-AIOS-115, DOC-TFG-0105, DOC-TFG-0111, DOC-TFG-0118 | 3 |
+| DOC-TFG-0117 | `GAME/APPROVED/ROAD_MAP/RECORD/ROAD_MAP_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 36 - the road map of the four gates and twelve towns, opening one after another, and the gates of… | AD-AIOS-115, DOC-TFG-0105, DOC-TFG-0111, DOC-TFG-0118 | 4 |
 | DOC-TFG-0118 | `GAME/APPROVED/ROAD_MAP/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the road map and the gates at night - Shakeel's exact words for each LOCK,… | AD-AIOS-115, DOC-TFG-0117 | 1 |
 | DOC-TFG-0119 | `GAME/APPROVED/ROAD_MAP/BRIEFS/BUILD_BRIEF_2026-11-09_ROAD_MAP.md` | PLAN | Build brief, LOCK 36 - the road map and the gates at night | DOC-TFG-0117, DOC-TFG-0118, AD-AIOS-115 | 2 |
 
@@ -622,7 +624,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0130 | `GAME/APPROVED/SAFIRA/RECORD/SAFIRA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 40 - Safira, the caravanserai (chapter 2): town, masjid, people; missions The slow pilgrim and Lost at… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0131 | 5 |
+| DOC-TFG-0130 | `GAME/APPROVED/SAFIRA/RECORD/SAFIRA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 40 - Safira, the caravanserai (chapter 2): town, masjid, people; missions The slow pilgrim and Lost at… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0131 | 6 |
 | DOC-TFG-0131 | `GAME/APPROVED/SAFIRA/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Safira, the slow pilgrim and lost at night - Shakeel's exact words for each… | AD-AIOS-115, DOC-TFG-0130 | 1 |
 | DOC-TFG-0132 | `GAME/APPROVED/SAFIRA/BRIEFS/BUILD_BRIEF_2026-11-09_SAFIRA.md` | PLAN | Build brief, LOCK 40 - Safira, the slow pilgrim and lost at night | DOC-TFG-0130, DOC-TFG-0131, AD-AIOS-115 | 2 |
 
@@ -630,7 +632,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0120 | `GAME/APPROVED/SAHILA/RECORD/SAHILA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 37 - Sahila, the fishing shore (town, masjid, people) and chapter 1 mission Sahila's boat with its… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0121 | 5 |
+| DOC-TFG-0120 | `GAME/APPROVED/SAHILA/RECORD/SAHILA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 37 - Sahila, the fishing shore (town, masjid, people) and chapter 1 mission Sahila's boat with its… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0121 | 6 |
 | DOC-TFG-0121 | `GAME/APPROVED/SAHILA/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Sahila and Sahila's boat - Shakeel's exact words for each LOCK, what it… | AD-AIOS-115, DOC-TFG-0120 | 1 |
 | DOC-TFG-0122 | `GAME/APPROVED/SAHILA/BRIEFS/BUILD_BRIEF_2026-11-09_SAHILA.md` | PLAN | Build brief, LOCK 37 - Sahila and Sahila's boat | DOC-TFG-0120, DOC-TFG-0121, AD-AIOS-115 | 2 |
 
@@ -638,7 +640,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0111 | `GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 34 - one data-driven scene runner for every later mission, a town model (people, work, masjid, inn, own… | AD-AIOS-115, DOC-TFG-0105, DOC-TFG-0108, DOC-TFG-0112 | 4 |
+| DOC-TFG-0111 | `GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 34 - one data-driven scene runner for every later mission, a town model (people, work, masjid, inn, own… | AD-AIOS-115, DOC-TFG-0105, DOC-TFG-0108, DOC-TFG-0112 | 5 |
 | DOC-TFG-0112 | `GAME/APPROVED/SCENE_RUNNER/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the scene runner, towns and the journal - Shakeel's exact words for each… | AD-AIOS-115, DOC-TFG-0111 | 1 |
 | DOC-TFG-0113 | `GAME/APPROVED/SCENE_RUNNER/BRIEFS/BUILD_BRIEF_2026-11-09_SCENE_RUNNER.md` | PLAN | Build brief, LOCK 34 - the scene runner, towns and the journal | DOC-TFG-0111, DOC-TFG-0112, AD-AIOS-115 | 2 |
 
@@ -646,7 +648,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0039 | `GAME/APPROVED/SEALED_PURSE/RECORD/SEALED_PURSE_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 10 - chapter 1, the sealed purse - Karim's job, the coin on the stones, Abbas counting at the Gate of… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0011, DOC-TFG-0030, DOC-TFG-0040 | 2 |
+| DOC-TFG-0039 | `GAME/APPROVED/SEALED_PURSE/RECORD/SEALED_PURSE_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 10 - chapter 1, the sealed purse - Karim's job, the coin on the stones, Abbas counting at the Gate of… | AD-AIOS-115, DOC-TFG-0006, DOC-TFG-0011, DOC-TFG-0030, DOC-TFG-0040 | 3 |
 | DOC-TFG-0040 | `GAME/APPROVED/SEALED_PURSE/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES sealed purse - Shakeel's exact words for each LOCK, what it locks, and its… | AD-AIOS-115, DOC-TFG-0039 | 1 |
 | DOC-TFG-0041 | `GAME/APPROVED/SEALED_PURSE/BRIEFS/BUILD_BRIEF_2026-11-08_SEALED_PURSE.md` | PLAN | Build brief, LOCK 10 - the sealed purse: Karim's job, the coin, delivery to Abbas at the gate | DOC-TFG-0039, DOC-TFG-0040, AD-AIOS-115 | 2 |
 
@@ -654,7 +656,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0154 | `GAME/APPROVED/SHIFARA/RECORD/SHIFARA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 48 - Shifara, the hospital (chapter 4): town, masjid, people; missions The fever, The doctor's secret… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0155 | 5 |
+| DOC-TFG-0154 | `GAME/APPROVED/SHIFARA/RECORD/SHIFARA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 48 - Shifara, the hospital (chapter 4): town, masjid, people; missions The fever, The doctor's secret… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0155 | 6 |
 | DOC-TFG-0155 | `GAME/APPROVED/SHIFARA/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Shifara, the fever, the doctor's secret and chapter 4 ends - Shakeel's exact… | AD-AIOS-115, DOC-TFG-0154 | 1 |
 | DOC-TFG-0156 | `GAME/APPROVED/SHIFARA/BRIEFS/BUILD_BRIEF_2026-11-09_SHIFARA.md` | PLAN | Build brief, LOCK 48 - Shifara, the fever, the doctor's secret and chapter 4 ends | DOC-TFG-0154, DOC-TFG-0155, AD-AIOS-115 | 2 |
 
@@ -662,7 +664,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0196 | `GAME/APPROVED/SIDE_ARCHERY/RECORD/SIDE_ARCHERY_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 62 - River Market side mission - a cheat at archery | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0197 | 2 |
+| DOC-TFG-0196 | `GAME/APPROVED/SIDE_ARCHERY/RECORD/SIDE_ARCHERY_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 62 - River Market side mission - a cheat at archery | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0197 | 3 |
 | DOC-TFG-0197 | `GAME/APPROVED/SIDE_ARCHERY/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES side mission: a cheat at archery - Shakeel's exact words for each LOCK, what… | AD-AIOS-115, DOC-TFG-0196 | 1 |
 | DOC-TFG-0198 | `GAME/APPROVED/SIDE_ARCHERY/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_ARCHERY.md` | PLAN | Build brief, LOCK 62 - side mission: a cheat at archery | DOC-TFG-0196, DOC-TFG-0197, AD-AIOS-115 | 2 |
 
@@ -670,7 +672,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0166 | `GAME/APPROVED/SIDE_BROTHERS/RECORD/SIDE_BROTHERS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 52 - River Market side mission - two brothers not speaking | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0167 | 2 |
+| DOC-TFG-0166 | `GAME/APPROVED/SIDE_BROTHERS/RECORD/SIDE_BROTHERS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 52 - River Market side mission - two brothers not speaking | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0167 | 3 |
 | DOC-TFG-0167 | `GAME/APPROVED/SIDE_BROTHERS/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES side mission: two brothers not speaking - Shakeel's exact words for each… | AD-AIOS-115, DOC-TFG-0166 | 1 |
 | DOC-TFG-0168 | `GAME/APPROVED/SIDE_BROTHERS/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_BROTHERS.md` | PLAN | Build brief, LOCK 52 - side mission: two brothers not speaking | DOC-TFG-0166, DOC-TFG-0167, AD-AIOS-115 | 2 |
 
@@ -678,7 +680,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0175 | `GAME/APPROVED/SIDE_CREDITOR/RECORD/SIDE_CREDITOR_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 55 - River Market side mission - a creditor beating a debtor | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0176 | 2 |
+| DOC-TFG-0175 | `GAME/APPROVED/SIDE_CREDITOR/RECORD/SIDE_CREDITOR_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 55 - River Market side mission - a creditor beating a debtor | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0176 | 3 |
 | DOC-TFG-0176 | `GAME/APPROVED/SIDE_CREDITOR/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES side mission: a creditor beating a debtor - Shakeel's exact words for each… | AD-AIOS-115, DOC-TFG-0175 | 1 |
 | DOC-TFG-0177 | `GAME/APPROVED/SIDE_CREDITOR/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_CREDITOR.md` | PLAN | Build brief, LOCK 55 - side mission: a creditor beating a debtor | DOC-TFG-0175, DOC-TFG-0176, AD-AIOS-115 | 2 |
 
@@ -686,7 +688,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0181 | `GAME/APPROVED/SIDE_DROWNING_BOY/RECORD/SIDE_DROWNING_BOY_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 57 - River Market side mission - a boy drowning in the canal | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0182 | 2 |
+| DOC-TFG-0181 | `GAME/APPROVED/SIDE_DROWNING_BOY/RECORD/SIDE_DROWNING_BOY_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 57 - River Market side mission - a boy drowning in the canal | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0182 | 3 |
 | DOC-TFG-0182 | `GAME/APPROVED/SIDE_DROWNING_BOY/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES side mission: a boy drowning in the canal - Shakeel's exact words for each… | AD-AIOS-115, DOC-TFG-0181 | 1 |
 | DOC-TFG-0183 | `GAME/APPROVED/SIDE_DROWNING_BOY/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_DROWNING_BOY.md` | PLAN | Build brief, LOCK 57 - side mission: a boy drowning in the canal | DOC-TFG-0181, DOC-TFG-0182, AD-AIOS-115 | 2 |
 
@@ -702,7 +704,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0178 | `GAME/APPROVED/SIDE_LOST_CHILD/RECORD/SIDE_LOST_CHILD_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 56 - River Market side mission - a lost child at Friday prayer | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0179 | 2 |
+| DOC-TFG-0178 | `GAME/APPROVED/SIDE_LOST_CHILD/RECORD/SIDE_LOST_CHILD_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 56 - River Market side mission - a lost child at Friday prayer | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0179 | 3 |
 | DOC-TFG-0179 | `GAME/APPROVED/SIDE_LOST_CHILD/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES side mission: a lost child at Friday prayer - Shakeel's exact words for each… | AD-AIOS-115, DOC-TFG-0178 | 1 |
 | DOC-TFG-0180 | `GAME/APPROVED/SIDE_LOST_CHILD/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_LOST_CHILD.md` | PLAN | Build brief, LOCK 56 - side mission: a lost child at Friday prayer | DOC-TFG-0178, DOC-TFG-0179, AD-AIOS-115 | 2 |
 
@@ -710,7 +712,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0169 | `GAME/APPROVED/SIDE_NEIGHBOURS_WALL/RECORD/SIDE_NEIGHBOURS_WALL_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 53 - River Market side mission - the neighbour's wall | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0170 | 2 |
+| DOC-TFG-0169 | `GAME/APPROVED/SIDE_NEIGHBOURS_WALL/RECORD/SIDE_NEIGHBOURS_WALL_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 53 - River Market side mission - the neighbour's wall | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0170 | 3 |
 | DOC-TFG-0170 | `GAME/APPROVED/SIDE_NEIGHBOURS_WALL/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES side mission: the neighbour's wall - Shakeel's exact words for each LOCK,… | AD-AIOS-115, DOC-TFG-0169 | 1 |
 | DOC-TFG-0171 | `GAME/APPROVED/SIDE_NEIGHBOURS_WALL/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_NEIGHBOURS_WALL.md` | PLAN | Build brief, LOCK 53 - side mission: the neighbour's wall | DOC-TFG-0169, DOC-TFG-0170, AD-AIOS-115 | 2 |
 
@@ -718,7 +720,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0193 | `GAME/APPROVED/SIDE_RING_MASJID/RECORD/SIDE_RING_MASJID_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 61 - River Market side mission - a ring found in the masjid | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0194 | 2 |
+| DOC-TFG-0193 | `GAME/APPROVED/SIDE_RING_MASJID/RECORD/SIDE_RING_MASJID_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 61 - River Market side mission - a ring found in the masjid | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0194 | 3 |
 | DOC-TFG-0194 | `GAME/APPROVED/SIDE_RING_MASJID/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES side mission: a ring found in the masjid - Shakeel's exact words for each… | AD-AIOS-115, DOC-TFG-0193 | 1 |
 | DOC-TFG-0195 | `GAME/APPROVED/SIDE_RING_MASJID/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_RING_MASJID.md` | PLAN | Build brief, LOCK 61 - side mission: a ring found in the masjid | DOC-TFG-0193, DOC-TFG-0194, AD-AIOS-115 | 2 |
 
@@ -726,7 +728,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0190 | `GAME/APPROVED/SIDE_SPILLED_SPICE/RECORD/SIDE_SPILLED_SPICE_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 60 - River Market side mission - the spilled spice (witness) | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0191 | 2 |
+| DOC-TFG-0190 | `GAME/APPROVED/SIDE_SPILLED_SPICE/RECORD/SIDE_SPILLED_SPICE_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 60 - River Market side mission - the spilled spice (witness) | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0191 | 3 |
 | DOC-TFG-0191 | `GAME/APPROVED/SIDE_SPILLED_SPICE/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES side mission: the spilled spice (witness) - Shakeel's exact words for each… | AD-AIOS-115, DOC-TFG-0190 | 1 |
 | DOC-TFG-0192 | `GAME/APPROVED/SIDE_SPILLED_SPICE/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_SPILLED_SPICE.md` | PLAN | Build brief, LOCK 60 - side mission: the spilled spice (witness) | DOC-TFG-0190, DOC-TFG-0191, AD-AIOS-115 | 2 |
 
@@ -734,7 +736,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0199 | `GAME/APPROVED/SIDE_STRANGER/RECORD/SIDE_STRANGER_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 63 - River Market side mission - a stranger with nowhere to sleep | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0200 | 2 |
+| DOC-TFG-0199 | `GAME/APPROVED/SIDE_STRANGER/RECORD/SIDE_STRANGER_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 63 - River Market side mission - a stranger with nowhere to sleep | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0200 | 3 |
 | DOC-TFG-0200 | `GAME/APPROVED/SIDE_STRANGER/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES side mission: a stranger with nowhere to sleep - Shakeel's exact words for… | AD-AIOS-115, DOC-TFG-0199 | 1 |
 | DOC-TFG-0201 | `GAME/APPROVED/SIDE_STRANGER/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_STRANGER.md` | PLAN | Build brief, LOCK 63 - side mission: a stranger with nowhere to sleep | DOC-TFG-0199, DOC-TFG-0200, AD-AIOS-115 | 2 |
 
@@ -742,7 +744,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0187 | `GAME/APPROVED/SIDE_THIRSTY_DOG/RECORD/SIDE_THIRSTY_DOG_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 59 - River Market side mission - a thirsty dog | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0188 | 2 |
+| DOC-TFG-0187 | `GAME/APPROVED/SIDE_THIRSTY_DOG/RECORD/SIDE_THIRSTY_DOG_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 59 - River Market side mission - a thirsty dog | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0188 | 3 |
 | DOC-TFG-0188 | `GAME/APPROVED/SIDE_THIRSTY_DOG/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES side mission: a thirsty dog - Shakeel's exact words for each LOCK, what it… | AD-AIOS-115, DOC-TFG-0187 | 1 |
 | DOC-TFG-0189 | `GAME/APPROVED/SIDE_THIRSTY_DOG/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_THIRSTY_DOG.md` | PLAN | Build brief, LOCK 59 - side mission: a thirsty dog | DOC-TFG-0187, DOC-TFG-0188, AD-AIOS-115 | 2 |
 
@@ -750,7 +752,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0184 | `GAME/APPROVED/SIDE_WATER_SELLER/RECORD/SIDE_WATER_SELLER_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 58 - River Market side mission - the overcharging water seller | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0185 | 2 |
+| DOC-TFG-0184 | `GAME/APPROVED/SIDE_WATER_SELLER/RECORD/SIDE_WATER_SELLER_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 58 - River Market side mission - the overcharging water seller | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0185 | 3 |
 | DOC-TFG-0185 | `GAME/APPROVED/SIDE_WATER_SELLER/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES side mission: the overcharging water seller - Shakeel's exact words for each… | AD-AIOS-115, DOC-TFG-0184 | 1 |
 | DOC-TFG-0186 | `GAME/APPROVED/SIDE_WATER_SELLER/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_WATER_SELLER.md` | PLAN | Build brief, LOCK 58 - side mission: the overcharging water seller | DOC-TFG-0184, DOC-TFG-0185, AD-AIOS-115 | 2 |
 
@@ -766,13 +768,13 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0004 | `SOURCE/README.md` | GUIDE | Where the Godot 4 project lives and how to open it | AD-AIOS-122 | 9 |
+| DOC-TFG-0004 | `SOURCE/README.md` | GUIDE | Where the Godot 4 project lives and how to open it | AD-AIOS-122 | 36 |
 
 ### STARS
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0301 | `GAME/APPROVED/STARS/RECORD/STARS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 97 - the stars of Najmara | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0302 | 2 |
+| DOC-TFG-0301 | `GAME/APPROVED/STARS/RECORD/STARS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 97 - the stars of Najmara | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0302 | 3 |
 | DOC-TFG-0302 | `GAME/APPROVED/STARS/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the stars of Najmara - Shakeel's exact words for each LOCK, what it locks,… | AD-AIOS-115, DOC-TFG-0301 | 1 |
 | DOC-TFG-0303 | `GAME/APPROVED/STARS/BRIEFS/BUILD_BRIEF_2026-11-09_STARS.md` | PLAN | Build brief, LOCK 97 - the stars of Najmara | DOC-TFG-0301, DOC-TFG-0302, AD-AIOS-115 | 1 |
 
@@ -780,7 +782,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0123 | `GAME/APPROVED/SUKARA/RECORD/SUKARA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 38 - Sukara, the sugar presses (town, masjid, people) and chapter 1 mission Sukara's two offers -… | AD-AIOS-115, DOC-TFG-0102, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0124 | 5 |
+| DOC-TFG-0123 | `GAME/APPROVED/SUKARA/RECORD/SUKARA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 38 - Sukara, the sugar presses (town, masjid, people) and chapter 1 mission Sukara's two offers -… | AD-AIOS-115, DOC-TFG-0102, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0124 | 6 |
 | DOC-TFG-0124 | `GAME/APPROVED/SUKARA/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Sukara and the two offers - Shakeel's exact words for each LOCK, what it… | AD-AIOS-115, DOC-TFG-0123 | 1 |
 | DOC-TFG-0125 | `GAME/APPROVED/SUKARA/BRIEFS/BUILD_BRIEF_2026-11-09_SUKARA.md` | PLAN | Build brief, LOCK 38 - Sukara and the two offers | DOC-TFG-0123, DOC-TFG-0124, AD-AIOS-115 | 2 |
 
@@ -796,7 +798,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0145 | `GAME/APPROVED/TAHUNA/RECORD/TAHUNA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 45 - Tahuna, the mill (chapter 3): town, masjid, people; missions The miller's debt, The enemy's son… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0146 | 5 |
+| DOC-TFG-0145 | `GAME/APPROVED/TAHUNA/RECORD/TAHUNA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 45 - Tahuna, the mill (chapter 3): town, masjid, people; missions The miller's debt, The enemy's son… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0146 | 6 |
 | DOC-TFG-0146 | `GAME/APPROVED/TAHUNA/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Tahuna, the miller's debt, the enemy's son and chapter 3 ends - Shakeel's… | AD-AIOS-115, DOC-TFG-0145 | 1 |
 | DOC-TFG-0147 | `GAME/APPROVED/TAHUNA/BRIEFS/BUILD_BRIEF_2026-11-09_TAHUNA.md` | PLAN | Build brief, LOCK 45 - Tahuna, the miller's debt, the enemy's son and chapter 3 ends | DOC-TFG-0145, DOC-TFG-0146, AD-AIOS-115 | 2 |
 
@@ -804,7 +806,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0027 | `GAME/APPROVED/TALKING/RECORD/TALKING_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 6 - talking to people - five River Market regulars whose lines follow your trust and what they saw;… | AD-AIOS-115, AD-AIOS-131, DOC-TFG-0017, DOC-TFG-0021, DOC-TFG-0024, DOC-TFG-0028 | 3 |
+| DOC-TFG-0027 | `GAME/APPROVED/TALKING/RECORD/TALKING_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 6 - talking to people - five River Market regulars whose lines follow your trust and what they saw;… | AD-AIOS-115, AD-AIOS-131, DOC-TFG-0017, DOC-TFG-0021, DOC-TFG-0024, DOC-TFG-0028 | 4 |
 | DOC-TFG-0028 | `GAME/APPROVED/TALKING/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES talking to people - Shakeel's exact words for each LOCK, what it locks, and… | AD-AIOS-115, DOC-TFG-0027 | 1 |
 | DOC-TFG-0029 | `GAME/APPROVED/TALKING/BRIEFS/BUILD_BRIEF_2026-11-08_TALKING.md` | PLAN | Build brief, LOCK 6 - talking to five River Market regulars, lines by trust and memory, greeting with salam | DOC-TFG-0027, DOC-TFG-0028, AD-AIOS-115, AD-AIOS-131 | 2 |
 
@@ -812,7 +814,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0142 | `GAME/APPROVED/TINARA/RECORD/TINARA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 44 - Tinara, the orchards (chapter 3): town, masjid, people; missions The widow's harvest (with… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0143 | 5 |
+| DOC-TFG-0142 | `GAME/APPROVED/TINARA/RECORD/TINARA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 44 - Tinara, the orchards (chapter 3): town, masjid, people; missions The widow's harvest (with… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0143 | 6 |
 | DOC-TFG-0143 | `GAME/APPROVED/TINARA/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Tinara, the widow's harvest and the orphan's share - Shakeel's exact words… | AD-AIOS-115, DOC-TFG-0142 | 1 |
 | DOC-TFG-0144 | `GAME/APPROVED/TINARA/BRIEFS/BUILD_BRIEF_2026-11-09_TINARA.md` | PLAN | Build brief, LOCK 44 - Tinara, the widow's harvest and the orphan's share | DOC-TFG-0142, DOC-TFG-0143, AD-AIOS-115 | 2 |
 
@@ -820,7 +822,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0271 | `GAME/APPROVED/TRUTH/RECORD/TRUTH_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 87 - the truth system | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0272 | 2 |
+| DOC-TFG-0271 | `GAME/APPROVED/TRUTH/RECORD/TRUTH_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 87 - the truth system | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0272 | 3 |
 | DOC-TFG-0272 | `GAME/APPROVED/TRUTH/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES the truth system - Shakeel's exact words for each LOCK, what it locks, and… | AD-AIOS-115, DOC-TFG-0271 | 1 |
 | DOC-TFG-0273 | `GAME/APPROVED/TRUTH/BRIEFS/BUILD_BRIEF_2026-11-09_TRUTH.md` | PLAN | Build brief, LOCK 87 - the truth system | DOC-TFG-0271, DOC-TFG-0272, AD-AIOS-115 | 1 |
 
@@ -828,7 +830,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0259 | `GAME/APPROVED/VISITING_SICK/RECORD/VISITING_SICK_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 83 - visiting the sick | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0260 | 2 |
+| DOC-TFG-0259 | `GAME/APPROVED/VISITING_SICK/RECORD/VISITING_SICK_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 83 - visiting the sick | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0260 | 3 |
 | DOC-TFG-0260 | `GAME/APPROVED/VISITING_SICK/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES visiting the sick - Shakeel's exact words for each LOCK, what it locks, and… | AD-AIOS-115, DOC-TFG-0259 | 1 |
 | DOC-TFG-0261 | `GAME/APPROVED/VISITING_SICK/BRIEFS/BUILD_BRIEF_2026-11-09_VISITING_SICK.md` | PLAN | Build brief, LOCK 83 - visiting the sick | DOC-TFG-0259, DOC-TFG-0260, AD-AIOS-115 | 2 |
 
@@ -836,7 +838,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0256 | `GAME/APPROVED/VOLUNTARY_FASTS/RECORD/VOLUNTARY_FASTS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 82 - Monday and Thursday fasts | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0257 | 2 |
+| DOC-TFG-0256 | `GAME/APPROVED/VOLUNTARY_FASTS/RECORD/VOLUNTARY_FASTS_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 82 - Monday and Thursday fasts | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0257 | 3 |
 | DOC-TFG-0257 | `GAME/APPROVED/VOLUNTARY_FASTS/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Monday and Thursday fasts - Shakeel's exact words for each LOCK, what it… | AD-AIOS-115, DOC-TFG-0256 | 1 |
 | DOC-TFG-0258 | `GAME/APPROVED/VOLUNTARY_FASTS/BRIEFS/BUILD_BRIEF_2026-11-09_VOLUNTARY_FASTS.md` | PLAN | Build brief, LOCK 82 - Monday and Thursday fasts | DOC-TFG-0256, DOC-TFG-0257, AD-AIOS-115 | 2 |
 
@@ -844,7 +846,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0133 | `GAME/APPROVED/WADIRA/RECORD/WADIRA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 41 - Wadira, the sandstorm valley (chapter 2): town, masjid, people; missions The sandstorm (tayammum)… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0134 | 5 |
+| DOC-TFG-0133 | `GAME/APPROVED/WADIRA/RECORD/WADIRA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 41 - Wadira, the sandstorm valley (chapter 2): town, masjid, people; missions The sandstorm (tayammum)… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0134 | 6 |
 | DOC-TFG-0134 | `GAME/APPROVED/WADIRA/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Wadira, the sandstorm and cheated in public - Shakeel's exact words for each… | AD-AIOS-115, DOC-TFG-0133 | 1 |
 | DOC-TFG-0135 | `GAME/APPROVED/WADIRA/BRIEFS/BUILD_BRIEF_2026-11-09_WADIRA.md` | PLAN | Build brief, LOCK 41 - Wadira, the sandstorm and cheated in public | DOC-TFG-0133, DOC-TFG-0134, AD-AIOS-115 | 2 |
 
@@ -852,7 +854,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0286 | `GAME/APPROVED/WAQF/RECORD/WAQF_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 92 - four endowments (waqf) | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0287 | 4 |
+| DOC-TFG-0286 | `GAME/APPROVED/WAQF/RECORD/WAQF_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 92 - four endowments (waqf) | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0287 | 5 |
 | DOC-TFG-0287 | `GAME/APPROVED/WAQF/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES four endowments (waqf) - Shakeel's exact words for each LOCK, what it locks,… | AD-AIOS-115, DOC-TFG-0286 | 1 |
 | DOC-TFG-0288 | `GAME/APPROVED/WAQF/BRIEFS/BUILD_BRIEF_2026-11-09_WAQF.md` | PLAN | Build brief, LOCK 92 - four endowments (waqf) | DOC-TFG-0286, DOC-TFG-0287, AD-AIOS-115 | 1 |
 
@@ -860,7 +862,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0148 | `GAME/APPROVED/WARAKA/RECORD/WARAKA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 46 - Waraka, the paper mills (chapter 4): town, masjid, people; missions The copyist and The fake… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0149 | 4 |
+| DOC-TFG-0148 | `GAME/APPROVED/WARAKA/RECORD/WARAKA_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 46 - Waraka, the paper mills (chapter 4): town, masjid, people; missions The copyist and The fake… | AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0149 | 5 |
 | DOC-TFG-0149 | `GAME/APPROVED/WARAKA/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES Waraka, the copyist and the fake hadith seller - Shakeel's exact words for… | AD-AIOS-115, DOC-TFG-0148 | 1 |
 | DOC-TFG-0150 | `GAME/APPROVED/WARAKA/BRIEFS/BUILD_BRIEF_2026-11-09_WARAKA.md` | PLAN | Build brief, LOCK 46 - Waraka, the copyist and the fake hadith seller | DOC-TFG-0148, DOC-TFG-0149, AD-AIOS-115 | 2 |
 
@@ -876,10 +878,10 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0075 | `GAME/APPROVED/ZAKAT/RECORD/ZAKAT_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 22 - wealth, zakat - one fortieth of coins at or above the threshold each lunar year from arrival,… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0033, DOC-TFG-0063, DOC-TFG-0076 | 3 |
+| DOC-TFG-0075 | `GAME/APPROVED/ZAKAT/RECORD/ZAKAT_SPEC_CURRENT_VERSION_V1.md` | SPEC | LOCK 22 - wealth, zakat - one fortieth of coins at or above the threshold each lunar year from arrival,… | AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0033, DOC-TFG-0063, DOC-TFG-0076 | 4 |
 | DOC-TFG-0076 | `GAME/APPROVED/ZAKAT/RECORD/LOCK_RECORD.md` | REGISTER | LOCK record for THE FOUR GATES zakat - Shakeel's exact words for each LOCK, what it locks, and its queue lines | AD-AIOS-115, DOC-TFG-0075 | 1 |
 | DOC-TFG-0077 | `GAME/APPROVED/ZAKAT/BRIEFS/BUILD_BRIEF_2026-11-09_ZAKAT.md` | PLAN | Build brief, LOCK 22 - zakat: yearly due, masjid panel, recipients, private record | DOC-TFG-0075, DOC-TFG-0076, AD-AIOS-115 | 2 |
 
 ## Needs attention
 
-Nothing — every live document has a valid header.
+- Over the 30 KB limit (1) — split or trim when next edited: DOC-TFG-0004

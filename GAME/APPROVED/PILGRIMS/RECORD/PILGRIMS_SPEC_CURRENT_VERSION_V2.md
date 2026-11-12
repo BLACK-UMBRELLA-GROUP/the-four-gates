@@ -79,7 +79,7 @@ Going yourself, Makkah shown, other caravan masters, wells and rest stops, pilgr
 
 ## 8. Build rules
 
-Words and numbers only from `pilgrims_data_V1.json` (V2, copied byte for byte to `SOURCE/data/pilgrims.json`) and the earlier data files. Placeholder shapes only; no art, no exports.
+Words and numbers only from `pilgrims_data_V2.json` (V2, copied byte for byte to `SOURCE/data/pilgrims.json`) and the earlier data files. Placeholder shapes only; no art, no exports.
 
 ## Version history
 

@@ -34,3 +34,7 @@ owner: THE FOUR GATES chat
 
 Rules that always apply: text scene files only; no file over 50 MB; nothing from the keys folder; every word and number read
 from the data files at run time.
+
+## Answer note — 11 Nov 2026 (QUESTIONS row 11)
+
+Overlapping years follow spec Clarifications row 11: one year at a time, oldest unpaid first; receipt until exit; latest assessment when nothing is unpaid; record row shows the total still due. Add two test states on day index 708: (a) year 1 owes 8, year 2 owes 3 — pay 8 → button stays, record `due · 3 coins`; pay 3 → button gone, record `paid · 3 coins`; (b) year 1 owes 8, year 2 zero-due (60 held) — the panel serves the 8 first; after payment the zero-due notice stays until that day ends and the record reads `not due this year`. Prototype V73 menu: "LOCK 22 · Two years unpaid" and "LOCK 22 · Old debt, new year not due".

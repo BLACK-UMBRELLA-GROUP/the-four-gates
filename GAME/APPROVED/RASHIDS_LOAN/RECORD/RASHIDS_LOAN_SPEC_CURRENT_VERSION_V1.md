@@ -95,6 +95,13 @@ Other borrowers, Mansur's loans with increase (later LOCK), written contracts an
 
 Words and numbers only from `rashids_loan_data_V1.json` (copied byte for byte to `SOURCE/data/rashids_loan.json`) and the earlier data files. Placeholder shapes only; no art, no exports.
 
+## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
+
+| Date | QUESTIONS row | Clarification |
+|---|---|---|
+| 2026-11-11 | — | Masters are pictures with a set-up state: the HUD's weekday, time, date, coins and trust, and bar items or toasts from other LOCKs, are not evidence targets unless this spec names them. A master at "Thursday 10:00" is a set-up time (the live game reaches the market only after the arrival, 18:15 on day 1): test the same state at the same time on a later day that is not a Friday (Friday turns Dhuhr into Friday prayer) |
+| 2026-11-11 | — | The order of What people say lines across all LOCKs is `GAME/OVERVIEW/WHAT_PEOPLE_SAY_ORDER_CURRENT_VERSION_V1.md` (DOC-TFG-0321). Where this spec's "before / after" wording differs, that list wins |
+
 ## Version history
 
 | Date | Version | Change |

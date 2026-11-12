@@ -16,7 +16,7 @@ designed and locked by the Founder before it is built.
 | First district | 16 | One explorable market quarter with streets, a river edge, shops and day and night lighting (lanterns at night). Done 2026-11-11 (LOCK 7). |
 | Tasks and money | 12 | A task board and three starter tasks that pay coins, with a simple wallet and shop. Done 2026-11-11 (LOCK 4). |
 | Characters and dialogue | 10 | Talkable townspeople, a dialogue system and choices that change how people treat you. Done 2026-11-11 (LOCK 6). |
-| Learning thread | 8 | A first scholar's errand that teaches something about the period through play. Done 2026-11-11 (LOCK 3 part 1). |
+| Learning thread | 8 | A first scholar's errand that teaches something about the period through play. |
 | Save, menus and polish | 8 | Save and load, a pause menu, settings, and a playable build for Mac (LOCKs 29, 101). |
 | Documentation and tests | 4 | Setup guide, credits, and automated checks for the scripts. |
 | Clothes, inventory and owning things | not estimated | Clothes and a bigger bag, then animals, bees, a house and orchard, a stall and a boat, giving for good, and family (LOCKs 5, 88-94). Designed and locked, not built. |

@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 
 | Field | Value |
 |---|---|
-| Built from | LOCK 3 V1: spec DOC-TFG-0017, data `chapter1_data_V1.json` (every word and number; checked against all 25 masters), masters c01-c16 |
+| Built from | LOCK 3 V2: spec DOC-TFG-0017, data `chapter1_data_V2.json` (every word and number), masters c01-c16 |
 | Founder's words | "LOCK it (Recommended)" (7 Nov 2026); placeholder shapes only ("the visual aint importantn") |
 | Build after | line 8 (if the line before is not BUILT, this line stays WAITING with "waits for line 8") |
 | Build before | line 10 |
@@ -22,8 +22,8 @@ owner: THE FOUR GATES chat
 
 | # | Step | Detail |
 |---|---|---|
-| 1 | Read | `GAME/APPROVED/CHAPTER_1/RECORD/CHAPTER1_SPEC_CURRENT_VERSION_V1.md` (all), `RECORD/chapter1_data_V1.json`, `RECORD/LOCK_RECORD.md`, masters c01-c16 in `MASTERS/`, and the LOCK 1 and LOCK 2 packs you built in lines 2-8. Check them first; report any problem in `GAME/APPROVED/QUESTIONS.md` and set this line to QUESTION (charters rule 10) |
-| 2 | Data | Copy `RECORD/chapter1_data_V1.json` byte for byte to `SOURCE/data/chapter1.json`; one loader reads it |
+| 1 | Read | `GAME/APPROVED/CHAPTER_1/RECORD/CHAPTER1_SPEC_CURRENT_VERSION_V2.md` (all), `RECORD/chapter1_data_V2.json`, `RECORD/LOCK_RECORD.md`, masters c01-c16 in `MASTERS/`, and the LOCK 1 and LOCK 2 packs you built in lines 2-8. Check them first; report any problem in `GAME/APPROVED/QUESTIONS.md` and set this line to QUESTION (charters rule 10) |
+| 2 | Data | Copy `RECORD/chapter1_data_V2.json` byte for byte to `SOURCE/data/chapter1.json`; one loader reads it |
 | 3 | People | Capsules with name labels per spec §2: Yusuf, Faris and Tariq at the inn door; Salma at her oven by the task board |
 | 4 | Open purse | Spec §3 in full: inn bar button, door list, public and secret gifts, not enough coins, Salma, Umm Salim appearing, page 1 with the learned word, End the day (clock to next day 07:00), morning lines in order, done state (c01-c08, c10, c12, c13) |
 | 5 | What people say | Spec §5: button on the market map bar, title, lines in order, tones, empty text, notes, buttons (c09, c11, c14-c16). The bread grab line comes in line 10 |
@@ -34,3 +34,11 @@ owner: THE FOUR GATES chat
 
 Rules that always apply: text scene files only; no file over 50 MB; nothing from the keys folder; every word and number read
 from the data files at run time.
+
+## Answer note — 11 Nov 2026 (QUESTIONS row 8)
+
+`fire` (morning) and `fooled` (What people say) apply only after a **public** gift to Tariq. A secret gift to Tariq: locked cost, no trust change, no Tariq morning line, no `fooled`, `secret_note` as for any secret gift. See the spec's Clarifications section.
+
+## Answer note — 11 Nov 2026 (LOCK 3 V2)
+
+Build from spec V2 and `chapter1_data_V2.json` (copy V2 byte for byte to `SOURCE/data/chapter1.json`). The bread grab no longer jumps the clock (Founder 11 Nov: "No jump: Salma asks later (Recommended)"). "End the day" still jumps to 07:00; prayers in that jump are not counted. Read the spec's Clarifications section (masters' HUD is a set-up state; What people say order DOC-TFG-0321).
