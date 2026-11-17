@@ -32,3 +32,11 @@ owner: THE FOUR GATES chat
 
 Rules that always apply: text scene files only; no file over 50 MB; nothing from the keys folder; every word and number read
 from the data files at run time.
+
+## Answer note — 12 Nov 2026 (QUESTIONS row 14)
+
+Build Jisra to spec Clarifications row 14: the LOCK 32 panel and paragraph, town buttons after the masjid button, then prayer, **Rest at the inn · 2 coins**, Back to Ilmara. jp01 evidence: master state without Road map (line 43), inn button before Back. Add tests: inn at 21:00 in Jisra (pay 2, wake 04:40 in Jisra) and with 0-1 coins (sleep by the wall, no coins taken).
+
+## Answer note — 16 Nov 2026 (QUESTIONS row 15)
+
+Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the Godot window or take native screenshots for this line. Row E means: `BUILD.json` and the line's checks file in `BUILT/V1/`, with the full headless run passing. The masters stay the design reference only.

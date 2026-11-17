@@ -10,13 +10,14 @@ is what agents read here.
 These rules sit above every other instruction in this tree. Where any older
 document, overlay or AD says otherwise, this block wins.
 
-> **BUILD FREEZE — Founder, 24 Oct 2026; updated 3 Nov 2026.** Builds come only from LOCKed
-> designs (rule 11) and work Shakeel names. **Building: THE FOUR GATES** (2 Nov) and **SELAH**
-> (3 Nov: "work on SELAH to change as much as we can" - its own identity). **ZYRA: new design
-> paused** (3 Nov) - only lines already WAITING (44, 73) finish; no new ZYRA lines until Shakeel
-> restarts it. **AZMARA and WAFA stay frozen** until Shakeel lifts each in writing. At most two
-> businesses are worked at a time (Mac memory, Founder 3 Nov). Allowed while frozen: review,
-> documentation, and fixes Shakeel approves one by one. Tracked as OA-AIOS-406, AD-AIOS-123.
+> **BUILD FREEZE — Founder, 24 Oct 2026; updated 13 Nov 2026.** Builds come only from LOCKed
+> designs (rule 11) and work Shakeel names. **Building: THE FOUR GATES and WAFA** (WAFA unfrozen
+> 8 Nov, AD-AIOS-131; THE FOUR GATES at night, AD-AIOS-141). **ZYRA: fixes only** - lines already
+> WAITING finish; no new feature LOCKs until the app is connected to its server (AD-AIOS-149).
+> **SELAH paused** after its checks (AD-AIOS-131, -145). **AZMARA stays frozen** until Shakeel lifts
+> it in writing. Quiet mode 21 Nov-14 Dec (AD-AIOS-149). At most two businesses are worked at a time
+> (Mac memory, Founder 3 Nov). Allowed while frozen: review, documentation, and fixes Shakeel
+> approves one by one. Tracked as OA-AIOS-406, AD-AIOS-123.
 
 1. **Only the Founder (Shakeel) approves.** Agreement between AIs is never
    approval. His direct instruction in conversation is approval.
@@ -135,3 +136,25 @@ WAITING queue line.
 - Next read `MAP.md`: every document by ID and the task routes. Read it only down to "Route paths".
 - Group lessons every agent must read first:
   `../BLACK UMBRELLA GROUP/SYSTEM/DOCUMENTS/MASTER_GOVERNANCE/AGENT_LESSONS_LEARNED_CURRENT_VERSION_V2.md`
+
+## Public check before you finish (AD-AIOS-146)
+This is a public repo. Before ending any session (business chat or Codex line owner), run
+`BLACK UMBRELLA GROUP/SYSTEM/TOOLS/fable_public_check.py` on every file you wrote or changed here, and move or reword any
+hit first (private material goes to `BLACK UMBRELLA GROUP/BUSINESS/<BUSINESS>/`). Founder, 12 Nov 2026: "Yes, make it
+required (Recommended)".
+
+## Blockers found mid-run: hand them to Claude at once (AD-AIOS-147)
+Founder, 12 Nov 2026: "all codex chats ... if they find issues that block anything mid process ... show me what to paste
+to claude so they can continue working ... rather than showing at end of the run. i want every codex chat to learn this."
+1. The moment you find something that blocks, or will block, any line (a gap or clash in a brief or LOCK, a missing server
+   contract, an unclear design detail), **stop only that part** and at once show Shakeel, in the chat, a ready-to-paste
+   message headed **"Paste this to <name> Claude chat"**: **THE FOUR GATES Claude chat** for design, LOCK, spec, app-brief and
+   wording questions; **Fable - BLACK UMBRELLA GROUP Claude chat** for server-design questions (scoring, storage, data
+   protection, server briefs) - Founder 12 Nov "Fable answers server (Recommended)". Plain words, exact questions, the file and line it is about.
+2. Also file the `QUESTIONS.md` row as usual, then **keep working** on every line and step that is not blocked. Never wait
+   for the end of the run to report a blocker.
+3. When the Claude chat's answer lands (row ANSWERED, brief updated), pick the blocked part back up in the same run.
+4. Unattended runs (01:00, nobody watching): put every paste message in the first lines of the report, under
+   "Paste to Claude", before anything else.
+
+**Disk and trip (AD-AIOS-149, Founder 13 Nov):** start no new queue line when the Mac has under 15 GB free - report and stop. 21 Nov - 14 Dec is quiet mode: only work that needs no approvals and no downloads.

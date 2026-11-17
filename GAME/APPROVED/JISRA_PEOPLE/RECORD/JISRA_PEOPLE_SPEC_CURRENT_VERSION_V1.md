@@ -100,6 +100,7 @@ Words and numbers only from `jisra_people_data_V1.json` (copied byte for byte to
 |---|---|---|
 | 2026-11-11 | — | Masters are pictures with a set-up state: the HUD's weekday, time, date, coins and trust, and bar items or toasts from other LOCKs, are not evidence targets unless this spec names them. A master at "Thursday 10:00" is a set-up time (the live game reaches the market only after the arrival, 18:15 on day 1): test the same state at the same time on a later day that is not a Friday (Friday turns Dhuhr into Friday prayer) |
 | 2026-11-11 | 13 (general) | Masters were drawn from the full prototype, so they can also show content from LATER queue lines (Journal chapters, missions, people, buttons, ticks). Those are set-up too: build only what this line's data holds, and capture the same state without the later content. Missing later content is never a reason to stop. |
+| 2026-11-12 | 14 | Jisra is not a generic hub: it keeps its LOCK 32 panel (kicker, title, bridge-and-toll paragraph; the town `text` is not shown there) per LOCK 34 §3 and jp01. Order: Watch the bridge (until chosen), the masjid, open missions, Talk to people, work, What Jisra says, [Road map, line 43], prayer when open, Rest at the inn · 2 coins (LOCK 34 inn rule), Back to Ilmara. The hub sentence above applies to the other towns. jp01 evidence: the master's state without Road map, with the inn button before Back. |
 
 ## Version history
 

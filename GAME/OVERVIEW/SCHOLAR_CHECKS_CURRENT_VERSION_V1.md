@@ -55,3 +55,4 @@ checked against sunnah.com / the Quran by the THE FOUR GATES chat (that is not a
 | 35 | WAQF | DOC-TFG-0286 | LOCK 92 | Naming an endowment publicly or in secret | Set aside 9 Nov - OPEN |
 | 36 | WUDU | DOC-TFG-0232 | LOCK 74 | The wudu steps as shown | Set aside 9 Nov - OPEN |
 | 37 | ZAKAT | DOC-TFG-0075 | LOCK 22 · QUESTIONS row 11 | Unpaid past-year zakat: paid oldest first, and whether it is deducted before the next year's assessment (the game assesses coins held) | Added 11 Nov - OPEN (after build) |
+| 38 | OPENING (draft) | — | Draft 16 Nov | The reason you cannot leave: a sickness upriver and the hadith "do not enter a land with plague, and do not leave it" (Sahih al-Bukhari 5728), and how Idris explains it | Added 16 Nov - OPEN (after build) |
