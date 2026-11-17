@@ -1,0 +1,32 @@
+{
+  "line": 87,
+  "lock": "LOCK 80 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 8323,
+    "total": 8323,
+    "failures": 0
+  },
+  "lock_80": {
+    "passed": 163,
+    "total": 163,
+    "failures": 0
+  },
+  "results": {
+    "data": "Production loads all five stories and the private Journal goal from the byte-identical locked JSON.",
+    "availability": "Stories appear only at the River Market masjid from 19:10 inclusive to 21:30 exclusive. Each later story requires the preceding story and becomes available two in-game days after its completion.",
+    "copy": "The entry label, five titles, kickers, story texts and sole Thank him choice match the locked data.",
+    "effects": "Thank him returns to the entry view, completes the story once, records its flag and adds one to the private count. Trust, coins and the clock remain unchanged.",
+    "journal_and_save": "The private Stories of the prophets heard goal shows the running count from 0 / 5 to 5 / 5. The save retains completion, flags and the count."
+  },
+  "presentation": {
+    "questions_answer": 15,
+    "native_windows": 0,
+    "native_screenshots": 0,
+    "exports": 0,
+    "master_review": "All five 1920 × 1080 masters were inspected. Their story copy and action labels agree with the locked JSON.",
+    "visual_difference": "The Godot runner uses a compact secondary choice. The masters show a full-width primary choice. Q15 assigns the visual comparison to the design chat."
+  },
+  "legacy_suite_dependency": "Two earlier checks require GAME/APPROVED/SCENE_RUNNER/RECORD/scene_runner_data_V2.json, a pre-existing working-copy reference outside the line 87 commit."
+}

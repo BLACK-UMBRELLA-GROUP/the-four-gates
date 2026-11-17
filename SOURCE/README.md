@@ -679,3 +679,12 @@ the River Market masjid from 07:00 up to 20:00. Al-Ikhlas, Al-Falaq and An-Nas
 follow in order, each becoming available on the next in-game calendar day
 after the preceding lesson. Choose **Recite it back** to finish each lesson
 once and add one to **Surahs learned with Idris** in the private Journal.
+
+## LOCK 80 — Stories of the prophets after Isha
+
+At the River Market masjid from 19:10 up to 21:30, choose **Idris is telling
+a story after Isha**. Yusuf, Ibrahim's guests, Nuh, Yunus and Musa and the wise
+servant follow in order. Each later story becomes available two in-game days
+after the preceding story. Choose **Thank him** to finish each story once and
+add one to **Stories of the prophets heard** in the private Journal. The
+stories leave trust unchanged.

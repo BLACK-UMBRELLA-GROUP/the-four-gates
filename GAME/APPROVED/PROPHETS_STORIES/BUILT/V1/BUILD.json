@@ -1,0 +1,85 @@
+{
+  "line": 87,
+  "lock": "LOCK 80 V1",
+  "brief": "DOC-TFG-0252",
+  "questions_answer_rows": [
+    15
+  ],
+  "tested_base_commit_sha": "772bfd316437d4d69e9bcb2c50f385d48fb4cce7",
+  "tested_source": "The tested base, line 87 changes and the local reference below. The daily note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T15:53:56Z",
+  "checks_passed": {
+    "headless_full_suite": 8323,
+    "lock_80_subset": 163
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/PROPHETS_STORIES/BRIEFS/BUILD_BRIEF_2026-11-09_PROPHETS_STORIES.md": {
+      "bytes": 2549,
+      "sha256": "f54e5464d4448148c5dd21df6a42616ddad178f310791463b0ee337b54898fe2"
+    },
+    "GAME/APPROVED/PROPHETS_STORIES/MASTERS/dg01_story_yusuf__a.png": {
+      "bytes": 267678,
+      "sha256": "f38f77bc1d3d23c4624d01d1b39e099d479f875a6a215499e72f5893f198239f"
+    },
+    "GAME/APPROVED/PROPHETS_STORIES/MASTERS/dg02_story_ibrahim__a.png": {
+      "bytes": 273205,
+      "sha256": "a6dcdccd1b9a59965816f49c4cc1de0c37bb955415ffaa35766d80854c3c2319"
+    },
+    "GAME/APPROVED/PROPHETS_STORIES/MASTERS/dg03_story_nuh__a.png": {
+      "bytes": 272776,
+      "sha256": "130de3634d2f3cf407fd13e238455a28e4e348f853a78f0a4566d0431e178556"
+    },
+    "GAME/APPROVED/PROPHETS_STORIES/MASTERS/dg04_story_yunus__a.png": {
+      "bytes": 267475,
+      "sha256": "a32c355b217f1e2652d54b4c13ab539aa9ef286f1e562fb49b6414b9ad4cd275"
+    },
+    "GAME/APPROVED/PROPHETS_STORIES/MASTERS/dg05_story_musa__a.png": {
+      "bytes": 269949,
+      "sha256": "135c9d989ac333ce51887f7038285eedd6cfcf9ee29cc957d0f7d4650975da39"
+    },
+    "GAME/APPROVED/PROPHETS_STORIES/RECORD/LOCK_RECORD.md": {
+      "bytes": 764,
+      "sha256": "c02218346a1874055ea3b338f6adc27e6905f67c28593a97560772b349902cab"
+    },
+    "GAME/APPROVED/PROPHETS_STORIES/RECORD/PROPHETS_STORIES_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 4376,
+      "sha256": "7de2f7452e492ebd68a6e576aa6d68e55a87db1708d69fa9a8eb4458e16a6b19"
+    },
+    "GAME/APPROVED/PROPHETS_STORIES/RECORD/prophets_stories_data_V1.json": {
+      "bytes": 4598,
+      "sha256": "6dfd0c2aae7ec2306d55b405b68dbb482309207427802c1aa11b8dece463e7ae"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 45521,
+      "sha256": "0afa29933e4e458d66f2d7be8ec5e61b253fa861b43b06ddb86c3b0b3c6f0f4e"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 428,
+      "sha256": "1cf4679bf1acaa82f19a4146d7250e3241ff32e51dec13190cdaf3d8c264be37"
+    },
+    "SOURCE/data/prophets_stories.json": {
+      "bytes": 4598,
+      "sha256": "6dfd0c2aae7ec2306d55b405b68dbb482309207427802c1aa11b8dece463e7ae"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 459453,
+      "sha256": "bcad3289fedf2883cfbcfbfbbce5da0aed94af4fbe41fdfff0b846f74d6042cf"
+    }
+  },
+  "legacy_suite_reference_at_test": {
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/scene_runner_data_V2.json": {
+      "bytes": 2496,
+      "sha256": "b1c9cb7a12ec13ec491cd33e4170f96890a4d4b3f06863373c1edb2d8b769bdf"
+    }
+  },
+  "evidence": {
+    "LINE87_CHECKS.json": {
+      "bytes": 1730,
+      "sha256": "d26af69d150066fc680c0b10c418c69811d5cbc1c5702d9e5a1e58deff52b253"
+    }
+  }
+}

@@ -119,6 +119,10 @@ func _run() -> void:
 		await check_surahs_runtime()
 		finish()
 		return
+	if "--prophets-stories-only" in OS.get_cmdline_user_args():
+		await check_prophets_stories_runtime()
+		finish()
+		return
 	check(app.ui.screen == "title", "launch opens the title")
 	check(visible_text().replace("\n", "").contains(data.title_screen.title), "title uses approved title text")
 	check(visible_text().contains(data.title_screen.line), "title uses approved subtitle")
@@ -229,6 +233,7 @@ func _run() -> void:
 	await check_extra_prayers_runtime()
 	await check_dhikr_runtime()
 	await check_surahs_runtime()
+	await check_prophets_stories_runtime()
 	finish()
 
 
@@ -5100,7 +5105,7 @@ func check_surahs_runtime() -> void:
 	var goal_index: int = expected_journal.goals.find(goal_row)
 	check(goal_index >= 0 and runner.data.goals.count(goal) == 1,
 		"the Journal starts with one zero-count row at the locked surahs target")
-	await _check_surahs_journal(words, goal_row)
+	await _check_runner_journal_goal(words, goal_row)
 
 	for index in range(missions.size()):
 		var mission: Dictionary = missions[index]
@@ -5137,7 +5142,7 @@ func check_surahs_runtime() -> void:
 		if goal_index >= 0:
 			expected_journal.goals[goal_index] = goal_row.duplicate()
 			check(runner.journal(app) == expected_journal, "reciting advances only the private surahs goal")
-		await _check_surahs_journal(words, goal_row)
+		await _check_runner_journal_goal(words, goal_row)
 
 	var saved := MarketSave.snapshot(app)
 	app.begin_game()
@@ -5149,22 +5154,116 @@ func check_surahs_runtime() -> void:
 	for mission: Dictionary in missions:
 		check(runner.mission_done(app, mission.id) and find_button(app.ui, mission.button) == null,
 			"%s stays complete on a later day after loading" % mission.id)
-	await _check_surahs_journal(words, goal_row)
+	await _check_runner_journal_goal(words, goal_row)
 	app.set_process(true)
 	var added_failures := failures - failures_before
 	print("LOCK 79 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
 		" passed; failures=", added_failures)
 
 
-func _check_surahs_journal(words: Dictionary, goal_row: Dictionary) -> void:
+func _check_runner_journal_goal(words: Dictionary, goal_row: Dictionary) -> void:
 	var origin: String = app.ui.screen
-	check(not has_visible_label(app.ui, goal_row.label), "the surahs goal is private outside the Journal")
-	await press_button(words.journal_button, "open the private Journal for the surahs count")
+	check(not has_visible_label(app.ui, goal_row.label), "the goal is private outside the Journal: " + goal_row.label)
+	await press_button(words.journal_button, "open the private Journal")
 	check(app.ui.screen == "journal" and has_visible_label(app.ui, goal_row.label)
 		and has_visible_label(app.ui, words.journal.count.format(goal_row)),
-		"the Journal renders the locked surahs goal and count: %d / %d" % [goal_row.n, goal_row.m])
+		"the Journal renders %s: %d / %d" % [goal_row.label, goal_row.n, goal_row.m])
 	await press_button(words.journal.back, "close the private Journal")
 	check(app.ui.screen == origin, "closing the Journal returns to the previous market view")
+
+
+func check_prophets_stories_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/PROPHETS_STORIES/RECORD/prophets_stories_data_V1.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/prophets_stories.json") == locked,
+		"the runtime stories data is byte-identical to LOCK 80")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner = app.scene_runner
+	var loaded: bool = approved is Dictionary and approved.missions.size() == 5 and approved.missions.all(
+		func(mission: Dictionary) -> bool: return runner.missions.get(mission.id) == mission)
+	check(loaded, "the production content index loads all five locked stories")
+	if not loaded:
+		return
+
+	const FIRST_DAY := 3
+	const TRUST := 50
+	const COINS := 198
+	var missions: Array = approved.missions
+	var goal: Dictionary = approved.goals[0]
+	var words: Dictionary = runner.data.words
+	var goal_row := {"label": goal.label, "n": 0, "m": int(goal.m)}
+	app.set_process(false)
+	reset_at_market_place(missions[0].place, COINS, FIRST_DAY)
+	app.progress.apply_trust(TRUST - app.progress.trust)
+	var jisra_trust: int = runner.town_trust(app, "jisra")
+	var expected_journal: Dictionary = runner.journal(app)
+	var goal_index: int = expected_journal.goals.find(goal_row)
+	check(goal_index >= 0 and runner.data.goals.count(goal) == 1,
+		"the Journal starts with one zero-count row at the locked stories target")
+	await _check_runner_journal_goal(words, goal_row)
+
+	var day := FIRST_DAY
+	for index in range(missions.size()):
+		var mission: Dictionary = missions[index]
+		var opens := int(mission.hours[0])
+		if index > 0:
+			var previous: Dictionary = missions[index - 1]
+			var flag: String = previous.scenes[previous.start].choices[0].fx.flag
+			var wait_days := int(mission.after_days[flag])
+			set_market_day_time(day + wait_days - 1, opens)
+			check(find_button(app.ui, mission.button) == null,
+				"%s is hidden the day before its two-day wait ends" % mission.id)
+			day += wait_days
+		_check_runner_mission_hours(mission, day)
+		var in_sequence: Array = runner.available_missions(app, "", mission.place).filter(
+			func(available: Dictionary) -> bool: return available in missions)
+		check(in_sequence == [mission], "%s is the only eligible story on day %d" % [mission.id, day])
+
+		var origin := "game" if index % 2 == 0 else "market_map"
+		app.show_screen(origin)
+		var expected_state: Dictionary = runner.state()
+		var scene: Dictionary = mission.scenes[mission.start]
+		var choice: Dictionary = scene.choices[0]
+		await press_button(mission.button, "open the locked story: " + str(mission.title))
+		_check_single_runner_choice(mission, scene, choice, approved.design_reference_not_shown[mission.id])
+		check(runner.state() == expected_state and app.day == day and app.minute_of_day == opens,
+			"opening the story leaves the state and clock unchanged")
+		await press_button(choice.label, "thank Idris for " + str(mission.title))
+		expected_state.done[mission.id] = day
+		expected_state.flags[choice.fx.flag] = day
+		expected_state.counters[goal.id] = index + 1
+		check(runner.state() == expected_state and runner.mission_done(app, mission.id),
+			"%s adds only its completion, flag and one story to the private count" % mission.id)
+		check(app.ui.screen == origin and app.day == day and app.minute_of_day == opens,
+			"%s returns to its entry view without advancing the clock" % mission.id)
+		check_wallet(TRUST, COINS, "%s leaves River Market trust and coins unchanged" % mission.id)
+		check(runner.town_trust(app, "jisra") == jisra_trust, "%s leaves Jisra trust unchanged" % mission.id)
+		check(find_button(app.ui, mission.button) == null, "no story can be started again that day")
+
+		goal_row.n = index + 1
+		if goal_index >= 0:
+			expected_journal.goals[goal_index] = goal_row.duplicate()
+			check(runner.journal(app) == expected_journal, "listening advances only the private stories goal")
+		await _check_runner_journal_goal(words, goal_row)
+
+		var saved := MarketSave.snapshot(app)
+		app.begin_game()
+		MarketSave.restore(app, saved)
+		app.show_screen("market_map")
+		check(runner.state() == expected_state and runner.journal(app) == expected_journal,
+			"save restoration preserves the story flags, completion days and private count")
+
+	set_market_day_time(day + 2, int(missions[0].hours[0]))
+	check(find_button(app.ui, missions[0].button) == null and missions.all(
+		func(mission: Dictionary) -> bool: return runner.mission_done(app, mission.id)),
+		"all five stories remain complete after their windows reopen on a later day")
+	await _check_runner_journal_goal(words, goal_row)
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 80 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
 
 
 func check_jisra_people_runtime() -> void:

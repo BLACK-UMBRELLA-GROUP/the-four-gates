@@ -1,0 +1,194 @@
+{
+ "version": "LOCK 80 V1 (9 Nov 2026) - Yusuf, Ibrahim's guests, Nuh, Yunus, Musa and the wise servant",
+ "builds_on": "LOCK 2 prayer, LOCK 3 Idris, LOCK 6 regulars, LOCK 34 runner. Private counters go to the Journal; worship never earns trust.",
+ "goals": [
+  {
+   "id": "stories",
+   "label": "Stories of the prophets heard",
+   "m": 5
+  }
+ ],
+ "design_reference_not_shown": {
+  "story_yusuf": "Quran 12",
+  "story_ibrahim": "Quran 51:24-30",
+  "story_nuh": "Quran 11:25-48, 29:14",
+  "story_yunus": "Quran 21:87-88, 37:139-148",
+  "story_musa": "Quran 18:60-82"
+ },
+ "missions": [
+  {
+   "id": "story_yusuf",
+   "lock": 80,
+   "place": "masjid",
+   "hours": [
+    1150,
+    1290
+   ],
+   "title": "Yusuf",
+   "kicker": "Stories of the prophets · Yusuf",
+   "button": "Idris is telling a story after Isha",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "“Yusuf's brothers threw him in a well. He was sold as a slave, lied about, thrown in prison. Years later he was in charge of Egypt's grain, and his brothers came begging. He forgave them all. 'No blame on you today.' Patience, and then mercy.”",
+     "choices": [
+      {
+       "label": "Thank him",
+       "fx": {
+        "flag": "story_1",
+        "count": {
+         "stories": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "story_ibrahim",
+   "lock": 80,
+   "place": "masjid",
+   "hours": [
+    1150,
+    1290
+   ],
+   "title": "Ibrahim's guests",
+   "kicker": "Stories of the prophets · Ibrahim",
+   "button": "Idris is telling a story after Isha",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "“Strangers came to Ibrahim's door. He didn't ask who they were - he went quietly to his family and came back with a roasted calf. They turned out to be angels. Honour the guest before you know who he is.”",
+     "choices": [
+      {
+       "label": "Thank him",
+       "fx": {
+        "flag": "story_2",
+        "count": {
+         "stories": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "story_1"
+   ],
+   "after_days": {
+    "story_1": 2
+   }
+  },
+  {
+   "id": "story_nuh",
+   "lock": 80,
+   "place": "masjid",
+   "hours": [
+    1150,
+    1290
+   ],
+   "title": "Nuh",
+   "kicker": "Stories of the prophets · Nuh",
+   "button": "Idris is telling a story after Isha",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "“Nuh built a ship on dry land while his people laughed at him. He kept calling them for nine hundred and fifty years. When the flood came, the ship was ready. Doing what is right even when everyone laughs.”",
+     "choices": [
+      {
+       "label": "Thank him",
+       "fx": {
+        "flag": "story_3",
+        "count": {
+         "stories": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "story_2"
+   ],
+   "after_days": {
+    "story_2": 2
+   }
+  },
+  {
+   "id": "story_yunus",
+   "lock": 80,
+   "place": "masjid",
+   "hours": [
+    1150,
+    1290
+   ],
+   "title": "Yunus",
+   "kicker": "Stories of the prophets · Yunus",
+   "button": "Idris is telling a story after Isha",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "“Yunus left his people in anger and ended up in the belly of a great fish, in darkness upon darkness. He called out: there is no god but You, glory be to You, I was wrong. And Allah brought him out. No darkness is too deep to call from.”",
+     "choices": [
+      {
+       "label": "Thank him",
+       "fx": {
+        "flag": "story_4",
+        "count": {
+         "stories": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "story_3"
+   ],
+   "after_days": {
+    "story_3": 2
+   }
+  },
+  {
+   "id": "story_musa",
+   "lock": 80,
+   "place": "masjid",
+   "hours": [
+    1150,
+    1290
+   ],
+   "title": "Musa and the wise servant",
+   "kicker": "Stories of the prophets · Musa",
+   "button": "Idris is telling a story after Isha",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "“Musa travelled to learn from a servant of Allah who had been given knowledge. The man damaged a boat, rebuilt a wall for people who refused them food - and Musa couldn't stay quiet. Later he learned why each thing was done. There's always more to learn, and patience is part of learning.”",
+     "choices": [
+      {
+       "label": "Thank him",
+       "fx": {
+        "flag": "story_5",
+        "count": {
+         "stories": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "story_4"
+   ],
+   "after_days": {
+    "story_4": 2
+   }
+  }
+ ]
+}
