@@ -1,0 +1,79 @@
+{
+  "line": 69,
+  "lock": "LOCK 62 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 7417,
+    "total": 7417,
+    "failures": 0
+  },
+  "line_69": {
+    "passed": 307,
+    "total": 307,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "sn01_archery__a.png": "a",
+    "sn02_archery__speak.png": "speak",
+    "sn03_archery__shoot.png": "shoot",
+    "sn04_archery__out.png": "out"
+  },
+  "asserted": {
+    "entry": {
+      "town": "river_market",
+      "place": "gate",
+      "hidden_at": "weaver",
+      "visible_boundary_minutes": [
+        480,
+        899
+      ],
+      "hidden_boundary_minutes": [
+        479,
+        900
+      ],
+      "views": [
+        "market_map",
+        "game"
+      ]
+    },
+    "scene_copy": "The locked entry label, title, kicker, four scene texts and three choice labels, plus the inherited Back label.",
+    "each_outcome_tested_at_river_market_trust": [
+      10,
+      50,
+      80
+    ],
+    "outcomes": [
+      {
+        "ending": "speak",
+        "river_market_trust_delta": 5,
+        "clock_delta_minutes": 0,
+        "what_people_say": [
+          [
+            "Called out a cheat at the archery",
+            "the young men at the gate",
+            1
+          ]
+        ]
+      },
+      {
+        "ending": "shoot",
+        "river_market_trust_delta": 0,
+        "clock_delta_minutes": 60,
+        "what_people_say": []
+      },
+      {
+        "ending": "out",
+        "river_market_trust_delta": 0,
+        "clock_delta_minutes": 0,
+        "what_people_say": []
+      }
+    ],
+    "other_state": "Coins, mission flags, Jisra trust and Jisra sayings stay unchanged.",
+    "completion": "Back records one Journal side-mission completion and hides the gate action on this and the next day.",
+    "person_dialogue": "LOCK 62 has no standalone person dialogue."
+  },
+  "presentation_scope": "The masters stack full-width choices and emphasize the first choice or ending Back. The inherited River Market side-mission runner uses compact secondary actions. Q15 assigns visual review to the design chat.",
+  "native_screenshots": 0
+}

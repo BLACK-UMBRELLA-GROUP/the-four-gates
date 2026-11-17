@@ -201,6 +201,7 @@ func _run() -> void:
 	await check_side_drowning_boy_runtime()
 	await check_side_thirsty_dog_runtime()
 	await check_side_spilled_spice_runtime()
+	await check_side_archery_runtime()
 	await check_jisra_people_runtime()
 	finish()
 
@@ -4320,6 +4321,108 @@ func _check_spilled_spice_outcome(mission: Dictionary, trust: int, choice_index:
 	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
 		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
 		"the Journal counts the spilled spice mission exactly once")
+	await press_button(words.journal.back, "the Journal returns to the market")
+
+
+func check_side_archery_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/SIDE_ARCHERY/RECORD/side_archery_data_V1.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/side_archery.json") == locked,
+		"archery data is the byte-identical LOCK 62 file")
+	var mission: Dictionary = app.scene_runner.missions.get("archery", {})
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	check(approved is Dictionary and not mission.is_empty() and mission == approved.missions[0],
+		"the production index loads the locked archery mission")
+	if mission.is_empty():
+		return
+
+	app.set_process(false)
+	reset_at_market_place("gate", 198, 8)
+	for minute: int in [479, 480, 899, 900]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 480 and minute < 900),
+			"the archery entry follows the locked gate hours at minute %d" % minute)
+	set_market_day_time(8, 9 * 60)
+	move_market_fixture("weaver")
+	check(find_button(app.ui, mission.button) == null, "the archery entry is hidden away from the gate")
+	move_market_fixture("gate")
+	app.show_screen("game")
+	await press_button(mission.button, "the archery mission opens from the gate walking view")
+	_check_side_mission_scene(mission, mission.scenes.a)
+
+	var outcomes := [
+		{"id": "speak", "trust_delta": 5, "minutes": 0, "sayings": [mission.say.spoke]},
+		{"id": "shoot", "trust_delta": 0, "minutes": 60, "sayings": []},
+		{"id": "out", "trust_delta": 0, "minutes": 0, "sayings": []},
+	]
+	for trust: int in [10, 50, 80]:
+		for index in outcomes.size():
+			await _check_archery_outcome(mission, trust, index, outcomes[index])
+
+	app.set_process(true)
+	var failures_added := failures - failures_before
+	print("LOCK 62 TESTS: ", checks - checks_before - failures_added, "/", checks - checks_before,
+		" passed; failures=", failures_added)
+
+
+func _check_archery_outcome(mission: Dictionary, trust: int, choice_index: int, outcome: Dictionary) -> void:
+	const COINS := 198
+	const DAY := 8
+	const START_MINUTE := 9 * 60
+	reset_at_market_place("gate", COINS, DAY)
+	app.progress.apply_trust(trust - app.progress.trust)
+	set_market_day_time(DAY, START_MINUTE)
+	var runner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var initial_side: Dictionary = runner.journal(app).side
+	var initial_flags: Dictionary = runner.state().flags.duplicate()
+	var jisra_trust: int = runner.town_trust(app, "jisra")
+	var opening: Dictionary = mission.scenes.a
+
+	await press_button(mission.button, "the gate opens the archery mission at trust %d" % trust)
+	_check_side_mission_scene(mission, opening)
+	for choice: Dictionary in opening.choices:
+		check(find_button(app.ui, choice.label) != null, "the opening shows the locked choice: " + choice.label)
+	check(find_button(app.ui, words.scene_back) == null, "the opening offers choices before Back")
+
+	await press_button(opening.choices[choice_index].label, "choose the locked archery response: " + outcome.id)
+	var ending: Dictionary = mission.scenes[outcome.id]
+	check(app.runner_scene() == ending, "the response opens the intended ending: " + outcome.id)
+	_check_side_mission_scene(mission, ending)
+	for choice: Dictionary in opening.choices:
+		check(find_button(app.ui, choice.label) == null, "the ending removes the opening choice: " + choice.label)
+	check_wallet(trust + int(outcome.trust_delta), COINS, "the response applies only its locked wallet effect")
+	check(app.day == DAY and app.minute_of_day == START_MINUTE + int(outcome.minutes),
+		"the clock advances only by the locked duration")
+	check(runner.state().flags == initial_flags, "the response leaves mission flags unchanged")
+	check(runner.town_sayings("river_market") == outcome.sayings, "the response records its locked River Market account")
+	check(runner.town_trust(app, "jisra") == jisra_trust and runner.town_sayings("jisra").is_empty(),
+		"the response leaves Jisra trust and sayings unchanged")
+	check(not runner.mission_done(app, mission.id) and runner.journal(app).side == initial_side,
+		"the ending waits for Back before counting completion")
+
+	await press_button(words.scene_back, "Back completes the archery mission")
+	check(app.ui.screen == "market_map" and runner.mission_done(app, mission.id),
+		"Back returns to the market and marks the mission done")
+	check(find_button(app.ui, mission.button) == null, "the completed mission is hidden at the gate")
+	set_market_day_time(DAY + 1, START_MINUTE)
+	check(find_button(app.ui, mission.button) == null, "the completed mission stays hidden the next day")
+
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say after the archery mission")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines() == outcome.sayings,
+		"What people say shows exactly the account from this response")
+	for line: Array in outcome.sayings:
+		check_reputation_row(line)
+	if outcome.sayings.is_empty():
+		check(visible_text().contains(app.chapter.rep.empty), "What people say shows the locked empty message")
+	await press_button(app.chapter.rep.to_map, "What people say returns to the market")
+	await press_button(words.journal_button, "open the Journal after the archery mission")
+	var completed: Dictionary = runner.journal(app).side
+	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
+		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
+		"the Journal counts the archery mission exactly once")
 	await press_button(words.journal.back, "the Journal returns to the market")
 
 

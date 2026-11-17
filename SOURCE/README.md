@@ -616,3 +616,12 @@ Telling the truth or blaming Faris adds the corresponding account to
 **What people say**. Use **Back** on any ending to finish the mission once
 and count it in the **Journal**. The headless suite covers all three responses
 at trust 10, 50 and 80.
+
+## LOCK 62 — A cheat at archery
+
+At the River Market gate, **There's an archery contest outside the gate** is
+available from 08:00 up to 15:00. Saying what you saw adds five River Market
+trust and the young men's account to **What people say**. Entering the contest
+takes one in-game hour. Use **Back** on any ending to finish the mission once
+and count it in the **Journal**. The headless suite covers all three responses
+at trust 10, 50 and 80.

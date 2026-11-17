@@ -1,0 +1,76 @@
+{
+  "line": 69,
+  "lock": "LOCK 62 V1",
+  "brief": "DOC-TFG-0198",
+  "questions_answer_rows": [
+    15,
+    17
+  ],
+  "tested_base_commit_sha": "41007518dc93014ec76ae2af126cf0538e5b5d8f",
+  "tested_source": "Base commit with the source changes identified by SHA-256 below. The containing commit is recorded in the 17 Nov task note.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T14:39:12Z",
+  "checks_passed": {
+    "headless_full_suite": 7417,
+    "lock_62_subset": 307
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SIDE_ARCHERY/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_ARCHERY.md": {
+      "bytes": 2640,
+      "sha256": "343f18800172f50d31f92d2248fdfdb44f5acb8afabe1dbeffba8d1fbb461ad5"
+    },
+    "GAME/APPROVED/SIDE_ARCHERY/RECORD/LOCK_RECORD.md": {
+      "bytes": 746,
+      "sha256": "3432988ef2758839d03dec481beb9dd515fb5afa810b6617101f48921b2717aa"
+    },
+    "GAME/APPROVED/SIDE_ARCHERY/RECORD/SIDE_ARCHERY_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3498,
+      "sha256": "c5db489d2b57ab4d9e149284f6cf6292813bf895a4b9ad918246f2cd66aeb05e"
+    },
+    "GAME/APPROVED/SIDE_ARCHERY/RECORD/side_archery_data_V1.json": {
+      "bytes": 1679,
+      "sha256": "e98458418c40065a3717932ef6a867081b66bca179ce959c81bab30c4188071c"
+    },
+    "GAME/APPROVED/SIDE_ARCHERY/MASTERS/sn01_archery__a.png": {
+      "bytes": 294381,
+      "sha256": "044352d7e7906e82faa13975f4a7859ae464b4130720fd897973e355c41acaf6"
+    },
+    "GAME/APPROVED/SIDE_ARCHERY/MASTERS/sn02_archery__speak.png": {
+      "bytes": 312132,
+      "sha256": "36cfc9c8fd044466bc1add83f25e767a221937c3886fec6f89b87329539f06e0"
+    },
+    "GAME/APPROVED/SIDE_ARCHERY/MASTERS/sn03_archery__shoot.png": {
+      "bytes": 311082,
+      "sha256": "746b105225155f3dc2408bb157a421bd255f4a43e7cdcc5b66f99b1aec4d00cc"
+    },
+    "GAME/APPROVED/SIDE_ARCHERY/MASTERS/sn04_archery__out.png": {
+      "bytes": 307936,
+      "sha256": "920aece1f8e5ade280f7cabc37ed098b10e53ac7d5f3b2e9568a4dbb1c378335"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 270,
+      "sha256": "603a0fcddd9953772083dc6c2dfcb0f2a267767d4d684e5dc646642ea080585b"
+    },
+    "SOURCE/data/side_archery.json": {
+      "bytes": 1679,
+      "sha256": "e98458418c40065a3717932ef6a867081b66bca179ce959c81bab30c4188071c"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 414309,
+      "sha256": "2e3d582cd3a201f7cd331a0d32e03a6e37c597d9d116ec1ea153cbd25c3a9a69"
+    },
+    "SOURCE/README.md": {
+      "bytes": 42313,
+      "sha256": "671c05a8d95ace44c34280f1cd1a24e49d17f169115bcbd0db7bfaba16e71830"
+    }
+  },
+  "evidence": {
+    "LINE69_CHECKS.json": {
+      "bytes": 2200,
+      "sha256": "0e7577fcbf91796ad462ee7d190897c9f5b0a6a4f4026dda6daf23bfca60a13e"
+    }
+  }
+}
