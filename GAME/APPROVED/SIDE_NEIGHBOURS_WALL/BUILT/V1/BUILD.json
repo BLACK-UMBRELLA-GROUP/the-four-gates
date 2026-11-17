@@ -1,0 +1,82 @@
+{
+  "line": 60,
+  "lock": "LOCK 53 V1",
+  "brief": "DOC-TFG-0171",
+  "questions_answer_rows": [
+    15,
+    17
+  ],
+  "tested_base_commit_sha": "1cab663422960db2ec22bee2fd32de895071bd16",
+  "tested_source": "Base commit plus the source files identified by SHA-256 below. The containing commit is in the 17 Nov task note. The existing scene-runner fixture used the byte-identical archived copy of its V1 data.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T12:12:15Z",
+  "checks_passed": {
+    "headless_full_suite": 6039,
+    "lock_53_subset": 104
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SIDE_NEIGHBOURS_WALL/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_NEIGHBOURS_WALL.md": {
+      "bytes": 2708,
+      "sha256": "51750238d9c5b13b9c6e69e78b6a089ce064121648f9473fcc6dc9bf9d17e2c1"
+    },
+    "GAME/APPROVED/SIDE_NEIGHBOURS_WALL/RECORD/LOCK_RECORD.md": {
+      "bytes": 780,
+      "sha256": "eaa57aa9aa6bee6f0553d747b8c1037d35e19f9246a416c02c0ca4ccaf5a2569"
+    },
+    "GAME/APPROVED/SIDE_NEIGHBOURS_WALL/RECORD/SIDE_NEIGHBOURS_WALL_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3646,
+      "sha256": "6de2b1ed4ff78b70a17a3b05bb87438fe1906bb39cd8591284b7d52fc7f27772"
+    },
+    "GAME/APPROVED/SIDE_NEIGHBOURS_WALL/RECORD/side_neighbours_wall_data_V1.json": {
+      "bytes": 1684,
+      "sha256": "393e02d55626716812b295257b581f92dae07c7bf7daf89265209a70b7fb196f"
+    },
+    "GAME/APPROVED/SIDE_NEIGHBOURS_WALL/MASTERS/sb01_neighbours_wall__a.png": {
+      "bytes": 294882,
+      "sha256": "738b39067c1b69f8c74c22620fb32d9be03d384b288a911dcc24f09a0803dfc5"
+    },
+    "GAME/APPROVED/SIDE_NEIGHBOURS_WALL/MASTERS/sb02_neighbours_wall__beam.png": {
+      "bytes": 312709,
+      "sha256": "cd7a373c2fd11db0f28bccd9a372e3b1f0e8ac8aec7aa58fd17114322db8fd57"
+    },
+    "GAME/APPROVED/SIDE_NEIGHBOURS_WALL/MASTERS/sb03_neighbours_wall__saif.png": {
+      "bytes": 309126,
+      "sha256": "cae72f961d1146f6079dec53a5952d136c8fa40a4ff4aad3131acb2d6f7bc4a4"
+    },
+    "GAME/APPROVED/SIDE_NEIGHBOURS_WALL/MASTERS/sb04_neighbours_wall__out.png": {
+      "bytes": 308986,
+      "sha256": "9d5728da0029916736d4e2666224e398eff93ed526121c934e2d6e42d1004945"
+    }
+  },
+  "prior_fixture": {
+    "GAME/APPROVED/SCENE_RUNNER/ARCHIVE/scene_runner_data_2026-11-17_V1.json": {
+      "bytes": 2425,
+      "sha256": "a648d261d996f681bf55e4055d30937ab0ef2d5d4f89cce91bf810e92e76af2b"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 104,
+      "sha256": "f8961c6dca97c576e56d7ad6623f7c82e22f18ed5d8959d823c94772bc4781ec"
+    },
+    "SOURCE/data/side_neighbours_wall.json": {
+      "bytes": 1684,
+      "sha256": "393e02d55626716812b295257b581f92dae07c7bf7daf89265209a70b7fb196f"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 366777,
+      "sha256": "2d7e6ad3f9427c77c83a81ede23a9700f31ea3a294aa9e5bb3609e175e6e22f7"
+    },
+    "SOURCE/tests/scene_runner_fixture.gd": {
+      "bytes": 14438,
+      "sha256": "aaeb24e7cbce43900f6e864fa25e45423888563fce5b104b4c82dda11c3ca637"
+    }
+  },
+  "evidence": {
+    "LINE60_CHECKS.json": {
+      "bytes": 2238,
+      "sha256": "076d4b16f7b9b0d9a6537ba89f4fbcf5ebaa592a2fbfcda45c5b34ce489047b6"
+    }
+  }
+}

@@ -192,6 +192,7 @@ func _run() -> void:
 	await check_jisra_masjid_runtime()
 	await check_scene_runner_runtime()
 	await check_side_brothers_runtime()
+	await check_side_neighbours_wall_runtime()
 	finish()
 
 
@@ -3762,14 +3763,14 @@ func _check_brothers_outcome(mission: Dictionary, index: int, outcome: Dictionar
 	var jisra_trust: int = app.gate_of_trust.jisra_trust
 	var opening: Dictionary = mission.scenes[mission.start]
 	await press_button(mission.button, "the spice row opens the brothers scene")
-	_check_brothers_scene(mission, opening)
+	_check_side_mission_scene(mission, opening)
 	for choice: Dictionary in opening.choices:
 		check(find_button(app.ui, choice.label) != null, "the opening shows the locked choice: " + choice.label)
 	check(find_button(app.ui, words.scene_back) == null, "the opening offers the choices before Back")
 	await press_button(opening.choices[index].label, "choose the locked brothers response: " + outcome.id)
 	var ending: Dictionary = mission.scenes[outcome.id]
 	check(app.runner_scene() == ending, "the chosen response opens the intended ending: " + outcome.id)
-	_check_brothers_scene(mission, ending)
+	_check_side_mission_scene(mission, ending)
 	for choice: Dictionary in opening.choices:
 		check(find_button(app.ui, choice.label) == null, "an ending removes the opening choice: " + choice.label)
 	check_wallet(START_TRUST + int(outcome.trust), 198, "the choice applies only its locked River Market trust effect")
@@ -3800,11 +3801,102 @@ func _check_brothers_outcome(mission: Dictionary, index: int, outcome: Dictionar
 	await press_button(words.journal.back, "the Journal returns to the market")
 
 
-func _check_brothers_scene(mission: Dictionary, scene: Dictionary) -> void:
+func _check_side_mission_scene(mission: Dictionary, scene: Dictionary) -> void:
 	check(app.ui.screen == "runner_mission" and has_visible_label(app.ui, mission.title)
 		and has_visible_label(app.ui, str(mission.kicker).to_upper()),
 		"the scene shows the locked mission title and kicker")
 	check(visible_text().split("\n").has(scene.text), "the scene shows its exact locked story text")
+
+
+func check_side_neighbours_wall_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/SIDE_NEIGHBOURS_WALL/RECORD/side_neighbours_wall_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/side_neighbours_wall.json")
+	check(not locked.is_empty() and runtime == locked, "the wall data is the byte-identical LOCK 53 file")
+	var mission: Dictionary = app.scene_runner.missions.get("neighbours_wall", {})
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	check(approved is Dictionary and not mission.is_empty() and mission == approved.missions[0],
+		"the production index loads the locked wall mission")
+	if mission.is_empty():
+		return
+
+	app.set_process(false)
+	reset_at_market_place("weaver", 198, 8)
+	for minute: int in [479, 480, 1079, 1080]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 480 and minute < 1080),
+			"the wall button follows the locked hours at minute %d" % minute)
+	set_market_day_time(8, 9 * 60)
+	move_market_fixture("quay")
+	check(find_button(app.ui, mission.button) == null, "the wall button is hidden away from Weaver's lane")
+	move_market_fixture("weaver")
+	app.show_screen("game")
+	check(find_button(app.ui, mission.button) != null, "the wall button is on the walking view place bar")
+
+	var outcomes := [
+		{"ending": "beam", "start_trust": 10, "trust_change": 5, "flags": {"wall_settled": 8}, "say": [mission.say.settled]},
+		{"ending": "saif", "start_trust": 50, "trust_change": 0, "flags": {}, "say": []},
+		{"ending": "out", "start_trust": 80, "trust_change": 0, "flags": {}, "say": []},
+	]
+	for index in outcomes.size():
+		await _check_neighbours_wall_outcome(mission, index, outcomes[index])
+	app.set_process(true)
+	print("LOCK 53 TESTS: ", checks - checks_before - (failures - failures_before),
+		"/", checks - checks_before, " passed; failures=", failures - failures_before)
+
+
+func _check_neighbours_wall_outcome(mission: Dictionary, index: int, outcome: Dictionary) -> void:
+	reset_at_market_place("weaver", 198, 8)
+	app.progress.apply_trust(int(outcome.start_trust) - app.progress.trust)
+	set_market_day_time(8, 9 * 60)
+	var runner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var initial_side: Dictionary = runner.journal(app).side
+	var jisra_trust: int = app.gate_of_trust.jisra_trust
+	var opening: Dictionary = mission.scenes.a
+	await press_button(mission.button, "Weaver's lane opens the wall mission at trust %d" % outcome.start_trust)
+	_check_side_mission_scene(mission, opening)
+	for choice: Dictionary in opening.choices:
+		check(find_button(app.ui, choice.label) != null, "the wall mission shows the locked choice: " + choice.label)
+	check(find_button(app.ui, words.scene_back) == null, "the wall opening offers choices before Back")
+
+	await press_button(opening.choices[index].label, "choose the locked wall response: " + outcome.ending)
+	var ending: Dictionary = mission.scenes[outcome.ending]
+	check(app.runner_scene() == ending, "the wall response opens the intended ending: " + outcome.ending)
+	_check_side_mission_scene(mission, ending)
+	for choice: Dictionary in opening.choices:
+		check(find_button(app.ui, choice.label) == null, "the wall ending removes the opening choice: " + choice.label)
+	check_wallet(int(outcome.start_trust) + int(outcome.trust_change), 198, "the wall response applies only its locked trust effect")
+	check(app.gate_of_trust.jisra_trust == jisra_trust and runner.town_sayings("jisra").is_empty(),
+		"the wall response does not change Jisra trust or sayings")
+	check(runner.state().flags == outcome.flags, "the wall response records exactly its locked flags: " + outcome.ending)
+	check(runner.town_sayings("river_market") == outcome.say, "the wall response records exactly its locked River Market sayings")
+	check(not runner.mission_done(app, mission.id) and runner.journal(app).side == initial_side,
+		"the wall ending waits for Back before recording completion")
+
+	await press_button(words.scene_back, "Back leaves the ending and completes the wall mission")
+	check(app.ui.screen == "market_map" and runner.mission_done(app, mission.id),
+		"the wall mission is done on return to the market")
+	check(find_button(app.ui, mission.button) == null, "the finished wall mission disappears from Weaver's lane")
+	set_market_day_time(9, 9 * 60)
+	check(find_button(app.ui, mission.button) == null, "the wall mission stays finished the next day")
+
+	await press_button(app.chapter.purse.morning.to_rep, "the market opens What people say after the wall mission")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines() == outcome.say,
+		"What people say shows exactly the response's sayings")
+	for line: Array in outcome.say:
+		check_reputation_row(line)
+	if outcome.say.is_empty():
+		check(visible_text().contains(app.chapter.rep.empty), "the wall response without a saying leaves reputation empty")
+	await press_button(app.chapter.rep.to_map, "What people say returns to the market")
+	await press_button(words.journal_button, "the market opens the Journal after the wall mission")
+	var completed: Dictionary = runner.journal(app).side
+	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
+		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
+		"the Journal counts the wall mission exactly once")
+	await press_button(words.journal.back, "the Journal returns to the market")
 
 
 func check_jisra_masjid_runtime() -> void:

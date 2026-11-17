@@ -1,0 +1,83 @@
+{
+  "line": 60,
+  "lock": "LOCK 53 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 6039,
+    "total": 6039,
+    "failures": 0
+  },
+  "line_59_regression": {
+    "passed": 109,
+    "total": 109,
+    "failures": 0
+  },
+  "line_60": {
+    "passed": 104,
+    "total": 104,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "sb01_neighbours_wall__a.png": "a",
+    "sb02_neighbours_wall__beam.png": "beam",
+    "sb03_neighbours_wall__saif.png": "saif",
+    "sb04_neighbours_wall__out.png": "out"
+  },
+  "asserted": {
+    "entry": {
+      "place": "weaver",
+      "hidden_at": "quay",
+      "shown_at_trust": [
+        10,
+        50,
+        80
+      ],
+      "visible_minutes": [
+        480,
+        1079
+      ],
+      "hidden_minutes": [
+        479,
+        1080
+      ],
+      "views": [
+        "market_map",
+        "game"
+      ]
+    },
+    "scene_copy": "Exact mission title, kicker, opening text, choices and each ending text through the live runner.",
+    "outcomes": [
+      {
+        "scene": "beam",
+        "start_trust": 10,
+        "river_market_trust_delta": 5,
+        "flag": "wall_settled",
+        "saying": [
+          "Settled Nadir and Saif's wall",
+          "the weavers' lane",
+          1
+        ]
+      },
+      {
+        "scene": "saif",
+        "start_trust": 50,
+        "river_market_trust_delta": 0,
+        "flag": null,
+        "saying": null
+      },
+      {
+        "scene": "out",
+        "start_trust": 80,
+        "river_market_trust_delta": 0,
+        "flag": null,
+        "saying": null
+      }
+    ],
+    "shared_outcome_checks": "Coins, Jisra trust and Jisra sayings stay unchanged. Back records one Journal completion. The finished mission stays hidden the next day. What people say shows the exact River Market report, source and tone only for beam.",
+    "person_dialogue": "LOCK 53 defines no separate person records."
+  },
+  "presentation_scope": "Q15 delegates look review to the design chat. The existing Godot runner uses compact actions; full-width actions and the highlighted first action in the masters are visual references.",
+  "native_screenshots": 0
+}

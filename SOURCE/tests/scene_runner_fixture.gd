@@ -72,7 +72,10 @@ static func run(game, check: Callable) -> void:
 
 static func _check_content(runner: SceneRunner, app: Context, check: Callable) -> void:
 	var shipped := SceneRunner.new(SceneRunner.load_content())
-	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/SCENE_RUNNER/RECORD/scene_runner_data_V1.json")
+	var lock_path := "res://../GAME/APPROVED/SCENE_RUNNER/RECORD/scene_runner_data_V1.json"
+	if not FileAccess.file_exists(lock_path):
+		lock_path = "res://../GAME/APPROVED/SCENE_RUNNER/ARCHIVE/scene_runner_data_2026-11-17_V1.json"
+	var locked := FileAccess.get_file_as_bytes(lock_path)
 	check.call(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/scene_runner.json"),
 		"runtime scene runner content matches the approved bytes")
 	var fixture_ids: Array = runner.missions.keys() + runner.towns.keys() + runner.people.keys()

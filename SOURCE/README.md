@@ -560,3 +560,11 @@ At the River Market spice row, **Adil is complaining about his brother** is avai
 on the ending to complete the mission. The **Journal** counts the completion, and
 **What people say** shows any account the response earned. The full headless suite covers
 all three outcomes.
+
+## LOCK 53 — The neighbour's wall
+
+At Weaver's lane in the River Market, **Nadir and Saif are arguing over a wall**
+is available from 08:00 up to 18:00. Choose a response, then use **Back** on
+the ending to finish the mission once and count it in the **Journal**.
+Helping them settle adds an account to **What people say**. The headless
+suite covers all three responses.
