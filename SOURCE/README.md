@@ -568,3 +568,11 @@ is available from 08:00 up to 18:00. Choose a response, then use **Back** on
 the ending to finish the mission once and count it in the **Journal**.
 Helping them settle adds an account to **What people say**. The headless
 suite covers all three responses.
+
+## LOCK 55 — A creditor beating a debtor
+
+At the River Market quay, **Zahir is beating Fadil at the quay** is available from
+07:00 up to 18:00. Paying part of the debt requires 10 coins. Choose a response,
+then use **Back** on the ending to finish the mission and count it once in the
+**Journal**. Pulling them apart or paying adds the corresponding account to
+**What people say**. The headless suite covers all three responses.

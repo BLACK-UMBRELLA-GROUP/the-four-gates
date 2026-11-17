@@ -1,0 +1,102 @@
+{
+  "line": 62,
+  "lock": "LOCK 55 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 6146,
+    "total": 6146,
+    "failures": 0
+  },
+  "line_59_regression": {
+    "passed": 109,
+    "total": 109,
+    "failures": 0
+  },
+  "line_60_regression": {
+    "passed": 104,
+    "total": 104,
+    "failures": 0
+  },
+  "line_62": {
+    "passed": 107,
+    "total": 107,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "se01_creditor__a.png": "a",
+    "se02_creditor__time.png": "time",
+    "se03_creditor__paid.png": "paid",
+    "se04_creditor__past.png": "past"
+  },
+  "asserted": {
+    "entry": {
+      "place": "quay",
+      "hidden_at": "weaver",
+      "shown_at_trust": [
+        10,
+        50,
+        80
+      ],
+      "visible_boundary_minutes": [
+        420,
+        1079
+      ],
+      "hidden_boundary_minutes": [
+        419,
+        1080
+      ],
+      "views": [
+        "market_map",
+        "game"
+      ]
+    },
+    "payment_choice": {
+      "hidden_at_coins": 9,
+      "available_at_coins": 10
+    },
+    "scene_copy": "Exact locked title, kicker, opening and ending text, choices and existing Back label.",
+    "outcomes": [
+      {
+        "ending": "time",
+        "starting_coins": 9,
+        "coin_delta": 0,
+        "starting_river_market_trust": 10,
+        "river_market_trust_delta": 5,
+        "flags": [],
+        "saying": [
+          "Stopped Zahir beating Fadil",
+          "the quay",
+          1
+        ]
+      },
+      {
+        "ending": "paid",
+        "starting_coins": 10,
+        "coin_delta": -10,
+        "starting_river_market_trust": 50,
+        "river_market_trust_delta": 6,
+        "flags": [],
+        "saying": [
+          "Paid part of Fadil's debt",
+          "the quay",
+          1
+        ]
+      },
+      {
+        "ending": "past",
+        "starting_coins": 198,
+        "coin_delta": 0,
+        "starting_river_market_trust": 80,
+        "river_market_trust_delta": 0,
+        "flags": [],
+        "saying": null
+      }
+    ],
+    "shared_outcome_checks": "The existing runner applies effects on choice. Back records one Journal completion. The button remains hidden the next day. The response has no effect in Jisra. What people say displays the locked quote, source and tone for each intervention.",
+    "person_dialogue": "LOCK 55 defines no separate person records."
+  },
+  "presentation_scope": "Q15 assigns look review to the design chat. The existing Godot runner uses compact side-mission actions. The masters show full-width actions and highlight the first choice.",
+  "native_screenshots": 0
+}

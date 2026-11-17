@@ -1,0 +1,74 @@
+{
+ "version": "LOCK 55 V1 (9 Nov 2026) - side mission: A creditor beating a debtor",
+ "builds_on": "LOCK 34 runner; LOCK 3 and LOCK 6 regulars; River Market places (LOCK 1). Each mission is its own LOCK and queue line.",
+ "design_reference_not_shown": "Quran 2:280",
+ "missions": [
+  {
+   "id": "creditor",
+   "lock": 55,
+   "place": "quay",
+   "hours": [
+    420,
+    1080
+   ],
+   "side": true,
+   "title": "A creditor beating a debtor",
+   "kicker": "River Market · A creditor beating a debtor",
+   "button": "Zahir is beating Fadil at the quay",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Zahir the boat owner has Fadil by the collar and is hitting him. “Two months! Two months you've owed me!” Fadil's family is watching from the steps.",
+     "choices": [
+      {
+       "label": "Pull them apart and ask Zahir to give him time",
+       "go": "time",
+       "fx": {
+        "trust": 5,
+        "say": "stopped"
+       }
+      },
+      {
+       "label": "Pay part of the debt · 10 coins",
+       "need_coins": 10,
+       "go": "paid",
+       "fx": {
+        "coins": -10,
+        "trust": 6,
+        "say": "paid"
+       }
+      },
+      {
+       "label": "Walk past",
+       "go": "past"
+      }
+     ]
+    },
+    "time": {
+     "text": "You get between them. Zahir is still angry, but he lets go. “A month,” he says. “Not a day more.” Fadil's wife brings you a cup of water.",
+     "end": true
+    },
+    "paid": {
+     "text": "You put ten coins in Zahir's hand. He lets Fadil go and counts them, then nods. “The rest in a month.”",
+     "end": true
+    },
+    "past": {
+     "text": "Behind you the shouting goes on.",
+     "end": true
+    }
+   },
+   "say": {
+    "stopped": [
+     "Stopped Zahir beating Fadil",
+     "the quay",
+     1
+    ],
+    "paid": [
+     "Paid part of Fadil's debt",
+     "the quay",
+     1
+    ]
+   }
+  }
+ ]
+}

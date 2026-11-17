@@ -1,0 +1,78 @@
+{
+  "line": 62,
+  "lock": "LOCK 55 V1",
+  "brief": "DOC-TFG-0177",
+  "questions_answer_rows": [
+    15,
+    17
+  ],
+  "tested_base_commit_sha": "4f88dca78bf4376b0ee6d61b31f0cee68c79994a",
+  "tested_source": "Base commit plus the indexed content and test files identified by SHA-256 below. The containing commit is recorded in the 17 Nov task note.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T12:23:27Z",
+  "checks_passed": {
+    "headless_full_suite": 6146,
+    "lock_55_subset": 107
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SIDE_CREDITOR/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_CREDITOR.md": {
+      "bytes": 2666,
+      "sha256": "20cc8181c936f3bbfbd6c1df4d59ed58257329675fc51f8bfefd9cd3485ab5ed"
+    },
+    "GAME/APPROVED/SIDE_CREDITOR/RECORD/LOCK_RECORD.md": {
+      "bytes": 759,
+      "sha256": "341287658f543d4812d2a8c9ab602a17a79080ab1623d1ad94493025a4507904"
+    },
+    "GAME/APPROVED/SIDE_CREDITOR/RECORD/SIDE_CREDITOR_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3559,
+      "sha256": "8878c180ae87f620ffc03610e148287d38ed0d3b32c6c1f66506707f600d7127"
+    },
+    "GAME/APPROVED/SIDE_CREDITOR/RECORD/side_creditor_data_V1.json": {
+      "bytes": 1876,
+      "sha256": "93436a9494d3049a2e8652f12a6afc1db704f05856fb629f37d941a0d5941583"
+    },
+    "GAME/APPROVED/SIDE_CREDITOR/MASTERS/se01_creditor__a.png": {
+      "bytes": 295983,
+      "sha256": "76e4f646251c918419d39db78013faf1894de4c58d6e33d5b7bb3d2bb7022029"
+    },
+    "GAME/APPROVED/SIDE_CREDITOR/MASTERS/se02_creditor__time.png": {
+      "bytes": 313731,
+      "sha256": "5c3a153be24634bbef766fff59f4775504aee21658c4d854be951675bb9e730b"
+    },
+    "GAME/APPROVED/SIDE_CREDITOR/MASTERS/se03_creditor__paid.png": {
+      "bytes": 312272,
+      "sha256": "0ea30e1eb00feb4b2f1120c882d2d87ccef91e5550d663a05e780d8b12f403a1"
+    },
+    "GAME/APPROVED/SIDE_CREDITOR/MASTERS/se04_creditor__past.png": {
+      "bytes": 309041,
+      "sha256": "528ab695feec16e831b9d6c984e236d69eb336a372059c864b756e841d470e5c"
+    }
+  },
+  "prior_fixture": {
+    "GAME/APPROVED/SCENE_RUNNER/ARCHIVE/scene_runner_data_2026-11-17_V1.json": {
+      "bytes": 2425,
+      "sha256": "a648d261d996f681bf55e4055d30937ab0ef2d5d4f89cce91bf810e92e76af2b"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 130,
+      "sha256": "9805e62d0f7aba449364bf8160c30255d38699341e89d2b32e9c0d89b0f69720"
+    },
+    "SOURCE/data/side_creditor.json": {
+      "bytes": 1876,
+      "sha256": "93436a9494d3049a2e8652f12a6afc1db704f05856fb629f37d941a0d5941583"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 372824,
+      "sha256": "f63693742e78f3e9f6dc1409ede9fc56f3ac6a955de3e7c1a83b0b6196a9919a"
+    }
+  },
+  "evidence": {
+    "LINE62_CHECKS.json": {
+      "bytes": 2680,
+      "sha256": "ba5d471ab7f10fbb27bbe23ea5ed60c804ed9c456a4cd6d57b6738fca8942fd2"
+    }
+  }
+}

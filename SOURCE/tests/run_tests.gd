@@ -193,6 +193,7 @@ func _run() -> void:
 	await check_scene_runner_runtime()
 	await check_side_brothers_runtime()
 	await check_side_neighbours_wall_runtime()
+	await check_side_creditor_runtime()
 	finish()
 
 
@@ -3896,6 +3897,106 @@ func _check_neighbours_wall_outcome(mission: Dictionary, index: int, outcome: Di
 	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
 		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
 		"the Journal counts the wall mission exactly once")
+	await press_button(words.journal.back, "the Journal returns to the market")
+
+
+func check_side_creditor_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/SIDE_CREDITOR/RECORD/side_creditor_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/side_creditor.json")
+	check(not locked.is_empty() and runtime == locked, "creditor data is the byte-identical LOCK 55 file")
+	var mission: Dictionary = app.scene_runner.missions.get("creditor", {})
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	check(approved is Dictionary and not mission.is_empty() and mission == approved.missions[0],
+		"the production index loads the locked creditor mission")
+	if mission.is_empty():
+		return
+
+	app.set_process(false)
+	reset_at_market_place("quay", 9, 8)
+	for minute: int in [419, 420, 1079, 1080]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 420 and minute < 1080),
+			"the creditor button follows the locked hours at minute %d" % minute)
+	set_market_day_time(8, 8 * 60)
+	move_market_fixture("weaver")
+	check(find_button(app.ui, mission.button) == null, "the creditor button is hidden away from the quay")
+	move_market_fixture("quay")
+	app.show_screen("game")
+	await press_button(mission.button, "the creditor mission opens from the quay walking view")
+	var opening: Dictionary = mission.scenes[mission.start]
+	_check_side_mission_scene(mission, opening)
+	check(find_button(app.ui, opening.choices[0].label) != null
+		and find_button(app.ui, opening.choices[1].label) == null
+		and find_button(app.ui, opening.choices[2].label) != null,
+		"with nine coins, only the paid response is hidden")
+
+	var outcomes := [
+		{"ending": "time", "trust": 10, "trust_delta": 5, "coins": 9, "coins_delta": 0, "say": [mission.say.stopped]},
+		{"ending": "paid", "trust": 50, "trust_delta": 6, "coins": 10, "coins_delta": -10, "say": [mission.say.paid]},
+		{"ending": "past", "trust": 80, "trust_delta": 0, "coins": 198, "coins_delta": 0, "say": []},
+	]
+	for index in outcomes.size():
+		await _check_creditor_outcome(mission, index, outcomes[index])
+	app.set_process(true)
+	print("LOCK 55 TESTS: ", checks - checks_before - (failures - failures_before),
+		"/", checks - checks_before, " passed; failures=", failures - failures_before)
+
+
+func _check_creditor_outcome(mission: Dictionary, index: int, outcome: Dictionary) -> void:
+	reset_at_market_place("quay", int(outcome.coins), 8)
+	app.progress.apply_trust(int(outcome.trust) - app.progress.trust)
+	set_market_day_time(8, 8 * 60)
+	var runner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var initial_side: Dictionary = runner.journal(app).side
+	var initial_flags: Dictionary = runner.state().flags
+	var jisra_trust: int = app.gate_of_trust.jisra_trust
+	var opening: Dictionary = mission.scenes[mission.start]
+	await press_button(mission.button, "the quay opens the creditor mission at trust %d" % outcome.trust)
+	_check_side_mission_scene(mission, opening)
+	for option: Dictionary in opening.choices:
+		check((find_button(app.ui, option.label) != null) == (outcome.coins >= int(option.get("need_coins", 0))),
+			"the opening shows this locked choice when affordable: " + option.label)
+	check(find_button(app.ui, words.scene_back) == null, "the opening offers choices before Back")
+
+	await press_button(opening.choices[index].label, "choose the locked creditor response: " + outcome.ending)
+	var ending: Dictionary = mission.scenes[outcome.ending]
+	check(app.runner_scene() == ending, "the creditor response opens the intended ending: " + outcome.ending)
+	_check_side_mission_scene(mission, ending)
+	for option: Dictionary in opening.choices:
+		check(find_button(app.ui, option.label) == null, "the ending removes the opening choice: " + option.label)
+	check_wallet(int(outcome.trust) + int(outcome.trust_delta), int(outcome.coins) + int(outcome.coins_delta),
+		"the creditor response applies its locked River Market trust and coin effects")
+	check(app.gate_of_trust.jisra_trust == jisra_trust and runner.town_sayings("jisra").is_empty(),
+		"the creditor response has no effect in Jisra")
+	check(runner.state().flags == initial_flags, "the creditor response sets no extra flags")
+	check(runner.town_sayings("river_market") == outcome.say, "the creditor response records the locked quay account")
+	check(not runner.mission_done(app, mission.id) and runner.journal(app).side == initial_side,
+		"the creditor ending waits for Back before counting completion")
+
+	await press_button(words.scene_back, "Back leaves the ending and completes the creditor mission")
+	check(app.ui.screen == "market_map" and runner.mission_done(app, mission.id),
+		"the creditor mission is done on return to the market")
+	check(find_button(app.ui, mission.button) == null, "the finished creditor mission disappears from the quay")
+	set_market_day_time(9, 8 * 60)
+	check(find_button(app.ui, mission.button) == null, "the creditor mission stays finished the next day")
+
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say after the creditor mission")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines() == outcome.say,
+		"What people say shows exactly the account from the creditor response")
+	for line: Array in outcome.say:
+		check_reputation_row(line)
+	if outcome.say.is_empty():
+		check(visible_text().contains(app.chapter.rep.empty), "walking past leaves What people say empty")
+	await press_button(app.chapter.rep.to_map, "What people say returns to the market")
+	await press_button(words.journal_button, "open the Journal after the creditor mission")
+	var completed: Dictionary = runner.journal(app).side
+	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
+		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
+		"the Journal counts the creditor mission exactly once")
 	await press_button(words.journal.back, "the Journal returns to the market")
 
 

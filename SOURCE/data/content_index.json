@@ -2,6 +2,7 @@
   "files": [
     "scene_runner.json",
     "side_brothers.json",
-    "side_neighbours_wall.json"
+    "side_neighbours_wall.json",
+    "side_creditor.json"
   ]
 }
