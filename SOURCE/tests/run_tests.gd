@@ -191,6 +191,7 @@ func _run() -> void:
 	await check_gate_of_trust_runtime()
 	await check_jisra_masjid_runtime()
 	await check_scene_runner_runtime()
+	await check_side_brothers_runtime()
 	finish()
 
 
@@ -3585,8 +3586,9 @@ func check_scene_runner_runtime() -> void:
 	legacy.erase("scene_runner")
 	legacy.erase("runner_town")
 	await press_button(words.journal_button, "River Market map offers the Journal")
+	var side_missions: Array = runner.missions.values().filter(func(mission: Dictionary) -> bool: return mission.get("side", false))
 	check(app.ui.screen == "journal" and has_visible_label(app.ui, "Chapter 1 · The Gate of Trust")
-		and has_visible_label(app.ui, "0 / 7") and has_visible_label(app.ui, "0 / 0")
+		and has_visible_label(app.ui, "0 / 7") and has_visible_label(app.ui, "0 / %d" % side_missions.size())
 		and not visible_text().contains("Chapter 2"), "production Journal shows the loaded chapter and both zero totals")
 	check(visible_text().split(journal.not_yet).size() == 8 and visible_text().split("…").size() == 8,
 		"each of the seven undiscovered Journal rows uses the locked placeholder and status")
@@ -3627,10 +3629,15 @@ func check_scene_runner_runtime() -> void:
 
 func _check_runner_market_mission() -> void:
 	var mission: Dictionary = app.scene_runner.missions.fixture_market
+	mission.kicker = "Fixture mission kicker"
 	check(find_button(app.ui, mission.button) == null, "market mission stays hidden at the wrong place")
 	move_market_fixture("quay")
 	await press_button(mission.button, "fixture mission appears on the real quay place bar")
 	check(app.ui.screen == "runner_mission", "the market place bar opens the fixture scene")
+	check(has_visible_label(app.ui, mission.scenes.notice.title)
+		and not has_visible_label(app.ui, mission.title), "an authored scene title wins over the mission title")
+	check(has_visible_label(app.ui, str(mission.scenes.notice.kicker).to_upper())
+		and not has_visible_label(app.ui, str(mission.kicker).to_upper()), "an authored scene kicker wins over the mission kicker")
 	await press_button(mission.scenes.notice.choices[0].label, "the market scene accepts the available choice")
 	check(app.ui.screen == "market_map" and app.scene_runner.has_flag(app, "fixture_banned"),
 		"the terminal choice returns to its market view and applies its effects")
@@ -3699,6 +3706,105 @@ func _check_runner_town(words: Dictionary, noon: int) -> void:
 	check(has_visible_label(app.ui, story.title) and has_visible_label(app.ui, "1 / 1")
 		and has_visible_label(app.ui, "1 / 50"), "the Journal reads the scene completion and distinct masjid counter")
 	await press_button(words.journal.back, "fixture Journal closes normally")
+
+
+func check_side_brothers_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/SIDE_BROTHERS/RECORD/side_brothers_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/side_brothers.json")
+	check(not locked.is_empty() and runtime == locked, "the brothers data is the byte-identical LOCK 52 file")
+	var mission: Dictionary = app.scene_runner.missions.get("brothers", {})
+	check(not mission.is_empty() and mission == JSON.parse_string(locked.get_string_from_utf8()).missions[0],
+		"the production index loads the locked brothers mission")
+	if mission.is_empty():
+		return
+
+	app.set_process(false)
+	reset_at_market_place(mission.place, 198, 8)
+	set_market_day_time(8, 9 * 60)
+	for trust: int in [10, 29, 30, 50, 80]:
+		app.progress.apply_trust(trust - app.progress.trust)
+		app.update_state()
+		check((find_button(app.ui, mission.button) != null) == (trust >= 30),
+			"the spice row uses the locked trust threshold at trust %d" % trust)
+	move_market_fixture("quay")
+	check(find_button(app.ui, mission.button) == null, "the brothers button is hidden at other places")
+	move_market_fixture(mission.place)
+	app.show_screen("game")
+	check(find_button(app.ui, mission.button) != null, "the brothers button is also on the walking view place bar")
+	app.show_screen("market_map")
+	for minute: int in [479, 480, 1079, 1080]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 480 and minute < 1080),
+			"the brothers button follows market hours at minute %d" % minute)
+
+	var outcomes := [
+		{"id": "peace", "trust": 5, "flags": {"brothers_peace": 8}, "say": [mission.say.peace]},
+		{"id": "worse", "trust": -2, "flags": {}, "say": [mission.say.worse]},
+		{"id": "out", "trust": 0, "flags": {}, "say": []},
+	]
+	for index in outcomes.size():
+		await _check_brothers_outcome(mission, index, outcomes[index])
+	app.set_process(true)
+	print("LOCK 52 TESTS: ", checks - checks_before - (failures - failures_before),
+		"/", checks - checks_before, " passed; failures=", failures - failures_before)
+
+
+func _check_brothers_outcome(mission: Dictionary, index: int, outcome: Dictionary) -> void:
+	const START_TRUST := 50
+	reset_at_market_place(mission.place, 198, 8)
+	app.progress.apply_trust(START_TRUST - app.progress.trust)
+	set_market_day_time(8, 9 * 60)
+	var runner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var initial_side: Dictionary = runner.journal(app).side
+	var jisra_trust: int = app.gate_of_trust.jisra_trust
+	var opening: Dictionary = mission.scenes[mission.start]
+	await press_button(mission.button, "the spice row opens the brothers scene")
+	_check_brothers_scene(mission, opening)
+	for choice: Dictionary in opening.choices:
+		check(find_button(app.ui, choice.label) != null, "the opening shows the locked choice: " + choice.label)
+	check(find_button(app.ui, words.scene_back) == null, "the opening offers the choices before Back")
+	await press_button(opening.choices[index].label, "choose the locked brothers response: " + outcome.id)
+	var ending: Dictionary = mission.scenes[outcome.id]
+	check(app.runner_scene() == ending, "the chosen response opens the intended ending: " + outcome.id)
+	_check_brothers_scene(mission, ending)
+	for choice: Dictionary in opening.choices:
+		check(find_button(app.ui, choice.label) == null, "an ending removes the opening choice: " + choice.label)
+	check_wallet(START_TRUST + int(outcome.trust), 198, "the choice applies only its locked River Market trust effect")
+	check(app.gate_of_trust.jisra_trust == jisra_trust, "the effect leaves Jisra trust alone")
+	check(runner.state().flags == outcome.flags, "the choice records exactly its locked flags: " + outcome.id)
+	check(runner.town_sayings("") == outcome.say, "the choice records exactly its locked River Market sayings: " + outcome.id)
+	check(not runner.mission_done(app, mission.id), "the ending waits for Back before recording completion")
+	await press_button(words.scene_back, "Back leaves the ending and finishes the brothers mission")
+	check(app.ui.screen == "market_map" and runner.mission_done(app, mission.id),
+		"the brothers mission is done on return to the market")
+	check(find_button(app.ui, mission.button) == null, "the finished mission disappears from the spice row")
+	set_market_day_time(9, 9 * 60)
+	check(find_button(app.ui, mission.button) == null, "the one-time mission stays finished the next day")
+
+	await press_button(app.chapter.purse.morning.to_rep, "the market opens What people say")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines() == outcome.say,
+		"What people say contains just the sayings from this response")
+	for line: Array in outcome.say:
+		check_reputation_row(line)
+	if outcome.say.is_empty():
+		check(visible_text().contains(app.chapter.rep.empty), "staying out adds no public saying")
+	await press_button(app.chapter.rep.to_map, "What people say returns to the market")
+	await press_button(words.journal_button, "the market opens the private Journal")
+	var completed: Dictionary = runner.journal(app).side
+	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
+		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
+		"the Journal counts the brothers mission once")
+	await press_button(words.journal.back, "the Journal returns to the market")
+
+
+func _check_brothers_scene(mission: Dictionary, scene: Dictionary) -> void:
+	check(app.ui.screen == "runner_mission" and has_visible_label(app.ui, mission.title)
+		and has_visible_label(app.ui, str(mission.kicker).to_upper()),
+		"the scene shows the locked mission title and kicker")
+	check(visible_text().split("\n").has(scene.text), "the scene shows its exact locked story text")
 
 
 func check_jisra_masjid_runtime() -> void:

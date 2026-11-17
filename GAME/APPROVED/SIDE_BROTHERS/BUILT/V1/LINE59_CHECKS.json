@@ -1,0 +1,82 @@
+{
+  "line": 59,
+  "lock": "LOCK 52 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "fixture": "Real scene and market controls with an isolated save directory. Clock and trust are set in the test fixture. Each response starts from a fresh state.",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 5935,
+    "total": 5935,
+    "failures": 0
+  },
+  "line_59": {
+    "passed": 109,
+    "total": 109,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "sa01_brothers__a.png": "a",
+    "sa02_brothers__peace.png": "peace",
+    "sa03_brothers__worse.png": "worse",
+    "sa04_brothers__out.png": "out"
+  },
+  "asserted": {
+    "button": {
+      "place": "spice",
+      "hidden_at": "quay",
+      "trust_values_checked": [
+        10,
+        29,
+        30,
+        50,
+        80
+      ],
+      "visible_minutes": [
+        480,
+        1079
+      ],
+      "hidden_minutes": [
+        479,
+        1080
+      ],
+      "views": [
+        "market_map",
+        "game"
+      ]
+    },
+    "scene_copy": "Locked title, kicker, story and choice labels through the live scene. The runner fixture also checks authored title and kicker precedence.",
+    "outcomes": [
+      {
+        "scene": "peace",
+        "river_market_trust_delta": 5,
+        "flag": "brothers_peace",
+        "saying": [
+          "Brought Adil and Hamza back together",
+          "the spice row",
+          1
+        ]
+      },
+      {
+        "scene": "worse",
+        "river_market_trust_delta": -2,
+        "flag": null,
+        "saying": [
+          "Carried words between the brothers",
+          "the spice row",
+          -1
+        ]
+      },
+      {
+        "scene": "out",
+        "river_market_trust_delta": 0,
+        "flag": null,
+        "saying": null
+      }
+    ],
+    "shared_outcome_checks": "Jisra trust and coins stay unchanged. Back completes the mission, which stays hidden the next day. The Journal increments by one and the market sayings render the recorded quote, source and tone.",
+    "person_dialogue": "LOCK 52 defines no separate person records."
+  },
+  "presentation_scope": "Q15 assigns the look check to the design chat. The Godot runner uses its existing compact choice and Back buttons. The masters use full-width buttons and highlight the first action.",
+  "native_screenshots": 0
+}

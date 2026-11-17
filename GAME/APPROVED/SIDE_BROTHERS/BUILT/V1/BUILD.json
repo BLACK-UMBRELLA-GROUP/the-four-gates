@@ -1,0 +1,80 @@
+{
+  "line": 59,
+  "lock": "LOCK 52 V1",
+  "brief": "DOC-TFG-0168",
+  "questions_answer_rows": [
+    15,
+    17
+  ],
+  "tested_base_commit_sha": "3fa4c63f4f647b8527e7b370ea8fca04635260c3",
+  "tested_source": "Base commit plus the source files identified by SHA-256 below. The containing commit is recorded in the 17 Nov task note.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T12:03:16Z",
+  "checks_passed": {
+    "headless_full_suite": 5935,
+    "lock_52_subset": 109
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SIDE_BROTHERS/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_BROTHERS.md": {
+      "bytes": 2940,
+      "sha256": "5819aef85c6ed237be352d12b71afd1663544f41fe04d62f88e2d7b82ec83200"
+    },
+    "GAME/APPROVED/SIDE_BROTHERS/RECORD/LOCK_RECORD.md": {
+      "bytes": 757,
+      "sha256": "c22643b11c66170e835e91e863fe61ed68dd3b1a61792db8f4c9b524215c1865"
+    },
+    "GAME/APPROVED/SIDE_BROTHERS/RECORD/SIDE_BROTHERS_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3673,
+      "sha256": "90ddcf49388e9e7e1b88a52669fcf6f4bf5988bfbdcc164166c8d52ad8b44fec"
+    },
+    "GAME/APPROVED/SIDE_BROTHERS/RECORD/side_brothers_data_V1.json": {
+      "bytes": 2037,
+      "sha256": "22f934b3ece726b741f89c024e151d2dd1820d2073fae57307acd1e84167179a"
+    },
+    "GAME/APPROVED/SIDE_BROTHERS/MASTERS/sa01_brothers__a.png": {
+      "bytes": 300642,
+      "sha256": "a3b5a1242ea0892a9c39566829cb377e4e3177ee0d21ab24c19866fb17054ecd"
+    },
+    "GAME/APPROVED/SIDE_BROTHERS/MASTERS/sa02_brothers__peace.png": {
+      "bytes": 316424,
+      "sha256": "00dbea1cb24261c5e56ec739c0ebe3c2990475b4109d8dd8cbc3f5c046c06c90"
+    },
+    "GAME/APPROVED/SIDE_BROTHERS/MASTERS/sa03_brothers__worse.png": {
+      "bytes": 312367,
+      "sha256": "3bc8d32b8d5e797d0c686c6c52457048f4cf8751287f680be6a9d1b706ac2a0d"
+    },
+    "GAME/APPROVED/SIDE_BROTHERS/MASTERS/sa04_brothers__out.png": {
+      "bytes": 309112,
+      "sha256": "613ad8cdfad157ce089c614531f4f2d71df2af9d1286ea3f7faa47a0558077a4"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 71,
+      "sha256": "c3dcdf80a6b67f0c2e9621bb728db199a1f585e1107e93f1ff3ca8320c0bb067"
+    },
+    "SOURCE/data/side_brothers.json": {
+      "bytes": 2037,
+      "sha256": "22f934b3ece726b741f89c024e151d2dd1820d2073fae57307acd1e84167179a"
+    },
+    "SOURCE/game/market_ui.gd": {
+      "bytes": 152908,
+      "sha256": "fe967ac1cffbb69a16adec546322cb4070b7ea776a369175e4b13e27bce16f00"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 361173,
+      "sha256": "77f534d9c7a0258590ce7c6984a35474419470e08a49d44d7460d4bbacbaad2d"
+    },
+    "SOURCE/tests/scene_runner_fixture.gd": {
+      "bytes": 14270,
+      "sha256": "8fb52f50b0e1cec7d02162faccdd32e962730682d2c42f116ae7900cd2615634"
+    }
+  },
+  "evidence": {
+    "LINE59_CHECKS.json": {
+      "bytes": 2360,
+      "sha256": "bbbe208f392736deef397c9636457020c3b49e401f3ae0c2cde6381639f6338a"
+    }
+  }
+}

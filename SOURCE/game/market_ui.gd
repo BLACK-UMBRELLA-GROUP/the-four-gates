@@ -2120,9 +2120,10 @@ func _build_runner_panel() -> void:
 	var paragraphs: Array = []
 	var values := {"town": town.get("name", ""), "n": scene_runner.town_trust(app, town_id)}
 	var back_label: String = words.back
+	var mission: Dictionary = {}
 	match screen:
 		"runner_mission":
-			var mission: Dictionary = app.runner_mission()
+			mission = app.runner_mission()
 			copy = app.runner_scene()
 			paragraphs = _runner_paragraphs(copy.get("text", ""))
 			var choices: Array = scene_runner.choices(app, mission, copy)
@@ -2172,7 +2173,9 @@ func _build_runner_panel() -> void:
 			back_label = copy.get("back", words.back)
 	if not back_label.is_empty():
 		actions.append(_runner_action(back_label, "back", null))
-	var panel := _chapter_panel(str(copy.get("kicker", "")).format(values), str(copy.get("title", "")).format(values), true)
+	var kicker := str(copy.get("kicker", mission.get("kicker", ""))).format(values)
+	var title_value := str(copy.get("title", mission.get("title", ""))).format(values)
+	var panel := _chapter_panel(kicker, title_value, true)
 	(panel.get_theme_stylebox("panel") as StyleBoxFlat).set_corner_radius_all(18)
 	var rows := _runner_scroll_body(panel, 111.0, 1.0)
 	var y := 0.0

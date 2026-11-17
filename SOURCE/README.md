@@ -552,3 +552,11 @@ Run `godot --headless --path SOURCE --script res://tests/run_tests.gd` for the f
 Then run `godot --headless --path SOURCE --script res://tests/create_comparisons.gd -- --scene-runner`.
 Both capture commands accept `--scene-runner-output=/absolute/path`. See the line 41 captures and
 master comparisons in `GAME/APPROVED/SCENE_RUNNER/BUILT/V1/`.
+
+## LOCK 52 — Two brothers not speaking
+
+At the River Market spice row, **Adil is complaining about his brother** is available from
+08:00 up to 18:00 at River Market trust 30 or higher. Choose a response, then use **Back**
+on the ending to complete the mission. The **Journal** counts the completion, and
+**What people say** shows any account the response earned. The full headless suite covers
+all three outcomes.

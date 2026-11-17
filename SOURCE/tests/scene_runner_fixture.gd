@@ -75,16 +75,18 @@ static func _check_content(runner: SceneRunner, app: Context, check: Callable) -
 	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/SCENE_RUNNER/RECORD/scene_runner_data_V1.json")
 	check.call(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/scene_runner.json"),
 		"runtime scene runner content matches the approved bytes")
-	check.call(shipped.missions.is_empty() and shipped.towns.is_empty() and shipped.people.is_empty(),
-		"production index exposes no fixture content")
+	var fixture_ids: Array = runner.missions.keys() + runner.towns.keys() + runner.people.keys()
+	var shipped_ids: Array = shipped.missions.keys() + shipped.towns.keys() + shipped.people.keys()
+	check.call(fixture_ids.all(func(id): return id not in shipped_ids), "production index exposes no fixture content")
 	var live_journal := shipped.journal(app)
 	var live_chapter: Dictionary = live_journal.chapters[0]
 	check.call(live_journal.chapters.size() == 1 and live_chapter.n == 1 and live_chapter.done == 0
 		and live_chapter.total == 7 and live_chapter.rows.all(func(row): return not row.done and row.title.is_empty()),
 		"fresh live Journal has only Chapter 1 and seven undiscovered rows")
-	check.call(live_journal.side == {"done": 0, "total": 0}
+	var side_count := shipped.missions.values().filter(func(mission: Dictionary) -> bool: return mission.get("side", false)).size()
+	check.call(live_journal.side == {"done": 0, "total": side_count}
 		and live_journal.goals.size() == 5 and live_journal.goals.all(func(goal): return goal.n == 0),
-		"fresh live Journal has zero side missions and five zero lifetime goals")
+		"fresh live Journal counts the loaded side missions and starts with no completions or progress toward goals")
 	var journal := runner.journal(app)
 	check.call(journal.chapters.map(func(chapter): return chapter.n) == [1, 2, 3]
 		and journal.chapters[1].name == "Second fixture chapter" and journal.chapters[1].total == 1,
