@@ -1600,13 +1600,19 @@ func _build_lesson() -> void:
 	_button(data.ui.buttons.back_to_market_map, Vector2(399, back_y), Vector2(307, 56), func(): screen_requested.emit("market_map"))
 
 func _build_goal() -> void:
-	var panel := _panel(Vector2(365, 279), Vector2(1190, 608), Color("241a0df2"))
+	var row_height := 81.0
+	var rows_height := row_height * float(data.goal.gates.size())
+	var height := 284.0 + rows_height
+	var top := 583.0 - height / 2.0
+	var panel := _panel(Vector2(365, top), Vector2(1190, height), Color("241a0df2"))
 	_heading(panel, data.ui.goal.kicker, data.goal.title)
 	for index in range(data.goal.gates.size()):
-		var row_y := 113.0 + 81.0 * index
+		var row_y := 113.0 + row_height * index
 		var gate: Array = data.goal.gates[index]
 		_board_row(panel, row_y, gate[0], gate[1], false)
-		var amount: int = progress.trust if index == 0 else 0
+		if index != 0:
+			continue
+		var amount: int = progress.trust
 		var track := ColorRect.new()
 		track.position = Vector2(455, row_y + 39)
 		track.size = Vector2(448, 10)
@@ -1618,16 +1624,17 @@ func _build_goal() -> void:
 		fill.color = GOLD
 		fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		track.add_child(fill)
-		var value: String = data.ui.goal.open if index == 0 and progress.gate_open else str(data.ui.goal.gate_trust_value).format({"n": amount})
+		var value: String = data.ui.goal.open if progress.gate_open else str(data.ui.goal.gate_trust_value).format({"n": amount})
 		var label := _label(panel, value, Vector2(955, row_y + 20), Vector2(201, 42), 24, Color("ffd27e"))
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	var rule: String = data.gate.goal_line
 	if progress.lesson_done:
 		rule += str(data.ui.goal.rule_done_suffix)
-	_label(panel, rule.to_upper(), Vector2(34, 436), Vector2(1122, 36), 16, Color("e9bd70"))
-	_label(panel, data.goal.line, Vector2(34, 470), Vector2(1122, 45), 24, PAPER)
-	_button(data.ui.buttons.back_to_market, Vector2(399, 804), Vector2(247, 56), func(): screen_requested.emit("game"), true)
-	_button(data.ui.buttons.map, Vector2(659, 804), Vector2(91, 56), func(): screen_requested.emit("market_map"))
+	_label(panel, rule.to_upper(), Vector2(34, 112.0 + rows_height), Vector2(1122, 36), 16, Color("e9bd70"))
+	_label(panel, data.goal.line, Vector2(34, 146.0 + rows_height), Vector2(1122, 45), 24, PAPER)
+	var button_y := top + 201.0 + rows_height
+	_button(data.ui.buttons.back_to_market, Vector2(399, button_y), Vector2(247, 56), func(): screen_requested.emit("game"), true)
+	_button(data.ui.buttons.map, Vector2(659, button_y), Vector2(91, 56), func(): screen_requested.emit("market_map"))
 
 func _chapter_panel(kicker: String, title_value: String, spaced_kicker: bool = false) -> Panel:
 	var panel := _panel(Vector2.ZERO, Vector2(1188, 0), Color("1b130be8"))

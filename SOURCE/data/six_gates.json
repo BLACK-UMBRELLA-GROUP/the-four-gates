@@ -1,0 +1,164 @@
+{
+ "version": "LOCK 103 V1 (17 Nov 2026) - the six gates",
+ "builds_on": "LOCK 1 V2 foundations and LOCK 2 V3 identity (this file renames their four-gate words), LOCK 36 V2 road map (gates and journey %). The pillar of each gate is a design reference: never shown as a label.",
+ "gates": [
+  {
+   "id": "trust",
+   "name": "Gate of Trust",
+   "dir": "east",
+   "pillar_reference": "belief in Allah (trust in Him)",
+   "opens": "trust 100 and the scales lesson (LOCK 32)"
+  },
+  {
+   "id": "patience",
+   "name": "Gate of Patience",
+   "dir": "north-west",
+   "pillar_reference": "qadr (the decree)",
+   "opens_at": 20
+  },
+  {
+   "id": "mercy",
+   "name": "Gate of Mercy",
+   "dir": "south-west",
+   "pillar_reference": "the messengers",
+   "opens_at": 30
+  },
+  {
+   "id": "knowledge",
+   "name": "Gate of Knowledge",
+   "dir": "west",
+   "pillar_reference": "the books",
+   "opens_at": 40
+  },
+  {
+   "id": "witness",
+   "name": "Gate of the Witness",
+   "dir": "north-east",
+   "pillar_reference": "the angels - never shown; your deeds are written",
+   "opens_at": 45
+  },
+  {
+   "id": "return",
+   "name": "Gate of Return",
+   "dir": "south-east",
+   "pillar_reference": "the Last Day",
+   "opens_at": 50
+  }
+ ],
+ "renames": [
+  [
+   "Be trusted by all four quarters of Ilmara and open all four gates.",
+   "Be trusted by all four quarters of Ilmara and open all six gates."
+  ],
+  [
+   "Open all four gates. Each one leads out to the open field and its towns.",
+   "Open all six gates. Each one leads out to the open field and its towns."
+  ],
+  [
+   "Walls, four gates, five parts. Tap a part.",
+   "Walls, six gates, five parts. Tap a part."
+  ],
+  [
+   "THE FOUR GATES",
+   "THE SIX GATES"
+  ],
+  [
+   "Earn the trust of four quarters. Open four gates.",
+   "Earn the trust of Ilmara. Open six gates."
+  ],
+  [
+   "Your goal · The Four Gates journey",
+   "Your goal · The Six Gates journey"
+  ]
+ ],
+ "goal_gates": [
+  [
+   "Gate of Trust",
+   "River Market trust 100 and the scales lesson"
+  ],
+  [
+   "Gate of Patience",
+   "20% of your journey"
+  ],
+  [
+   "Gate of Mercy",
+   "30% of your journey"
+  ],
+  [
+   "Gate of Knowledge",
+   "40% of your journey"
+  ],
+  [
+   "Gate of the Witness",
+   "45% of your journey"
+  ],
+  [
+   "Gate of Return",
+   "50% of your journey"
+  ]
+ ],
+ "city_gates": {
+  "east": "Gate of Trust",
+  "north-west": "Gate of Patience",
+  "south-west": "Gate of Mercy",
+  "west": "Gate of Knowledge",
+  "north-east": "Gate of the Witness",
+  "south-east": "Gate of Return"
+ },
+ "planned_lands": {
+  "witness": {
+   "land": "The hill country",
+   "towns": [
+    [
+     "raqima",
+     "Raqima",
+     "good done in secret"
+    ],
+    [
+     "hafiza",
+     "Hafiza",
+     "a lie that is written down"
+    ],
+    [
+     "shahida",
+     "Shahida",
+     "the one who keeps score"
+    ]
+   ]
+  },
+  "return": {
+   "land": "The salt coast",
+   "towns": [
+    [
+     "mizana",
+     "Mizana",
+     "the weighing house: rights returned before the Day"
+    ],
+    [
+     "milhara",
+     "Milhara",
+     "the salt pans: a dying man's will"
+    ],
+    [
+     "mirsana",
+     "Mirsana",
+     "the port: debts paid back"
+    ]
+   ]
+  }
+ },
+ "chapters_plan": [
+  [
+   5,
+   "The Gate of the Witness"
+  ],
+  [
+   6,
+   "The Gate of Return"
+  ],
+  [
+   7,
+   "The hard year"
+  ]
+ ]
+}

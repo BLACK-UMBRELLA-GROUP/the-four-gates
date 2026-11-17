@@ -9,6 +9,7 @@ const MarketStall = preload("res://game/market_stall.gd")
 const MarketDay = preload("res://game/market_day.gd")
 const MarketSave = preload("res://game/market_save.gd")
 const RealPrayerTimes = preload("res://game/real_prayer_times.gd")
+const MapCanvas = preload("res://game/map_canvas.gd")
 const RegularsRememberFixture = preload("res://tests/regulars_remember_fixture.gd")
 const SceneRunnerFixture = preload("res://tests/scene_runner_fixture.gd")
 
@@ -121,6 +122,10 @@ func _run() -> void:
 		return
 	if "--prophets-stories-only" in OS.get_cmdline_user_args():
 		await check_prophets_stories_runtime()
+		finish()
+		return
+	await check_six_gates_runtime()
+	if "--six-gates-only" in OS.get_cmdline_user_args():
 		finish()
 		return
 	check(app.ui.screen == "title", "launch opens the title")
@@ -581,7 +586,7 @@ func check_ui_states() -> void:
 	await frames(2)
 	check(app.ui.screen == "city_map", "city map opens")
 	check(app.ui.map.mode == "city_map" and app.ui.map.identity.city.name == identity.city.name, "city map drawing receives the approved title")
-	check(app.ui.map.identity.city.map_title_line == identity.city.map_title_line, "city map drawing receives the approved line")
+	check(app.ui.map.data.city_map.title_line == data.city_map.title_line, "city map drawing receives the approved line")
 	for index in range(data.goal.gates.size()):
 		app.ui.map.city_gate_requested.emit(index)
 		await frames(1)
@@ -970,6 +975,88 @@ func tap_map(at: Vector2) -> void:
 	event.position = at
 	app.ui.map._gui_input(event)
 	await frames(2)
+
+
+func check_six_gates_runtime() -> void:
+	var parsed = JSON.parse_string(FileAccess.get_file_as_string("res://data/six_gates.json"))
+	check(parsed is Dictionary, "LOCK 103 runtime JSON loads")
+	if not parsed is Dictionary:
+		return
+	var six_gates: Dictionary = parsed
+	var renames: Array = six_gates.renames
+	var title_text := visible_text()
+	check(title_text.replace("\n", "").contains(renames[3][1]), "LOCK 103 title letters spell the renamed game title")
+	check(has_visible_label(app.ui, renames[4][1]), "LOCK 103 title displays the renamed subtitle")
+	check(not title_text.replace("\n", "").contains(renames[3][0]) and not has_visible_label(app.ui, renames[4][0]), "title omits both replaced LOCK 1 lines")
+
+	app.show_goal()
+	await frames(2)
+	var goal_heading := find_visible_label(app.ui, renames[0][1])
+	check(goal_heading != null, "LOCK 103 goal displays the renamed heading")
+	check(has_visible_label(app.ui, renames[1][1]), "LOCK 103 goal displays the renamed final line")
+	check(has_visible_label(app.ui, str(renames[5][1]).to_upper()), "LOCK 103 goal displays the renamed kicker")
+	check(not has_visible_label(app.ui, renames[0][0]) and not has_visible_label(app.ui, renames[1][0]) and not has_visible_label(app.ui, str(renames[5][0]).to_upper()), "goal omits the three replaced LOCK 1 lines")
+	check(data.goal.gates == six_gates.goal_gates and data.goal.gates.size() == 6, "runtime goal contains exactly the six locked rows")
+	var previous_bottom := 0.0
+	var viewport := root.get_visible_rect()
+	for gate: Array in six_gates.goal_gates:
+		var heading := find_visible_label(app.ui, gate[0])
+		var detail := find_visible_label(app.ui, str(gate[1]).to_upper())
+		check(heading != null and detail != null, "goal displays the locked name and requirement for " + str(gate[0]))
+		if heading != null and detail != null:
+			var heading_rect := heading.get_global_rect()
+			var detail_rect := detail.get_global_rect()
+			check(heading_rect.position.y > previous_bottom and detail_rect.position.y > heading_rect.position.y and viewport.encloses(detail_rect), "goal row is in order and on screen for " + str(gate[0]))
+			previous_bottom = detail_rect.end.y
+	var goal_text := visible_text()
+	var trust_value: String = str(data.ui.goal.gate_trust_value).format({"n": app.progress.trust})
+	var goal_labels: Array[String] = []
+	if goal_heading != null:
+		collect_text(goal_heading.get_parent(), goal_labels)
+	check(goal_labels.count(trust_value) == 1 and not goal_labels.has(str(data.ui.goal.gate_trust_value).format({"n": 0})), "only Gate of Trust displays a live trust value")
+	var shown_text := (title_text + "\n" + goal_text).to_lower()
+	for gate: Dictionary in six_gates.gates:
+		check(not shown_text.contains(str(gate.pillar_reference).to_lower()), "pillar remains a design reference for " + str(gate.name))
+	for land: Dictionary in six_gates.planned_lands.values():
+		check(not shown_text.contains(str(land.land).to_lower()), "planned land stays hidden: " + str(land.land))
+		for town: Array in land.towns:
+			check(not shown_text.contains(str(town[1]).to_lower()), "planned town stays hidden: " + str(town[1]))
+	for chapter: Array in six_gates.chapters_plan:
+		check(not shown_text.contains(str(chapter[1]).to_lower()), "planned chapter stays hidden: " + str(chapter[1]))
+
+	await check_six_gates_city_map(six_gates.city_gates, renames[2][1])
+	app.ui.show_toast("")
+	app.show_screen("title")
+	await frames(2)
+
+
+func check_six_gates_city_map(gates: Dictionary, title_line: String) -> void:
+	app.show_screen("city_map")
+	await frames(2)
+	check(app.ui.map.visible and app.ui.map.mode == "city_map", "LOCK 103 city map uses the production map control")
+	check(app.ui.map.data.city_map == {"title_line": title_line, "gates": gates}, "city map drawing receives the exact locked caption and names")
+	var expected_directions := {
+		"east": Vector2.RIGHT,
+		"north-west": Vector2(-1, -1).normalized(),
+		"south-west": Vector2(-1, 1).normalized(),
+		"west": Vector2.LEFT,
+		"north-east": Vector2(1, -1).normalized(),
+		"south-east": Vector2(1, 1).normalized(),
+	}
+	var markers: Array[Dictionary] = app.ui.map.city_gate_markers()
+	check(markers.size() == 6, "city map has exactly six gate markers")
+	var displayed := {}
+	for marker: Dictionary in markers:
+		var direction: String = marker.direction
+		displayed[direction] = marker.name
+		var position: Vector2 = marker.position
+		var offset := position - MapCanvas.CITY_CENTRE
+		check(offset.normalized().is_equal_approx(expected_directions.get(direction, Vector2.ZERO)) and absf(offset.length() - MapCanvas.CITY_RADIUS) <= 3.0, "city gate is on the wall in its locked direction: " + direction)
+		app.ui.show_toast("")
+		await tap_map(position)
+		var expected_toast: String = data.gate.needs_trust.format({"trust": app.progress.trust}) if direction == "east" else data.ui.not_built
+		check(has_visible_label(app.ui, expected_toast), "tapping the city marker performs the existing gate action: " + direction)
+	check(displayed == gates, "each locked gate name is drawn at its corresponding direction")
 
 
 func check_identity_maps_and_places() -> void:

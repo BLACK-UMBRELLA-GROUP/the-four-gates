@@ -1,5 +1,5 @@
 extends RefCounted
-## Locked JSON content and the line-5 layout overlay.
+## Locked JSON content and runtime overlays.
 
 static func load_data() -> Dictionary:
 	var file := FileAccess.open("res://data/foundations.json", FileAccess.READ)
@@ -12,6 +12,18 @@ static func load_data() -> Dictionary:
 		parsed.places[id] = place.duplicate(true)
 		parsed.street_points[id] = {"x": place.x, "z": place.z}
 		parsed.streets.append([place.street, id])
+	var six_gates = JSON.parse_string(FileAccess.get_file_as_string("res://data/six_gates.json"))
+	assert(six_gates is Dictionary, "Approved six gates data must be an object")
+	var renames := {}
+	for pair: Array in six_gates.renames:
+		renames[pair[0]] = pair[1]
+	parsed.title_screen.title = renames[parsed.title_screen.title]
+	parsed.title_screen.line = renames[parsed.title_screen.line]
+	parsed.ui.goal.kicker = renames[parsed.ui.goal.kicker]
+	parsed.goal.title = renames[parsed.goal.title]
+	parsed.goal.line = renames[parsed.goal.line]
+	parsed.goal.gates = six_gates.goal_gates
+	parsed.city_map = {"title_line": renames[identity.city.map_title_line], "gates": six_gates.city_gates}
 	return parsed
 
 static func load_identity() -> Dictionary:

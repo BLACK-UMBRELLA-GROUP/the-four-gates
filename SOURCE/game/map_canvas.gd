@@ -140,13 +140,30 @@ func _draw_market() -> void:
 
 const CITY_CENTRE := Vector2(960, 547)
 const CITY_RADIUS := 392.0
+const CITY_GATE_OFFSET := 394.0
+const CITY_GATE_DIRECTIONS := {
+	"east": Vector2.RIGHT,
+	"north-west": Vector2(-1, -1),
+	"south-west": Vector2(-1, 1),
+	"west": Vector2.LEFT,
+	"north-east": Vector2(1, -1),
+	"south-east": Vector2(1, 1),
+}
 const PART_RADIUS := 126.0
 const WORLD_CENTRE := Vector2(960, 538)
 const WORLD_RADIUS := 232.0
 const WORLD_GATE_OFFSET := 211.0
 
-func _city_gate_positions() -> Array[Vector2]:
-	return [Vector2(1354, 547), Vector2(960, 154), Vector2(960, 940), Vector2(566, 547)]
+func city_gate_markers() -> Array[Dictionary]:
+	var markers: Array[Dictionary] = []
+	for direction: String in data.city_map.gates:
+		var offset: Vector2 = CITY_GATE_DIRECTIONS[direction].normalized() * CITY_GATE_OFFSET
+		markers.append({
+			"direction": direction,
+			"name": data.city_map.gates[direction],
+			"position": CITY_CENTRE + offset,
+		})
+	return markers
 
 func _draw_city() -> void:
 	draw_rect(Rect2(0, 0, 1920, 1080), Color("3b3020"))
@@ -176,22 +193,21 @@ func _draw_city() -> void:
 	_text(identity.city.parts.south.name, Vector2(960, 798), 44, INK, true, false, true)
 	_text(identity.city.parts.west.name, Vector2(700, 538), 44, INK, true, false, true)
 	_text(identity.city.parts.centre.name, Vector2(960, 562), 44, INK, true, false, true)
-	var gate_keys := ["east", "north", "south", "west"]
-	var positions := _city_gate_positions()
-	var labels := [Vector2(1411, 562), Vector2(960, 97), Vector2(960, 998), Vector2(508, 562)]
-	for index in range(4):
-		var rect := Rect2(positions[index] - Vector2(29, 29), Vector2(58, 58))
-		_rounded(rect, Color("80b78a") if index == 0 and gate_open else Color("a6303a"), 10, INK, 5)
-		var label: String = identity.city.gates[gate_keys[index]]
-		var at: Vector2 = labels[index]
-		if index == 3:
+	for marker: Dictionary in city_gate_markers():
+		var position: Vector2 = marker.position
+		var rect := Rect2(position - Vector2(29, 29), Vector2(58, 58))
+		_rounded(rect, Color("80b78a") if marker.direction == "east" and gate_open else Color("a6303a"), 10, INK, 5)
+		var label: String = marker.name
+		var side := signf(position.x - CITY_CENTRE.x)
+		var at := position + Vector2(side * 57.0, 15)
+		if side < 0.0:
 			at.x -= bold_font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, roundi(38 * text_multiplier)).x
-		_text(label, at, 38, PAPER, true, false, index in [1, 2])
+		_text(label, at, 38, PAPER, true)
 	draw_circle(Vector2(1248, 652), 22, INK, true, -1, true)
 	draw_circle(Vector2(1248, 652), 16, Color.WHITE, true, -1, true)
 	_text(identity.city.inn_label, Vector2(1248, 715), 34, INK, true, true, true)
 	_text(identity.city.name, Vector2(58, 86), 48, PAPER, true)
-	_text(identity.city.map_title_line, Vector2(58, 140), 38, Color("d8b571"))
+	_text(data.city_map.title_line, Vector2(58, 140), 38, Color("d8b571"))
 
 func _draw_world() -> void:
 	draw_rect(Rect2(0, 0, 1920, 1080), Color("cbbb90"))
@@ -243,9 +259,9 @@ func _gui_input(event: InputEvent) -> void:
 	if not (event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed):
 		return
 	if mode == "city_map":
-		var positions := _city_gate_positions()
-		for index in range(positions.size()):
-			if Rect2(positions[index] - Vector2(39, 39), Vector2(78, 78)).has_point(event.position):
+		var markers := city_gate_markers()
+		for index in range(markers.size()):
+			if Rect2(markers[index].position - Vector2(39, 39), Vector2(78, 78)).has_point(event.position):
 				city_gate_requested.emit(index)
 				accept_event()
 				return

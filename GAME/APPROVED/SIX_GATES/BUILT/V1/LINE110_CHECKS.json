@@ -1,0 +1,93 @@
+{
+  "line": 110,
+  "lock": "LOCK 103 V1",
+  "focused_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --six-gates-only",
+    "exit_code": 0,
+    "passed": 252,
+    "total": 252,
+    "failures": 0,
+    "engine_errors": 0
+  },
+  "full_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 8382,
+    "total": 8382,
+    "failures": 0,
+    "engine_errors": 0
+  },
+  "locked_data_byte_identical": true,
+  "runtime_data_sha256": "867a462d9b2b2938eaf8a74ec84c79105373e15f81800d461ab830f24dc784bc",
+  "verified": {
+    "screen_renames": [
+      [
+        "Be trusted by all four quarters of Ilmara and open all four gates.",
+        "Be trusted by all four quarters of Ilmara and open all six gates."
+      ],
+      [
+        "Open all four gates. Each one leads out to the open field and its towns.",
+        "Open all six gates. Each one leads out to the open field and its towns."
+      ],
+      [
+        "Walls, four gates, five parts. Tap a part.",
+        "Walls, six gates, five parts. Tap a part."
+      ],
+      [
+        "THE FOUR GATES",
+        "THE SIX GATES"
+      ],
+      [
+        "Earn the trust of four quarters. Open four gates.",
+        "Earn the trust of Ilmara. Open six gates."
+      ],
+      [
+        "Your goal · The Four Gates journey",
+        "Your goal · The Six Gates journey"
+      ]
+    ],
+    "goal_rows_in_display_order": [
+      [
+        "Gate of Trust",
+        "River Market trust 100 and the scales lesson"
+      ],
+      [
+        "Gate of Patience",
+        "20% of your journey"
+      ],
+      [
+        "Gate of Mercy",
+        "30% of your journey"
+      ],
+      [
+        "Gate of Knowledge",
+        "40% of your journey"
+      ],
+      [
+        "Gate of the Witness",
+        "45% of your journey"
+      ],
+      [
+        "Gate of Return",
+        "50% of your journey"
+      ]
+    ],
+    "city_gate_markers_passed_real_tap_checks": {
+      "east": "Gate of Trust",
+      "north-west": "Gate of Patience",
+      "south-west": "Gate of Mercy",
+      "west": "Gate of Knowledge",
+      "north-east": "Gate of the Witness",
+      "south-east": "Gate of Return"
+    },
+    "goal_progress": "Gate of Trust uses the existing trust meter. The other five rows show their locked requirements.",
+    "design_reference_data_hidden": [
+      "gates",
+      "planned_lands",
+      "chapters_plan"
+    ],
+    "scope": "Title, goal and city map only. Earlier behavior passed the full suite."
+  },
+  "native_screenshots": 0,
+  "visual_comparison": "Headless evidence per brief row E and Q15. V81 was unavailable in the checkout."
+}

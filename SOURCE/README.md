@@ -23,7 +23,7 @@ line 19 and records the exact Godot version below; gameplay is built only from L
 ## Play the current greybox
 
 Import `SOURCE/project.godot` in Godot 4.7.2 and press Run, or run `godot --path SOURCE` from the repository root.
-The Ilmara title opens first. Begin starts the four arrival beats at the quay with zero coins.
+The Six Gates title opens first. Begin starts the four arrival beats at the quay with zero coins.
 The open scale gives 200 coins and the smiling changer gives 120. Paying for the first night leaves 198 or 118.
 The sunset choice moves the clock to 18:15. Walk River Market opens the map at the Inn, Arrive again
 restarts the arrival, and Meet the old man opens Idris's meeting at the Masjid.
@@ -39,7 +39,7 @@ Use E at Market scales to try the three weights against the checked weight and n
 adds 25 trust once; later visits check the scales. Passing after using the smiling changer reveals the cheat at
 the scales. Ask the gatekeepers with 100 trust and the lesson complete to swing the gate open for the session.
 Three honest tasks plus the lesson give exactly 100 trust and add 12 coins to the arrival wallet. G or the trust bar
-opens the four-gate goal panel. The city map marks the open Gate of Trust green.
+opens the goal panel, which lists all six gates and their requirements. The city map marks the open Gate of Trust green.
 
 At Spice row, use **Buy at the stall** to buy bread, dates or local clothes. The first purchase opens
 **Your change**. At Weaver's lane, use **Visit Layla's loom** to buy clothes or the leather bag.
@@ -70,12 +70,13 @@ Learned words appear in English with the town word in brackets. Leave or Esc ret
 Meet him again replays the meeting with the words you learned. After the meeting, the Masjid offers Look inside when
 there is no prayer action due.
 
-Open City map from the market map and tap any of Ilmara's five parts for its description. The Inn marker or River Market button returns to the
+Open City map from the market map to see the six gate markers. Tap any of Ilmara's five parts for its description. The Inn marker or River Market button returns to the
 market map. Open World map from the city map and tap one of the twelve placeholder towns for its description.
 
 `SOURCE/data/foundations.json` applies the line 5 names and map changes to the approved foundations V2 data.
 `SOURCE/data/identity.json` is a byte-for-byte copy of the approved identity V3 data. The loader adds the locked Inn
-and Masjid street points and routes from that copy. Content and gameplay settings stay in portable JSON.
+and Masjid street points and routes from that copy. `SOURCE/data/six_gates.json` supplies the LOCK 103 text updates,
+goal rows and city gate directions at runtime. Content and gameplay settings stay in portable JSON.
 
 ## Checks and evidence
 

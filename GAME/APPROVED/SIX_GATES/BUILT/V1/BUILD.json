@@ -1,0 +1,62 @@
+{
+  "line": 110,
+  "lock": "LOCK 103 V1",
+  "brief": "DOC-TFG-0325",
+  "tested_base_commit_sha": "795af4997c8d7efbd781bd6e00b88dc4c9bf89c4",
+  "tested_source": "Base commit plus the hashed source changes. The daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T17:00:33+00:00",
+  "checks_passed": {
+    "focused": 252,
+    "headless_full_suite": 8382
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SIX_GATES/BRIEFS/BUILD_BRIEF_2026-11-17_SIX_GATES.md": {
+      "bytes": 2331,
+      "sha256": "fb4b127a2867f3a74bd37df3d47d488d80ea51c5a5d250883ca0cf8d22b02d05"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/LOCK_RECORD.md": {
+      "bytes": 1193,
+      "sha256": "097e458b36812235cf8b7af3da1b87b413b920c6a032f7454c4cc2586378afdd"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/SIX_GATES_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 6532,
+      "sha256": "ea7e353b6d74f3d3933df88855cbab3b050edad229f9f2e014df64b055caa98b"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/six_gates_data_V1.json": {
+      "bytes": 3298,
+      "sha256": "867a462d9b2b2938eaf8a74ec84c79105373e15f81800d461ab830f24dc784bc"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/six_gates.json": {
+      "bytes": 3298,
+      "sha256": "867a462d9b2b2938eaf8a74ec84c79105373e15f81800d461ab830f24dc784bc"
+    },
+    "SOURCE/game/foundations.gd": {
+      "bytes": 9948,
+      "sha256": "826b4f509f0b56aae71edf57a629711d0de6e0de7cecfd2f99ae1f22197037d9"
+    },
+    "SOURCE/game/map_canvas.gd": {
+      "bytes": 13879,
+      "sha256": "fa3360c396b6a68b85af8a419a56173f7a3369891c087eb175679382be47609f"
+    },
+    "SOURCE/game/market_ui.gd": {
+      "bytes": 154892,
+      "sha256": "c8813a2778f189cf876dee9d35bd324657bf0903d31d09e250c20bfb4ecf27ca"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 464649,
+      "sha256": "c3a078dbb665f8748d0551f8567ea2facb9d780790b8078ad4756292f9282178"
+    }
+  },
+  "evidence": {
+    "GAME/APPROVED/SIX_GATES/BUILT/V1/LINE110_CHECKS.json": {
+      "bytes": 2681,
+      "sha256": "d069364f6aa86a197555a960ae18cf90e0409f8d420eff5a647786f33227f5eb"
+    }
+  },
+  "native_screenshots": 0,
+  "compiled_exports": 0
+}
