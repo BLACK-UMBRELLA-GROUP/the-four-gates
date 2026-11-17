@@ -1,0 +1,59 @@
+{
+  "line": 82,
+  "lock": "LOCK 75 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 7822,
+    "total": 7822,
+    "failures": 0
+  },
+  "line_82": {
+    "passed": 47,
+    "total": 47,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "db01_adhan_rows__a.png": "a",
+    "db02_adhan_rows__b.png": "b"
+  },
+  "asserted": {
+    "entry": {
+      "town": "river_market",
+      "place": "masjid",
+      "visible_boundary_minutes": [
+        300,
+        1259
+      ],
+      "hidden_boundary_minutes": [
+        299,
+        1260
+      ],
+      "prerequisite": "Completing Wudu with Idris via the live lesson sets wudu_learned and reveals the action.",
+      "views": [
+        "market_map",
+        "game"
+      ]
+    },
+    "scene_copy": "Both production scenes render the locked title, kicker, dialogue and sole choice. The design reference stays out of the player-facing text.",
+    "choices": [
+      {
+        "label": "Repeat the adhan after him",
+        "next": "b",
+        "effects": {}
+      },
+      {
+        "label": "Stand in the row",
+        "next": "exit",
+        "flag": "rows_learned",
+        "completes": true
+      }
+    ],
+    "effects": "Both choices leave town trust, coins, the clock, public accounts and private counters unchanged.",
+    "completion": "The action stays hidden on completion, the next day and after save restoration. Both lesson flags persist.",
+    "journal": "Chapter progress, side totals and lifetime goals stay unchanged. Existing goals remain visible."
+  },
+  "presentation": "The Godot runner uses its compact secondary choice. Both masters show a full-width amber choice. Q15 assigns visual comparison to the design chat.",
+  "native_screenshots": 0
+}

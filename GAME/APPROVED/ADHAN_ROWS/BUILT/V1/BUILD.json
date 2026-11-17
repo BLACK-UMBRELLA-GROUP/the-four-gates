@@ -1,0 +1,67 @@
+{
+  "line": 82,
+  "lock": "LOCK 75 V1",
+  "brief": "DOC-TFG-0237",
+  "questions_answer_rows": [
+    15
+  ],
+  "tested_base_commit_sha": "70f1edf943743edd89608a71438e0b1b405c9b92",
+  "tested_source": "The base commit with the source changes identified by SHA-256 below. The 17 November task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T15:16:46Z",
+  "checks_passed": {
+    "headless_full_suite": 7822,
+    "lock_75_subset": 47
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/ADHAN_ROWS/BRIEFS/BUILD_BRIEF_2026-11-09_ADHAN_ROWS.md": {
+      "bytes": 2477,
+      "sha256": "40597c2af45946fcb1936eae0aa75198b082bbee653ebc1266fd2f328027f0a2"
+    },
+    "GAME/APPROVED/ADHAN_ROWS/RECORD/ADHAN_ROWS_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3179,
+      "sha256": "d9589b735e09c69f806e94ba98e484e87450bef4cc2a77fbb8b5793d6f26bfea"
+    },
+    "GAME/APPROVED/ADHAN_ROWS/RECORD/LOCK_RECORD.md": {
+      "bytes": 728,
+      "sha256": "7fa446bf2e3e21aaf451edd98984cc6c0b6f69850a4822f800467ebb741fbecf"
+    },
+    "GAME/APPROVED/ADHAN_ROWS/RECORD/adhan_rows_data_V1.json": {
+      "bytes": 1345,
+      "sha256": "423a1cf36edeffa0b53e572c982b3bf00c76accb4c38f6f776d067c3a346c4a5"
+    },
+    "GAME/APPROVED/ADHAN_ROWS/MASTERS/db01_adhan_rows__a.png": {
+      "bytes": 321838,
+      "sha256": "d3bb87d32e35a08acbf64dbf3306619ac75ddb109e56fe0ac2199a7cc6a17710"
+    },
+    "GAME/APPROVED/ADHAN_ROWS/MASTERS/db02_adhan_rows__b.png": {
+      "bytes": 320536,
+      "sha256": "fabe490d6ce52a6ac5135942ff5160ba63d0b3f0be5160514ad8085d9eb7efb4"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 43414,
+      "sha256": "a0d2a5f6350adfd3dbe6a9420bd8f8e754a4b4002a1d0f63fa7f7ba2dae6084b"
+    },
+    "SOURCE/data/adhan_rows.json": {
+      "bytes": 1345,
+      "sha256": "423a1cf36edeffa0b53e572c982b3bf00c76accb4c38f6f776d067c3a346c4a5"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 336,
+      "sha256": "8cef460a0801bcbbbcff824e579cb159ef4c94f6b3897a336a994fbf5dae552c"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 434088,
+      "sha256": "98799a9593708e8a07995aae1e2c072adbed49b4866979b24e7cedf8ae5f2273"
+    }
+  },
+  "evidence": {
+    "LINE82_CHECKS.json": {
+      "bytes": 1823,
+      "sha256": "a1c968ae0b28501f7cb942dacf8626b90bfb69c5612670bcacaa9bdc6ddaf9dc"
+    }
+  }
+}

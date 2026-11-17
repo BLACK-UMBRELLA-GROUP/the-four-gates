@@ -641,3 +641,10 @@ After meeting Idris, choose **Idris will show you wudu** at the River Market
 masjid from 05:00 up to 21:00. **Make wudu with him** advances the clock by
 five in-game minutes and finishes the lesson once. The lesson leaves trust,
 coins and Journal totals unchanged.
+
+## LOCK 75 — The adhan and the rows
+
+After completing wudu with Idris, choose **Yunus the muezzin wants to show you
+something** at the River Market masjid from 05:00 up to 21:00. Choose
+**Repeat the adhan after him**, then **Stand in the row** to finish the
+scene once. The scene leaves trust, coins and Journal totals unchanged.

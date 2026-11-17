@@ -1,0 +1,49 @@
+{
+ "version": "LOCK 75 V1 (9 Nov 2026) - The adhan and the rows",
+ "builds_on": "LOCK 2 prayer, LOCK 3 Idris, LOCK 6 regulars, LOCK 34 runner. Private counters go to the Journal; worship never earns trust.",
+ "goals": [],
+ "design_reference_not_shown": {
+  "adhan_rows": "Muslim 384, Bukhari 723"
+ },
+ "missions": [
+  {
+   "id": "adhan_rows",
+   "lock": 75,
+   "place": "masjid",
+   "hours": [
+    300,
+    1260
+   ],
+   "title": "The adhan and the rows",
+   "kicker": "Worship · The adhan and the rows",
+   "button": "Yunus the muezzin wants to show you something",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Yunus the muezzin climbs to call the adhan and beckons you to follow. “When you hear me, say what I say. After 'come to prayer', say: there is no power and no strength except with Allah.”",
+     "choices": [
+      {
+       "label": "Repeat the adhan after him",
+       "go": "b"
+      }
+     ]
+    },
+    "b": {
+     "text": "Inside, Idris walks along the row before the prayer, pressing shoulders together and nudging feet into line. “Straight rows,” he says. “Shoulder to shoulder. No gaps.”",
+     "choices": [
+      {
+       "label": "Stand in the row",
+       "fx": {
+        "flag": "rows_learned",
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "wudu_learned"
+   ]
+  }
+ ]
+}

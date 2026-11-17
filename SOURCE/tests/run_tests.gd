@@ -103,6 +103,10 @@ func _run() -> void:
 		await check_wudu_runtime()
 		finish()
 		return
+	if "--adhan-rows-only" in OS.get_cmdline_user_args():
+		await check_adhan_rows_runtime()
+		finish()
+		return
 	check(app.ui.screen == "title", "launch opens the title")
 	check(visible_text().replace("\n", "").contains(data.title_screen.title), "title uses approved title text")
 	check(visible_text().contains(data.title_screen.line), "title uses approved subtitle")
@@ -209,6 +213,7 @@ func _run() -> void:
 	await check_side_stranger_runtime()
 	await check_jisra_people_runtime()
 	await check_wudu_runtime()
+	await check_adhan_rows_runtime()
 	finish()
 
 
@@ -4661,6 +4666,122 @@ func check_wudu_runtime() -> void:
 	var failures_added := failures - failures_before
 	print("LOCK 74 TESTS: ", checks - checks_before - failures_added, "/", checks - checks_before,
 		" passed; failures=", failures_added)
+
+
+func check_adhan_rows_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/ADHAN_ROWS/RECORD/adhan_rows_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/adhan_rows.json")
+	check(not locked.is_empty() and runtime == locked, "the adhan and rows data is byte-identical to LOCK 75")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner = app.scene_runner
+	var mission: Dictionary = runner.missions.get("adhan_rows", {})
+	check(approved is Dictionary and not mission.is_empty() and mission == approved.missions[0],
+		"the production index loads the locked adhan and rows mission")
+	if not approved is Dictionary or mission.is_empty():
+		return
+
+	app.set_process(false)
+	const DAY := 8
+	const SCENE_TIME := 6 * 60
+	const COINS := 198
+	const TRUST := 50
+	reset_at_market_place(mission.place, COINS, DAY)
+	app.progress.apply_trust(TRUST - app.progress.trust)
+	app.idris_met = true
+	set_market_day_time(DAY, SCENE_TIME)
+	var prerequisite: String = mission.after[0]
+	check(not runner.has_flag(app, prerequisite) and find_button(app.ui, mission.button) == null,
+		"meeting Idris alone does not unlock the adhan and rows mission")
+	var wudu: Dictionary = runner.missions["wudu_lesson"]
+	await press_button(wudu.button, "open wudu with Idris from the masjid actions")
+	var wudu_choice: Dictionary = wudu.scenes[wudu.start].choices[0]
+	await press_button(wudu_choice.label, "complete wudu using the real lesson choice")
+	check(runner.has_flag(app, prerequisite) and find_button(app.ui, mission.button) != null,
+		"finishing wudu unlocks the adhan and rows mission at the masjid")
+
+	var opens := int(mission.hours[0])
+	var closes := int(mission.hours[1])
+	for minute: int in [opens - 1, opens, closes - 1, closes]:
+		set_market_day_time(DAY, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= opens and minute < closes),
+			"the masjid action follows the locked hours at minute %d" % minute)
+	set_market_day_time(DAY, SCENE_TIME)
+	move_market_fixture("gate")
+	check(find_button(app.ui, mission.button) == null, "the action is unavailable away from the masjid")
+	check(runner.available_missions(app, "jisra", mission.place).all(
+		func(available: Dictionary) -> bool: return available.id != mission.id),
+		"the adhan and rows mission belongs only to the River Market")
+	move_market_fixture(mission.place)
+	app.show_screen("game")
+	check(find_button(app.ui, mission.button) != null, "the walking view also offers the masjid action")
+	app.show_screen("market_map")
+
+	var state_before: Dictionary = runner.state()
+	var journal_before: Dictionary = runner.journal(app)
+	var jisra_trust: int = runner.town_trust(app, "jisra")
+	check(approved.goals.is_empty() and not journal_before.goals.is_empty(),
+		"the adhan and rows pack adds no goals and carries forward the existing Journal goals")
+	await press_button(mission.button, "open the adhan and rows mission from the River Market map")
+	var first_scene: Dictionary = mission.scenes[mission.start]
+	var repeat: Dictionary = first_scene.choices[0]
+	var second_scene: Dictionary = mission.scenes[repeat.go]
+	var stand: Dictionary = second_scene.choices[0]
+	_check_adhan_rows_scene(mission, first_scene, repeat, approved.design_reference_not_shown[mission.id])
+	await press_button(repeat.label, "repeat the adhan to reach the second scene")
+	check(runner.state() == state_before and app.day == DAY and app.minute_of_day == SCENE_TIME,
+		"repeating the adhan leaves runner state and the clock unchanged")
+	check_wallet(TRUST, COINS, "repeating the adhan leaves River Market trust and coins unchanged")
+	_check_adhan_rows_scene(mission, second_scene, stand, approved.design_reference_not_shown[mission.id])
+	await press_button(stand.label, "stand in the row to finish the mission")
+
+	var expected_state := state_before.duplicate(true)
+	expected_state.flags[stand.fx.flag] = DAY
+	expected_state.done[mission.id] = DAY
+	check(app.ui.screen == "market_map" and runner.mission_done(app, mission.id)
+		and find_button(app.ui, mission.button) == null,
+		"standing in the row returns to the map, completes the mission and hides its action")
+	check(runner.state() == expected_state and runner.town_trust(app, "jisra") == jisra_trust,
+		"standing adds only the locked flag and completion, with no accounts, counters or town trust")
+	check_wallet(TRUST, COINS, "standing in the row leaves River Market trust and coins unchanged")
+	check(app.day == DAY and app.minute_of_day == SCENE_TIME, "standing in the row leaves the clock unchanged")
+	var words: Dictionary = runner.data.words
+	await press_button(words.journal_button, "open the Journal after standing in the row")
+	check(app.ui.screen == "journal" and runner.journal(app) == journal_before,
+		"both scenes leave Journal chapter progress, side totals and lifetime goals unchanged")
+	for goal: Dictionary in journal_before.goals:
+		check(has_visible_label(app.ui, goal.label), "the Journal still shows the existing goal: " + goal.label)
+	await press_button(words.journal.back, "close the Journal")
+
+	set_market_day_time(DAY + 1, SCENE_TIME)
+	check(find_button(app.ui, mission.button) == null, "the mission stays complete on the next day")
+	var saved := MarketSave.snapshot(app)
+	app.begin_game()
+	MarketSave.restore(app, saved)
+	app.show_screen("market_map")
+	check(runner.has_flag(app, prerequisite) and runner.has_flag(app, stand.fx.flag)
+		and runner.mission_done(app, mission.id) and find_button(app.ui, mission.button) == null,
+		"loading a save preserves both lesson flags and the completed mission")
+	app.set_process(true)
+	var failures_added := failures - failures_before
+	print("LOCK 75 TESTS: ", checks - checks_before - failures_added, "/", checks - checks_before,
+		" passed; failures=", failures_added)
+
+
+func _check_adhan_rows_scene(mission: Dictionary, scene: Dictionary, choice: Dictionary, reference: String) -> void:
+	var runner = app.scene_runner
+	check(app.ui.screen == "runner_mission" and app.runner_mission() == mission and app.runner_scene() == scene,
+		"the scene runner opens the locked scene for " + str(choice.label))
+	check(has_visible_label(app.ui, mission.title) and has_visible_label(app.ui, str(mission.kicker).to_upper()),
+		"the scene shows the exact locked title and kicker")
+	var copy := visible_text()
+	check(copy.split("\n").has(scene.text), "the scene shows the exact locked dialogue")
+	check(not copy.contains(reference), "the design reference stays out of the player-facing text")
+	check(runner.choices(app, mission, scene) == [choice] and find_button(app.ui, choice.label) != null
+		and find_button(app.ui, runner.data.words.scene_back) == null,
+		"the scene offers only the locked choice")
 
 
 func check_jisra_people_runtime() -> void:
