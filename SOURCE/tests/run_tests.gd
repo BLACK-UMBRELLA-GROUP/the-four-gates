@@ -196,6 +196,7 @@ func _run() -> void:
 	await check_side_creditor_runtime()
 	await check_side_drowning_boy_runtime()
 	await check_side_thirsty_dog_runtime()
+	await check_side_spilled_spice_runtime()
 	finish()
 
 
@@ -4203,6 +4204,119 @@ func _check_thirsty_dog_outcome(mission: Dictionary, trust: int, choice_index: i
 	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
 		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
 		"the Journal counts the thirsty dog mission exactly once")
+	await press_button(words.journal.back, "the Journal returns to the market")
+
+
+func check_side_spilled_spice_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/SIDE_SPILLED_SPICE/RECORD/side_spilled_spice_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/side_spilled_spice.json")
+	check(not locked.is_empty() and runtime == locked, "spilled spice data is the byte-identical LOCK 60 file")
+	var mission: Dictionary = app.scene_runner.missions.get("spilled_spice", {})
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	check(approved is Dictionary and not mission.is_empty() and mission == approved.missions[0],
+		"the production index loads the locked spilled spice mission")
+	if mission.is_empty():
+		return
+
+	app.set_process(false)
+	reset_at_market_place("spice", 198, 8)
+	for minute: int in [479, 480, 1079, 1080]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 480 and minute < 1080),
+			"the spilled spice button follows market hours at minute %d" % minute)
+	set_market_day_time(8, 9 * 60)
+	move_market_fixture("weaver")
+	check(find_button(app.ui, mission.button) == null, "the spilled spice button is hidden away from the spice row")
+	move_market_fixture("spice")
+	app.show_screen("game")
+	await press_button(mission.button, "the spilled spice mission opens from the spice row walking view")
+	_check_side_mission_scene(mission, mission.scenes.a)
+
+	var outcomes := [
+		{"id": "truth", "trust": 6, "say": [mission.say.truth]},
+		{"id": "lie", "trust": -8, "say": [mission.say.lie]},
+		{"id": "silent", "trust": -2, "say": []},
+	]
+	for trust: int in [10, 50, 80]:
+		for index in outcomes.size():
+			await _check_spilled_spice_outcome(mission, trust, index, outcomes[index])
+
+	app.set_process(true)
+	var failures_added := failures - failures_before
+	print("LOCK 60 TESTS: ", checks - checks_before - failures_added, "/", checks - checks_before,
+		" passed; failures=", failures_added)
+
+
+func _check_spilled_spice_outcome(mission: Dictionary, trust: int, choice_index: int,
+		outcome: Dictionary) -> void:
+	const COINS := 198
+	const DAY := 8
+	const START_MINUTE := 9 * 60
+	reset_at_market_place("spice", COINS, DAY)
+	app.progress.apply_trust(trust - app.progress.trust)
+	set_market_day_time(DAY, START_MINUTE)
+	var runner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var initial_side: Dictionary = runner.journal(app).side
+	var expected_flags: Dictionary = runner.state().flags.duplicate()
+	var jisra_trust: int = runner.town_trust(app, "jisra")
+	var opening: Dictionary = mission.scenes.a
+	var question: Dictionary = mission.scenes.b
+	var remember_label: String = opening.choices[0].label
+
+	await press_button(mission.button, "the spice row opens the witness scene at trust %d" % trust)
+	_check_side_mission_scene(mission, opening)
+	check(not runner.has_flag(app, "saw_spice") and find_button(app.ui, words.scene_back) == null,
+		"the witness scene waits for Remember it")
+	await press_button(remember_label, "Remember it opens Rashid's question")
+	_check_side_mission_scene(mission, question)
+	expected_flags["saw_spice"] = DAY
+	check(runner.state().flags == expected_flags, "Remember it records the witness flag on the current day")
+	check_wallet(trust, COINS, "Remember it leaves trust and coins unchanged")
+	check(runner.town_sayings("river_market").is_empty(), "Remember it adds no public account")
+	check(find_button(app.ui, remember_label) == null and find_button(app.ui, words.scene_back) == null,
+		"Rashid's question waits for a response")
+	for choice: Dictionary in question.choices:
+		check(find_button(app.ui, choice.label) != null, "Rashid's question offers: " + choice.label)
+
+	await press_button(question.choices[choice_index].label, "choose the spilled spice response: " + outcome.id)
+	var ending: Dictionary = mission.scenes[outcome.id]
+	check(app.runner_scene() == ending, "the response opens the intended ending: " + outcome.id)
+	_check_side_mission_scene(mission, ending)
+	for choice: Dictionary in question.choices:
+		check(find_button(app.ui, choice.label) == null, "the ending removes the choice: " + choice.label)
+	check_wallet(trust + int(outcome.trust), COINS, "the response applies only its River Market trust effect")
+	check(app.day == DAY and app.minute_of_day == START_MINUTE, "the mission leaves the clock unchanged")
+	check(runner.state().flags == expected_flags, "the response preserves the witness flag")
+	check(runner.town_sayings("river_market") == outcome.say, "the response records its locked account")
+	check(runner.town_trust(app, "jisra") == jisra_trust and runner.town_sayings("jisra").is_empty(),
+		"Jisra trust and accounts stay unchanged")
+	check(not runner.mission_done(app, mission.id) and runner.journal(app).side == initial_side,
+		"the ending waits for Back before counting completion")
+
+	await press_button(words.scene_back, "Back leaves the ending and completes the spilled spice mission")
+	check(app.ui.screen == "market_map" and runner.mission_done(app, mission.id),
+		"the spilled spice mission is done on return to the market")
+	check(find_button(app.ui, mission.button) == null, "the finished mission disappears from the spice row")
+	set_market_day_time(DAY + 1, START_MINUTE)
+	check(find_button(app.ui, mission.button) == null, "the finished mission stays hidden the next day")
+
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say after the spilled spice mission")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines() == outcome.say,
+		"What people say shows exactly the account from this response")
+	for line: Array in outcome.say:
+		check_reputation_row(line)
+	if outcome.say.is_empty():
+		check(visible_text().contains(app.chapter.rep.empty), "saying you didn't see leaves What people say empty")
+	await press_button(app.chapter.rep.to_map, "What people say returns to the market")
+	await press_button(words.journal_button, "open the Journal after the spilled spice mission")
+	var completed: Dictionary = runner.journal(app).side
+	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
+		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
+		"the Journal counts the spilled spice mission exactly once")
 	await press_button(words.journal.back, "the Journal returns to the market")
 
 

@@ -1,0 +1,80 @@
+{
+  "line": 67,
+  "lock": "LOCK 60 V1",
+  "brief": "DOC-TFG-0192",
+  "questions_answer_rows": [
+    15,
+    17
+  ],
+  "tested_base_commit_sha": "3f66c5eec1ba295121371c99f3eb5370ad78a5c8",
+  "tested_source": "Base commit plus the changed source files identified by SHA-256 below. The containing commit is recorded in the 17 Nov task note.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T12:56:03Z",
+  "checks_passed": {
+    "headless_full_suite": 6839,
+    "lock_60_subset": 388
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SIDE_SPILLED_SPICE/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_SPILLED_SPICE.md": {
+      "bytes": 2706,
+      "sha256": "d3e3190d3f4a389d930c3259c35c764e777668706353d3b1eb897645a8a57547"
+    },
+    "GAME/APPROVED/SIDE_SPILLED_SPICE/RECORD/LOCK_RECORD.md": {
+      "bytes": 779,
+      "sha256": "c6a54ec4c3b880f9454245ed459e0b547ed5c46cfd074ba803a71eaa2321e126"
+    },
+    "GAME/APPROVED/SIDE_SPILLED_SPICE/RECORD/SIDE_SPILLED_SPICE_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3702,
+      "sha256": "f37a1d76fb1e37edd6f26cf5850cac866311e97722cf5683a5cb829df355bfba"
+    },
+    "GAME/APPROVED/SIDE_SPILLED_SPICE/RECORD/side_spilled_spice_data_V1.json": {
+      "bytes": 2244,
+      "sha256": "196470cbedfbb3a91b3a731ff21cd0a16d603937df8a54434eb2164bdc6dcb67"
+    },
+    "GAME/APPROVED/SIDE_SPILLED_SPICE/MASTERS/sl01_spilled_spice__a.png": {
+      "bytes": 313471,
+      "sha256": "35a284489c9bd95126d135a3d5d803102f4d7904c315c8c1af61f677ad28ed92"
+    },
+    "GAME/APPROVED/SIDE_SPILLED_SPICE/MASTERS/sl02_spilled_spice__b.png": {
+      "bytes": 293310,
+      "sha256": "33324ad62df32157d8997b3f910ff1768d815b2d71d766270cf9f40462fe4ecf"
+    },
+    "GAME/APPROVED/SIDE_SPILLED_SPICE/MASTERS/sl03_spilled_spice__truth.png": {
+      "bytes": 313689,
+      "sha256": "daaeb5b00becfb4f3cb5052f2c18e7a4a64ab1d7435eb39c2253039f349eae9d"
+    },
+    "GAME/APPROVED/SIDE_SPILLED_SPICE/MASTERS/sl04_spilled_spice__lie.png": {
+      "bytes": 311124,
+      "sha256": "8859d96414adc4cf07d072bef7d60615428d1813d78634306b226bb50aacb726"
+    },
+    "GAME/APPROVED/SIDE_SPILLED_SPICE/MASTERS/sl05_spilled_spice__silent.png": {
+      "bytes": 310541,
+      "sha256": "fc49cda69fe46e4d9314d3b998395f9bfc01957f8cad2c9544cda00cbd8cac3c"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 220,
+      "sha256": "74f13c20efa0ee96657d8004b0d4d455ae1745e0e43b553e41c60761002e821d"
+    },
+    "SOURCE/data/side_spilled_spice.json": {
+      "bytes": 2244,
+      "sha256": "196470cbedfbb3a91b3a731ff21cd0a16d603937df8a54434eb2164bdc6dcb67"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 390916,
+      "sha256": "dd92ee1ad746d6b96e05aa0ac8d5fbbd851c50b3bb662c4d6f297ed4200748aa"
+    },
+    "SOURCE/README.md": {
+      "bytes": 40829,
+      "sha256": "731a8043fecdf5adeb843b6031b3740b45a5172c5c8fbfb1c24e4352c3193d37"
+    }
+  },
+  "evidence": {
+    "LINE67_CHECKS.json": {
+      "bytes": 2852,
+      "sha256": "74b54493b0c71e1503b75aac7c76cef4c841dff8a6fcc2f67884e7482dbfd482"
+    }
+  }
+}

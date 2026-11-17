@@ -1,0 +1,114 @@
+{
+  "line": 67,
+  "lock": "LOCK 60 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 6839,
+    "total": 6839,
+    "failures": 0
+  },
+  "line_59_regression": {
+    "passed": 109,
+    "total": 109,
+    "failures": 0
+  },
+  "line_60_regression": {
+    "passed": 104,
+    "total": 104,
+    "failures": 0
+  },
+  "line_62_regression": {
+    "passed": 107,
+    "total": 107,
+    "failures": 0
+  },
+  "line_64_regression": {
+    "passed": 109,
+    "total": 109,
+    "failures": 0
+  },
+  "line_66_regression": {
+    "passed": 196,
+    "total": 196,
+    "failures": 0
+  },
+  "line_67": {
+    "passed": 388,
+    "total": 388,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "sl01_spilled_spice__a.png": "a",
+    "sl02_spilled_spice__b.png": "b",
+    "sl03_spilled_spice__truth.png": "truth",
+    "sl04_spilled_spice__lie.png": "lie",
+    "sl05_spilled_spice__silent.png": "silent"
+  },
+  "asserted": {
+    "entry": {
+      "town": "river_market",
+      "place": "spice",
+      "hidden_at": "weaver",
+      "visible_boundary_minutes": [
+        480,
+        1079
+      ],
+      "hidden_boundary_minutes": [
+        479,
+        1080
+      ],
+      "views": [
+        "market_map",
+        "game"
+      ]
+    },
+    "scene_copy": "The locked entry label, title, kicker, five scene texts, four choices and the runner's Back label.",
+    "each_outcome_tested_at_river_market_trust": [
+      10,
+      50,
+      80
+    ],
+    "remember_it": {
+      "next": "b",
+      "flags_added": [
+        "saw_spice"
+      ]
+    },
+    "outcomes": [
+      {
+        "ending": "truth",
+        "river_market_trust_delta": 6,
+        "what_people_say": [
+          [
+            "Spoke up for Faris at the spice row",
+            "Faris and Rashid",
+            1
+          ]
+        ]
+      },
+      {
+        "ending": "lie",
+        "river_market_trust_delta": -8,
+        "what_people_say": [
+          [
+            "Blamed Faris for the saffron",
+            "the spice row",
+            -1
+          ]
+        ]
+      },
+      {
+        "ending": "silent",
+        "river_market_trust_delta": -2,
+        "what_people_say": []
+      }
+    ],
+    "other_state": "The witness flag is preserved through the response. Coins, clock, Jisra trust and Jisra sayings stay unchanged.",
+    "completion": "Back records one Journal completion. The completed mission stays hidden on the next day.",
+    "person_dialogue": "LOCK 60 defines no standalone person dialogue."
+  },
+  "presentation_scope": "The masters use full-width actions and highlight the first choice. The existing LOCK 34 runner uses compact, unhighlighted side-mission actions. Q15 specifies headless rules evidence and assigns visual review to the design chat.",
+  "native_screenshots": 0
+}

@@ -591,3 +591,12 @@ At the River Market quay, **A dog is panting by the well** is available from
 10:00 up to 18:00. Giving the dog water takes 10 in-game minutes. Use **Back**
 on either ending to finish the mission and count it once in the **Journal**.
 The headless suite covers both responses at trust 10, 50 and 80.
+
+## LOCK 60 — The spilled spice
+
+At the River Market spice row, **Old Sulayman knocked over a sack** is available
+from 08:00 up to 18:00. Use **Remember it** to reach Rashid's question.
+Telling the truth or blaming Faris adds the corresponding account to
+**What people say**. Use **Back** on any ending to finish the mission once
+and count it in the **Journal**. The headless suite covers all three responses
+at trust 10, 50 and 80.
