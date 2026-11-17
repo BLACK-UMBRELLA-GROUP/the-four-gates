@@ -671,3 +671,11 @@ At the River Market inn, morning remembrance is available from 04:40 up to
 once per in-game day. **Finish** adds one to the same Journal goal of 1,000
 and advances the clock by five in-game minutes. All three scenes leave
 trust unchanged.
+
+## LOCK 79 — Four surahs with Idris
+
+After completing wudu with Idris, choose **Learn Al-Fatiha with Idris** at
+the River Market masjid from 07:00 up to 20:00. Al-Ikhlas, Al-Falaq and An-Nas
+follow in order, each becoming available on the next in-game calendar day
+after the preceding lesson. Choose **Recite it back** to finish each lesson
+once and add one to **Surahs learned with Idris** in the private Journal.

@@ -1,0 +1,32 @@
+{
+  "line": 86,
+  "lock": "LOCK 79 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 8157,
+    "total": 8157,
+    "failures": 0
+  },
+  "lock_79": {
+    "passed": 161,
+    "total": 161,
+    "failures": 0
+  },
+  "results": {
+    "data": "The indexed production file matches the locked JSON byte for byte and loads all four lessons and one Journal goal.",
+    "availability": "The live wudu choice unlocks Al-Fatiha. Al-Ikhlas, Al-Falaq and An-Nas unlock in order on the next calendar day after the prior lesson. All four enforce River Market masjid and the 07:00 inclusive to 20:00 exclusive window.",
+    "copy": "Titles, kickers, paragraphs and the sole Recite it back choice match the locked data. Design citations are hidden.",
+    "effects": "Each choice returns to its entry view, marks the lesson done, records the authored flag and adds one to the private count. River Market and Jisra trust, coins and time stay the same.",
+    "journal_and_save": "The private Surahs learned with Idris goal renders from 0 / 4 to 4 / 4. Save restoration preserves the flags, completion days and count, and completed lessons stay unavailable."
+  },
+  "presentation": {
+    "questions_answer": 15,
+    "native_windows": 0,
+    "native_screenshots": 0,
+    "exports": 0,
+    "master_review": "All four 1920 × 1080 masters were inspected. The lesson copy and choice labels agree with the locked JSON.",
+    "visual_difference": "The River Market runner uses a compact secondary choice. The masters show a full-width primary choice. Q15 assigns the visual comparison to the design chat."
+  },
+  "legacy_suite_dependency": "Two earlier suite checks read GAME/APPROVED/SCENE_RUNNER/RECORD/scene_runner_data_V2.json, a pre-existing working-copy reference outside this line’s commit."
+}

@@ -115,6 +115,10 @@ func _run() -> void:
 		await check_dhikr_runtime()
 		finish()
 		return
+	if "--surahs-only" in OS.get_cmdline_user_args():
+		await check_surahs_runtime()
+		finish()
+		return
 	check(app.ui.screen == "title", "launch opens the title")
 	check(visible_text().replace("\n", "").contains(data.title_screen.title), "title uses approved title text")
 	check(visible_text().contains(data.title_screen.line), "title uses approved subtitle")
@@ -224,6 +228,7 @@ func _run() -> void:
 	await check_adhan_rows_runtime()
 	await check_extra_prayers_runtime()
 	await check_dhikr_runtime()
+	await check_surahs_runtime()
 	finish()
 
 
@@ -4787,7 +4792,9 @@ func _check_single_runner_choice(mission: Dictionary, scene: Dictionary, choice:
 	check(has_visible_label(app.ui, mission.title) and has_visible_label(app.ui, str(mission.kicker).to_upper()),
 		"the scene shows the exact locked title and kicker")
 	var copy := visible_text()
-	check(copy.split("\n").has(scene.text), "the scene shows the exact locked dialogue")
+	var paragraphs := PackedStringArray(scene.text if scene.text is Array else [scene.text])
+	check(("\n" + copy + "\n").contains("\n" + "\n".join(paragraphs) + "\n"),
+		"the scene shows the exact locked dialogue in order")
 	if not reference.is_empty():
 		check(not copy.contains(reference), "the design reference stays out of the player-facing text")
 	check(runner.choices(app, mission, scene) == [choice] and find_button(app.ui, choice.label) != null
@@ -5052,6 +5059,112 @@ func check_dhikr_runtime() -> void:
 	var added_failures := failures - failures_before
 	print("LOCK 78 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
 		" passed; failures=", added_failures)
+
+
+func check_surahs_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/SURAHS/RECORD/surahs_data_V1.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/surahs.json") == locked,
+		"the runtime surahs data is byte-identical to LOCK 79")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner = app.scene_runner
+	var loaded: bool = approved is Dictionary and approved.missions.size() == 4 and approved.missions.all(
+		func(mission: Dictionary) -> bool: return runner.missions.get(mission.id) == mission)
+	check(loaded, "the production content index loads all four locked surah missions")
+	if not loaded:
+		return
+
+	var missions: Array = approved.missions
+	var goal: Dictionary = approved.goals[0]
+	var words: Dictionary = runner.data.words
+	const FIRST_DAY := 3
+	const LESSON_TIME := 480
+	const TRUST := 50
+	const COINS := 198
+	app.set_process(false)
+	reset_at_market_place(missions[0].place, COINS, FIRST_DAY)
+	app.progress.apply_trust(TRUST - app.progress.trust)
+	app.idris_met = true
+	set_market_day_time(FIRST_DAY, LESSON_TIME)
+	var jisra_trust: int = runner.town_trust(app, "jisra")
+	for mission: Dictionary in missions:
+		check(find_button(app.ui, mission.button) == null, "%s is hidden before its prerequisite" % mission.id)
+
+	var wudu: Dictionary = runner.missions.wudu_lesson
+	await press_button(wudu.button, "open the live wudu lesson")
+	await press_button(wudu.scenes[wudu.start].choices[0].label, "complete the live wudu lesson")
+	check(runner.has_flag(app, missions[0].after[0]), "the live wudu lesson grants the first prerequisite")
+	var expected_journal: Dictionary = runner.journal(app)
+	var goal_row := {"label": goal.label, "n": 0, "m": int(goal.m)}
+	var goal_index: int = expected_journal.goals.find(goal_row)
+	check(goal_index >= 0 and runner.data.goals.count(goal) == 1,
+		"the Journal starts with one zero-count row at the locked surahs target")
+	await _check_surahs_journal(words, goal_row)
+
+	for index in range(missions.size()):
+		var mission: Dictionary = missions[index]
+		var day := FIRST_DAY + index
+		_check_runner_mission_hours(mission, day)
+		set_market_day_time(day, LESSON_TIME)
+		for lesson: Dictionary in missions:
+			check((find_button(app.ui, lesson.button) != null) == (lesson.id == mission.id),
+				"%s availability in the sequence on day %d" % [lesson.id, day])
+		var origin := "game" if index % 2 == 0 else "market_map"
+		app.show_screen(origin)
+		var expected_state: Dictionary = runner.state()
+		var scene: Dictionary = mission.scenes[mission.start]
+		var choice: Dictionary = scene.choices[0]
+		await press_button(mission.button, "open the locked lesson: " + str(mission.title))
+		_check_single_runner_choice(mission, scene, choice, approved.design_reference_not_shown[mission.id])
+		check(runner.state() == expected_state and app.day == day and app.minute_of_day == LESSON_TIME,
+			"opening the lesson leaves the state and clock unchanged")
+		await press_button(choice.label, "recite the locked lesson: " + str(mission.title))
+		expected_state.done[mission.id] = day
+		expected_state.flags[choice.fx.flag] = day
+		expected_state.counters[goal.id] = index + 1
+		check(runner.state() == expected_state and runner.mission_done(app, mission.id),
+			"%s adds only its completion, prerequisite flag and one lesson to the private count" % mission.id)
+		check(app.ui.screen == origin and app.day == day and app.minute_of_day == LESSON_TIME,
+			"%s returns to its entry view without advancing the clock" % mission.id)
+		check_wallet(TRUST, COINS, "%s leaves River Market trust and coins unchanged" % mission.id)
+		check(runner.town_trust(app, "jisra") == jisra_trust, "%s leaves Jisra trust unchanged" % mission.id)
+		for lesson: Dictionary in missions:
+			check(find_button(app.ui, lesson.button) == null,
+				"%s remains hidden after the lesson on day %d" % [lesson.id, day])
+
+		goal_row.n = index + 1
+		if goal_index >= 0:
+			expected_journal.goals[goal_index] = goal_row.duplicate()
+			check(runner.journal(app) == expected_journal, "reciting advances only the private surahs goal")
+		await _check_surahs_journal(words, goal_row)
+
+	var saved := MarketSave.snapshot(app)
+	app.begin_game()
+	MarketSave.restore(app, saved)
+	app.show_screen("market_map")
+	check(runner.state() == saved.scene_runner and runner.journal(app) == expected_journal,
+		"save restoration preserves the lesson flags, completion days and private count")
+	set_market_day_time(FIRST_DAY + missions.size(), LESSON_TIME)
+	for mission: Dictionary in missions:
+		check(runner.mission_done(app, mission.id) and find_button(app.ui, mission.button) == null,
+			"%s stays complete on a later day after loading" % mission.id)
+	await _check_surahs_journal(words, goal_row)
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 79 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_surahs_journal(words: Dictionary, goal_row: Dictionary) -> void:
+	var origin: String = app.ui.screen
+	check(not has_visible_label(app.ui, goal_row.label), "the surahs goal is private outside the Journal")
+	await press_button(words.journal_button, "open the private Journal for the surahs count")
+	check(app.ui.screen == "journal" and has_visible_label(app.ui, goal_row.label)
+		and has_visible_label(app.ui, words.journal.count.format(goal_row)),
+		"the Journal renders the locked surahs goal and count: %d / %d" % [goal_row.n, goal_row.m])
+	await press_button(words.journal.back, "close the private Journal")
+	check(app.ui.screen == origin, "closing the Journal returns to the previous market view")
 
 
 func check_jisra_people_runtime() -> void:

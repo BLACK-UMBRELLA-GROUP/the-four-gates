@@ -1,0 +1,81 @@
+{
+  "line": 86,
+  "lock": "LOCK 79 V1",
+  "brief": "DOC-TFG-0249",
+  "questions_answer_rows": [
+    15
+  ],
+  "tested_base_commit_sha": "1369f1a06cbc5fe293decbed5abe8eafe0374784",
+  "tested_source": "The tested base plus the line 86 source changes and the pre-existing working-copy reference below. The containing commit is recorded in the daily task note.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T15:46:14Z",
+  "checks_passed": {
+    "headless_full_suite": 8157,
+    "lock_79_subset": 161
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SURAHS/BRIEFS/BUILD_BRIEF_2026-11-09_SURAHS.md": {
+      "bytes": 2445,
+      "sha256": "038817d78b8b4ab376873052f94dbf5298b56d5c3a978e5bdf4726fdeb4c002a"
+    },
+    "GAME/APPROVED/SURAHS/RECORD/SURAHS_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 4007,
+      "sha256": "00bf5c4850e34d916961a2f683bc192446d433f5f87648ebc67d0e819b1c70e0"
+    },
+    "GAME/APPROVED/SURAHS/RECORD/LOCK_RECORD.md": {
+      "bytes": 712,
+      "sha256": "1027e7e0b448a9c98a793144ccde61b861725ff4fa3ed81ba1c4996e82c625ad"
+    },
+    "GAME/APPROVED/SURAHS/RECORD/surahs_data_V1.json": {
+      "bytes": 3671,
+      "sha256": "4faa89f64ec39ea3080c10e54f330eaed06495ec94adfc26da9abb393e619e6d"
+    },
+    "GAME/APPROVED/SURAHS/MASTERS/df01_surah_fatiha__a.png": {
+      "bytes": 316976,
+      "sha256": "852f655d14e6abbc50bb3f8e972ead013adfa7131a5061313f8ac8fd24f93e88"
+    },
+    "GAME/APPROVED/SURAHS/MASTERS/df02_surah_ikhlas__a.png": {
+      "bytes": 318377,
+      "sha256": "4fbbb2fe80cc73a4e940664d2c9f27e218e224f2089ca101b584d6fada199a5e"
+    },
+    "GAME/APPROVED/SURAHS/MASTERS/df03_surah_falaq__a.png": {
+      "bytes": 320346,
+      "sha256": "07edd1b0b38356ccc3c4ecac74c91149ba0857daa85536a273c4817f643b2b0e"
+    },
+    "GAME/APPROVED/SURAHS/MASTERS/df04_surah_nas__a.png": {
+      "bytes": 320251,
+      "sha256": "e676a7fc42d5a1070fb0c9f3a3c55d7b4b7d718af1dc580c0428903ab0fc649f"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 45053,
+      "sha256": "791e7c97aeb704d385d2c2895d6142d9506568364624084a7f63f2023c03cc13"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 399,
+      "sha256": "cc6cfeab3879e35e300def9836d2ebceb3acae699a84b2b3cf46d22d9ee0160e"
+    },
+    "SOURCE/data/surahs.json": {
+      "bytes": 3671,
+      "sha256": "4faa89f64ec39ea3080c10e54f330eaed06495ec94adfc26da9abb393e619e6d"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 454392,
+      "sha256": "771f10a2e96eb7b748c024fbee4c012611509eed2bd596a610b0069e70ad2a45"
+    }
+  },
+  "legacy_suite_reference_at_test": {
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/scene_runner_data_V2.json": {
+      "bytes": 2496,
+      "sha256": "b1c9cb7a12ec13ec491cd33e4170f96890a4d4b3f06863373c1edb2d8b769bdf"
+    }
+  },
+  "evidence": {
+    "LINE86_CHECKS.json": {
+      "bytes": 1858,
+      "sha256": "d760fd6a93b8f98567a2aa58d1a811daf0c73d73e76e1405dfcfd2d59399dd90"
+    }
+  }
+}
