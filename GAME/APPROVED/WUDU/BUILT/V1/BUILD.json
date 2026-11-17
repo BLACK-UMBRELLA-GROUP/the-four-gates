@@ -1,0 +1,67 @@
+{
+  "line": 81,
+  "lock": "LOCK 74 V1",
+  "brief": "DOC-TFG-0234",
+  "questions_answer_rows": [
+    15
+  ],
+  "tested_base_commit_sha": "c9c98fd9700dc45c4a9f6e9db40248d7ea51f0d7",
+  "tested_source": "The base commit with the source changes identified by SHA-256 below. The 17 November task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T15:09:03Z",
+  "checks_passed": {
+    "headless_full_suite": 7775,
+    "lock_74_subset": 40
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/WUDU/BRIEFS/BUILD_BRIEF_2026-11-09_WUDU.md": {
+      "bytes": 2415,
+      "sha256": "e9270d21377120c345065e41adf2efe3b5c643cff1fada18b2b6f1ac38723b7f"
+    },
+    "GAME/APPROVED/WUDU/RECORD/LOCK_RECORD.md": {
+      "bytes": 697,
+      "sha256": "3b0840e7f9130af6a5231115c85a29a6eb4b3f9b100df0011000ebb18009105f"
+    },
+    "GAME/APPROVED/WUDU/RECORD/WUDU_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3016,
+      "sha256": "95f87d1892e74e8d5723061d449a3fdae961c9a04108e281d7ce2fac9d8e580d"
+    },
+    "GAME/APPROVED/WUDU/RECORD/wudu_data_V1.json": {
+      "bytes": 1082,
+      "sha256": "13e0ade3bdecb9fbbcdf006a39bf49dec574e4921e9a9437259fbe101c84c01e"
+    },
+    "GAME/APPROVED/WUDU/MASTERS/da01_wudu_lesson__a.png": {
+      "bytes": 318999,
+      "sha256": "54b819bcb796be30a5f65d780e84ded5ad90e44f29a671644177cb2fe74b8ea4"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 313,
+      "sha256": "6dfcc94ee9789e0d4da6619e65cd84fbc24390c28e617bc5ea3e882c479fd592"
+    },
+    "SOURCE/data/wudu.json": {
+      "bytes": 1082,
+      "sha256": "13e0ade3bdecb9fbbcdf006a39bf49dec574e4921e9a9437259fbe101c84c01e"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 15365,
+      "sha256": "faeee28706f55d6b4ac20d388dc62d51a2e12875844fd8582f87543c3513d5cf"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 427160,
+      "sha256": "219fc8c792ee9ef9bcff85af4bce0b2eac27aee3741679bc2395391a83ec5018"
+    },
+    "SOURCE/README.md": {
+      "bytes": 43081,
+      "sha256": "8c0e0f0640d07ce784e336930cd249ef8679e83f506aa35bc7228050db775c9a"
+    }
+  },
+  "evidence": {
+    "LINE81_CHECKS.json": {
+      "bytes": 1651,
+      "sha256": "74159680964e669d7b34a47e233cfd3809b74a3243c62f8c40d8d49b96644e48"
+    }
+  }
+}

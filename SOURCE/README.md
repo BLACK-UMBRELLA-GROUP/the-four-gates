@@ -634,3 +634,10 @@ trust. Paying two coins for a straw bed adds three trust. Both choices add
 the inn's account to **What people say**. Going to bed leaves coins, trust
 and the inn's accounts as they were. Use **Back** on any ending to finish the
 mission once and count it in the **Journal**.
+
+## LOCK 74 — Wudu with Idris
+
+After meeting Idris, choose **Idris will show you wudu** at the River Market
+masjid from 05:00 up to 21:00. **Make wudu with him** advances the clock by
+five in-game minutes and finishes the lesson once. The lesson leaves trust,
+coins and Journal totals unchanged.

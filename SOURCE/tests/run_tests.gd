@@ -99,6 +99,10 @@ func _run() -> void:
 		await check_jisra_people_runtime()
 		finish()
 		return
+	if "--wudu-only" in OS.get_cmdline_user_args():
+		await check_wudu_runtime()
+		finish()
+		return
 	check(app.ui.screen == "title", "launch opens the title")
 	check(visible_text().replace("\n", "").contains(data.title_screen.title), "title uses approved title text")
 	check(visible_text().contains(data.title_screen.line), "title uses approved subtitle")
@@ -204,6 +208,7 @@ func _run() -> void:
 	await check_side_archery_runtime()
 	await check_side_stranger_runtime()
 	await check_jisra_people_runtime()
+	await check_wudu_runtime()
 	finish()
 
 
@@ -4540,6 +4545,122 @@ func _check_stranger_outcome(mission: Dictionary, trust: int, choice_index: int,
 		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
 		"the Journal counts the stranger mission exactly once")
 	await press_button(words.journal.back, "the Journal returns to the market")
+
+
+func check_wudu_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/WUDU/RECORD/wudu_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/wudu.json")
+	check(not locked.is_empty() and runtime == locked, "Wudu data is the byte-identical LOCK 74 file")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner = app.scene_runner
+	var mission: Dictionary = runner.missions.get("wudu_lesson", {})
+	check(approved is Dictionary and not mission.is_empty() and mission == approved.missions[0],
+		"the production index loads the locked Wudu mission")
+	if not approved is Dictionary or mission.is_empty():
+		return
+
+	app.set_process(false)
+	const DAY := 8
+	const LESSON_TIME := 6 * 60
+	const COINS := 198
+	const TRUST := 50
+	reset_at_market_place(mission.place, COINS, DAY)
+	app.progress.apply_trust(TRUST - app.progress.trust)
+	set_market_day_time(DAY, 10 * 60)
+	check(not runner.has_flag(app, "met_teacher") and find_button(app.ui, mission.button) == null,
+		"the Masjid hides the lesson before meeting Idris")
+	await press_button(identity.clock.masjid_actions.none_yet, "start the actual Idris meeting")
+	app.choose_idris(0)
+	app.continue_idris()
+	app.leave_idris()
+	check(not runner.has_flag(app, "met_teacher") and find_button(app.ui, mission.button) == null,
+		"leaving the meeting early keeps the lesson hidden")
+	await press_button(identity.clock.masjid_actions.none_yet, "return to finish meeting Idris")
+	for beat in identity.teacher.beats:
+		app.choose_idris(0)
+		app.continue_idris()
+	app.leave_idris()
+	check(runner.has_flag(app, "met_teacher") and find_button(app.ui, mission.button) != null,
+		"finishing the actual Idris meeting unlocks the Masjid lesson")
+
+	var opens := int(mission.hours[0])
+	var closes := int(mission.hours[1])
+	for minute: int in [opens - 1, opens, closes - 1, closes]:
+		set_market_day_time(DAY, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= opens and minute < closes),
+			"the lesson follows the locked Masjid hours at minute %d" % minute)
+	set_market_day_time(DAY, LESSON_TIME)
+	move_market_fixture("gate")
+	check(find_button(app.ui, mission.button) == null, "the lesson is unavailable away from the Masjid")
+	check(runner.available_missions(app, "jisra", mission.place).all(
+		func(available: Dictionary) -> bool: return available.id != mission.id),
+		"the lesson belongs only to the River Market")
+	move_market_fixture(mission.place)
+	app.show_screen("game")
+	check(find_button(app.ui, mission.button) != null, "the walking view also offers the Masjid lesson")
+	app.show_screen("market_map")
+
+	var journal_before: Dictionary = runner.journal(app)
+	var state_before: Dictionary = runner.state()
+	var locked_runner: Dictionary = JSON.parse_string(
+		FileAccess.get_file_as_string("res://data/scene_runner.json"))
+	check(approved.goals.is_empty() and not journal_before.goals.is_empty()
+		and runner.data.goals == locked_runner.goals,
+		"the empty Wudu goals list preserves all existing Journal goals")
+	var jisra_trust: int = runner.town_trust(app, "jisra")
+	var scene: Dictionary = mission.scenes[mission.start]
+	var choice: Dictionary = scene.choices[0]
+	await press_button(mission.button, "open the lesson from the River Market map")
+	check(app.ui.screen == "runner_mission" and app.runner_scene() == scene
+		and has_visible_label(app.ui, mission.title)
+		and has_visible_label(app.ui, str(mission.kicker).to_upper()),
+		"the lesson opens with the exact locked title and kicker")
+	var lesson_text := visible_text().split("\n")
+	for paragraph: String in scene.text:
+		check(lesson_text.has(paragraph), "the lesson shows the exact locked paragraph")
+	check(runner.choices(app, mission, scene) == [choice]
+		and find_button(app.ui, runner.data.words.scene_back) == null,
+		"the opening offers only the locked choice")
+	check(not visible_text().contains(approved.design_reference_not_shown[mission.id]),
+		"the design reference stays out of the game text")
+
+	await press_button(choice.label, "make wudu with Idris")
+	var after: Dictionary = runner.state()
+	check(app.ui.screen == "market_map" and runner.mission_done(app, mission.id)
+		and int(after.done.get(mission.id, 0)) == DAY, "the choice closes the scene and completes the one-time lesson")
+	check(app.day == DAY and app.minute_of_day == LESSON_TIME + int(choice.fx.minutes),
+		"the lesson advances the clock by the locked five minutes")
+	check(after.flags == state_before.flags.merged({choice.fx.flag: DAY}),
+		"the lesson adds only the locked flag")
+	check_wallet(TRUST, COINS, "the lesson leaves River Market trust and coins unchanged")
+	check(runner.town_trust(app, "jisra") == jisra_trust and after.trust == state_before.trust
+		and after.sayings == state_before.sayings and after.counters == state_before.counters,
+		"the lesson adds no town trust, public accounts or private counters")
+	check(find_button(app.ui, mission.button) == null, "the completed lesson leaves the Masjid actions")
+
+	var words: Dictionary = runner.data.words
+	await press_button(words.journal_button, "open the Journal after the lesson")
+	check(app.ui.screen == "journal" and runner.journal(app) == journal_before,
+		"the completed lesson leaves Journal chapter progress, side totals and lifetime goals unchanged")
+	for goal: Dictionary in journal_before.goals:
+		check(has_visible_label(app.ui, goal.label), "the Journal still renders the existing goal: " + goal.label)
+	await press_button(words.journal.back, "close the Journal")
+	set_market_day_time(DAY + 1, LESSON_TIME)
+	check(find_button(app.ui, mission.button) == null, "the lesson stays complete on the next day")
+	var saved := MarketSave.snapshot(app)
+	app.begin_game()
+	MarketSave.restore(app, saved)
+	app.show_screen("market_map")
+	check(runner.has_flag(app, "met_teacher") and runner.has_flag(app, choice.fx.flag)
+		and runner.mission_done(app, mission.id) and find_button(app.ui, mission.button) == null,
+		"loading a save restores the Idris prerequisite and completed lesson")
+
+	app.set_process(true)
+	var failures_added := failures - failures_before
+	print("LOCK 74 TESTS: ", checks - checks_before - failures_added, "/", checks - checks_before,
+		" passed; failures=", failures_added)
 
 
 func check_jisra_people_runtime() -> void:

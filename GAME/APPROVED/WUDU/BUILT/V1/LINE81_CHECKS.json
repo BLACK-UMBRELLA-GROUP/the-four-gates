@@ -1,0 +1,52 @@
+{
+  "line": 81,
+  "lock": "LOCK 74 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 7775,
+    "total": 7775,
+    "failures": 0
+  },
+  "line_81": {
+    "passed": 40,
+    "total": 40,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "da01_wudu_lesson__a.png": "a"
+  },
+  "asserted": {
+    "entry": {
+      "town": "river_market",
+      "place": "masjid",
+      "visible_boundary_minutes": [
+        300,
+        1259
+      ],
+      "hidden_boundary_minutes": [
+        299,
+        1260
+      ],
+      "prerequisite": "Only completing the actual Idris meeting unlocks the lesson. An unfinished meeting leaves it hidden.",
+      "views": [
+        "market_map",
+        "game"
+      ]
+    },
+    "scene_copy": "Production mission entry, title, kicker, both exact paragraphs and the sole locked choice. The design reference stays out of the game.",
+    "choice": {
+      "label": "Make wudu with him",
+      "minutes": 5,
+      "flag": "wudu_learned",
+      "completes_and_leaves_scene": true,
+      "trust_delta": 0,
+      "coin_delta": 0
+    },
+    "completion": "The action stays hidden on completion, the next day and after save restoration.",
+    "journal": "Existing goals remain indexed and visible. The lesson adds no chapter progress, side completion, goal progress, private counter or public account."
+  },
+  "presentation": "The Godot River Market runner uses its compact secondary choice. The master shows a full-width primary choice. Q15 assigns visual comparison to the design chat.",
+  "native_screenshots": 0
+}

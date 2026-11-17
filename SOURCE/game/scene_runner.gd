@@ -40,6 +40,10 @@ static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 					_merge_records(content[key], document[key])
 				"town_says":
 					_merge_town_sayings(content.town_says, document[key])
+				"goals":
+					# A content pack with no goals leaves earlier Journal goals in place.
+					if not document.goals.is_empty() or not content.has("goals"):
+						content.goals = document.goals
 				_:
 					var earlier: Variant = content.get(key)
 					var later: Variant = document[key]
@@ -126,6 +130,8 @@ func observe_builtin_flags(app) -> void:
 
 
 func has_flag(app, id: String) -> bool:
+	if id == "met_teacher":
+		return app.idris_met
 	if id == "gate_opened":
 		return app.progress.gate_open
 	if id.begins_with("toll:"):
