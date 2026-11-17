@@ -195,6 +195,7 @@ func _run() -> void:
 	await check_side_neighbours_wall_runtime()
 	await check_side_creditor_runtime()
 	await check_side_drowning_boy_runtime()
+	await check_side_thirsty_dog_runtime()
 	finish()
 
 
@@ -4104,6 +4105,104 @@ func _check_drowning_boy_outcome(mission: Dictionary, index: int, outcome: Dicti
 	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
 		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
 		"the Journal counts the drowning boy mission exactly once")
+	await press_button(words.journal.back, "the Journal returns to the market")
+
+
+func check_side_thirsty_dog_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/SIDE_THIRSTY_DOG/RECORD/side_thirsty_dog_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/side_thirsty_dog.json")
+	check(not locked.is_empty() and runtime == locked, "thirsty dog data is the byte-identical LOCK 59 file")
+	var mission: Dictionary = app.scene_runner.missions.get("thirsty_dog", {})
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	check(approved is Dictionary and mission == approved.missions[0],
+		"the production index loads the locked thirsty dog mission")
+	if mission.is_empty():
+		return
+
+	app.set_process(false)
+	reset_at_market_place("quay", 198, 8)
+	for minute: int in [599, 600, 1079, 1080]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 600 and minute < 1080),
+			"the thirsty dog button follows the locked hours at minute %d" % minute)
+	set_market_day_time(8, 11 * 60)
+	move_market_fixture("weaver")
+	check(find_button(app.ui, mission.button) == null, "the thirsty dog button is hidden away from the quay")
+	move_market_fixture("quay")
+	app.show_screen("game")
+	await press_button(mission.button, "the thirsty dog mission opens from the quay walking view")
+	_check_side_mission_scene(mission, mission.scenes.a)
+
+	for trust: int in [10, 50, 80]:
+		await _check_thirsty_dog_outcome(mission, trust, 0, "drink", 10, true)
+		await _check_thirsty_dog_outcome(mission, trust, 1, "on", 0, false)
+
+	app.set_process(true)
+	var failures_added := failures - failures_before
+	print("LOCK 59 TESTS: ", checks - checks_before - failures_added, "/", checks - checks_before,
+		" passed; failures=", failures_added)
+
+
+func _check_thirsty_dog_outcome(mission: Dictionary, trust: int, choice_index: int, ending_id: String,
+		minutes: int, watered: bool) -> void:
+	const COINS := 198
+	const DAY := 8
+	const START_MINUTE := 11 * 60
+	reset_at_market_place("quay", COINS, DAY)
+	app.progress.apply_trust(trust - app.progress.trust)
+	set_market_day_time(DAY, START_MINUTE)
+	var runner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var initial_side: Dictionary = runner.journal(app).side
+	var expected_flags: Dictionary = runner.state().flags.duplicate()
+	var jisra_trust: int = runner.town_trust(app, "jisra")
+	if watered:
+		expected_flags["dog_watered"] = DAY
+
+	var opening: Dictionary = mission.scenes.a
+	await press_button(mission.button, "the quay opens the thirsty dog mission at trust %d" % trust)
+	_check_side_mission_scene(mission, opening)
+	for choice: Dictionary in opening.choices:
+		check(find_button(app.ui, choice.label) != null, "the opening shows the locked choice: " + choice.label)
+	check(find_button(app.ui, words.scene_back) == null, "the opening offers choices before Back")
+
+	await press_button(opening.choices[choice_index].label, "choose the locked thirsty dog response: " + ending_id)
+	var ending: Dictionary = mission.scenes[ending_id]
+	check(app.runner_scene() == ending, "the response opens the intended ending: " + ending_id)
+	_check_side_mission_scene(mission, ending)
+	for choice: Dictionary in opening.choices:
+		check(find_button(app.ui, choice.label) == null, "the ending removes the opening choice: " + choice.label)
+	check_wallet(trust, COINS, "the response leaves River Market trust and coins unchanged")
+	check(app.day == DAY and app.minute_of_day == START_MINUTE + minutes,
+		"the response advances the clock only by its locked duration")
+	check(runner.state().flags == expected_flags and runner.has_flag(app, "dog_watered") == watered,
+		"the response sets only its locked flag")
+	check(runner.town_sayings("river_market").is_empty(), "neither response adds a River Market account")
+	check(runner.town_trust(app, "jisra") == jisra_trust and runner.town_sayings("jisra").is_empty(),
+		"neither response changes Jisra's trust or sayings")
+	check(not runner.mission_done(app, mission.id) and runner.journal(app).side == initial_side,
+		"the ending waits for Back before counting completion")
+
+	await press_button(words.scene_back, "Back leaves the ending and completes the thirsty dog mission")
+	check(app.ui.screen == "market_map" and runner.mission_done(app, mission.id),
+		"the thirsty dog mission is done on return to the market")
+	check(runner.has_flag(app, "dog_watered") == watered, "completion preserves the response's flag state")
+	check(find_button(app.ui, mission.button) == null, "the finished mission disappears from the quay")
+	set_market_day_time(DAY + 1, START_MINUTE)
+	check(find_button(app.ui, mission.button) == null, "the mission stays finished the next day")
+
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say after the thirsty dog mission")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines().is_empty()
+		and visible_text().contains(app.chapter.rep.empty), "What people say stays empty after either response")
+	await press_button(app.chapter.rep.to_map, "What people say returns to the market")
+	await press_button(words.journal_button, "open the Journal after the thirsty dog mission")
+	var completed: Dictionary = runner.journal(app).side
+	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
+		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
+		"the Journal counts the thirsty dog mission exactly once")
 	await press_button(words.journal.back, "the Journal returns to the market")
 
 

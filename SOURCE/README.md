@@ -584,3 +584,10 @@ At the River Market quay, **Someone is shouting at the canal** is available from
 the mission and count it once in the **Journal**. Jumping in or throwing a rope
 adds the boatmen's account to **What people say**. The headless suite covers all
 three responses.
+
+## LOCK 59 — A thirsty dog
+
+At the River Market quay, **A dog is panting by the well** is available from
+10:00 up to 18:00. Giving the dog water takes 10 in-game minutes. Use **Back**
+on either ending to finish the mission and count it once in the **Journal**.
+The headless suite covers both responses at trust 10, 50 and 80.

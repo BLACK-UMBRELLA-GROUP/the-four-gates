@@ -1,0 +1,86 @@
+{
+  "line": 66,
+  "lock": "LOCK 59 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 6451,
+    "total": 6451,
+    "failures": 0
+  },
+  "line_59_regression": {
+    "passed": 109,
+    "total": 109,
+    "failures": 0
+  },
+  "line_60_regression": {
+    "passed": 104,
+    "total": 104,
+    "failures": 0
+  },
+  "line_62_regression": {
+    "passed": 107,
+    "total": 107,
+    "failures": 0
+  },
+  "line_64_regression": {
+    "passed": 109,
+    "total": 109,
+    "failures": 0
+  },
+  "line_66": {
+    "passed": 196,
+    "total": 196,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "sk01_thirsty_dog__a.png": "a",
+    "sk02_thirsty_dog__drink.png": "drink",
+    "sk03_thirsty_dog__on.png": "on"
+  },
+  "asserted": {
+    "entry": {
+      "place": "quay",
+      "hidden_at": "weaver",
+      "visible_boundary_minutes": [
+        600,
+        1079
+      ],
+      "hidden_boundary_minutes": [
+        599,
+        1080
+      ],
+      "views": [
+        "market_map",
+        "game"
+      ]
+    },
+    "scene_copy": "The locked title, kicker, three scene texts, both opening choices and the runner's Back label.",
+    "each_outcome_tested_at_river_market_trust": [
+      10,
+      50,
+      80
+    ],
+    "outcomes": [
+      {
+        "ending": "drink",
+        "clock_delta_minutes": 10,
+        "flags_added": [
+          "dog_watered"
+        ]
+      },
+      {
+        "ending": "on",
+        "clock_delta_minutes": 0,
+        "flags_added": []
+      }
+    ],
+    "trust_and_coins": "Both responses leave coins and trust unchanged. Verified in River Market and for Jisra trust.",
+    "sayings": "Both paths leave What people say empty, with no River Market or Jisra sayings added.",
+    "completion": "Back records one Journal completion. The completed mission stays hidden on the next day.",
+    "person_dialogue": "LOCK 59 defines no person dialogue."
+  },
+  "presentation_scope": "The three masters show full-width actions and highlight the first opening choice. The existing runner uses compact side-mission actions. Q15 assigns visual review to the design chat.",
+  "native_screenshots": 0
+}

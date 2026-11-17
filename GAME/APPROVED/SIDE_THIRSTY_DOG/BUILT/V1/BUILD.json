@@ -1,0 +1,72 @@
+{
+  "line": 66,
+  "lock": "LOCK 59 V1",
+  "brief": "DOC-TFG-0189",
+  "questions_answer_rows": [
+    15,
+    17
+  ],
+  "tested_base_commit_sha": "3d81d970e7c9d5288fac09557350b7509362f34d",
+  "tested_source": "Base commit plus the changed source files identified by SHA-256 below. The containing commit is recorded in the 17 Nov task note.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T12:49:12Z",
+  "checks_passed": {
+    "headless_full_suite": 6451,
+    "lock_59_subset": 196
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SIDE_THIRSTY_DOG/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_THIRSTY_DOG.md": {
+      "bytes": 2662,
+      "sha256": "7aac1a46c2f53ab9424e33fea88e1432e95d5abbea8c66c7ab9d2f635c6153d9"
+    },
+    "GAME/APPROVED/SIDE_THIRSTY_DOG/RECORD/LOCK_RECORD.md": {
+      "bytes": 757,
+      "sha256": "a5fbb6a546dfe1dcf0128e214651ea212f6694e96acf013915c9b2c97c98d364"
+    },
+    "GAME/APPROVED/SIDE_THIRSTY_DOG/RECORD/SIDE_THIRSTY_DOG_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3317,
+      "sha256": "a79c50e73b8a587f59b3086c44f7f7af72d79149e425edab041ed2fdf78f395a"
+    },
+    "GAME/APPROVED/SIDE_THIRSTY_DOG/RECORD/side_thirsty_dog_data_V1.json": {
+      "bytes": 1265,
+      "sha256": "0a152bef718630ba452a16967b1ec7d0432f0b392bffe845b7823e9f04b8500d"
+    },
+    "GAME/APPROVED/SIDE_THIRSTY_DOG/MASTERS/sk01_thirsty_dog__a.png": {
+      "bytes": 301516,
+      "sha256": "e21da601da18f80ff9beb4e9bfce6eb8769bd756a2d2079b1eeaba50117ecefb"
+    },
+    "GAME/APPROVED/SIDE_THIRSTY_DOG/MASTERS/sk02_thirsty_dog__drink.png": {
+      "bytes": 312956,
+      "sha256": "26fa0e529f0e3bedae3ea27c63165081e89232e8b137f294be66fa38c9bce458"
+    },
+    "GAME/APPROVED/SIDE_THIRSTY_DOG/MASTERS/sk03_thirsty_dog__on.png": {
+      "bytes": 307358,
+      "sha256": "49c5cf305e07a600fd55a24bfdb42014e8779db618c05fe776ba270cd221a452"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 189,
+      "sha256": "039c5a9c8e5fc93afb3a4686118ac1bba8f3b5a27869230095d8f9a21b53800a"
+    },
+    "SOURCE/data/side_thirsty_dog.json": {
+      "bytes": 1265,
+      "sha256": "0a152bef718630ba452a16967b1ec7d0432f0b392bffe845b7823e9f04b8500d"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 384467,
+      "sha256": "da653c7eeb780833379cb9a7e3e52fd86cb9838bb8876a0b0056163c45d80f2c"
+    },
+    "SOURCE/README.md": {
+      "bytes": 40394,
+      "sha256": "0e631bdbd70e7f93904d900d9c2d8746e5a0008ac06dbafbf00f35c5ccfabb1d"
+    }
+  },
+  "evidence": {
+    "LINE66_CHECKS.json": {
+      "bytes": 2219,
+      "sha256": "fd0b62c8539e02eba27cfbb3ae46382efeed9aa0697fb32f2bb21a3f4a6ae8e4"
+    }
+  }
+}
