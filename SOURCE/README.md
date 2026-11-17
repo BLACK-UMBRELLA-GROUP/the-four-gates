@@ -576,3 +576,11 @@ At the River Market quay, **Zahir is beating Fadil at the quay** is available fr
 then use **Back** on the ending to finish the mission and count it once in the
 **Journal**. Pulling them apart or paying adds the corresponding account to
 **What people say**. The headless suite covers all three responses.
+
+## LOCK 57 — A boy drowning in the canal
+
+At the River Market quay, **Someone is shouting at the canal** is available from
+10:00 up to 18:00. Choose a response, then use **Back** on the ending to finish
+the mission and count it once in the **Journal**. Jumping in or throwing a rope
+adds the boatmen's account to **What people say**. The headless suite covers all
+three responses.

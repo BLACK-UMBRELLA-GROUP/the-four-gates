@@ -1,0 +1,73 @@
+{
+ "version": "LOCK 57 V1 (9 Nov 2026) - side mission: A boy drowning in the canal",
+ "builds_on": "LOCK 34 runner; LOCK 3 and LOCK 6 regulars; River Market places (LOCK 1). Each mission is its own LOCK and queue line.",
+ "design_reference_not_shown": "Quran 5:32",
+ "missions": [
+  {
+   "id": "drowning_boy",
+   "lock": 57,
+   "place": "quay",
+   "hours": [
+    600,
+    1080
+   ],
+   "side": true,
+   "title": "A boy drowning in the canal",
+   "kicker": "River Market · A boy drowning in the canal",
+   "button": "Someone is shouting at the canal",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Ali, one of the quay boys, has slipped off the steps into the canal. He can't swim and the current is pulling him toward the boats.",
+     "choices": [
+      {
+       "label": "Jump in after him",
+       "go": "jump",
+       "fx": {
+        "trust": 10,
+        "minutes": 30,
+        "flag": "saved_ali",
+        "say": "saved"
+       }
+      },
+      {
+       "label": "Throw a rope from the boats",
+       "go": "rope",
+       "fx": {
+        "trust": 8,
+        "flag": "saved_ali",
+        "say": "saved"
+       }
+      },
+      {
+       "label": "Shout for the boatmen",
+       "go": "shout",
+       "fx": {
+        "trust": 2
+       }
+      }
+     ]
+    },
+    "jump": {
+     "text": "The water is cold and fast. You get an arm round Ali and kick for the steps, where Jamal hauls you both out. Ali coughs up half the canal and then starts to cry.",
+     "end": true
+    },
+    "rope": {
+     "text": "Your first throw misses. The second lands across his arms and he holds on. You pull him in hand over hand.",
+     "end": true
+    },
+    "shout": {
+     "text": "Jamal dives in from his boat and brings Ali out.",
+     "end": true
+    }
+   },
+   "say": {
+    "saved": [
+     "Pulled Ali out of the canal",
+     "Jamal and the boatmen",
+     1
+    ]
+   }
+  }
+ ]
+}

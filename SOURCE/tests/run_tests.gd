@@ -194,6 +194,7 @@ func _run() -> void:
 	await check_side_brothers_runtime()
 	await check_side_neighbours_wall_runtime()
 	await check_side_creditor_runtime()
+	await check_side_drowning_boy_runtime()
 	finish()
 
 
@@ -3997,6 +3998,112 @@ func _check_creditor_outcome(mission: Dictionary, index: int, outcome: Dictionar
 	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
 		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
 		"the Journal counts the creditor mission exactly once")
+	await press_button(words.journal.back, "the Journal returns to the market")
+
+
+func check_side_drowning_boy_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/SIDE_DROWNING_BOY/RECORD/side_drowning_boy_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/side_drowning_boy.json")
+	check(not locked.is_empty() and runtime == locked, "drowning boy data is the byte-identical LOCK 57 file")
+	var mission: Dictionary = app.scene_runner.missions.get("drowning_boy", {})
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	check(approved is Dictionary and mission == approved.missions[0],
+		"the production index loads the locked drowning boy mission")
+	if mission.is_empty():
+		return
+
+	app.set_process(false)
+	reset_at_market_place("quay", 198, 8)
+	for minute: int in [599, 600, 1079, 1080]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 600 and minute < 1080),
+			"the drowning boy button follows the locked hours at minute %d" % minute)
+	set_market_day_time(8, 11 * 60)
+	move_market_fixture("weaver")
+	check(find_button(app.ui, mission.button) == null, "the drowning boy button is hidden away from the quay")
+	move_market_fixture("quay")
+	app.show_screen("game")
+	await press_button(mission.button, "the drowning boy mission opens from the quay walking view")
+	_check_side_mission_scene(mission, mission.scenes.a)
+
+	var outcomes := [
+		{"ending": "jump", "trust": 10, "trust_delta": 10, "minutes": 30, "saved": true},
+		{"ending": "rope", "trust": 50, "trust_delta": 8, "minutes": 0, "saved": true},
+		{"ending": "shout", "trust": 80, "trust_delta": 2, "minutes": 0, "saved": false},
+	]
+	for index in outcomes.size():
+		await _check_drowning_boy_outcome(mission, index, outcomes[index])
+	app.set_process(true)
+	var failures_added := failures - failures_before
+	print("LOCK 57 TESTS: ", checks - checks_before - failures_added, "/", checks - checks_before,
+		" passed; failures=", failures_added)
+
+
+func _check_drowning_boy_outcome(mission: Dictionary, index: int, outcome: Dictionary) -> void:
+	const COINS := 198
+	const DAY := 8
+	const START_MINUTE := 11 * 60
+	reset_at_market_place("quay", COINS, DAY)
+	app.progress.apply_trust(int(outcome.trust) - app.progress.trust)
+	set_market_day_time(DAY, START_MINUTE)
+	var runner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var initial_side: Dictionary = runner.journal(app).side
+	var expected_flags: Dictionary = runner.state().flags.duplicate()
+	var jisra_trust: int = runner.town_trust(app, "jisra")
+	var expected_sayings: Array = []
+	if outcome.saved:
+		expected_flags["saved_ali"] = DAY
+		expected_sayings.append(mission.say.saved)
+
+	var opening: Dictionary = mission.scenes.a
+	await press_button(mission.button, "the quay opens the drowning boy mission at trust %d" % outcome.trust)
+	_check_side_mission_scene(mission, opening)
+	for option: Dictionary in opening.choices:
+		check(find_button(app.ui, option.label) != null, "the opening shows the locked choice: " + option.label)
+	check(find_button(app.ui, words.scene_back) == null, "the opening offers choices before Back")
+
+	await press_button(opening.choices[index].label, "choose the locked drowning boy response: " + outcome.ending)
+	var ending: Dictionary = mission.scenes[outcome.ending]
+	check(app.runner_scene() == ending, "the response opens the intended ending: " + outcome.ending)
+	_check_side_mission_scene(mission, ending)
+	for option: Dictionary in opening.choices:
+		check(find_button(app.ui, option.label) == null, "the ending removes the opening choice: " + option.label)
+	check_wallet(int(outcome.trust) + int(outcome.trust_delta), COINS,
+		"the response applies its locked River Market trust effect and leaves coins unchanged")
+	check(app.day == DAY and app.minute_of_day == START_MINUTE + int(outcome.minutes),
+		"the response advances the clock only by its locked duration")
+	check(runner.state().flags == expected_flags and runner.has_flag(app, "saved_ali") == outcome.saved,
+		"the response sets only its locked flag")
+	check(runner.town_sayings("river_market") == expected_sayings, "the response records its locked account")
+	check(runner.town_trust(app, "jisra") == jisra_trust and runner.town_sayings("jisra").is_empty(),
+		"the response has no effect in Jisra")
+	check(not runner.mission_done(app, mission.id) and runner.journal(app).side == initial_side,
+		"the ending waits for Back before counting completion")
+
+	await press_button(words.scene_back, "Back leaves the ending and completes the drowning boy mission")
+	check(app.ui.screen == "market_map" and runner.mission_done(app, mission.id),
+		"the drowning boy mission is done on return to the market")
+	check(find_button(app.ui, mission.button) == null, "the finished mission disappears from the quay")
+	set_market_day_time(DAY + 1, START_MINUTE)
+	check(find_button(app.ui, mission.button) == null, "the mission stays finished the next day")
+
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say after the drowning boy mission")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines() == expected_sayings,
+		"What people say shows exactly the account from the response")
+	for line: Array in expected_sayings:
+		check_reputation_row(line)
+	if expected_sayings.is_empty():
+		check(visible_text().contains(app.chapter.rep.empty), "shouting leaves What people say empty")
+	await press_button(app.chapter.rep.to_map, "What people say returns to the market")
+	await press_button(words.journal_button, "open the Journal after the drowning boy mission")
+	var completed: Dictionary = runner.journal(app).side
+	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
+		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
+		"the Journal counts the drowning boy mission exactly once")
 	await press_button(words.journal.back, "the Journal returns to the market")
 
 

@@ -1,0 +1,78 @@
+{
+  "line": 64,
+  "lock": "LOCK 57 V1",
+  "brief": "DOC-TFG-0183",
+  "questions_answer_rows": [
+    15,
+    17
+  ],
+  "tested_base_commit_sha": "43dee4ba97fa84c4c6cb3f63ab1ac97adbbe68fd",
+  "tested_source": "Base commit plus the indexed content and test files identified by SHA-256 below. The containing commit is recorded in the 17 Nov task note.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T12:37:11Z",
+  "checks_passed": {
+    "headless_full_suite": 6255,
+    "lock_57_subset": 109
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SIDE_DROWNING_BOY/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_DROWNING_BOY.md": {
+      "bytes": 2698,
+      "sha256": "9722b2fe6375513eb47534497b288ac70a2d5aad6e5a20bd90ea2c40c15b0fe2"
+    },
+    "GAME/APPROVED/SIDE_DROWNING_BOY/RECORD/LOCK_RECORD.md": {
+      "bytes": 775,
+      "sha256": "05d915d906ef93cd843ee630de828d2f1d26e88ad74eb89af5b01e9e57d3b0b2"
+    },
+    "GAME/APPROVED/SIDE_DROWNING_BOY/RECORD/SIDE_DROWNING_BOY_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3595,
+      "sha256": "a5cb8da39ca17984ec67ea15429ae000313273a99d49a52766ce14aae374ed4b"
+    },
+    "GAME/APPROVED/SIDE_DROWNING_BOY/RECORD/side_drowning_boy_data_V1.json": {
+      "bytes": 1878,
+      "sha256": "58820a5f8b19e6c29ae31c5a784c9a19a4e636932629491a608ed4a7b8aafe4c"
+    },
+    "GAME/APPROVED/SIDE_DROWNING_BOY/MASTERS/si01_drowning_boy__a.png": {
+      "bytes": 294958,
+      "sha256": "d3d991fea1d3f07f6b37f895eb5f64720805ffbd6713c82752c12960fad10bfc"
+    },
+    "GAME/APPROVED/SIDE_DROWNING_BOY/MASTERS/si02_drowning_boy__jump.png": {
+      "bytes": 315089,
+      "sha256": "f860221a41fd820a47d7a0461fdd0025ef6aef36c6408e8841c7fcf820f2533b"
+    },
+    "GAME/APPROVED/SIDE_DROWNING_BOY/MASTERS/si03_drowning_boy__rope.png": {
+      "bytes": 312390,
+      "sha256": "96382a93858367213468ceaa668a7226e6f51588220e45667ca538395fbb07af"
+    },
+    "GAME/APPROVED/SIDE_DROWNING_BOY/MASTERS/si04_drowning_boy__shout.png": {
+      "bytes": 309967,
+      "sha256": "39b832d84da46c086f735037b73bae4404c70a490f0c025d4ad4497d0b43ad83"
+    }
+  },
+  "prior_fixture": {
+    "GAME/APPROVED/SCENE_RUNNER/ARCHIVE/scene_runner_data_2026-11-17_V1.json": {
+      "bytes": 2425,
+      "sha256": "a648d261d996f681bf55e4055d30937ab0ef2d5d4f89cce91bf810e92e76af2b"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 160,
+      "sha256": "f12e9fcff7467fd078272bb8b51a56f40efcf21d4c9a4fc074297af3abeb2214"
+    },
+    "SOURCE/data/side_drowning_boy.json": {
+      "bytes": 1878,
+      "sha256": "58820a5f8b19e6c29ae31c5a784c9a19a4e636932629491a608ed4a7b8aafe4c"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 378852,
+      "sha256": "b9b898f3b6712d6e72fcbfea4dd18bfae9669b0bfb6307de7d2a4457b5c8f2b8"
+    }
+  },
+  "evidence": {
+    "LINE64_CHECKS.json": {
+      "bytes": 2726,
+      "sha256": "ed38097089607acb5e932627ebda64a26d4ae4741058e8e3d84a73d564737d46"
+    }
+  }
+}

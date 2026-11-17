@@ -1,0 +1,108 @@
+{
+  "line": 64,
+  "lock": "LOCK 57 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 6255,
+    "total": 6255,
+    "failures": 0
+  },
+  "line_59_regression": {
+    "passed": 109,
+    "total": 109,
+    "failures": 0
+  },
+  "line_60_regression": {
+    "passed": 104,
+    "total": 104,
+    "failures": 0
+  },
+  "line_62_regression": {
+    "passed": 107,
+    "total": 107,
+    "failures": 0
+  },
+  "line_64": {
+    "passed": 109,
+    "total": 109,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "si01_drowning_boy__a.png": "a",
+    "si02_drowning_boy__jump.png": "jump",
+    "si03_drowning_boy__rope.png": "rope",
+    "si04_drowning_boy__shout.png": "shout"
+  },
+  "asserted": {
+    "entry": {
+      "place": "quay",
+      "hidden_at": "weaver",
+      "shown_at_trust": [
+        10,
+        50,
+        80
+      ],
+      "visible_boundary_minutes": [
+        600,
+        1079
+      ],
+      "hidden_boundary_minutes": [
+        599,
+        1080
+      ],
+      "views": [
+        "market_map",
+        "game"
+      ]
+    },
+    "scene_copy": "Locked title, kicker, opening, choices, three endings, and the existing Back label.",
+    "outcomes": [
+      {
+        "ending": "jump",
+        "starting_river_market_trust": 10,
+        "river_market_trust_delta": 10,
+        "coin_delta": 0,
+        "clock_delta_minutes": 30,
+        "flags": [
+          "saved_ali"
+        ],
+        "saying": [
+          "Pulled Ali out of the canal",
+          "Jamal and the boatmen",
+          1
+        ]
+      },
+      {
+        "ending": "rope",
+        "starting_river_market_trust": 50,
+        "river_market_trust_delta": 8,
+        "coin_delta": 0,
+        "clock_delta_minutes": 0,
+        "flags": [
+          "saved_ali"
+        ],
+        "saying": [
+          "Pulled Ali out of the canal",
+          "Jamal and the boatmen",
+          1
+        ]
+      },
+      {
+        "ending": "shout",
+        "starting_river_market_trust": 80,
+        "river_market_trust_delta": 2,
+        "coin_delta": 0,
+        "clock_delta_minutes": 0,
+        "flags": [],
+        "saying": null
+      }
+    ],
+    "completion": "Back records one Journal completion. The quay button stays hidden the next day.",
+    "town_scope": "Trust and the saying are local to River Market. Jisra trust and sayings stay unchanged.",
+    "person_dialogue": "LOCK 57 defines no separate person records."
+  },
+  "presentation_scope": "Q15 assigns visual review to the design chat. The existing runner uses compact side-mission actions. The masters show full-width actions and highlight the first choice.",
+  "native_screenshots": 0
+}
