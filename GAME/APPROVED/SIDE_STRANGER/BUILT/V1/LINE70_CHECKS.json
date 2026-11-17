@@ -1,0 +1,95 @@
+{
+  "line": 70,
+  "lock": "LOCK 63 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 7735,
+    "total": 7735,
+    "failures": 0
+  },
+  "line_70": {
+    "passed": 318,
+    "total": 318,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "so01_stranger__a.png": "a",
+    "so02_stranger__share.png": "share",
+    "so03_stranger__stable.png": "stable",
+    "so04_stranger__bed.png": "bed"
+  },
+  "asserted": {
+    "entry": {
+      "town": "river_market",
+      "place": "inn",
+      "hidden_at": "gate",
+      "visible_boundary_minutes": [
+        1140,
+        1379
+      ],
+      "hidden_boundary_minutes": [
+        1139,
+        1380
+      ],
+      "views": [
+        "market_map",
+        "game"
+      ]
+    },
+    "scene_copy": "Locked mission entry label, title, kicker, four scene texts and three choice labels. Terminal Back comes from the runner.",
+    "each_outcome_tested_at_river_market_trust": [
+      10,
+      50,
+      80
+    ],
+    "stable_cost_test": {
+      "unavailable_balances": [
+        0,
+        1
+      ],
+      "accepted_balance": 2
+    },
+    "outcomes": [
+      {
+        "ending": "share",
+        "river_market_trust_delta": 5,
+        "coin_delta": 0,
+        "what_people_say": [
+          [
+            "Took in a stranger for the night",
+            "the inn",
+            1
+          ]
+        ]
+      },
+      {
+        "ending": "stable",
+        "river_market_trust_delta": 3,
+        "coin_delta": -2,
+        "what_people_say": [
+          [
+            "Took in a stranger for the night",
+            "the inn",
+            1
+          ]
+        ]
+      },
+      {
+        "ending": "bed",
+        "river_market_trust_delta": 0,
+        "coin_delta": 0,
+        "what_people_say": []
+      }
+    ],
+    "state_checks": [
+      "Clock and flags",
+      "Jisra trust and sayings"
+    ],
+    "completion": "Back counts one Journal side-mission completion and hides the inn action on the same day and the next day.",
+    "person_dialogue": "The LOCK contains mission scenes and no standalone person dialogue."
+  },
+  "presentation": "The inherited River Market actions are compact and secondary. The masters show full-width stacked actions with emphasis on Share or Back. Q15 assigns the visual comparison to the design chat.",
+  "native_screenshots": 0
+}

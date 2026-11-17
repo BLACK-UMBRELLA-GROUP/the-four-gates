@@ -1,0 +1,69 @@
+{
+ "version": "LOCK 63 V1 (9 Nov 2026) - side mission: A stranger with nowhere to sleep",
+ "builds_on": "LOCK 34 runner; LOCK 3 and LOCK 6 regulars; River Market places (LOCK 1). Each mission is its own LOCK and queue line.",
+ "design_reference_not_shown": "Bukhari 6018",
+ "missions": [
+  {
+   "id": "stranger",
+   "lock": 63,
+   "place": "inn",
+   "hours": [
+    1140,
+    1380
+   ],
+   "side": true,
+   "title": "A stranger with nowhere to sleep",
+   "kicker": "River Market · A stranger with nowhere to sleep",
+   "button": "A traveller is sitting outside the inn",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "A traveller called Tamim sits outside the inn with his bundle. He arrived too late, the inn is full, and he has no coins anyway. It is getting cold.",
+     "choices": [
+      {
+       "label": "Share your room with him",
+       "go": "share",
+       "fx": {
+        "trust": 5,
+        "say": "hosted"
+       }
+      },
+      {
+       "label": "Pay the stable for a straw bed · 2 coins",
+       "need_coins": 2,
+       "go": "stable",
+       "fx": {
+        "coins": -2,
+        "trust": 3,
+        "say": "hosted"
+       }
+      },
+      {
+       "label": "Go to bed",
+       "go": "bed"
+      }
+     ]
+    },
+    "share": {
+     "text": "You give Tamim your blanket and take the floor. He talks about the sea until you both fall asleep.",
+     "end": true
+    },
+    "stable": {
+     "text": "The stable boy makes Tamim a bed of clean straw. He thanks you three times.",
+     "end": true
+    },
+    "bed": {
+     "text": "In the morning Tamim is gone. Someone else must have taken him in.",
+     "end": true
+    }
+   },
+   "say": {
+    "hosted": [
+     "Took in a stranger for the night",
+     "the inn",
+     1
+    ]
+   }
+  }
+ ]
+}

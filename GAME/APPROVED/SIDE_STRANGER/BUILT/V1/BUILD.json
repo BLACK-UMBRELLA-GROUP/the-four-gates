@@ -1,0 +1,76 @@
+{
+  "line": 70,
+  "lock": "LOCK 63 V1",
+  "brief": "DOC-TFG-0201",
+  "questions_answer_rows": [
+    15,
+    17
+  ],
+  "tested_base_commit_sha": "1fcbfdc18aa542eadab58f43072b3addaeef4df9",
+  "tested_source": "The base commit with the source changes identified by SHA-256 below. The 17 November task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T14:48:41Z",
+  "checks_passed": {
+    "headless_full_suite": 7735,
+    "lock_63_subset": 318
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SIDE_STRANGER/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_STRANGER.md": {
+      "bytes": 2676,
+      "sha256": "023896917d890bd94d588d7b5b1a235a50cc717e83ddf980acf3f658bba86917"
+    },
+    "GAME/APPROVED/SIDE_STRANGER/RECORD/LOCK_RECORD.md": {
+      "bytes": 764,
+      "sha256": "7ccb62f87f7e0c60f5c498b35bc6c31d23a8726d1b2622c888c8dbfbbc4af39d"
+    },
+    "GAME/APPROVED/SIDE_STRANGER/RECORD/SIDE_STRANGER_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3578,
+      "sha256": "8b60224a2e8dd7803a5ba721abf12aec6820f90c1529ce2aa50b0039e772cdb7"
+    },
+    "GAME/APPROVED/SIDE_STRANGER/RECORD/side_stranger_data_V1.json": {
+      "bytes": 1762,
+      "sha256": "6d800dff5319b90e364bd436986e75e1c0302e5fb86c0661a708cb37e9ff2cbe"
+    },
+    "GAME/APPROVED/SIDE_STRANGER/MASTERS/so01_stranger__a.png": {
+      "bytes": 229453,
+      "sha256": "e9b4bdba44164aade0ed2c88dfd8beed902113af948e98d0aa91f57f74dcd14b"
+    },
+    "GAME/APPROVED/SIDE_STRANGER/MASTERS/so02_stranger__share.png": {
+      "bytes": 269281,
+      "sha256": "fef26999c2c2b3ba6696c0b281edb86ff980295f88228046febec3dfd8046208"
+    },
+    "GAME/APPROVED/SIDE_STRANGER/MASTERS/so03_stranger__stable.png": {
+      "bytes": 268672,
+      "sha256": "acaf55d56c6deb2e4f979326a0d642472bde525fced2d99bdbe2866ea2412440"
+    },
+    "GAME/APPROVED/SIDE_STRANGER/MASTERS/so04_stranger__bed.png": {
+      "bytes": 268230,
+      "sha256": "06f98b86f9be98ae7b4fc4fe1450d7c81b7f0f59dc3dc2a7d1af32e03f142367"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 296,
+      "sha256": "7750bfbca34c94c1b2bdfd8904667ed08d4e4ccebf501f5a5da2239696446e2d"
+    },
+    "SOURCE/data/side_stranger.json": {
+      "bytes": 1762,
+      "sha256": "6d800dff5319b90e364bd436986e75e1c0302e5fb86c0661a708cb37e9ff2cbe"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 420740,
+      "sha256": "6126c4c2af378eab2e4fca1be986697bb59449f59fcf484a0212d8d19d9e47f2"
+    },
+    "SOURCE/README.md": {
+      "bytes": 42783,
+      "sha256": "6654ca7fda35449518b01e935ce26c8af79ff0809fd582582a6e09bf6d2c54d2"
+    }
+  },
+  "evidence": {
+    "LINE70_CHECKS.json": {
+      "bytes": 2417,
+      "sha256": "651d7d68a98c6525b7572b7d4a32b1cfb003f263cdb64f1b9bdb4e589b8e6c01"
+    }
+  }
+}

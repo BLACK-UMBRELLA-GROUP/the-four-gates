@@ -625,3 +625,12 @@ trust and the young men's account to **What people say**. Entering the contest
 takes one in-game hour. Use **Back** on any ending to finish the mission once
 and count it in the **Journal**. The headless suite covers all three responses
 at trust 10, 50 and 80.
+
+## LOCK 63 — A stranger with nowhere to sleep
+
+At the River Market inn, **A traveller is sitting outside the inn** is
+available from 19:00 up to 23:00. Sharing your room adds five River Market
+trust. Paying two coins for a straw bed adds three trust. Both choices add
+the inn's account to **What people say**. Going to bed leaves coins, trust
+and the inn's accounts as they were. Use **Back** on any ending to finish the
+mission once and count it in the **Journal**.

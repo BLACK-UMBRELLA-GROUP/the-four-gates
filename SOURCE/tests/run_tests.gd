@@ -202,6 +202,7 @@ func _run() -> void:
 	await check_side_thirsty_dog_runtime()
 	await check_side_spilled_spice_runtime()
 	await check_side_archery_runtime()
+	await check_side_stranger_runtime()
 	await check_jisra_people_runtime()
 	finish()
 
@@ -4423,6 +4424,121 @@ func _check_archery_outcome(mission: Dictionary, trust: int, choice_index: int, 
 	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
 		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
 		"the Journal counts the archery mission exactly once")
+	await press_button(words.journal.back, "the Journal returns to the market")
+
+
+func check_side_stranger_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/SIDE_STRANGER/RECORD/side_stranger_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/side_stranger.json")
+	check(not locked.is_empty() and runtime == locked, "stranger data is the byte-identical LOCK 63 file")
+	var mission: Dictionary = app.scene_runner.missions.get("stranger", {})
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	check(approved is Dictionary and not mission.is_empty() and mission == approved.missions[0],
+		"the production index loads the locked stranger mission")
+	if mission.is_empty():
+		return
+
+	app.set_process(false)
+	reset_at_market_place("inn", 2, 8)
+	for minute: int in [1139, 1140, 1379, 1380]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 1140 and minute < 1380),
+			"the stranger action follows the locked inn hours at minute %d" % minute)
+	set_market_day_time(8, 20 * 60)
+	move_market_fixture("gate")
+	check(find_button(app.ui, mission.button) == null, "the stranger action is hidden away from the inn")
+
+	var stable: Dictionary = mission.scenes.a.choices[1]
+	for coins: int in [0, 1]:
+		reset_at_market_place("inn", coins, 8)
+		set_market_day_time(8, 20 * 60)
+		app.show_screen("game")
+		await press_button(mission.button, "the inn walking view opens the stranger mission")
+		_check_side_mission_scene(mission, mission.scenes.a)
+		check(find_button(app.ui, stable.label) == null, "the stable is unavailable with %d coins" % coins)
+		check(find_button(app.ui, mission.scenes.a.choices[0].label) != null
+			and find_button(app.ui, mission.scenes.a.choices[2].label) != null,
+			"both free choices remain available")
+		app.ui.runner_requested.emit("choice", stable)
+		check(app.runner_scene() == mission.scenes.a and app.progress.coins == coins,
+			"the runner rejects the unaffordable choice")
+		check(app.scene_runner.town_sayings("river_market").is_empty(),
+			"an unaffordable choice leaves no account")
+
+	var outcomes := [
+		{"id": "share", "trust_delta": 5, "coin_delta": 0, "sayings": [mission.say.hosted]},
+		{"id": "stable", "trust_delta": 3, "coin_delta": -2, "sayings": [mission.say.hosted]},
+		{"id": "bed", "trust_delta": 0, "coin_delta": 0, "sayings": []},
+	]
+	for trust: int in [10, 50, 80]:
+		for index in outcomes.size():
+			await _check_stranger_outcome(mission, trust, index, outcomes[index])
+
+	app.set_process(true)
+	var failures_added := failures - failures_before
+	print("LOCK 63 TESTS: ", checks - checks_before - failures_added, "/", checks - checks_before,
+		" passed; failures=", failures_added)
+
+
+func _check_stranger_outcome(mission: Dictionary, trust: int, choice_index: int, outcome: Dictionary) -> void:
+	const COINS := 2
+	const DAY := 8
+	const MINUTE := 20 * 60
+	reset_at_market_place("inn", COINS, DAY)
+	app.progress.apply_trust(trust - app.progress.trust)
+	set_market_day_time(DAY, MINUTE)
+	var runner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var initial_side: Dictionary = runner.journal(app).side
+	var initial_flags: Dictionary = runner.state().flags
+	var jisra_trust: int = runner.town_trust(app, "jisra")
+	var opening: Dictionary = mission.scenes.a
+
+	await press_button(mission.button, "open the stranger mission from the map at trust %d" % trust)
+	_check_side_mission_scene(mission, opening)
+	for choice: Dictionary in opening.choices:
+		check(find_button(app.ui, choice.label) != null, "the opening shows the locked choice: " + choice.label)
+	check(find_button(app.ui, words.scene_back) == null, "the opening offers choices before Back")
+
+	await press_button(opening.choices[choice_index].label, "choose the locked stranger response: " + outcome.id)
+	var ending: Dictionary = mission.scenes[outcome.id]
+	check(app.runner_scene() == ending, "the response opens the intended ending: " + outcome.id)
+	_check_side_mission_scene(mission, ending)
+	for choice: Dictionary in opening.choices:
+		check(find_button(app.ui, choice.label) == null, "the ending removes the opening choice: " + choice.label)
+	check_wallet(trust + int(outcome.trust_delta), COINS + int(outcome.coin_delta),
+		"the response applies the locked trust and coin effects")
+	check(app.day == DAY and app.minute_of_day == MINUTE, "the response leaves the evening clock unchanged")
+	check(runner.state().flags == initial_flags, "the response adds no mission flags")
+	check(runner.town_sayings("river_market") == outcome.sayings, "the response records its locked River Market account")
+	check(runner.town_trust(app, "jisra") == jisra_trust and runner.town_sayings("jisra").is_empty(),
+		"the response does not affect Jisra trust or sayings")
+	check(not runner.mission_done(app, mission.id) and runner.journal(app).side == initial_side,
+		"the ending waits for Back before counting completion")
+
+	await press_button(words.scene_back, "Back completes the stranger mission")
+	check(app.ui.screen == "market_map" and runner.mission_done(app, mission.id),
+		"Back returns to the market and marks the mission done")
+	check(find_button(app.ui, mission.button) == null, "the completed mission is hidden at the inn")
+	set_market_day_time(DAY + 1, MINUTE)
+	check(find_button(app.ui, mission.button) == null, "the completed mission stays hidden the next day")
+
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say after the stranger mission")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines() == outcome.sayings,
+		"What people say shows exactly this response's account")
+	for line: Array in outcome.sayings:
+		check_reputation_row(line)
+	if outcome.sayings.is_empty():
+		check(visible_text().contains(app.chapter.rep.empty), "What people say shows the locked empty message")
+	await press_button(app.chapter.rep.to_map, "What people say returns to the market")
+	await press_button(words.journal_button, "open the Journal after the stranger mission")
+	var completed: Dictionary = runner.journal(app).side
+	check(completed == {"done": initial_side.done + 1, "total": initial_side.total}
+		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
+		"the Journal counts the stranger mission exactly once")
 	await press_button(words.journal.back, "the Journal returns to the market")
 
 
