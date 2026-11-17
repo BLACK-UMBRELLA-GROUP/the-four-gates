@@ -553,6 +553,22 @@ Then run `godot --headless --path SOURCE --script res://tests/create_comparisons
 Both capture commands accept `--scene-runner-output=/absolute/path`. See the line 41 captures and
 master comparisons in `GAME/APPROVED/SCENE_RUNNER/BUILT/V1/`.
 
+## LOCK 35 — Jisra's people, work and the weak rope
+
+In Jisra, choose **Talk to people**, then **Talk** beside a resident who is available. Dialogue
+reflects Jisra's trust and the first matching memory. Rafiq is away during Friday prayer.
+From 06:00 up to 12:00, outside Friday prayer, carrying fish baskets for Umm Hani takes one hour
+and pays four coins. The first shift each day adds one Jisra trust.
+
+**Watch Bashir's stall** opens **The weak rope** from 10:00 up to 16:00 with at least 15 Jisra
+trust. Each response adds its own account to **What Jisra says**. Choose **Back** on the ending
+to complete the mission once and count it in the **Journal**. Resting at the inn costs two coins
+and wakes you in Jisra at 04:40. If you cannot pay, you sleep by the wall and keep your coins.
+
+Run `godot --headless --path SOURCE --script res://tests/run_tests.gd` for the full suite, including
+both mission outcomes, resident dialogue, availability, work and the inn. The line 42 records are in
+`GAME/APPROVED/JISRA_PEOPLE/BUILT/V1/`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from

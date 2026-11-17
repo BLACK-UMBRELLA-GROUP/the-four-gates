@@ -367,6 +367,7 @@ func open_gate(animated: bool = true) -> void:
 		return
 	gate_tween = create_tween()
 	gate_tween.tween_property(gate_hinge, "rotation:y", open_angle, 0.8)
+	gate_tween.finished.connect(func(): gate_tween = null)
 
 
 func reset_gate() -> void:

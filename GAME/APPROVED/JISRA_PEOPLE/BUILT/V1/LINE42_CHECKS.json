@@ -1,0 +1,85 @@
+{
+  "line": 42,
+  "lock": "LOCK 35 V1 reissued under LOCK 103",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "engine_errors": 0,
+  "full_suite": {
+    "passed": 7110,
+    "total": 7110,
+    "failures": 0
+  },
+  "line_42": {
+    "passed": 273,
+    "total": 273,
+    "failures": 0
+  },
+  "other_reported_regressions": {
+    "LOCK 52 TESTS": {
+      "passed": 109,
+      "total": 109,
+      "failures": 0
+    },
+    "LOCK 53 TESTS": {
+      "passed": 104,
+      "total": 104,
+      "failures": 0
+    },
+    "LOCK 55 TESTS": {
+      "passed": 107,
+      "total": 107,
+      "failures": 0
+    },
+    "LOCK 57 TESTS": {
+      "passed": 109,
+      "total": 109,
+      "failures": 0
+    },
+    "LOCK 59 TESTS": {
+      "passed": 196,
+      "total": 196,
+      "failures": 0
+    },
+    "LOCK 60 TESTS": {
+      "passed": 388,
+      "total": 388,
+      "failures": 0
+    }
+  },
+  "verified": {
+    "locked_data": "Both runtime JSON files match their approved sources byte for byte. The resident Talk button reads LOCK 34 V2 words.people.talk.",
+    "jisra_hub": "LOCK 32 bridge paragraph, local trust, conditional Watch, masjid, open mission, residents, work, local sayings, prayer, inn and return controls in Q14 order.",
+    "residents": "Hamid, Rafiq, Umm Hani and Bashir use the exact dialogue at trust 10, 50 and 80, hours boundaries, away wording and first matching memory. Rafiq features the Friday prayer absence.",
+    "fish_work": "06:00 through 11:59, outside Friday prayer. Each shift takes 60 minutes and pays four coins. The first shift of the day adds one Jisra trust.",
+    "inn": "At 21:00 with two coins, pay two and wake in Jisra at 04:40. With zero or one coin, sleep by the inn wall, keep the coins and wake in Jisra at 04:40.",
+    "weak_rope": {
+      "availability": "Jisra hub, trust at least 15, 10:00 through 15:59, once.",
+      "told": {
+        "trust": 5,
+        "coins": 0,
+        "flag": "rope_told",
+        "saying": "told"
+      },
+      "sold": {
+        "trust": 0,
+        "coins": 3,
+        "flag": "rope_hid",
+        "saying": "hid"
+      },
+      "completion": "Both endings use the exact locked text. Back finishes the mission once in the Journal. Each response sets its own flag, local witness account and matching memories."
+    },
+    "local_sayings": "Empty state, both rope witness accounts, toll speak/pay, and no public saying after the quiet toll response."
+  },
+  "evidence": {
+    "master_reference_count": 18,
+    "native_screenshots": 0,
+    "visual_comparison": "Q15 assigns the visual comparison to the design chat."
+  },
+  "focused_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --jisra-people-only",
+    "exit_code": 0,
+    "passed": 470,
+    "total": 470,
+    "failures": 0
+  }
+}

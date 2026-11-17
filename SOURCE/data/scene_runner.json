@@ -1,5 +1,5 @@
 {
- "version": "LOCK 34 V1 (9 Nov 2026) - the scene runner, towns and the journal",
+ "version": "LOCK 34 V2 (17 Nov 2026) - the scene runner, towns and the journal; V2 adds the people-list Talk label (QUESTIONS 16)",
  "builds_on": "LOCK 1 trust, LOCK 2 prayer, LOCK 3 What people say, LOCK 6 talking, LOCK 8 All your prayers, LOCK 18 clock, LOCK 29 pause menu, LOCK 32 Jisra, LOCK 33 masjids. Placeholders: {town}, {n}, {m}, {c}, {name}, {role}.",
  "numbers": {
   "wary_below": 30,
@@ -27,7 +27,8 @@
    "kicker": "{town} · people",
    "title": "Who is about",
    "away": "{name} is not here now.",
-   "back": "Back"
+   "back": "Back",
+   "talk": "Talk"
   },
   "talk": {
    "kicker": "{town} · {role}",

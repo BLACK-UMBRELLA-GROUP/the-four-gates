@@ -197,6 +197,7 @@ var gate_of_trust: GateOfTrust
 var scene_runner: RefCounted
 var _runner_market_missions: Array = []
 var _runner_town_missions: Array = []
+var _runner_work_available := false
 var _runner_people_here: Array = []
 var jisra_masjid: JisraMasjid
 var harm_in_the_road: HarmInTheRoad
@@ -609,9 +610,11 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 		var town: String = get_parent().runner_town_id()
 		var available: Array = scene_runner.available_missions(get_parent(), town, "")
 		var trust: int = scene_runner.town_trust(get_parent(), town)
-		rebuild = rebuild or _runner_town_missions != available or _last_town_trust != trust
+		var work_available: bool = scene_runner.can_work(get_parent(), town)
+		rebuild = rebuild or _runner_town_missions != available or _last_town_trust != trust or _runner_work_available != work_available
 		_runner_town_missions = available
 		_last_town_trust = trust
+		_runner_work_available = work_available
 	elif screen == "runner_people" and clock_changed:
 		var present := _town_people_present(get_parent().runner_town_id())
 		rebuild = rebuild or present != _runner_people_here
@@ -2016,15 +2019,20 @@ func _build_gate_of_trust() -> void:
 			x += _chapter_button(panel, copy.go, Vector2(x, y), func(): jisra_travel_requested.emit(), true)
 			_chapter_button(panel, copy.no, Vector2(x, y), func(): trust_gate_closed.emit())
 		"jisra":
+			var actions: Array[Dictionary] = []
 			if gate_of_trust.toll_choice.is_empty():
-				x += _chapter_button(panel, copy.watch, Vector2(x, y), func(): jisra_watch_requested.emit(), true)
-			x += _chapter_button(panel, jisra_masjid.data.jisra_button, Vector2(x, y), func(): screen_requested.emit("jisra_masjid"))
-			_prayer_label = clock.prayer_label(false)
-			if not _prayer_label.is_empty():
-				x += _chapter_button(panel, _prayer_label, Vector2(x, y), func(): pray_requested.emit())
-			_chapter_button(panel, copy.back, Vector2(x, y), func(): jisra_return_requested.emit())
+				actions.append({"text": copy.watch, "action": func(): jisra_watch_requested.emit(), "primary": true})
+			actions.append({
+				"text": jisra_masjid.data.jisra_button,
+				"action": func(): screen_requested.emit("jisra_masjid"),
+				"primary": false,
+			})
 			if scene_runner.towns.has("jisra"):
-				y = _runner_buttons(panel, _town_actions("jisra"), y + 69.0)
+				actions.append_array(_town_actions("jisra"))
+			_append_runner_prayer(actions, false)
+			_append_town_inn(actions, "jisra")
+			actions.append({"text": copy.back, "action": func(): jisra_return_requested.emit(), "primary": false})
+			y = _runner_buttons(panel, actions, y)
 		"jisra_toll":
 			if gate_of_trust.toll_choice.is_empty():
 				for choice: String in GateOfTrust.TOLL_CHOICES:
@@ -2121,6 +2129,7 @@ func _build_runner_panel() -> void:
 	var values := {"town": town.get("name", ""), "n": scene_runner.town_trust(app, town_id)}
 	var back_label: String = words.back
 	var mission: Dictionary = {}
+	var stacked_choices := screen == "runner_mission" and town_id == "jisra"
 	match screen:
 		"runner_mission":
 			mission = app.runner_mission()
@@ -2128,7 +2137,8 @@ func _build_runner_panel() -> void:
 			paragraphs = _runner_paragraphs(copy.get("text", ""))
 			var choices: Array = scene_runner.choices(app, mission, copy)
 			for choice: Dictionary in choices:
-				actions.append(_runner_action(choice.label, "choice", choice, mission.get("main", false)))
+				var primary: bool = mission.get("main", false) or (stacked_choices and actions.is_empty())
+				actions.append(_runner_action(choice.label, "choice", choice, primary))
 			back_label = words.scene_back if choices.is_empty() else ""
 		"runner_town":
 			copy = {"kicker": town.get("kicker", ""), "title": town.name}
@@ -2139,11 +2149,6 @@ func _build_runner_panel() -> void:
 		"runner_people":
 			copy = words.people
 			_runner_people_here = _town_people_present(town_id)
-			for person: Dictionary in scene_runner.town_people(app, town_id):
-				if person.id in _runner_people_here:
-					actions.append(_runner_action(person.name, "person", person))
-				else:
-					paragraphs.append(str(copy.away).format({"name": person.name}))
 			back_label = copy.back
 		"runner_person":
 			var person: Dictionary = app.runner_person
@@ -2153,10 +2158,6 @@ func _build_runner_panel() -> void:
 			back_label = words.talk.back
 		"runner_sayings":
 			copy = words.trep
-			for line in scene_runner.town_sayings(town_id):
-				paragraphs.append(str(line[0]) if line is Array else str(line))
-			if paragraphs.is_empty():
-				paragraphs.append(copy.empty)
 			back_label = copy.back
 		"runner_masjid":
 			copy = app.runner_masjid
@@ -2172,20 +2173,61 @@ func _build_runner_panel() -> void:
 			paragraphs = _runner_paragraphs(copy.get("text", ""))
 			back_label = copy.get("back", words.back)
 	if not back_label.is_empty():
-		actions.append(_runner_action(back_label, "back", null))
+		actions.append(_runner_action(back_label, "back", null, stacked_choices and copy.get("end", false)))
 	var kicker := str(copy.get("kicker", mission.get("kicker", ""))).format(values)
 	var title_value := str(copy.get("title", mission.get("title", ""))).format(values)
 	var panel := _chapter_panel(kicker, title_value, true)
 	(panel.get_theme_stylebox("panel") as StyleBoxFlat).set_corner_radius_all(18)
 	var rows := _runner_scroll_body(panel, 111.0, 1.0)
 	var y := 0.0
+	if screen == "runner_people":
+		y = _build_runner_people_rows(rows, town_id, copy)
+	elif screen == "runner_sayings":
+		y = _build_town_sayings(rows, scene_runner.town_sayings(town_id, app), copy.empty)
 	for paragraph: String in paragraphs:
 		y += _story_text(rows, paragraph, y) + 16.0
-	var end := _runner_buttons(rows, actions, y) + 69.0
+	var end: float
+	if stacked_choices:
+		for action: Dictionary in actions:
+			_chapter_button(rows, action.text, Vector2(34.0, y), action.action, action.primary, true)
+			y += 69.0
+		end = y
+	else:
+		end = _runner_buttons(rows, actions, y) + 69.0
 	rows.custom_minimum_size.y = end
 	var scroll := rows.get_parent() as ScrollContainer
 	scroll.size.y = minf(end, 696.0)
 	_chapter_finish(panel, 111.0 + scroll.size.y - 58.0)
+
+
+func _build_runner_people_rows(panel: Panel, town: String, copy: Dictionary) -> float:
+	var y := 0.0
+	for person: Dictionary in scene_runner.town_people(get_parent(), town):
+		_chapter_row_rule(panel, y)
+		_label(panel, person.name, Vector2(34, y + 10), Vector2(900, 34), 23, PAPER, true)
+		_spaced_caption(panel, person.role, y + 43.0).size.x = 900.0
+		if person.id in _runner_people_here:
+			var talk_label: String = copy.get("talk", person.name)
+			_stall_row_button(panel, talk_label, y, func(): runner_requested.emit("person", person), true)
+		else:
+			var away := str(copy.away).format({"name": person.name})
+			var status := _label(panel, away, Vector2(700, y + 14), Vector2(454, 56), 23, PAPER)
+			status.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+		y += 81.0
+	return y + 14.0
+
+
+func _build_town_sayings(panel: Panel, lines: Array, empty: String) -> float:
+	if lines.is_empty():
+		return _story_text(panel, empty, 0.0) + 16.0
+	var y := 0.0
+	for line: Variant in lines:
+		if line is Array and line.size() == 3:
+			_build_reputation_rows(panel, [line], 81.0, y)
+			y += 81.0
+		else:
+			y += _story_text(panel, str(line[0]) if line is Array else str(line), y) + 16.0
+	return y
 
 
 func _runner_paragraphs(text: Variant) -> Array:
@@ -2213,16 +2255,22 @@ func _town_actions(id: String) -> Array[Dictionary]:
 		actions.append(_runner_action(masjid.button, "masjid", masjid))
 	if not scene_runner.town_people(get_parent(), id).is_empty():
 		actions.append(_runner_action(words.people_button, "people", null))
-	if town.has("work"):
+	if scene_runner.can_work(get_parent(), id):
 		actions.append(_runner_action(town.work.label, "work", null))
-	var cost: int = scene_runner.inn_cost(id)
-	if cost >= 0:
-		actions.append(_runner_action(str(words.inn_button).format({"n": cost}), "inn", null))
+	if id != "jisra":
+		_append_town_inn(actions, id)
 	actions.append(_runner_action(str(words.rep_button).format({"town": town.name}), "sayings", null))
 	var road_map: Dictionary = town.get("road_map", {})
 	if road_map.has("button"):
 		actions.append(_runner_action(road_map.button, "road_map", null))
 	return actions
+
+
+func _append_town_inn(actions: Array[Dictionary], town: String) -> void:
+	var cost: int = scene_runner.inn_cost(town)
+	if cost >= 0:
+		var label := str(scene_runner.data.words.inn_button).format({"n": cost})
+		actions.append(_runner_action(label, "inn", null))
 
 
 func _town_people_present(town: String) -> Array:

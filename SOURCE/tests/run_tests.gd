@@ -95,6 +95,10 @@ func _run() -> void:
 		await check_jisra_masjid_runtime()
 		finish()
 		return
+	if "--jisra-people-only" in OS.get_cmdline_user_args():
+		await check_jisra_people_runtime()
+		finish()
+		return
 	check(app.ui.screen == "title", "launch opens the title")
 	check(visible_text().replace("\n", "").contains(data.title_screen.title), "title uses approved title text")
 	check(visible_text().contains(data.title_screen.line), "title uses approved subtitle")
@@ -197,6 +201,7 @@ func _run() -> void:
 	await check_side_drowning_boy_runtime()
 	await check_side_thirsty_dog_runtime()
 	await check_side_spilled_spice_runtime()
+	await check_jisra_people_runtime()
 	finish()
 
 
@@ -3608,8 +3613,7 @@ func check_scene_runner_runtime() -> void:
 	var jisra: Dictionary = app.gate_of_trust.data.jisra
 	for title: String in [jisra.watch, app.jisra_masjid.data.jisra_button, app.clock.prayer_label(false), jisra.back]:
 		check(find_button(app.ui, title) != null, "Jisra keeps its live LOCK 32/33 control: " + title)
-	for title: String in [words.people_button, str(words.rep_button).format({"town": "Jisra"}), words.journal_button]:
-		check(find_button(app.ui, title) == null, "Jisra hides unshipped content: " + title)
+	check(find_button(app.ui, words.journal_button) == null, "the Journal entry remains in River Market")
 
 	app.scene_runner = SceneRunnerFixture.make_runner()
 	app.ui.scene_runner = app.scene_runner
@@ -3674,8 +3678,7 @@ func _check_runner_town(words: Dictionary, noon: int) -> void:
 		and app.scene_runner.mission_done(app, story.id), "the finished one-time mission leaves the town hub")
 
 	await press_button(words.people_button, "the town opens its people list")
-	var person: Dictionary = app.scene_runner.people.fixture_keeper
-	await press_button(person.name, "the present keeper can be spoken to")
+	await press_button(words.people.talk, "the present keeper can be spoken to")
 	check(visible_text().contains("The keeper nods.") and visible_text().contains("You kept the first marker.")
 		and not visible_text().contains("You kept the second marker."), "dialogue uses the trust band and only the first matching memory")
 	await press_button(words.talk.back, "the talk panel returns to the list")
@@ -4318,6 +4321,303 @@ func _check_spilled_spice_outcome(mission: Dictionary, trust: int, choice_index:
 		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
 		"the Journal counts the spilled spice mission exactly once")
 	await press_button(words.journal.back, "the Journal returns to the market")
+
+
+func check_jisra_people_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/JISRA_PEOPLE/RECORD/jisra_people_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/jisra_people.json")
+	var locked_runner := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/SCENE_RUNNER/RECORD/scene_runner_data_V2.json")
+	check(not locked.is_empty() and runtime == locked, "Jisra people uses byte-identical LOCK 35 data")
+	check(not locked_runner.is_empty() and FileAccess.get_file_as_bytes("res://data/scene_runner.json") == locked_runner,
+		"the runner uses byte-identical LOCK 34 V2 data for Q16")
+	var copy: Dictionary = JSON.parse_string(locked.get_string_from_utf8())
+	var runner = app.scene_runner
+	var town: Dictionary = runner.towns.get("jisra", {})
+	var mission: Dictionary = runner.missions.get("weak_rope", {})
+	check(town.get("work") == copy.towns.jisra.work and mission == copy.missions[0]
+		and runner.town_people(app, "jisra") == copy.people, "the production index loads the locked town, mission and residents")
+	if town.is_empty() or mission.is_empty() or not runner.data.words.people.has("talk"):
+		return
+
+	app.set_process(false)
+	var words: Dictionary = runner.data.words
+	check(words.people.talk == "Talk", "Q16 uses Talk for the available resident's action")
+	await _check_jisra_people_hub(town, mission, words)
+	await _check_jisra_people_dialogue(copy.people, words)
+	await _check_jisra_toll_memories(copy, town, words)
+	await _check_jisra_work_and_inn(town, words)
+	await _check_weak_rope_outcome(mission, words, 0, "told", 5, 0, "rope_told", "told")
+	await _check_weak_rope_outcome(mission, words, 1, "sold", 0, 3, "rope_hid", "hid")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 35 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_jisra_people_hub(town: Dictionary, mission: Dictionary, words: Dictionary) -> void:
+	await _reset_jisra_people_fixture(8)
+	var bridge: Dictionary = app.gate_of_trust.data.jisra
+	var masjid: String = app.jisra_masjid.data.jisra_button
+	var sayings := str(words.rep_button).format({"town": town.name})
+	var inn := str(words.inn_button).format({"n": int(town.inn)})
+	check(has_visible_label(app.ui, str(bridge.kicker).to_upper()) and has_visible_label(app.ui, bridge.title)
+		and visible_text().split("\n").has(bridge.text) and not visible_text().split("\n").has(town.text),
+		"Q14 keeps the exact LOCK 32 bridge-and-toll panel")
+	check_gate_of_trust_meter(bridge.meter, 10)
+	var default_order: Array[String] = [bridge.watch, masjid, words.people_button, town.work.label, sayings, inn, bridge.back]
+	_check_jisra_hub_button_order(default_order)
+	check(find_button(app.ui, "Road map") == null, "the later Road map action is absent")
+	await press_button(sayings, "open the empty What Jisra says panel")
+	check(app.ui.screen == "runner_sayings" and visible_text().split("\n").has(words.trep.empty),
+		"new Jisra trust shows the exact empty sayings line")
+	await press_button(words.trep.back, "return from Jisra sayings to the bridge")
+	app.gate_of_trust.jisra_trust = 14
+	app.update_state()
+	check(find_button(app.ui, mission.button) == null, "the weak rope is unavailable one point below its trust threshold")
+	app._runner_action("mission", mission)
+	check(app.ui.screen == "jisra", "dispatching a hidden weak-rope action cannot start it")
+	app.gate_of_trust.jisra_trust = 15
+	app.update_state()
+	var open_order: Array[String] = [bridge.watch, masjid, mission.button, words.people_button, town.work.label, sayings, inn, bridge.back]
+	_check_jisra_hub_button_order(open_order)
+	for minute: int in [599, 600, 959, 960]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 600 and minute < 960),
+			"the weak-rope action follows its hours at minute %d" % minute)
+	set_market_day_time(8, 725)
+	var prayer: String = app.clock.prayer_label(false)
+	check(not prayer.is_empty(), "the Jisra hub fixture has an open prayer")
+	var prayer_order: Array[String] = [bridge.watch, masjid, mission.button, words.people_button, sayings, prayer, inn, bridge.back]
+	_check_jisra_hub_button_order(prayer_order)
+
+
+func _reset_jisra_people_fixture(day: int) -> void:
+	reset_at_market_place("gate", 8, day)
+	set_market_day_time(day, 8 * 60)
+	await enter_jisra_masjid_fixture(day, 600)
+
+
+func _check_jisra_hub_button_order(expected: Array[String]) -> void:
+	var buttons: Array[Button] = []
+	_collect_visible_buttons(app.ui, buttons)
+	var actions: Array[String] = []
+	for button: Button in buttons:
+		if button.text in expected:
+			actions.append(button.text)
+	check(actions == expected, "Q14 action order follows the locked Jisra hub: %s" % ", ".join(expected))
+
+
+func _collect_visible_buttons(node: Node, buttons: Array[Button]) -> void:
+	if node is Control and not node.is_visible_in_tree():
+		return
+	if node is Button:
+		buttons.append(node)
+	for child in node.get_children():
+		_collect_visible_buttons(child, buttons)
+
+
+func _jisra_talk_buttons(words: Dictionary) -> Array[Button]:
+	var buttons: Array[Button] = []
+	_collect_visible_buttons(app.ui, buttons)
+	return buttons.filter(func(button: Button) -> bool: return button.text == words.people.talk)
+
+
+func _check_jisra_people_dialogue(residents: Array, words: Dictionary) -> void:
+	set_market_day_time(8, 600)
+	await press_button(words.people_button, "Jisra opens the people list")
+	check(app.ui.screen == "runner_people" and has_visible_label(app.ui, words.people.title)
+		and has_visible_label(app.ui, str(words.people.kicker).format({"town": "Jisra"}).to_upper()),
+		"the people list shows the locked title and kicker")
+	for person: Dictionary in residents:
+		check(has_visible_label(app.ui, person.name) and has_visible_label(app.ui, str(person.role).to_upper()),
+			"the people list identifies %s as %s" % [person.name, person.role])
+	for band: Array in [[10, "wary"], [50, "friendly"], [80, "warm"]]:
+		app.gate_of_trust.jisra_trust = band[0]
+		for index in residents.size():
+			var person: Dictionary = residents[index]
+			var buttons := _jisra_talk_buttons(words)
+			check(buttons.size() == residents.size(), "one Talk button per available resident")
+			if buttons.size() != residents.size():
+				break
+			await press_control(buttons[index], "Talk opens %s at trust %d" % [person.name, band[0]])
+			var kicker := str(words.talk.kicker).format({"town": "Jisra", "role": person.role}).to_upper()
+			check(app.ui.screen == "runner_person" and has_visible_label(app.ui, person.name)
+				and has_visible_label(app.ui, kicker) and visible_text().split("\n").has(person.lines[band[1]]),
+				"exact %s dialogue for %s" % [band[1], person.name])
+			await press_button(words.talk.back, "the resident's exact Back label returns to the people list")
+
+	for person: Dictionary in residents:
+		for minute: int in [int(person.hours[0]) - 1, int(person.hours[0]), int(person.hours[1]) - 1, int(person.hours[1])]:
+			set_market_day_time(8, minute)
+			var present: bool = minute >= int(person.hours[0]) and minute < int(person.hours[1])
+			var away := str(words.people.away).format({"name": person.name})
+			check(visible_text().split("\n").has(away) != present,
+				"%s shows the locked away state at the hours boundary %d" % [person.name, minute])
+			if not present:
+				app._runner_action("person", person)
+				check(app.ui.screen == "runner_people", "an away resident cannot be opened by dispatching their action")
+			var present_count := 0
+			for resident: Dictionary in residents:
+				present_count += int(minute >= int(resident.hours[0]) and minute < int(resident.hours[1]))
+			check(_jisra_talk_buttons(words).size() == present_count, "Talk buttons track residents' hours at minute %d" % minute)
+	set_market_day_time(9, 724)
+	check(_jisra_talk_buttons(words).size() == 4, "all four residents are available just before the Friday adhan")
+	set_market_day_time(9, 725)
+	check(_jisra_talk_buttons(words).size() == 3 and visible_text().split("\n").has(str(words.people.away).format({"name": "Rafiq"})),
+		"only Rafiq is away for Friday prayer")
+	set_market_day_time(9, 760)
+	check(_jisra_talk_buttons(words).size() == 4, "Rafiq returns after the Friday prayer window")
+	await press_button(words.people.back, "the people list returns to Jisra")
+
+
+func _check_jisra_toll_memories(copy: Dictionary, town: Dictionary, words: Dictionary) -> void:
+	var toll: Dictionary = app.gate_of_trust.data.toll
+	var sayings := str(words.rep_button).format({"town": town.name})
+	for choice: String in ["speak", "pay", "quiet"]:
+		await _reset_jisra_people_fixture(8)
+		await press_button(app.gate_of_trust.data.jisra.watch, "open the toll for Jisra's %s memories" % choice)
+		await press_button(toll[choice], "the player chooses the locked toll response: " + choice)
+		await press_button(toll.to_town, "return to Jisra after the toll")
+		await press_button(words.people_button, "find who remembers the toll")
+		var index := 2 if choice == "quiet" else 0
+		var person: Dictionary = copy.people[index]
+		var flag := "toll:" + choice
+		if await _check_jisra_memory(person, flag, words, index):
+			await press_button(words.talk.back, "return after the locked toll memory")
+		await press_button(words.people.back, "return to Jisra after checking toll dialogue")
+		var lines: Array = []
+		for entry: Dictionary in copy.town_says:
+			if entry["if"] == flag:
+				lines.append(entry.line)
+		check(app.scene_runner.town_sayings("jisra", app) == lines, "the toll yields only its locked local witness account")
+		await press_button(sayings, "see whether the toll choice added a public account")
+		if lines.is_empty():
+			check(visible_text().split("\n").has(words.trep.empty), "the quiet toll choice leaves public sayings empty")
+		else:
+			_check_jisra_saying(lines[0])
+		await press_button(words.trep.back, "return from the toll's public account")
+
+
+func _check_jisra_memory(person: Dictionary, flag: String, words: Dictionary, index: int) -> bool:
+	var buttons := _jisra_talk_buttons(words)
+	var button: Button = buttons[index] if buttons.size() > index else null
+	if not await press_control(button, "Talk opens the resident with the locked memory: " + person.name):
+		return false
+	var text: PackedStringArray = visible_text().split("\n")
+	check(app.ui.screen == "runner_person" and app.runner_person.id == person.id and text.has(person.lines.wary),
+		"%s keeps the base wary line before the memory" % person.name)
+	for memory: Array in person.memory:
+		check(text.has(memory[1]) == (memory[0] == flag), "%s shows only the matching memory: %s" % [person.name, flag])
+	return true
+
+
+func _check_jisra_saying(line: Array) -> void:
+	check(app.ui.screen == "runner_sayings" and has_visible_label(app.ui, "“%s”" % line[0])
+		and has_visible_label(app.ui, str(line[1]).to_upper()) and has_visible_label(app.ui, app.chapter.rep.tone[str(int(line[2]))]),
+		"What Jisra says shows the exact account, witness and tone: " + line[0])
+
+
+func _check_jisra_work_and_inn(town: Dictionary, words: Dictionary) -> void:
+	await _reset_jisra_people_fixture(7)
+	var job: Dictionary = town.work
+	for minute: int in [359, 360, 719, 720]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, job.label) != null) == (minute >= 360 and minute < 720),
+			"fish work follows its hours at minute %d" % minute)
+	set_market_day_time(9, 719)
+	check(find_button(app.ui, job.label) != null, "fish work is available in its Friday hours")
+	set_market_day_time(9, 725)
+	check(find_button(app.ui, job.label) == null, "fish work is unavailable at Friday prayer")
+	app._runner_action("work", null)
+	check(app.progress.coins == 8 and app.gate_of_trust.jisra_trust == 10 and app.minute_of_day == 725,
+		"dispatching closed work leaves coins, trust and time alone")
+	set_market_day_time(10, 360)
+	var market_trust: int = app.progress.trust
+	var receipt := str(words.work_done).format({"n": 60, "c": 4})
+	await press_button(job.label, "carry fish baskets for Umm Hani at opening")
+	check(app.day == 10 and app.minute_of_day == 420 and app.progress.coins == 12
+		and app.gate_of_trust.jisra_trust == 11 and app.progress.trust == market_trust and visible_text().contains(receipt),
+		"the first shift pays four, adds one Jisra trust and takes sixty minutes")
+	await press_button(job.label, "carry a second shift on the same day")
+	check(app.day == 10 and app.minute_of_day == 480 and app.progress.coins == 16
+		and app.gate_of_trust.jisra_trust == 11 and app.progress.trust == market_trust,
+		"repeat work still pays and uses an hour without adding a second daily trust point")
+	set_market_day_time(11, 360)
+	await press_button(job.label, "carry fish on the following day")
+	check(app.day == 11 and app.minute_of_day == 420 and app.progress.coins == 20
+		and app.gate_of_trust.jisra_trust == 12 and app.progress.trust == market_trust,
+		"the daily Jisra trust reward renews the following morning")
+
+	var inn := str(words.inn_button).format({"n": int(town.inn)})
+	for coins: int in [2, 0, 1]:
+		set_market_day_time(11, 21 * 60)
+		app.progress.coins = coins
+		app.update_state()
+		await press_button(inn, "use Jisra's exact inn button at 21:00 with %d coins" % coins)
+		var message: String = str(words.inn_done).format({"n": 2}) if coins == 2 else words.inn_poor
+		var balance := 0 if coins == 2 else coins
+		check(app.day == 12 and app.minute_of_day == 280 and app.ui.screen == "jisra" and app.gate_of_trust.in_jisra
+			and app.progress.coins == balance and visible_text().contains(message),
+			"Q14 inn wakes at 04:40 in Jisra with the right payment and receipt for %d starting coins" % coins)
+
+
+func _check_weak_rope_outcome(mission: Dictionary, words: Dictionary, choice_index: int, ending_id: String,
+		trust_delta: int, coins_delta: int, flag: String, saying_id: String) -> void:
+	await _reset_jisra_people_fixture(8)
+	app.gate_of_trust.jisra_trust = 15
+	app.update_state()
+	var runner = app.scene_runner
+	var market_trust: int = app.progress.trust
+	var initial_side: Dictionary = runner.journal(app).side
+	var flags: Dictionary = runner.state().flags
+	flags[flag] = 8
+	var opening: Dictionary = mission.scenes.a
+	await press_button(mission.button, "Jisra opens the weak-rope mission")
+	check(app.ui.screen == "runner_mission" and has_visible_label(app.ui, mission.title)
+		and has_visible_label(app.ui, str(mission.kicker).to_upper()), "the weak-rope opening shows its locked title and kicker")
+	for paragraph: String in opening.text:
+		check(visible_text().split("\n").has(paragraph), "the opening shows the exact locked paragraph")
+	for choice: Dictionary in opening.choices:
+		check(find_button(app.ui, choice.label) != null, "the opening shows the exact choice: " + choice.label)
+	await press_button(opening.choices[choice_index].label, "choose the locked weak-rope response: " + ending_id)
+	var ending: Dictionary = mission.scenes[ending_id]
+	check(app.runner_scene() == ending, "the weak-rope response opens the intended ending: " + ending_id)
+	_check_side_mission_scene(mission, ending)
+	check(find_button(app.ui, opening.choices[0].label) == null and find_button(app.ui, opening.choices[1].label) == null,
+		"the resolved mission removes both choices")
+	check(runner.state().flags == flags and app.progress.coins == 8 + coins_delta
+		and app.gate_of_trust.jisra_trust == 15 + trust_delta and app.progress.trust == market_trust
+		and app.day == 8 and app.minute_of_day == 600, "the response applies only its locked flag, coins and local trust")
+	check(not runner.mission_done(app, mission.id) and runner.journal(app).side == initial_side,
+		"the ending remains unfinished until the player leaves")
+	await press_button(words.scene_back, "Back leaves and completes the weak-rope ending")
+	check(app.ui.screen == "jisra" and runner.mission_done(app, mission.id) and find_button(app.ui, mission.button) == null,
+		"leaving the ending returns to Jisra and removes its once-only action")
+	set_market_day_time(10, 600)
+	check(find_button(app.ui, mission.button) == null, "completing the weak rope keeps it hidden on later days")
+	var line: Array = mission.say[saying_id]
+	check(runner.town_sayings("jisra", app) == [line] and runner.town_sayings("river_market", app).is_empty(),
+		"the response adds one locked witness account in Jisra only")
+	await press_button(str(words.rep_button).format({"town": "Jisra"}), "see the weak-rope account in What Jisra says")
+	_check_jisra_saying(line)
+	await press_button(words.trep.back, "return to the Jisra hub after reading the account")
+	await press_button(words.people_button, "open the Jisra residents after the weak rope")
+	var residents: Array = runner.town_people(app, "jisra")
+	for index: int in [1, 3]:
+		if await _check_jisra_memory(residents[index], flag, words, index):
+			await press_button(words.talk.back, "return to the residents after the weak-rope memory")
+	await press_button(words.people.back, "return to Jisra after the weak-rope memories")
+	await press_button(app.gate_of_trust.data.jisra.back, "take the original road back to Ilmara")
+	check(find_button(app.ui, mission.button) == null and find_button(app.ui, words.people_button) == null,
+		"Jisra activities do not appear in River Market")
+	await press_button(words.journal_button, "open the Journal in River Market after the weak rope")
+	var side: Dictionary = runner.journal(app).side
+	check(side == {"done": initial_side.done + 1, "total": initial_side.total}
+		and has_visible_label(app.ui, str(words.journal.count).format({"n": side.done, "m": side.total})),
+		"the Journal counts the weak-rope completion once")
+	await press_button(words.journal.back, "close the private Journal")
 
 
 func check_jisra_masjid_runtime() -> void:

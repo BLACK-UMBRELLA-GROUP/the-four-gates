@@ -1,0 +1,158 @@
+{
+  "line": 42,
+  "lock": "LOCK 35 V1",
+  "reissued_under": "LOCK 103",
+  "brief": "DOC-TFG-0116",
+  "questions_answer_rows": [
+    14,
+    15,
+    16
+  ],
+  "tested_base_commit_sha": "bd730f23e3a4c2683f1529a38e2ed63e7dc26200",
+  "tested_source": "Base commit plus the runtime and test files with SHA-256 listed here. The containing commit is recorded in the 17 Nov task note.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T13:19:02+00:00",
+  "checks_passed": {
+    "headless_full_suite": 7110,
+    "lock_35_subset": 273
+  },
+  "native_screenshots": 0,
+  "compiled_exports": 0,
+  "locked_inputs": {
+    "GAME/APPROVED/JISRA_PEOPLE/BRIEFS/BUILD_BRIEF_2026-11-09_JISRA_PEOPLE.md": {
+      "bytes": 3810,
+      "sha256": "586175dc61a9cec389633611246999ed404e799c19857db29ee54a0184928a53"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/RECORD/JISRA_PEOPLE_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 5957,
+      "sha256": "3a942fbb829ca1aced153c98d641b491372f0e3d83213666ce35deb27343db8e"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/RECORD/LOCK_RECORD.md": {
+      "bytes": 960,
+      "sha256": "94fb778f93d5d1316b9ea552d8c8133ef3ddd851ac4690c0c9369f2bcb68f43b"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/RECORD/jisra_people_data_V1.json": {
+      "bytes": 5214,
+      "sha256": "ddeeb985dcd6365d63ba701fc057b752a5dd91710fd147cc909ff0b17cb61cda"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/scene_runner_data_V2.json": {
+      "bytes": 2496,
+      "sha256": "b1c9cb7a12ec13ec491cd33e4170f96890a4d4b3f06863373c1edb2d8b769bdf"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 6564,
+      "sha256": "6dae8ab75ebd05d9bbfe432e5921aa95b63f82ee4b724cd6a6dd8eebf1a9583b"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/LOCK_RECORD.md": {
+      "bytes": 1193,
+      "sha256": "097e458b36812235cf8b7af3da1b87b413b920c6a032f7454c4cc2586378afdd"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp01_jisra__town.png": {
+      "bytes": 135578,
+      "sha256": "0ff1b63e8982e886f1cf801ee8f8ccab3c8b0b44447139a8babf41c41d7fbd81"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp02_jisra__people.png": {
+      "bytes": 244491,
+      "sha256": "91c11264f1b95e46204448988189408c8ee628967c7e2fa0da335631eb0ed760"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp03_jisra__hamid_trust_10.png": {
+      "bytes": 269330,
+      "sha256": "5e97885dbabd58b178de7132077e1b4a708a17b2126a8cac7a6a11633a3631c0"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp04_jisra__hamid_trust_50.png": {
+      "bytes": 269019,
+      "sha256": "e2976e392584e3e6d9372f74465244d0df84fdcc843e30e95087fd1731f24cd8"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp05_jisra__hamid_trust_80.png": {
+      "bytes": 269292,
+      "sha256": "5719f48ffcfda580d6372657cd01ccbb49a4836b508dd87c4b2880e2229a58d9"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp06_jisra__rafiq_trust_10.png": {
+      "bytes": 270107,
+      "sha256": "a47df64e362e3732216752bd265f3453a1bb88dd503a4564f0955d766f65cc19"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp07_jisra__rafiq_trust_50.png": {
+      "bytes": 270547,
+      "sha256": "2b5c1931c99341d51022d05924f1a5eed53ffe5af6f5440efbe67b5c5b6c763e"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp08_jisra__rafiq_trust_80.png": {
+      "bytes": 269879,
+      "sha256": "402dea26d36a65cc1b37dede7e988cdacef8b191b78d2b82e5236265b13438c8"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp09_jisra__umm_hani_trust_10.png": {
+      "bytes": 269604,
+      "sha256": "ce510a41fdb235167ef1a6e09c618a0f33f03626e22e42fed8766db34d6290c8"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp10_jisra__umm_hani_trust_50.png": {
+      "bytes": 270105,
+      "sha256": "0ed348c53c6b8bb2f00f4296bef01eddacd70f0f2fe1cf89578001da41864643"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp11_jisra__umm_hani_trust_80.png": {
+      "bytes": 268642,
+      "sha256": "8afd1238d7565f571f45a1c855c7fe6842c4001f5b88c760fbec5796cb592fe0"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp12_jisra__bashir_trust_10.png": {
+      "bytes": 269524,
+      "sha256": "b56fc61a39ce4e1e473e344995df9b029dad7f4cc94b6d498f7feebf4ab63618"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp13_jisra__bashir_trust_50.png": {
+      "bytes": 270158,
+      "sha256": "0c51c6bf42f3a4348bb7471704446ef0fdbef0b8edbbe965595f7bcc642bcc98"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp14_jisra__bashir_trust_80.png": {
+      "bytes": 269515,
+      "sha256": "d0aec3c5301dd04630bbe3a4f15bb5ce1f8493c14b745bb19e096a214028d329"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp15_jisra__what_people_say_empty.png": {
+      "bytes": 270501,
+      "sha256": "a01668c6a4b63120d48b9c7f55957910760d56f358e1d735fe7c7f895b759499"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp16_weak_rope__a.png": {
+      "bytes": 247010,
+      "sha256": "cece2ef2a4915969ae276fd796881837321ceb7091a80f8f21d3c02cb6af63b8"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp17_weak_rope__told.png": {
+      "bytes": 263046,
+      "sha256": "0a44e4be7607761d78ab63886def99a354ac13073ea6937fe16f715fdaab7e3d"
+    },
+    "GAME/APPROVED/JISRA_PEOPLE/MASTERS/jp18_weak_rope__sold.png": {
+      "bytes": 266166,
+      "sha256": "3d389979aa82525877526abda1220a960a3510eaca2d9d1b3aeafee01deae0a2"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 245,
+      "sha256": "87e2c3d2e9d6486403161cc0c6a50e1dc3f4d779cd788b826c5e78292d5bc47f"
+    },
+    "SOURCE/data/jisra_people.json": {
+      "bytes": 5214,
+      "sha256": "ddeeb985dcd6365d63ba701fc057b752a5dd91710fd147cc909ff0b17cb61cda"
+    },
+    "SOURCE/data/scene_runner.json": {
+      "bytes": 2496,
+      "sha256": "b1c9cb7a12ec13ec491cd33e4170f96890a4d4b3f06863373c1edb2d8b769bdf"
+    },
+    "SOURCE/game/market_ui.gd": {
+      "bytes": 154650,
+      "sha256": "12c7e19a188218c300719c7c605f3276609087ac6b8fca022bb3c563d8102ac1"
+    },
+    "SOURCE/game/market_world.gd": {
+      "bytes": 19036,
+      "sha256": "9e726608a01463378b576b95959e6826d0cb6170e3147ff3401e8d6f60efe7a1"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 15125,
+      "sha256": "b070fa96838d591af44a2b40ebd50e92f9621b48a5951a5dfdb31e9bf7cc63a1"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 408605,
+      "sha256": "a7c5711bf15f93d9d8f055bf038b4f9c3cac5b38061eb3c68164172d8eadc014"
+    },
+    "SOURCE/tests/scene_runner_fixture.gd": {
+      "bytes": 14298,
+      "sha256": "b7b98b3c2aafb8cd6ece9a69d558e21bd5e49db58d589cf1c795eb6d24cebff8"
+    }
+  }
+}

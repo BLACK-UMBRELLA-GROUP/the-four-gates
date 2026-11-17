@@ -27,7 +27,7 @@ func _init(content: Dictionary) -> void:
 
 static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 	var files: Array = _read_document(index_path).get("files", [])
-	var content := {"missions": {}, "towns": {}, "people": {}, "chapters": []}
+	var content := {"missions": {}, "towns": {}, "people": {}, "chapters": [], "town_says": {}}
 	var chapters_by_number := {}
 	for file: String in files:
 		var document := _read_document(index_path.get_base_dir().path_join(file))
@@ -38,6 +38,8 @@ static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 						chapters_by_number[int(chapter.n)] = chapter
 				"missions", "towns", "people":
 					_merge_records(content[key], document[key])
+				"town_says":
+					_merge_town_sayings(content.town_says, document[key])
 				_:
 					var earlier: Variant = content.get(key)
 					var later: Variant = document[key]
@@ -73,6 +75,17 @@ static func _merge_records(target: Dictionary, source: Variant) -> void:
 			var record: Dictionary = source[id]
 			record["id"] = id
 			target[id] = record
+
+
+static func _merge_town_sayings(target: Dictionary, source: Variant) -> void:
+	if source is Array:
+		for entry: Dictionary in source:
+			var town: String = entry.town
+			if not target.has(town):
+				target[town] = []
+			target[town].append(entry)
+	elif source is Dictionary:
+		_merge_fields(target, source)
 
 
 static func _merge_fields(target: Dictionary, source: Dictionary) -> void:
@@ -302,9 +315,13 @@ func town_people(_app, town: String) -> Array[Dictionary]:
 
 
 func person_available(app, person: Dictionary) -> bool:
-	var friday: Dictionary = app.market_day.data.friday
 	return (_within_hours(int(app.minute_of_day), person.get("hours", []))
-		and (not person.get("prays", false) or not app.clock.is_friday_prayer_window(int(friday.closed_until_minutes_after_iqamah))))
+		and (not person.get("prays", false) or not _friday_prayer_window(app)))
+
+
+func _friday_prayer_window(app) -> bool:
+	var friday: Dictionary = app.market_day.data.friday
+	return app.clock.is_friday_prayer_window(int(friday.closed_until_minutes_after_iqamah))
 
 
 func person_lines(app, town: String, person: Dictionary) -> Array[String]:
@@ -316,9 +333,10 @@ func person_lines(app, town: String, person: Dictionary) -> Array[String]:
 		band = data.bands[1]
 	var lines: Array[String] = []
 	_append_paragraphs(lines, person.get("lines", {}).get(band, []))
-	for memory: Dictionary in person.get("memory", []):
-		if has_flag(app, str(memory.flag)):
-			_append_paragraphs(lines, memory.text)
+	for memory: Variant in person.get("memory", []):
+		var flag: String = memory[0] if memory is Array else memory.flag
+		if has_flag(app, flag):
+			_append_paragraphs(lines, memory[1] if memory is Array else memory.text)
 			break
 	return lines
 
@@ -333,7 +351,8 @@ func _append_paragraphs(target: Array[String], value: Variant) -> void:
 
 func can_work(app, town: String) -> bool:
 	var job := _town_work(town)
-	return not job.is_empty() and _within_hours(int(app.minute_of_day), job.get("hours", []))
+	return (not job.is_empty() and _within_hours(int(app.minute_of_day), job.get("hours", []))
+		and not _friday_prayer_window(app))
 
 
 func _town_work(town: String) -> Dictionary:
@@ -373,9 +392,15 @@ func rest(app, town: String) -> String:
 	return message
 
 
-func town_sayings(town: String) -> Array:
+func town_sayings(town: String, app = null) -> Array:
 	var id := _town_id(town)
-	var lines: Array = data.get("town_says", {}).get(id, []).duplicate(true)
+	var lines := []
+	for entry: Variant in data.get("town_says", {}).get(id, []):
+		if entry is Dictionary:
+			if app != null and has_flag(app, str(entry["if"])):
+				lines.append(entry.line.duplicate(true))
+		else:
+			lines.append(entry.duplicate(true) if entry is Array else entry)
 	for line: Variant in _sayings.get(id, []):
 		if line not in lines:
 			lines.append(line)
