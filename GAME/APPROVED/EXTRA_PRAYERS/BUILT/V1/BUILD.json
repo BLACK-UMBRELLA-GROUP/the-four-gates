@@ -1,0 +1,79 @@
+{
+  "line": 84,
+  "lock": "LOCK 77 V1",
+  "brief": "DOC-TFG-0243",
+  "questions_answer_rows": [
+    15
+  ],
+  "tested_base_commit_sha": "531ddeba610a89e7d7913ff686432e8acd343749",
+  "tested_source": "The base commit with the source changes identified by SHA-256 below. The 17 November task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T15:30:02Z",
+  "checks_passed": {
+    "headless_full_suite": 7906,
+    "lock_77_subset": 80
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/EXTRA_PRAYERS/BRIEFS/BUILD_BRIEF_2026-11-09_EXTRA_PRAYERS.md": {
+      "bytes": 2547,
+      "sha256": "203ebfec1279fc2efb138a1bf45bf37ad6486f32f304302b1860efccc0d0cdfe"
+    },
+    "GAME/APPROVED/EXTRA_PRAYERS/RECORD/EXTRA_PRAYERS_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3696,
+      "sha256": "43ecd7e4485e0c453814c77491971e1a406dad0f21c732ccd2c3d96a6deec7a9"
+    },
+    "GAME/APPROVED/EXTRA_PRAYERS/RECORD/LOCK_RECORD.md": {
+      "bytes": 763,
+      "sha256": "80774b0630205b7eecdecdee5d1285b8bf4e07e3731b1aef8c0d08af4584c13f"
+    },
+    "GAME/APPROVED/EXTRA_PRAYERS/RECORD/extra_prayers_data_V1.json": {
+      "bytes": 2459,
+      "sha256": "0c8702faa8733592f91626abc05ee2e5d4516cf91f26bb67886435bfcbcac139"
+    },
+    "GAME/APPROVED/EXTRA_PRAYERS/MASTERS/dd01_extra_lesson__a.png": {
+      "bytes": 320581,
+      "sha256": "960ca49185103def28538d58509d7ddc65a296209b20de9126005d0ccb208dc5"
+    },
+    "GAME/APPROVED/EXTRA_PRAYERS/MASTERS/dd02_duha__a.png": {
+      "bytes": 313589,
+      "sha256": "cc9f68f03d15e9e7ef491a405f09758e4285eea8c2d85c773d524f1cd2c60203"
+    },
+    "GAME/APPROVED/EXTRA_PRAYERS/MASTERS/dd03_night_prayer__a.png": {
+      "bytes": 273358,
+      "sha256": "b61c294cedc9061876e4401e29872f84ca02dc885b95f86b396744ade2e1efd9"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 44054,
+      "sha256": "727d3babf56203c4733a325432054512308ee4aa897c19a863f8a1d97aad4619"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 362,
+      "sha256": "2efb12c75acdf9955885b4a0ea6bbec8d2a8a2dc0e3278b2b6180802744c5f53"
+    },
+    "SOURCE/data/extra_prayers.json": {
+      "bytes": 2459,
+      "sha256": "0c8702faa8733592f91626abc05ee2e5d4516cf91f26bb67886435bfcbcac139"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 15296,
+      "sha256": "9e1e7966182f50dc6dcc0ae0aef09e4dd8ab83e3ae4a0794c5ae9043b8e60f88"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 442388,
+      "sha256": "85a1e4ac5ef71912f0cf6bd0290235646b8f1305fe3be47a33435dd4d6dd66d2"
+    },
+    "SOURCE/tests/scene_runner_fixture.gd": {
+      "bytes": 14456,
+      "sha256": "a9501036a95657e7703367ea1b9d0ea173d7c53a6c1bea03c1611a003faf1bc3"
+    }
+  },
+  "evidence": {
+    "LINE84_CHECKS.json": {
+      "bytes": 2147,
+      "sha256": "2de1450cec9564ccbbc746ec19ed47181e3b90f0a7b21222f6c559c6a3af682b"
+    }
+  }
+}

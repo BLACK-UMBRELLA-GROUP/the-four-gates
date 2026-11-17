@@ -1,0 +1,64 @@
+{
+  "line": 84,
+  "lock": "LOCK 77 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 7906,
+    "total": 7906,
+    "failures": 0
+  },
+  "line_84": {
+    "passed": 80,
+    "total": 80,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "masters": [
+    "dd01_extra_lesson__a.png",
+    "dd02_duha__a.png",
+    "dd03_night_prayer__a.png"
+  ],
+  "asserted": {
+    "entry": "The live wudu and rows lessons supply the prerequisite. All three actions are gated by the River Market place, the prerequisite flag and the locked time boundaries. The night window includes midnight.",
+    "scenes": [
+      {
+        "id": "extra_lesson",
+        "choice": "Ask him how",
+        "effects": {
+          "flag": "extra_learned",
+          "done": true
+        }
+      },
+      {
+        "id": "duha",
+        "choice": "Finish",
+        "effects": {
+          "minutes": 10,
+          "count": {
+            "extra_prayers": 1
+          },
+          "done": true
+        }
+      },
+      {
+        "id": "night_prayer",
+        "choice": "Finish",
+        "effects": {
+          "minutes": 20,
+          "count": {
+            "night_prayers": 1
+          },
+          "done": true
+        }
+      }
+    ],
+    "copy": "The game displays the exact scene title, kicker, body and sole choice. The design reference stays private.",
+    "repeat": "The lesson completes once. Both prayers are limited to one per completion calendar day. A night prayer starting at 23:50 advances to 00:10 and claims the new day.",
+    "journal": "Both locked private goals retain their targets and advance independently. The five original goals, chapters and side totals remain in place.",
+    "save": "Save restoration preserves the lesson flags, completion days and private counters.",
+    "trust": "The three choices leave town trust, coins and public accounts unchanged."
+  },
+  "presentation": "The Godot runner uses its compact secondary choice. The three masters show a full-width primary choice. Q15 assigns visual comparison to the design chat.",
+  "native_screenshots": 0
+}

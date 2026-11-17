@@ -107,6 +107,10 @@ func _run() -> void:
 		await check_adhan_rows_runtime()
 		finish()
 		return
+	if "--extra-prayers-only" in OS.get_cmdline_user_args():
+		await check_extra_prayers_runtime()
+		finish()
+		return
 	check(app.ui.screen == "title", "launch opens the title")
 	check(visible_text().replace("\n", "").contains(data.title_screen.title), "title uses approved title text")
 	check(visible_text().contains(data.title_screen.line), "title uses approved subtitle")
@@ -214,6 +218,7 @@ func _run() -> void:
 	await check_jisra_people_runtime()
 	await check_wudu_runtime()
 	await check_adhan_rows_runtime()
+	await check_extra_prayers_runtime()
 	finish()
 
 
@@ -4612,7 +4617,7 @@ func check_wudu_runtime() -> void:
 	var locked_runner: Dictionary = JSON.parse_string(
 		FileAccess.get_file_as_string("res://data/scene_runner.json"))
 	check(approved.goals.is_empty() and not journal_before.goals.is_empty()
-		and runner.data.goals == locked_runner.goals,
+		and runner.data.goals.slice(0, locked_runner.goals.size()) == locked_runner.goals,
 		"the empty Wudu goals list preserves all existing Journal goals")
 	var jisra_trust: int = runner.town_trust(app, "jisra")
 	var scene: Dictionary = mission.scenes[mission.start]
@@ -4729,12 +4734,12 @@ func check_adhan_rows_runtime() -> void:
 	var repeat: Dictionary = first_scene.choices[0]
 	var second_scene: Dictionary = mission.scenes[repeat.go]
 	var stand: Dictionary = second_scene.choices[0]
-	_check_adhan_rows_scene(mission, first_scene, repeat, approved.design_reference_not_shown[mission.id])
+	_check_single_runner_choice(mission, first_scene, repeat, approved.design_reference_not_shown[mission.id])
 	await press_button(repeat.label, "repeat the adhan to reach the second scene")
 	check(runner.state() == state_before and app.day == DAY and app.minute_of_day == SCENE_TIME,
 		"repeating the adhan leaves runner state and the clock unchanged")
 	check_wallet(TRUST, COINS, "repeating the adhan leaves River Market trust and coins unchanged")
-	_check_adhan_rows_scene(mission, second_scene, stand, approved.design_reference_not_shown[mission.id])
+	_check_single_runner_choice(mission, second_scene, stand, approved.design_reference_not_shown[mission.id])
 	await press_button(stand.label, "stand in the row to finish the mission")
 
 	var expected_state := state_before.duplicate(true)
@@ -4770,7 +4775,7 @@ func check_adhan_rows_runtime() -> void:
 		" passed; failures=", failures_added)
 
 
-func _check_adhan_rows_scene(mission: Dictionary, scene: Dictionary, choice: Dictionary, reference: String) -> void:
+func _check_single_runner_choice(mission: Dictionary, scene: Dictionary, choice: Dictionary, reference: String) -> void:
 	var runner = app.scene_runner
 	check(app.ui.screen == "runner_mission" and app.runner_mission() == mission and app.runner_scene() == scene,
 		"the scene runner opens the locked scene for " + str(choice.label))
@@ -4778,10 +4783,162 @@ func _check_adhan_rows_scene(mission: Dictionary, scene: Dictionary, choice: Dic
 		"the scene shows the exact locked title and kicker")
 	var copy := visible_text()
 	check(copy.split("\n").has(scene.text), "the scene shows the exact locked dialogue")
-	check(not copy.contains(reference), "the design reference stays out of the player-facing text")
+	if not reference.is_empty():
+		check(not copy.contains(reference), "the design reference stays out of the player-facing text")
 	check(runner.choices(app, mission, scene) == [choice] and find_button(app.ui, choice.label) != null
 		and find_button(app.ui, runner.data.words.scene_back) == null,
 		"the scene offers only the locked choice")
+
+
+func check_extra_prayers_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/EXTRA_PRAYERS/RECORD/extra_prayers_data_V1.json")
+	check(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/extra_prayers.json"),
+		"the extra prayers data is byte-identical to LOCK 77")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner = app.scene_runner
+	var loaded: bool = approved is Dictionary and approved.missions.all(
+		func(mission: Dictionary) -> bool: return runner.missions.get(mission.id) == mission)
+	check(loaded, "the production index loads every locked extra prayer mission")
+	if not loaded:
+		return
+
+	var lesson: Dictionary = runner.missions.extra_lesson
+	var duha: Dictionary = runner.missions.duha
+	var night: Dictionary = runner.missions.night_prayer
+	var reference: String = approved.design_reference_not_shown[lesson.id]
+	const DAY := 8
+	const COINS := 198
+	const TRUST := 50
+	app.set_process(false)
+	reset_at_market_place(lesson.place, COINS, DAY)
+	app.progress.apply_trust(TRUST - app.progress.trust)
+	app.idris_met = true
+	set_market_day_time(DAY, 540)
+	check(find_button(app.ui, lesson.button) == null, "the lesson requires the adhan and rows flag")
+	check(find_button(app.ui, duha.button) == null, "Duha requires the extra prayers lesson")
+	move_market_fixture(night.place)
+	set_market_day_time(DAY, 0)
+	check(find_button(app.ui, night.button) == null, "the night prayer requires the extra prayers lesson")
+
+	move_market_fixture(lesson.place)
+	set_market_day_time(DAY, 540)
+	var wudu: Dictionary = runner.missions.wudu_lesson
+	await press_button(wudu.button, "open the live wudu lesson")
+	await press_button(wudu.scenes[wudu.start].choices[0].label, "complete the live wudu lesson")
+	check(find_button(app.ui, lesson.button) == null, "wudu alone does not unlock the extra prayers lesson")
+	var rows: Dictionary = runner.missions.adhan_rows
+	await press_button(rows.button, "open the live adhan and rows lesson")
+	var repeat: Dictionary = rows.scenes[rows.start].choices[0]
+	await press_button(repeat.label, "repeat the adhan")
+	await press_button(rows.scenes[repeat.go].choices[0].label, "finish the adhan and rows lesson")
+	check(runner.has_flag(app, lesson.after[0]), "the live adhan and rows lesson provides the prerequisite")
+	_check_extra_prayer_hours(lesson, DAY)
+	set_market_day_time(DAY, 540)
+	var state_before: Dictionary = runner.state()
+	var journal_before: Dictionary = runner.journal(app)
+	var lesson_scene: Dictionary = lesson.scenes[lesson.start]
+	var ask: Dictionary = lesson_scene.choices[0]
+	await press_button(lesson.button, "open the extra prayers lesson at the masjid")
+	_check_single_runner_choice(lesson, lesson_scene, ask, reference)
+	await press_button(ask.label, "ask Idris how to finish the lesson")
+	state_before.flags[ask.fx.flag] = DAY
+	state_before.done[lesson.id] = DAY
+	check(runner.state() == state_before and app.day == DAY and app.minute_of_day == 540,
+		"the lesson adds only the locked flag and completion")
+	check(app.ui.screen == "market_map" and find_button(app.ui, lesson.button) == null,
+		"the lesson exits to the map and its action disappears")
+
+	_check_extra_prayer_hours(duha, DAY)
+	set_market_day_time(DAY, 540)
+	await _finish_extra_prayer(duha, DAY, 550)
+	check(find_button(app.ui, duha.button) == null, "Duha is unavailable again on the completed day")
+	set_market_day_time(DAY + 1, 540)
+	check(find_button(app.ui, lesson.button) == null, "the lesson remains completed on a later day")
+	check(find_button(app.ui, duha.button) != null, "Duha becomes available the next day")
+
+	move_market_fixture(night.place)
+	_check_extra_prayer_hours(night, DAY)
+	set_market_day_time(DAY, 1430)
+	app.show_screen("game")
+	await _finish_extra_prayer(night, DAY + 1, 10)
+	check(app.ui.screen == "game" and find_button(app.ui, night.button) == null,
+		"the walking view resumes and the night prayer cannot repeat on its completion day")
+	set_market_day_time(DAY + 1, 1380)
+	check(find_button(app.ui, night.button) == null, "the night prayer stays hidden that calendar day")
+	set_market_day_time(DAY + 2, 0)
+	check(find_button(app.ui, night.button) != null, "the night prayer returns on the next calendar day")
+
+	var base: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/scene_runner.json"))
+	check(runner.data.goals == base.goals + approved.goals,
+		"both locked prayer goals follow all five original goals in the Journal")
+	var expected: Dictionary = journal_before.duplicate(true)
+	for goal: Dictionary in approved.goals:
+		check({"label": goal.label, "n": 0, "m": int(goal.m)} in journal_before.goals,
+			"the private goal starts at zero with the locked target: " + str(goal.label))
+		for row: Dictionary in expected.goals:
+			if row.label == goal.label:
+				row.n = 1
+	var words: Dictionary = runner.data.words
+	await press_button(words.journal_button, "open the private Journal after both prayers")
+	check(app.ui.screen == "journal" and runner.journal(app) == expected,
+		"each prayer advances only its Journal counter")
+	check(not visible_text().contains(reference), "the design reference is absent from the Journal")
+	for goal: Dictionary in expected.goals:
+		var count_text: String = words.journal.count.format(goal)
+		check(has_visible_label(app.ui, goal.label) and has_visible_label(app.ui, count_text),
+			"the Journal renders the goal and count: " + str(goal.label))
+	await press_button(words.journal.back, "close the Journal")
+	check_wallet(TRUST, COINS, "the lesson and both prayers leave market trust and coins unchanged")
+
+	var saved := MarketSave.snapshot(app)
+	app.begin_game()
+	MarketSave.restore(app, saved)
+	app.show_screen("market_map")
+	check(runner.state() == saved.scene_runner and runner.journal(app) == expected,
+		"save restoration preserves the private counts, lesson flags and completion days")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 77 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_extra_prayer_hours(mission: Dictionary, day: int) -> void:
+	var opens := int(mission.hours[0])
+	var closes := int(mission.hours[1])
+	for boundary: Array in [[opens - 1, false], [opens, true], [closes - 1, true], [closes, false]]:
+		set_market_day_time(day, boundary[0])
+		check((find_button(app.ui, mission.button) != null) == boundary[1],
+			"%s availability at minute %d" % [mission.id, boundary[0]])
+	if opens > closes:
+		set_market_day_time(day, 0)
+		check(find_button(app.ui, mission.button) != null, "the night prayer window includes midnight")
+	set_market_day_time(day, opens)
+	move_market_fixture("gate")
+	check(find_button(app.ui, mission.button) == null, "%s is hidden at the wrong place" % mission.id)
+	check(app.scene_runner.available_missions(app, "jisra", mission.place).all(
+		func(available: Dictionary) -> bool: return available.id != mission.id),
+		"%s belongs only to the River Market" % mission.id)
+	move_market_fixture(mission.place)
+
+
+func _finish_extra_prayer(mission: Dictionary, end_day: int, end_minute: int) -> void:
+	var runner = app.scene_runner
+	var expected: Dictionary = runner.state()
+	var origin: String = app.ui.screen
+	var scene: Dictionary = mission.scenes[mission.start]
+	var choice: Dictionary = scene.choices[0]
+	await press_button(mission.button, "open the locked prayer: " + str(mission.id))
+	_check_single_runner_choice(mission, scene, choice, "")
+	await press_button(choice.label, "finish the locked prayer: " + str(mission.id))
+	expected.done[mission.id] = end_day
+	for id: String in choice.fx.count:
+		expected.counters[id] = int(expected.counters.get(id, 0)) + int(choice.fx.count[id])
+	check(runner.state() == expected, "the prayer adds only its private counter and completion day")
+	check(app.ui.screen == origin and app.day == end_day and app.minute_of_day == end_minute,
+		"the prayer advances the locked time and returns to its entry view")
 
 
 func check_jisra_people_runtime() -> void:

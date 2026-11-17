@@ -85,8 +85,10 @@ static func _check_content(runner: SceneRunner, app: Context, check: Callable) -
 		and live_chapter.total == 7 and live_chapter.rows.all(func(row): return not row.done and row.title.is_empty()),
 		"fresh live Journal has only Chapter 1 and seven undiscovered rows")
 	var side_count := shipped.missions.values().filter(func(mission: Dictionary) -> bool: return mission.get("side", false)).size()
+	var base_runner: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/scene_runner.json"))
 	check.call(live_journal.side == {"done": 0, "total": side_count}
-		and live_journal.goals.size() == 5 and live_journal.goals.all(func(goal): return goal.n == 0),
+		and shipped.data.goals.slice(0, base_runner.goals.size()) == base_runner.goals
+		and live_journal.goals.all(func(goal): return goal.n == 0),
 		"fresh live Journal counts the loaded side missions and starts with no completions or progress toward goals")
 	var journal := runner.journal(app)
 	check.call(journal.chapters.map(func(chapter): return chapter.n) == [1, 2, 3]

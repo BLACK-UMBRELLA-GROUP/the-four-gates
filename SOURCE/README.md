@@ -539,11 +539,12 @@ to place each master beside its capture. Both commands accept `--jisra-masjid-ou
 
 Choose **Journal** on the River Market bar. Chapter 1 lists seven missions. A completed mission shows
 its title and **done**. Undiscovered missions show **…** and **not yet found**. The Journal also shows
-side mission totals and the five lifetime goals. **Back** returns to the River Market view.
+side mission totals and lifetime goals. **Back** returns to the River Market view.
 
 The loader reads `data/content_index.json` in order. A later entry with the same chapter number replaces
-the earlier chapter. Mission buttons and town actions appear when their content and conditions are
-available. Jisra's bridge, masjid, prayer and road controls are live. The generic town fixtures live
+the earlier chapter. Lifetime goals keep their order by first appearance. A later definition of the same
+goal ID updates that goal. Mission buttons and town actions appear when their content and conditions
+are available. Jisra's bridge, masjid, prayer and road controls are live. The generic town fixtures live
 under `tests/fixtures/scene_runner/`.
 
 Run `godot --headless --path SOURCE --script res://tests/run_tests.gd` for the full suite, or add
@@ -648,3 +649,13 @@ After completing wudu with Idris, choose **Yunus the muezzin wants to show you
 something** at the River Market masjid from 05:00 up to 21:00. Choose
 **Repeat the adhan after him**, then **Stand in the row** to finish the
 scene once. The scene leaves trust, coins and Journal totals unchanged.
+
+## LOCK 77 — The extra prayers
+
+After learning the adhan and the rows, choose **Idris prays two more rak'ahs**
+at the River Market masjid from 08:00 up to 20:00 and **Ask him how** to
+complete the lesson once. This unlocks Duha at the masjid from 08:00 up to
+11:30 and the night prayer at the inn from 23:00 through midnight up to
+04:30. Each can be completed once per in-game calendar day. **Finish** adds
+one to the corresponding private Journal goal and advances the clock by
+10 minutes for Duha or 20 minutes for the night prayer.

@@ -29,6 +29,7 @@ static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 	var files: Array = _read_document(index_path).get("files", [])
 	var content := {"missions": {}, "towns": {}, "people": {}, "chapters": [], "town_says": {}}
 	var chapters_by_number := {}
+	var goals_by_id := {}
 	for file: String in files:
 		var document := _read_document(index_path.get_base_dir().path_join(file))
 		for key: String in document:
@@ -41,9 +42,7 @@ static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 				"town_says":
 					_merge_town_sayings(content.town_says, document[key])
 				"goals":
-					# A content pack with no goals leaves earlier Journal goals in place.
-					if not document.goals.is_empty() or not content.has("goals"):
-						content.goals = document.goals
+					_merge_records(goals_by_id, document.goals)
 				_:
 					var earlier: Variant = content.get(key)
 					var later: Variant = document[key]
@@ -55,6 +54,7 @@ static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 	numbers.sort()
 	for number: int in numbers:
 		content.chapters.append(chapters_by_number[number])
+	content.goals = goals_by_id.values()
 	return content
 
 
