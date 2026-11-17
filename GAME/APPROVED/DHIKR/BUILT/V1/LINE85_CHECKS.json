@@ -1,0 +1,99 @@
+{
+  "line": 85,
+  "lock": "LOCK 78 V1",
+  "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+  "exit_code": 0,
+  "full_suite": {
+    "passed": 7993,
+    "total": 7993,
+    "failures": 0
+  },
+  "line_85": {
+    "passed": 84,
+    "total": 84,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "masters": [
+    "de01_dhikr_lesson__a.png",
+    "de02_dhikr_morning__a.png",
+    "de03_dhikr_evening__a.png"
+  ],
+  "asserted": {
+    "entry": "The live wudu lesson unlocks the dhikr lesson. All three actions require the locked River Market place, time window and prerequisite. Opening the scene has no effect.",
+    "scenes": [
+      {
+        "id": "dhikr_lesson",
+        "choice": "Count with him",
+        "place": "masjid",
+        "hours_minutes": [
+          420,
+          1200
+        ],
+        "prerequisites": [
+          "wudu_learned"
+        ],
+        "repeat": "once",
+        "effects": {
+          "flag": "dhikr_learned",
+          "count": {
+            "dhikr": 1
+          },
+          "done": true
+        }
+      },
+      {
+        "id": "dhikr_morning",
+        "choice": "Finish",
+        "place": "inn",
+        "hours_minutes": [
+          280,
+          480
+        ],
+        "prerequisites": [
+          "dhikr_learned"
+        ],
+        "repeat": "daily",
+        "effects": {
+          "minutes": 5,
+          "count": {
+            "dhikr": 1
+          },
+          "done": true
+        }
+      },
+      {
+        "id": "dhikr_evening",
+        "choice": "Finish",
+        "place": "inn",
+        "hours_minutes": [
+          1020,
+          1140
+        ],
+        "prerequisites": [
+          "dhikr_learned"
+        ],
+        "repeat": "daily",
+        "effects": {
+          "minutes": 5,
+          "count": {
+            "dhikr": 1
+          },
+          "done": true
+        }
+      }
+    ],
+    "copy": "The UI renders the locked title, kicker, dialogue and sole choice. The design reference stays private.",
+    "repeat": "The lesson completes once. Morning and evening can both be completed on a calendar day and each returns on the next day.",
+    "journal": "The three choices move only the locked private goal from 0 to 3 of 1,000. The UI shows the goal and count.",
+    "save": "Loading preserves the flags, completion days and private count.",
+    "trust": "The choices leave River Market and Jisra trust, coins and public accounts unchanged."
+  },
+  "presentation": "The River Market runner uses compact secondary choices. The masters show full-width primary choices. Q15 assigns visual comparison to the design chat.",
+  "native_screenshots": 0,
+  "suite_context": {
+    "working_copy_lock_34_reference": "GAME/APPROVED/SCENE_RUNNER/RECORD/scene_runner_data_V2.json",
+    "reference_sha256": "b1c9cb7a12ec13ec491cd33e4170f96890a4d4b3f06863373c1edb2d8b769bdf",
+    "standalone_checkout": "Two existing tests require the working-copy LOCK 34 V2 reference. Its publication is outside line 85."
+  }
+}

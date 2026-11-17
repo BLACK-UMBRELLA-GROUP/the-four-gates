@@ -1,0 +1,119 @@
+{
+ "version": "LOCK 78 V1 (9 Nov 2026) - Remembrance, Morning remembrance, Evening remembrance",
+ "builds_on": "LOCK 2 prayer, LOCK 3 Idris, LOCK 6 regulars, LOCK 34 runner. Private counters go to the Journal; worship never earns trust.",
+ "goals": [
+  {
+   "id": "dhikr",
+   "label": "Morning and evening remembrance",
+   "m": 1000
+  }
+ ],
+ "design_reference_not_shown": {
+  "dhikr_lesson": "Bukhari 6407",
+  "dhikr_morning": "",
+  "dhikr_evening": ""
+ },
+ "missions": [
+  {
+   "id": "dhikr_lesson",
+   "lock": 78,
+   "place": "masjid",
+   "hours": [
+    420,
+    1200
+   ],
+   "title": "Remembrance",
+   "kicker": "Worship · Remembrance",
+   "button": "Idris is counting on his fingers",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Idris is murmuring and counting on his fingers. “Morning and evening, remember Allah: glory be to Allah, praise be to Allah, Allah is the Greatest. It takes a few minutes. The one who remembers and the one who doesn't are like the living and the dead.”",
+     "choices": [
+      {
+       "label": "Count with him",
+       "fx": {
+        "flag": "dhikr_learned",
+        "count": {
+         "dhikr": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "wudu_learned"
+   ]
+  },
+  {
+   "id": "dhikr_morning",
+   "lock": 78,
+   "place": "inn",
+   "hours": [
+    280,
+    480
+   ],
+   "title": "Morning remembrance",
+   "kicker": "Worship · Morning remembrance",
+   "button": "Say the morning remembrance",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "You sit on the inn's roof as the light comes up and say the morning remembrance.",
+     "choices": [
+      {
+       "label": "Finish",
+       "fx": {
+        "minutes": 5,
+        "count": {
+         "dhikr": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "dhikr_learned"
+   ],
+   "repeat": "daily"
+  },
+  {
+   "id": "dhikr_evening",
+   "lock": 78,
+   "place": "inn",
+   "hours": [
+    1020,
+    1140
+   ],
+   "title": "Evening remembrance",
+   "kicker": "Worship · Evening remembrance",
+   "button": "Say the evening remembrance",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The market packs up below you while you say the evening remembrance.",
+     "choices": [
+      {
+       "label": "Finish",
+       "fx": {
+        "minutes": 5,
+        "count": {
+         "dhikr": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "dhikr_learned"
+   ],
+   "repeat": "daily"
+  }
+ ]
+}

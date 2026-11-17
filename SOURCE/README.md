@@ -659,3 +659,15 @@ complete the lesson once. This unlocks Duha at the masjid from 08:00 up to
 04:30. Each can be completed once per in-game calendar day. **Finish** adds
 one to the corresponding private Journal goal and advances the clock by
 10 minutes for Duha or 20 minutes for the night prayer.
+
+## LOCK 78 — Morning and evening remembrance
+
+After completing the wudu lesson, choose **Idris is counting on his
+fingers** at the River Market masjid from 07:00 up to 20:00. **Count with him**
+completes the lesson once and adds one to the private Journal goal.
+
+At the River Market inn, morning remembrance is available from 04:40 up to
+08:00 and evening remembrance from 17:00 up to 19:00. Each can be completed
+once per in-game day. **Finish** adds one to the same Journal goal of 1,000
+and advances the clock by five in-game minutes. All three scenes leave
+trust unchanged.

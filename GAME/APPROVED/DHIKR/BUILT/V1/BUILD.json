@@ -1,0 +1,71 @@
+{
+  "line": 85,
+  "lock": "LOCK 78 V1",
+  "brief": "DOC-TFG-0246",
+  "questions_answer_rows": [
+    15
+  ],
+  "tested_base_commit_sha": "f698b64dec4afffde109746171c6c78e5c8426c3",
+  "tested_source": "The base commit plus the source changes identified below, with the existing working-copy LOCK 34 V2 test reference. The daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-17T15:38:38Z",
+  "checks_passed": {
+    "headless_full_suite": 7993,
+    "lock_78_subset": 84
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/DHIKR/BRIEFS/BUILD_BRIEF_2026-11-09_DHIKR.md": {
+      "bytes": 2455,
+      "sha256": "022175e7cd1f628e76e875d287fe4b529543903670a35001d09d452a2df4b72d"
+    },
+    "GAME/APPROVED/DHIKR/RECORD/DHIKR_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3660,
+      "sha256": "ce7263d032cc52e794b8f1283cd226d2c651dcc38d0628fb5a872c36e4d73cc4"
+    },
+    "GAME/APPROVED/DHIKR/RECORD/LOCK_RECORD.md": {
+      "bytes": 717,
+      "sha256": "6df4cc4be28ba82a1ebe90884a01f01c87e92d7784c7fa1e537bcd609fbb7258"
+    },
+    "GAME/APPROVED/DHIKR/RECORD/dhikr_data_V1.json": {
+      "bytes": 2516,
+      "sha256": "bd75227a35682a98f61efa76b6f16a1b50316d5432a12b8c1d68e59ad645974b"
+    },
+    "GAME/APPROVED/DHIKR/MASTERS/de01_dhikr_lesson__a.png": {
+      "bytes": 322368,
+      "sha256": "272a7d7297dabd943c7da74667d53f3d13b8ea1a3a7069203bcf65a4a7affba1"
+    },
+    "GAME/APPROVED/DHIKR/MASTERS/de02_dhikr_morning__a.png": {
+      "bytes": 316997,
+      "sha256": "a062b0768d247dd9ada03e9c457ceb9d3daaed5bd0d03dbc906cdea4369653a7"
+    },
+    "GAME/APPROVED/DHIKR/MASTERS/de03_dhikr_evening__a.png": {
+      "bytes": 316506,
+      "sha256": "5c8ebf50af599d84cc023e37ecd391b5322bcc6669fb7bdc802fe27eef12bbab"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 44635,
+      "sha256": "1fe0970d8c5a5a08e93bfc3817536ab5c8c6e7cfb487cc2ab382515d3f7c03b4"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 380,
+      "sha256": "a8609d1dfe7653fae920e662fd7a9fdaa0c3496d25a2b7819e1f6984f4e7363b"
+    },
+    "SOURCE/data/dhikr.json": {
+      "bytes": 2516,
+      "sha256": "bd75227a35682a98f61efa76b6f16a1b50316d5432a12b8c1d68e59ad645974b"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 448375,
+      "sha256": "32e43367c2147fd173ac3d8dfb96954c51d84d3f039edf08761853664229871d"
+    }
+  },
+  "evidence": {
+    "LINE85_CHECKS.json": {
+      "bytes": 2985,
+      "sha256": "fb626a33e49444b80b84ad3baadb6f66a4fb6c1f86ac3eaa0bcb5c44c68f3544"
+    }
+  }
+}
