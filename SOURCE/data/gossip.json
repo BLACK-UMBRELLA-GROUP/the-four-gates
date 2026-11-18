@@ -1,0 +1,77 @@
+{
+ "version": "LOCK 84 V1 (9 Nov 2026) - The gossip at the square",
+ "builds_on": "LOCK 2 prayer, LOCK 3 Idris, LOCK 6 regulars, LOCK 34 runner. Private counters go to the Journal; worship never earns trust.",
+ "goals": [],
+ "design_reference_not_shown": {
+  "gossip": "Quran 49:12"
+ },
+ "missions": [
+  {
+   "id": "gossip",
+   "lock": 84,
+   "place": "board",
+   "hours": [
+    480,
+    1080
+   ],
+   "title": "The gossip at the square",
+   "kicker": "Character · Gossip",
+   "button": "People are talking about Layla",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Three people at the square are talking about Layla: where does a widow get money for a second loom? Someone winks. They look at you to join in.",
+     "choices": [
+      {
+       "label": "Say you'd rather not talk about her",
+       "go": "stop",
+       "fx": {
+        "trust": 4,
+        "say": "stopped"
+       }
+      },
+      {
+       "label": "Join in",
+       "go": "join",
+       "fx": {
+        "trust": -3,
+        "say": "joined"
+       }
+      },
+      {
+       "label": "Walk away",
+       "go": "away"
+      }
+     ]
+    },
+    "stop": {
+     "text": "There's an awkward pause. Then someone talks about the weather.",
+     "end": true
+    },
+    "join": {
+     "text": "By evening a story is going round the market. Layla doesn't know where it started.",
+     "end": true
+    },
+    "away": {
+     "text": "You leave them to it.",
+     "end": true
+    }
+   },
+   "after": [
+    "chapter1_done"
+   ],
+   "say": {
+    "stopped": [
+     "Won't talk behind people's backs",
+     "the square",
+     1
+    ],
+    "joined": [
+     "Gossips about Layla",
+     "the square",
+     -1
+    ]
+   }
+  }
+ ]
+}

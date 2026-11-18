@@ -1,0 +1,43 @@
+{
+  "line": 91,
+  "lock": "LOCK 84 V1",
+  "result": "passed",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --gossip-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 286,
+      "total": 286,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17147,
+      "total": 17147,
+      "failures": 0
+    },
+    "lock_84": {
+      "passed": 87,
+      "total": 87,
+      "failures": 0
+    }
+  },
+  "runtime_data_byte_identical": true,
+  "coverage": [
+    "The square action opens after chapter1_done from 08:00 through 17:59. It is hidden at 07:59 and 18:00, elsewhere, and before Chapter 1 completion.",
+    "Both the Q43 fixture and the built Chapter 1 ending unlock the encounter through the original flag.",
+    "The mission title, kicker, opening paragraph, ordered choices, three outcome paragraphs and Back match the LOCK. The design reference stays out of the scenes.",
+    "Declining adds four River Market trust and the good account. Joining removes three River Market trust and adds the bad account. Walking away changes neither trust nor the accounts.",
+    "What people say shows the exact response, source and tone when an account was earned. Other towns, the clock and coins are preserved.",
+    "Back records completion once and returns to the square. Existing Journal rows, counters and goals are preserved. Save restoration retains the outcome and completion, and the action stays closed on later days."
+  ],
+  "master_reference": {
+    "dk01_gossip__a.png": "a",
+    "dk02_gossip__stop.png": "stop",
+    "dk03_gossip__join.png": "join",
+    "dk04_gossip__away.png": "away"
+  },
+  "visual_scope": "The four reference PNGs match the locked scene copy and action order. The existing Godot layout remains under Q15 and R11. HUD values in the masters are setup values.",
+  "native_screenshots": 0
+}

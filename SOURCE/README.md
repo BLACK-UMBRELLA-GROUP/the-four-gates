@@ -1056,3 +1056,12 @@ and takes 30 game minutes. Both give 3 River Market trust and add Idris's accoun
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --visiting-sick-only`.
+
+## LOCK 84 — The gossip at the square
+
+After Chapter 1, **People are talking about Layla** appears at the River Market square from 08:00 through 17:59.
+Declining to gossip adds four local trust. Joining in removes three. Both choices add their locked account to
+**What people say**. Walking away ends the conversation. **Back** completes the encounter once.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --gossip-only`.

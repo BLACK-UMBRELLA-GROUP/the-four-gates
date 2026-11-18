@@ -1,0 +1,100 @@
+{
+  "line": 91,
+  "lock": "LOCK 84 V1",
+  "brief": "DOC-TFG-0264",
+  "questions_answer_rows": [
+    15,
+    43
+  ],
+  "tested_base_commit_sha": "ff1c8a1071034616dc61d2ef29797bd241330607",
+  "tested_source": "Base commit plus the hashed changed files. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T13:34:16+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --gossip-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 286,
+      "total": 286,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17147,
+      "total": 17147,
+      "failures": 0
+    },
+    "lock_84": {
+      "passed": 87,
+      "total": 87,
+      "failures": 0
+    }
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/GOSSIP/BRIEFS/BUILD_BRIEF_2026-11-09_GOSSIP.md": {
+      "bytes": 2660,
+      "sha256": "ef6c01683b3ac1fb0eaa5f54a5955bc58a7e8c68150dcc96f78a275457642ef6"
+    },
+    "GAME/APPROVED/GOSSIP/RECORD/GOSSIP_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3470,
+      "sha256": "f43e1e53bacf24a5303877ca7463a0f6c5b1e937ca27b76c5936bd5e04e50439"
+    },
+    "GAME/APPROVED/GOSSIP/RECORD/LOCK_RECORD.md": {
+      "bytes": 710,
+      "sha256": "61c075cd9f9ab2e222c5c3d7d7a2bf5b0fd346fa5ad4e9bdd0c63b51bae74240"
+    },
+    "GAME/APPROVED/GOSSIP/RECORD/gossip_data_V1.json": {
+      "bytes": 1687,
+      "sha256": "b718bdaac8bda413d1038df4cb80aead85aa0adabd0d2f62fdb42be02f88fbb0"
+    },
+    "GAME/APPROVED/GOSSIP/MASTERS/dk01_gossip__a.png": {
+      "bytes": 299114,
+      "sha256": "500c4aed2b492f3743e8922bac6fd6129f7f7fd6fe35e54322f17927c47b3cb2"
+    },
+    "GAME/APPROVED/GOSSIP/MASTERS/dk02_gossip__stop.png": {
+      "bytes": 315670,
+      "sha256": "9cebcc85f8b39f0f7c26ac5126a51abbfaa79f1c9725bc49cf4ad37985c3de59"
+    },
+    "GAME/APPROVED/GOSSIP/MASTERS/dk03_gossip__join.png": {
+      "bytes": 316597,
+      "sha256": "2252a90a5c743ee128ca8e8f42b907534166aa02d940adad734f4d3012e3859a"
+    },
+    "GAME/APPROVED/GOSSIP/MASTERS/dk04_gossip__away.png": {
+      "bytes": 313643,
+      "sha256": "c36c4f94ca0130657483128733045653d150ffae75bbfa5fcd3453088ef33057"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "runner_contract": "Scene Runner V2, R1–R12",
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 66321,
+      "sha256": "052a8932e0ce3de0a76d7aab9b052bbc574fc81b90a0f8d4900aa54e51e1879f"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1212,
+      "sha256": "1195d2f82026a07236a82c6bcfe615e730c40bf8e71e4353a6a4af8c2f7e43c5"
+    },
+    "SOURCE/data/gossip.json": {
+      "bytes": 1687,
+      "sha256": "b718bdaac8bda413d1038df4cb80aead85aa0adabd0d2f62fdb42be02f88fbb0"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 830385,
+      "sha256": "1704d4d318a29837a43d73ab8328a9282d84ecda1bbdd51e4017fdc95d007dfa"
+    }
+  },
+  "native_screenshots": 0,
+  "compiled_exports": 0,
+  "evidence": {
+    "GAME/APPROVED/GOSSIP/BUILT/V1/LINE91_CHECKS.json": {
+      "bytes": 1938,
+      "sha256": "d06ebdbb082771a21d3e0b4772e20bcca0430c11e8513e14c5d84516d0a512aa"
+    }
+  }
+}
