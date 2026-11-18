@@ -8,13 +8,13 @@ links: [AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0143]
 owner: THE FOUR GATES chat
 ---
 
-# TINARA SPEC — CURRENT VERSION V1 (LOCK 44)
+# TINARA SPEC — CURRENT VERSION V2 (LOCK 44)
 
 | Field | Value |
 |---|---|
 | Locked | 9 Nov 2026 under the Founder's blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now" - record `LOCK_RECORD.md` beside this file |
-| Words and numbers | `tinara_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 34 runner, LOCK 36 roads and earlier chapter LOCKs. Queue line 51 comes after line 50 |
+| Words and numbers | `tinara_data_V2.json` beside this file (exported from the prototype's own data object) |
+| Builds on | LOCK 34 runner, LOCK 36 roads and earlier chapter LOCKs. Queue line 51 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/ti01`-`ti24` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V92 |
 | ROADMAP | No row; noted for Fable |
@@ -121,7 +121,7 @@ Anything not written above; walking around inside towns.
 
 ## Build rules
 
-Words and numbers only from `tinara_data_V1.json` (copied byte for byte to `SOURCE/data/tinara.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+Words and numbers only from `tinara_data_V2.json` (copied byte for byte to `SOURCE/data/tinara.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
 
 ## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
 
@@ -135,3 +135,4 @@ Words and numbers only from `tinara_data_V1.json` (copied byte for byte to `SOUR
 | Date | Version | Change |
 |---|---|---|
 | 2026-11-09 | V1 | LOCK 44 under the Founder's blanket LOCK (9 Nov) |
+| 2026-11-18 | V2 | Sumayya's memory line follows the repayment (widow_repaid), not the loan (Q30) (QUESTIONS answer, THE FOUR GATES Claude chat; within the locked design) |

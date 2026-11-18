@@ -1,0 +1,151 @@
+{
+  "line": 51,
+  "lock": "LOCK 44 V2",
+  "brief": "DOC-TFG-0144",
+  "tested_base_commit_sha": "88aa2e2a8d13e30d4b68e302c104c5361010719e",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T08:59:50+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --tinara-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_44": 305,
+    "focused": 504,
+    "headless_full_suite": 10811
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/TINARA/BRIEFS/BUILD_BRIEF_2026-11-09_TINARA.md": {
+      "bytes": 3952,
+      "sha256": "f49e34a59adb1583a944f3726e21a3abd240bb60834bcf2bdfd48565cee4f50a"
+    },
+    "GAME/APPROVED/TINARA/RECORD/LOCK_RECORD.md": {
+      "bytes": 1166,
+      "sha256": "b6395be7fd9804e4f28cd593bd6e73b8c1fd4ca0c651ee9da95baa77cc99f95d"
+    },
+    "GAME/APPROVED/TINARA/RECORD/TINARA_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 6906,
+      "sha256": "58d571c02590edb1fda1062b182e3f7dd89fe16b59a586c13133e504ef1e78de"
+    },
+    "GAME/APPROVED/TINARA/RECORD/tinara_data_V2.json": {
+      "bytes": 7089,
+      "sha256": "7767ea5f03c405293fe8e8f281181d297fb5d01853d56c82e6ab288be68e823a"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti01_tinara__town.png": {
+      "bytes": 307278,
+      "sha256": "93c998105e811485a4bcef0c15cd1b90d3cecb7281c4a4ce8d9f357c39ef24aa"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti02_tinara__people.png": {
+      "bytes": 295734,
+      "sha256": "99bfab537bf66423a32612374fedfa046c372b6d7032f904bfc5739d58e44b63"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti03_tinara__sumayya_trust_10.png": {
+      "bytes": 312438,
+      "sha256": "b0b29f30acfd453e324a96b3fcc4262fee2bf8feb68b082773985d06b5a18ecf"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti04_tinara__sumayya_trust_50.png": {
+      "bytes": 311473,
+      "sha256": "f07e7b3ffd422b5109bc770da3d3f6cc80ab40455a9729cd6892a830ddc1bde9"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti05_tinara__sumayya_trust_80.png": {
+      "bytes": 310783,
+      "sha256": "20dba16909b3be1ae36897bcb1622419bbb4e829c41992bf945a16576f81916c"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti06_tinara__hakam_trust_10.png": {
+      "bytes": 310479,
+      "sha256": "54adf0c8f11ab31a9563f2ed03f450e6d1a573c49613643cd1234080dc378b21"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti07_tinara__hakam_trust_50.png": {
+      "bytes": 309649,
+      "sha256": "5f03545b166f844475e8a8a7c8941d22cfafb7c20bdc08dffaa1a24d6d8c4145"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti08_tinara__hakam_trust_80.png": {
+      "bytes": 310320,
+      "sha256": "151425df5fcac5e6d92e5ea076c5b1bf6196e635097cf6b194201ee238691a39"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti09_tinara__usama_trust_10.png": {
+      "bytes": 310447,
+      "sha256": "df035f56510ed6fa2d84e9cb05a09b5d25e1337f9ef681a03ff51e0dec98458b"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti10_tinara__usama_trust_50.png": {
+      "bytes": 312122,
+      "sha256": "012f853ffdb2acd27e8b05232062c265b7f2b29949e9a04aa44094c331d3c79b"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti11_tinara__usama_trust_80.png": {
+      "bytes": 312855,
+      "sha256": "1df31c42937c1b50f7809c21c343448e43c8f8c39975cbca36b7a78f29730072"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti12_tinara__what_people_say_empty.png": {
+      "bytes": 311872,
+      "sha256": "1321bfa5a2bc1c22942755c70599c9626bdab4014e980b1ffb1f99fea5faba87"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti13_tinara__masjid_prayer.png": {
+      "bytes": 269742,
+      "sha256": "56fcf92618b79838ae4114e4ce21a33afda6f726f08e34ff479f6fbbbe5c7c4e"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti14_tinara__masjid_first_prayer.png": {
+      "bytes": 272311,
+      "sha256": "b52dc8076f97a930ba1a3b9e1830717296b6015d148074788efff869fb0964e2"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti15_widow_harvest__a.png": {
+      "bytes": 299138,
+      "sha256": "4fb05d1b69f9153ff1e19eaf39f8ae3906a596808cb3a1f17dbffdabf749e2ee"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti16_widow_harvest__lend.png": {
+      "bytes": 310928,
+      "sha256": "b6ed32fe83198ab30d7558eb4f86459ff05303487e1eade19bef9854c60bcbe9"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti17_widow_harvest__pick.png": {
+      "bytes": 311381,
+      "sha256": "491426fc5cf7914b2f66a9d14b3f926a4adf7f15086fee348e4dbbfdbf4b57b6"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti18_widow_harvest__wait.png": {
+      "bytes": 308940,
+      "sha256": "83523b79edd08022ee6b443d9ed7375628450a62e34d8e6e9432f351bdf72b2d"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti19_widow_repay__a.png": {
+      "bytes": 310467,
+      "sha256": "0bfa69829a71c1061912ecca362d92a9b61231f649b3476b9823e05d6adbc3a3"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti20_widow_repay__b.png": {
+      "bytes": 308129,
+      "sha256": "ed57455bd001b7c3b56e3fe29169dfe289a21e4516ff88b30130f5334141e3c4"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti21_orphan_share__a.png": {
+      "bytes": 298550,
+      "sha256": "1ee1cb8886cca8a311b99beaec4a49087faa6786a5ef875c6442735293cc9788"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti22_orphan_share__qadi.png": {
+      "bytes": 314466,
+      "sha256": "cff1566e78935f3bc26e5d61d35e918a5e647c902afb752670f37a4d54907054"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti23_orphan_share__buy.png": {
+      "bytes": 309050,
+      "sha256": "af6eb19cce2bb47c39e814b2cc635010a9201c3f3377775f32e552c97a29d37e"
+    },
+    "GAME/APPROVED/TINARA/MASTERS/ti24_orphan_share__leave.png": {
+      "bytes": 308794,
+      "sha256": "d98f030758c303c6f2d841a1a8559d5a221a4e7812a6a18f9903e47c7d7e9d27"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 585,
+      "sha256": "8afd1ebcc4e6df9533d2030dc5b9b311c6411e586834716038c42f550c0be988"
+    },
+    "SOURCE/data/tinara.json": {
+      "bytes": 7089,
+      "sha256": "7767ea5f03c405293fe8e8f281181d297fb5d01853d56c82e6ab288be68e823a"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 599550,
+      "sha256": "0e133241e5ae8153db4c10ba0cfbbbeb339bd536a39a8bad87f1acbb05bcaa2c"
+    }
+  }
+}

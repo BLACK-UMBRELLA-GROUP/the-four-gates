@@ -1,0 +1,20 @@
+{
+  "line": 51,
+  "result": "passed",
+  "checks_passed": {
+    "lock_44": 305,
+    "focused": 504,
+    "headless_full_suite": 10811
+  },
+  "coverage": [
+    "The index loads byte-identical LOCK 44 V2 data for Tinara, its three residents, the orchard masjid and all three missions.",
+    "Line 43 travel requires Mercy and the Nahla completion flag. The road takes 170 minutes to and from Ilmara. Road map Back returns to Tinara.",
+    "The R6 hub starts at trust 10, orders its actions as specified and hides work at closing and during Friday prayer. Picking apricots takes 90 minutes and pays five coins, with one local trust on the first shift of the day. The inn costs two coins.",
+    "The orchard masjid resolves by ID. Prayer counts once, shows the exact first-prayer copy once and allows Back to Tinara.",
+    "All three people use their exact wary, friendly and warm lines at trust 10, 50 and 80. Their Talk buttons follow their hours.",
+    "All seven endings verify copy, enabled choices, local trust, coins, time, flags, local accounts and completion. The orphan mission requires the harvest flag and its own hours.",
+    "The repayment appears after 30 days only if the player lent the wages. It returns 18 coins and sets widow_repaid so Sumayya displays the Q30 memory. Its saved completion adds no Journal row.",
+    "The save preserves effects and completed actions remain hidden when reloaded. The main missions update only rows of loaded chapters under R8."
+  ],
+  "visual_reference": "24 approved masters at 1920 × 1080. Q15 and R11 retain the existing Godot layout and require rules-only testing. Q30 and R6 give ti13–ti14 the shared Back action returning to Tinara. Q30 and V2 set the repayment memory; the People table still carries the V1 flag."
+}

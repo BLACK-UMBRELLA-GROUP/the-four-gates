@@ -660,6 +660,18 @@ your choices. The Journal shows missions when their chapter is loaded.
 Run the focused rules checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --nahla-only`.
 
+## LOCK 44 V2 — Tinara, the widow's harvest and the orphan's share
+
+After finishing Nahla, use the **Road map** through the Gate of Mercy to reach Tinara.
+Talk to Sumayya, Hakam and Usama, pick apricots during work hours, or visit the orchard masjid.
+Complete **The widow's harvest** to open **The orphan's share** during its hours. If you lend
+Sumayya the wages, her repayment opens 30 days later. **What Tinara says** shows the local
+accounts earned by your choices. The Journal lists the loaded chapters and the repayment is
+saved as a follow-up.
+
+Run the focused rules checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --tinara-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from
