@@ -1,0 +1,123 @@
+{
+  "line": 102,
+  "lock": "LOCK 95 V1",
+  "brief": "DOC-TFG-0297",
+  "tested_base_commit_sha": "3b85307e95083336c45662d1b8244041801959cf",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily report identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T15:56:52+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --names-towns-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_95": 1243,
+    "focused": 1442,
+    "headless_full_suite": 19947
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/NAMES_TOWNS/BRIEFS/BUILD_BRIEF_2026-11-09_NAMES_TOWNS.md": {
+      "bytes": 3736,
+      "sha256": "7acb35f5514b0a19e1a170be3dda3534acf69d19ac3e2497611e4d4ef33dc75c"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/RECORD/NAMES_TOWNS_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3556,
+      "sha256": "0ac78462a3bbc1fe1e6e4123cf02d421b1ab268c3c3585b4e18fdeea3843c4c5"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/RECORD/names_towns_data_V1.json": {
+      "bytes": 20038,
+      "sha256": "d05518bc0c0830eddcc22ea43a83f8420d4e4674245110cbc9ef9e15ebc472b1"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/RECORD/LOCK_RECORD.md": {
+      "bytes": 955,
+      "sha256": "05fb3ce60985e0d6e0c30ad1b601c08be9448adadbf46607a3cc7985cf627a74"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/RECORD/fountains_towns_data_V2.json": {
+      "bytes": 1749,
+      "sha256": "7d4ed4e80eb7d9761060ff7b7c4c1a27770d9e753f3d0785ab87d9fc2896b534"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/MASTERS/na01_name_rahman__a.png": {
+      "bytes": 258432,
+      "sha256": "7bdb6d324e9e4a60724b47a42ab22a1d5e849ccf762bab370a4f22847efbc26f"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/MASTERS/na02_name_mutakabbir__a.png": {
+      "bytes": 259464,
+      "sha256": "f6f8f2d8fdf3c134f876f13bc772c7113e5b0ae8a92242a503e7bb88b5f30adc"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/MASTERS/na03_name_alim__a.png": {
+      "bytes": 307895,
+      "sha256": "6bd1b033f6d45effbeaecbf8014bf1abdff9cdd982c2d5c440dd146e6c1b7b37"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/MASTERS/na04_name_basir__a.png": {
+      "bytes": 257981,
+      "sha256": "d1769261bef53f46f7f6d3e2a228cfb49accefb173b894752e04c00cb02e1365"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/MASTERS/na05_name_shakur__a.png": {
+      "bytes": 259395,
+      "sha256": "7968675e27b5d771317a7f16754e0bdd6c0422a51a4e5606f7edef5b1d8cd6f1"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/MASTERS/na06_name_mujib__a.png": {
+      "bytes": 258628,
+      "sha256": "4f3c9d4ea347ab83792aec348e01db73e3e37e46faefb18a503bbbe087e7fc46"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/MASTERS/na07_name_wakil__a.png": {
+      "bytes": 308021,
+      "sha256": "a17c404ecfabed8e59e5b22d262985a5febeafda366b28d8c12b89e84bc9280b"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/MASTERS/na08_name_muhyi__a.png": {
+      "bytes": 308708,
+      "sha256": "a11f1971a6a9cdc6c6e724e3102de4082b8cb657be8703c361eb10aa4f8ef114"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/MASTERS/na09_name_samad__a.png": {
+      "bytes": 258495,
+      "sha256": "b70101be4f81be56d5097e1e6b0025ae64acc0dc2cd2f32f6f3048a1838eff7c"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/MASTERS/na10_name_batin__a.png": {
+      "bytes": 258138,
+      "sha256": "5e039d79871b0103d12dce00320ba25f8b105b2d32d1f3d448f1561459b13c98"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/MASTERS/na11_name_malikmulk__a.png": {
+      "bytes": 259652,
+      "sha256": "b1e7e2d19c0a22d1b15cebe5858816e0217243baa95fbb62642517a98627ebc1"
+    },
+    "GAME/APPROVED/NAMES_TOWNS/MASTERS/na12_name_nafi__a.png": {
+      "bytes": 258276,
+      "sha256": "f353791d08c3db6aca85a85075ac57eb50e0073581f850216f4e118a4b3a6d9a"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 1444,
+      "sha256": "841329e72cea8c99f6fef010f25ba47f5071c2d70277ccf12714040689b4b274"
+    },
+    "SOURCE/data/names_towns.json": {
+      "bytes": 20038,
+      "sha256": "d05518bc0c0830eddcc22ea43a83f8420d4e4674245110cbc9ef9e15ebc472b1"
+    },
+    "SOURCE/data/names_towns_unlocks.json": {
+      "bytes": 345,
+      "sha256": "74046894eb18f9523a8f617a597d47bb29fabc2545415af4e7def37cfab6c609"
+    },
+    "SOURCE/game/names_of_allah.gd": {
+      "bytes": 871,
+      "sha256": "759bd4504ebafd3bb614b53225400c283a36075517f0ff0ee0e60e1c5e2580d1"
+    },
+    "SOURCE/game/river_market.gd": {
+      "bytes": 71648,
+      "sha256": "2c0ae3884ddb797bb3dcdb1664cabb26ac3c26535e3436b51cb93023e994d9c5"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 23482,
+      "sha256": "cf39bf450d47d51a1f60cf7549c7b205d8ba288da7fef9c11eaa02bc39419d41"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 943811,
+      "sha256": "a8ff47df4476978262c71b94eae07b359058c55ed9c4848333c93952d645a175"
+    }
+  }
+}

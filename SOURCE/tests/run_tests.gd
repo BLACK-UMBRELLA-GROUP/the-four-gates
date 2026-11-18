@@ -297,6 +297,10 @@ func _run() -> void:
 		await check_marriage_runtime()
 		finish()
 		return
+	if "--names-towns-only" in OS.get_cmdline_user_args():
+		await check_names_towns_runtime()
+		finish()
+		return
 	if "--family-only" in OS.get_cmdline_user_args():
 		await check_family_runtime()
 		finish()
@@ -465,6 +469,7 @@ func _run() -> void:
 	await check_waqf_runtime()
 	await check_marriage_runtime()
 	await check_family_runtime()
+	await check_names_towns_runtime()
 	finish()
 
 
@@ -9400,6 +9405,176 @@ func _save_and_continue_runner_scene(mission: Dictionary, scene: String) -> void
 	var continue_text: String = str(app.menus.title_continue).format({"d": app.ui.continue_date})
 	await press_button(continue_text, "continue the saved " + str(mission.id) + " scene")
 	_check_runner_scene_copy(mission, scene)
+
+
+func check_names_towns_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/NAMES_TOWNS/RECORD/names_towns_data_V1.json")
+	check(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/names_towns.json"),
+		"the town Names pack is byte-identical to LOCK 95")
+	var approved: Dictionary = JSON.parse_string(locked.get_string_from_utf8())
+	# Q54 uses the 12 "after" values from the locked fountain pack.
+	const FOUNTAIN_FLAGS := {
+		"jisra": "met_jisra",
+		"sahila": "sahila_boat_done",
+		"sukara": "sukara_chosen",
+		"safira": "slow_pilgrim_done",
+		"wadira": "sandstorm_done",
+		"birana": "dry_well_done",
+		"nahla": "sick_child_done",
+		"tinara": "widow_done",
+		"tahuna": "tahuna_debt",
+		"waraka": "copyist_done",
+		"najmara": "qibla_done",
+		"shifara": "fever_done",
+	}
+	var runtime_flags: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/names_towns_unlocks.json"))
+	check(runtime_flags == FOUNTAIN_FLAGS, "the runtime flags match the locked Q54 fountain prerequisites")
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = approved.words
+	var names_by_town := {}
+	for entry: Dictionary in approved.names:
+		if not names_by_town.has(entry.town):
+			names_by_town[entry.town] = []
+		names_by_town[entry.town].append(entry)
+	check(approved.names.size() == 96 and names_by_town.size() == 12
+		and runner.missions.values().filter(func(mission): return mission.get("kind") == "name_read").size() == 96,
+		"the production index loads all 96 Names across 12 towns")
+
+	var previous := MarketSave.snapshot(app)
+	app.set_process(false)
+	reset_at_market_place("gate", 0, 8)
+	var journal := runner.journal(app)
+	var names_goal := -1
+	for index in range(journal.goals.size()):
+		if journal.goals[index].label == "Names of Allah learned":
+			names_goal = index
+			break
+	check(names_goal >= 0, "the private Journal exposes the shared Names goal")
+	if names_goal < 0:
+		MarketSave.restore(app, previous)
+		app.show_screen("market_map")
+		app.set_process(true)
+		return
+	check(journal.goals[names_goal].n == 0 and journal.goals[names_goal].m == 99,
+		"the shared goal starts at zero out of 99")
+	app.idris_met = true
+	app.ui.idris_met = true
+	for entry: Dictionary in app.names_of_allah.data.names:
+		move_market_fixture(entry.place)
+		await press_button(app.names_of_allah.data.button, "learn the LOCK 26 Name at " + str(entry.place))
+		await press_button(app.names_of_allah.data.panel.to_map, "return from River Market calligraphy")
+	journal.goals[names_goal].n = 3
+	check(runner.journal(app) == journal, "LOCK 26 still learns its three Names on opening")
+	var learned: Array[String] = app.names_of_allah.learned.duplicate()
+	for town: String in FOUNTAIN_FLAGS:
+		var entries: Array = names_by_town[town]
+		check(entries.size() == 8, "exactly eight Names belong to " + town)
+		await _check_names_town_entry(runner, town, FOUNTAIN_FLAGS[town], words.button)
+		for entry: Dictionary in entries:
+			var description := "%s %d (%s)" % [town, int(entry.n), entry.tr]
+			var id := "name_" + str(entry.id)
+			var offers := _available_town_names(runner, town)
+			check(offers.size() == 1 and offers[0].id == id,
+				"only the next Name is offered in data order: " + description)
+			var following := int(entry.n)
+			if following < entries.size():
+				var later: Dictionary = runner.missions["name_" + str(entries[following].id)]
+				app.ui.runner_requested.emit("mission", later)
+				check(app.ui.screen in ["jisra", "runner_town"], "direct dispatch cannot skip " + description)
+
+			var before := runner.state()
+			var trust: int = runner.town_trust(app, town)
+			var market_trust: int = app.progress.trust
+			var minute: int = app.minute_of_day
+			var hub: String = app.ui.screen
+			await press_button(words.button, "read the calligraphy in " + description)
+			var shown := visible_text().split("\n")
+			var where := str(words.text).format(entry)
+			var meaning := str(words.meaning).format(entry)
+			var kicker := str(words.kicker).format({"town": runner.towns[town].name})
+			check(app.ui.screen == "runner_mission" and app.runner_mission().id == id
+				and has_visible_label(app.ui, kicker.to_upper()) and has_visible_label(app.ui, entry.tr),
+				"the Name shows the locked town kicker and transliteration: " + description)
+			check(shown.find(where) >= 0 and shown.find(entry.ar) > shown.find(where)
+				and shown.find(meaning) > shown.find(entry.ar) and shown.find(words.idris) > shown.find(meaning),
+				"the locked location, Arabic, meaning and Idris line appear in order: " + description)
+			check(app.names_of_allah.learned == learned and runner.state() == before and runner.journal(app) == journal,
+				"opening calligraphy leaves the Name unread: " + description)
+
+			await menus_escape()
+			check(app.ui.screen == hub and runner.state() == before and app.names_of_allah.learned == learned
+				and _available_town_names(runner, town) == offers,
+				"Escape returns to the same hub and keeps the same Name offered: " + description)
+			await press_button(words.button, "reopen " + description)
+			var choice: Dictionary = app.runner_scene().choices[0]
+			await press_button(words.done, "confirm " + description)
+			before.done[id] = app.day
+			learned.append(entry.id)
+			journal.goals[names_goal].n = learned.size()
+			check(app.ui.screen == hub and app.runner_town_id() == town and runner.state() == before,
+				"confirmation records only local mission completion and returns to the same town: " + description)
+			check(app.names_of_allah.learned == learned and runner.journal(app) == journal
+				and runner.town_trust(app, town) == trust and app.progress.trust == market_trust
+				and app.progress.coins == 0 and app.minute_of_day == minute,
+				"only the shared Names goal advances, with no coin, trust or clock effect: " + description)
+			app.ui.runner_requested.emit("choice", choice)
+			check(app.names_of_allah.learned == learned, "repeating the old choice learns nothing: " + description)
+			if following == 1:
+				var save_path: String = app.storage_directory.path_join("names-towns.save")
+				check(MarketSave.save_slot(app, save_path) == OK, "save the first confirmed Name in " + town)
+				MarketSave.restore(app, MarketSave.read_slot(save_path))
+				app.show_screen(hub)
+				check(app.runner_town_id() == town and app.names_of_allah.learned == learned
+					and runner.state() == before and runner.journal(app) == journal,
+					"reload preserves the town, learned Name, completion and goal: " + town)
+		check(_available_town_names(runner, town).is_empty() and find_button(app.ui, words.button) == null,
+			"the town stops offering calligraphy after its eighth Name: " + town)
+
+	app.gate_of_trust.in_jisra = false
+	app.restore_runner_town("")
+	app.show_screen("market_map")
+	check(learned.size() == 99 and journal.goals[names_goal].n == 99,
+		"all 12 towns and River Market reach exactly 99 Names")
+	await _check_runner_journal_goal(runner.data.words, journal.goals[names_goal])
+	app.begin_game()
+	check(app.names_of_allah.learned.is_empty() and runner.journal(app).goals[names_goal].n == 0,
+		"a new game resets the Names goal and clears learned Names")
+	MarketSave.restore(app, previous)
+	app.show_screen("market_map")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 95 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_names_town_entry(runner: SceneRunner, town: String, after: String, button: String) -> void:
+	app.gate_of_trust.in_jisra = false
+	app.restore_runner_town("")
+	app.show_screen("market_map")
+	check(not runner.has_flag(app, after) and _available_town_names(runner, town).is_empty(),
+		"met_teacher alone cannot open calligraphy without the locked flag: " + town)
+	app.idris_met = false
+	if town == "jisra":
+		app.gate_of_trust.in_jisra = true
+		app.show_screen("jisra")
+	else:
+		var state := runner.state()
+		state.flags[after] = app.day
+		runner.restore(state)
+		app.enter_runner_town(town)
+	check(runner.has_flag(app, after) and find_button(app.ui, button) == null
+		and _available_town_names(runner, town).is_empty(),
+		"the locked flag alone cannot open calligraphy without meeting Idris: " + town)
+	app.idris_met = true
+	app.update_state()
+	check(find_button(app.ui, button) != null, "both prerequisites offer calligraphy: " + town)
+
+
+func _available_town_names(runner: SceneRunner, town: String) -> Array[Dictionary]:
+	return runner.available_missions(app, town, "").filter(
+		func(mission: Dictionary) -> bool: return mission.get("kind") == "name_read")
 
 
 func check_family_runtime() -> void:

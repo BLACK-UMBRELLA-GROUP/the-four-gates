@@ -27,9 +27,14 @@ func learn_at(place: String, idris_met: bool) -> bool:
 	var entry := unread_at(place, idris_met)
 	if entry.is_empty():
 		return false
-	learned.append(entry.id)
+	learn(entry.id)
 	current_name = entry
 	return true
+
+
+func learn(id: String) -> void:
+	if id not in learned:
+		learned.append(id)
 
 
 func count_text() -> String:

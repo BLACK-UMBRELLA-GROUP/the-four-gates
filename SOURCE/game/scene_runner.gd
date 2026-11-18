@@ -32,7 +32,12 @@ static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 	var chapters_by_number := {}
 	var goals_by_id := {}
 	for file: String in files:
-		var document := _read_document(index_path.get_base_dir().path_join(file))
+		var directory := index_path.get_base_dir()
+		var document := _read_document(directory.path_join(file))
+		if file == "names_towns.json":
+			var unlocks := _read_document(directory.path_join("names_towns_unlocks.json"))
+			_add_name_missions(content.missions, document, unlocks)
+			continue
 		if document.has("chapter") and document.has("pages"):
 			_add_page_missions(content.missions, document)
 			_merge_records(goals_by_id, document.get("goals", []))
@@ -113,6 +118,36 @@ static func _add_page_missions(target: Dictionary, document: Dictionary) -> void
 					"label": words.read_turn,
 					"fx": {"flag": read_flag, "count": "pages", "done": true},
 				}],
+			}},
+		}
+
+
+static func _add_name_missions(target: Dictionary, document: Dictionary, unlocks: Dictionary) -> void:
+	for entry: Dictionary in document.get("names", []):
+		if not unlocks.has(entry.town):
+			push_error("Missing calligraphy prerequisite for " + str(entry.town))
+			continue
+		var words: Dictionary = document.words
+		var id := "name_" + str(entry.id)
+		target[id] = {
+			"id": id,
+			"kind": "name_read",
+			"group": entry.town,
+			"n": entry.n,
+			"town": entry.town,
+			"after": ["met_teacher", unlocks[entry.town]],
+			"kicker": words.kicker,
+			"title": entry.tr,
+			"button": words.button,
+			"start": "a",
+			"scenes": {"a": {
+				"text": [
+					str(words.text).format(entry),
+					entry.ar,
+					str(words.meaning).format(entry),
+					words.idris,
+				],
+				"choices": [{"label": words.done, "fx": {"name": entry.id, "done": true}}],
 			}},
 		}
 
@@ -222,6 +257,7 @@ func available_missions(app, town: String, place: String) -> Array[Dictionary]:
 	if here != RIVER_MARKET and not towns.has(here):
 		return available
 	var first_page: Dictionary = {}
+	var first_name_by_group := {}
 	for mission: Dictionary in missions.values():
 		var location := _town_id(str(mission.get("town", "")))
 		if location != here or (here == RIVER_MARKET and mission.get("place", "") != place):
@@ -230,11 +266,18 @@ func available_missions(app, town: String, place: String) -> Array[Dictionary]:
 			continue
 		if mission.get("kind") == "page_read" and (first_page.is_empty() or int(mission.page) < int(first_page.page)):
 			first_page = mission
+		if mission.get("kind") == "name_read":
+			var first: Dictionary = first_name_by_group.get(mission.group, {})
+			if first.is_empty() or int(mission.n) < int(first.n):
+				first_name_by_group[mission.group] = mission
 		available.append(mission)
-	if not first_page.is_empty():
-		return available.filter(func(mission: Dictionary) -> bool:
-			return mission.get("kind") != "page_read" or mission.id == first_page.id)
-	return available
+	if first_page.is_empty() and first_name_by_group.is_empty():
+		return available
+	return available.filter(func(mission: Dictionary) -> bool:
+		match mission.get("kind", ""):
+			"page_read": return mission.id == first_page.id
+			"name_read": return mission.id == first_name_by_group[mission.group].id
+		return true)
 
 
 func _mission_available(app, mission: Dictionary, town: String) -> bool:
@@ -382,6 +425,8 @@ func _apply_effects(app, mission: Dictionary, effects: Dictionary) -> void:
 		_add_saying(town, mission, effects.say)
 	if effects.has("count"):
 		_apply_count(app, effects.count)
+	if effects.has("name"):
+		app.names_of_allah.learn(str(effects.name))
 	if effects.has("minutes"):
 		app.clock.advance_to(app.day, app.minute_of_day + int(effects.minutes))
 	if effects.get("done", false):

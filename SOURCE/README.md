@@ -1192,3 +1192,17 @@ The 15-coin aqiqah adds 30 meals to the private Journal goal and one account to
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --family-only`.
+
+### The Names of Allah in the towns (LOCK 95 V1)
+
+After meeting Idris and reaching the town's fountain prerequisite, choose
+**Read the calligraphy** from its hub. Each town offers its eight Names in
+order. **Say it, and remember it** learns the Name and returns to the hub.
+Escape returns to the hub with the same Name available. The private Journal
+counts the town Names and the three River Market Names together out of 99.
+
+The runner reads the LOCK 95 Names pack unchanged and uses the town
+prerequisites from Q54's LOCK 96 V2 fountain records.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --names-towns-only`.
