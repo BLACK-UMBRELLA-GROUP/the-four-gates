@@ -1,0 +1,165 @@
+{
+ "version": "LOCK 71 V1 (9 Nov 2026) - the scholar's notebook, chapter 8: Mercy and the weak",
+ "builds_on": "LOCK 3 (page 1, read with Idris), LOCK 34 runner, LOCK 51 (the last page). Every reference checked on sunnah.com; the game never shows the reference.",
+ "words": {
+  "find_button": "{p} has found a page",
+  "find_kicker": "The scholar's notebook · a page found",
+  "find_title": "A page in the scholar's hand",
+  "take": "Take the page to Idris",
+  "read_button": "Read the scholar's page with Idris",
+  "read_kicker": "The scholar's notebook · page {n} of 100",
+  "read_turn": "Close the notebook",
+  "idris": "Idris: “{t}”",
+  "story": "Idris turns back through the pages. “{t}”",
+  "hours": [
+   420,
+   1140
+  ]
+ },
+ "chapter": {
+  "n": 8,
+  "title": "Mercy and the weak",
+  "story": "He spent a year in a hospital town writing letters for the sick to their families."
+ },
+ "pages": [
+  {
+   "n": 71,
+   "chapter": 8,
+   "ref": "Bukhari 5560",
+   "saying": "The first thing on Eid al-Adha is to pray, then go back and sacrifice; whoever does that has followed our way.",
+   "idris": "Prayer first. Then the sacrifice. Order matters.",
+   "person": "Sumayya",
+   "found": "Sumayya found a page lining an old hat bought from a pedlar.",
+   "after": [
+    "chapter3_done"
+   ],
+   "town": "tinara"
+  },
+  {
+   "n": 72,
+   "chapter": 8,
+   "ref": "Bukhari 1773",
+   "saying": "One Umrah to the next wipes out what came between them, and an accepted Hajj has no reward but Paradise.",
+   "idris": "Idris on Hajj because of you. I still can't believe it.",
+   "person": "Rami",
+   "found": "Rami hands you a loaf wrapped in an old page. “Look at the writing on this.”",
+   "after": [
+    "chapter3_done",
+    "page_71_found"
+   ],
+   "town": "tahuna"
+  },
+  {
+   "n": 73,
+   "chapter": 8,
+   "ref": "Abu Dawud 2548",
+   "saying": "Fear Allah concerning these animals that cannot speak; ride them when fit and eat them when fit.",
+   "idris": "Ayyub's donkey. It couldn't speak, so you did.",
+   "person": "Faris",
+   "found": "Faris found a folded page in a crack while mending a wall. “It's in a scholar's hand. You'll know who wants it.”",
+   "after": [
+    "chapter3_done",
+    "page_72_found"
+   ],
+   "place": "quay"
+  },
+  {
+   "n": 74,
+   "chapter": 8,
+   "ref": "Bukhari 2363",
+   "saying": "A man found a dog panting with thirst, filled his shoe with water and gave it a drink. Allah thanked him and forgave him.",
+   "idris": "A dog. A shoe. Forgiveness. Nobody saw you at the well.",
+   "person": "Dawud",
+   "found": "Children are flying a kite made from an old page. Dawud buys it from them for a date and gives it to you.",
+   "after": [
+    "chapter3_done",
+    "page_73_found"
+   ],
+   "town": "nahla"
+  },
+  {
+   "n": 75,
+   "chapter": 8,
+   "ref": "Bukhari 5304",
+   "saying": "I and the one who looks after an orphan will be in Paradise like this - and he held two fingers together.",
+   "idris": "Usama. Faris. Yusuf. Two fingers, side by side.",
+   "person": "Usama",
+   "found": "Usama found a page pressed inside a second-hand book.",
+   "after": [
+    "chapter3_done",
+    "page_74_found"
+   ],
+   "town": "tinara"
+  },
+  {
+   "n": 76,
+   "chapter": 8,
+   "ref": "Bukhari 2766",
+   "saying": "Avoid the seven destroyers - among them consuming an orphan's wealth.",
+   "idris": "Hakam's new roof. The qadi was right.",
+   "person": "Ma'n",
+   "found": "Ma'n has been using a page to wrap spices and has only just noticed the writing.",
+   "after": [
+    "chapter3_done",
+    "page_75_found"
+   ],
+   "town": "tahuna"
+  },
+  {
+   "n": 77,
+   "chapter": 8,
+   "ref": "Bukhari 6011",
+   "saying": "The believers in their love and mercy are like one body: when one part aches, the whole body feels it with sleeplessness and fever.",
+   "idris": "When Shifara had the fever, Ilmara couldn't sleep either.",
+   "person": "Jamal",
+   "found": "Jamal pulls a damp page from the bottom of a basket and dries it for you.",
+   "after": [
+    "chapter3_done",
+    "page_76_found"
+   ],
+   "place": "quay"
+  },
+  {
+   "n": 78,
+   "chapter": 8,
+   "ref": "Bukhari 2442",
+   "saying": "A Muslim is a brother to a Muslim: he does not wrong him or hand him over; whoever helps his brother's need, Allah helps his.",
+   "idris": "Fadil at the quay. You didn't hand him over.",
+   "person": "Umm Yahya",
+   "found": "Umm Yahya found a page under a loose floor tile.",
+   "after": [
+    "chapter3_done",
+    "page_77_found"
+   ],
+   "town": "nahla"
+  },
+  {
+   "n": 79,
+   "chapter": 8,
+   "ref": "Bukhari 5645",
+   "saying": "When Allah wants good for someone, He tests him with hardship.",
+   "idris": "The hard year. I don't say it to make it lighter. I say it because it's true.",
+   "person": "Hakam",
+   "found": "Hakam was given a debt note - and the scholar's page is written on the back of it.",
+   "after": [
+    "chapter3_done",
+    "page_78_found"
+   ],
+   "town": "tinara"
+  },
+  {
+   "n": 80,
+   "chapter": 8,
+   "ref": "Muslim 2999",
+   "saying": "How wonderful is the believer's affair - all of it is good: in ease he is thankful, in hardship he is patient, and both are good for him.",
+   "idris": "Thankful in the good years, patient in the bad. Ilmara learned both.",
+   "person": "Hafsa",
+   "found": "Hafsa's little one folded a page into a paper boat. Hafsa dried it out for you.",
+   "after": [
+    "chapter3_done",
+    "page_79_found"
+   ],
+   "town": "tahuna"
+  }
+ ]
+}

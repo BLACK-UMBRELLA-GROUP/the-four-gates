@@ -1,0 +1,68 @@
+{
+  "line": 78,
+  "lock": "LOCK 71 V1",
+  "focused": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch08-only",
+    "exit_code": 0,
+    "passed": 444,
+    "total": 444,
+    "failures": 0
+  },
+  "full_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 16267,
+    "total": 16267,
+    "failures": 0
+  },
+  "lock_71_in_both_runs": {
+    "passed": 245,
+    "total": 245,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "ph01_page_71__a.png": "page_71/a",
+    "ph02_read_71__a.png": "read_71/a",
+    "ph03_page_72__a.png": "page_72/a",
+    "ph04_read_72__a.png": "read_72/a",
+    "ph05_page_73__a.png": "page_73/a",
+    "ph06_read_73__a.png": "read_73/a",
+    "ph07_page_74__a.png": "page_74/a",
+    "ph08_read_74__a.png": "read_74/a",
+    "ph09_page_75__a.png": "page_75/a",
+    "ph10_read_75__a.png": "read_75/a",
+    "ph11_page_76__a.png": "page_76/a",
+    "ph12_read_76__a.png": "read_76/a",
+    "ph13_page_77__a.png": "page_77/a",
+    "ph14_read_77__a.png": "read_77/a",
+    "ph15_page_78__a.png": "page_78/a",
+    "ph16_read_78__a.png": "read_78/a",
+    "ph17_page_79__a.png": "page_79/a",
+    "ph18_read_79__a.png": "read_79/a",
+    "ph19_page_80__a.png": "page_80/a",
+    "ph20_read_80__a.png": "read_80/a"
+  },
+  "master_dimensions": [
+    1920,
+    1080
+  ],
+  "master_review": "Reference review matched the ten find scenes and ten read scenes against the locked locations, words and order. The chapter story is on page 80. The master images show open scenes. Entry buttons were verified in the headless run.",
+  "native_screenshots": 0,
+  "rules": {
+    "prerequisite": "The existing Chapter 3 ending sets chapter3_done.",
+    "find": "Pages 71–80 use their locked town hub or River Market quay, named person, 07:00–19:00 hours and sequential found flags. Taking a page records the find and leaves the Journal count unchanged.",
+    "read": "Idris offers the lowest found unread page at the River Market masjid. Each saying and Idris line appear in order. Page 80 also shows the Mercy and the weak chapter story.",
+    "journal": "Closing each reading records the read flag and increments the count by one. The returning-player fixture advances from 70/100 to 80/100 and retains the count after restoring the save.",
+    "q36": "The checks cover pages 71–80 and their count increment.",
+    "q15_r11": "The headless build uses the existing Godot layout."
+  },
+  "scholar_checks": {
+    "register": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md",
+    "rows": [
+      23,
+      54
+    ],
+    "status": "OPEN before public release"
+  }
+}

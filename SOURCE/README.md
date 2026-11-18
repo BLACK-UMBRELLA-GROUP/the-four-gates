@@ -931,6 +931,17 @@ the Fasting and seasons chapter story. Closing each reading adds one to
 
 Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch07-only`.
 
+### The scholar's notebook, Chapter 8 — Mercy and the weak (LOCK 71 V1)
+
+After completing Chapter 3, find pages 71–80 from 07:00 up to 19:00 in
+Tinara, Tahuna, Nahla and at the River Market quay. Start with Sumayya in
+Tinara. Each subsequent pickup requires taking the preceding page. At the
+River Market masjid, Idris offers the lowest found unread page. Page 80
+includes the chapter story. Closing each reading adds one to **The scholar's
+pages** in the private Journal.
+
+Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch08-only`.
+
 ## LOCK 74 — Wudu with Idris
 
 After meeting Idris, choose **Idris will show you wudu** at the River Market
