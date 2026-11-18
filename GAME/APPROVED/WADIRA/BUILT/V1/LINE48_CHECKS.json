@@ -1,0 +1,19 @@
+{
+  "line": 48,
+  "result": "passed",
+  "checks_passed": {
+    "lock_41": 383,
+    "focused": 582,
+    "headless_full_suite": 9870
+  },
+  "coverage": [
+    "The production index loads the byte-identical LOCK 41 V1 data. The inherited 210-minute road opens after Safira and the Gate of Patience. Road map exits the hub and Back returns to it.",
+    "The hub uses the R6 action order, local trust, 06:00–15:00 work outside Friday prayer, three coins per 60-minute shift, one trust on the first shift of the day and the two-coin inn.",
+    "The valley masjid resolves by ID. Only the first prayer shows the greeting and increases the distinct-masjid count. Q27 Back returns to Wadira.",
+    "Ghazi, Lina and Khattab use their locked lines at trust 10, 50 and 80, with separate Talk buttons, time and Friday conditions, and remembered actions in locked priority order.",
+    "The sandstorm is available from 05:00 to 14:00. Cheated in public follows it from 08:00 to 18:00. Paying Khattab requires ten coins.",
+    "Both sandstorm endings pair with all three market endings. Exact scene copy, coins, local trust, clock, flag dates, local accounts and completion dates were checked. Back marks each mission done. Both stay hidden during their hours after save and restore.",
+    "Q27 and R8 keep Chapter 2 Journal rows for line 49. The two saved completions remain available to loaded chapter data."
+  ],
+  "visual_reference": "All 21 locked masters reviewed at 1920 × 1080. Q27 and R6 use Back to Wadira in wd13 and wd14. Q15 and R11 specify headless rules evidence and the existing Godot layout."
+}

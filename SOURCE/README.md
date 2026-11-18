@@ -623,6 +623,18 @@ the accounts your choices earn. The missions save their completion and appear in
 Run the focused rules checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --safira-only`.
 
+## LOCK 41 V1 — Wadira, the sandstorm and cheated in public
+
+The road to Wadira opens through the Gate of Patience after Safira's **Lost at night**.
+Wadira has local work, three residents, the valley masjid and a two-coin inn.
+**The sandstorm** is available from 05:00 up to 14:00. After it, **Cheated in public**
+is available from 08:00 up to 18:00. Each mission records completion on **Back**.
+**What Wadira says** shows the local accounts earned by your choices.
+The missions appear in the **Journal** when Chapter 2 is loaded.
+
+Run the focused rules checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --wadira-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from

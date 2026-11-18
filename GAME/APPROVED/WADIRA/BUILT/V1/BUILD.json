@@ -1,0 +1,150 @@
+{
+  "line": 48,
+  "lock": "LOCK 41 V1",
+  "brief": "DOC-TFG-0135",
+  "tested_base_commit_sha": "c57a9cb8b4723f970dd2834642b17016f3ce79e9",
+  "tested_source": "Base commit plus the hashed source files. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T08:17:00+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --wadira-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_41": 383,
+    "focused": 582,
+    "headless_full_suite": 9870
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/WADIRA/BRIEFS/BUILD_BRIEF_2026-11-09_WADIRA.md": {
+      "bytes": 3822,
+      "sha256": "3a0c022ceb32d34536d7f41434dc633e876c06c0bcffd4c3c1ce4949886f8c18"
+    },
+    "GAME/APPROVED/WADIRA/RECORD/LOCK_RECORD.md": {
+      "bytes": 941,
+      "sha256": "fc0a86964392d0a88b813a571e07657fea40f1c483986c6ee654bc934ee393df"
+    },
+    "GAME/APPROVED/WADIRA/RECORD/WADIRA_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 6301,
+      "sha256": "efb850d769f859064512c4c8927de7c53b66feb4a15f2433a8dda159dbc90051"
+    },
+    "GAME/APPROVED/WADIRA/RECORD/wadira_data_V1.json": {
+      "bytes": 6635,
+      "sha256": "16af2675de88d52a39cb021ce0f2e23a3a2f39a01e6aa188cfb235cc83ca378e"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd01_wadira__town.png": {
+      "bytes": 254394,
+      "sha256": "e9c2b93001a0869afd0697b955a2ddfca055c35df8ae82afb68ef93b41b979ab"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd02_wadira__people.png": {
+      "bytes": 248170,
+      "sha256": "f7f29df50d45a15d893ac441055a3d7f2d479b229995159c0bcdcea65e3f25e5"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd03_wadira__ghazi_trust_10.png": {
+      "bytes": 269811,
+      "sha256": "6010c356d9e6db8ccb97ee2f43654703c250dc00c171436afde1977f51b38513"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd04_wadira__ghazi_trust_50.png": {
+      "bytes": 269510,
+      "sha256": "9f7124122de6a571e004d077d59c64ee3d99d196ff1a1eb7583b7116a6f3f041"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd05_wadira__ghazi_trust_80.png": {
+      "bytes": 269432,
+      "sha256": "ebec29695bb32bfa675ea80f890fc786823879a2ab94175450a52ef4d27fa6cc"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd06_wadira__lina_trust_10.png": {
+      "bytes": 268678,
+      "sha256": "d304188955bbecb51cd7b39107b1898bd184bdb1ad995fe7c1ea560d530c9130"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd07_wadira__lina_trust_50.png": {
+      "bytes": 269427,
+      "sha256": "e915c00916cf541bf0ee3ec3251d1235a48706b450ee6464efa43866e531cd43"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd08_wadira__lina_trust_80.png": {
+      "bytes": 268761,
+      "sha256": "9276ec0a24c2a720c05866f84b6c4a643f02b0bcd712b306790d71daa2e317e0"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd09_wadira__khattab_trust_10.png": {
+      "bytes": 270038,
+      "sha256": "f3980f1bf24d687851dc2be9dfc48f537551def4c2792e697909c6af8967c421"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd10_wadira__khattab_trust_50.png": {
+      "bytes": 269920,
+      "sha256": "e876650149389877238e73f17d5b1a41aec819ed2a1d82a1b99a443f2a6c9154"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd11_wadira__khattab_trust_80.png": {
+      "bytes": 270304,
+      "sha256": "653ad766d364a61ba0578c442335b2ff057831ba7a47d56a2b34e3839dcdd951"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd12_wadira__what_people_say_empty.png": {
+      "bytes": 270783,
+      "sha256": "a4ea160b6aae44121729caca0b8a839ef5ee74a175c2eb8f9b38a113e6977a87"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd13_wadira__masjid_prayer.png": {
+      "bytes": 270429,
+      "sha256": "4a4aa02e1e103d93b274dce9c4349883dd9ee7d0adbee63fcf03a6a184bbedbb"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd14_wadira__masjid_first_prayer.png": {
+      "bytes": 271776,
+      "sha256": "c613808b2aea47f74f2ee09dd7fe32b5726ac6a993884b7b1d4f39f267f53b8d"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd15_sandstorm__a.png": {
+      "bytes": 249661,
+      "sha256": "fe775a79738beb2cb3166ffb0861da57b716db17c7814dd128fb5fc1fbb7ae7e"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd16_sandstorm__tay.png": {
+      "bytes": 264102,
+      "sha256": "f38305eaf6c2d0fe58ce0470c33553254457724d58b862bcc754a86562249e38"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd17_sandstorm__water.png": {
+      "bytes": 266751,
+      "sha256": "6c2708db47185daad8174c60abeb720d7571f23a8141bf4ef3bbd263dca3c51a"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd18_cheated_public__a.png": {
+      "bytes": 240085,
+      "sha256": "97d9bbdad58f848a3c4344a442ed2b73209a7ab4989bf1c0b711f8af10db3964"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd19_cheated_public__calm.png": {
+      "bytes": 266444,
+      "sha256": "b7201824ef9f5c821fcb6e387bcfe2d844d3eaf78be1736ec5e15b936b3f5acc"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd20_cheated_public__shout.png": {
+      "bytes": 266727,
+      "sha256": "7c73d97d2a45f32faafd6ffd11ecc5806c807f13cecc7f448264f2504700db7a"
+    },
+    "GAME/APPROVED/WADIRA/MASTERS/wd21_cheated_public__paid.png": {
+      "bytes": 266985,
+      "sha256": "ba0697e0bcf80d709a9138fb2bda37e230267b66befd156ba97b133b1afe1a3b"
+    }
+  },
+  "runner_contract": "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md, R1–R12",
+  "question_answers": [
+    15,
+    27
+  ],
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 49434,
+      "sha256": "ead0c1421ea41f3091bac819290b0f2d1dcd413c126afceaed2c5be04340e632"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 529,
+      "sha256": "2362ec22fc13486dccadb9a58b4de90a9961d92794400ef674724d0067fce5dc"
+    },
+    "SOURCE/data/wadira.json": {
+      "bytes": 6635,
+      "sha256": "16af2675de88d52a39cb021ce0f2e23a3a2f39a01e6aa188cfb235cc83ca378e"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 545941,
+      "sha256": "7f5ba21c72b226515c50298201fdca928c3d3078ea37562ef113f02d47dc7ee6"
+    }
+  },
+  "native_screenshots": 0,
+  "compiled_exports": 0
+}

@@ -117,6 +117,10 @@ func _run() -> void:
 		await check_safira_runtime()
 		finish()
 		return
+	if "--wadira-only" in OS.get_cmdline_user_args():
+		await check_wadira_runtime()
+		finish()
+		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
 		await check_jisra_people_runtime()
 		finish()
@@ -265,6 +269,7 @@ func _run() -> void:
 	await check_sukara_runtime()
 	await check_chapter1_end_runtime()
 	await check_safira_runtime()
+	await check_wadira_runtime()
 	finish()
 
 
@@ -8758,3 +8763,268 @@ func _check_safira_missions(slow: Dictionary, night: Dictionary, slow_choice: in
 	check(find_button(app.ui, slow.button) == null, "the completed slow pilgrim stays hidden during its hours after reload")
 	set_market_day_time(10, 1140)
 	check(find_button(app.ui, night.button) == null, "the completed night mission stays hidden during its hours after reload")
+
+
+func check_wadira_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/WADIRA/RECORD/wadira_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/wadira.json")
+	check(not locked.is_empty() and runtime == locked, "Wadira runtime is the byte-identical LOCK 41 V1 file")
+	var copy: Variant = JSON.parse_string(runtime.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = copy is Dictionary and runner.towns.has("wadira") \
+		and runner.missions.has("sandstorm") and runner.missions.has("cheated_public")
+	check(loaded, "the production content index loads Wadira and both missions")
+	if not loaded:
+		return
+	var town: Dictionary = runner.towns.wadira
+	var masjid: Dictionary = copy.masjids.wadira
+	var sandstorm: Dictionary = runner.missions.sandstorm
+	var cheated: Dictionary = runner.missions.cheated_public
+	var words: Dictionary = runner.data.words
+	check(town == copy.towns.wadira.merged({"id": "wadira"}) and [sandstorm, cheated] == copy.missions
+		and runner.town_people(app, "wadira") == copy.people, "Wadira uses the locked town, missions and residents in order")
+	check(runner.town_masjids("wadira") == [masjid.merged({"id": "wadira"})], "Wadira resolves the separate masjid by ID")
+	var original := MarketSave.snapshot(app)
+	app.set_process(false)
+	await _check_wadira_road()
+	await _check_wadira_hub(town, masjid, sandstorm, cheated, words)
+	await _check_wadira_people(copy.people, words)
+	for sand_path: String in ["tay", "water"]:
+		for market_path: String in ["calm", "shout", "paid"]:
+			await _check_wadira_missions(sandstorm, cheated, sand_path, market_path, words)
+	MarketSave.restore(app, original)
+	app.show_screen("market_map")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 41 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _enter_wadira_fixture(coins: int = 15) -> void:
+	reset_at_market_place("gate", coins, 8)
+	app.enter_runner_town("wadira")
+
+
+func _check_wadira_road() -> void:
+	reset_at_market_place("gate", 15, 8)
+	app.progress.gate_open = true
+	app.update_state()
+	var words: Dictionary = app.road_map.data.words
+	var wadira: Dictionary = app.road_map.road_to("wadira")
+	var runner: SceneRunner = app.scene_runner
+	var go := str(words.go).format({"n": 210})
+	var state := runner.state()
+	state.flags.safira_done = 8
+	runner.restore(state)
+	check(not app.road_map.town_is_open(app, wadira), "Wadira still needs the Gate of Patience after Safira")
+	runner.reset()
+	app.road_map.restore({"patience": true})
+	await press_button(words.map_button, "open the live Road map after unlocking Patience")
+	check(has_visible_label(app.ui, "Wadira") and has_visible_label(app.ui, words.closed)
+		and not app.road_map.town_is_open(app, wadira) and find_button(app.ui, go) == null,
+		"the loaded Wadira road stays closed until Safira is finished")
+	await press_button(words.back, "return to Ilmara before supplying Safira's completion")
+	state = runner.state()
+	state.flags.safira_done = 8
+	runner.restore(state)
+	await press_button(words.map_button, "open the Road map with both prerequisites")
+	await press_button(go, "take the 210-minute road to Wadira")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "wadira" and app.minute_of_day == 810,
+		"the inherited road reaches the Wadira hub in 210 minutes")
+	await press_button(words.map_button, "exit from Wadira using the Road map")
+	await press_button(words.back, "Back from the Road map")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "wadira", "map Back returns to Wadira")
+	await press_button(words.map_button, "reopen the Road map")
+	await press_button(go, "take the 210-minute road back to Ilmara")
+	check(app.ui.screen == "market_map" and app.runner_town_id().is_empty() and app.minute_of_day == 1020,
+		"the existing road returns to Ilmara and advances the shared clock")
+
+
+func _check_wadira_hub(town: Dictionary, masjid: Dictionary, sandstorm: Dictionary, cheated: Dictionary, words: Dictionary) -> void:
+	_enter_wadira_fixture(25)
+	var runner: SceneRunner = app.scene_runner
+	var sayings := str(words.rep_button).format({"town": town.name})
+	var inn := str(words.inn_button).format({"n": 2})
+	var map_button: String = app.road_map.data.words.map_button
+	var noon: int = app._minutes(identity.clock.prayers[1].begins)
+	check(app.ui.screen == "runner_town" and has_visible_label(app.ui, town.name)
+		and has_visible_label(app.ui, str(town.kicker).to_upper()) and visible_text().split("\n").has(town.text),
+		"the hub shows the locked Wadira title, kicker and description")
+	check_gate_of_trust_meter("Trust · Wadira", 10)
+	_check_town_hub_button_order([sandstorm.button, words.people_button, town.work.label, sayings, masjid.button,
+		inn, map_button], "the Wadira hub follows R6 between prayers")
+	check(find_button(app.ui, words.road_back) == null, "Road map is the Wadira hub exit")
+	for minute: int in [299, 300, 359, 360, 480, 839, 840, 899, 900, 1079, 1080]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, sandstorm.button) != null) == (minute >= 300 and minute < 840)
+			and (find_button(app.ui, town.work.label) != null) == (minute >= 360 and minute < 900)
+			and find_button(app.ui, cheated.button) == null, "work and mission gates at minute %d" % minute)
+	set_market_day_time(8, noon)
+	var prayer: String = app.clock.prayer_label(false)
+	check(not prayer.is_empty(), "the Wadira hub offers prayer in its prayer window")
+	_check_town_hub_button_order([sandstorm.button, words.people_button, town.work.label, sayings, masjid.button,
+		prayer, inn, map_button], "prayer is between the masjid and inn")
+	set_market_day_time(9, noon)
+	check(find_button(app.ui, town.work.label) == null, "Friday prayer closes the work button")
+	var market_trust: int = app.progress.trust
+	for shift: Array in [[10, 600, 28, 11], [10, 660, 31, 11], [11, 600, 34, 12]]:
+		set_market_day_time(shift[0], shift[1])
+		await press_button(town.work.label, "sweep sand from the masjid yard")
+		check(app.progress.coins == shift[2] and runner.town_trust(app, town.id) == shift[3]
+			and app.minute_of_day == shift[1] + 60 and app.progress.trust == market_trust,
+			"work pays three coins per hour and grants one local trust on the first shift of the day")
+	for day: int in [11, 12]:
+		set_market_day_time(day, noon)
+		await press_button(masjid.button, "open the valley masjid")
+		check(app.ui.screen == "runner_masjid" and has_visible_label(app.ui, masjid.title)
+			and has_visible_label(app.ui, str(masjid.kicker).to_upper()) and visible_text().split("\n").has(masjid.text),
+			"the valley masjid shows its locked words before prayer")
+		await press_button(identity.clock.pray_congregation, "pray at the valley masjid")
+		check(app.jisra_masjid.prayed_in == {"wadira": true}
+			and visible_text().split("\n").has(masjid.first) == (day == 11), "only the first prayer counts and shows the greeting")
+		await press_button(words.back, "use Q27 Back from the masjid")
+		check(app.ui.screen == "runner_town" and app.runner_town_id() == "wadira", "Back returns to Wadira")
+	await press_button(inn, "rest overnight at the Wadira inn")
+	check(app.progress.coins == 32 and app.day == 13 and app.minute_of_day == 280
+		and app.runner_town_id() == "wadira", "the two-coin inn wakes you at 04:40 in Wadira")
+	await _check_town_sayings("wadira", [], words)
+
+
+func _check_wadira_people(residents: Array, words: Dictionary) -> void:
+	_enter_wadira_fixture()
+	var runner: SceneRunner = app.scene_runner
+	await press_button(words.people_button, "open the Wadira people list")
+	check(app.ui.screen == "runner_people" and has_visible_label(app.ui, words.people.title), "the people list shows its heading")
+	for person: Dictionary in residents:
+		check(has_visible_label(app.ui, person.name) and has_visible_label(app.ui, str(person.role).to_upper()),
+			"the people list shows the locked name and role for " + str(person.name))
+	for band: Array in [[10, "wary"], [50, "friendly"], [80, "warm"]]:
+		var state := runner.state()
+		state.trust.wadira = band[0]
+		runner.restore(state)
+		var buttons := _runner_talk_buttons(words)
+		check(buttons.size() == 3, "each Wadira resident has a separate Talk button")
+		if buttons.size() != 3:
+			return
+		for index in residents.size():
+			var person: Dictionary = residents[index]
+			await press_control(_runner_talk_buttons(words)[index], "talk to %s at trust %d" % [person.name, band[0]])
+			check(app.ui.screen == "runner_person" and has_visible_label(app.ui, person.name)
+				and visible_text().split("\n").has(person.lines[band[1]]), "exact %s words for %s" % [band[1], person.name])
+			await press_button(words.talk.back, "return to the people list")
+	for moment: Array in [[8, 299, []], [8, 300, [0]], [8, 419, [0]], [8, 420, [0, 1]], [8, 479, [0, 1]],
+		[8, 480, [0, 1, 2]], [8, 1019, [0, 1, 2]], [8, 1020, [0, 2]], [8, 1079, [0, 2]],
+		[8, 1080, [0]], [8, 1139, [0]], [8, 1140, []], [9, 725, [1, 2]], [9, 760, [0, 1, 2]]]:
+		set_market_day_time(moment[0], moment[1])
+		var text := visible_text().split("\n")
+		for index in residents.size():
+			var away := str(words.people.away).format({"name": residents[index].name})
+			check(text.has(away) == (index not in moment[2]), "%s availability at minute %d" % [residents[index].name, moment[1]])
+		check(_runner_talk_buttons(words).size() == moment[2].size(), "Talk buttons follow hours and Friday prayer")
+	var state := runner.state()
+	state.flags = {"enemy_helped": 9, "cheated_shout": 9}
+	runner.restore(state)
+	var khattab: Dictionary = residents[2]
+	check(runner.person_lines(app, "wadira", khattab) == [khattab.lines.warm, khattab.memory[0][1]],
+		"the future enemy_helped fixture takes priority over Khattab's shout memory")
+
+
+func _check_wadira_missions(sandstorm: Dictionary, cheated: Dictionary, sand_path: String, market_path: String, words: Dictionary) -> void:
+	_enter_wadira_fixture(9 if market_path == "paid" else 15)
+	var runner: SceneRunner = app.scene_runner
+	var expected := runner.state()
+	var journal := runner.journal(app)
+	var market_trust: int = app.progress.trust
+	var sayings: Array = []
+	var trust := 10
+	await press_button(sandstorm.button, "open The sandstorm")
+	_check_runner_scene_copy(sandstorm, "a")
+	_check_town_hub_button_order([sandstorm.scenes.a.choices[0].label, sandstorm.scenes.a.choices[1].label],
+		"The sandstorm offers both choices in locked order")
+	var sand_index := 0 if sand_path == "tay" else 1
+	await press_button(sandstorm.scenes.a.choices[sand_index].label, "choose the " + sand_path + " ending")
+	_check_runner_scene_copy(sandstorm, sand_path)
+	expected.flags.sandstorm_done = 8
+	if sand_path == "tay":
+		trust += 5
+		expected.trust.wadira = trust
+		expected.flags.tayammum_learned = 8
+		sayings.append(sandstorm.say.tay)
+		expected.sayings.wadira = sayings.duplicate()
+	check(runner.state() == expected and app.progress.coins == (9 if market_path == "paid" else 15)
+		and app.progress.trust == market_trust and app.day == 8 and app.minute_of_day == 780,
+		"The sandstorm applies the exact local effects and advances three hours before completion")
+	await press_button(words.scene_back, "complete The sandstorm")
+	expected.done.sandstorm = 8
+	check(runner.state() == expected and app.ui.screen == "runner_town" and app.runner_town_id() == "wadira"
+		and find_button(app.ui, sandstorm.button) == null, "Back records The sandstorm and hides it inside its hours")
+	await _check_town_sayings("wadira", sayings, words)
+	for minute: int in [479, 480, 1079, 1080]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, cheated.button) != null) == (minute >= 480 and minute < 1080),
+			"Cheated in public follows its hours after the sandstorm at minute %d" % minute)
+	set_market_day_time(8, 600)
+	await press_button(cheated.button, "open Cheated in public")
+	_check_runner_scene_copy(cheated, "a")
+	var choices: Array = cheated.scenes.a.choices
+	var labels: Array[String] = [choices[0].label, choices[1].label]
+	var market_index := ["calm", "shout", "paid"].find(market_path)
+	if market_path == "paid":
+		check(find_button(app.ui, choices[2].label) == null, "the payment option is hidden with nine coins")
+		app.progress.coins = 10
+		app.update_state()
+		app.show_screen("runner_mission")
+	labels.append(choices[2].label)
+	_check_town_hub_button_order(labels, "Cheated in public offers all affordable choices in locked order")
+	await press_button(choices[market_index].label, "choose the " + market_path + " ending")
+	_check_runner_scene_copy(cheated, market_path)
+	expected.flags.wadira_done = 8
+	match market_path:
+		"calm":
+			trust += 8
+			expected.flags.cheated_calm = 8
+			sayings.append(cheated.say.calm)
+		"shout":
+			trust -= 3
+			expected.flags.cheated_shout = 8
+			sayings.append(cheated.say.shout)
+		"paid":
+			trust += 2
+	expected.trust.wadira = trust
+	if not sayings.is_empty():
+		expected.sayings.wadira = sayings
+	check(runner.state() == expected and app.progress.coins == (0 if market_path == "paid" else 15)
+		and app.progress.trust == market_trust and app.day == 8 and app.minute_of_day == 600,
+		"Cheated in public applies the exact local effects before completion")
+	await press_button(words.scene_back, "complete Cheated in public")
+	expected.done.cheated_public = 8
+	check(runner.state() == expected and app.ui.screen == "runner_town" and app.runner_town_id() == "wadira",
+		"Back records Cheated in public and returns to Wadira")
+	await _check_town_sayings("wadira", sayings, words)
+	for person: Dictionary in runner.town_people(app, "wadira"):
+		var lines: Array[String] = [person.lines.wary]
+		for memory: Array in person.memory:
+			if expected.flags.has(memory[0]):
+				lines.append(memory[1])
+				break
+		check(runner.person_lines(app, "wadira", person) == lines, "the paths give the exact dialogue and memory for " + str(person.name))
+	var saved := MarketSave.snapshot(app)
+	runner.reset()
+	MarketSave.restore(app, saved)
+	app.show_screen("runner_town")
+	check(app.runner_town_id() == "wadira" and runner.state() == expected,
+		"both completion days and every choice effect survive save and restore")
+	# Q27 adds no rows here; line 49 will name the two missions in Chapter 2.
+	for index in runner.data.chapters.size():
+		var chapter: Dictionary = runner.data.chapters[index]
+		for mission: Dictionary in [sandstorm, cheated]:
+			var row: int = chapter.missions.find(mission.id)
+			if row >= 0:
+				journal.chapters[index].rows[row] = {"title": mission.title, "done": true}
+				journal.chapters[index].done += 1
+	check(runner.journal(app) == journal, "Wadira completions affect only Journal rows named by a loaded chapter")
+	set_market_day_time(10, 600)
+	check(find_button(app.ui, sandstorm.button) == null and find_button(app.ui, cheated.button) == null,
+		"both completed missions stay hidden during their hours on a later day")

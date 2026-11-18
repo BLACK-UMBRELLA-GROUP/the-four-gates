@@ -1,0 +1,248 @@
+{
+ "version": "LOCK 41 V1 (9 Nov 2026) - Wadira, the sandstorm valley: the sandstorm (tayammum) and cheated in public",
+ "builds_on": "LOCK 34 runner, LOCK 40. Design references (not shown): Quran 5:6, Bukhari 334 (tayammum); Quran 41:34 (repel evil with what is better).",
+ "towns": {
+  "wadira": {
+   "name": "Wadira",
+   "gate": "patience",
+   "start_trust": 10,
+   "inn": 2,
+   "kicker": "Wadira · the sandstorm valley",
+   "text": "A town of red stone in a valley where the wind never quite stops. Doors face away from the west, and everyone carries a cloth to tie across the mouth.",
+   "work": {
+    "label": "Sweep sand from the masjid yard · 3 coins",
+    "hours": [
+     360,
+     900
+    ],
+    "minutes": 60,
+    "coins": 3,
+    "trust": 1
+   },
+   "masjids": [
+    "wadira"
+   ],
+   "bg": "street_day"
+  }
+ },
+ "masjids": {
+  "wadira": {
+   "button": "Go to the valley masjid",
+   "kicker": "Wadira · the valley masjid",
+   "title": "The valley masjid",
+   "text": "Thick walls, small windows, and sand in every corner despite the brooms.",
+   "first": "The imam hands you a broom after the prayer, laughing. “Everyone sweeps here.”"
+  }
+ },
+ "people": [
+  {
+   "id": "ghazi",
+   "town": "wadira",
+   "name": "Ghazi",
+   "role": "the valley guide",
+   "hours": [
+    300,
+    1140
+   ],
+   "prays": true,
+   "lines": {
+    "wary": "“You want the valley road? Wait for the wind to drop.”",
+    "friendly": "“The storm is not your enemy. Panic is your enemy.”",
+    "warm": "“If I ever have a son, I'll teach him what I taught you.”"
+   },
+   "memory": [
+    [
+     "tayammum_learned",
+     "“You prayed in the storm with dust on your face. That's a traveller.”"
+    ]
+   ]
+  },
+  {
+   "id": "lina",
+   "town": "wadira",
+   "name": "Lina",
+   "role": "the dyer",
+   "hours": [
+    420,
+    1020
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "Lina's arms are blue to the elbow. “Mind the vats.”",
+    "friendly": "“Red from the madder root, blue from indigo. The wind dries it in an hour.”",
+    "warm": "“I dyed a cloth for you. For your mouth in the storms.”"
+   },
+   "memory": [
+    [
+     "cheated_calm",
+     "“Khattab shouts at everyone. You're the first one who made him weigh the coins.”"
+    ]
+   ]
+  },
+  {
+   "id": "khattab",
+   "town": "wadira",
+   "name": "Khattab",
+   "role": "the salt merchant",
+   "hours": [
+    480,
+    1080
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "Khattab looks through you. “Salt. Good salt. Fair price.”",
+    "friendly": "Khattab grunts. “The roads are bad for business.”",
+    "warm": "Khattab cannot quite look at you. “I was wrong about the coins.”"
+   },
+   "memory": [
+    [
+     "enemy_helped",
+     "Khattab comes round his stall and takes your hand. “You carried my son. After what I did in the market. I have no words.”"
+    ],
+    [
+     "cheated_shout",
+     "“The foreigner who shouts,” Khattab says to a customer, loud enough."
+    ]
+   ]
+  }
+ ],
+ "missions": [
+  {
+   "id": "sandstorm",
+   "town": "wadira",
+   "main": true,
+   "title": "The sandstorm",
+   "kicker": "Chapter 2 · The sandstorm",
+   "button": "Ghazi is taking travellers through the valley",
+   "hours": [
+    300,
+    840
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Halfway through the valley the sky turns brown. Ghazi gets everyone down behind the camels and the storm blows for hours. When it passes it is Asr time, and the water skins are almost empty - just enough to drink until the next well.",
+     "choices": [
+      {
+       "label": "Pray with tayammum, as Ghazi shows you",
+       "go": "tay",
+       "fx": {
+        "minutes": 180,
+        "trust": 5,
+        "flag": [
+         "tayammum_learned",
+         "sandstorm_done"
+        ],
+        "say": "tay"
+       }
+      },
+      {
+       "label": "Use the last water for wudu",
+       "go": "water",
+       "fx": {
+        "minutes": 180,
+        "flag": "sandstorm_done"
+       }
+      }
+     ]
+    },
+    "tay": {
+     "text": "Ghazi strikes his palms on a clean flat stone, blows on them lightly and wipes his face and hands. You do the same and pray together with the wind still hissing in the rocks. “Allah made it easy for us,” he says. The water lasts until the well.",
+     "end": true
+    },
+    "water": {
+     "text": "You use the water for wudu. By evening your mouth is cracked, and Ghazi shares a sip of his own. “Next time,” he says, “the earth is your water.” He shows you tayammum by the well.",
+     "end": true
+    }
+   },
+   "say": {
+    "tay": [
+     "Prayed in the storm with tayammum",
+     "Ghazi the guide",
+     1
+    ]
+   }
+  },
+  {
+   "id": "cheated_public",
+   "town": "wadira",
+   "main": true,
+   "title": "Cheated in public",
+   "kicker": "Chapter 2 · Cheated in public",
+   "button": "Khattab is shouting your name",
+   "hours": [
+    480,
+    1080
+   ],
+   "after": [
+    "sandstorm_done"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "In the market Khattab the salt merchant points at you in front of everyone. “This foreigner paid me in clipped coins!” You did not. People stop to watch.",
+     "choices": [
+      {
+       "label": "Answer calmly and ask him to weigh them",
+       "go": "calm",
+       "fx": {
+        "trust": 8,
+        "flag": [
+         "cheated_calm",
+         "wadira_done"
+        ],
+        "say": "calm"
+       }
+      },
+      {
+       "label": "Shout back and call him a liar",
+       "go": "shout",
+       "fx": {
+        "trust": -3,
+        "flag": [
+         "cheated_shout",
+         "wadira_done"
+        ],
+        "say": "shout"
+       }
+      },
+      {
+       "label": "Pay him again to end it · 10 coins",
+       "need_coins": 10,
+       "go": "paid",
+       "fx": {
+        "coins": -10,
+        "trust": 2,
+        "flag": "wadira_done"
+       }
+      }
+     ]
+    },
+    "calm": {
+     "text": "You hold out your purse. “Weigh them.” He weighs them. They are full weight. Khattab mutters something about his eyes and turns away. The crowd remembers who stayed calm.",
+     "end": true
+    },
+    "shout": {
+     "text": "The two of you shout until a guard pushes you apart. Half the crowd believes him and half believes you.",
+     "end": true
+    },
+    "paid": {
+     "text": "You count ten coins into his hand. Khattab smiles. Some people nod at you; others shake their heads.",
+     "end": true
+    }
+   },
+   "say": {
+    "calm": [
+     "Stayed calm when Khattab shouted",
+     "the valley market",
+     1
+    ],
+    "shout": [
+     "Shouted at Khattab in the market",
+     "the valley market",
+     -1
+    ]
+   }
+  }
+ ]
+}
