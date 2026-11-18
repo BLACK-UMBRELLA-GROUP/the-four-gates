@@ -1,0 +1,165 @@
+{
+  "line": 45,
+  "lock": "LOCK 38 V1",
+  "brief": "DOC-TFG-0125",
+  "tested_base_commit_sha": "b9567fef52513593278e7513663fba7648b94f38",
+  "tested_source": "Base commit plus the hashed files. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T07:33:40+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --sukara-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --sahila-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --road-map-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --scene-runner-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --jisra-masjid-only"
+  ],
+  "checks_passed": {
+    "lock_38": 299,
+    "focused": 498,
+    "headless_full_suite": 9129,
+    "sahila_regression": 547,
+    "road_map_regression": 287,
+    "scene_runner_regression": 307,
+    "jisra_masjid_regression": 277
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SUKARA/BRIEFS/BUILD_BRIEF_2026-11-09_SUKARA.md": {
+      "bytes": 3796,
+      "sha256": "0b1ec45ae2035f44fbc948036399aa5888d51369bfd87954c053837b9db04a27"
+    },
+    "GAME/APPROVED/SUKARA/RECORD/LOCK_RECORD.md": {
+      "bytes": 923,
+      "sha256": "b53b5d1508ed046f867023297fe0d7ec612e9c21e8509d19aea1ca43c92e2721"
+    },
+    "GAME/APPROVED/SUKARA/RECORD/SUKARA_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 6629,
+      "sha256": "52d270d44e4ca849336d0c732a93938b958101ec2874a250abc00196052feccc"
+    },
+    "GAME/APPROVED/SUKARA/RECORD/sukara_data_V1.json": {
+      "bytes": 7031,
+      "sha256": "c38644742d41586ef210ac6508ecd7f4a7b1ef95e16fa5db856189e112b9196b"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/LOCK_RECORD.md": {
+      "bytes": 1193,
+      "sha256": "097e458b36812235cf8b7af3da1b87b413b920c6a032f7454c4cc2586378afdd"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su01_sukara__town.png": {
+      "bytes": 308504,
+      "sha256": "bd5b457f508548135009d67d01ab1775d4e6ac4d8b6c1dc07b14952fec4da29b"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su02_sukara__people.png": {
+      "bytes": 294317,
+      "sha256": "544e6d0af36d9b4c5be62d18ab76828fcbfb529737699aa5f28119a92d91b4d8"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su03_sukara__murad_trust_10.png": {
+      "bytes": 312714,
+      "sha256": "501a509713b700851863a8939a820e1c7cfd74523175c4b718f7dab25643da58"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su04_sukara__murad_trust_50.png": {
+      "bytes": 312210,
+      "sha256": "c1a35e038a3227dd91e0a7afe74daa284a365432ed29dc50f53528a27b5e7c07"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su05_sukara__murad_trust_80.png": {
+      "bytes": 309827,
+      "sha256": "cab07cb513ef2fe1484f8b25d91ce39a24beff05b0b449601de60e173f17e625"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su06_sukara__sakhr_trust_10.png": {
+      "bytes": 311599,
+      "sha256": "b7337982acc51e53b7e507d0333a0f50e82c276d2a716700c6761bfa3616fd6d"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su07_sukara__sakhr_trust_50.png": {
+      "bytes": 311755,
+      "sha256": "1a34e91fc57462f45d51068849f9053dc445e22e59af9d3b387598f659dfda5f"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su08_sukara__sakhr_trust_80.png": {
+      "bytes": 311562,
+      "sha256": "8471ce8ca431a625c038791c79a7ac6a7d1d29eed485d038fbe37d46e0c63ec7"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su09_sukara__nuha_trust_10.png": {
+      "bytes": 310325,
+      "sha256": "8cd04cfedaaea81fbd130dcb4d782972bfa3217e2614960c0169a2de3e45ebbd"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su10_sukara__nuha_trust_50.png": {
+      "bytes": 312535,
+      "sha256": "e48f0e54446c3d0ac4793761de6a5f173869998f9de8fa1fc8db5d3229f8f725"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su11_sukara__nuha_trust_80.png": {
+      "bytes": 309578,
+      "sha256": "0c4cbde628083cb23ef35cc6fc9ce6ef7006dc2b223de33f5b24e728cde8afb5"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su12_sukara__what_people_say_empty.png": {
+      "bytes": 312340,
+      "sha256": "4b1afe3fd3d681da8ecf41a8a5274213cdd06b375795c0f43e88b6d5cf234fc2"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su13_sukara__masjid_prayer.png": {
+      "bytes": 271238,
+      "sha256": "5bd39bd16fbae5e9c21af7f3b866b6340e15918f3105d7e1ad89de0fd22e5ecb"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su14_sukara__masjid_first_prayer.png": {
+      "bytes": 272904,
+      "sha256": "59bada72da14f708e36f1344cf7a4deb51b84a346025eb3b8b7980934093288c"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su15_sukara_offers__a.png": {
+      "bytes": 299942,
+      "sha256": "1598ba037b4f378ea538e22406a1329ff10e841c341c817ce59e2b8ba3196848"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su16_sukara_offers__partner.png": {
+      "bytes": 309663,
+      "sha256": "03942edba8bbed3ec00c78b09a55bed89e778d48a30cde31a7a13c6b58390b11"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su17_sukara_offers__riba.png": {
+      "bytes": 309577,
+      "sha256": "b5c22523d1587a19a0c1e6e63a06a377ae4d66ef39094b8ce8b776cb91650e81"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su18_sukara_offers__none.png": {
+      "bytes": 310436,
+      "sha256": "db8f52c949b391080aa691bbb4177c5176d3381658cf406394537984a6ce4080"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su19_sukara_share__a.png": {
+      "bytes": 310259,
+      "sha256": "04df023c134db0789f05a6169062b53b85daf36bf8280e3f55d5c5e94863af3e"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su20_sukara_share__b.png": {
+      "bytes": 307273,
+      "sha256": "a0617319e75062f8f969d069f86b278914f47155a780a4d02bdf4b51b61148fc"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su21_sukara_due__a.png": {
+      "bytes": 302213,
+      "sha256": "1bd32f4a468aa6e51c3f795da3ce8e6cc673fb63b062cece8af32263a59ef975"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su22_sukara_due__took.png": {
+      "bytes": 306514,
+      "sha256": "80e9cffae38c8b4ba883f6953408d70759493b722c3df1dcc4defef07b81116c"
+    },
+    "GAME/APPROVED/SUKARA/MASTERS/su23_sukara_due__refused.png": {
+      "bytes": 307887,
+      "sha256": "44637a8d57ed6bc8dd70e9e211a0c9257970db0e2882846cf9d21a259c1634b9"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 47605,
+      "sha256": "1226a89052be8234992637dd5ca035a2f4a0adc2750ecf2485fc4c4d6fa556fe"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 466,
+      "sha256": "8703276498884d2c111561bb1f8f6ed5de2098713860afc573289154c35ca285"
+    },
+    "SOURCE/data/sukara.json": {
+      "bytes": 7031,
+      "sha256": "c38644742d41586ef210ac6508ecd7f4a7b1ef95e16fa5db856189e112b9196b"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 510112,
+      "sha256": "8eab62f0375a6df4828b239536af06aa4ca7b1e44a9b993c46a4ff49f8132e18"
+    }
+  },
+  "native_screenshots": 0,
+  "compiled_exports": 0
+}

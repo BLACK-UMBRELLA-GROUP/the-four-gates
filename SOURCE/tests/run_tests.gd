@@ -105,6 +105,10 @@ func _run() -> void:
 		await check_sahila_runtime()
 		finish()
 		return
+	if "--sukara-only" in OS.get_cmdline_user_args():
+		await check_sukara_runtime()
+		finish()
+		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
 		await check_jisra_people_runtime()
 		finish()
@@ -250,6 +254,7 @@ func _run() -> void:
 	await check_prophets_stories_runtime()
 	await check_road_map_runtime()
 	await check_sahila_runtime()
+	await check_sukara_runtime()
 	finish()
 
 
@@ -8005,14 +8010,9 @@ func _check_sahila_people(residents: Array, words: Dictionary) -> void:
 			await press_button(words.talk.back, "return from the resident to the people list")
 	for person: Dictionary in residents:
 		for minute: int in [int(person.hours[0]) - 1, int(person.hours[0]), int(person.hours[1]) - 1, int(person.hours[1])]:
-			set_market_day_time(8, minute)
-			_check_sahila_people_hours(residents, words, minute, false)
-	set_market_day_time(9, 724)
-	_check_sahila_people_hours(residents, words, 724, false)
-	set_market_day_time(9, 725)
-	_check_sahila_people_hours(residents, words, 725, true)
-	set_market_day_time(9, 760)
-	_check_sahila_people_hours(residents, words, 760, false)
+			_check_town_people_presence(residents, words, 8, minute, false)
+	for minute: int in [724, 725, 760]:
+		_check_town_people_presence(residents, words, 9, minute, minute == 725)
 	# Both flags make the ordering observable without changing the real mission routes.
 	var memory_state: Dictionary = app.scene_runner.state()
 	memory_state.flags = {"sahila_honest": 8, "sahila_lied": 8, "sahila_found": 15}
@@ -8030,18 +8030,6 @@ func _check_sahila_people(residents: Array, words: Dictionary) -> void:
 		app.scene_runner.restore(memory_state)
 
 
-func _check_sahila_people_hours(residents: Array, words: Dictionary, minute: int, at_friday_prayer: bool) -> void:
-	var count := 0
-	var text := visible_text().split("\n")
-	for person: Dictionary in residents:
-		var present: bool = minute >= int(person.hours[0]) and minute < int(person.hours[1]) \
-			and not (at_friday_prayer and person.id == "mukhtar")
-		count += int(present)
-		var away := str(words.people.away).format({"name": person.name})
-		check(text.has(away) != present, "%s shows the locked presence at minute %d" % [person.name, minute])
-	check(_runner_talk_buttons(words).size() == count, "availability controls the number of Talk buttons")
-
-
 func _check_sahila_missions(boat: Dictionary, found: Dictionary, boat_choice: int, found_choice: int, words: Dictionary) -> void:
 	var starting_coins := 24 if found_choice == 1 else 25
 	_enter_sahila_fixture(starting_coins)
@@ -8053,13 +8041,13 @@ func _check_sahila_missions(boat: Dictionary, found: Dictionary, boat_choice: in
 	var honest := boat_choice == 0
 	var choice: Dictionary = boat.scenes.b.choices[boat_choice]
 	await press_button(boat.button, "open the boat sale")
-	_check_sahila_scene(boat, "a")
+	_check_runner_scene_copy(boat, "a")
 	await press_button(boat.scenes.a.choices[0].label, "agree to sell Mukhtar's boat")
-	_check_sahila_scene(boat, "b")
+	_check_runner_scene_copy(boat, "b")
 	for option: Dictionary in boat.scenes.b.choices:
 		check(find_button(app.ui, option.label) != null, "the sale offers the exact choice: " + str(option.label))
 	await press_button(choice.label, "take the boat choice: " + str(choice.label))
-	_check_sahila_scene(boat, "honest" if honest else "lied")
+	_check_runner_scene_copy(boat, "honest" if honest else "lied")
 	var flag := "sahila_honest" if honest else "sahila_lied"
 	var flags := {"sahila_boat_done": 8}
 	flags[flag] = 8
@@ -8068,7 +8056,7 @@ func _check_sahila_missions(boat: Dictionary, found: Dictionary, boat_choice: in
 		"the boat choice pays five coins, applies the locked town trust and stamps only its proper flags")
 	await press_button(words.scene_back, "leave the boat ending and mark Chapter 1 progress")
 	check(runner.mission_done(app, boat.id) and find_button(app.ui, boat.button) == null, "the completed boat sale stays off the hub")
-	await _check_sahila_sayings([boat.say.honest] if honest else [], words)
+	await _check_town_sayings("sahila", [boat.say.honest] if honest else [], words)
 	set_market_day_time(14, 600)
 	check(find_button(app.ui, found.button) == null, "six days after the sale is too early for Ziyad's follow-up")
 	set_market_day_time(15, 600)
@@ -8097,7 +8085,7 @@ func _check_sahila_followup(found: Dictionary, index: int, words: Dictionary) ->
 	var coins: int = app.progress.coins
 	var choice: Dictionary = found.scenes.a.choices[index]
 	await press_button(found.button, "open Ziyad's follow-up")
-	_check_sahila_scene(found, "a")
+	_check_runner_scene_copy(found, "a")
 	check((find_button(app.ui, found.scenes.a.choices[0].label) != null) == paid
 		and find_button(app.ui, found.scenes.a.choices[1].label) != null,
 		"the 30-coin offer is hidden at 29 coins and appears at 30, with denial always available")
@@ -8105,17 +8093,17 @@ func _check_sahila_followup(found: Dictionary, index: int, words: Dictionary) ->
 		app._runner_action("choice", found.scenes.a.choices[0])
 		check(app.runner_scene() == found.scenes.a and app.progress.coins == coins, "the hidden offer cannot apply by direct dispatch")
 	await press_button(choice.label, "take Ziyad's follow-up choice: " + str(choice.label))
-	_check_sahila_scene(found, "paid" if paid else "denied")
+	_check_runner_scene_copy(found, "paid" if paid else "denied")
 	check(app.progress.coins == (coins - 30 if paid else coins) and runner.town_trust(app, "sahila") == (45 if paid else 35)
 		and runner.state().flags.get("sahila_found") == 15 and not runner.mission_done(app, found.id),
 		"the follow-up applies its exact coin and local trust effects before completion")
 	await press_button(words.scene_back, "leave the follow-up ending and save it as done")
 	check(runner.mission_done(app, found.id) and runner.state().done.get(found.id) == 15 and find_button(app.ui, found.button) == null,
 		"Q23 requires a saved follow-up completion and a hidden action")
-	await _check_sahila_sayings([found.say.admitted if paid else found.say.found], words)
+	await _check_town_sayings("sahila", [found.say.admitted if paid else found.say.found], words)
 
 
-func _check_sahila_scene(mission: Dictionary, id: String) -> void:
+func _check_runner_scene_copy(mission: Dictionary, id: String) -> void:
 	check(app.ui.screen == "runner_mission" and app.runner_scene() == mission.scenes[id]
 		and has_visible_label(app.ui, mission.title) and has_visible_label(app.ui, str(mission.kicker).to_upper()),
 		"the scene uses its locked mission title and kicker: %s/%s" % [mission.id, id])
@@ -8125,12 +8113,283 @@ func _check_sahila_scene(mission: Dictionary, id: String) -> void:
 		check(visible_text().split("\n").has(paragraph), "the exact locked paragraph appears in %s/%s" % [mission.id, id])
 
 
-func _check_sahila_sayings(lines: Array, words: Dictionary) -> void:
-	check(app.scene_runner.town_sayings("sahila", app) == lines, "Sahila stores only the local accounts earned by this path")
-	await press_button(str(words.rep_button).format({"town": "Sahila"}), "open the result in What Sahila says")
+func _check_town_sayings(town: String, lines: Array, words: Dictionary) -> void:
+	check(app.scene_runner.town_sayings(town, app) == lines, "the town stores only the local accounts earned by this path")
+	var label := str(words.rep_button).format({"town": app.scene_runner.towns[town].name})
+	await press_button(label, "open " + label)
 	if lines.is_empty():
 		check(visible_text().split("\n").has(words.trep.empty), "the empty wording remains when no account was earned")
 	for line: Array in lines:
 		check(has_visible_label(app.ui, "“%s”" % line[0]) and has_visible_label(app.ui, str(line[1]).to_upper())
 			and has_visible_label(app.ui, app.chapter.rep.tone[str(int(line[2]))]), "the panel shows the exact account, witness and tone")
-	await press_button(words.trep.back, "return to the hub from What Sahila says")
+	await press_button(words.trep.back, "return to the hub from town sayings")
+
+
+func check_sukara_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/SUKARA/RECORD/sukara_data_V1.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/sukara.json") == locked,
+		"Sukara uses byte-identical LOCK 38 data")
+	var copy: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = copy is Dictionary and runner.towns.has("sukara") and runner.missions.has("sukara_offers") \
+		and runner.missions.has("sukara_share") and runner.missions.has("sukara_due")
+	check(loaded, "the production content index loads Sukara, the offers and both follow-ups")
+	if not loaded:
+		return
+	var town: Dictionary = runner.towns.sukara
+	check(town == copy.towns.sukara.merged({"id": "sukara"}), "production loads the locked Sukara town record")
+	var masjid: Dictionary = copy.masjids.sukara
+	var words: Dictionary = runner.data.words
+	for mission: Dictionary in copy.missions:
+		check(runner.missions[mission.id] == mission, "production loads the locked mission " + str(mission.id))
+	check(runner.town_people(app, "sukara") == copy.people, "production loads the locked people in order")
+	check(runner.town_masjids("sukara") == [masjid.merged({"id": "sukara"})], "Sukara's masjid resolves by its locked ID")
+	var prior_state := MarketSave.snapshot(app)
+	app.set_process(false)
+	await _check_sukara_road(words)
+	await _check_sukara_hub(town, masjid, copy.missions, words)
+	await _check_sukara_people(copy.people, words)
+	for path: Array in [[0, 0], [1, 0], [1, 1], [2, -1]]:
+		await _check_sukara_mission_path(copy.missions, path[0], path[1], words)
+	MarketSave.restore(app, prior_state)
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 38 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_sukara_road(words: Dictionary) -> void:
+	reset_at_market_place("gate", 60, 8)
+	var runner: SceneRunner = app.scene_runner
+	var road: Dictionary = app.road_map.data.words
+	app.progress.trust = int(data.numbers.gate_trust)
+	app.progress.lesson_done = true
+	app.update_state()
+	await press_button(app.gate_of_trust.data.gate_open_button, "open the Gate of Trust for the Sukara route")
+	await press_button(road.map_button, "open the live Road map at the gate")
+	await press_button(str(road.go).format({"n": 90}), "take the live road to Jisra")
+	await press_button(road.map_button, "open Road map from Jisra")
+	await press_button(str(road.go).format({"n": 60}), "take the live road to Sahila")
+	await press_button(road.map_button, "check the Sukara road before completing Sahila's boat")
+	var go := str(road.go).format({"n": 60})
+	var go_jisra := find_button(app.ui, go)
+	check(has_visible_label(app.ui, "Sukara") and has_visible_label(app.ui, road.closed)
+		and go_jisra != null and find_button(app.ui, go, go_jisra) == null
+		and not app.road_map.town_is_open(app, app.road_map.road_to("sukara")),
+		"the loaded Sukara road stays closed until Sahila's boat is done")
+	await press_button(road.back, "return to Sahila to complete the boat sale")
+	var boat: Dictionary = runner.missions.sahila_boat
+	await press_button(boat.button, "start the live Sahila prerequisite")
+	await press_button(boat.scenes.a.choices[0].label, "agree to sell the boat")
+	await press_button(boat.scenes.b.choices[0].label, "finish the sale by telling the buyer")
+	await press_button(words.scene_back, "leave the completed boat sale")
+	check(runner.mission_done(app, boat.id) and runner.has_flag(app, "sahila_boat_done"), "line 44 earns the live road flag")
+	await press_button(road.map_button, "open Road map after earning the prerequisite")
+	var before: int = app.minute_of_day
+	go_jisra = find_button(app.ui, go)
+	await press_control(find_button(app.ui, go, go_jisra), "take the unlocked 60-minute road from Sahila to Sukara")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "sukara" and app.minute_of_day == before + 60,
+		"line 43 takes the player into loaded Sukara after earning the flag")
+
+
+func _enter_sukara_fixture(coins: int) -> void:
+	reset_at_market_place("gate", coins, 8)
+	app.enter_runner_town("sukara")
+
+
+func _check_sukara_hub(town: Dictionary, masjid: Dictionary, missions: Array, words: Dictionary) -> void:
+	_enter_sukara_fixture(25)
+	var runner: SceneRunner = app.scene_runner
+	var offers: Dictionary = missions[0]
+	var sayings := str(words.rep_button).format({"town": town.name})
+	var inn := str(words.inn_button).format({"n": 3})
+	var noon: int = app._minutes(identity.clock.prayers[1].begins)
+	set_market_day_time(8, noon)
+	check(app.ui.screen == "runner_town" and has_visible_label(app.ui, town.name)
+		and has_visible_label(app.ui, str(town.kicker).to_upper()) and visible_text().split("\n").has(town.text),
+		"the hub shows the locked Sukara title, kicker and description")
+	check_gate_of_trust_meter("Trust · Sukara", 10)
+	var prayer: String = app.clock.prayer_label(false)
+	var hub_actions: Array[String] = [offers.button, words.people_button, town.work.label, sayings, masjid.button,
+		prayer, inn, app.road_map.data.words.map_button]
+	_check_town_hub_button_order(hub_actions, "Sukara hub follows R6")
+	check(not prayer.is_empty() and find_button(app.ui, words.road_back) == null, "prayer appears in its window and Road map is the exit")
+	for minute: int in [359, 360, 419, 420, 1019, 1020, 1079, 1080]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, offers.button) != null) == (minute >= 420 and minute < 1080)
+			and (find_button(app.ui, town.work.label) != null) == (minute >= 360 and minute < 1020)
+			and find_button(app.ui, missions[1].button) == null and find_button(app.ui, missions[2].button) == null,
+			"Sukara work, offers and follow-up availability at minute %d" % minute)
+	set_market_day_time(9, noon)
+	check(find_button(app.ui, town.work.label) == null and find_button(app.ui, offers.button) != null,
+		"Friday prayer closes the cane press while the offers keep their hours")
+	set_market_day_time(10, 600)
+	var market_trust: int = app.progress.trust
+	for shift: Array in [[10, 600, 30, 11], [10, 690, 35, 11], [11, 600, 40, 12]]:
+		set_market_day_time(shift[0], shift[1])
+		await press_button(town.work.label, "work a 90-minute shift at the cane press")
+		check(app.progress.coins == shift[2] and runner.town_trust(app, town.id) == shift[3]
+			and app.minute_of_day == shift[1] + 90 and app.progress.trust == market_trust,
+			"shift pays five coins and earns one local trust on the first shift of the day")
+	for day: int in [11, 12]:
+		set_market_day_time(day, noon)
+		await press_button(masjid.button, "open the press-men's masjid")
+		check(app.ui.screen == "runner_masjid" and has_visible_label(app.ui, masjid.title)
+			and has_visible_label(app.ui, str(masjid.kicker).to_upper()) and visible_text().split("\n").has(masjid.text),
+			"the resolved Sukara masjid shows locked copy before prayer")
+		await press_button(identity.clock.pray_congregation, "pray at the press-men's masjid")
+		check(app.jisra_masjid.prayed_in == {"sukara": true}
+			and visible_text().split("\n").has(masjid.first) == (day == 11), "only the first prayer shows the greeting and adds to the count")
+		await press_button(words.back, "use the masjid's Back action from Q24")
+		check(app.ui.screen == "runner_town" and app.runner_town_id() == town.id, "Back returns from the masjid to Sukara")
+	await press_button(inn, "rest in Sukara for three coins")
+	check(app.progress.coins == 37 and app.day == 13 and app.minute_of_day == 280
+		and app.runner_town_id() == town.id, "Sukara's inn charges three coins and wakes at 04:40 in town")
+
+
+func _check_sukara_people(residents: Array, words: Dictionary) -> void:
+	_enter_sukara_fixture(25)
+	var runner: SceneRunner = app.scene_runner
+	await press_button(words.people_button, "open Sukara's people list")
+	check(app.ui.screen == "runner_people" and has_visible_label(app.ui, words.people.title),
+		"Sukara's people list shows the locked heading")
+	for person: Dictionary in residents:
+		check(has_visible_label(app.ui, person.name) and has_visible_label(app.ui, str(person.role).to_upper()),
+			"Sukara shows the locked name and role for " + str(person.name))
+	for band: Array in [[10, "wary"], [50, "friendly"], [80, "warm"]]:
+		var state := runner.state()
+		state.trust.sukara = band[0]
+		runner.restore(state)
+		for index in residents.size():
+			var person: Dictionary = residents[index]
+			var buttons := _runner_talk_buttons(words)
+			check(buttons.size() == residents.size(), "all present Sukara residents have separate Talk buttons")
+			if buttons.size() != residents.size():
+				break
+			await press_control(buttons[index], "talk to %s at Sukara trust %d" % [person.name, band[0]])
+			check(app.ui.screen == "runner_person" and has_visible_label(app.ui, person.name)
+				and visible_text().split("\n").has(person.lines[band[1]]), "Sukara shows the exact %s line for %s" % [band[1], person.name])
+			await press_button(words.talk.back, "return to the people list")
+	for minute: int in [359, 360, 479, 480, 539, 540, 1079, 1080, 1139, 1140]:
+		_check_town_people_presence(residents, words, 8, minute, false)
+	for minute: int in [724, 725, 760]:
+		_check_town_people_presence(residents, words, 9, minute, minute == 725)
+	var state := runner.state()
+	state.flags = {"sukara_partner": 8, "sukara_riba": 8, "sukara_refused": 38}
+	runner.restore(state)
+	check(runner.person_lines(app, "sukara", residents[0]) == [residents[0].lines.warm, residents[0].memory[0][1]],
+		"Murad uses the first of his two matching memories")
+	for person: Dictionary in residents:
+		for memory: Array in person.memory:
+			state.flags = {memory[0]: 8}
+			runner.restore(state)
+			check(runner.person_lines(app, "sukara", person) == [person.lines.warm, memory[1]],
+				"Sukara shows the exact %s memory for %s" % [memory[0], person.name])
+
+
+func _check_town_people_presence(residents: Array, words: Dictionary, day: int, minute: int, at_friday_prayer: bool) -> void:
+	set_market_day_time(day, minute)
+	var count := 0
+	var text := visible_text().split("\n")
+	for person: Dictionary in residents:
+		var present: bool = minute >= int(person.hours[0]) and minute < int(person.hours[1]) \
+			and not (at_friday_prayer and person.get("prays", false))
+		count += int(present)
+		var away := str(words.people.away).format({"name": person.name})
+		check(text.has(away) != present, "%s has the expected presence at minute %d" % [person.name, minute])
+	check(_runner_talk_buttons(words).size() == count, "only present residents have Talk buttons")
+
+
+func _check_sukara_mission_path(missions: Array, offer_index: int, outcome_index: int, words: Dictionary) -> void:
+	var offers: Dictionary = missions[0]
+	var share: Dictionary = missions[1]
+	var due: Dictionary = missions[2]
+	var starting_coins := 59 if offer_index == 2 else 60
+	_enter_sukara_fixture(starting_coins)
+	var runner: SceneRunner = app.scene_runner
+	var state := runner.state()
+	state.trust.sukara = 50
+	runner.restore(state)
+	var market_trust: int = app.progress.trust
+	var offer: Dictionary = offers.scenes.a.choices[offer_index]
+	await press_button(offers.button, "open Sukara's two offers")
+	_check_runner_scene_copy(offers, "a")
+	for option: Dictionary in offers.scenes.a.choices:
+		check((find_button(app.ui, option.label) != null) == (starting_coins == 60 or not option.has("need_coins")),
+			"Sukara shows the exact choice when affordable: " + str(option.label))
+	if starting_coins == 59:
+		for index: int in [0, 1]:
+			app._runner_action("choice", offers.scenes.a.choices[index])
+		check(app.runner_scene() == offers.scenes.a and app.progress.coins == 59 and runner.state().flags.is_empty(),
+			"dispatching hidden offers at 59 coins applies no effects")
+	await press_button(offer.label, "take the selected Sukara offer")
+	_check_runner_scene_copy(offers, offer.go)
+	var flags := {"sukara_chosen": 8}
+	var local_sayings: Array = []
+	if offer_index == 0:
+		flags.sukara_partner = 8
+		local_sayings.append(offers.say.partner)
+	elif offer_index == 1:
+		flags.sukara_riba = 8
+	check(app.progress.coins == (59 if offer_index == 2 else 0) and runner.state().flags == flags
+		and runner.town_trust(app, "sukara") == (55 if offer_index == 0 else 50)
+		and not runner.mission_done(app, offers.id), "the selected offer applies only its locked stake, local trust and flags")
+	await press_button(words.scene_back, "leave the offers ending")
+	check(runner.state().done.get(offers.id) == 8 and find_button(app.ui, offers.button) == null,
+		"the offers complete on Back and their button disappears")
+	await _check_town_sayings("sukara", local_sayings, words)
+	var followup: Dictionary = share if offer_index == 0 else due
+	var ready_day := 22 if offer_index == 0 else 38
+	set_market_day_time(ready_day - 1, 600)
+	check(find_button(app.ui, share.button) == null and find_button(app.ui, due.button) == null,
+		"neither follow-up can open before the locked waiting period")
+	set_market_day_time(ready_day, 600)
+	check((find_button(app.ui, share.button) != null) == (offer_index == 0)
+		and (find_button(app.ui, due.button) != null) == (offer_index == 1), "only the selected path opens, at day 14 or day 30")
+	if outcome_index >= 0:
+		await _check_sukara_followup(followup, outcome_index, ready_day, flags, local_sayings, words)
+	check(app.progress.trust == market_trust and runner.town_sayings("river_market", app).is_empty(),
+		"Sukara mission effects preserve River Market trust and reputation")
+	var saved := MarketSave.snapshot(app)
+	MarketSave.restore(app, saved)
+	app.show_screen("runner_town")
+	check(app.runner_town_id() == "sukara" and runner.mission_done(app, offers.id) and find_button(app.ui, offers.button) == null
+		and runner.mission_done(app, share.id) == (offer_index == 0) and runner.mission_done(app, due.id) == (offer_index == 1)
+		and find_button(app.ui, share.button) == null and find_button(app.ui, due.button) == null
+		and runner.town_sayings("sukara", app) == local_sayings, "completion and local accounts survive save and restore")
+	var road: Dictionary = app.road_map.data.words
+	await press_button(road.map_button, "exit Sukara by Road map")
+	await press_button(str(road.go).format({"n": 210}), "return to Ilmara to open the Journal")
+	await press_button(words.journal_button, "read the Chapter 1 Journal")
+	var chapter: Dictionary = runner.journal(app).chapters[0]
+	check(app.ui.screen == "journal" and chapter.done == 1 and chapter.total == 7 and has_visible_label(app.ui, "1 / 7")
+		and has_visible_label(app.ui, offers.title) and not has_visible_label(app.ui, share.title)
+		and not has_visible_label(app.ui, due.title), "Q24 keeps the completed offers in Chapter 1 and leaves follow-ups out")
+
+
+func _check_sukara_followup(mission: Dictionary, choice_index: int, day: int, flags: Dictionary, local_sayings: Array, words: Dictionary) -> void:
+	var runner: SceneRunner = app.scene_runner
+	await press_button(mission.button, "open the earned Sukara follow-up")
+	_check_runner_scene_copy(mission, "a")
+	var options: Array = mission.scenes.a.choices
+	for option: Dictionary in options:
+		check(find_button(app.ui, option.label) != null, "Sukara shows the exact follow-up choice: " + str(option.label))
+	var choice: Dictionary = options[choice_index]
+	await press_button(choice.label, "take the selected Sukara follow-up choice")
+	_check_runner_scene_copy(mission, choice.go)
+	var share: bool = mission.id == "sukara_share"
+	var refused := not share and choice_index == 1
+	if not share:
+		local_sayings.append(mission.say.refused if refused else mission.say.took)
+	if refused:
+		flags.sukara_refused = day
+	check(app.progress.coins == (90 if share else (60 if refused else 72))
+		and runner.town_trust(app, "sukara") == (55 if share or refused else 40)
+		and runner.state().flags == flags and not runner.mission_done(app, mission.id),
+		"the follow-up pays the locked amount and applies only its local trust and flags")
+	await press_button(words.scene_back, "leave the follow-up ending")
+	check(runner.state().done.get(mission.id) == day and find_button(app.ui, mission.button) == null,
+		"Q24 checks the follow-up's saved completion and hidden button")
+	await _check_town_sayings("sukara", local_sayings, words)

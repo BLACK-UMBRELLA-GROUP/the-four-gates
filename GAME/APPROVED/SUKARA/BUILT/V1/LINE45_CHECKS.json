@@ -1,0 +1,26 @@
+{
+  "line": 45,
+  "result": "passed",
+  "checks_passed": {
+    "lock_38": 299,
+    "focused": 498,
+    "headless_full_suite": 9129,
+    "sahila_regression": 547,
+    "road_map_regression": 287,
+    "scene_runner_regression": 307,
+    "jisra_masjid_regression": 277
+  },
+  "coverage": [
+    "The production content index loads byte-identical LOCK 38 V1 data.",
+    "The live Road map shows Sukara closed before the Sahila boat mission. Completing the mission opens the 60-minute road from Sahila.",
+    "The hub has the locked text and R6 action order, local trust 10, and Road map as the exit.",
+    "The cane press operates from 06:00 up to 17:00 outside Friday prayer. A shift takes 90 minutes, pays 5 coins, and gives 1 Sukara trust on the first shift each day.",
+    "Sukara's inn costs 3 coins and wakes at 04:40. The masjid resolves by ID, counts once, shows its greeting after the first prayer, and returns to Sukara with Back.",
+    "All three residents at trust 10, 50 and 80, the hours boundaries, Friday-prayer presence and all memories, including Murad's memory priority.",
+    "All four complete paths: partner and take the share, lend and take 72, lend and take 60, keep the coins. All nine scenes, displayed choices, coin and local trust effects, date-stamped flags and local accounts.",
+    "The offers show from 07:00 up to 18:00, with both paid choices hidden at 59 coins and enabled at 60. Only the chosen follow-up opens, after 14 or 30 days respectively.",
+    "Q24: Chapter 1 has seven rows and counts the offers once. Both follow-ups have saved completion and hidden hub buttons after Back."
+  ],
+  "visual_reference": "su01–su23. Q15 and R11 set rules-only evidence with zero native captures.",
+  "design_clarification": "Q24 and R6 use Back to return from the press-men's masjid to Sukara. The prototype label Back to the bridge belongs to Jisra."
+}

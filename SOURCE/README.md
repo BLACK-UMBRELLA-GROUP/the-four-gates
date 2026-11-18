@@ -592,6 +592,16 @@ appears seven days later. The **What Sahila says** panel records the account you
 
 Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --sahila-only`.
 
+## LOCK 38 — Sukara and the two offers
+
+Complete **Sahila's boat** to open the Gate of Trust road to Sukara. The sugar press hub has
+its own trust, three residents, work, a masjid and an inn. Use **Road map** to leave.
+**Murad's press has cracked** appears from 07:00 up to 18:00. Partnership opens **Harvest share**
+after 14 days. Lending through Sakhr opens **Sakhr pays** after 30 days. The **Journal** records
+**Sukara's two offers** in Chapter 1. **What Sukara says** shows any account the choice earns.
+
+Run the focused rules checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --sukara-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from
