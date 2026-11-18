@@ -698,6 +698,18 @@ come with the locked chapter data.
 Run the focused rules checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --waraka-only`.
 
+## LOCK 47 V1 — Najmara, the qibla and the student who can't pay
+
+After finishing Waraka, take the **Road map** through the Gate of Knowledge to Najmara.
+Help Hilal with the new masjid's qibla or tell the builders to carry on. Either choice
+opens Kamil's mission during his hours. Choices can add accounts to **What Najmara says**.
+Talk to Hilal, Kamil and Sa'd, polish the brass instruments during work hours, pray at
+the new masjid or rest at the inn. Both missions save completion. The Chapter 4 Journal
+rows come with the locked chapter data.
+
+Run the focused rules checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --najmara-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from

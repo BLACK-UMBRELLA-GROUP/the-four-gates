@@ -1,0 +1,232 @@
+{
+ "version": "LOCK 47 V1 (9 Nov 2026) - Najmara, the star hill: the new masjid's qibla and the student who can't pay",
+ "builds_on": "LOCK 34 runner, LOCK 40 stars. Design references (not shown): Quran 2:144 (turn your face toward the Sacred Masjid); Muslim 2699 (a path to knowledge).",
+ "towns": {
+  "najmara": {
+   "name": "Najmara",
+   "gate": "knowledge",
+   "start_trust": 10,
+   "inn": 2,
+   "kicker": "Najmara · the star hill",
+   "text": "A village on a hill above the haze of the plain. At the top stands an observatory with a great brass quadrant, and its people sleep in the afternoon and work at night.",
+   "work": {
+    "label": "Polish the brass instruments · 4 coins",
+    "hours": [
+     600,
+     900
+    ],
+    "minutes": 60,
+    "coins": 4,
+    "trust": 1
+   },
+   "masjids": [
+    "najmara"
+   ],
+   "bg": "street_night"
+  }
+ },
+ "masjids": {
+  "najmara": {
+   "button": "Go to the new masjid",
+   "kicker": "Najmara · the new masjid",
+   "title": "The new masjid",
+   "text": "Fresh plaster, a mihrab still being carved, and a line scratched on the floor showing the qibla.",
+   "first": "The builders show you the line on the floor proudly. “Checked by the stars.”"
+  }
+ },
+ "people": [
+  {
+   "id": "hilal",
+   "town": "najmara",
+   "name": "Hilal",
+   "role": "the astronomer",
+   "hours": [
+    600,
+    1380
+   ],
+   "prays": true,
+   "lines": {
+    "wary": "Hilal is asleep in a chair with a slate on his chest.",
+    "friendly": "“The stars don't lie. People read them badly.”",
+    "warm": "“Come up tonight. I'll show you Suhayl rising.”"
+   },
+   "memory": [
+    [
+     "qibla_fixed",
+     "“A hand's width. That's what the line moved. A hand's width toward Makkah.”"
+    ]
+   ]
+  },
+  {
+   "id": "kamil",
+   "town": "najmara",
+   "name": "Kamil",
+   "role": "a student",
+   "hours": [
+    480,
+    1260
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "Kamil is copying tables of numbers, lips moving.",
+    "friendly": "“One day I'll measure the whole earth. My teacher says it's been done. I want to check.”",
+    "warm": "“I passed the first examination. I thought of you.”"
+   },
+   "memory": [
+    [
+     "student_helped",
+     "“My teacher let me back in. I won't waste it.”"
+    ]
+   ]
+  },
+  {
+   "id": "saad",
+   "town": "najmara",
+   "name": "Sa'd",
+   "role": "the builder",
+   "hours": [
+    360,
+    1020
+   ],
+   "prays": true,
+   "lines": {
+    "wary": "Sa'd is mixing plaster. “Mind your feet.”",
+    "friendly": "“Our grandfathers prayed in a field. Our grandsons will pray here.”",
+    "warm": "“When the dome is up, come and pray the first prayer under it.”"
+   },
+   "memory": []
+  }
+ ],
+ "missions": [
+  {
+   "id": "qibla",
+   "town": "najmara",
+   "main": true,
+   "title": "The new masjid's qibla",
+   "kicker": "Chapter 4 · The new masjid's qibla",
+   "button": "Hilal says the new masjid faces wrong",
+   "hours": [
+    600,
+    1320
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The village is building its first masjid. The builders marked the qibla by guesswork and the wall is already knee-high. Hilal says it points too far south.",
+     "choices": [
+      {
+       "label": "Help Hilal take the star sightings tonight",
+       "go": "stars",
+       "fx": {
+        "minutes": 240,
+        "trust": 8,
+        "flag": [
+         "qibla_fixed",
+         "qibla_done"
+        ],
+        "say": "fixed",
+        "count": {
+         "stars": 1
+        }
+       }
+      },
+      {
+       "label": "Tell them to build on",
+       "go": "build",
+       "fx": {
+        "flag": "qibla_done"
+       }
+      }
+     ]
+    },
+    "stars": {
+     "text": "At midnight Hilal sights the stars with the quadrant and works the sums on a slate. The line moves a hand's width north. The builders grumble, then knock down a morning's work and start again on the new line.",
+     "end": true
+    },
+    "build": {
+     "text": "Sa'd's builders go on as they started. Hilal shakes his head and goes back to his tables.",
+     "end": true
+    }
+   },
+   "say": {
+    "fixed": [
+     "Helped set the new masjid's qibla",
+     "Sa'd the builder",
+     1
+    ]
+   }
+  },
+  {
+   "id": "student",
+   "town": "najmara",
+   "main": true,
+   "title": "The student who can't pay",
+   "kicker": "Chapter 4 · The student who can't pay",
+   "button": "Kamil has been sent away",
+   "hours": [
+    480,
+    1260
+   ],
+   "after": [
+    "qibla_done"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Kamil the student has been sent away by his teacher: he can't pay the ten coins for the term. He sits on the observatory steps with his tables in his lap.",
+     "choices": [
+      {
+       "label": "Pay his term · 10 coins",
+       "need_coins": 10,
+       "go": "pay",
+       "fx": {
+        "coins": -10,
+        "trust": 6,
+        "flag": [
+         "student_helped",
+         "najmara_done"
+        ],
+        "say": "paid"
+       }
+      },
+      {
+       "label": "Sit and study with him for an evening",
+       "go": "study",
+       "fx": {
+        "minutes": 180,
+        "trust": 4,
+        "flag": "najmara_done"
+       }
+      },
+      {
+       "label": "Tell him to work and save",
+       "go": "none",
+       "fx": {
+        "flag": "najmara_done"
+       }
+      }
+     ]
+    },
+    "pay": {
+     "text": "His teacher takes the coins and Kamil back in the same afternoon.",
+     "end": true
+    },
+    "study": {
+     "text": "You go through his tables together until the lamp burns low. He finds his own mistake.",
+     "end": true
+    },
+    "none": {
+     "text": "Kamil nods. The next week he is carrying stones for Sa'd's builders.",
+     "end": true
+    }
+   },
+   "say": {
+    "paid": [
+     "Paid a poor student's term",
+     "the observatory",
+     1
+    ]
+   }
+  }
+ ]
+}

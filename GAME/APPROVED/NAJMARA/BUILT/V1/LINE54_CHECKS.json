@@ -1,0 +1,19 @@
+{
+  "line": 54,
+  "result": "passed",
+  "checks_passed": {
+    "lock_47": 406,
+    "focused": 605,
+    "headless_full_suite": 11894
+  },
+  "coverage": [
+    "Production loads the byte-identical Najmara data. The live line 43 route requires Knowledge and waraka_done, takes 70 minutes from Waraka and 180 minutes back to Ilmara. Road map Back returns to Najmara.",
+    "The hub starts at trust 10 and follows R6 action order, including the open prayer. Instrument work is available from 10:00 up to 15:00 outside Friday prayer. Work takes 60 minutes, pays four coins and gives one local trust on the first shift of each day. The inn costs two coins and wakes the player at 04:40.",
+    "The new masjid resolves by ID, counts once and shows its exact first-prayer line once. Back returns to Najmara under Q33 and R6.",
+    "Hilal, Kamil and Sa'd use the locked names, roles, hours and dialogue at trust 10, 50 and 80. Talk actions follow presence and Friday prayer.",
+    "All six mission combinations use the locked choices, text and endings. Verified coin, clock, trust, flag, star counter, memory and local saying effects. Qibla runs from 10:00 up to 22:00; the student mission runs from 08:00 up to 21:00 after qibla_done. Payment is visible at 10 coins and hidden at nine.",
+    "All six combinations survive an isolated save and reload. Both completed actions stay hidden on a later day. Q33 and R8 keep the Journal at its loaded chapter rows."
+  ],
+  "visual_reference": "21 approved masters at 1920 × 1080. Q15 and R11 call for headless rules checks. Q33 and R6 give the masjid a Back button that returns to Najmara.",
+  "scholar_check": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md row 14 (OA-AIOS-432). Due before public release."
+}

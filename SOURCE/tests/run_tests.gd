@@ -141,6 +141,10 @@ func _run() -> void:
 		await check_waraka_runtime()
 		finish()
 		return
+	if "--najmara-only" in OS.get_cmdline_user_args():
+		await check_najmara_runtime()
+		finish()
+		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
 		await check_jisra_people_runtime()
 		finish()
@@ -295,6 +299,7 @@ func _run() -> void:
 	await check_tinara_runtime()
 	await check_tahuna_runtime()
 	await check_waraka_runtime()
+	await check_najmara_runtime()
 	finish()
 
 
@@ -10546,3 +10551,256 @@ func _check_waraka_path(copyist: Dictionary, seller: Dictionary, copyist_result:
 		and find_button(app.ui, copyist.button) == null and find_button(app.ui, seller.button) == null,
 		"the save keeps both completion days and choice effects, and both actions stay hidden on a later day")
 	check(runner.journal(app) == journal, "Q32 leaves the Journal at its loaded chapter rows")
+
+
+func check_najmara_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/NAJMARA/RECORD/najmara_data_V1.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/najmara.json") == locked,
+		"Najmara uses byte-identical LOCK 47 data")
+	var copy: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = copy is Dictionary and runner.towns.has("najmara") \
+		and runner.missions.has("qibla") and runner.missions.has("student")
+	check(loaded, "the production index loads Najmara and both missions")
+	if not loaded:
+		return
+	var town: Dictionary = runner.towns.najmara
+	var masjid: Dictionary = copy.masjids.najmara
+	var qibla: Dictionary = runner.missions.qibla
+	var student: Dictionary = runner.missions.student
+	var words: Dictionary = runner.data.words
+	check(town == copy.towns.najmara.merged({"id": "najmara"}) and runner.town_people(app, "najmara") == copy.people,
+		"Najmara and its three residents use the locked data and order")
+	check(runner.town_masjids("najmara") == [masjid.merged({"id": "najmara"})],
+		"the new masjid resolves by its ID")
+	check(qibla == copy.missions[0] and student == copy.missions[1], "both Najmara missions use the locked records")
+	var original := MarketSave.snapshot(app)
+	app.set_process(false)
+	await _check_najmara_road()
+	await _check_najmara_hub(town, masjid, qibla, student, words)
+	await _check_najmara_people(copy.people, words)
+	var qibla_outcomes := [
+		{"scene": "stars", "minutes": 240, "trust": 8, "coins": 0,
+			"flags": ["qibla_fixed", "qibla_done"], "saying": qibla.say.fixed},
+		{"scene": "build", "minutes": 0, "trust": 0, "coins": 0,
+			"flags": ["qibla_done"], "saying": []},
+	]
+	var student_outcomes := [
+		{"scene": "pay", "minutes": 0, "trust": 6, "coins": -10,
+			"flags": ["student_helped", "najmara_done"], "saying": student.say.paid},
+		{"scene": "study", "minutes": 180, "trust": 4, "coins": 0,
+			"flags": ["najmara_done"], "saying": []},
+		{"scene": "none", "minutes": 0, "trust": 0, "coins": 0,
+			"flags": ["najmara_done"], "saying": []},
+	]
+	for qibla_outcome: Dictionary in qibla_outcomes:
+		for student_outcome: Dictionary in student_outcomes:
+			await _check_najmara_path(qibla, student, qibla_outcome, student_outcome, words)
+	MarketSave.restore(app, original)
+	app.show_screen("market_map")
+	app.set_process(true)
+	print("LOCK 47 NAJMARA: ", checks - checks_before - (failures - failures_before), "/", checks - checks_before, " passed")
+
+
+func _check_najmara_road() -> void:
+	reset_at_market_place("gate", 20, 8)
+	app.progress.gate_open = true
+	app.update_state()
+	var words: Dictionary = app.road_map.data.words
+	var road: Dictionary = app.road_map.road_to("najmara")
+	check(road.gate == "knowledge" and road.opens == "waraka_done" and int(road.minutes) == 180,
+		"line 43 owns Najmara's Gate of Knowledge road and Waraka prerequisite")
+	var state: Dictionary = app.scene_runner.state()
+	state.flags.waraka_done = 8
+	app.scene_runner.restore(state)
+	check(not app.road_map.town_is_open(app, road), "finishing Waraka cannot bypass Knowledge")
+	state.flags.erase("waraka_done")
+	app.scene_runner.restore(state)
+	app.road_map.restore({"knowledge": true})
+	await press_button(words.map_button, "open the Road map at the gate")
+	await press_button(str(words.go).format({"n": 110}), "take the road to Waraka")
+	check(app.runner_town_id() == "waraka" and app.minute_of_day == 710, "the road reaches Waraka")
+	await press_button(words.map_button, "open the Road map from Waraka")
+	var to_najmara := str(words.go).format({"n": 70})
+	check(has_visible_label(app.ui, app.road_map.data.names.najmara) and has_visible_label(app.ui, words.closed)
+		and find_button(app.ui, to_najmara) == null, "Najmara is listed as closed until Waraka is complete")
+	await press_button(words.back, "return to Waraka")
+	state.flags.waraka_done = 8
+	app.scene_runner.restore(state)
+	await press_button(words.map_button, "open the Road map after completing Waraka")
+	await press_button(to_najmara, "travel from Waraka to Najmara")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "najmara" and app.minute_of_day == 780,
+		"the live road reaches Najmara in 70 minutes from Waraka")
+	await press_button(words.map_button, "open the Road map from Najmara")
+	await press_button(words.back, "close Najmara's Road map")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "najmara", "Road map Back returns to Najmara")
+	await press_button(words.map_button, "reopen the Road map to leave Najmara")
+	await press_button(str(words.go).format({"n": 180}), "take the 180-minute road to Ilmara")
+	check(app.ui.screen == "market_map" and app.runner_town_id().is_empty() and app.minute_of_day == 960,
+		"Najmara's Road map exits to Ilmara")
+
+
+func _check_najmara_hub(town: Dictionary, masjid: Dictionary, qibla: Dictionary, student: Dictionary, words: Dictionary) -> void:
+	reset_at_market_place("gate", 20, 8)
+	app.enter_runner_town("najmara")
+	var noon: int = app._minutes(identity.clock.prayers[1].begins)
+	var sayings := str(words.rep_button).format({"town": town.name})
+	var inn := str(words.inn_button).format({"n": 2})
+	var map_button: String = app.road_map.data.words.map_button
+	var actions: Array[String] = [qibla.button, words.people_button, town.work.label, sayings, masjid.button, inn, map_button]
+	check(app.ui.screen == "runner_town" and has_visible_label(app.ui, town.name)
+		and has_visible_label(app.ui, str(town.kicker).to_upper()) and visible_text().split("\n").has(town.text),
+		"Najmara uses the exact town title, kicker and paragraph")
+	check_gate_of_trust_meter("Trust · Najmara", 10)
+	_check_town_hub_button_order(actions, "Najmara follows R6 with Road map as its exit")
+	await _check_town_sayings("najmara", [], words)
+	for minute: int in [479, 480, 599, 600, 899, 900, 1259, 1260, 1319, 1320]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, qibla.button) != null) == (minute >= 600 and minute < 1320)
+			and (find_button(app.ui, town.work.label) != null) == (minute >= 600 and minute < 900)
+			and find_button(app.ui, student.button) == null, "Najmara's hours and student prerequisite at minute %d" % minute)
+	set_market_day_time(8, noon)
+	var prayer: String = app.clock.prayer_label(false)
+	check(not prayer.is_empty(), "the hub offers the open prayer")
+	actions.insert(5, prayer)
+	_check_town_hub_button_order(actions, "the open prayer follows the new masjid and precedes the inn")
+	set_market_day_time(9, noon)
+	check(find_button(app.ui, town.work.label) == null, "instrument work is closed during Friday prayer")
+	var market_trust: int = app.progress.trust
+	for shift: Array in [[10, 600, 24, 11], [10, 660, 28, 11], [11, 600, 32, 12]]:
+		set_market_day_time(shift[0], shift[1])
+		await press_button(town.work.label, "polish the brass instruments")
+		check(app.minute_of_day == shift[1] + 60 and app.progress.coins == shift[2]
+			and app.scene_runner.town_trust(app, "najmara") == shift[3] and app.progress.trust == market_trust,
+			"work takes 60 minutes, pays four coins and adds local trust once per day")
+	for day: int in [11, 12]:
+		set_market_day_time(day, noon)
+		await press_button(masjid.button, "open the new masjid")
+		check(app.ui.screen == "runner_masjid" and has_visible_label(app.ui, masjid.title)
+			and has_visible_label(app.ui, str(masjid.kicker).to_upper()) and visible_text().split("\n").has(masjid.text),
+			"the new masjid uses its exact title, kicker and paragraph")
+		await press_button(identity.clock.pray_congregation, "pray at the new masjid")
+		check(app.jisra_masjid.prayed_in == {"najmara": true}
+			and visible_text().split("\n").has(masjid.first) == (day == 11),
+			"the new masjid counts once and displays the first-prayer line once")
+		check(find_button(app.ui, app.jisra_masjid.data.masjid.back) == null, "Q33 reserves the bridge return for Jisra")
+		await press_button(words.back, "leave Najmara's masjid")
+		check(app.ui.screen == "runner_town" and app.runner_town_id() == "najmara", "the masjid's Back returns to Najmara")
+	await press_button(inn, "rest at Najmara's inn")
+	check(app.progress.coins == 30 and app.day == 13 and app.minute_of_day == 280
+		and app.runner_town_id() == "najmara", "the inn costs two coins and wakes you in Najmara at 04:40")
+
+
+func _check_najmara_people(residents: Array, words: Dictionary) -> void:
+	reset_at_market_place("gate", 20, 8)
+	app.enter_runner_town("najmara")
+	var runner: SceneRunner = app.scene_runner
+	await press_button(words.people_button, "open Najmara's people list")
+	check(has_visible_label(app.ui, words.people.title)
+		and has_visible_label(app.ui, str(words.people.kicker).format({"town": "Najmara"}).to_upper()),
+		"the people list uses the locked headings")
+	for person: Dictionary in residents:
+		check(has_visible_label(app.ui, person.name) and has_visible_label(app.ui, str(person.role).to_upper()),
+			"the list uses the locked name and role for " + str(person.name))
+	for band: Array in [[10, "wary"], [50, "friendly"], [80, "warm"]]:
+		var state := runner.state()
+		state.trust.najmara = band[0]
+		runner.restore(state)
+		for index in residents.size():
+			var person: Dictionary = residents[index]
+			var buttons := _runner_talk_buttons(words)
+			check(buttons.size() == residents.size(), "one Talk action per available Najmara resident")
+			if buttons.size() != residents.size():
+				break
+			await press_control(buttons[index], "talk to %s at Najmara trust %d" % [person.name, band[0]])
+			var kicker := str(words.talk.kicker).format({"town": "Najmara", "role": person.role}).to_upper()
+			check(app.ui.screen == "runner_person" and has_visible_label(app.ui, person.name)
+				and has_visible_label(app.ui, kicker) and visible_text().split("\n").has(person.lines[band[1]]),
+				"the exact %s line for %s" % [band[1], person.name])
+			await press_button(words.talk.back, "return to the people list")
+	for minute: int in [359, 360, 479, 480, 599, 600, 1019, 1020, 1259, 1260, 1379, 1380]:
+		_check_town_people_presence(residents, words, 8, minute, false)
+	_check_town_people_presence(residents, words, 9, app._minutes(identity.clock.prayers[1].begins), true)
+
+
+func _check_najmara_path(qibla: Dictionary, student: Dictionary, qibla_outcome: Dictionary,
+		student_outcome: Dictionary, words: Dictionary) -> void:
+	var coins := 9 if student_outcome.scene == "none" else 10
+	reset_at_market_place("gate", coins, 8)
+	app.enter_runner_town("najmara")
+	var runner: SceneRunner = app.scene_runner
+	var journal := runner.journal(app)
+	var expected := runner.state()
+	var market_trust: int = app.progress.trust
+	var trust := 10
+	var minute := 600
+	var accounts: Array = []
+	for step: Array in [[qibla, qibla_outcome], [student, student_outcome]]:
+		var mission: Dictionary = step[0]
+		var outcome: Dictionary = step[1]
+		await press_button(mission.button, "open " + str(mission.title))
+		_check_runner_scene_copy(mission, "a")
+		var labels: Array[String] = []
+		var chosen_label := ""
+		for choice: Dictionary in mission.scenes.a.choices:
+			if choice.go == "pay" and coins < 10:
+				check(find_button(app.ui, choice.label) == null, "paying the term is hidden with nine coins")
+				continue
+			labels.append(choice.label)
+			if choice.go == outcome.scene:
+				chosen_label = choice.label
+		_check_town_hub_button_order(labels, "the mission shows its exact reachable choices in order")
+		await press_button(chosen_label, "take the choice leading to " + str(outcome.scene))
+		_check_runner_scene_copy(mission, outcome.scene)
+		_check_town_hub_button_order([words.scene_back], "the ending offers Back")
+		minute += int(outcome.minutes)
+		coins += int(outcome.coins)
+		trust += int(outcome.trust)
+		if outcome.trust != 0:
+			expected.trust.najmara = trust
+		if outcome.scene == "stars":
+			expected.counters.stars = 1
+		for flag: String in outcome.flags:
+			expected.flags[flag] = 8
+		if not outcome.saying.is_empty():
+			accounts.append(outcome.saying)
+			expected.sayings.najmara = accounts
+		check(runner.state() == expected and runner.town_trust(app, "najmara") == trust
+			and app.progress.trust == market_trust and app.progress.coins == coins
+			and app.day == 8 and app.minute_of_day == minute,
+			"the choice applies the exact clock, coin, local trust, flag, counter and saying effects before Back")
+		await press_button(words.scene_back, "finish " + str(mission.title))
+		expected.done[mission.id] = 8
+		check(runner.state() == expected and runner.mission_done(app, mission.id)
+			and app.ui.screen == "runner_town" and app.runner_town_id() == "najmara"
+			and find_button(app.ui, mission.button) == null, "Back saves completion and hides the finished action")
+		await _check_town_sayings("najmara", accounts, words)
+		if mission.id == qibla.id:
+			for test_minute: int in [479, 480, 1259, 1260]:
+				set_market_day_time(8, test_minute)
+				check((find_button(app.ui, student.button) != null) == (test_minute >= 480 and test_minute < 1260),
+					"the student action follows its hours after qibla_done at minute %d" % test_minute)
+			set_market_day_time(8, minute)
+	for person: Dictionary in runner.town_people(app, "najmara"):
+		var lines: Array = [person.lines.wary]
+		for memory: Array in person.memory:
+			if expected.flags.has(memory[0]):
+				lines.append(memory[1])
+				break
+		check(runner.person_lines(app, "najmara", person) == lines, "the choice outcomes give %s the exact memory" % person.name)
+	var path: String = app.storage_directory.path_join("najmara-%s-%s.save" % [qibla_outcome.scene, student_outcome.scene])
+	check(MarketSave.save_slot(app, path) == OK, "write both Najmara completions to an isolated save")
+	var saved := MarketSave.read_slot(path)
+	check(not saved.is_empty(), "read the isolated Najmara save")
+	if saved.is_empty():
+		return
+	runner.reset()
+	MarketSave.restore(app, saved)
+	app.show_screen("runner_town")
+	set_market_day_time(10, 600)
+	check(runner.state() == expected and app.progress.coins == coins and app.runner_town_id() == "najmara"
+		and find_button(app.ui, qibla.button) == null and find_button(app.ui, student.button) == null,
+		"the save keeps both completion days and choice effects and hides both buttons on a later day")
+	check(runner.journal(app) == journal, "Q33 leaves the Journal at its loaded chapter rows")

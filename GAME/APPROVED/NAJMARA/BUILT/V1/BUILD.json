@@ -1,0 +1,139 @@
+{
+  "line": 54,
+  "lock": "LOCK 47 V1",
+  "brief": "DOC-TFG-0153",
+  "tested_base_commit_sha": "6028252c08954f6e352a70d61c021bfe5ff7f55d",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T09:34:06+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --najmara-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_47": 406,
+    "focused": 605,
+    "headless_full_suite": 11894
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/NAJMARA/BRIEFS/BUILD_BRIEF_2026-11-09_NAJMARA.md": {
+      "bytes": 3717,
+      "sha256": "a38aa4aa7cb277695ae9abf6e5557229025ee9ad72afb8415a00ef2db51976df"
+    },
+    "GAME/APPROVED/NAJMARA/RECORD/LOCK_RECORD.md": {
+      "bytes": 950,
+      "sha256": "feb95ecb22d85ca3f59692fc7ff07651d04a3afb35f3590bba50843ab071aec1"
+    },
+    "GAME/APPROVED/NAJMARA/RECORD/NAJMARA_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 6164,
+      "sha256": "a6bb9c0e0abb0ea3d93039e3d72016399adc22bda797f82fb528c2c440c147c6"
+    },
+    "GAME/APPROVED/NAJMARA/RECORD/najmara_data_V1.json": {
+      "bytes": 5800,
+      "sha256": "92f73b4aa3430bf093c6e11c7723495f18f073f27585ed316881d6ee3ceab4e2"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj01_najmara__town.png": {
+      "bytes": 258237,
+      "sha256": "dd9295a503ef58438f52f8ac9791de72694d32549d4eb437fd11c494925bbe37"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj02_najmara__people.png": {
+      "bytes": 248086,
+      "sha256": "6012aeef8dddf8fc367fcf1221776f2780a08c39df105a1a1e39803f650521e5"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj03_najmara__hilal_trust_10.png": {
+      "bytes": 269228,
+      "sha256": "33ae4b280dbbf39764f7061b5af7922bf46a62ba1b3fb026141aae43777af17e"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj04_najmara__hilal_trust_50.png": {
+      "bytes": 269173,
+      "sha256": "b89e400abe191579f1fe3e846890e73d591aa4d798accda01e1401a5ce709f29"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj05_najmara__hilal_trust_80.png": {
+      "bytes": 269277,
+      "sha256": "f1c7194714e7b519a8b080193fdc4f8a4d614ffe92cdc5184847a09324e38078"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj06_najmara__kamil_trust_10.png": {
+      "bytes": 269212,
+      "sha256": "1dea7407d269b049459ff78366618c8a50ae10a84749d90725b3093ecda297d2"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj07_najmara__kamil_trust_50.png": {
+      "bytes": 270123,
+      "sha256": "6729a9709c327e444f5d73b0272493e1235acda25807ddb128850115c927c5c8"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj08_najmara__kamil_trust_80.png": {
+      "bytes": 269210,
+      "sha256": "4fb85a3a29e2170422b54b70a70460dd06af46117cfd0edc5bc9e6a069925371"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj09_najmara__saad_trust_10.png": {
+      "bytes": 268918,
+      "sha256": "951d369ac6f9fae0a945fe47adea497ff083fa483534d9a0f499485d286d6d54"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj10_najmara__saad_trust_50.png": {
+      "bytes": 269714,
+      "sha256": "fd6352baddceec43ee5fd785398310d798242deee276234f2961e502ac8ed2f5"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj11_najmara__saad_trust_80.png": {
+      "bytes": 269834,
+      "sha256": "81f35e8cf7534fcb55af444e94fdd7b51551827f07e145e87403edb90b8ef857"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj12_najmara__what_people_say_empty.png": {
+      "bytes": 270605,
+      "sha256": "4c9c2797ba85e0a84c141bf318ae0faae1528453a32d4cdf562f2399d27029c7"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj13_najmara__masjid_prayer.png": {
+      "bytes": 271280,
+      "sha256": "5ed6a2653f2c6bc90c4c7bc75fa03a5eab6b1dbfe864d5bbe39b759d15149e2a"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj14_najmara__masjid_first_prayer.png": {
+      "bytes": 271290,
+      "sha256": "656b12d9c35b8a1dbcdb130990afa18efbada1100f438768a36c8084d8ea6c9e"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj15_qibla__a.png": {
+      "bytes": 252757,
+      "sha256": "fb06886de699f7da75335dc5480f73c0d8176e5d91a4535bd511fe399c1c3c61"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj16_qibla__stars.png": {
+      "bytes": 267605,
+      "sha256": "9d59284324e327acf0da4128d89fe6b53d8315e11d8f454b57d536ad6d9e8504"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj17_qibla__build.png": {
+      "bytes": 268242,
+      "sha256": "9f660ffa549daea23418030da02fd8d33fd2751affa3823d5a682e4cf0c1333e"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj18_student__a.png": {
+      "bytes": 240776,
+      "sha256": "e8c50c6968705e113fc183051443921bf3705eeeab85e10f42d1a196c66e5446"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj19_student__pay.png": {
+      "bytes": 268348,
+      "sha256": "fc3446ec4970b4f9958d48b0934d415c5dc0c5b61cbc6bd38064e6b3b8c3bf31"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj20_student__study.png": {
+      "bytes": 268145,
+      "sha256": "1b6841ee2c25d8651d4cf6b8401a9ffcd20a15272c6e66e20fc308c80bd9270a"
+    },
+    "GAME/APPROVED/NAJMARA/MASTERS/nj21_student__none.png": {
+      "bytes": 268524,
+      "sha256": "00968052e302e25c97200574f20c48e77848a89307eb5f2b34f7bcd05c2a0e49"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 643,
+      "sha256": "57b68c9a8b81e8432feddc90f2c835b030ddd38ea00972e4af4c705190598728"
+    },
+    "SOURCE/data/najmara.json": {
+      "bytes": 5800,
+      "sha256": "92f73b4aa3430bf093c6e11c7723495f18f073f27585ed316881d6ee3ceab4e2"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 645274,
+      "sha256": "4545dcca7b0618eb8897add4a42e7e418081f434dd41de1def45b74ffca415e2"
+    }
+  }
+}
