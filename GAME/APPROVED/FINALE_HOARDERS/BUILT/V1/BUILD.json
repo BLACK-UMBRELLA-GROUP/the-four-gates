@@ -1,0 +1,107 @@
+{
+  "line": 56,
+  "lock": "LOCK 49 V2",
+  "brief": "DOC-TFG-0159",
+  "tested_base_commit_sha": "3dd5ad88648f3f710b4d67683c2b6d21521d8e7e",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T09:57:33+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --finale-hoarders-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_49": 260,
+    "focused": 459,
+    "headless_full_suite": 12586
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/FINALE_HOARDERS/BRIEFS/BUILD_BRIEF_2026-11-09_FINALE_HOARDERS.md": {
+      "bytes": 3451,
+      "sha256": "52875c996e029291759bb3c39732e09880412da4abd845e56181f5a101d3992b"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/RECORD/LOCK_RECORD.md": {
+      "bytes": 1073,
+      "sha256": "612e7a827b6147b5bea119bb13338d485443b634b9beb3a86e4ad8758b742777"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/RECORD/FINALE_HOARDERS_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 6169,
+      "sha256": "7ef4b499269ca2a767c57bde21470145c31318c149e55b3bbd99801b84634c68"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/RECORD/finale_hoarders_data_V2.json": {
+      "bytes": 5323,
+      "sha256": "22986f3aeee5265af3522e8e769e70130cf6da4e0c6bb0969d18942cbd41026a"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/LOCK_RECORD.md": {
+      "bytes": 1193,
+      "sha256": "097e458b36812235cf8b7af3da1b87b413b920c6a032f7454c4cc2586378afdd"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/SIX_GATES_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 6532,
+      "sha256": "ea7e353b6d74f3d3933df88855cbab3b050edad229f9f2e014df64b055caa98b"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/MASTERS/h101_hoarders__a.png": {
+      "bytes": 295322,
+      "sha256": "20ce7f58c8a5e5c966f70e29ab84c596e070794fd9745da48d7f5c151f08b228"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/MASTERS/h102_hoarders__qadi.png": {
+      "bytes": 311135,
+      "sha256": "0a0a934fce9567475221c842255e099163e95a728984bde5464f1f0187da5c28"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/MASTERS/h103_hoarders__quiet.png": {
+      "bytes": 307766,
+      "sha256": "6a8d8d24085de527f389149ef92fb7f06076303ef04771b6374a30664ca6d607"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/MASTERS/h104_hoarders__buy.png": {
+      "bytes": 309052,
+      "sha256": "7223f5f3efda5c884783736cc84e6c20d8bd0601ca39f8d379dc11a68fcdcfe1"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/MASTERS/h105_hoard_profit__a.png": {
+      "bytes": 303113,
+      "sha256": "ace22ea38e366d9515d9ff5370174329487d7cf14ec626008311eeaf6ee12cfa"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/MASTERS/h106_hoard_profit__took.png": {
+      "bytes": 307623,
+      "sha256": "3ea48be362ac941b9870e95e70719f6a1a9c7614c9fb7570680280eed1846307"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/MASTERS/h107_hoard_profit__gave.png": {
+      "bytes": 308034,
+      "sha256": "daaff86fb6b0450cb16cb1f858428ab470586e5180043e4c9f48774a30d2ff45"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/MASTERS/h108_bread_lines__a.png": {
+      "bytes": 293754,
+      "sha256": "e16cb6b20a5a74d77a0af21342469f19c865b75fcc0e769f5087aec332af2c50"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/MASTERS/h109_bread_lines__flour.png": {
+      "bytes": 310270,
+      "sha256": "63cb66796a259cf0e9d6d4d70583a147590b7fed3c19ff6b9cdc727c86860c4f"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/MASTERS/h110_bread_lines__order.png": {
+      "bytes": 311386,
+      "sha256": "334061e5a3227c9d6b218f012db1b83c9cafa00394c03877e589974f42eb091e"
+    },
+    "GAME/APPROVED/FINALE_HOARDERS/MASTERS/h111_bread_lines__self.png": {
+      "bytes": 308654,
+      "sha256": "2309d97dd5df132795cc000736495debc532c41bcfda908b6790b70ef05bd3c9"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 691,
+      "sha256": "f4452114a7220c406b6341fefdc55611dffc199b7696818b25835d22268d0cd5"
+    },
+    "SOURCE/data/finale_hoarders.json": {
+      "bytes": 5323,
+      "sha256": "22986f3aeee5265af3522e8e769e70130cf6da4e0c6bb0969d18942cbd41026a"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 673892,
+      "sha256": "f3131ee2b8c51cfa82e8620408d2dea7ad48b18f744a3f46de39437699399ac6"
+    }
+  }
+}

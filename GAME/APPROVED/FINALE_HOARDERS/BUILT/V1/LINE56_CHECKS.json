@@ -1,0 +1,20 @@
+{
+  "line": 56,
+  "result": "passed",
+  "checks_passed": {
+    "lock_49": 260,
+    "focused": 459,
+    "headless_full_suite": 12586
+  },
+  "coverage": [
+    "The production index loads the byte-identical LOCK 49 V2 payload and all three missions. The River Market board shows The hoarders after chapter6_done from 08:00 until 18:00, and The bread lines after hoarders_done from 06:00 until 18:00.",
+    "An actual 30-coin share purchase records its day. Jalal pays out at the board from day 30 with no hour restriction. The tests cover the day 29 and day 30 boundary and confirm the payout requires a purchase.",
+    "All eight choices use the locked wording, order and endings. The checks cover both coin thresholds and every coin, trust, flag, account, clock and meal effect. The data introduces no resident dialogue records.",
+    "What people say renders all six authored accounts with their sources and tones. Trust effects are local to River Market.",
+    "Back records each mission once, with completion and the hidden board action surviving Save and Continue. Following Q35 and R8, the payout has no chapter slot. Donation and flour still advance the meals goal.",
+    "Chapter 7 shows the two completed missions and four reserved entries, for 2 / 6. Journal Back is reachable by scrolling with every loaded chapter present."
+  ],
+  "visual_reference": "Eleven approved 1920 × 1080 masters (h101–h111) agree with the locked scene wording and order. Q35 and R11 use the existing Godot layout. Q15 calls for headless rules checks.",
+  "prerequisite": "The Chapter 6 completion flag is supplied only by the test fixture until its story content ships (LOCK 103 and R9).",
+  "scholar_check": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md row 41 (OA-AIOS-432). Due before public release."
+}

@@ -149,6 +149,10 @@ func _run() -> void:
 		await check_shifara_runtime()
 		finish()
 		return
+	if "--finale-hoarders-only" in OS.get_cmdline_user_args():
+		await check_finale_hoarders_runtime()
+		finish()
+		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
 		await check_jisra_people_runtime()
 		finish()
@@ -305,6 +309,7 @@ func _run() -> void:
 	await check_waraka_runtime()
 	await check_najmara_runtime()
 	await check_shifara_runtime()
+	await check_finale_hoarders_runtime()
 	finish()
 
 
@@ -11113,3 +11118,205 @@ func _check_knowledge_carried(mission: Dictionary, words: Dictionary) -> void:
 			"Back is reachable with all four chapters loaded")
 	await press_control(back, "leave the Journal")
 	check(app.ui.screen == "market_map", "Journal Back returns to the River Market")
+
+func check_finale_hoarders_runtime() -> void:
+	const DAY := 8
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/FINALE_HOARDERS/RECORD/finale_hoarders_data_V2.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/finale_hoarders.json")
+	check(not locked.is_empty() and runtime == locked, "the finale data is the byte-identical LOCK 49 V2 file")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	if not approved is Dictionary:
+		return
+	var runner: SceneRunner = app.scene_runner
+	for mission: Dictionary in approved.missions:
+		check(runner.missions.get(mission.id) == mission, "the production index loads " + str(mission.id))
+		if runner.missions.get(mission.id) != mission:
+			return
+	var hoarders: Dictionary = runner.missions.hoarders
+	var payout: Dictionary = runner.missions.hoard_profit
+	var bread: Dictionary = runner.missions.bread_lines
+	app.set_process(false)
+	reset_at_market_place("board", 100, DAY)
+	runner.restore({"flags": {"chapter4_done": DAY}})
+	app.update_state()
+	for mission: Dictionary in approved.missions:
+		check(find_button(app.ui, mission.button) == null, "Chapter 4 alone does not unlock " + str(mission.id))
+	runner.restore({"flags": {"chapter6_done": DAY}})
+	app.update_state()
+	check(find_button(app.ui, bread.button) == null and find_button(app.ui, payout.button) == null,
+		"Chapter 6 opens neither the bread lines nor a payout on its own")
+	set_market_day_time(DAY + 30, 600)
+	check(find_button(app.ui, payout.button) == null, "thirty days alone do not open the payout without a purchase")
+	_check_runner_mission_hours(hoarders, DAY)
+	app.show_screen("game")
+	check(find_button(app.ui, hoarders.button) != null, "the walking view also offers The hoarders at the board")
+	app.show_screen("market_map")
+	runner.restore({"flags": {"chapter6_done": DAY, "hoarders_done": DAY, "hoarded": DAY},
+		"done": {"hoarders": DAY}})
+	_check_runner_mission_hours(bread, DAY)
+	set_market_day_time(DAY + 29, 1439)
+	check(find_button(app.ui, payout.button) == null, "Jalal's payout is closed through day 29")
+	for minute: int in [0, 600, 1439]:
+		set_market_day_time(DAY + 30, minute)
+		check(find_button(app.ui, payout.button) != null, "Jalal's payout has no hours on day 30 at minute %d" % minute)
+	move_market_fixture("quay")
+	check(find_button(app.ui, payout.button) == null, "Jalal pays out only at the board")
+	move_market_fixture("board")
+	set_market_day_time(DAY + 30, 600)
+	for trust: int in [10, 50, 80]:
+		app.progress.apply_trust(trust - app.progress.trust)
+		app.update_state()
+		check(find_button(app.ui, bread.button) != null and find_button(app.ui, payout.button) != null,
+			"neither unlocked follow-up has a trust gate at trust %d" % trust)
+
+	for outcome: Dictionary in [
+		{"scene": "qadi", "trust": 10, "flags": ["hoard_exposed", "hoarders_done"], "say": "exposed"},
+		{"scene": "quiet", "flags": ["hoarders_done"]},
+		{"scene": "buy", "coins": -30, "flags": ["hoarded", "hoarders_done"]},
+	]:
+		await _check_finale_hoarders_outcome(hoarders, outcome, DAY)
+	for outcome: Dictionary in [
+		{"scene": "took", "coins": 60, "trust": -15, "say": "profited"},
+		{"scene": "gave", "meals": 300, "trust": 5, "say": "gave"},
+	]:
+		await _check_finale_hoarders_outcome(payout, outcome, DAY)
+	for outcome: Dictionary in [
+		{"scene": "flour", "coins": -40, "trust": 8, "flags": ["bread_done"], "say": "flour", "meals": 400},
+		{"scene": "order", "trust": 5, "flags": ["bread_done"], "say": "order", "minutes": 180},
+		{"scene": "self", "trust": -5, "flags": ["bread_done"], "say": "pushed"},
+	]:
+		await _check_finale_hoarders_outcome(bread, outcome, DAY)
+
+	var words: Dictionary = runner.data.words
+	await press_button(words.journal_button, "open the Journal with the hard year loaded")
+	var chapters: Array = runner.journal(app).chapters
+	var last: Dictionary = chapters.back()
+	check(last.n == 7 and last.name == "The hard year" and last.done == 2 and last.total == 6
+		and last.rows.slice(2) == [{"title": "", "done": false}, {"title": "", "done": false},
+			{"title": "", "done": false}, {"title": "", "done": false}],
+		"Chapter 7 counts the two built missions and reserves the last four rows")
+	check(has_visible_label(app.ui, "Chapter 7 · The hard year") and has_visible_label(app.ui, "2 / 6")
+		and has_visible_label(app.ui, hoarders.title) and has_visible_label(app.ui, bread.title),
+		"the Journal shows Chapter 7 and its two completed titles")
+	var back := find_button(app.ui, words.journal.back)
+	var scroll := app.ui.find_child("RunnerScroll", true, false) as ScrollContainer
+	check(back != null and scroll != null, "the Journal provides its scrollable Back action")
+	if back != null and scroll != null:
+		scroll.ensure_control_visible(back)
+		await frames(2)
+		check(scroll.scroll_vertical > 0 and scroll.get_global_rect().encloses(back.get_global_rect()),
+			"Back is reachable with all loaded chapters")
+	await press_control(back, "close the Journal from the bottom of its scroll area")
+	check(app.ui.screen == "market_map", "Journal Back returns to the market")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 49 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_finale_hoarders_outcome(mission: Dictionary, outcome: Dictionary, purchase_day: int) -> void:
+	const TRUST := 50
+	const MINUTE := 600
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var day := purchase_day
+	reset_at_market_place("board", 100, day)
+	var fixture := {"flags": {"chapter6_done": day}, "done": {}}
+	if mission.id == "bread_lines":
+		fixture.flags.hoarders_done = day
+		fixture.done.hoarders = day
+	runner.restore(fixture)
+	set_market_day_time(day, MINUTE)
+	if mission.id == "hoard_profit":
+		var hoarders: Dictionary = runner.missions.hoarders
+		await press_button(hoarders.button, "open the grain offer before testing the payout")
+		await press_button(hoarders.scenes.a.choices[2].label, "buy Jalal's share to start the actual payout timer")
+		await press_button(words.scene_back, "close the grain offer")
+		check(runner.state().flags.get("hoarded") == purchase_day, "the timer starts on the purchase day")
+		set_market_day_time(purchase_day + 29, MINUTE)
+		check(find_button(app.ui, mission.button) == null, "a real purchase is still waiting on day 29")
+		day += 30
+		set_market_day_time(day, MINUTE)
+	app.progress.apply_trust(TRUST - app.progress.trust)
+	app.update_state()
+	var start_coins: int = app.progress.coins
+	var start_meals: int = app.feeding.meal_counter.total
+	var jisra_trust: int = app.gate_of_trust.jisra_trust
+	var before: Dictionary = runner.journal(app)
+	var expected := runner.state()
+	var opening: Dictionary = mission.scenes[mission.start]
+	await press_button(mission.button, "open " + str(mission.title))
+	_check_runner_scene_copy(mission, mission.start)
+	var labels: Array[String] = []
+	var chosen: Dictionary = {}
+	for choice: Dictionary in opening.choices:
+		labels.append(choice.label)
+		if choice.go == outcome.scene:
+			chosen = choice
+	_check_town_hub_button_order(labels, "available choices keep the locked order")
+	check(find_button(app.ui, words.scene_back) == null, "the opening offers choices without an ending Back")
+	var cost := -int(outcome.get("coins", 0))
+	if cost > 0:
+		app.progress.coins = cost - 1
+		app.update_state()
+		check(find_button(app.ui, chosen.label) == null, "the paid option is hidden a coin below its price")
+		app.ui.runner_requested.emit("choice", chosen)
+		check(app.runner_scene() == opening and app.progress.coins == cost - 1 and runner.state() == expected,
+			"the runner rejects an unaffordable choice without effects")
+		app.progress.coins = cost
+		app.update_state()
+		start_coins = cost
+	await press_button(chosen.label, "take the locked response: " + str(outcome.scene))
+	_check_runner_scene_copy(mission, outcome.scene)
+	_check_town_hub_button_order([words.scene_back], "the ending offers Back")
+	for label: String in labels:
+		check(find_button(app.ui, label) == null, "the chosen ending removes the opening action " + label)
+	for flag: String in outcome.get("flags", []):
+		expected.flags[flag] = day
+	var lines: Array = []
+	if outcome.has("say"):
+		lines.append(mission.say[outcome.say])
+		expected.sayings.river_market = lines
+	var final_meals := start_meals + int(outcome.get("meals", 0))
+	for index in runner.data.goals.size():
+		if runner.data.goals[index].id == "meals":
+			before.goals[index].n = final_meals
+	check(runner.state() == expected and runner.journal(app) == before,
+		"the choice applies its flags, accounts and meal goal before Back records completion")
+	var final_coins := start_coins + int(outcome.get("coins", 0))
+	var final_trust := TRUST + int(outcome.get("trust", 0))
+	var final_minute := MINUTE + int(outcome.get("minutes", 0))
+	check_wallet(final_trust, final_coins, "the choice applies the locked River Market trust and coins")
+	check(app.gate_of_trust.jisra_trust == jisra_trust and app.feeding.meal_counter.total == final_meals
+		and app.day == day and app.minute_of_day == final_minute,
+		"the choice applies its exact meal and clock effects and leaves Jisra trust alone")
+	await press_button(words.scene_back, "finish " + str(mission.id) + " from the ending")
+	expected.done[mission.id] = day
+	check(app.ui.screen == "market_map" and runner.state() == expected
+		and find_button(app.ui, mission.button) == null, "Back saves completion and hides the one-time button")
+	_check_journal_completions(before, [mission])
+	if mission.id == "hoard_profit":
+		check(runner.journal(app) == before, "Q35 keeps Jalal's payout outside the six Chapter 7 slots")
+	if mission.id == "hoarders":
+		check(find_button(app.ui, runner.missions.bread_lines.button) != null
+			and find_button(app.ui, runner.missions.hoard_profit.button) == null,
+			"every hoarders ending opens The bread lines and leaves the payout closed that day")
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines() == lines,
+		"River Market shows only the accounts earned by this response")
+	for line: Array in lines:
+		check_reputation_row(line)
+	await press_button(app.chapter.rep.to_map, "return from What people say to the board")
+	app.show_screen("pause")
+	app.save_game(true)
+	app.begin_game()
+	app.show_screen("title")
+	app.continue_game()
+	check(app.ui.screen == "market_map" and runner.state() == expected and runner.mission_done(app, mission.id)
+		and app.feeding.meal_counter.total == final_meals and app.progress.coins == final_coins
+		and app.progress.trust == final_trust and find_button(app.ui, mission.button) == null,
+		"the saved game restores the completed mission, hidden button and effects")
+	set_market_day_time(day + 1, MINUTE)
+	check(find_button(app.ui, mission.button) == null, "the one-time button stays hidden the next day")

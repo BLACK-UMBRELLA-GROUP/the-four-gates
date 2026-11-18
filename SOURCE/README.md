@@ -724,6 +724,16 @@ in the Journal.
 Run the focused rules checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --shifara-only`.
 
+## LOCK 49 V2 — The hoarders and the bread lines
+
+After Chapter 6, River Market's board opens **The hoarders** from 08:00 until 18:00.
+Finishing it opens **The bread lines** from 06:00 until 18:00. Buying Jalal's
+share opens his payout after 30 days. The first two missions count toward the six
+slots in Journal Chapter 7, **The hard year**. The payout saves as a follow-up.
+The headless tests supply the Chapter 6 completion flag until that chapter ships.
+Run them with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --finale-hoarders-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from
