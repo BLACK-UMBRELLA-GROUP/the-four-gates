@@ -93,6 +93,10 @@ func _run() -> void:
 		await check_scene_runner_runtime()
 		finish()
 		return
+	if "--side-goods-in-trust-only" in OS.get_cmdline_user_args():
+		await check_side_goods_in_trust_runtime()
+		finish()
+		return
 	if "--jisra-masjid-only" in OS.get_cmdline_user_args():
 		await check_jisra_masjid_runtime()
 		finish()
@@ -291,6 +295,7 @@ func _run() -> void:
 	await check_scene_runner_runtime()
 	await check_side_brothers_runtime()
 	await check_side_neighbours_wall_runtime()
+	await check_side_goods_in_trust_runtime()
 	await check_side_creditor_runtime()
 	await check_side_drowning_boy_runtime()
 	await check_side_thirsty_dog_runtime()
@@ -4838,6 +4843,147 @@ func _check_archery_outcome(mission: Dictionary, trust: int, choice_index: int, 
 		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
 		"the Journal counts the archery mission exactly once")
 	await press_button(words.journal.back, "the Journal returns to the market")
+
+
+func check_side_goods_in_trust_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/SIDE_GOODS_IN_TRUST/RECORD/side_goods_in_trust_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/side_goods_in_trust.json")
+	check(not locked.is_empty() and runtime == locked, "Goods left in trust data is byte-identical to LOCK 54")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var mission: Dictionary = runner.missions.get("goods_in_trust", {})
+	var follow_up: Dictionary = runner.missions.get("goods_returned", {})
+	check(approved is Dictionary and mission == approved.missions[0] and follow_up == approved.missions[1],
+		"the production content index loads both locked Ghalib scenes")
+	if mission.is_empty() or follow_up.is_empty():
+		return
+
+	app.set_process(false)
+	reset_at_market_place("inn", 2, 8)
+	for minute: int in [359, 360, 1199, 1200]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 360 and minute < 1200),
+			"the first inn button follows the locked hours at minute %d" % minute)
+		check(find_button(app.ui, follow_up.button) == null, "Ghalib cannot return before the bag is left")
+	set_market_day_time(8, 420)
+	move_market_fixture("gate")
+	check(find_button(app.ui, mission.button) == null, "the first mission is hidden away from the inn")
+
+	for trust: int in [10, 50, 80]:
+		await _check_goods_in_trust_path(mission, follow_up, trust, 0, "kept", "b", 0, 8)
+		await _check_goods_in_trust_path(mission, follow_up, trust, 1, "took", "c", 1, -12)
+	app.set_process(true)
+	var failures_added := failures - failures_before
+	print("LOCK 54 TESTS: ", checks - checks_before - failures_added, "/", checks - checks_before,
+		" passed; failures=", failures_added)
+
+
+func _check_goods_in_trust_path(mission: Dictionary, follow_up: Dictionary, trust: int,
+		choice_index: int, result: String, return_scene: String, coin_change: int, trust_change: int) -> void:
+	const DAY := 8
+	const MINUTE := 420
+	const COINS := 2
+	const GIVEN := "goods_in_trust_given"
+	reset_at_market_place("inn", COINS, DAY)
+	app.progress.apply_trust(trust - app.progress.trust)
+	set_market_day_time(DAY, MINUTE)
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var initial_journal := runner.journal(app)
+	var initial_sayings := runner.town_sayings("river_market", app)
+	var jisra_trust := runner.town_trust(app, "jisra")
+	var first_choices: Array = mission.scenes.a.choices
+	await press_button(mission.button, "Ghalib asks the player to hold his bag at trust %d" % trust)
+	_check_side_mission_scene(mission, mission.scenes.a)
+	var displayed := visible_text().split("\n")
+	check(displayed.find(first_choices[0].label) >= 0
+		and displayed.find(first_choices[1].label) > displayed.find(first_choices[0].label)
+		and find_button(app.ui, words.scene_back) == null, "the opening presents both locked choices in order")
+	await press_button(first_choices[choice_index].label, "choose the " + result + " branch")
+	var first_ending: Dictionary = mission.scenes[result]
+	_check_side_mission_scene(mission, first_ending)
+	check_wallet(trust, COINS + coin_change, "the first choice has the locked effect on coins and trust")
+	var branch_flag := "trust_" + result
+	check(runner.state().flags == {branch_flag: DAY}, "only the chosen branch flag is set before Back")
+	check(not runner.mission_done(app, mission.id) and runner.journal(app) == initial_journal
+		and runner.town_sayings("river_market", app) == initial_sayings,
+		"the first ending has no completion, return timer or public account before Back")
+
+	await press_button(words.scene_back, "Back finishes Goods left in trust and starts the wait")
+	var first_completion := runner.state()
+	check(app.ui.screen == "market_map" and first_completion.done == {mission.id: DAY}
+		and first_completion.flags == {branch_flag: DAY, GIVEN: DAY},
+		"Back records both the side mission completion and the day the bag was left")
+	check(find_button(app.ui, mission.button) == null and find_button(app.ui, follow_up.button) == null,
+		"the first mission is one-time and the return is not available immediately")
+	var counted := runner.journal(app)
+	check(counted.side == {"done": initial_journal.side.done + 1, "total": initial_journal.side.total},
+		"the completed side mission increments the Journal once")
+
+	app.show_screen("pause")
+	app.save_game(true)
+	app.begin_game()
+	app.show_screen("title")
+	app.continue_game()
+	check(app.ui.screen == "market_map" and app.current_place == "inn" and runner.state() == first_completion,
+		"Save and Continue preserves the inn, branch and original return timer")
+	set_market_day_time(DAY + 6, MINUTE)
+	check(find_button(app.ui, follow_up.button) == null, "Ghalib has not returned on day six")
+	runner.leave_scene(app, mission, first_ending)
+	check(runner.state() == first_completion, "revisiting an ending cannot restart its timer or completion")
+	for minute: int in [359, 360, 1199, 1200]:
+		set_market_day_time(DAY + 7, minute)
+		check((find_button(app.ui, follow_up.button) != null) == (minute >= 360 and minute < 1200),
+			"the return button follows the locked hours on day seven at minute %d" % minute)
+	set_market_day_time(DAY + 7, MINUTE)
+	move_market_fixture("gate")
+	check(find_button(app.ui, follow_up.button) == null, "Ghalib's return is hidden away from the inn")
+	move_market_fixture("inn")
+
+	await press_button(follow_up.button, "Ghalib returns at the inn after seven days")
+	_check_side_mission_scene(follow_up, follow_up.scenes.a)
+	var return_choices: Array[Dictionary] = runner.choices(app, follow_up, follow_up.scenes.a)
+	check(return_choices == [follow_up.scenes.a.choices[choice_index]], "only the chosen branch's return action is eligible")
+	var watch: String = follow_up.scenes.a.choices[choice_index].label
+	var watch_button := find_button(app.ui, watch)
+	check(watch_button != null and find_button(app.ui, watch, watch_button) == null
+		and find_button(app.ui, words.scene_back) == null, "Q18 shows one Watch him count action")
+	await press_button(watch, "watch Ghalib count the bag's contents")
+	check(app.runner_scene() == follow_up.scenes[return_scene], "Ghalib reacts to the locked branch")
+	_check_side_mission_scene(follow_up, follow_up.scenes[return_scene])
+	check_wallet(clampi(trust + trust_change, 0, 100), COINS + coin_change, "Ghalib's account applies the locked local trust effect")
+	check(runner.town_trust(app, "jisra") == jisra_trust, "Ghalib's account does not change Jisra trust")
+	check(not runner.mission_done(app, follow_up.id), "the follow-up ending waits for Back")
+	await press_button(words.scene_back, "Back finishes Ghalib's return")
+	var completion := runner.state()
+	check(app.ui.screen == "market_map" and completion.done == {mission.id: DAY, follow_up.id: DAY + 7}
+		and completion.flags == first_completion.flags and runner.journal(app) == counted,
+		"the return records its completion once and leaves the Journal count unchanged under R8")
+	set_market_day_time(DAY + 8, MINUTE)
+	check(find_button(app.ui, mission.button) == null and find_button(app.ui, follow_up.button) == null,
+		"both completed buttons stay hidden during their hours")
+
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say after Ghalib returns")
+	var account: Array = follow_up.say[result]
+	check(app.ui.reputation_lines() == initial_sayings + [account], "What people say contains only the earned Ghalib account")
+	check_reputation_row(account)
+	await press_button(app.chapter.rep.to_map, "What people say returns to the market")
+	await press_button(words.journal_button, "open the Journal after both scenes")
+	check(app.ui.screen == "journal" and has_visible_label(app.ui, str(words.journal.count).format(
+		{"n": counted.side.done, "m": counted.side.total})), "the visible Journal counts Goods left in trust once")
+	await press_button(words.journal.back, "the Journal returns to the market")
+
+	app.show_screen("pause")
+	app.save_game(true)
+	app.begin_game()
+	app.show_screen("title")
+	app.continue_game()
+	check(runner.state() == completion and runner.journal(app) == counted
+		and find_button(app.ui, mission.button) == null and find_button(app.ui, follow_up.button) == null,
+		"Save and Continue preserves the witness account and both hidden completions")
 
 
 func check_side_stranger_runtime() -> void:

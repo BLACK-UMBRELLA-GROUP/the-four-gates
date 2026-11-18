@@ -767,6 +767,16 @@ the ending to finish the mission once and count it in the **Journal**.
 Helping them settle adds an account to **What people say**. The headless
 suite covers all three responses.
 
+## LOCK 54 — Goods left in trust
+
+At the River Market inn, Ghalib asks you to keep his bag from 06:00 up to
+20:00. Leave either ending with **Back** to complete the side mission in
+the **Journal** and start the seven-day wait. When Ghalib comes back during
+the same hours, choose **Watch him count** to see how your choice affected
+River Market trust and **What people say**. Finish the return scene with
+**Back**. Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --side-goods-in-trust-only`.
+
 ## LOCK 55 — A creditor beating a debtor
 
 At the River Market quay, **Zahir is beating Fadil at the quay** is available from

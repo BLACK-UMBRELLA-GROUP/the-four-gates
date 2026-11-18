@@ -1,0 +1,22 @@
+{
+  "line": 61,
+  "lock": "LOCK 54 V1",
+  "status": "PASS",
+  "checks_passed": {
+    "lock_54": 305,
+    "focused": 504,
+    "headless_full_suite": 13432
+  },
+  "locked_data_byte_identical": true,
+  "checks": [
+    "Both mission buttons at the River Market inn obey 06:00 inclusive and 20:00 exclusive. The return starts seven days after Back on the initial ending.",
+    "Both paths were played at River Market trust 10, 50 and 80. Checked all six scenes for exact title, kicker and narrative. The first opening offers both choices in order. Only the branch's Watch him count action appears on return.",
+    "Keeping the bag sets trust_kept. Taking the coin adds one coin and sets trust_took. Back applies goods_in_trust_given once and records the day. Repeated leave cannot restart the wait.",
+    "Ghalib's return applies the branch's trust change in River Market (+8 or -12, clamped to the shared bounds) and adds the locked account, attribution and tone to What people say.",
+    "Goods left in trust advances the Journal side count once. Back on Ghalib's return saves completion and hides its button under R8.",
+    "Save and Continue preserves the original timer, the choice flag, the earned account and both completions. The pack adds no separate trust-band dialogue."
+  ],
+  "master_review": "sc01–sc06 inspected at 1920 × 1080. The words and action order match the locked data except for sc04, which shows Back. Q18 specifies Watch him count. R11 keeps the existing Godot layout.",
+  "evidence": "Q15 headless JSON evidence for the existing Godot layout.",
+  "scholar_check": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md row 43 (OA-AIOS-432), open before public release."
+}

@@ -1,0 +1,79 @@
+{
+  "line": 61,
+  "lock": "LOCK 54 V1",
+  "brief": "DOC-TFG-0174",
+  "tested_base_commit_sha": "ea7086883737352e7a5c257c4e0871a7beec744a",
+  "tested_source": "The base commit plus the hashed source changes. The 18 November daily report records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T10:26:13+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --side-goods-in-trust-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_54": 305,
+    "focused": 504,
+    "headless_full_suite": 13432
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SIDE_GOODS_IN_TRUST/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_GOODS_IN_TRUST.md": {
+      "bytes": 3125,
+      "sha256": "f8442243349905b4559fd4fcc31a337005d726bb81e56dbc763e868c0a39b446"
+    },
+    "GAME/APPROVED/SIDE_GOODS_IN_TRUST/RECORD/LOCK_RECORD.md": {
+      "bytes": 775,
+      "sha256": "b86ea7717fa22bded297b361980e8a9fb09bc09eadc126f1a3dcdff5d5858968"
+    },
+    "GAME/APPROVED/SIDE_GOODS_IN_TRUST/RECORD/SIDE_GOODS_IN_TRUST_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 4045,
+      "sha256": "a88d235157f8e0321181435501befb4d3490e51d773b46694566a2a382af279a"
+    },
+    "GAME/APPROVED/SIDE_GOODS_IN_TRUST/RECORD/side_goods_in_trust_data_V1.json": {
+      "bytes": 2935,
+      "sha256": "3dfe82e812ac1f5fdca2c8d9c5d87b39338d6be5413e17e553eb280307588cd8"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/SIDE_GOODS_IN_TRUST/MASTERS/sc01_goods_in_trust__a.png": {
+      "bytes": 305241,
+      "sha256": "6fa10ffc32110071ea4518e77ccdf4baee13ceb32c1b6de20fda2d9622ab0846"
+    },
+    "GAME/APPROVED/SIDE_GOODS_IN_TRUST/MASTERS/sc02_goods_in_trust__kept.png": {
+      "bytes": 310532,
+      "sha256": "00622c973d4acf4af0b9f068de5d952e1db7eef99ad39f834328afeb9389fa6e"
+    },
+    "GAME/APPROVED/SIDE_GOODS_IN_TRUST/MASTERS/sc03_goods_in_trust__took.png": {
+      "bytes": 309206,
+      "sha256": "7e8aeb7225758d7cc109952fd2b1a01c4236af4f5ccd4ddec711f6946fa8259f"
+    },
+    "GAME/APPROVED/SIDE_GOODS_IN_TRUST/MASTERS/sc04_goods_returned__a.png": {
+      "bytes": 310403,
+      "sha256": "73fc339b4b839765cf65da06522a5841c201df92c88c2546e31a48a7eef38ada"
+    },
+    "GAME/APPROVED/SIDE_GOODS_IN_TRUST/MASTERS/sc05_goods_returned__b.png": {
+      "bytes": 310863,
+      "sha256": "270d3073113795d7df32bf63456b22c16adac2a9aacae28e20419f5e3f864a28"
+    },
+    "GAME/APPROVED/SIDE_GOODS_IN_TRUST/MASTERS/sc06_goods_returned__c.png": {
+      "bytes": 311125,
+      "sha256": "0ddb8a474ab55751bccbdd069ef2785630fd6fe56cf1a7fe0c506c0e2c74433e"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 773,
+      "sha256": "a6a2bd2e6f17239e1e34d14a55ad3b97bd5cb223a3234aadd6d8d3811f193dea"
+    },
+    "SOURCE/data/side_goods_in_trust.json": {
+      "bytes": 2935,
+      "sha256": "3dfe82e812ac1f5fdca2c8d9c5d87b39338d6be5413e17e553eb280307588cd8"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 697972,
+      "sha256": "d738d947b9a72cb9c50a242258e18b6616db4fb3b1ce12252af1d2726e60d16d"
+    }
+  }
+}
