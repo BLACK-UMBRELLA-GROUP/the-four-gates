@@ -1,0 +1,139 @@
+{
+  "line": 53,
+  "lock": "LOCK 46 V1",
+  "brief": "DOC-TFG-0150",
+  "tested_base_commit_sha": "c4284320ceb11bb084fb4b652ed947bb2f29e1d5",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T09:23:55+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --waraka-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_46": 380,
+    "focused": 579,
+    "headless_full_suite": 11488
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/WARAKA/BRIEFS/BUILD_BRIEF_2026-11-09_WARAKA.md": {
+      "bytes": 3705,
+      "sha256": "889074ee91bb2bdd0d2b4738bf88e6515f4d30ed365652be3d69ff6c910b7b0b"
+    },
+    "GAME/APPROVED/WARAKA/RECORD/LOCK_RECORD.md": {
+      "bytes": 944,
+      "sha256": "5e3932960e767ca7db253708f68030b57e00b3da1e115c37ec0040fc418c6def"
+    },
+    "GAME/APPROVED/WARAKA/RECORD/WARAKA_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 6306,
+      "sha256": "28db9816d5c8e7f348012c436bc41961bf876ac084c736474996984d72f60ad2"
+    },
+    "GAME/APPROVED/WARAKA/RECORD/waraka_data_V1.json": {
+      "bytes": 5893,
+      "sha256": "f950121d120d092ba8e374b384b61a7697d2f4fc0ea095035d8dec44e84e3ce3"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk01_waraka__town.png": {
+      "bytes": 257458,
+      "sha256": "18a532b7b8cd4466804cd45153d5fe5ff615ae6077005912d24b8792792f6c46"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk02_waraka__people.png": {
+      "bytes": 248879,
+      "sha256": "33dc5f29cad08c0dfb32f498cb25f4a7d7e4502def18582ce61faf6f80773f74"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk03_waraka__yaqub_trust_10.png": {
+      "bytes": 269257,
+      "sha256": "6562da866b9614f448c4e100109db3dcd054a76df2ac1510f35b013bac2780df"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk04_waraka__yaqub_trust_50.png": {
+      "bytes": 270246,
+      "sha256": "61bb2c57ec09c53f0b16e479b64fe5eb911f34c95d29d4cb897a23994cc195a1"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk05_waraka__yaqub_trust_80.png": {
+      "bytes": 269733,
+      "sha256": "c1b4c59988f1ad59c29637910ac5a0ac4bd34b5f2109a47cb0b4716594353be2"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk06_waraka__fuad_trust_10.png": {
+      "bytes": 269678,
+      "sha256": "ca98bdb8a70e6f3ec27f1eecf0270bc760ef08450ccb7c4fd28491aab4bddf0c"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk07_waraka__fuad_trust_50.png": {
+      "bytes": 268423,
+      "sha256": "750ea4dd68370009ad8cd7661fc0a288fc82ffb16c7586c800e38977e7172427"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk08_waraka__fuad_trust_80.png": {
+      "bytes": 269064,
+      "sha256": "e840b33da971600f33e95a3a88794b067dd0770de470d356423bddcecdd59744"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk09_waraka__zaynab_trust_10.png": {
+      "bytes": 269311,
+      "sha256": "7f8b5f3dddc95a265374a466290696adb0a8d05061d288e49561e5dd5220704b"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk10_waraka__zaynab_trust_50.png": {
+      "bytes": 270466,
+      "sha256": "bac5189227fbd4a611e241aadf3c0353915944d25122b7a6ed15cea31da94d13"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk11_waraka__zaynab_trust_80.png": {
+      "bytes": 270395,
+      "sha256": "638e002420cb498cec415e4819094447a471dc5a90880e3691a678061f0ecbc8"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk12_waraka__what_people_say_empty.png": {
+      "bytes": 270840,
+      "sha256": "ef513883609c48e4d4245fda992744ac9499381f278967e1a87cb3020775a351"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk13_waraka__masjid_prayer.png": {
+      "bytes": 271251,
+      "sha256": "226b5f4b940cea04b474e74409585604e34be2e4567495e44bd5b8db4e9f7043"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk14_waraka__masjid_first_prayer.png": {
+      "bytes": 274714,
+      "sha256": "e606335fd5775ade9739dd9ad4f6003d2fb233db1dc86eb7314ab13e6b5a5a13"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk15_copyist__a.png": {
+      "bytes": 249376,
+      "sha256": "af40caf95de691c5f5241b8a17bcf50b1e77623ba60580e3126f58bc71495561"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk16_copyist__fix.png": {
+      "bytes": 262797,
+      "sha256": "f802cee9dfcfce65697249446e1665190d3857d86aa7fb3a644242b4f0cff089"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk17_copyist__let.png": {
+      "bytes": 266314,
+      "sha256": "32446a329fd70e7480d28b9bab5ce2814b8b2b33f7e033c3d63207fc883a299c"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk18_fake_hadith__a.png": {
+      "bytes": 237990,
+      "sha256": "e93cccc1cacd4b8e55743d87aedfd97a8935177cfd6c9203fd4e026ae80afd64"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk19_fake_hadith__scholars.png": {
+      "bytes": 265069,
+      "sha256": "c09e98e7b181f05a2fa0dca107ebd39d772ca8755608bdd88ef32c93534bdc9b"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk20_fake_hadith__warn.png": {
+      "bytes": 267361,
+      "sha256": "c1cc7540e810fcbb4fbac1f294c98b0bf0e578a74247d134c92501b63574f85a"
+    },
+    "GAME/APPROVED/WARAKA/MASTERS/wk21_fake_hadith__leave.png": {
+      "bytes": 265591,
+      "sha256": "0ae8d8938fbff54dce772a3ce28a23d871354c8b31688752eaa192eda40d3e7a"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 623,
+      "sha256": "6b4375489ef5013fbed43b0562787d97a81f73db19a160cdfbe44638ebaa7baa"
+    },
+    "SOURCE/data/waraka.json": {
+      "bytes": 5893,
+      "sha256": "f950121d120d092ba8e374b384b61a7697d2f4fc0ea095035d8dec44e84e3ce3"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 630793,
+      "sha256": "690ab28b634f9268055b794515f76698fda4c319083527f34090d41c9ed4695e"
+    }
+  }
+}

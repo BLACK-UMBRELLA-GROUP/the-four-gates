@@ -1,0 +1,19 @@
+{
+  "line": 53,
+  "result": "passed",
+  "checks_passed": {
+    "lock_46": 380,
+    "focused": 579,
+    "headless_full_suite": 11488
+  },
+  "coverage": [
+    "Production loads the byte-identical Waraka data. The road requires the Gate of Knowledge at 40%, takes 110 minutes each way, and Road map Back returns to Waraka.",
+    "Waraka starts at trust 10 and uses R6 action order. Work runs from 06:00 to 17:00 outside Friday prayer, takes 60 minutes, pays four coins, and gives one local trust on the first shift each day. The inn costs two coins and wakes the player at 04:40.",
+    "The paper-makers' masjid resolves by ID. Prayer counts once and displays the exact first-prayer line once. Back returns to Waraka.",
+    "Yaqub, Fuad and Zaynab use the locked names, roles, hours and lines at trust 10, 50 and 80. Talk actions follow presence, and Yaqub leaves for Friday prayer.",
+    "All six combinations of The copyist and The fake hadith seller use the locked choice order, exact scene words, clock and local trust effects, flag days, memories and accounts. Fuad's mission requires copyist_done and opens from 08:00 to 18:00.",
+    "Every combination survives an isolated save and reload. Both completed buttons stay hidden on a later day. The Journal shows only loaded chapter rows under Q32 and R8."
+  ],
+  "visual_reference": "21 approved masters at 1920 × 1080. Headless rules checks follow Q15 and R11. Q32 and R6 give wk13–wk14 Back to Waraka.",
+  "scholar_check": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md row 40 (OA-AIOS-432). Due before public release."
+}

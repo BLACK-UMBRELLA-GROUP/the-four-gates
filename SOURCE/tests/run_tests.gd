@@ -137,6 +137,10 @@ func _run() -> void:
 		await check_tahuna_runtime()
 		finish()
 		return
+	if "--waraka-only" in OS.get_cmdline_user_args():
+		await check_waraka_runtime()
+		finish()
+		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
 		await check_jisra_people_runtime()
 		finish()
@@ -290,6 +294,7 @@ func _run() -> void:
 	await check_nahla_runtime()
 	await check_tinara_runtime()
 	await check_tahuna_runtime()
+	await check_waraka_runtime()
 	finish()
 
 
@@ -10313,3 +10318,231 @@ func _check_tahuna_chapter_end(mission: Dictionary, words: Dictionary) -> void:
 			"the Journal scrolls far enough to reach Back with all three chapters loaded")
 	await press_control(back, "leave the Journal")
 	check(app.ui.screen == "market_map", "Journal Back returns to the River Market")
+
+
+func check_waraka_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/WARAKA/RECORD/waraka_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/waraka.json")
+	check(not locked.is_empty() and runtime == locked, "Waraka uses byte-identical LOCK 46 data")
+	var copy: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = copy is Dictionary and runner.towns.has("waraka") and runner.missions.has("copyist") \
+		and runner.missions.has("fake_hadith")
+	check(loaded, "the production index loads Waraka and both missions")
+	if not loaded:
+		return
+	var town: Dictionary = runner.towns.waraka
+	var masjid: Dictionary = copy.masjids.waraka
+	var copyist: Dictionary = runner.missions.copyist
+	var seller: Dictionary = runner.missions.fake_hadith
+	var words: Dictionary = runner.data.words
+	check(town == copy.towns.waraka.merged({"id": "waraka"}) and runner.town_people(app, "waraka") == copy.people,
+		"Waraka and its three residents load in locked order")
+	check(runner.town_masjids("waraka") == [masjid.merged({"id": "waraka"})], "the paper-makers' masjid resolves by ID")
+	check(copyist == copy.missions[0] and seller == copy.missions[1], "both Waraka missions use the locked records")
+	var original := MarketSave.snapshot(app)
+	app.set_process(false)
+	await _check_waraka_road()
+	await _check_waraka_hub(town, masjid, copyist, seller, words)
+	await _check_waraka_people(copy.people, words)
+	var copyist_outcomes := [
+		["fix", 120, 8, ["copy_fixed", "copyist_done"], [copyist.say.fixed]],
+		["let", 0, 0, ["copyist_done"], []],
+	]
+	var seller_outcomes := [
+		["scholars", 0, 10, ["fake_exposed", "waraka_done"], [seller.say.exposed]],
+		["warn", 0, 6, ["waraka_done"], [seller.say.warned]],
+		["leave", 0, 0, ["waraka_done"], []],
+	]
+	for copyist_result: Array in copyist_outcomes:
+		for seller_result: Array in seller_outcomes:
+			await _check_waraka_path(copyist, seller, copyist_result, seller_result, words)
+	MarketSave.restore(app, original)
+	app.show_screen("market_map")
+	app.set_process(true)
+	print("LOCK 46 WARAKA: ", checks - checks_before - (failures - failures_before), "/", checks - checks_before, " passed")
+
+
+func _check_waraka_road() -> void:
+	reset_at_market_place("gate", 20, 8)
+	app.progress.gate_open = true
+	app.update_state()
+	var words: Dictionary = app.road_map.data.words
+	var road: Dictionary = app.road_map.road_to("waraka")
+	var gate: Dictionary = app.road_map.data.gates[3]
+	var travel := str(words.go).format({"n": 110})
+	check(road.gate == "knowledge" and gate.opens_at == 40 and not app.road_map.town_is_open(app, road),
+		"Waraka waits for the Gate of Knowledge at 40% journey progress")
+	app.road_map.restore({"knowledge": true})
+	await press_button(words.map_button, "open the Road map through Knowledge")
+	await press_button(travel, "take the 110-minute road to Waraka")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "waraka" and app.minute_of_day == 710,
+		"the live road reaches Waraka in 110 minutes")
+	await press_button(words.map_button, "open the Road map from Waraka")
+	await press_button(words.back, "leave the Road map")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "waraka", "Road map Back returns to Waraka")
+	await press_button(words.map_button, "open the Road map for Ilmara")
+	await press_button(travel, "take the road back to Ilmara")
+	check(app.ui.screen == "market_map" and app.runner_town_id().is_empty() and app.minute_of_day == 820,
+		"the Road map exits Waraka to Ilmara in 110 minutes")
+
+
+func _check_waraka_hub(town: Dictionary, masjid: Dictionary, copyist: Dictionary, seller: Dictionary, words: Dictionary) -> void:
+	reset_at_market_place("gate", 20, 8)
+	app.enter_runner_town("waraka")
+	var runner: SceneRunner = app.scene_runner
+	var noon: int = app._minutes(identity.clock.prayers[1].begins)
+	var sayings := str(words.rep_button).format({"town": town.name})
+	var inn := str(words.inn_button).format({"n": 2})
+	var map_button: String = app.road_map.data.words.map_button
+	var actions: Array[String] = [copyist.button, words.people_button, town.work.label, sayings, masjid.button, inn, map_button]
+	check(app.ui.screen == "runner_town" and has_visible_label(app.ui, town.name)
+		and has_visible_label(app.ui, str(town.kicker).to_upper()) and visible_text().split("\n").has(town.text),
+		"Waraka uses the exact town title, kicker and paragraph")
+	check_gate_of_trust_meter("Trust · Waraka", 10)
+	_check_town_hub_button_order(actions, "Waraka follows the R6 action order")
+	check(find_button(app.ui, words.road_back) == null, "the loaded Road map is Waraka's exit")
+	await _check_town_sayings("waraka", [], words)
+	for minute: int in [359, 360, 419, 420, 479, 480, 1019, 1020, 1079, 1080]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, copyist.button) != null) == (minute >= 420 and minute < 1080)
+			and (find_button(app.ui, town.work.label) != null) == (minute >= 360 and minute < 1020)
+			and find_button(app.ui, seller.button) == null, "Waraka's work and first mission hours at minute %d" % minute)
+	set_market_day_time(8, noon)
+	var prayer: String = app.clock.prayer_label(false)
+	check(not prayer.is_empty(), "Waraka offers the open prayer")
+	actions.insert(5, prayer)
+	_check_town_hub_button_order(actions, "the open prayer follows the masjid and precedes the inn")
+	set_market_day_time(9, noon)
+	check(find_button(app.ui, town.work.label) == null, "the pulp vats close during Friday prayer")
+	var market_trust: int = app.progress.trust
+	for shift: Array in [[10, 600, 24, 11], [10, 660, 28, 11], [11, 600, 32, 12]]:
+		set_market_day_time(shift[0], shift[1])
+		await press_button(town.work.label, "turn the pulp vats")
+		check(app.minute_of_day == shift[1] + 60 and app.progress.coins == shift[2]
+			and runner.town_trust(app, "waraka") == shift[3] and app.progress.trust == market_trust,
+			"work takes 60 minutes, pays four coins and adds local trust on the first shift of the day")
+	for day: int in [11, 12]:
+		set_market_day_time(day, noon)
+		await press_button(masjid.button, "open the paper-makers' masjid")
+		check(app.ui.screen == "runner_masjid" and has_visible_label(app.ui, masjid.title)
+			and has_visible_label(app.ui, str(masjid.kicker).to_upper()) and visible_text().split("\n").has(masjid.text),
+			"the masjid uses its exact title, kicker and paragraph")
+		check(find_button(app.ui, app.jisra_masjid.data.masjid.back) == null, "Q32 reserves Back to the bridge for Jisra")
+		await press_button(identity.clock.pray_congregation, "pray at the paper-makers' masjid")
+		check(app.jisra_masjid.prayed_in == {"waraka": true}
+			and visible_text().split("\n").has(masjid.first) == (day == 11),
+			"the masjid ID counts once and the exact first-prayer line appears once")
+		await press_button(words.back, "leave the paper-makers' masjid")
+		check(app.ui.screen == "runner_town" and app.runner_town_id() == "waraka", "Back returns to Waraka")
+	await press_button(inn, "rest at the Waraka inn")
+	check(app.progress.coins == 30 and app.day == 13 and app.minute_of_day == 280
+		and app.runner_town_id() == "waraka", "the inn costs two coins and wakes you in Waraka at 04:40")
+
+
+func _check_waraka_people(residents: Array, words: Dictionary) -> void:
+	reset_at_market_place("gate", 20, 8)
+	app.enter_runner_town("waraka")
+	var runner: SceneRunner = app.scene_runner
+	await press_button(words.people_button, "open the Waraka people list")
+	check(has_visible_label(app.ui, words.people.title)
+		and has_visible_label(app.ui, str(words.people.kicker).format({"town": "Waraka"}).to_upper()),
+		"the people list uses the locked headings")
+	for person: Dictionary in residents:
+		check(has_visible_label(app.ui, person.name) and has_visible_label(app.ui, str(person.role).to_upper()),
+			"the list shows the exact name and role for " + str(person.name))
+	for band: Array in [[10, "wary"], [50, "friendly"], [80, "warm"]]:
+		var state := runner.state()
+		state.trust.waraka = band[0]
+		runner.restore(state)
+		for index in residents.size():
+			var person: Dictionary = residents[index]
+			var buttons := _runner_talk_buttons(words)
+			check(buttons.size() == residents.size(), "one Talk action per available Waraka resident")
+			if buttons.size() != residents.size():
+				break
+			await press_control(buttons[index], "talk to %s at Waraka trust %d" % [person.name, band[0]])
+			var kicker := str(words.talk.kicker).format({"town": "Waraka", "role": person.role}).to_upper()
+			check(app.ui.screen == "runner_person" and has_visible_label(app.ui, person.name)
+				and has_visible_label(app.ui, kicker) and visible_text().split("\n").has(person.lines[band[1]]),
+				"the exact %s line for %s" % [band[1], person.name])
+			await press_button(words.talk.back, "return to the people list")
+	for minute: int in [359, 360, 419, 420, 479, 480, 1019, 1020, 1079, 1080]:
+		_check_town_people_presence(residents, words, 8, minute, false)
+	_check_town_people_presence(residents, words, 9, app._minutes(identity.clock.prayers[1].begins), true)
+	await press_button(words.people.back, "return from the people list to Waraka")
+
+
+func _check_waraka_path(copyist: Dictionary, seller: Dictionary, copyist_result: Array, seller_result: Array, words: Dictionary) -> void:
+	reset_at_market_place("gate", 20, 8)
+	app.enter_runner_town("waraka")
+	var runner: SceneRunner = app.scene_runner
+	var journal := runner.journal(app)
+	var expected := runner.state()
+	var market_trust: int = app.progress.trust
+	var trust := 10
+	var minute := 600
+	var accounts: Array = []
+	for entry: Array in [[copyist, copyist_result], [seller, seller_result]]:
+		var mission: Dictionary = entry[0]
+		var outcome: Array = entry[1]
+		await press_button(mission.button, "open " + str(mission.title))
+		_check_runner_scene_copy(mission, "a")
+		var labels: Array[String] = []
+		var chosen_label := ""
+		for choice: Dictionary in mission.scenes.a.choices:
+			labels.append(choice.label)
+			if choice.go == outcome[0]:
+				chosen_label = choice.label
+		_check_town_hub_button_order(labels, "the mission offers its exact choices in order")
+		await press_button(chosen_label, "take the choice leading to " + str(outcome[0]))
+		_check_runner_scene_copy(mission, outcome[0])
+		minute += outcome[1]
+		trust += outcome[2]
+		if outcome[2] != 0:
+			expected.trust.waraka = trust
+		for flag: String in outcome[3]:
+			expected.flags[flag] = 8
+		accounts.append_array(outcome[4])
+		if not accounts.is_empty():
+			expected.sayings.waraka = accounts
+		check(runner.state() == expected and runner.town_trust(app, "waraka") == trust
+			and app.progress.trust == market_trust and app.progress.coins == 20
+			and app.day == 8 and app.minute_of_day == minute,
+			"the choice applies the exact clock, local trust, flags and accounts before Back")
+		await press_button(words.scene_back, "finish " + str(mission.title))
+		expected.done[mission.id] = 8
+		check(runner.state() == expected and app.ui.screen == "runner_town"
+			and app.runner_town_id() == "waraka" and find_button(app.ui, mission.button) == null,
+			"Back completes the mission once and returns to Waraka")
+		await _check_town_sayings("waraka", accounts, words)
+		if mission.id == copyist.id:
+			for test_minute: int in [479, 480, 1079, 1080]:
+				set_market_day_time(8, test_minute)
+				check((find_button(app.ui, seller.button) != null) == (test_minute >= 480 and test_minute < 1080),
+					"Fuad's mission follows its hours after the copyist flag at minute %d" % test_minute)
+			set_market_day_time(8, minute)
+
+	for person: Dictionary in runner.town_people(app, "waraka"):
+		var lines: Array = [person.lines.wary]
+		for memory: Array in person.memory:
+			if expected.flags.has(memory[0]):
+				lines.append(memory[1])
+				break
+		check(runner.person_lines(app, "waraka", person) == lines, "the mission outcomes give %s the exact memory" % person.name)
+	var path: String = app.storage_directory.path_join("waraka-%s-%s.save" % [copyist_result[0], seller_result[0]])
+	check(MarketSave.save_slot(app, path) == OK, "write both Waraka completions to an isolated save")
+	var saved := MarketSave.read_slot(path)
+	check(not saved.is_empty(), "read the isolated Waraka save")
+	if saved.is_empty():
+		return
+	runner.reset()
+	MarketSave.restore(app, saved)
+	app.show_screen("runner_town")
+	set_market_day_time(10, 600)
+	check(runner.state() == expected and app.progress.coins == 20 and app.runner_town_id() == "waraka"
+		and find_button(app.ui, copyist.button) == null and find_button(app.ui, seller.button) == null,
+		"the save keeps both completion days and choice effects, and both actions stay hidden on a later day")
+	check(runner.journal(app) == journal, "Q32 leaves the Journal at its loaded chapter rows")

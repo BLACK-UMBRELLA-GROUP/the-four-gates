@@ -1,0 +1,232 @@
+{
+ "version": "LOCK 46 V1 (9 Nov 2026) - Waraka, the paper mills: the copyist and the fake hadith seller",
+ "builds_on": "LOCK 34 runner, LOCK 36 (Gate of Knowledge opens after chapter 3). Design references (not shown): Quran 2:282 (let a scribe write with justice); Bukhari 110 (whoever lies about the Prophet deliberately).",
+ "towns": {
+  "waraka": {
+   "name": "Waraka",
+   "gate": "knowledge",
+   "start_trust": 10,
+   "inn": 2,
+   "kicker": "Waraka · the paper mills",
+   "text": "The river here runs white with pulp. Sheets of paper hang drying between the houses, and every second shop sells ink, pens or books.",
+   "work": {
+    "label": "Turn the pulp vats · 4 coins",
+    "hours": [
+     360,
+     1020
+    ],
+    "minutes": 60,
+    "coins": 4,
+    "trust": 1
+   },
+   "masjids": [
+    "waraka"
+   ],
+   "bg": "street_day"
+  }
+ },
+ "masjids": {
+  "waraka": {
+   "button": "Go to the paper-makers' masjid",
+   "kicker": "Waraka · the paper-makers' masjid",
+   "title": "The paper-makers' masjid",
+   "text": "The walls are lined with shelves of books, and a boy dusts them between prayers.",
+   "first": "An old scholar asks what you are reading these days. He seems disappointed by the answer, then kind."
+  }
+ },
+ "people": [
+  {
+   "id": "yaqub",
+   "town": "waraka",
+   "name": "Yaqub",
+   "role": "the copyist",
+   "hours": [
+    420,
+    1080
+   ],
+   "prays": true,
+   "lines": {
+    "wary": "Yaqub's pen doesn't stop. “Quiet, please.”",
+    "friendly": "“A copyist is a bridge. If the bridge has a hole, everyone after falls through it.”",
+    "warm": "“Read this back to me. Your eyes are better than mine.”"
+   },
+   "memory": [
+    [
+     "copy_fixed",
+     "“The physician sent word: the dose was right. Because you made me copy the page again.”"
+    ]
+   ]
+  },
+  {
+   "id": "fuad",
+   "town": "waraka",
+   "name": "Fuad",
+   "role": "a seller of charms",
+   "hours": [
+    480,
+    1080
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "“Blessings! Protection! Wealth! Only one coin!”",
+    "friendly": "Fuad eyes you warily.",
+    "warm": "Fuad has gone quiet these days."
+   },
+   "memory": [
+    [
+     "fake_exposed",
+     "Fuad spits on the ground near your feet."
+    ]
+   ]
+  },
+  {
+   "id": "zaynab",
+   "town": "waraka",
+   "name": "Zaynab",
+   "role": "the paper maker",
+   "hours": [
+    360,
+    1020
+   ],
+   "prays": false,
+   "lines": {
+    "wary": "Zaynab lifts a dripping frame from the vat.",
+    "friendly": "“Linen rags, beaten for a week. That's what makes it last a thousand years.”",
+    "warm": "“This sheet is for you. Write something worth keeping on it.”"
+   },
+   "memory": []
+  }
+ ],
+ "missions": [
+  {
+   "id": "copyist",
+   "town": "waraka",
+   "main": true,
+   "title": "The copyist",
+   "kicker": "Chapter 4 · The copyist",
+   "button": "Yaqub needs someone to read a copy back",
+   "hours": [
+    420,
+    1080
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Yaqub has copied a book of medicine for a physician and asks you to read it back against the original. On page forty you find he has skipped a line - a dose. The buyer is waiting outside. “Fixing it means copying the whole page again,” Yaqub says. “Nobody will notice.”",
+     "choices": [
+      {
+       "label": "Insist he copies the page again",
+       "go": "fix",
+       "fx": {
+        "minutes": 120,
+        "trust": 8,
+        "flag": [
+         "copy_fixed",
+         "copyist_done"
+        ],
+        "say": "fixed"
+       }
+      },
+      {
+       "label": "Let it go",
+       "go": "let",
+       "fx": {
+        "flag": "copyist_done"
+       }
+      }
+     ]
+    },
+    "fix": {
+     "text": "Yaqub sighs, sharpens a pen and copies the page again while the buyer waits. When the buyer hears why, he pays extra.",
+     "end": true
+    },
+    "let": {
+     "text": "The buyer takes the book and goes. Yaqub doesn't meet your eye.",
+     "end": true
+    }
+   },
+   "say": {
+    "fixed": [
+     "Made Yaqub copy a page again",
+     "the copyists",
+     1
+    ]
+   }
+  },
+  {
+   "id": "fake_hadith",
+   "town": "waraka",
+   "main": true,
+   "title": "The fake hadith seller",
+   "kicker": "Chapter 4 · The fake hadith seller",
+   "button": "Fuad is selling sayings of the Prophet",
+   "hours": [
+    480,
+    1080
+   ],
+   "after": [
+    "copyist_done"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Fuad sells strips of paper with sayings “of the Prophet” promising wealth to whoever wears them. One reads: whoever wears this will never be poor. Yaqub says no such saying is in any collection - Fuad wrote it himself.",
+     "choices": [
+      {
+       "label": "Take Fuad to the scholars of the paper market",
+       "go": "scholars",
+       "fx": {
+        "trust": 10,
+        "flag": [
+         "fake_exposed",
+         "waraka_done"
+        ],
+        "say": "exposed"
+       }
+      },
+      {
+       "label": "Quietly warn the buyers",
+       "go": "warn",
+       "fx": {
+        "trust": 6,
+        "flag": "waraka_done",
+        "say": "warned"
+       }
+      },
+      {
+       "label": "Not your business",
+       "go": "leave",
+       "fx": {
+        "flag": "waraka_done"
+       }
+      }
+     ]
+    },
+    "scholars": {
+     "text": "The scholars ask Fuad where each saying comes from. He has no answer. They take his strips and burn them in the courtyard, and tell the people why.",
+     "end": true
+    },
+    "warn": {
+     "text": "You tell the people at Fuad's stall what Yaqub told you. Some put their coins back in their purses.",
+     "end": true
+    },
+    "leave": {
+     "text": "Fuad sells out by noon.",
+     "end": true
+    }
+   },
+   "say": {
+    "exposed": [
+     "Exposed the man selling false sayings",
+     "the scholars of Waraka",
+     1
+    ],
+    "warned": [
+     "Warned buyers about false sayings",
+     "the paper market",
+     1
+    ]
+   }
+  }
+ ]
+}

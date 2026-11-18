@@ -686,6 +686,18 @@ The Gate of Knowledge opens at 40% journey progress.
 Run the focused rules checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --tahuna-only`.
 
+## LOCK 46 V1 — Waraka, the copyist and the fake hadith seller
+
+The **Road map** reaches Waraka through the Gate of Knowledge at 40% journey progress.
+In Waraka, read a copy back for Yaqub, then deal with Fuad's false sayings.
+**What Waraka says** records the local accounts those choices earn. Talk to Yaqub, Fuad
+and Zaynab during their hours, work at the pulp vats, pray at the paper-makers' masjid
+or rest at the inn. The two missions save completion. Their Chapter 4 Journal rows
+come with the locked chapter data.
+
+Run the focused rules checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --waraka-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from
