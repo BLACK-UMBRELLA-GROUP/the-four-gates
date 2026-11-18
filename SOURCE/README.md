@@ -1154,3 +1154,16 @@ River Market records the short measure and Sahila records late payment.
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --businesses-only`.
+
+## LOCK 92 — Four endowments (waqf)
+
+Endow a shelf at the House of Learning after meeting the librarian, or a room at the River Market
+inn after finishing Chapter 2. The hospital bed and the new well open in the Shifara and Birana hubs
+after their local stories. Each offer follows its place's hours and closes after Back from any ending.
+
+Reading the first scholar's page unlocks the unnamed gift at each offer once you have the coins.
+A named gift earns local trust and an account in **What people say**. Both gifts count toward
+**Endowments (waqf)** in the private **Journal**. **Not now** records completion without a gift.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --waqf-only`.

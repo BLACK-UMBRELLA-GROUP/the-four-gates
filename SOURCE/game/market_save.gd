@@ -70,12 +70,15 @@ static func snapshot(game: Node3D) -> Dictionary:
 	return state.duplicate(true)
 
 
-static func save_slot(game: Node3D, path: String) -> Error:
+static func save_slot(game: Node3D, path: String, runner_ending: Array[String] = []) -> Error:
 	var directory := ProjectSettings.globalize_path(path).get_base_dir()
 	var result := DirAccess.make_dir_recursive_absolute(directory)
 	if result != OK:
 		return result
-	var payload := var_to_bytes(snapshot(game))
+	var state := snapshot(game)
+	if not runner_ending.is_empty():
+		state["runner_ending"] = runner_ending
+	var payload := var_to_bytes(state)
 	# Keep the previous slot until its replacement has been written and closed.
 	var pending := "%s.pending-%d" % [path, OS.get_process_id()]
 	var file := FileAccess.open(pending, FileAccess.WRITE)

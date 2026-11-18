@@ -1,0 +1,19 @@
+{
+  "line": 99,
+  "result": "passed",
+  "checks_passed": {
+    "lock_92": 305,
+    "focused": 504,
+    "headless_full_suite": 18197
+  },
+  "coverage": [
+    "The production index loads the byte-identical LOCK 92 V1 data. All sixteen scenes use the locked titles, kickers, paragraphs and action wording.",
+    "The installed House of Learning, Chapter 2 ending, Shifara story and Birana permit scenes grant the four prerequisite flags. Earlier progress is seeded in tests. Offers appear only at the authored market place or town hub and within the authored hours, including opening and closing boundaries.",
+    "Both gift buttons are hidden one coin short. At the exact cost the named gift is available and the unnamed gift also appears after reading page 1 and learning sirr. Direct dispatch enforces both guards. The current Godot buttons preserve the locked choice order.",
+    "A named gift charges the exact locked amount, adds five local trust and records exactly one account by the authored witness. Unnamed gifts charge the same amount without any trust or account. Both gifts increment the one private Endowments (waqf) goal, which is rendered at 0 / 4 and 4 / 4.",
+    "Not now spends nothing and adds no trust, sayings or count. Back from any ending records completion and closes its offer permanently. The existing chapters and side mission tally stay intact.",
+    "Saving from a reminder pause before Back resumes the ending without replaying its effects. Saving after completing all four gifts retains the goal and completion state."
+  ],
+  "visual_reference": "All sixteen approved oe01–oe16 masters are 1920 × 1080 and were checked for wording and visible action order. Q15 and Q51 Layout B (R11) use the existing Godot layout with headless evidence.",
+  "scholar_review": "DOC-TFG-0320 row 69, open before public release (OA-AIOS-432)."
+}

@@ -1,0 +1,127 @@
+{
+  "line": 99,
+  "lock": "LOCK 92 V1",
+  "brief": "DOC-TFG-0288",
+  "tested_base_commit_sha": "1faa7baca8b1cbc318d23fdb4634e49be269490b",
+  "tested_source": "Base commit plus hashed source changes. The 18 November daily task note identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T15:16:44+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --waqf-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_92": 305,
+    "focused": 504,
+    "headless_full_suite": 18197
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/WAQF/BRIEFS/BUILD_BRIEF_2026-11-09_WAQF.md": {
+      "bytes": 3307,
+      "sha256": "22900111464e28704363c60c2279686c9f341dd21cfc73ed1489c739142e6d63"
+    },
+    "GAME/APPROVED/WAQF/RECORD/LOCK_RECORD.md": {
+      "bytes": 912,
+      "sha256": "05e38e39045f8daaafb3dd804c25f8682547651b3e393ca710b960d344f263c1"
+    },
+    "GAME/APPROVED/WAQF/RECORD/WAQF_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 6000,
+      "sha256": "94673a127550974a19fc0f8a4e70e2397226c6adf501fc40a3407e7b98709b0d"
+    },
+    "GAME/APPROVED/WAQF/RECORD/waqf_data_V1.json": {
+      "bytes": 6428,
+      "sha256": "632ce48585a7131340455016ce13f6c1543c06d0627be50bf741d2eeefbbbc72"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe01_waqf_library__a.png": {
+      "bytes": 318772,
+      "sha256": "078a1e6b0279bbdf03505abbf29cfce2c6319b9522cd656a44de21507ad2dde9"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe02_waqf_library__named.png": {
+      "bytes": 314716,
+      "sha256": "b0b36b32f31d56d4503beff59ff220b44dc9a2568921b944d8584f5ac374e3d9"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe03_waqf_library__secret.png": {
+      "bytes": 314793,
+      "sha256": "e606ab87af2f58edb1ca1f7bc969741aa1ea5d0d00bb6adc1392a6b535fc7f98"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe04_waqf_library__no.png": {
+      "bytes": 313840,
+      "sha256": "d2e2cfd661b46836907977dc5ea2c190f980e8adf513b5c69053be3fee804cae"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe05_waqf_guesthouse__a.png": {
+      "bytes": 316393,
+      "sha256": "840077193058dfa4664bd7c4384cc3ebadd69f666738493af6cfd27fc3c8c672"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe06_waqf_guesthouse__named.png": {
+      "bytes": 314268,
+      "sha256": "e3ea9c71d80a105e6d0e53881dad8a01f610d4acc9f7e9bbf94f4a5727857e4a"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe07_waqf_guesthouse__secret.png": {
+      "bytes": 314631,
+      "sha256": "ec2ac25a8459f79252d449687d5a0c445bccf1436b6d634ecda87e6f1f95bb3b"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe08_waqf_guesthouse__no.png": {
+      "bytes": 313077,
+      "sha256": "1caf529851fee935119c3f317d7a686445d9b579186e7327ea8f30165d0a2773"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe09_waqf_hospital__a.png": {
+      "bytes": 257009,
+      "sha256": "095ec5742bb9d5c464e041ed259291d453320375391b0d3654c75cd889296ebd"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe10_waqf_hospital__named.png": {
+      "bytes": 272387,
+      "sha256": "49c8b079638d21bdd4bea0f78197bef0125f51514cae597afdeffac78d9975de"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe11_waqf_hospital__secret.png": {
+      "bytes": 272432,
+      "sha256": "3b48ca830663435e63191b5c7c943402b6a5aba199253498a9dd8148318a5266"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe12_waqf_hospital__no.png": {
+      "bytes": 269546,
+      "sha256": "626ed24a3acd58789bd2fa3c96e3f007f5db7dbc4ccf004b85424f57d12bad04"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe13_waqf_well__a.png": {
+      "bytes": 255253,
+      "sha256": "aa6f3ebc75bdbe078cf15f5bacdaa6fc58f2dee4f3d3ac85b81af855db455b6c"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe14_waqf_well__named.png": {
+      "bytes": 270569,
+      "sha256": "eb16d630b0db5c80728d5096b49f3b9df04f5367cf6dfa6455e1cdeae64a3b9d"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe15_waqf_well__secret.png": {
+      "bytes": 270494,
+      "sha256": "12531c1034108b97d6a8785b26997b4a26991ae9dda451c2cbedf902e2316243"
+    },
+    "GAME/APPROVED/WAQF/MASTERS/oe16_waqf_well__no.png": {
+      "bytes": 270260,
+      "sha256": "2b23f75584a24faaa4d8fbd4915cff39fcd1b5b016269081a4dc176f67d07e72"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 1380,
+      "sha256": "7a7b740e19a5817312e0d6e7fb9f17d5d61f4cdfd4c5811d1cd34a37989f55ff"
+    },
+    "SOURCE/data/waqf.json": {
+      "bytes": 6428,
+      "sha256": "632ce48585a7131340455016ce13f6c1543c06d0627be50bf741d2eeefbbbc72"
+    },
+    "SOURCE/game/market_save.gd": {
+      "bytes": 7081,
+      "sha256": "473cad41893f28b94cf79aeb1439ff32823a8b84c4cdf34e7c16f26d498dd70d"
+    },
+    "SOURCE/game/river_market.gd": {
+      "bytes": 71534,
+      "sha256": "298a09f6e54e615b48d56719613e8162a2f528d9c37da23f887d39ba12227100"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 909601,
+      "sha256": "7cce78c9c0eba83682fa0c22ca5b2e2be709175dc6a43ce19fa4e05f0ee9e8c5"
+    }
+  }
+}

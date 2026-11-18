@@ -289,6 +289,10 @@ func _run() -> void:
 		await check_businesses_runtime()
 		finish()
 		return
+	if "--waqf-only" in OS.get_cmdline_user_args():
+		await check_waqf_runtime()
+		finish()
+		return
 	if "--truth-only" in OS.get_cmdline_user_args():
 		await check_truth_runtime()
 		finish()
@@ -450,6 +454,7 @@ func _run() -> void:
 	await check_finale_ending_runtime()
 	await check_land_and_house_runtime()
 	await check_businesses_runtime()
+	await check_waqf_runtime()
 	finish()
 
 
@@ -8888,6 +8893,228 @@ func _check_orchard_and_harvest(orchard: Dictionary, harvest: Dictionary) -> voi
 	check(find_button(app.ui, harvest.button) == null, "selling also starts a fresh 30-day interval")
 	set_market_day_time(DAY + 93, MORNING)
 	check(find_button(app.ui, harvest.button) != null, "the third harvest opens from the second completion date")
+
+
+func check_waqf_runtime() -> void:
+	const DAY := 8
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/WAQF/RECORD/waqf_data_V1.json")
+	check(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/waqf.json"),
+		"the runtime waqf pack is byte-identical to LOCK 92")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = approved is Dictionary and approved.missions.size() == 4 and approved.missions.all(
+		func(mission: Dictionary) -> bool: return runner.missions.get(mission.id) == mission)
+	check(loaded, "the production index loads all four locked endowments")
+	if not loaded:
+		return
+
+	var previous := MarketSave.snapshot(app)
+	var original_storage: String = app.storage_directory
+	app.storage_directory = original_storage.path_join("waqf")
+	app.set_process(false)
+	reset_at_market_place("centre", 300, DAY)
+	app.progress.trust = 50
+	var goal: Dictionary = approved.goals[0]
+	var goal_row := {"label": goal.label, "n": 0, "m": int(goal.m)}
+	check(runner.data.goals.count(goal) == 1 and goal_row in runner.journal(app).goals,
+		"the loaded Journal counts zero of four endowments in a new game")
+	await _check_runner_journal_goal(runner.data.words, goal_row)
+
+	await _check_waqf_offer(approved.missions[0], runner.missions.house_of_learning, 0, goal, DAY)
+	await _check_waqf_offer(approved.missions[3], runner.missions.long_wait, 1, goal, DAY)
+	await _check_waqf_offer(approved.missions[1], runner.missions.patience_home, 0, goal, DAY)
+	await _check_waqf_offer(approved.missions[2], runner.missions.doctor_secret, 0, goal, DAY)
+
+	app.restore_runner_town("")
+	move_market_fixture("centre")
+	goal_row.n = goal_row.m
+	await _check_runner_journal_goal(runner.data.words, goal_row)
+	var save_path: String = app.storage_directory.path_join("completed.save")
+	check(MarketSave.save_slot(app, save_path) == OK, "save all four completed endowments")
+	var complete := MarketSave.read_slot(save_path)
+	check(not complete.is_empty(), "read the completed endowments from disk")
+	if not complete.is_empty():
+		app.begin_game()
+		MarketSave.restore(app, complete)
+		app.show_screen("market_map")
+	check(not complete.is_empty() and goal_row in runner.journal(app).goals and approved.missions.all(
+		func(mission: Dictionary) -> bool: return runner.mission_done(app, mission.id)),
+		"save and load retain the four gifts and completions")
+	app.storage_directory = original_storage
+	MarketSave.restore(app, previous)
+	app.show_screen("market_map")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 92 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_waqf_offer(mission: Dictionary, prerequisite: Dictionary, prerequisite_choice: int,
+		goal: Dictionary, day: int) -> void:
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var town: String = mission.get("town", "river_market")
+	var hub := "market_map" if town == "river_market" else "runner_town"
+	app.restore_runner_town("")
+	move_market_fixture(mission.get("place", "centre"))
+	if town != "river_market":
+		app.enter_runner_town(town)
+	set_market_day_time(day, 600)
+	check(find_button(app.ui, mission.button) == null, "%s starts hidden without its prerequisite" % mission.id)
+	app._runner_action("mission", mission)
+	check(app.ui.screen == hub, "%s cannot open directly without its prerequisite" % mission.id)
+
+	# Seed earlier story progress, then earn the prerequisite from the installed producer.
+	var progress := runner.state()
+	for flag: String in prerequisite.after:
+		progress.flags[flag] = day
+	runner.restore(progress)
+	if town == "river_market":
+		move_market_fixture(prerequisite.place)
+	else:
+		app.update_state()
+	app.progress.coins = 300
+	await press_button(prerequisite.button, "open the live prerequisite for " + str(mission.id))
+	await press_button(prerequisite.scenes[prerequisite.start].choices[prerequisite_choice].label,
+		"earn " + str(mission.after[0]) + " through its live choice")
+	if app.ui.screen == "runner_mission":
+		await press_button(words.scene_back, "leave the prerequisite ending")
+	check(runner.has_flag(app, mission.after[0]), "%s receives its actual prerequisite" % mission.id)
+	if town == "river_market":
+		var wrong_place := "inn" if mission.place == "centre" else "centre"
+		move_market_fixture(wrong_place)
+		check(find_button(app.ui, mission.button) == null, "%s is absent at the other market place" % mission.id)
+		move_market_fixture(mission.place)
+	else:
+		await press_button(app.road_map.data.words.map_button, "leave the town hub for the Road map")
+		check(find_button(app.ui, mission.button) == null, "%s is absent outside the town hub" % mission.id)
+		await press_button(app.road_map.data.words.back, "return from the Road map to the correct hub")
+	_check_business_hours(mission, day)
+	set_market_day_time(day, 600)
+	var ready := MarketSave.snapshot(app)
+	var choices: Array = mission.scenes[mission.start].choices
+	var named: Dictionary = choices[0]
+	var secret: Dictionary = choices[1]
+	var decline: Dictionary = choices[2]
+	var cost := int(named.need_coins)
+
+	app.progress.coins = cost - 1
+	app.update_state()
+	await press_button(mission.button, "open " + str(mission.id) + " one coin short")
+	_check_runner_scene_copy(mission, mission.start)
+	check(find_button(app.ui, named.label) == null and find_button(app.ui, secret.label) == null,
+		"both paid buttons are hidden one coin short")
+	_check_town_hub_button_order([decline.label], "only Not now is available one coin short")
+	var before_decline := runner.state()
+	app._runner_action("choice", named)
+	app._runner_action("choice", secret)
+	check(app.runner_scene() == mission.scenes[mission.start] and app.progress.coins == cost - 1
+		and runner.state() == before_decline, "neither unaffordable gift can bypass the choice guard")
+	await _check_waqf_ending(mission, decline, goal, town, hub)
+
+	MarketSave.restore(app, ready)
+	app.restore_runner_town("")
+	move_market_fixture("inn")
+	await press_button(app.chapter.places.inn, "open the LOCK 3 purse at the inn")
+	await press_button(app.chapter.purse.ask_baker, "Salma finds page 1")
+	var take_page: String = str(app.chapter.purse.take_page).format({"teacher": app.chapter.teacher})
+	await press_button(take_page, "read page 1 and learn sirr")
+	check(runner.has_flag(app, "sirr") and app.open_purse.page_read, "the live first page teaches sirr")
+	await press_button(app.chapter.page.back, "return to the inn after reading")
+	await press_button(app.chapter.purse.not_now, "return to the market")
+	if town == "river_market":
+		move_market_fixture(mission.place)
+	else:
+		app.enter_runner_town(town)
+	set_market_day_time(day, 600)
+	app.progress.coins = cost - 1
+	app.update_state()
+	await press_button(mission.button, "open the offer after learning sirr")
+	check(find_button(app.ui, named.label) == null and find_button(app.ui, secret.label) == null,
+		"both paid buttons stay hidden one coin short after learning sirr")
+	_check_town_hub_button_order([decline.label], "learning sirr does not permit an unaffordable gift")
+	app.progress.coins = cost
+	app.update_state()
+	_check_town_hub_button_order([named.label, secret.label, decline.label],
+		"exact funds and sirr show all choices in the locked order")
+	app.progress.coins = cost + 1
+	await _check_waqf_ending(mission, secret, goal, town, hub)
+
+	MarketSave.restore(app, ready)
+	app.progress.coins = cost
+	app.show_screen(hub)
+	await press_button(mission.button, "open the offer with exact funds before learning sirr")
+	check(not runner.has_flag(app, "sirr"), "the named branch starts before reading page 1")
+	check(find_button(app.ui, secret.label) == null, "the unnamed gift is hidden before learning sirr")
+	_check_town_hub_button_order([named.label, decline.label], "only the named gift opens before sirr")
+	app._runner_action("choice", secret)
+	check(app.runner_scene() == mission.scenes[mission.start] and app.progress.coins == cost,
+		"direct choice dispatch cannot bypass sirr even with enough coins")
+	app.progress.coins = cost + 1
+	await _check_waqf_ending(mission, named, goal, town, hub)
+
+
+func _check_waqf_ending(mission: Dictionary, choice: Dictionary, goal: Dictionary, town: String, hub: String) -> void:
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var expected := runner.state()
+	var journal := runner.journal(app)
+	var coins: int = app.progress.coins
+	var market_trust: int = app.progress.trust
+	var local_trust := runner.town_trust(app, town)
+	var minute: int = app.minute_of_day
+	var day: int = app.day
+	var effects: Dictionary = choice.get("fx", {})
+	var trust_change := int(effects.get("trust", 0))
+	var account: Array = mission.say.get(effects.get("say", ""), [])
+	if trust_change != 0 and town != "river_market":
+		expected.trust[town] = local_trust + trust_change
+	if not account.is_empty():
+		var sayings: Array = expected.sayings.get(town, [])
+		expected.sayings[town] = sayings + [account]
+	if effects.has("count"):
+		expected.counters[goal.id] = int(expected.counters.get(goal.id, 0)) + int(effects.count[goal.id])
+		for row: Dictionary in journal.goals:
+			if row.label == goal.label:
+				row.n = expected.counters[goal.id]
+
+	await press_button(choice.label, "%s takes the %s branch" % [mission.id, choice.go])
+	_check_runner_scene_copy(mission, choice.go)
+	_check_town_hub_button_order([words.scene_back], "the ending offers Back")
+	check(runner.state() == expected and runner.journal(app) == journal
+		and not runner.mission_done(app, mission.id), "the branch applies only its locked effects before Back")
+	check(app.progress.coins == coins + int(effects.get("coins", 0))
+		and app.progress.trust == market_trust + (trust_change if town == "river_market" else 0)
+		and runner.town_trust(app, town) == local_trust + trust_change
+		and app.day == day and app.minute_of_day == minute,
+		"the branch changes only its locked coins and local trust")
+	if choice.go == "named":
+		app._answer_reminder(true)
+		await press_button(app.menus.pause.quit, "save and quit after paying but before Back")
+		var continue_text: String = str(app.menus.title_continue).format({"d": app.ui.continue_date})
+		await press_button(continue_text, "resume the saved endowment ending")
+		check(app.runner_scene() == mission.scenes[choice.go] and runner.state() == expected
+			and app.progress.coins == coins + int(effects.coins) and not runner.mission_done(app, mission.id),
+			"resuming an interrupted ending retains the exact charge and leaves Back available")
+	await press_button(words.scene_back, "leave the " + str(choice.go) + " ending")
+	expected.done[mission.id] = day
+	check(app.ui.screen == hub and runner.state() == expected and runner.journal(app) == journal
+		and runner.mission_done(app, mission.id), "Back only records completion and returns to the original hub")
+	set_market_day_time(day + 1, minute)
+	check(find_button(app.ui, mission.button) == null, "every ending, including Not now, closes the offer permanently")
+	app._runner_action("mission", mission)
+	check(app.ui.screen == hub and runner.state() == expected, "direct dispatch cannot repeat a completed offer")
+	if account.is_empty():
+		return
+	if town == "river_market":
+		await press_button(app.chapter.purse.morning.to_rep, "open River Market What people say")
+		check(app.ui.reputation_lines().count(account) == 1, "one named gift creates exactly one market account")
+		check_reputation_row(account)
+		await press_button(app.chapter.rep.to_map, "return to the market")
+	else:
+		await _check_town_sayings(town, runner.town_sayings(town, app), words)
 
 
 func check_businesses_runtime() -> void:

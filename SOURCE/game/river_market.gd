@@ -687,7 +687,11 @@ func _update_mouse_mode() -> void:
 func save_game(quit_to_title: bool) -> void:
 	if ui.screen != "pause":
 		return
-	var error := MarketSave.save_slot(self, storage_directory.path_join(SAVE_FILENAME))
+	var runner_ending: Array[String] = []
+	if _pause_return == "runner_mission" and runner_scene().get("end", false):
+		# A prayer reminder can pause an ending after choice effects but before Back.
+		runner_ending = [_runner_mission_id, _runner_scene_id]
+	var error := MarketSave.save_slot(self, storage_directory.path_join(SAVE_FILENAME), runner_ending)
 	if error != OK:
 		push_error("Could not save the game: " + error_string(error))
 		return
@@ -706,6 +710,16 @@ func continue_game() -> void:
 		show_screen("title")
 		return
 	MarketSave.restore(self, saved)
+	var runner_ending: Variant = saved.get("runner_ending", [])
+	if runner_ending is Array and runner_ending.size() == 2:
+		var mission: Dictionary = scene_runner.missions.get(runner_ending[0], {})
+		var scene: Dictionary = mission.get("scenes", {}).get(runner_ending[1], {})
+		if scene.get("end", false):
+			_runner_origin = _runner_hub()
+			_runner_mission_id = mission.id
+			_runner_scene_id = runner_ending[1]
+			show_screen("runner_mission")
+			return
 	show_screen(_runner_hub())
 
 
