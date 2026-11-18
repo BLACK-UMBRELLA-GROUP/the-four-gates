@@ -1036,3 +1036,13 @@ These scenes leave trust unchanged.
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --house-of-learning-only`.
+
+## LOCK 82 — Monday and Thursday fasts
+
+At the River Market inn on Mondays and Thursdays from 04:00 up to 04:45,
+choose **Eat suhoor and fast today**. **Eat and make the intention to fast**
+advances the clock by 15 minutes and counts once that day towards the private
+Journal goal of 100. The choice leaves trust and coins unchanged.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --voluntary-fasts-only`.

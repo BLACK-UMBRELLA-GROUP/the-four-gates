@@ -253,6 +253,10 @@ func _run() -> void:
 		await check_house_of_learning_runtime()
 		finish()
 		return
+	if "--voluntary-fasts-only" in OS.get_cmdline_user_args():
+		await check_voluntary_fasts_runtime()
+		finish()
+		return
 	await check_six_gates_runtime()
 	if "--six-gates-only" in OS.get_cmdline_user_args():
 		finish()
@@ -384,6 +388,7 @@ func _run() -> void:
 	await check_surahs_runtime()
 	await check_prophets_stories_runtime()
 	await check_house_of_learning_runtime()
+	await check_voluntary_fasts_runtime()
 	await check_road_map_runtime()
 	await check_sahila_runtime()
 	await check_sukara_runtime()
@@ -7861,6 +7866,93 @@ func check_house_of_learning_runtime() -> void:
 	app.set_process(true)
 	var added_failures := failures - failures_before
 	print("LOCK 81 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func check_voluntary_fasts_runtime() -> void:
+	const THURSDAY := 8
+	const MONDAY := THURSDAY + 4
+	const TRUST := 50
+	const COINS := 198
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/VOLUNTARY_FASTS/RECORD/voluntary_fasts_data_V1.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/voluntary_fasts.json") == locked,
+		"the runtime voluntary fasts data is byte-identical to LOCK 82")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = approved is Dictionary and approved.missions.size() == 1 \
+		and runner.missions.get("voluntary_fast") == approved.missions[0]
+	check(loaded, "the production index loads the locked voluntary fast mission")
+	if not loaded:
+		return
+
+	var mission: Dictionary = approved.missions[0]
+	var scene: Dictionary = mission.scenes[mission.start]
+	var choice: Dictionary = scene.choices[0]
+	var goal: Dictionary = approved.goals[0]
+	var words: Dictionary = runner.data.words
+	var goal_row := {"label": goal.label, "n": 0, "m": int(goal.m)}
+	var opening := int(mission.hours[0])
+	app.set_process(false)
+	reset_at_market_place(mission.place, COINS, THURSDAY)
+	app.progress.apply_trust(TRUST - app.progress.trust)
+
+	var expected_journal := runner.journal(app)
+	var goal_index: int = expected_journal.goals.find(goal_row)
+	check(goal_index >= 0 and runner.data.goals.count(goal) == 1,
+		"the locked voluntary fasts goal starts at zero and occurs once")
+	await _check_runner_journal_goal(words, goal_row)
+
+	for day in range(THURSDAY, THURSDAY + 7):
+		set_market_day_time(day, opening)
+		var available := day in [THURSDAY, MONDAY]
+		check((find_button(app.ui, mission.button) != null) == available,
+			"the suhoor choice observes the weekday filter on in-game day %d" % day)
+	_check_runner_mission_hours(mission, THURSDAY)
+	_check_runner_mission_hours(mission, MONDAY)
+
+	var expected := runner.state()
+	for day: int in [THURSDAY, MONDAY]:
+		var origin := "market_map" if day == THURSDAY else "game"
+		var minute := int(mission.hours[1]) - 1 if day == THURSDAY else opening
+		set_market_day_time(day, minute)
+		app.show_screen(origin)
+		await press_button(mission.button, "open the voluntary fast on day %d" % day)
+		_check_single_runner_choice(mission, scene, choice, approved.design_reference_not_shown[mission.id])
+		check(runner.state() == expected and app.minute_of_day == minute,
+			"opening the suhoor scene has no effects")
+		await press_button(choice.label, "eat and make the intention to fast")
+		goal_row.n += 1
+		expected.done[mission.id] = day
+		expected.counters[goal.id] = goal_row.n
+		check(runner.state() == expected and runner.mission_done(app, mission.id),
+			"the choice updates only the private fast count and completion day")
+		check(app.ui.screen == origin and app.day == day and app.minute_of_day == minute + 15,
+			"the choice advances the clock 15 minutes and returns to the entry view")
+		check_wallet(TRUST, COINS, "a voluntary fast leaves trust and coins unchanged")
+		set_market_day_time(day, opening)
+		check(find_button(app.ui, mission.button) == null, "the fast cannot count twice on the same day")
+
+		if goal_index >= 0:
+			expected_journal.goals[goal_index] = goal_row.duplicate()
+		check(runner.journal(app) == expected_journal, "only the private voluntary fast goal advances")
+		await _check_runner_journal_goal(words, goal_row)
+		var saved := MarketSave.snapshot(app)
+		app.begin_game()
+		MarketSave.restore(app, saved)
+		app.show_screen("market_map")
+		check(runner.state() == expected and runner.journal(app) == expected_journal
+			and find_button(app.ui, mission.button) == null,
+			"loading preserves the private count and same-day limit")
+		check_wallet(TRUST, COINS, "loading preserves trust and coins")
+
+	set_market_day_time(THURSDAY + 7, opening)
+	check(find_button(app.ui, mission.button) != null, "the next Thursday opens after saving and reloading")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 82 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
 		" passed; failures=", added_failures)
 
 

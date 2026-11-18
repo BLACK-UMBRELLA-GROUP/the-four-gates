@@ -1,0 +1,79 @@
+{
+  "line": 89,
+  "lock": "LOCK 82 V1",
+  "brief": "DOC-TFG-0258",
+  "questions_answer_rows": [
+    15,
+    41
+  ],
+  "tested_base_commit_sha": "2cb72a7940f17335b7496b6fd57e310d15c70444",
+  "tested_source": "The tested base with the source changes identified below. The 18 November task note identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T13:14:06Z",
+  "checks_passed": {
+    "headless_full_suite": 16955,
+    "headless_focused_suite": 275,
+    "lock_82_subset": 76
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/VOLUNTARY_FASTS/BRIEFS/BUILD_BRIEF_2026-11-09_VOLUNTARY_FASTS.md": {
+      "bytes": 2884,
+      "sha256": "64d630f4b919ee9113beef68c4ca8f3a1136067da0c03e101aedad8077449b9a"
+    },
+    "GAME/APPROVED/VOLUNTARY_FASTS/MASTERS/di01_voluntary_fast__a.png": {
+      "bytes": 271285,
+      "sha256": "421cec852573b52afa1b86e7bec9570428acd2537f2fcb05924d42f6a5214432"
+    },
+    "GAME/APPROVED/VOLUNTARY_FASTS/RECORD/VOLUNTARY_FASTS_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3122,
+      "sha256": "9db6832850d3526ef5ac885acdfcfff399ba0d36e449ac8ba0ae28071a1e8376"
+    },
+    "GAME/APPROVED/VOLUNTARY_FASTS/RECORD/LOCK_RECORD.md": {
+      "bytes": 751,
+      "sha256": "4a396321b4fd1d584269059203dd661d91a0327570f3f62be0ecff07fa596870"
+    },
+    "GAME/APPROVED/VOLUNTARY_FASTS/RECORD/voluntary_fasts_data_V1.json": {
+      "bytes": 1105,
+      "sha256": "e23479ba763e909d09895186708c069bd40e151aff80802502fa990a288fb888"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 65286,
+      "sha256": "a4ea72fc20f258945e1e1c28681b637f49eac21e0964e533cc9ac4d23ced56a0"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1167,
+      "sha256": "47e1ab21b3fe143640f28f7a3e13b4df7eda45802974b117470884de18ce2886"
+    },
+    "SOURCE/data/voluntary_fasts.json": {
+      "bytes": 1105,
+      "sha256": "e23479ba763e909d09895186708c069bd40e151aff80802502fa990a288fb888"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 18634,
+      "sha256": "7ab439a7d68fd784a3566fee1cbea59351b8a38857c9a5ed93dd71e12f1e8575"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 816002,
+      "sha256": "47b6f31976b5f9ee8f1d7a0300108f47164ac6a857a8c00b44d92690edb23fe4"
+    }
+  },
+  "legacy_suite_reference_at_test": {
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/scene_runner_data_V2.json": {
+      "bytes": 2496,
+      "sha256": "b1c9cb7a12ec13ec491cd33e4170f96890a4d4b3f06863373c1edb2d8b769bdf"
+    }
+  },
+  "evidence": {
+    "LINE89_CHECKS.json": {
+      "bytes": 2019,
+      "sha256": "a454fd71503428400c3d3dd75860af411544a9ac4cf89c00029b97f129b9454c"
+    }
+  }
+}

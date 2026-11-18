@@ -237,6 +237,11 @@ func _mission_available(app, mission: Dictionary, town: String) -> bool:
 		return false
 	if mission.get("friday", false) and not app.clock.is_friday():
 		return false
+	if mission.has("days"):
+		# The clock counts from day 1. R1 counts from index 0 (Thursday).
+		var weekday := posmod(app.day - 1 + 4, 7)
+		if not mission.days.any(func(allowed: Variant) -> bool: return int(allowed) == weekday):
+			return false
 	if not _within_hours(int(app.minute_of_day), mission.get("hours", [])):
 		return false
 	if town_trust(app, town) < int(mission.get("min_trust", 0)):

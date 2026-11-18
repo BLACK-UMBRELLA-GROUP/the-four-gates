@@ -1,0 +1,43 @@
+{
+  "line": 89,
+  "lock": "LOCK 82 V1",
+  "headless_runs": {
+    "focused": {
+      "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --voluntary-fasts-only",
+      "exit_code": 0,
+      "passed": 275,
+      "total": 275,
+      "failures": 0
+    },
+    "full": {
+      "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+      "exit_code": 0,
+      "passed": 16955,
+      "total": 16955,
+      "failures": 0
+    }
+  },
+  "lock_82": {
+    "passed": 76,
+    "total": 76,
+    "failures": 0
+  },
+  "results": {
+    "data": "The production index loads the byte-identical mission and its private Journal goal.",
+    "availability": "The River Market inn offers the mission on Monday and Thursday from 04:00 inclusive to 04:45 exclusive. All weekdays, both time boundaries on both eligible days, and the wrong place and town were tested.",
+    "scene_copy": "The entry button, kicker, title, scene copy and sole choice match the approved data. The design reference stays outside the scene.",
+    "effects": "Opening the scene has no effects. Choosing the action returns to the entry view, advances the clock by 15 minutes, adds one fast and completes the mission for that day. Trust, coins, flags and public accounts are unaffected.",
+    "journal_and_save": "The private goal renders 0 / 100, 1 / 100 and 2 / 100. Chapter and side rows are unaffected. Save restoration preserves progress and the same-day limit. The next Thursday is available after restore."
+  },
+  "presentation": {
+    "questions_answer_rows": [
+      15,
+      41
+    ],
+    "master_review": "The 1920 × 1080 master matches the locked words and single action. Under Q41 and R11 the game uses the existing River Market layout with its compact choice. The master HUD is a set-up state.",
+    "native_windows": 0,
+    "native_screenshots": 0,
+    "exports": 0
+  },
+  "scholar_check": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md row 59 (OA-AIOS-432). Open for review before public release."
+}
