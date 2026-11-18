@@ -1242,3 +1242,17 @@ person has a Talk button in LOCK 6 order.
 
 Run the focused rules checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --regulars-routes-only`.
+
+## LOCK 100 — Sound
+
+**Settings** saves **Sound** and **Adhan** separately from the game save. Both
+start On. Turning Sound Off mutes all cues. Turning Adhan Off mutes the adhan
+cue alone and leaves the prayer notice visible.
+
+Silent placeholders mark prayer starts, changes to the coin balance, notebook
+page actions, and entry to the inn, dice house or your house. River Market uses
+a day or night cue. The Quay and Jisra use the river cue at all hours. Wadira,
+Nahla and Tahuna use the wind, bees and mill cues respectively.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --sound-only`.

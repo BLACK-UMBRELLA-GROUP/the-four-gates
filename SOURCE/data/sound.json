@@ -1,0 +1,52 @@
+{
+ "version": "LOCK 100 V1 (9 Nov 2026) - sound",
+ "sound": {
+  "label": "Sound",
+  "adhan": "Adhan",
+  "off": "Off",
+  "on": "On",
+  "keys": [
+   [
+    "adhan",
+    "the adhan at each prayer time (River Market masjid; towns: their masjid)"
+   ],
+   [
+    "market_day",
+    "market noise by day"
+   ],
+   [
+    "market_night",
+    "quiet night: crickets and the river"
+   ],
+   [
+    "river",
+    "water at the quay and in Jisra"
+   ],
+   [
+    "wind",
+    "wind in Wadira"
+   ],
+   [
+    "bees",
+    "bees in Nahla"
+   ],
+   [
+    "mill",
+    "the mill wheel in Tahuna"
+   ],
+   [
+    "coins",
+    "coins in your bag"
+   ],
+   [
+    "page",
+    "a page turning"
+   ],
+   [
+    "door",
+    "a door"
+   ]
+  ],
+  "note": "Placeholders only until sound is commissioned: each key plays silence or a short placeholder tone."
+ }
+}

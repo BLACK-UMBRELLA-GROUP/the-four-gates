@@ -37,6 +37,7 @@ const RoadMap = preload("res://game/road_map.gd")
 const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
 
 const MarketSave = preload("res://game/market_save.gd")
+const MarketSound = preload("res://game/market_sound.gd")
 const RealPrayerTimes = preload("res://game/real_prayer_times.gd")
 const PAUSE_SCREENS := ["pause", "settings"]
 const REMINDER_EXCLUDED_SCREENS := ["title", "all_prayers_title", "settings"]
@@ -96,6 +97,7 @@ var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
 var clock: PrayerClock
+var sound: MarketSound
 var ramadan: Ramadan
 var eid_al_fitr: EidAlFitr
 var eid_al_adha: EidAlAdha
@@ -160,6 +162,7 @@ func _ready() -> void:
 	gate_of_trust.setup(Foundations.load_gate_of_trust(), progress)
 	jisra_masjid = JisraMasjid.new(Foundations.load_jisra_masjid())
 	scene_runner = SceneRunner.new(SceneRunner.load_content())
+	sound = MarketSound.new(scene_runner.data.sound)
 	road_map = RoadMap.new(RoadMap.load_data())
 	zakat = Zakat.new(Foundations.load_zakat(), clock, progress)
 	pilgrims = Pilgrims.new(Foundations.load_pilgrims(), clock, progress)
@@ -201,6 +204,7 @@ func _ready() -> void:
 	ui = MarketUI.new()
 	add_child(ui)
 	ui.menus = menus
+	ui.sound_settings = scene_runner.data.sound
 	ui.reminder = reminder
 	ui.partnership = partnership
 	ui.gate_of_trust = gate_of_trust
@@ -251,7 +255,8 @@ func _ready() -> void:
 	ui.qurans_school_requested.connect(_show_qurans_school)
 	ui.qurans_school_paid.connect(_pay_qurans_school)
 	ui.calligraphy_requested.connect(_read_calligraphy)
-	clock.adhan_started.connect(_show_adhan)
+	clock.adhan_started.connect(_on_adhan_started)
+	progress.coins_changed.connect(func(): sound.play("coins"))
 	ui.use_requested.connect(use_place)
 	ui.goal_requested.connect(show_goal)
 	ui.destination_requested.connect(walk_to_place)
@@ -483,7 +488,11 @@ func update_state() -> void:
 	if not is_instance_valid(player) or not is_instance_valid(ui):
 		return
 	var town := runner_town_id()
+	var previous_place := current_place
 	current_place = town if not town.is_empty() else _nearest_market_place()
+	if current_place == "inn" and previous_place != "inn":
+		sound.play("door")
+	_update_ambience()
 	scene_runner.observe_builtin_flags(self)
 	if day != _daily_job_day:
 		_daily_job_day = day
@@ -500,6 +509,23 @@ func update_state() -> void:
 		for regular: Dictionary in talking.data.people:
 			world.set_regular_place(regular, talking.scheduled_place(regular))
 	ui.refresh(player.position, current_place, night, _salma_available())
+
+func _update_ambience() -> void:
+	if ui.screen in ["title", "all_prayers_title"] or (ui.screen == "settings" and _settings_return == "title"):
+		sound.set_ambience("")
+		return
+	var town := runner_town_id()
+	match town:
+		"":
+			if current_place == "quay":
+				sound.set_ambience("river")
+			else:
+				sound.set_ambience("market_night" if night else "market_day")
+		"jisra": sound.set_ambience("river")
+		"wadira": sound.set_ambience("wind")
+		"nahla": sound.set_ambience("bees")
+		"tahuna": sound.set_ambience("mill")
+		_: sound.set_ambience("")
 
 func _nearest_market_place() -> String:
 	var place := ""
@@ -518,6 +544,8 @@ func _load_settings() -> void:
 	if settings.load(storage_directory.path_join(SETTINGS_FILENAME)) == OK:
 		_large_text = settings.get_value("settings", "large_text", false) == true
 		_fast_walk = settings.get_value("settings", "fast_walk", false) == true
+		sound.enabled = settings.get_value("settings", "sound", true) == true
+		sound.adhan_enabled = settings.get_value("settings", "adhan", true) == true
 		_reminder_on = settings.get_value("prayer_reminder", "enabled", false) == true
 		var saved_city: Variant = settings.get_value("prayer_reminder", "city", "")
 		for index in reminder.cities.size():
@@ -534,6 +562,8 @@ func _load_settings() -> void:
 func _apply_settings() -> void:
 	ui.large_text = _large_text
 	ui.fast_walk = _fast_walk
+	ui.sound_on = sound.enabled
+	ui.adhan_on = sound.adhan_enabled
 	ui.reminder_on = _reminder_on
 	ui.reminder_city = _reminder_city
 	ui.reminder_hanafi = _reminder_hanafi
@@ -568,6 +598,14 @@ func change_menu_setting(setting: String, enabled: bool) -> void:
 			if not _write_setting("settings", setting, enabled):
 				return
 			_fast_walk = enabled
+		"sound":
+			if not _write_setting("settings", setting, enabled):
+				return
+			sound.enabled = enabled
+		"adhan":
+			if not _write_setting("settings", setting, enabled):
+				return
+			sound.adhan_enabled = enabled
 		"reminder_enabled":
 			if not _write_setting("prayer_reminder", "enabled", enabled):
 				return
@@ -595,6 +633,7 @@ func _refresh_settings() -> void:
 	_apply_settings()
 	_update_reminder_today(int(reminder_time_source.call()))
 	ui.show_screen("settings")
+	_update_ambience()
 
 
 func _write_setting(section: String, key: String, value: Variant) -> bool:
@@ -966,6 +1005,10 @@ func wait_until_next_prayer() -> void:
 	clock.wait_until_next_prayer()
 	update_state()
 
+func _on_adhan_started(message: String) -> void:
+	sound.play("adhan")
+	_show_adhan(message)
+
 func _show_adhan(message: String) -> void:
 	if _prayer_adhan == null:
 		ui.show_toast(message, ui.screen in ["market_map", "all_prayers"])
@@ -1215,6 +1258,7 @@ func read_page_one() -> void:
 			show_screen("purse_refused")
 			return
 		open_purse.page_read = true
+		sound.play("page")
 		known_words["sirr"] = true
 		_set_purse_scene_place("masjid")
 		show_screen("purse_page")
@@ -1393,8 +1437,7 @@ func open_dice_house() -> void:
 		return
 	_stop_travel()
 	if dice_house.invited:
-		if dice_house.enter():
-			show_screen("dice_house")
+		_enter_dice_house()
 	else:
 		dice_house.invited = true
 		show_screen("dice_invite")
@@ -1402,7 +1445,17 @@ func open_dice_house() -> void:
 
 func answer_dice_invitation(follow: bool) -> void:
 	if ui.screen == "dice_invite":
-		show_screen("dice_house" if follow and dice_house.enter() else "market_map")
+		if follow and _enter_dice_house():
+			return
+		show_screen("market_map")
+
+
+func _enter_dice_house() -> bool:
+	if not dice_house.enter():
+		return false
+	sound.play("door")
+	show_screen("dice_house")
+	return true
 
 
 func bet_at_dice_house(bet: int, roll_percent: int = -1) -> void:
@@ -1724,6 +1777,8 @@ func _runner_action(action: String, value: Variant) -> void:
 				show_screen("runner_masjid")
 		"work", "inn":
 			if at_hub:
+				if action == "inn" and scene_runner.inn_cost(town) >= 0:
+					sound.play("door")
 				var receipt: String = scene_runner.work(self, town) if action == "work" else scene_runner.rest(self, town)
 				update_state()
 				if not receipt.is_empty():
@@ -1740,6 +1795,10 @@ func _start_runner_mission(mission: Dictionary) -> void:
 	_runner_mission_id = mission.id
 	_runner_scene_id = mission.start
 	_stop_travel()
+	if mission.id == "sleep_home":
+		sound.play("door")
+	elif mission.get("kind") == "page_read":
+		sound.play("page")
 	show_screen("runner_mission")
 
 
@@ -1750,6 +1809,8 @@ func _choose_runner_scene(choice: Dictionary) -> void:
 	var scene := runner_scene()
 	if choice not in scene_runner.choices(self, mission, scene):
 		return
+	if mission.get("kind") == "page_find" or mission.id == "last_page":
+		sound.play("page")
 	var next: String = scene_runner.apply_choice(self, mission, choice, _runner_scene_id)
 	scene_runner.leave_scene(self, mission, scene)
 	if next.is_empty():

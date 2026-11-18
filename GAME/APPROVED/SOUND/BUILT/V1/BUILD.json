@@ -1,0 +1,83 @@
+{
+  "line": 107,
+  "lock": "LOCK 100 V1",
+  "brief": "DOC-TFG-0312",
+  "questions": [
+    "Q15",
+    "Q59"
+  ],
+  "tested_base_commit_sha": "dca7c652307c56bd54e3982d6c71a2f09d6844ec",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily report identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T17:00:32+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --sound-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "focused": 263,
+    "headless_full_suite": 20961
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SOUND/BRIEFS/BUILD_BRIEF_2026-11-09_SOUND.md": {
+      "bytes": 3103,
+      "sha256": "41df2c8ea50538d5e4b7d5cffaa694463ba2f1e40bb863484176dbd54f57eace"
+    },
+    "GAME/APPROVED/SOUND/RECORD/SOUND_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3027,
+      "sha256": "1c48d05e108c86ac28a0f8934ad4ea80bfb4ebd93b459c8f3b29c8849bd6d0c9"
+    },
+    "GAME/APPROVED/SOUND/RECORD/LOCK_RECORD.md": {
+      "bytes": 693,
+      "sha256": "d98f26c6f28a6dcfa82ac982d45b37762ff630b4eb3f2afde360750815f6431d"
+    },
+    "GAME/APPROVED/SOUND/RECORD/sound_data_V1.json": {
+      "bytes": 824,
+      "sha256": "ca42dc81546b078a7064ca3ff47c735548458f634f4e6ecfc55433673f43c468"
+    },
+    "GAME/APPROVED/SOUND/MASTERS/fc01_settings__sound_and_adhan.png": {
+      "bytes": 332453,
+      "sha256": "05707caf2b9c581cd7947b5d7e791c7d8f6cf8b52805b60bad05608edcf90a71"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "tested_changes": {
+    "SOURCE/README.md": {
+      "bytes": 75531,
+      "sha256": "293ed5900a9c938c198a13e9b9b3a99b9bc7816f388654acd25db6cd9d443dab"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1536,
+      "sha256": "a84050167b0c8b371ca367d77704cddf26c4c656149e280086afef1dd5eecbc6"
+    },
+    "SOURCE/data/sound.json": {
+      "bytes": 824,
+      "sha256": "ca42dc81546b078a7064ca3ff47c735548458f634f4e6ecfc55433673f43c468"
+    },
+    "SOURCE/game/market_sound.gd": {
+      "bytes": 695,
+      "sha256": "06e1d2dc4ef750ede05efdd728cca322faa4bf5b99f9c81ea281a64287519123"
+    },
+    "SOURCE/game/market_ui.gd": {
+      "bytes": 160298,
+      "sha256": "1cbd3f155e20309005833da86a9b795acd8a768329b3811fdace27204b51d278"
+    },
+    "SOURCE/game/river_market.gd": {
+      "bytes": 73922,
+      "sha256": "c45509d1f1749a93762ebd006d684aff8fb00ca974b36d1950ab132bd31284ef"
+    },
+    "SOURCE/game/task_progress.gd": {
+      "bytes": 3307,
+      "sha256": "21feb3a3ba79e4cc098a58e7e774203e3d96b9400b0760b6993b128e55803665"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 977084,
+      "sha256": "377801eb72d2d16dd10054d8bf377f310c54cba50fda89590a03f66904153b45"
+    }
+  },
+  "native_screenshot_count": 0
+}

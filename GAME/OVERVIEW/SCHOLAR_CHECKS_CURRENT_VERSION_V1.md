@@ -48,7 +48,7 @@ checked against sunnah.com / the Quran by the THE FOUR GATES chat (that is not a
 | 28 | SAHILA | DOC-TFG-0120 | LOCK 37 | A seller's agent's duty to disclose a defect | Set aside 9 Nov - OPEN |
 | 29 | SHIFARA | DOC-TFG-0154 | LOCK 48 | Review Sahih al-Bukhari 5728, Sahih Muslim 2699 and Quran 20:114 as design references. Check the portrayal of applying the plague rule to a fever and of keeping or disclosing a patient's private information. | Set aside 9 Nov - OPEN (before public release) |
 | 30 | SIDE_BROTHERS | DOC-TFG-0166 | LOCK 52 | How far “saying good” may go when making peace | Set aside 9 Nov - OPEN |
-| 31 | SOUND | DOC-TFG-0310 | LOCK 100 | Whether the adhan plays as a sound | Set aside 9 Nov - OPEN |
+| 31 | SOUND | DOC-TFG-0310 | LOCK 100 | Identify any applicable hadith and review the ruling on playing a recorded adhan in the game. Review the timing, use at the River Market and town masjids, and the Sound and Adhan settings. LOCK 100 uses a silent placeholder and cites no hadith. | Set aside 9 Nov - OPEN (before public release) |
 | 32 | SUKARA | DOC-TFG-0123 | LOCK 38 | The partnership terms and returning the principal only | Set aside 9 Nov - OPEN |
 | 33 | SURAHS | DOC-TFG-0247 | LOCK 79 | The meaning of each surah in plain words | Set aside 9 Nov - OPEN |
 | 34 | WADIRA | DOC-TFG-0133 | LOCK 41 | Tayammum when the little water left is needed for drinking | Set aside 9 Nov - OPEN |

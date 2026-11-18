@@ -240,6 +240,9 @@ var saved_date := ""
 var settings_has_hud := false
 var large_text := false
 var fast_walk := false
+var sound_settings: Dictionary
+var sound_on := true
+var adhan_on := true
 var text_multiplier := 1.0
 var _scale_panel := false
 var screen := "title"
@@ -867,24 +870,28 @@ func _build_pause() -> void:
 func _build_settings() -> void:
 	var copy: Dictionary = menus.settings
 	var prayer: Dictionary = reminder.settings
-	var panel := _menu_panel(copy.title, Vector2(660, 688 if reminder_on else 405))
+	var sound_rows_height := 146.0
+	var panel := _menu_panel(copy.title, Vector2(660, (688 if reminder_on else 405) + sound_rows_height))
 	_setting_row(panel, copy.text_size, "large_text", [copy.normal, copy.large], large_text, 89.0)
 	_setting_row(panel, copy.walk, "fast_walk", [copy.normal, copy.fast], fast_walk, 162.0)
-	_setting_row(panel, prayer.reminder, "reminder_enabled", [prayer.off, prayer.on], reminder_on, 235.0)
+	var sound_choices: Array = [sound_settings.off, sound_settings.on]
+	_setting_row(panel, sound_settings.label, "sound", sound_choices, sound_on, 235.0)
+	_setting_row(panel, sound_settings.adhan, "adhan", sound_choices, adhan_on, 308.0)
+	_setting_row(panel, prayer.reminder, "reminder_enabled", [prayer.off, prayer.on], reminder_on, 235.0 + sound_rows_height)
 	if reminder_on:
-		_build_reminder_settings(panel, prayer)
-	var back_y := 605.0 if reminder_on else 322.0
+		_build_reminder_settings(panel, prayer, sound_rows_height)
+	var back_y := (605.0 if reminder_on else 322.0) + sound_rows_height
 	_menu_button(panel, copy.back, Vector2(34, back_y), Vector2(99, 56), func(): settings_closed.emit(), true)
 
 
-func _build_reminder_settings(panel: Panel, copy: Dictionary) -> void:
-	_chapter_row_rule(panel, 308, 34, panel.size.x - 68)
-	_label(panel, copy.city, Vector2(34, 313), Vector2(300, 46), 23, PAPER, true)
+func _build_reminder_settings(panel: Panel, copy: Dictionary, y_offset: float) -> void:
+	_chapter_row_rule(panel, 308.0 + y_offset, 34, panel.size.x - 68)
+	_label(panel, copy.city, Vector2(34, 313.0 + y_offset), Vector2(300, 46), 23, PAPER, true)
 	var cities := OptionButton.new()
 	cities.name = "ReminderCity"
 	cities.action_mode = BaseButton.ACTION_MODE_BUTTON_RELEASE
 	cities.fit_to_longest_item = false
-	cities.position = Vector2(461, 322)
+	cities.position = Vector2(461, 322.0 + y_offset)
 	cities.add_theme_font_override("font", font)
 	cities.add_theme_font_size_override("font_size", _font_size(23))
 	var city_style := _style(Color("3b3b3b"), Color("888888"))
@@ -906,9 +913,9 @@ func _build_reminder_settings(panel: Panel, copy: Dictionary) -> void:
 	cities.item_selected.connect(func(index: int): reminder_city_changed.emit(index))
 	panel.add_child(cities)
 	cities.size = Vector2(165, 30)
-	_setting_row(panel, copy.asr, "reminder_hanafi", [copy.asr_standard, copy.asr_hanafi], reminder_hanafi, 365.0)
-	_reminder_today_label = _menu_caption(panel, _reminder_today, 442.0, 48.0)
-	_menu_caption(panel, copy.method, 495.0, 96.0)
+	_setting_row(panel, copy.asr, "reminder_hanafi", [copy.asr_standard, copy.asr_hanafi], reminder_hanafi, 365.0 + y_offset)
+	_reminder_today_label = _menu_caption(panel, _reminder_today, 442.0 + y_offset, 48.0)
+	_menu_caption(panel, copy.method, 495.0 + y_offset, 96.0)
 
 
 func set_reminder_today(value: String) -> void:

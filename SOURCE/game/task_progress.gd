@@ -4,9 +4,14 @@ extends RefCounted
 var data: Dictionary = {}
 signal trust_changed(amount: int)
 signal temptation_taken(trust_hit: bool)
+signal coins_changed
 
 var trust: int = 0
-var coins: int = 0
+var coins := 0:
+	set(value):
+		if coins != value:
+			coins = value
+			coins_changed.emit()
 var tasks: Dictionary = {}
 var daily_count: int = 0
 var boat_job_done := false

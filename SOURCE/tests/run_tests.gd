@@ -89,6 +89,10 @@ func _run() -> void:
 		await check_prayer_reminder_runtime()
 		finish()
 		return
+	if "--sound-only" in OS.get_cmdline_user_args():
+		await check_sound_runtime()
+		finish()
+		return
 	if "--regulars-routes-only" in OS.get_cmdline_user_args():
 		check_market_day_runtime()
 		check_regulars_at_prayer_runtime()
@@ -487,6 +491,7 @@ func _run() -> void:
 	await check_names_towns_runtime()
 	await check_fountains_towns_runtime()
 	await check_stars_runtime()
+	await check_sound_runtime()
 	finish()
 
 
@@ -12842,6 +12847,215 @@ func check_menus_runtime() -> void:
 	corrupt.close()
 	app.show_screen("title")
 	check(app.ui.continue_date.is_empty() and MarketSave.read_slot(slot).is_empty(), "a corrupt slot never offers Continue")
+
+
+func check_sound_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/SOUND/RECORD/sound_data_V1.json")
+	check(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/sound.json"),
+		"sound data copies LOCK 100 byte for byte")
+	var current_app: Node = app
+	current_app.set_process(false)
+	var storage: String = app.storage_directory.path_join("sound")
+	var prefs_path: String = storage.path_join(app.SETTINGS_FILENAME)
+	var legacy := ConfigFile.new()
+	legacy.set_value("settings", "large_text", true)
+	check(DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(storage)) == OK
+		and legacy.save(prefs_path) == OK, "write settings from before LOCK 100")
+	var scene := load("res://game/river_market.tscn") as PackedScene
+	app = scene.instantiate()
+	app.storage_directory = storage
+	root.add_child(app)
+	app.set_process(false)
+	var copy: Dictionary = app.scene_runner.data.sound
+	check(copy == JSON.parse_string(locked.get_string_from_utf8()).sound and copy == app.ui.sound_settings,
+		"the scene runner supplies the locked copy and cue keys")
+	var cues: Array[String] = []
+	app.sound.cue_started.connect(func(key: String): cues.append(key))
+	await press_button(data.ui.buttons.settings, "title opens the sound Settings")
+	check(app.ui.large_text and app.ui.sound_on and app.ui.adhan_on, "both switches default to On in older settings files")
+	var walk := find_visible_label(app.ui, app.menus.settings.walk)
+	var sound_label := find_visible_label(app.ui, copy.label)
+	var adhan_label := find_visible_label(app.ui, copy.adhan)
+	var reminder_label := find_visible_label(app.ui, app.reminder.settings.reminder)
+	check(walk != null and sound_label != null and adhan_label != null and reminder_label != null
+		and walk.position.y < sound_label.position.y and sound_label.position.y < adhan_label.position.y
+		and adhan_label.position.y < reminder_label.position.y, "fc01 keeps Sound and Adhan between Walking speed and the reminder")
+	for setting: String in ["sound", "adhan"]:
+		var off := app.ui.find_child(setting + "_normal", true, false) as Button
+		var on := app.ui.find_child(setting + "_alternate", true, false) as Button
+		check(off != null and on != null and off.text == copy.off and on.text == copy.on and off.position.x < on.position.x,
+			"the %s row displays Off and On in order" % setting)
+
+	await press_control(app.ui.find_child("adhan_normal", true, false), "Adhan can be turned Off on its own")
+	app.sound.play("adhan")
+	app.sound.play("coins")
+	check(cues == ["coins"] and app.ui.sound_on and not app.ui.adhan_on,
+		"Adhan Off leaves other cues enabled")
+	await press_control(app.ui.find_child("sound_normal", true, false), "turn the master Sound switch Off")
+	await press_control(app.ui.find_child("adhan_alternate", true, false), "Adhan remains selectable while Sound is Off")
+	cues.clear()
+	for cue: Array in copy.keys:
+		app.sound.play(cue[0])
+	check(cues.is_empty() and not app.ui.sound_on and app.ui.adhan_on,
+		"Sound Off suppresses each locked key, including Adhan On")
+	check(not FileAccess.file_exists(storage.path_join(app.SAVE_FILENAME)),
+		"the sound switches persist outside the game save")
+	app.queue_free()
+	await frames(2)
+	app = scene.instantiate()
+	app.storage_directory = storage
+	root.add_child(app)
+	app.set_process(false)
+	check(app.ui.large_text and not app.ui.sound_on and app.ui.adhan_on, "both switches and earlier settings survive relaunch")
+	app.sound.cue_started.connect(func(key: String): cues.append(key))
+	reset_at_market_place("centre", 20)
+	var journal: Dictionary = app.scene_runner.journal(app)
+	var trust: int = app.progress.trust
+	app.clock.advance_to(3, 20 * 60)
+	app.progress.coins += 3
+	app.update_state()
+	check(cues.is_empty() and app.sound.ambience.is_empty(), "sound is muted on live clock, wallet and ambient paths")
+	app.show_screen("pause")
+	await press_button(app.menus.pause.settings, "sound settings also open from pause")
+	await press_control(app.ui.find_child("sound_alternate", true, false), "turn Sound back On")
+	check(cues == ["market_night"] and app.sound.ambience == "market_night", "Sound On restores just the current ambient cue")
+	await press_control(app.ui.find_child("adhan_normal", true, false), "disable Adhan while ambience plays")
+	check(cues == ["market_night"] and app.sound.ambience == "market_night", "Adhan Off leaves ambience playing")
+	app.clock.advance_to(4, 5 * 60)
+	var fajr: String = str(identity.clock.adhan_toast).format({"prayer": "Fajr"})
+	check(cues == ["market_night"] and app.ui.toast_label.text.contains(fajr),
+		"Adhan Off mutes the live clock cue and keeps its prayer notice")
+	await press_control(app.ui.find_child("sound_normal", true, false), "turn Sound Off while ambience plays")
+	check(cues == ["market_night"] and app.sound.ambience.is_empty(), "Sound Off clears active ambience with both switches Off")
+	await press_control(app.ui.find_child("sound_alternate", true, false), "restore ambience with the Adhan switch Off")
+	await press_control(app.ui.find_child("adhan_alternate", true, false), "enable Adhan again")
+	await press_button(app.menus.settings.back, "Settings Back returns to pause")
+	await press_button(app.menus.pause.resume, "resume the same game")
+	check(app.scene_runner.journal(app) == journal and app.progress.trust == trust,
+		"sound changes no Journal rows, goal values or trust")
+	_check_sound_ambience_and_clock(cues)
+	await _check_sound_events(cues)
+	app.queue_free()
+	await frames(2)
+	app = current_app
+	app.set_process(true)
+
+
+func _check_sound_ambience_and_clock(cues: Array[String]) -> void:
+	reset_at_market_place("centre", 20)
+	check(app.sound.ambience == "market_day", "River Market plays its daytime cue")
+	set_market_day_time(3, 18 * 60 + 39)
+	cues.clear()
+	app.clock.advance_to(3, 18 * 60 + 40, false)
+	app.update_state()
+	app.update_state()
+	check(cues == ["market_night"] and app.sound.ambience == "market_night", "the clock starts the market night cue once")
+	cues.clear()
+	move_market_fixture("quay")
+	set_market_day_time(3, 10 * 60)
+	set_market_day_time(3, 20 * 60)
+	check(cues == ["river"] and app.sound.ambience == "river", "the Quay uses only the river cue by day and night")
+	set_market_day_time(3, 10 * 60)
+	cues.clear()
+	app._arrive_by_road("jisra", 10 * 60)
+	var isha: String = str(identity.clock.adhan_toast).format({"prayer": "Isha"})
+	check(cues == ["adhan"] and app.ui.toast_label.text.contains(isha) and app.sound.ambience == "river",
+		"a jump across several starts into Jisra cues just the latest adhan, without replaying the buffered toast")
+	app.clock.advance_to(3, 20 * 60 + 1)
+	check(cues == ["adhan"], "an advance with no new start adds no adhan")
+	for town: String in ["wadira", "nahla", "tahuna", "safira"]:
+		var expected: String = {"wadira": "wind", "nahla": "bees", "tahuna": "mill"}.get(town, "")
+		app.gate_of_trust.in_jisra = false
+		app.restore_runner_town("")
+		cues.clear()
+		app.enter_runner_town(town)
+		app.update_state()
+		check(app.runner_town_id() == town and app.sound.ambience == expected
+			and cues == ([] if expected.is_empty() else [expected]), "the built town plays its one locked cue: " + town)
+
+
+func _check_sound_events(cues: Array[String]) -> void:
+	reset_at_market_place("centre", 20)
+	cues.clear()
+	app.show_bag()
+	app.progress.coins += 4
+	app.progress.coins -= 2
+	app.progress.coins += 0
+	app.update_state()
+	check(cues == ["coins", "coins"], "only actual wallet changes cue coins, once per increase or decrease")
+	move_market_fixture("centre")
+	cues.clear()
+	move_market_fixture("inn")
+	app.update_state()
+	check(cues == ["door"], "walking into the River Market inn cues its door once")
+	cues.clear()
+	app.open_dice_house()
+	check(cues.is_empty() and app.ui.screen == "market_map", "closed dice house has no door cue")
+	set_market_day_time(3, 20 * 60)
+	cues.clear()
+	app.open_dice_house()
+	app.answer_dice_invitation(false)
+	check(cues.is_empty(), "the dice invitation and declining it do not cue the door")
+	app.open_dice_house()
+	check(cues == ["door"] and app.ui.screen == "dice_house", "entering via the blue-cloth door cues it once")
+	app.leave_dice_house()
+	app.dice_house.reset()
+	cues.clear()
+	app.open_dice_house()
+	app.answer_dice_invitation(true)
+	check(cues == ["door"], "following Mansur into the dice house also cues the door once")
+	app.leave_dice_house()
+	move_market_fixture("quay")
+	var runner: SceneRunner = app.scene_runner
+	var home: Dictionary = runner.missions.sleep_home
+	cues.clear()
+	app._runner_action("mission", home)
+	check(cues.is_empty(), "the unowned house has no door cue")
+	var state: Dictionary = runner.state()
+	state.flags.own_house = app.day
+	runner.restore(state)
+	app.update_state()
+	await press_button(home.button, "enter your house at its available hour")
+	check(cues == ["door"], "entering home cues the door once")
+	await press_button(home.scenes.a.choices[0].label, "go to sleep inside your house")
+	check(cues == ["door"], "sleeping inside the house adds no other cue")
+	app.enter_runner_town("wadira")
+	cues.clear()
+	app._runner_action("inn", null)
+	check(cues == ["door", "coins"], "using a built town inn cues entry and the actual payment")
+
+	reset_at_market_place("inn", 20)
+	var trust: int = app.progress.trust
+	app.show_open_purse()
+	app.ask_salma()
+	cues.clear()
+	app.read_page_one()
+	app.read_page_one()
+	check(cues == ["page"] and app.open_purse.page_read, "the combined take and read action for page 1 cues it once")
+	app.return_to_purse()
+	move_market_fixture("board")
+	var page: Dictionary = runner.missions.page_2
+	cues.clear()
+	await press_button(page.button, "open the notebook page offer")
+	check(cues.is_empty(), "seeing a notebook page offer adds no cue")
+	await press_button(page.scenes.a.choices[0].label, "take the notebook page")
+	check(cues == ["page"], "taking a notebook page cues a page turn")
+	move_market_fixture("masjid")
+	var read: Dictionary = runner.missions.read_2
+	cues.clear()
+	await press_button(read.button, "open the next found notebook page")
+	check(cues == ["page"], "opening the reading, with the words visible, cues it once")
+	await press_button(read.scenes.a.choices[0].label, "close the notebook")
+	check(cues == ["page"] and runner.state().counters.pages == 1, "closing adds the existing page count without repeating the cue")
+	state = runner.state()
+	state.flags.riot_done = app.day
+	runner.restore(state)
+	app.update_state()
+	var last: Dictionary = runner.missions.last_page
+	await press_button(last.button, "open the final notebook page offer")
+	await press_button(last.scenes.a.choices[0].label, "read the final notebook page")
+	check(cues == ["page", "page"] and runner.state().counters.pages == 2 and app.progress.trust == trust,
+		"reading the final page cues it once and preserves its existing count and trust")
 
 
 func check_real_prayer_times() -> void:

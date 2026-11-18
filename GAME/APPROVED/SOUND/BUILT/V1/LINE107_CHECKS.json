@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "line": 107,
+  "lock": "LOCK 100 V1",
+  "focused": {
+    "passed": 263,
+    "total": 263,
+    "exit_code": 0
+  },
+  "full": {
+    "passed": 20961,
+    "total": 20961,
+    "exit_code": 0
+  },
+  "data": {
+    "byte_identical": true,
+    "runtime": "SOURCE/data/sound.json",
+    "bytes": 824,
+    "sha256": "ca42dc81546b078a7064ca3ff47c735548458f634f4e6ecfc55433673f43c468"
+  },
+  "covered": [
+    "fc01 Settings wording and order, defaults for existing preferences, title and pause entry, and an independent settings round trip.",
+    "Sound Off suppresses all ten keys and clears ambience. Adhan Off suppresses its cue and preserves ambience and the notice.",
+    "The clock emits the latest crossed prayer start once when crossing multiple starts. Buffered travel feedback does not replay its cue.",
+    "Day and night in River Market, river alone at all hours at the Quay and Jisra, and wind, bees and mill in the built towns.",
+    "Wallet increases and decreases cue coins. Opening the Bag and same-value writes leave cues unchanged.",
+    "Notebook page 1, the runner take and read actions, and the final page. Closing a read preserves the existing Journal count behavior.",
+    "River Market and town inn entry, both routes into the dice house, and home entry. Rejected or unavailable routes stay silent.",
+    "Sound settings and routing leave trust and Journal rules unchanged."
+  ],
+  "visual_evidence": "Q15 and R11 use headless rules evidence. The inspected fc01 master is the design reference.",
+  "scholar_check": "DOC-TFG-0320 row 31, open before public release. All cues are silent placeholders."
+}
