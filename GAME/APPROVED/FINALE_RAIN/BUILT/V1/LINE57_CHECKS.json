@@ -1,0 +1,18 @@
+{
+  "line": 57,
+  "result": "passed",
+  "checks_passed": {
+    "lock_50": 183,
+    "focused": 382,
+    "headless_full_suite": 12769
+  },
+  "coverage": [
+    "The production index loads both missions from the byte-identical LOCK 50 payload. The rain prayer is offered at the River Market masjid from 05:00 until 10:00 after bread_done. The riot is offered at the board from 10:00 until 20:00 after rain_prayed. The tests cover both minute boundaries, the wrong place and town, and walking and map entry points.",
+    "An actual line 56 bread-lines choice unlocks the rain prayer. Joining sets rain_prayed and advances time by exactly 120 minutes. The locked narrative mentions the rain three days later.",
+    "At River Market trust 10, 50 and 80, the scene titles, paragraphs, choices and their order match the locked data. The three riot choices apply +8, +4 and -10 local trust respectively and set riot_done. The speak and join choices add their exact witness, wording and tone to What people say. Fetching the qadi adds no account. The pack adds no resident dialogue.",
+    "Each ending is recorded by Back. The Journal shows both Chapter 7 titles and counts 4 / 6 after the two line 56 missions and both line 57 missions. Save and Continue preserves both new completions, flags, trust and sayings. Both mission buttons stay hidden the following day."
+  ],
+  "visual_reference": "Six approved 1920 × 1080 masters (h201–h206) agree with the locked scene words and order. Q15 and R11 call for headless rules checks using the existing Godot layout.",
+  "prerequisite": "Line 56 produces bread_done. Its opening still depends on the Chapter 6 completion flag from later content. The tests supply earlier progress and earn bread_done and rain_prayed through the real mission choices.",
+  "scholar_check": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md row 12 (OA-AIOS-432) records the two design references and portrayal checks before public release."
+}

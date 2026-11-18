@@ -29,7 +29,7 @@ checked against sunnah.com / the Quran by the THE FOUR GATES chat (that is not a
 | 9 | GATE_OF_TRUST | DOC-TFG-0105 | LOCK 32 | Speaking up to an official in public (the toll keeper) | Set aside 9 Nov - OPEN |
 | 10 | ADHAN_ROWS | DOC-TFG-0235 | LOCK 75 | The reply to the adhan as shown | Set aside 9 Nov - OPEN |
 | 11 | FAMILY | DOC-TFG-0292 | LOCK 94 | The aqiqah for a girl | Set aside 9 Nov - OPEN |
-| 12 | FINALE_RAIN | DOC-TFG-0160 | LOCK 50 | How the rain prayer is shown | Set aside 9 Nov - OPEN |
+| 12 | FINALE_RAIN | DOC-TFG-0160 | LOCK 50 | Review Sahih al-Bukhari 1012 and Quran 49:9 as design references. Check the rain prayer scene, including the timing, open prayer ground, clothing, sermon, turning the cloak, raising the hands and the narration of the rain. Check the portrayal of making peace and the qadi and guard response at the storehouse. | Set aside 9 Nov - OPEN (before public release) |
 | 13 | MARRIAGE | DOC-TFG-0289 | LOCK 93 | The whole marriage scene (wali, mahr, witnesses), for both the young man and the young woman | Set aside 9 Nov - OPEN |
 | 14 | NAJMARA | DOC-TFG-0151 | LOCK 47 | Review Quran 2:144 and Sahih Muslim 2699 as the design references. Check the portrayal of using star sightings to establish the qibla and how far a qibla may be off before a wall is rebuilt. | Set aside 9 Nov - OPEN (before public release) |
 | 15 | NAMES_TOWNS | DOC-TFG-0295 | LOCK 95 | The list of 99 Names and each meaning | Set aside 9 Nov - OPEN |

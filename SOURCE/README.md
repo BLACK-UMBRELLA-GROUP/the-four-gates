@@ -734,6 +734,15 @@ The headless tests supply the Chapter 6 completion flag until that chapter ships
 Run them with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --finale-hoarders-only`.
 
+## LOCK 50 — The rain prayer and the riot
+
+After **The bread lines**, the River Market masjid offers **The rain prayer** from 05:00 until
+10:00. Joining the prayer advances the clock by two hours and makes **The riot** available
+at the board from 10:00 until 20:00. Use **Back** on each ending to record it in Chapter 7
+of the **Journal**. The riot choice changes River Market trust and can add a witness account
+to **What people say**. Run the focused headless checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --finale-rain-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from

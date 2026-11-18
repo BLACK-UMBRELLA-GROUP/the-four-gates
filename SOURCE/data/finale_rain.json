@@ -1,0 +1,114 @@
+{
+ "version": "LOCK 50 V1 (9 Nov 2026) - the finale: the rain prayer and the riot",
+ "builds_on": "LOCK 3 Idris, LOCK 49. Design references (not shown): Bukhari 1012 (the prayer for rain); Quran 49:9 (make peace).",
+ "missions": [
+  {
+   "id": "rain_prayer",
+   "place": "masjid",
+   "main": true,
+   "title": "The rain prayer",
+   "kicker": "The hard year · The rain prayer",
+   "button": "Idris calls the town to pray for rain",
+   "hours": [
+    300,
+    600
+   ],
+   "after": [
+    "bread_done"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Idris announces the prayer for rain. At sunrise the whole town walks out to the open prayer ground in plain clothes, quietly. After the sermon Idris turns his cloak inside out and raises his hands.",
+     "choices": [
+      {
+       "label": "Go out and pray with everyone",
+       "go": "b",
+       "fx": {
+        "minutes": 120,
+        "flag": "rain_prayed"
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "The sky stays clear that day. Three days later, at Maghrib, the first drops fall on the dust, and children run out to stand in it.",
+     "end": true
+    }
+   }
+  },
+  {
+   "id": "riot",
+   "place": "board",
+   "main": true,
+   "title": "The riot",
+   "kicker": "The hard year · The riot",
+   "button": "A crowd is gathering at Jalal's storehouse",
+   "hours": [
+    600,
+    1200
+   ],
+   "after": [
+    "rain_prayed"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Before the rain reaches the fields, a crowd gathers outside Jalal's storehouse with sticks. Someone shouts to burn it with the grain inside.",
+     "choices": [
+      {
+       "label": "Stand at the door and speak to them",
+       "go": "speak",
+       "fx": {
+        "trust": 8,
+        "flag": "riot_done",
+        "say": "calmed"
+       }
+      },
+      {
+       "label": "Run for Qadi Ibrahim and the guard",
+       "go": "qadi",
+       "fx": {
+        "trust": 4,
+        "flag": "riot_done"
+       }
+      },
+      {
+       "label": "Join the crowd",
+       "go": "join",
+       "fx": {
+        "trust": -10,
+        "flag": "riot_done",
+        "say": "joined"
+       }
+      }
+     ]
+    },
+    "speak": {
+     "text": "You stand in the doorway. “Burn it and nobody eats.” The shouting slows. Rashid comes to stand beside you, then Jamal, then Salma. The sticks go down one by one.",
+     "end": true
+    },
+    "qadi": {
+     "text": "The qadi arrives with the guard just as the first torch is lit. The grain is saved; three men are taken away.",
+     "end": true
+    },
+    "join": {
+     "text": "The door gives way. Half the grain is carried off and the other half burns.",
+     "end": true
+    }
+   },
+   "say": {
+    "calmed": [
+     "Stopped the crowd at Jalal's storehouse",
+     "River Market",
+     1
+    ],
+    "joined": [
+     "Was in the crowd that broke Jalal's door",
+     "the guard",
+     -1
+    ]
+   }
+  }
+ ]
+}

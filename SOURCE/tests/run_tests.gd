@@ -153,6 +153,10 @@ func _run() -> void:
 		await check_finale_hoarders_runtime()
 		finish()
 		return
+	if "--finale-rain-only" in OS.get_cmdline_user_args():
+		await check_finale_rain_runtime()
+		finish()
+		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
 		await check_jisra_people_runtime()
 		finish()
@@ -310,6 +314,7 @@ func _run() -> void:
 	await check_najmara_runtime()
 	await check_shifara_runtime()
 	await check_finale_hoarders_runtime()
+	await check_finale_rain_runtime()
 	finish()
 
 
@@ -11320,3 +11325,145 @@ func _check_finale_hoarders_outcome(mission: Dictionary, outcome: Dictionary, pu
 		"the saved game restores the completed mission, hidden button and effects")
 	set_market_day_time(day + 1, MINUTE)
 	check(find_button(app.ui, mission.button) == null, "the one-time button stays hidden the next day")
+
+
+func check_finale_rain_runtime() -> void:
+	const DAY := 8
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/FINALE_RAIN/RECORD/finale_rain_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/finale_rain.json")
+	check(not locked.is_empty() and runtime == locked, "the finale data is the byte-identical LOCK 50 file")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	if not approved is Dictionary:
+		return
+	var runner: SceneRunner = app.scene_runner
+	for mission: Dictionary in approved.missions:
+		check(runner.missions.get(mission.id) == mission, "the production index loads " + str(mission.id))
+		if runner.missions.get(mission.id) != mission:
+			return
+	check(not approved.has("people"), "LOCK 50 adds no trust-band dialogue")
+	var rain: Dictionary = runner.missions.rain_prayer
+	var riot: Dictionary = runner.missions.riot
+	var bread: Dictionary = runner.missions.bread_lines
+	var words: Dictionary = runner.data.words
+	app.set_process(false)
+	reset_at_market_place("masjid", 100, DAY)
+	set_market_day_time(DAY, 360)
+	check(find_button(app.ui, rain.button) == null, "the rain prayer waits for the bread lines")
+	move_market_fixture("board")
+	set_market_day_time(DAY, 660)
+	runner.restore({"flags": {"bread_done": DAY}})
+	app.update_state()
+	check(find_button(app.ui, riot.button) == null, "the bread lines alone do not open the riot")
+	move_market_fixture("masjid")
+	_check_runner_mission_hours(rain, DAY)
+	app.show_screen("game")
+	check(find_button(app.ui, rain.button) != null, "the walking view offers the rain prayer at the masjid")
+
+	for outcome: Dictionary in [
+		{"scene": "speak", "start_trust": 10, "trust_change": 8,
+			"say": "calmed"},
+		{"scene": "qadi", "start_trust": 50, "trust_change": 4},
+		{"scene": "join", "start_trust": 80, "trust_change": -10,
+			"say": "joined"},
+	]:
+		var earned_accounts: Array = [riot.say[outcome.say]] if outcome.has("say") else []
+		reset_at_market_place("board", 100, DAY)
+		runner.restore({"flags": {"hoarders_done": DAY}, "done": {"hoarders": DAY}})
+		set_market_day_time(DAY, 360)
+		await press_button(bread.button, "open line 56's bread lines")
+		await press_button(bread.scenes.a.choices[0].label, "feed the bread lines to earn their completion flag")
+		await press_button(words.scene_back, "finish the bread lines")
+		check(runner.has_flag(app, "bread_done"), "line 56 supplies the live rain prerequisite")
+		set_market_day_time(DAY, 660)
+		check(find_button(app.ui, riot.button) == null, "the riot stays closed before the rain prayer")
+		move_market_fixture("masjid")
+		set_market_day_time(DAY, 360)
+		app.progress.apply_trust(int(outcome.start_trust) - app.progress.trust)
+		app.update_state()
+		var coins: int = app.progress.coins
+		var jisra_trust: int = app.gate_of_trust.jisra_trust
+		var expected := runner.state()
+		var journal_before := runner.journal(app)
+		await press_button(rain.button, "open the rain prayer")
+		_check_runner_scene_copy(rain, "a")
+		_check_town_hub_button_order([rain.scenes.a.choices[0].label], "the rain prayer offers its single locked choice")
+		check(find_button(app.ui, words.scene_back) == null, "the rain opening has no Back action")
+		await press_button(rain.scenes.a.choices[0].label, "join the rain prayer")
+		_check_runner_scene_copy(rain, "b")
+		expected.flags.rain_prayed = DAY
+		check(runner.state() == expected and runner.journal(app) == journal_before,
+			"joining the prayer sets its flag before Back records completion")
+		check(app.day == DAY and app.minute_of_day == 480, "the rain prayer advances exactly 120 minutes")
+		check_wallet(outcome.start_trust, coins, "the rain prayer has no wallet or trust effect")
+		await press_button(words.scene_back, "finish the rain prayer")
+		expected.done.rain_prayer = DAY
+		check(app.ui.screen == "market_map" and app.current_place == "masjid"
+			and runner.state() == expected and find_button(app.ui, rain.button) == null,
+			"Back records the prayer and returns to the masjid with its one-time button hidden in hours")
+		_check_journal_completions(journal_before, [rain])
+
+		move_market_fixture("board")
+		_check_runner_mission_hours(riot, DAY)
+		app.show_screen("game")
+		check(find_button(app.ui, riot.button) != null, "the walking view offers the riot at the board")
+		app.show_screen("market_map")
+		set_market_day_time(DAY, 660)
+		var accounts_before: Array = app.ui.reputation_lines()
+		var journal_after_rain := runner.journal(app)
+		await press_button(riot.button, "open the riot after the actual rain prayer")
+		_check_runner_scene_copy(riot, "a")
+		var labels: Array[String] = []
+		var selected: Dictionary = {}
+		for choice: Dictionary in riot.scenes.a.choices:
+			labels.append(choice.label)
+			if choice.go == outcome.scene:
+				selected = choice
+		_check_town_hub_button_order(labels, "the riot offers all three choices in locked order")
+		check(find_button(app.ui, words.scene_back) == null, "the riot opening has no Back action")
+		await press_button(selected.label, "take the riot response " + str(outcome.scene))
+		_check_runner_scene_copy(riot, outcome.scene)
+		for label: String in labels:
+			check(find_button(app.ui, label) == null, "the ending closes the choice " + label)
+		expected.flags.riot_done = DAY
+		expected.sayings.river_market.append_array(earned_accounts)
+		check(runner.state() == expected and runner.journal(app) == journal_after_rain,
+			"the riot sets the flag and adds only the selected witness account before Back")
+		var final_trust := int(outcome.start_trust) + int(outcome.trust_change)
+		check_wallet(final_trust, coins, "the riot applies the locked River Market trust effect")
+		check(app.day == DAY and app.minute_of_day == 660 and app.gate_of_trust.jisra_trust == jisra_trust,
+			"the riot choice leaves the clock and Jisra trust unchanged")
+		await press_button(words.scene_back, "finish the riot")
+		expected.done.riot = DAY
+		check(app.ui.screen == "market_map" and app.current_place == "board"
+			and runner.state() == expected and find_button(app.ui, riot.button) == null,
+			"Back records the riot and returns to the board with its one-time button hidden")
+		_check_journal_completions(journal_before, [rain, riot])
+		await press_button(words.journal_button, "read both completions in Chapter 7")
+		check(app.ui.screen == "journal" and has_visible_label(app.ui, "Chapter 7 · The hard year")
+			and has_visible_label(app.ui, "4 / 6") and has_visible_label(app.ui, rain.title)
+			and has_visible_label(app.ui, riot.title), "the Journal shows both titles and four of six done")
+		await press_button(words.journal.back, "return from the Journal")
+		await press_button(app.chapter.purse.morning.to_rep, "open What people say after the riot")
+		check(app.ui.screen == "reputation" and app.ui.reputation_lines() == accounts_before + earned_accounts,
+			"What people say adds only the selected riot accounts")
+		for line: Array in earned_accounts:
+			check_reputation_row(line)
+		await press_button(app.chapter.rep.to_map, "return from What people say")
+		app.show_screen("pause")
+		app.save_game(true)
+		app.begin_game()
+		app.show_screen("title")
+		app.continue_game()
+		check(app.ui.screen == "market_map" and runner.state() == expected and app.progress.trust == final_trust,
+			"Save and Continue restores the flags, both completions, trust and accounts")
+		set_market_day_time(DAY + 1, 660)
+		check(find_button(app.ui, riot.button) == null, "the riot stays hidden in hours after reloading on the next day")
+		move_market_fixture("masjid")
+		set_market_day_time(DAY + 1, 360)
+		check(find_button(app.ui, rain.button) == null, "the rain prayer stays hidden in hours after reloading on the next day")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 50 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)

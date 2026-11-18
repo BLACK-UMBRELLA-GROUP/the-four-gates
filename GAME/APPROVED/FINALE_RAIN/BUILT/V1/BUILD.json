@@ -1,0 +1,83 @@
+{
+  "line": 57,
+  "lock": "LOCK 50 V1",
+  "brief": "DOC-TFG-0162",
+  "tested_base_commit_sha": "93f670c50fe7f1c154da223868d0e52a87cd7c9d",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T10:06:49+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --finale-rain-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_50": 183,
+    "focused": 382,
+    "headless_full_suite": 12769
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/FINALE_RAIN/BRIEFS/BUILD_BRIEF_2026-11-09_FINALE_RAIN.md": {
+      "bytes": 3090,
+      "sha256": "e73eae9fadfab3078056537f94b84f15da73227fec7355aa540fff1fc3b02362"
+    },
+    "GAME/APPROVED/FINALE_RAIN/RECORD/LOCK_RECORD.md": {
+      "bytes": 961,
+      "sha256": "e9d4ac9631333024642d201a89fb446a3244260208f890306e2b929def3f97c7"
+    },
+    "GAME/APPROVED/FINALE_RAIN/RECORD/FINALE_RAIN_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 4126,
+      "sha256": "bdc97ab4f3d88d5e94bc9c228df179f6e7be0534729a31a340c3288e4796d4fd"
+    },
+    "GAME/APPROVED/FINALE_RAIN/RECORD/finale_rain_data_V1.json": {
+      "bytes": 2905,
+      "sha256": "057b2293f829a854dc3f508604e9dfb9314780fb206938b54e0ba0f9642db444"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/LOCK_RECORD.md": {
+      "bytes": 1193,
+      "sha256": "097e458b36812235cf8b7af3da1b87b413b920c6a032f7454c4cc2586378afdd"
+    },
+    "GAME/APPROVED/FINALE_RAIN/MASTERS/h201_rain_prayer__a.png": {
+      "bytes": 315337,
+      "sha256": "26e76b7692e4c98933da97fcef88b95a25ef9484d1e83891438299b7056333ac"
+    },
+    "GAME/APPROVED/FINALE_RAIN/MASTERS/h202_rain_prayer__b.png": {
+      "bytes": 311645,
+      "sha256": "3c3e09d2935a5f49b5ab59ca0e4f95a2d3a46633785b0a28a5f025c45031e53d"
+    },
+    "GAME/APPROVED/FINALE_RAIN/MASTERS/h203_riot__a.png": {
+      "bytes": 293626,
+      "sha256": "e804d9b91aa3f7a1b6140da72d0c8ed5d95b36af1208cf95be6e81460295f3b5"
+    },
+    "GAME/APPROVED/FINALE_RAIN/MASTERS/h204_riot__speak.png": {
+      "bytes": 312199,
+      "sha256": "756dddac39095b6ec7fd7de3b48642605bf799031b10b536b608b2aff49ea9b6"
+    },
+    "GAME/APPROVED/FINALE_RAIN/MASTERS/h205_riot__qadi.png": {
+      "bytes": 309525,
+      "sha256": "7e531dc2b20bf93f5b40c2aecf92e3e916e5bf1c0a400659521cf12404019a5f"
+    },
+    "GAME/APPROVED/FINALE_RAIN/MASTERS/h206_riot__join.png": {
+      "bytes": 308090,
+      "sha256": "88c919af012aeed96ec0a7f9df851e6ddac864bf1501d491b5a3c832333dee24"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 715,
+      "sha256": "523b782ad2dadfa651ebf9cd520ce02d8e822c10a7a2fe77932a38ea6b5721c5"
+    },
+    "SOURCE/data/finale_rain.json": {
+      "bytes": 2905,
+      "sha256": "057b2293f829a854dc3f508604e9dfb9314780fb206938b54e0ba0f9642db444"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 681975,
+      "sha256": "759a145c73d209affbd7706047828b14d7f42b52156564ed2b89ef82648942da"
+    }
+  }
+}
