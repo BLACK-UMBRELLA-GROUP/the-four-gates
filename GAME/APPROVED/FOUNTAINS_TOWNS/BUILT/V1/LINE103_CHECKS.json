@@ -1,0 +1,34 @@
+{
+  "line": 103,
+  "result": "passed",
+  "checks_passed": {
+    "lock_96": 425,
+    "focused": 624,
+    "scene_runner_regression": 317,
+    "headless_full_suite": 20375
+  },
+  "dependencies_built": [
+    42,
+    43,
+    44,
+    45,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55
+  ],
+  "coverage": [
+    "The production runner loads the byte-identical LOCK 96 V2 content. Every Q55 after flag has a built producer. The checks use Jisra's observed visit and stage the other eleven producers' flags.",
+    "Every town offer opens only after its own flag. Each uses the locked button, kicker, title, prompt and choice order. Both paid choices are hidden below 45 coins and direct attempts have no effect. Not now returns to the same hub and keeps the offer available.",
+    "Both choices charge once, show the locked result and count one repair. The named choice adds 5 local trust and the authored town account. The anonymous choice leaves trust and local accounts unchanged. The paid result returns to the same hub, and the repair stays closed.",
+    "Saving the paid Jisra result and continuing preserves the ending and applies the charge, trust, account and count once. A new game clears the counter. Resuming restores it.",
+    "The private Journal shows the loaded Fountains repaired goal at 0 / 13 and 13 / 13. The existing River Market repair counts when the third payment completes it. Earlier installments leave the total unchanged."
+  ],
+  "visual_reference": "All 36 masters nb01–nb36 were reviewed at 1920 × 1080. The offer choice order and the named and anonymous result copy agree with the V2 data. The game uses the shared Godot runner panel under Q15 and R11. Native screenshot count is zero.",
+  "scholar_review": "DOC-TFG-0320 row 70 is open before public release (OA-AIOS-432)."
+}

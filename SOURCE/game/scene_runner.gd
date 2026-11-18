@@ -38,6 +38,10 @@ static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 			var unlocks := _read_document(directory.path_join("names_towns_unlocks.json"))
 			_add_name_missions(content.missions, document, unlocks)
 			continue
+		if file == "fountains_towns.json":
+			_add_fountain_missions(content.missions, content.towns, document)
+			_merge_records(goals_by_id, document.goals)
+			continue
 		if document.has("chapter") and document.has("pages"):
 			_add_page_missions(content.missions, document)
 			_merge_records(goals_by_id, document.get("goals", []))
@@ -149,6 +153,40 @@ static func _add_name_missions(target: Dictionary, document: Dictionary, unlocks
 				],
 				"choices": [{"label": words.done, "fx": {"name": entry.id, "done": true}}],
 			}},
+		}
+
+
+static func _add_fountain_missions(target: Dictionary, towns_by_id: Dictionary, document: Dictionary) -> void:
+	var words: Dictionary = document.words
+	var cost := int(words.cost)
+	var repair := {"coins": -cost, "count": "fountains", "done": true}
+	for fountain: Dictionary in document.fountains:
+		var town: String = fountain.town
+		if not towns_by_id.has(town):
+			continue
+		var id := "fountain_" + town
+		var saying: Array = words.say.duplicate()
+		saying[0] = str(saying[0]).format({"town": towns_by_id[town].name})
+		target[id] = {
+			"id": id,
+			"town": town,
+			"after": fountain.after,
+			"title": words.title,
+			"kicker": words.kicker,
+			"button": str(words.button).format({"n": cost}),
+			"start": "a",
+			"scenes": {
+				"a": {
+					"text": str(words.text).format({"n": cost}),
+					"choices": [
+						{"label": words.named, "go": "named", "fx": repair.merged({"trust": words.trust, "say": saying})},
+						{"label": words.secret, "go": "secret", "fx": repair},
+						{"label": words.later},
+					],
+				},
+				"named": {"text": words.done_named, "end": true},
+				"secret": {"text": words.done_secret, "end": true},
+			},
 		}
 
 
@@ -476,6 +514,7 @@ func _goal_count(app, id: String) -> int:
 		"masjids": return app.jisra_masjid.prayed_in.size()
 		"names": return app.names_of_allah.learned.size()
 		"pages": return int(has_flag(app, "sirr")) + int(_counters.get(id, 0))
+		"fountains": return int(app.dry_fountain.is_running()) + int(_counters.get(id, 0))
 	return int(_counters.get(id, 0))
 
 

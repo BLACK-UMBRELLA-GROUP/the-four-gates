@@ -301,6 +301,10 @@ func _run() -> void:
 		await check_names_towns_runtime()
 		finish()
 		return
+	if "--fountains-towns-only" in OS.get_cmdline_user_args():
+		await check_fountains_towns_runtime()
+		finish()
+		return
 	if "--family-only" in OS.get_cmdline_user_args():
 		await check_family_runtime()
 		finish()
@@ -470,6 +474,7 @@ func _run() -> void:
 	await check_marriage_runtime()
 	await check_family_runtime()
 	await check_names_towns_runtime()
+	await check_fountains_towns_runtime()
 	finish()
 
 
@@ -9575,6 +9580,160 @@ func _check_names_town_entry(runner: SceneRunner, town: String, after: String, b
 func _available_town_names(runner: SceneRunner, town: String) -> Array[Dictionary]:
 	return runner.available_missions(app, town, "").filter(
 		func(mission: Dictionary) -> bool: return mission.get("kind") == "name_read")
+
+
+func check_fountains_towns_runtime() -> void:
+	const PATH := "res://data/fountains_towns.json"
+	const LOCKED_SHA256 := "7d4ed4e80eb7d9761060ff7b7c4c1a27770d9e753f3d0785ab87d9fc2896b534"
+	var checks_before := checks
+	var failures_before := failures
+	var matches_lock := FileAccess.get_sha256(PATH) == LOCKED_SHA256
+	check(matches_lock, "the runtime fountain pack is byte-identical to LOCK 96 V2")
+	if not matches_lock:
+		return
+	var approved: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PATH))
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = approved.words
+	var cost := int(words.cost)
+	var label := str(words.button).format({"n": cost})
+	var goal: Dictionary = approved.goals[0]
+	var goal_row := {"label": goal.label, "n": 0, "m": int(goal.m)}
+	var previous := MarketSave.snapshot(app)
+	var original_storage: String = app.storage_directory
+	app.storage_directory = original_storage.path_join("fountains-towns")
+	app.set_process(false)
+	reset_at_market_place("board", int(app.dry_fountain.data.numbers.cost), 8)
+	check(runner.data.goals.count(goal) == 1 and goal_row in runner.journal(app).goals,
+		"the Journal loads one locked Fountains repaired goal, initially zero")
+	await _check_runner_journal_goal(runner.data.words, goal_row)
+	check(app.dry_fountain.pay("secret") and app.dry_fountain.pay("") and goal_row in runner.journal(app).goals,
+		"two partial River Market payments do not count as a repair")
+	goal_row.n = 1
+	check(app.dry_fountain.pay("") and goal_row in runner.journal(app).goals,
+		"the third LOCK 15 payment counts the River Market fountain exactly once")
+
+	for fountain: Dictionary in approved.fountains:
+		var town: String = fountain.town
+		var hub := "jisra" if town == "jisra" else "runner_town"
+		var mission: Dictionary = runner.missions.get("fountain_" + town, {})
+		check(not mission.is_empty() and runner.towns.has(town), "the production index loads the fountain in " + town)
+		if mission.is_empty():
+			continue
+		app.gate_of_trust.in_jisra = false
+		app.restore_runner_town("")
+		app.show_screen("market_map")
+		check(not runner.has_flag(app, fountain.after) and mission not in runner.available_missions(app, town, ""),
+			"the fountain stays closed before its locked flag in " + town)
+		if town == "jisra":
+			app.gate_of_trust.in_jisra = true
+			app.show_screen(hub)
+		else:
+			app.enter_runner_town(town)
+			check(find_button(app.ui, label) == null, "the hub hides the offer before the prerequisite in " + town)
+			var ready := runner.state()
+			ready.flags[fountain.after] = app.day
+			runner.restore(ready)
+		check(runner.has_flag(app, fountain.after) and mission not in runner.available_missions(app, "", "board"),
+			"the locked flag opens only the local offer in " + town)
+		app.progress.coins = cost - 1
+		app.update_state()
+		await press_button(label, "open the unlocked fountain with one coin short in " + town)
+		var town_name: String = runner.towns[town].name
+		var kicker := str(words.kicker).format({"town": town_name})
+		check(app.ui.screen == "runner_mission" and app.runner_mission() == mission
+			and has_visible_label(app.ui, kicker.to_upper()) and has_visible_label(app.ui, words.title)
+			and visible_text().contains(str(words.text).format({"n": cost})), "the prompt uses the locked copy in " + town)
+		_check_town_hub_button_order([words.later], "only Not now is visible below the repair cost in " + town)
+		var before := MarketSave.snapshot(app)
+		var choices: Array = mission.scenes[mission.start].choices
+		app.ui.runner_requested.emit("choice", choices[0])
+		app.ui.runner_requested.emit("choice", choices[1])
+		check(app.ui.screen == "runner_mission" and MarketSave.snapshot(app) == before,
+			"an unaffordable repair cannot charge, complete or award anything in " + town)
+		await press_button(words.later, "defer the repair in " + town)
+		check(app.ui.screen == hub and MarketSave.snapshot(app) == before and find_button(app.ui, label) != null,
+			"Not now returns to the same hub and leaves the repair open in " + town)
+
+		app.progress.coins = cost
+		var ready_to_pay := MarketSave.snapshot(app)
+		await _check_fountain_town_repair(mission, words, goal_row, hub, true)
+		MarketSave.restore(app, ready_to_pay)
+		app.show_screen(hub)
+		await _check_fountain_town_repair(mission, words, goal_row, hub, false)
+		goal_row.n += 1
+
+	app.gate_of_trust.in_jisra = false
+	app.restore_runner_town("")
+	app.show_screen("market_map")
+	check(goal_row.n == goal_row.m, "the twelve towns and River Market reach exactly the locked target")
+	await _check_runner_journal_goal(runner.data.words, goal_row)
+	var completed := MarketSave.snapshot(app)
+	app.begin_game()
+	check(not app.dry_fountain.is_running() and runner.journal(app).goals.any(
+		func(row: Dictionary) -> bool: return row.label == goal_row.label and row.n == 0),
+		"a new game clears all fountain counts")
+	MarketSave.restore(app, completed)
+	check(goal_row in runner.journal(app).goals, "resuming retains the combined fountain count")
+	app.storage_directory = original_storage
+	MarketSave.restore(app, previous)
+	app.show_screen("market_map")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 96 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_fountain_town_repair(mission: Dictionary, words: Dictionary, goal_row: Dictionary,
+		hub: String, named: bool) -> void:
+	var runner: SceneRunner = app.scene_runner
+	var town: String = mission.town
+	var journal := runner.journal(app)
+	for row: Dictionary in journal.goals:
+		if row.label == goal_row.label:
+			row.n = goal_row.n + 1
+	var trust := {}
+	for id: String in runner.towns:
+		trust[id] = runner.town_trust(app, id)
+	trust["river_market"] = app.progress.trust
+	var sayings := runner.town_sayings(town, app)
+	if named:
+		trust[town] += int(words.trust)
+		var line: Array = words.say.duplicate()
+		line[0] = str(line[0]).format({"town": runner.towns[town].name})
+		sayings.append(line)
+	var day: int = app.day
+	var minute: int = app.minute_of_day
+	await press_button(mission.button, "open the fountain with exact funds in " + town)
+	_check_town_hub_button_order([words.named, words.secret, words.later], "the source choice order in " + town)
+	var choice: Dictionary = app.runner_scene().choices[0 if named else 1]
+	var result: String = words.done_named if named else words.done_secret
+	await press_button(words.named if named else words.secret, "mend the fountain in " + town)
+	check(app.ui.screen == "runner_mission" and visible_text().contains(result), "the locked repair result in " + town)
+	var back: String = runner.data.words.scene_back
+	_check_town_hub_button_order([back], "the result offers Back in " + town)
+	app.ui.runner_requested.emit("choice", choice)
+	if town == "jisra" and named:
+		app._answer_reminder(true)
+		app.save_game(true)
+		app.continue_game()
+		check(app.ui.screen == "runner_mission" and visible_text().contains(result),
+			"save and Continue reopen the paid ending")
+	check(runner.journal(app) == journal and runner.town_sayings(town, app) == sayings
+		and runner.mission_done(app, mission.id) and app.progress.coins == 0
+		and app.day == day and app.minute_of_day == minute,
+		"the repair charges and counts once, with only its locked local account in " + town)
+	check(trust.keys().all(func(id: String) -> bool: return runner.town_trust(app, id) == trust[id]),
+		"the repair applies only the locked town trust in " + town)
+	await press_button(back, "return to the hub in " + town)
+	app.ui.runner_requested.emit("mission", mission)
+	check(app.ui.screen == hub and app.runner_town_id() == town and find_button(app.ui, mission.button) == null
+		and runner.journal(app) == journal and app.progress.coins == 0,
+		"Back returns to the right town and the completed repair stays closed in " + town)
+	var rep_label := str(runner.data.words.rep_button).format({"town": runner.towns[town].name})
+	await press_button(rep_label, "open the town's What people say in " + town)
+	var expected_line := str(words.say[0]).format({"town": runner.towns[town].name})
+	check(visible_text().contains(expected_line) == named, "only the named repair appears in the town's account in " + town)
+	await press_button(runner.data.words.trep.back, "return from the town account in " + town)
 
 
 func check_family_runtime() -> void:

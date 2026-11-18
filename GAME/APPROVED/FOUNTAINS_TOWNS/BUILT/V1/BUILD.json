@@ -1,0 +1,210 @@
+{
+  "line": 103,
+  "lock": "LOCK 96 V2",
+  "brief": "DOC-TFG-0300",
+  "tested_base_commit_sha": "5c2d86b52cfcf4a9ec121b7e75914dfbb614eed9",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily report identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T16:12:34+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --fountains-towns-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --scene-runner-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_96": 425,
+    "focused": 624,
+    "scene_runner_regression": 317,
+    "headless_full_suite": 20375
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/FOUNTAINS_TOWNS/BRIEFS/BUILD_BRIEF_2026-11-09_FOUNTAINS_TOWNS.md": {
+      "bytes": 3496,
+      "sha256": "e12450c142df21f035183c71b1ef10117fdb25a306d2302177a5c2d063f153ff"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/RECORD/FOUNTAINS_TOWNS_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 4533,
+      "sha256": "da51d55f18e39ebbaef43e381a735d38e577984bb139d867a42031fc9d8f5357"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/RECORD/LOCK_RECORD.md": {
+      "bytes": 1178,
+      "sha256": "9ab9a7ba87b90511ead00e3498514a7cdedd17f96ce1ed7ef5688916073b343b"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/RECORD/fountains_towns_data_V2.json": {
+      "bytes": 1749,
+      "sha256": "7d4ed4e80eb7d9761060ff7b7c4c1a27770d9e753f3d0785ab87d9fc2896b534"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb01_fountain_jisra__a.png": {
+      "bytes": 243373,
+      "sha256": "85343a1150ac1b77b01bdcf89a17d732536886ffe147c09e6b56c3182ad3102e"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb02_fountain_jisra__named.png": {
+      "bytes": 271848,
+      "sha256": "6628f17ee6eae38d144554f628083bd11af79d1145f4e8826eef3ecc1f98055c"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb03_fountain_jisra__secret.png": {
+      "bytes": 272016,
+      "sha256": "9e031e803941833a06e6d82105ceff7a00bc424862372b8b8590da7ee5989390"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb04_fountain_sahila__a.png": {
+      "bytes": 243400,
+      "sha256": "58efd85febf45232e61f9b33f241d733ef015ce6a95f8f042e671eddbb4c1abe"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb05_fountain_sahila__named.png": {
+      "bytes": 272045,
+      "sha256": "ca763c8d5b2285e232fa6e3b987231514e25907026aafeb1931f5e17beb88e48"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb06_fountain_sahila__secret.png": {
+      "bytes": 272257,
+      "sha256": "304e07aeb7158455249581c6bd24aafb6387a1478c4e36a7acd83058f48fcd91"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb07_fountain_sukara__a.png": {
+      "bytes": 300253,
+      "sha256": "03e90ac76603272dc9ad521cf586ab630a45a6a43ffc48067579d93dcf7dfd6b"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb08_fountain_sukara__named.png": {
+      "bytes": 315127,
+      "sha256": "2980817cce3fc505f2b32f579f9e08ecf61065fb97636bd29129039ba262471d"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb09_fountain_sukara__secret.png": {
+      "bytes": 315297,
+      "sha256": "75e5b41cc86b0f83143138fed10cbe85f24efeb34ed9ea296a698e5287e492ed"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb10_fountain_safira__a.png": {
+      "bytes": 243469,
+      "sha256": "19c4d22dd53fd1d75fc40f0f0e914d51e1fec3325bbc946d6e13d6f5cd62b3d0"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb11_fountain_safira__named.png": {
+      "bytes": 272108,
+      "sha256": "07ebc65728b0cf64aa40d42a538f156a38b8aa852676423bde1ef5bc0e6eb865"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb12_fountain_safira__secret.png": {
+      "bytes": 272322,
+      "sha256": "a1aa4327ae5fac65ba7da8bb1f703e54cdbc27a59da07270a457e7b40a153713"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb13_fountain_wadira__a.png": {
+      "bytes": 243728,
+      "sha256": "703917e6efca075c2484574a6db58b1e621a9bc0cbfc0f42e2c37d71b4412dc6"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb14_fountain_wadira__named.png": {
+      "bytes": 272358,
+      "sha256": "3c8b85cb3510f8cf1d2ca824a7074176adfb6fe29a28d49cf465ae319d396fcd"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb15_fountain_wadira__secret.png": {
+      "bytes": 272468,
+      "sha256": "fb924583a2a7b2279825f5c21c0ccb1b67f7557c63e6ec6e44e9547161f488dc"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb16_fountain_birana__a.png": {
+      "bytes": 243526,
+      "sha256": "1fa84b3c9263d445807ca15ab389f7851c72c6cb419b581e56b53d87d0e813c6"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb17_fountain_birana__named.png": {
+      "bytes": 272022,
+      "sha256": "f7d103cf96701641cb94691d5351e01ba276ff1c42e6d895bb5ffc03038bc8a0"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb18_fountain_birana__secret.png": {
+      "bytes": 272142,
+      "sha256": "100ef66d16a43839021820605097e677fa00ce0069baf6d9074ac28e54e588b5"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb19_fountain_nahla__a.png": {
+      "bytes": 301191,
+      "sha256": "b1f68b12dd1d91f4f19b2ec3e54d8960d2b0c381179ec60fb278e2c5719786f6"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb20_fountain_nahla__named.png": {
+      "bytes": 314852,
+      "sha256": "30d2f77b8f092b8295739ef8273ede3faf7873a107b596fb496106023ef7119a"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb21_fountain_nahla__secret.png": {
+      "bytes": 315024,
+      "sha256": "66f0febc63aaa445ffdd5e832797421b7fbbd1011a2cd6c7573412ea83a4fc2f"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb22_fountain_tinara__a.png": {
+      "bytes": 301192,
+      "sha256": "5f43a1a8a0419e5017dee3ee77d55026e64ffc5c0be15ed373d589310ca7dc5f"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb23_fountain_tinara__named.png": {
+      "bytes": 314907,
+      "sha256": "1d7d3471654185ee35d3b76c67732df714daeee85b632911b36df000266c4cea"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb24_fountain_tinara__secret.png": {
+      "bytes": 315110,
+      "sha256": "c975d83889555aa754c1ac2a97944d5127c5b1d467c1fff0e7f44fc009816f49"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb25_fountain_tahuna__a.png": {
+      "bytes": 243431,
+      "sha256": "e8c9458c80d38464a199394c55f51a0299903f34cfad8fc81e4aa10d4bc009f3"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb26_fountain_tahuna__named.png": {
+      "bytes": 272038,
+      "sha256": "15dac7051325a544e630382e2602fc79f978ad6074820c77a3021fa5ba421119"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb27_fountain_tahuna__secret.png": {
+      "bytes": 272241,
+      "sha256": "b852b525026dcd4c89756b046a763011dbe45f93c0da3213a93804f54e58bc8d"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb28_fountain_waraka__a.png": {
+      "bytes": 243759,
+      "sha256": "914c38edb0ae628783aae790c545f5add6f1f6f13128d400a228846f53961d1e"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb29_fountain_waraka__named.png": {
+      "bytes": 272325,
+      "sha256": "816d010e0fd512b054dab28026c9a0dfbe4e26622d33203ceff2d0bd2d56d2b6"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb30_fountain_waraka__secret.png": {
+      "bytes": 272437,
+      "sha256": "fed59fe99fd3f2803df2fb93be2fbca8d996690c1d89402e0ffdd48969e5ab34"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb31_fountain_najmara__a.png": {
+      "bytes": 243766,
+      "sha256": "7aed6f725f62715d782c94492160eb04053edab5c6a6988bdeede51dd0cef3a0"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb32_fountain_najmara__named.png": {
+      "bytes": 272356,
+      "sha256": "1577f507462e4302694253e6387fccfeb3cc20a6befd001c809fb3ff0abc8143"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb33_fountain_najmara__secret.png": {
+      "bytes": 272572,
+      "sha256": "5a5296e88564c3c0f8eb5319a1c52334273c0a654313ee2fa1462f787ec9f1f7"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb34_fountain_shifara__a.png": {
+      "bytes": 243600,
+      "sha256": "13ead63b6e7d136766c39095b36468e7b0162688b0e359dc3d0cd915d1f36473"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb35_fountain_shifara__named.png": {
+      "bytes": 272246,
+      "sha256": "f0cf0ffbdacb5b178dc611f37719f146e24865f14e22208fb816f9a0cbef9fb2"
+    },
+    "GAME/APPROVED/FOUNTAINS_TOWNS/MASTERS/nb36_fountain_shifara__secret.png": {
+      "bytes": 272437,
+      "sha256": "802a92775a496109709103b9ef35b774b9fbdd2f6403a21a2852fc791047add8"
+    }
+  },
+  "tested_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 1472,
+      "sha256": "090ad77770d4aa17af94eeeb8f1f2787d6f10928274f72ccde01e1b27c97815f"
+    },
+    "SOURCE/data/fountains_towns.json": {
+      "bytes": 1749,
+      "sha256": "7d4ed4e80eb7d9761060ff7b7c4c1a27770d9e753f3d0785ab87d9fc2896b534"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 24876,
+      "sha256": "e686259c5a0a2606def2c9617ae9b5af246976eb25127bf3131486ee55b04dc2"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 952275,
+      "sha256": "ed319a82c6aaf4d521f8adf2a7b6ba277f5cade893a1b70f39c51fbea3fa07b2"
+    },
+    "SOURCE/tests/scene_runner_fixture.gd": {
+      "bytes": 15140,
+      "sha256": "b894d94482b5963d4fd6cbadc471c5d1d9024ded72247d2b9e19ff3444f6724d"
+    }
+  },
+  "native_screenshot_count": 0
+}

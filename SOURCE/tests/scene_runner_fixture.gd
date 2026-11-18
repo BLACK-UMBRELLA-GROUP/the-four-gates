@@ -3,6 +3,7 @@ extends RefCounted
 
 const SceneRunner = preload("res://game/scene_runner.gd")
 const BreadGrab = preload("res://game/bread_grab.gd")
+const DryFountain = preload("res://game/dry_fountain.gd")
 const Feeding = preload("res://game/feeding.gd")
 const GateOfTrust = preload("res://game/gate_of_trust.gd")
 const JisraMasjid = preload("res://game/jisra_masjid.gd")
@@ -26,6 +27,7 @@ class Context:
 	var sealed_purse := SealedPurse.new()
 	var gate_of_trust := GateOfTrust.new()
 	var feeding := Feeding.new()
+	var dry_fountain := DryFountain.new()
 	var known_words: Dictionary = {}
 	var clock: PrayerClock
 	var market_day: MarketDay
@@ -46,6 +48,7 @@ class Context:
 		sealed_purse.setup(game.sealed_purse.data, progress, market_day, 390, 1090)
 		gate_of_trust.setup(game.gate_of_trust.data, progress)
 		feeding.setup(game.feeding.data, progress, clock)
+		dry_fountain.setup(game.dry_fountain.data, progress, clock)
 		qurans_school = QuransSchool.new(game.qurans_school.data, clock, progress)
 		names_of_allah = NamesOfAllah.new(game.names_of_allah.data)
 		jisra_masjid = JisraMasjid.new(game.jisra_masjid.data)

@@ -1206,3 +1206,16 @@ prerequisites from Q54's LOCK 96 V2 fountain records.
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --names-towns-only`.
+
+## LOCK 96 V2 — A dry fountain in every town
+
+Each of the twelve town hubs offers a fountain repair after its recorded
+story flag. Either repair costs 45 coins. Choosing to have your name carved
+adds 5 trust and an account in that town's **What people say**. The anonymous
+repair earns the same Journal progress. **Not now** returns to the town hub.
+
+The private Journal's **Fountains repaired** goal counts all twelve town repairs
+and the completed LOCK 15 fountain in River Market, out of 13.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --fountains-towns-only`.
