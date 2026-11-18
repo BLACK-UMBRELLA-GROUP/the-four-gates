@@ -2226,7 +2226,7 @@ func _build_runner_panel() -> void:
 			for choice: Dictionary in choices:
 				var primary: bool = mission.get("main", false) or (stacked_choices and actions.is_empty())
 				actions.append(_runner_action(choice.label, "choice", choice, primary))
-			back_label = words.scene_back if choices.is_empty() else ""
+			back_label = copy.get("back", words.scene_back) if choices.is_empty() else ""
 		"runner_town":
 			copy = {"kicker": town.get("kicker", ""), "title": town.name}
 			paragraphs = _runner_paragraphs(town.get("text", ""))

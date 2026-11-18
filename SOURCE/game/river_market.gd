@@ -116,6 +116,7 @@ var arrival_fair = null
 var idris_beat := 0
 var known_words: Dictionary = {}
 var idris_met := false
+var gender := MarketSave.DEFAULT_GENDER
 var paid_nights := 0
 var day: int:
 	get: return clock.day
@@ -687,11 +688,11 @@ func _update_mouse_mode() -> void:
 func save_game(quit_to_title: bool) -> void:
 	if ui.screen != "pause":
 		return
-	var runner_ending: Array[String] = []
-	if _pause_return == "runner_mission" and runner_scene().get("end", false):
-		# A prayer reminder can pause an ending after choice effects but before Back.
-		runner_ending = [_runner_mission_id, _runner_scene_id]
-	var error := MarketSave.save_slot(self, storage_directory.path_join(SAVE_FILENAME), runner_ending)
+	var saved_scene: Array[String] = []
+	if _pause_return == "runner_mission" and not runner_scene().is_empty():
+		# Keep the current scene together with the choice effects already applied.
+		saved_scene = [_runner_mission_id, _runner_scene_id]
+	var error := MarketSave.save_slot(self, storage_directory.path_join(SAVE_FILENAME), saved_scene)
 	if error != OK:
 		push_error("Could not save the game: " + error_string(error))
 		return
@@ -710,14 +711,14 @@ func continue_game() -> void:
 		show_screen("title")
 		return
 	MarketSave.restore(self, saved)
-	var runner_ending: Variant = saved.get("runner_ending", [])
-	if runner_ending is Array and runner_ending.size() == 2:
-		var mission: Dictionary = scene_runner.missions.get(runner_ending[0], {})
-		var scene: Dictionary = mission.get("scenes", {}).get(runner_ending[1], {})
-		if scene.get("end", false):
+	var saved_scene: Variant = saved.get("runner_scene", saved.get("runner_ending", []))
+	if saved_scene is Array and saved_scene.size() == 2:
+		var mission: Dictionary = scene_runner.missions.get(saved_scene[0], {})
+		var scene: Dictionary = mission.get("scenes", {}).get(saved_scene[1], {})
+		if not scene.is_empty():
 			_runner_origin = _runner_hub()
 			_runner_mission_id = mission.id
-			_runner_scene_id = runner_ending[1]
+			_runner_scene_id = saved_scene[1]
 			show_screen("runner_mission")
 			return
 	show_screen(_runner_hub())
@@ -756,6 +757,7 @@ func begin_game() -> void:
 	_idris_new_word = ""
 	_daily_job_day = 0
 	idris_met = false
+	gender = MarketSave.DEFAULT_GENDER
 	ui.idris_met = false
 	known_words.clear()
 	paid_nights = 0

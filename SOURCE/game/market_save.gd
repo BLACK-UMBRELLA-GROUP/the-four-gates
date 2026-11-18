@@ -3,6 +3,7 @@ extends RefCounted
 
 const VERSION := 1
 const CHECKSUM_BYTES := 32
+const DEFAULT_GENDER := "boy"
 
 # Persist gameplay values only. The live components retain their dependencies,
 # signals and locked data when a new game or a reload changes their state.
@@ -60,6 +61,7 @@ static func snapshot(game: Node3D) -> Dictionary:
 		"day": game.day,
 		"minute_of_day": game.minute_of_day,
 		"market": _capture_fields(game, MARKET_FIELDS),
+		"gender": game.gender,
 		"meals_given": game.feeding.meal_counter.total,
 		"scene_runner": game.scene_runner.state(),
 		"runner_town": game.runner_saved_town(),
@@ -70,14 +72,14 @@ static func snapshot(game: Node3D) -> Dictionary:
 	return state.duplicate(true)
 
 
-static func save_slot(game: Node3D, path: String, runner_ending: Array[String] = []) -> Error:
+static func save_slot(game: Node3D, path: String, runner_scene: Array[String] = []) -> Error:
 	var directory := ProjectSettings.globalize_path(path).get_base_dir()
 	var result := DirAccess.make_dir_recursive_absolute(directory)
 	if result != OK:
 		return result
 	var state := snapshot(game)
-	if not runner_ending.is_empty():
-		state["runner_ending"] = runner_ending
+	if not runner_scene.is_empty():
+		state["runner_scene"] = runner_scene
 	var payload := var_to_bytes(state)
 	# Keep the previous slot until its replacement has been written and closed.
 	var pending := "%s.pending-%d" % [path, OS.get_process_id()]
@@ -110,6 +112,8 @@ static func read_slot(path: String) -> Dictionary:
 		return {}
 	if not state.get("meals_given") is int or not _has_fields(state.get("market"), MARKET_FIELDS):
 		return {}
+	if state.get("gender", DEFAULT_GENDER) not in [DEFAULT_GENDER, "girl"]:
+		return {}
 	for component: String in COMPONENT_FIELDS:
 		# Earlier slots may predate these components.
 		if component in ["partnership", "gate_of_trust", "jisra_masjid"] and not state.has(component):
@@ -126,6 +130,7 @@ static func read_slot(path: String) -> Dictionary:
 static func restore(game: Node3D, state: Dictionary) -> void:
 	var values := state.duplicate(true)
 	_restore_fields(game, values.market, MARKET_FIELDS)
+	game.gender = values.get("gender", DEFAULT_GENDER)
 	for component: String in COMPONENT_FIELDS:
 		if values.has(component):
 			_restore_fields(game.get(component), values[component], COMPONENT_FIELDS[component])

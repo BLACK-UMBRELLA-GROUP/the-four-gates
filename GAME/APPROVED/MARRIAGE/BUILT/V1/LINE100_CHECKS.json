@@ -1,0 +1,18 @@
+{
+  "line": 100,
+  "result": "passed",
+  "checks_passed": {
+    "lock_93": 256,
+    "focused": 455,
+    "headless_full_suite": 18454
+  },
+  "coverage": [
+    "The production index loads the byte-identical LOCK 93 pack. All eight scenes show the authored dialogue, title, kicker and available choices in order.",
+    "The offer requires the River Market masjid, both prerequisite flags, at least 80 local trust and a clock time from 07:00 until 20:00. Separate fixtures verify each condition and the independent married and completed gates.",
+    "The saved gender chooses the proposal and mahr routes. New and pre-gender saves start on boy. Both branches and all four deferrals are exercised. The boy pays 30 coins and the girl receives 30. Unaffordable or wrong-route choices are hidden and direct dispatch rejects them.",
+    "The family feast costs 5 coins and adds 10 meals. The market feast costs 20 coins and adds 50 meals and the one locked River Market account. Either sets married. Back from the feast records saved completion. Journal chapters and the side tally retain their existing rows. Trust remains at its starting value.",
+    "The prayer-reminder pause can save and resume after the mahr on either route and after the market feast. The runner restores the scene and applied effects together. With neither feast affordable, the existing Back action closes the scene and leaves the already-paid mahr spent and the offer open."
+  ],
+  "visual_reference": "The eight approved of01–of08 masters are 1920 × 1080 and were checked for dialogue and visible choice order. Q15 and R11 use the existing Godot layout and headless checks.",
+  "scholar_review": "DOC-TFG-0320 row 13, open before public release (OA-AIOS-432)."
+}

@@ -1,0 +1,165 @@
+{
+ "version": "LOCK 93 V1 (9 Nov 2026) - Marriage",
+ "builds_on": "LOCK 5 (clothes and bags), LOCK 9 (secret giving after page 1), LOCK 23 Saeed, LOCK 34 runner, LOCK 36 roads. Founder 8 Nov picks: animals, land and buildings, businesses, waqf; marriage and family (scholar check set aside 9 Nov).",
+ "design_reference_not_shown": {
+  "marriage": "Bukhari 5090; Quran 4:4 (the mahr)"
+ },
+ "missions": [
+  {
+   "id": "marriage",
+   "lock": 93,
+   "hours": [
+    420,
+    1200
+   ],
+   "title": "Marriage",
+   "kicker": "Family · Marriage",
+   "button": "Idris wants to talk about your future",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Idris pours tea. “You have a house now, and River Market speaks well of you. Have you thought of marriage? Half the religion, they say.”",
+     "choices": [
+      {
+       "label": "Ask whom he has in mind",
+       "unless": [
+        "girl"
+       ],
+       "go": "man"
+      },
+      {
+       "label": "Ask whom he has in mind",
+       "if": [
+        "girl"
+       ],
+       "go": "woman"
+      },
+      {
+       "label": "Not yet",
+       "go": "later"
+      }
+     ]
+    },
+    "man": {
+     "text": "“Layla's niece, Aisha. She keeps the accounts for Layla's looms and reads better than I do. If you agree, I'll speak to Layla.”",
+     "choices": [
+      {
+       "label": "Ask him to speak to Layla",
+       "go": "meet"
+      },
+      {
+       "label": "Not yet",
+       "go": "later"
+      }
+     ]
+    },
+    "woman": {
+     "text": "“A young man has spoken to your uncle: Ammar, the copyist at the House of Learning. Honest, prays at the masjid, works hard. Your uncle asked me what I think. I think well of him.”",
+     "choices": [
+      {
+       "label": "Agree to meet him with your uncle",
+       "go": "meet"
+      },
+      {
+       "label": "Not yet",
+       "go": "later"
+      }
+     ]
+    },
+    "meet": {
+     "text": "The families meet in Layla's courtyard, with everyone present. There are questions about prayer, work, and where you would live. Then the question is put plainly: yes or no?",
+     "choices": [
+      {
+       "label": "Say yes",
+       "go": "mahr"
+      },
+      {
+       "label": "Ask for more time",
+       "go": "later"
+      }
+     ]
+    },
+    "mahr": {
+     "text": "The mahr is agreed: thirty coins, given to the bride, hers to keep. The nikah will be at the masjid after Asr, with Idris and Rashid as witnesses.",
+     "choices": [
+      {
+       "label": "The nikah · 30 coins",
+       "unless": [
+        "girl"
+       ],
+       "need_coins": 30,
+       "go": "nikah",
+       "fx": {
+        "coins": -30
+       }
+      },
+      {
+       "label": "The nikah",
+       "if": [
+        "girl"
+       ],
+       "go": "nikah",
+       "fx": {
+        "coins": 30
+       }
+      }
+     ]
+    },
+    "nikah": {
+     "text": "In the masjid the words are said, the witnesses agree, and Idris makes du'a for you both. Outside, Faris and the quay boys are throwing dates in the air.",
+     "choices": [
+      {
+       "label": "A wedding feast for the market · 20 coins",
+       "need_coins": 20,
+       "go": "walima",
+       "fx": {
+        "coins": -20,
+        "count": {
+         "meals": 50
+        },
+        "flag": "married",
+        "say": "walima"
+       }
+      },
+      {
+       "label": "A small feast for the family · 5 coins",
+       "need_coins": 5,
+       "go": "walima",
+       "fx": {
+        "coins": -5,
+        "count": {
+         "meals": 10
+        },
+        "flag": "married"
+       }
+      }
+     ]
+    },
+    "walima": {
+     "text": "The feast goes on until Maghrib. That night the house by the canal has two people in it.",
+     "end": true
+    },
+    "later": {
+     "text": "Idris smiles. “There's no hurry. When you're ready.”",
+     "back": "Back"
+    }
+   },
+   "place": "masjid",
+   "after": [
+    "chapter2_done",
+    "own_house"
+   ],
+   "min_trust": 80,
+   "not": [
+    "married"
+   ],
+   "say": {
+    "walima": [
+     "Fed the whole market at their wedding",
+     "River Market",
+     1
+    ]
+   }
+  }
+ ]
+}

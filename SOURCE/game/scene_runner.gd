@@ -193,6 +193,8 @@ func observe_builtin_flags(app) -> void:
 
 
 func has_flag(app, id: String) -> bool:
+	if id == "girl":
+		return app.gender == "girl"
 	if id == "met_teacher":
 		return app.idris_met
 	if id == "sirr":

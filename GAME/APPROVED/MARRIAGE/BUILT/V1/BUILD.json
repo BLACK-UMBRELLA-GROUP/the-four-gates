@@ -1,0 +1,103 @@
+{
+  "line": 100,
+  "lock": "LOCK 93 V1",
+  "brief": "DOC-TFG-0291",
+  "tested_base_commit_sha": "a275611c87e2b85b6b37420ddfed6ecacee2612c",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily report identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T15:31:47+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --marriage-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_93": 256,
+    "focused": 455,
+    "headless_full_suite": 18454
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/MARRIAGE/BRIEFS/BUILD_BRIEF_2026-11-09_MARRIAGE.md": {
+      "bytes": 2825,
+      "sha256": "4268630d2bfe26ee8f8e183f7b3df27ebfe721922d0695b72a2dbeb032ee0bcc"
+    },
+    "GAME/APPROVED/MARRIAGE/RECORD/LOCK_RECORD.md": {
+      "bytes": 707,
+      "sha256": "44acafa593756b2539cd71496a21553ae66d434f58278e6a0b6e737e2c132be6"
+    },
+    "GAME/APPROVED/MARRIAGE/RECORD/MARRIAGE_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 4519,
+      "sha256": "696ebf68c882b45e7ea3f11e6de1fe4aed5dcc1d36b71a8c13545564c8d6afbe"
+    },
+    "GAME/APPROVED/MARRIAGE/RECORD/marriage_data_V1.json": {
+      "bytes": 4056,
+      "sha256": "307f869637d3cfd825cff79d2514d0b5cc99776f3a38d14dd2c6d6fd4ac85761"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/MARRIAGE/MASTERS/of01_marriage__a.png": {
+      "bytes": 308369,
+      "sha256": "f795d7e162aaa6b6e7533b431eab7d26c98945e0f6c95ac3a7344104e268223c"
+    },
+    "GAME/APPROVED/MARRIAGE/MASTERS/of02_marriage__man.png": {
+      "bytes": 307041,
+      "sha256": "f9378842ec87aa3da27c794cad411aa6e67dc6e68fd9e78271541d93027194c5"
+    },
+    "GAME/APPROVED/MARRIAGE/MASTERS/of03_marriage__woman.png": {
+      "bytes": 310344,
+      "sha256": "7012fe7885b0aa3ee9237a3bd6fb8596305c55a8a0e984ab9360da5eb56967f7"
+    },
+    "GAME/APPROVED/MARRIAGE/MASTERS/of04_marriage__meet.png": {
+      "bytes": 309288,
+      "sha256": "6eddd8721fbebc04cef4d9fff770ebac719a697166510e02860db53aad859625"
+    },
+    "GAME/APPROVED/MARRIAGE/MASTERS/of05_marriage__mahr.png": {
+      "bytes": 318971,
+      "sha256": "e994111f45554ee597ce3b539c6c82a649e62f0317a67ea2f827ec8325fa1aa7"
+    },
+    "GAME/APPROVED/MARRIAGE/MASTERS/of06_marriage__nikah.png": {
+      "bytes": 311723,
+      "sha256": "198c9e22ae89b5a884848d7eeecd15cbea5eaac070cd83a3ab903ad7b94e043b"
+    },
+    "GAME/APPROVED/MARRIAGE/MASTERS/of07_marriage__walima.png": {
+      "bytes": 314761,
+      "sha256": "c47b304c022172088068e901f7ce824cdef06bca69381670d01c52af990877bd"
+    },
+    "GAME/APPROVED/MARRIAGE/MASTERS/of08_marriage__later.png": {
+      "bytes": 313660,
+      "sha256": "1300d29f113a66a752515aded1e97950c07fe582cb05a2d8b610d2ed96cc80a3"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 1401,
+      "sha256": "2cb75d3a57ca6a330b3c13fbd74066e44e1b7449091f0f8d842f27c461267369"
+    },
+    "SOURCE/data/marriage.json": {
+      "bytes": 4056,
+      "sha256": "307f869637d3cfd825cff79d2514d0b5cc99776f3a38d14dd2c6d6fd4ac85761"
+    },
+    "SOURCE/game/market_save.gd": {
+      "bytes": 7269,
+      "sha256": "6dd7fddb8041e5896d9e598476cb273dc082cee81c3de07d8b2f976c63ae01a8"
+    },
+    "SOURCE/game/market_ui.gd": {
+      "bytes": 159046,
+      "sha256": "3be95087772abf1d2bf75e3ab81511b1d3effe9898e93fb571a94b06823146b4"
+    },
+    "SOURCE/game/river_market.gd": {
+      "bytes": 71610,
+      "sha256": "0edb8cef3fd6b8af38b0fae00039f6a867d396e2a4509a427ec258f52bf0e0cf"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 21964,
+      "sha256": "ba5937e38ce71759dcf5927e4807a68ceaf148ae9c823acc52c58c8007b5c466"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 923973,
+      "sha256": "bfeeef16c9d58b22c182b0572efeb96477d97d16265bf9a74d0474cea0ac3988"
+    }
+  }
+}

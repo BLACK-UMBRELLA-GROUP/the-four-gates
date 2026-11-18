@@ -293,6 +293,10 @@ func _run() -> void:
 		await check_waqf_runtime()
 		finish()
 		return
+	if "--marriage-only" in OS.get_cmdline_user_args():
+		await check_marriage_runtime()
+		finish()
+		return
 	if "--truth-only" in OS.get_cmdline_user_args():
 		await check_truth_runtime()
 		finish()
@@ -455,6 +459,7 @@ func _run() -> void:
 	await check_land_and_house_runtime()
 	await check_businesses_runtime()
 	await check_waqf_runtime()
+	await check_marriage_runtime()
 	finish()
 
 
@@ -9115,6 +9120,279 @@ func _check_waqf_ending(mission: Dictionary, choice: Dictionary, goal: Dictionar
 		await press_button(app.chapter.rep.to_map, "return to the market")
 	else:
 		await _check_town_sayings(town, runner.town_sayings(town, app), words)
+
+
+func check_marriage_runtime() -> void:
+	const DAY := 8
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/MARRIAGE/RECORD/marriage_data_V1.json")
+	check(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/marriage.json"),
+		"the marriage pack is byte-identical to LOCK 93")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = approved is Dictionary and approved.missions.size() == 1 and (
+		runner.missions.get(approved.missions[0].id) == approved.missions[0])
+	check(loaded, "the normal production index loads the locked marriage")
+	if not loaded:
+		return
+	var mission: Dictionary = approved.missions[0]
+	var previous := MarketSave.snapshot(app)
+	var original_storage: String = app.storage_directory
+	app.storage_directory = original_storage.path_join("marriage")
+	app.set_process(false)
+	reset_at_market_place(mission.place, 0, DAY)
+	var trust := int(mission.min_trust)
+	app.progress.trust = trust
+	set_market_day_time(DAY, int(mission.hours[0]))
+	for missing: String in mission.after:
+		var partial := runner.state()
+		partial.flags.clear()
+		for flag: String in mission.after:
+			if flag != missing:
+				partial.flags[flag] = DAY - 1
+		runner.restore(partial)
+		app.show_screen("market_map")
+		check(find_button(app.ui, mission.button) == null, "the proposal needs " + missing)
+		app._runner_action("mission", mission)
+		check(app.ui.screen == "market_map", "direct dispatch respects " + missing)
+
+	var ready := runner.state()
+	for flag: String in mission.after:
+		ready.flags[flag] = DAY - 1
+	ready.flags.girl = DAY - 1
+	runner.restore(ready)
+	check(app.gender == "boy" and not runner.has_flag(app, "girl"),
+		"a new game uses the boy route even when an ordinary runner flag says girl")
+	ready.flags.erase("girl")
+	runner.restore(ready)
+	app.progress.trust = trust - 1
+	app.show_screen("market_map")
+	check(find_button(app.ui, mission.button) == null, "the marriage requires the minimum River Market trust")
+	app.progress.trust = trust
+	_check_runner_mission_hours(mission, DAY)
+	var blocked := runner.state()
+	blocked.flags[mission.not[0]] = DAY
+	runner.restore(blocked)
+	app.show_screen("market_map")
+	check(find_button(app.ui, mission.button) == null and not runner.mission_done(app, mission.id),
+		"married closes the offer independently of Journal completion")
+	runner.restore(ready)
+	app.show_screen("market_map")
+
+	await _check_marriage_gender_save()
+	var entry := MarketSave.snapshot(app)
+	for route: Array in [["boy", "a"], ["boy", "man"], ["girl", "woman"], ["girl", "meet"]]:
+		entry.gender = route[0]
+		MarketSave.restore(app, entry)
+		app.show_screen("market_map")
+		await _open_marriage_scene(mission, route[1])
+		var decline: Dictionary = mission.scenes[route[1]].choices.back()
+		var before := runner.state()
+		var journal := runner.journal(app)
+		await press_button(decline.label, "defer marriage at " + str(route[1]))
+		_check_runner_scene_copy(mission, decline.go)
+		await press_button(mission.scenes.later.back, "return after deferring marriage")
+		check(app.ui.screen == "market_map" and find_button(app.ui, mission.button) != null,
+			"deferring returns to the masjid and leaves the offer open")
+		check(runner.state() == before and runner.journal(app) == journal and app.progress.coins == 0
+			and app.progress.trust == trust, "deferring leaves all effects and completion untouched")
+
+	entry.gender = "boy"
+	MarketSave.restore(app, entry)
+	await _check_marriage_mahr_shortfall(mission)
+	await _check_marriage_feast(mission, entry, 0, 1)
+	entry.gender = "girl"
+	await _check_marriage_feast(mission, entry, 1, 0)
+
+	app.storage_directory = original_storage
+	MarketSave.restore(app, previous)
+	app.show_screen("market_map")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 93 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_marriage_gender_save() -> void:
+	var save_path: String = app.storage_directory.path_join("identity.save")
+	var legacy := MarketSave.snapshot(app)
+	check(legacy.erase("gender"), "new saves have a gender field")
+	app.gender = "girl"
+	check(MarketSave.save_slot(app, save_path) == OK, "write the girl fixture to a save slot")
+	var saved := MarketSave.read_slot(save_path)
+	check(saved.get("gender") == "girl", "the persisted gender is read from disk")
+	var legacy_path: String = app.storage_directory.path_join("legacy.save")
+	var payload := var_to_bytes(legacy)
+	var file := FileAccess.open(legacy_path, FileAccess.WRITE)
+	check(file != null, "write a legacy save without a gender field")
+	if file != null:
+		file.store_buffer(MarketSave._checksum(payload))
+		file.store_buffer(payload)
+		file.close()
+		var old_save := MarketSave.read_slot(legacy_path)
+		check(not old_save.is_empty(), "a legacy save is still accepted from disk")
+		if not old_save.is_empty():
+			MarketSave.restore(app, old_save)
+			check(app.gender == "boy" and not app.scene_runner.has_flag(app, "girl"),
+				"a saved game without gender defaults to the boy route")
+	if not saved.is_empty():
+		MarketSave.restore(app, saved)
+		check(app.scene_runner.has_flag(app, "girl"), "restored gender selects the girl route")
+	MarketSave.restore(app, legacy)
+
+
+func _open_marriage_scene(mission: Dictionary, target: String) -> void:
+	var route := "girl" if app.gender == "girl" else "boy"
+	var proposal: Dictionary = mission.scenes.a.choices[int(route == "girl")]
+	var other_proposal: Dictionary = mission.scenes.a.choices[int(route != "girl")]
+	var state: Dictionary = app.scene_runner.state()
+	var coins: int = app.progress.coins
+	await press_button(mission.button, "open the marriage offer")
+	_check_runner_scene_copy(mission, "a")
+	_check_town_hub_button_order([proposal.label, mission.scenes.a.choices.back().label], "the proposal asks once and can be deferred")
+	app._runner_action("choice", other_proposal)
+	check(app.runner_scene() == mission.scenes.a, "direct dispatch cannot choose the other gender's route")
+	if target == "a":
+		return
+	await press_button(proposal.label, "ask about the " + route + " proposal")
+	_check_runner_scene_copy(mission, proposal.go)
+	var offer: Dictionary = mission.scenes[proposal.go]
+	_check_town_hub_button_order([offer.choices[0].label, offer.choices[1].label], "the proposal route shows its two options")
+	if target == proposal.go:
+		return
+	await press_button(offer.choices[0].label, "agree to meet")
+	_check_runner_scene_copy(mission, "meet")
+	var meet: Array = mission.scenes.meet.choices
+	_check_town_hub_button_order([meet[0].label, meet[1].label], "the meeting asks for consent or more time")
+	if target == "mahr":
+		await press_button(meet[0].label, "give consent")
+		_check_runner_scene_copy(mission, "mahr")
+	check(app.scene_runner.state() == state and app.progress.coins == coins
+		and app.progress.trust == int(mission.min_trust), "the proposal and consent do not change state")
+
+
+func _check_marriage_mahr_shortfall(mission: Dictionary) -> void:
+	var charge: Dictionary = mission.scenes.mahr.choices[0]
+	app.progress.coins = int(charge.need_coins) - 1
+	app.show_screen("market_map")
+	await _open_marriage_scene(mission, "mahr")
+	check(find_button(app.ui, charge.label) == null, "the boy cannot pay the mahr one coin short")
+	app._runner_action("choice", charge)
+	check(app.runner_scene() == mission.scenes.mahr and app.progress.coins == int(charge.need_coins) - 1,
+		"direct dispatch cannot pay an unaffordable mahr")
+	await press_button(app.scene_runner.data.words.scene_back, "leave when the mahr cannot be paid")
+	check(find_button(app.ui, mission.button) != null, "an unaffordable mahr does not complete the mission")
+
+	app.progress.coins = int(charge.need_coins)
+	app.show_screen("market_map")
+	var before: Dictionary = app.scene_runner.state()
+	await _open_marriage_scene(mission, "mahr")
+	await press_button(charge.label, "pay the mahr with the exact amount")
+	_check_runner_scene_copy(mission, "nikah")
+	await press_button(app.scene_runner.data.words.scene_back, "leave when neither feast can be paid for")
+	check(app.ui.screen == "market_map" and find_button(app.ui, mission.button) != null
+		and app.progress.coins == 0 and app.scene_runner.state() == before,
+		"leaving with neither feast affordable keeps the mahr paid and does not mark the mission complete")
+
+
+func _check_marriage_feast(mission: Dictionary, entry: Dictionary, mahr_index: int, feast_index: int) -> void:
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var mahr: Dictionary = mission.scenes.mahr.choices[mahr_index]
+	var feast: Dictionary = mission.scenes.nikah.choices[feast_index]
+	var market_feast: Dictionary = mission.scenes.nikah.choices[0]
+	var family_feast: Dictionary = mission.scenes.nikah.choices[1]
+	MarketSave.restore(app, entry)
+	var opening_coins := int(mahr.get("need_coins", 0))
+	app.progress.coins = opening_coins
+	app.show_screen("market_map")
+	await _open_marriage_scene(mission, "mahr")
+	_check_town_hub_button_order([mahr.label], "only the route's mahr action is shown")
+	app._runner_action("choice", mission.scenes.mahr.choices[1 - mahr_index])
+	check(app.runner_scene() == mission.scenes.mahr and app.progress.coins == opening_coins,
+		"direct dispatch cannot apply the other route's mahr")
+	await press_button(mahr.label, "continue to the nikah")
+	_check_runner_scene_copy(mission, "nikah")
+	var balance := opening_coins + int(mahr.fx.coins)
+	check(app.progress.coins == balance, "only the locked mahr amount is paid or received")
+	await _save_and_continue_marriage_scene(mission, "nikah")
+	check(app.gender == entry.gender and app.progress.coins == balance and runner.state() == entry.scene_runner,
+		"resuming from the nikah preserves gender, the exact mahr transfer and the unfinished mission")
+
+	for boundary: Array in [[int(family_feast.need_coins) - 1, []],
+			[int(family_feast.need_coins), [family_feast.label]],
+			[int(market_feast.need_coins) - 1, [family_feast.label]],
+			[int(market_feast.need_coins), [market_feast.label, family_feast.label]]]:
+		app.progress.coins = boundary[0]
+		app.show_screen("runner_mission")
+		var labels: Array[String] = []
+		labels.assign(boundary[1])
+		_check_town_hub_button_order(labels, "visible feast labels follow the locked order at %d coins" % boundary[0])
+		for choice: Dictionary in mission.scenes.nikah.choices:
+			check((find_button(app.ui, choice.label) != null) == (choice.label in labels),
+				"feast affordability for " + str(choice.label))
+			if choice.label not in labels:
+				app._runner_action("choice", choice)
+				check(app.runner_scene() == mission.scenes.nikah and app.progress.coins == boundary[0],
+					"direct dispatch cannot charge for an unaffordable feast")
+
+	app.progress.coins = int(feast.need_coins)
+	app.show_screen("runner_mission")
+	var day: int = app.day
+	var minute: int = app.minute_of_day
+	var initial_meals: int = app.feeding.meal_counter.total
+	var journal := runner.journal(app)
+	var meals: Dictionary = runner.data.goals.filter(func(goal: Dictionary) -> bool: return goal.id == "meals")[0]
+	var old_goal := {"label": meals.label, "n": initial_meals, "m": int(meals.m)}
+	var goal := {"label": meals.label, "n": initial_meals + int(feast.fx.count.meals), "m": int(meals.m)}
+	journal.goals[journal.goals.find(old_goal)] = goal
+	var expected := runner.state()
+	expected.flags[feast.fx.flag] = day
+	if feast.fx.has("say"):
+		expected.sayings.river_market = [mission.say[feast.fx.say]]
+
+	await press_button(feast.label, "hold the chosen wedding feast")
+	_check_runner_scene_copy(mission, "walima")
+	_check_town_hub_button_order([words.scene_back], "the feast ending has Back")
+	check(runner.state() == expected and runner.journal(app) == journal and not runner.mission_done(app, mission.id),
+		"the feast applies only its locked flags, account and private meal count before Back")
+	check(app.feeding.meal_counter.total == goal.n and app.progress.coins == 0
+		and app.progress.trust == entry.progress.trust and app.day == day and app.minute_of_day == minute,
+		"the feast charges its exact cost, counts meals, and leaves trust and time intact")
+	if feast.fx.has("say"):
+		await _save_and_continue_marriage_scene(mission, "walima")
+		check(app.gender == entry.gender and runner.state() == expected and runner.journal(app) == journal
+			and app.progress.coins == 0 and app.progress.trust == entry.progress.trust,
+			"resuming the feast preserves gender, coins, trust and effects without replaying them")
+
+	await press_button(words.scene_back, "complete the wedding and return to the masjid")
+	expected.done[mission.id] = day
+	check(app.ui.screen == "market_map" and app.current_place == mission.place
+		and runner.state() == expected and runner.mission_done(app, mission.id) and runner.journal(app) == journal,
+		"Back records completion without putting marriage in a chapter or adding a side mission")
+	await _check_runner_journal_goal(words, goal)
+	await press_button(app.chapter.purse.morning.to_rep, "open River Market What people say")
+	var account: Array = mission.say.walima
+	check(app.ui.reputation_lines().count(account) == int(feast.fx.has("say")),
+		"only the market feast adds the single locked wedding account")
+	if feast.fx.has("say"):
+		check_reputation_row(account)
+	await press_button(app.chapter.rep.to_map, "return from What people say")
+	expected.flags.erase(feast.fx.flag)
+	runner.restore(expected)
+	set_market_day_time(day + 1, minute)
+	check(find_button(app.ui, mission.button) == null, "completed marriage stays closed even without the married flag")
+	app._runner_action("mission", mission)
+	check(app.ui.screen == "market_map" and runner.state() == expected, "the completed marriage cannot replay")
+
+
+func _save_and_continue_marriage_scene(mission: Dictionary, scene: String) -> void:
+	app._answer_reminder(true)
+	await press_button(app.menus.pause.quit, "save and quit following the prayer reminder")
+	var continue_text: String = str(app.menus.title_continue).format({"d": app.ui.continue_date})
+	await press_button(continue_text, "continue the saved marriage scene")
+	_check_runner_scene_copy(mission, scene)
 
 
 func check_businesses_runtime() -> void:

@@ -1167,3 +1167,15 @@ A named gift earns local trust and an account in **What people say**. Both gifts
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --waqf-only`.
+
+## LOCK 93 — Marriage
+
+Speak with Idris at the River Market masjid from 07:00 until 20:00 after Chapter 2,
+once you own a house and have at least 80 River Market trust. The proposal follows
+your saved gender. New games start on the boy's route until the character choice
+screen is built. The boy pays 30 coins for the mahr and the girl receives 30.
+Either feast adds to the private meals goal in the Journal. The market feast also
+adds an account to **What people say**.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --marriage-only`.
