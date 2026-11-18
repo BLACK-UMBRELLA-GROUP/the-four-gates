@@ -8,12 +8,12 @@ links: [AD-AIOS-115, DOC-TFG-0105, DOC-TFG-0108, DOC-TFG-0112]
 owner: THE FOUR GATES chat
 ---
 
-# SCENE RUNNER SPEC — CURRENT VERSION V1 (LOCK 34)
+# SCENE RUNNER SPEC — CURRENT VERSION V2 (LOCK 34)
 
 | Field | Value |
 |---|---|
 | Locked | 9 Nov 2026 under the Founder's blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now" - record `LOCK_RECORD.md` beside this file |
-| Words and numbers | `scene_runner_data_V1.json` beside this file (exported from the prototype's own data object) |
+| Words and numbers | `scene_runner_data_V2.json` beside this file (exported from the prototype's own data object) |
 | Builds on | LOCK 1 trust, LOCK 2 prayer, LOCK 3 What people say, LOCK 6 talking, LOCK 8 All your prayers, LOCK 18 clock, LOCK 32 Jisra, LOCK 33 masjids. Queue line 41 comes after line 40 |
 | Masters | `../MASTERS/sr01`-`sr02` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V92 |
@@ -73,7 +73,11 @@ Walking around inside towns (a town is a hub of buttons for now); quests that sp
 
 ## Build rules
 
-Words and numbers only from `scene_runner_data_V1.json` (copied byte for byte to `SOURCE/data/scene_runner.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+Words and numbers only from `scene_runner_data_V2.json` (copied byte for byte to `SOURCE/data/scene_runner.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+
+## V2 change (17 Nov 2026, QUESTIONS 16)
+
+`words.people.talk` ("Talk") is the button beside each person who is about in a town's people list (master jp02). Nothing else changes. Line 42 copies V2 over `SOURCE/data/scene_runner.json`.
 
 ## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
 
@@ -87,3 +91,4 @@ Words and numbers only from `scene_runner_data_V1.json` (copied byte for byte to
 | Date | Version | Change |
 |---|---|---|
 | 2026-11-09 | V1 | LOCK 34 under the Founder's blanket LOCK (9 Nov) |
+| 2026-11-17 | V2 | QUESTIONS 16: words.people.talk = "Talk", the button beside each person in a town's people list (as master jp02 and the prototype show). answers Codex's QUESTIONS 16 inside the LOCK 103 reissue |

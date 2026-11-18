@@ -120,6 +120,7 @@ Words and numbers only from `safira_data_V1.json` (copied byte for byte to `SOUR
 |---|---|---|
 | 2026-11-11 | — | Masters are pictures with a set-up state: the HUD's weekday, time, date, coins and trust, and bar items or toasts from other LOCKs, are not evidence targets unless this spec names them. A master at "Thursday 10:00" is a set-up time (the live game reaches the market only after the arrival, 18:15 on day 1): test the same state at the same time on a later day that is not a Friday (Friday turns Dhuhr into Friday prayer) |
 | 2026-11-11 | 13 (general) | Masters were drawn from the full prototype, so they can also show content from LATER queue lines (Journal chapters, missions, people, buttons, ticks). Those are set-up too: build only what this line's data holds, and capture the same state without the later content. Missing later content is never a reason to stop. |
+| 2026-11-17 | LOCK 103 | The six gates: this gate now opens at its journey % (LOCK 36 V2), not at the end of the chapter before. The "opens after chapter N" note in this file's `builds_on` is history; no change to the data. |
 
 ## Version history
 

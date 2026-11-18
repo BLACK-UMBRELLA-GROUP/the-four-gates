@@ -8,12 +8,12 @@ links: [AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0158]
 owner: THE FOUR GATES chat
 ---
 
-# FINALE HOARDERS SPEC — CURRENT VERSION V1 (LOCK 49)
+# FINALE HOARDERS SPEC — CURRENT VERSION V2 (LOCK 49)
 
 | Field | Value |
 |---|---|
 | Locked | 9 Nov 2026 under the Founder's blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now" - record `LOCK_RECORD.md` beside this file |
-| Words and numbers | `finale_hoarders_data_V1.json` beside this file (exported from the prototype's own data object) |
+| Words and numbers | `finale_hoarders_data_V2.json` beside this file (exported from the prototype's own data object) |
 | Builds on | LOCK 34 runner, LOCK 36 roads and earlier chapter LOCKs. Queue line 56 comes after line 55 |
 | Masters | `../MASTERS/h101`-`h111` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V92 |
@@ -90,7 +90,11 @@ Anything not written above; walking around inside towns.
 
 ## Build rules
 
-Words and numbers only from `finale_hoarders_data_V1.json` (copied byte for byte to `SOURCE/data/finale_hoarders.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+Words and numbers only from `finale_hoarders_data_V2.json` (copied byte for byte to `SOURCE/data/finale_hoarders.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+
+## LOCK 103 changes (17 Nov 2026, the six gates)
+
+The hard year starts after `chapter6_done` (the end of the Gate of Return's chapter, designed in a later LOCK) instead of `chapter4_done`, and is Journal chapter 7. Until chapters 5 and 6 exist it cannot start in play; tests set the flag.
 
 ## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
 
@@ -105,3 +109,4 @@ Words and numbers only from `finale_hoarders_data_V1.json` (copied byte for byte
 | Date | Version | Change |
 |---|---|---|
 | 2026-11-09 | V1 | LOCK 49 under the Founder's blanket LOCK (9 Nov) |
+| 2026-11-17 | V2 | Six gates (LOCK 103): the hard year starts after chapter 6 and is Journal chapter 7. Founder 17 Nov: "LOCK it (Recommended)" (LOCK 103) |

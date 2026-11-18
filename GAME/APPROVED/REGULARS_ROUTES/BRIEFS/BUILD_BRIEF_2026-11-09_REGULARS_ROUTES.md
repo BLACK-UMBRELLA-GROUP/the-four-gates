@@ -16,7 +16,8 @@ owner: THE FOUR GATES chat
 |---|---|
 | Built from | LOCK 98 V1: spec DOC-TFG-0304, data `regulars_routes_data_V1.json`, masters fa01-fa04 |
 | Founder's words | Blanket LOCK, 9 Nov 2026 (see the LOCK record); placeholder shapes only |
-| Build after | line 104 (if the line before is not BUILT, this line stays WAITING with "waits for line 104") |
+| Needs | none (charters rule 15) |
+| Build after | line 41 (the scene runner, BUILT) - chain removed 17 Nov (Founder: "it should do some even if there others blockers"; charters rule 15, AD-AIOS-154) |
 | Build before | nothing |
 | ROADMAP | No row finished (say so in the task note). |
 

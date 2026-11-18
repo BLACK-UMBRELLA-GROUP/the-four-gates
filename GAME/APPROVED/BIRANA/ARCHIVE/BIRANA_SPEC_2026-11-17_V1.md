@@ -1,7 +1,7 @@
 ---
 id: DOC-TFG-0136
 type: SPEC
-status: CURRENT
+status: ARCHIVED
 feature: BIRANA
 purpose: LOCK 42 - Birana, the wells (chapter 2): town, masjid, people; missions The dry well, The long wait, the permit, and Patience kept (Idris opens the Gate of Mercy)
 links: [AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0137]

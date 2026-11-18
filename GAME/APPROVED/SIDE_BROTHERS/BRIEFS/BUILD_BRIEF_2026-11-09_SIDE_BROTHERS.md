@@ -16,9 +16,13 @@ owner: THE FOUR GATES chat
 |---|---|
 | Built from | LOCK 52 V1: spec DOC-TFG-0166, data `side_brothers_data_V1.json`, masters sa01-sa04 |
 | Founder's words | Blanket LOCK, 9 Nov 2026 (see the LOCK record); placeholder shapes only |
-| Build after | line 58 (if the line before is not BUILT, this line stays WAITING with "waits for line 58") |
+| Needs | none (charters rule 15) |
+| Build after | line 41 (the scene runner, BUILT) - chain removed 17 Nov (Founder: "it should do some even if there others blockers"; charters rule 15, AD-AIOS-154) |
 | Build before | nothing |
 | ROADMAP | No row finished (say so in the task note). |
+
+**QUESTIONS 17 answer (17 Nov):** the spec now calls for one small runner change - when a scene has no kicker or title, show the mission's locked kicker and title (as masters sa01-sa04 show); an authored scene field still wins. Build it once here; later side missions use it.
+
 
 | # | Step | Detail |
 |---|---|---|

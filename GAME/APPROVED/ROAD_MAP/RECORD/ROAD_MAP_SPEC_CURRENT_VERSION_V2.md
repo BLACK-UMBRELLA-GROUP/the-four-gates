@@ -8,13 +8,13 @@ links: [AD-AIOS-115, DOC-TFG-0105, DOC-TFG-0111, DOC-TFG-0118]
 owner: THE FOUR GATES chat
 ---
 
-# ROAD MAP SPEC — CURRENT VERSION V1 (LOCK 36)
+# ROAD MAP SPEC — CURRENT VERSION V2 (LOCK 36)
 
 | Field | Value |
 |---|---|
 | Locked | 9 Nov 2026 under the Founder's blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now" - record `LOCK_RECORD.md` beside this file |
-| Words and numbers | `road_map_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 2 world (four gates, three towns each), LOCK 32 the road east, LOCK 34 towns. Queue line 43 comes after line 42 |
+| Words and numbers | `road_map_data_V2.json` beside this file (exported from the prototype's own data object) |
+| Builds on | LOCK 2 world (four gates, three towns each), LOCK 32 the road east, LOCK 34 towns. Queue line 43 builds after line 41 |
 | Masters | `../MASTERS/rd01`-`rd03` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V92 |
 | ROADMAP | No row; noted for Fable |
@@ -59,7 +59,18 @@ Roads with their own scenes; caravans; horses or camels making travel faster (ow
 
 ## Build rules
 
-Words and numbers only from `road_map_data_V1.json` (copied byte for byte to `SOURCE/data/road_map.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+Words and numbers only from `road_map_data_V2.json` (copied byte for byte to `SOURCE/data/road_map.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+
+## LOCK 103 changes (17 Nov 2026, the six gates)
+
+| Part | Rule |
+|---|---|
+| Rows | Ilmara · River Market, then the six `gates` in data order (name and direction). A closed gate shows `opens_at` with its % (the Gate of Trust keeps `gate_closed`). An open gate lists its `roads`; an open gate with no roads yet (Witness, Return until their towns are built) shows `no_roads` |
+| Gate opens | Trust: LOCK 32 gate opened (unchanged). The other five: when your journey % reaches their `opens_at` (20, 30, 40, 45, 50); once open, always open. This replaces "Patience: chapter1_done; Mercy: chapter2_done; Knowledge: chapter3_done" in section 2 |
+| Journey % | `journey.rule`, exactly: done = missions done (main and side) + notebook pages found + Names of Allah learned + masjids prayed in + each lifetime goal's tenths reached; total = the same items available in the loaded data (each goal counts 10); journey % = floor(100 × done ÷ total) |
+| Journal | The LOCK 34 Journal shows `journey.label` under its title, with the current %. Nothing else in the Journal changes |
+| Masters | rd01-rd03 show the four-gate map: they are reference for the look only. Build the six rows from the data |
+| City map | The LOCK 2 city map's gate tags follow LOCK 103 (line 110), not this line |
 
 ## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
 
@@ -73,3 +84,4 @@ Words and numbers only from `road_map_data_V1.json` (copied byte for byte to `SO
 | Date | Version | Change |
 |---|---|---|
 | 2026-11-09 | V1 | LOCK 36 under the Founder's blanket LOCK (9 Nov) |
+| 2026-11-17 | V2 | Six gates (LOCK 103): the gates list and their directions; Patience, Mercy, Knowledge, Witness and Return open at 20/30/40/45/50% of your journey; the journey % rule and its Journal line; words opens_at and no_roads. Founder 17 Nov: "LOCK it (Recommended)" (LOCK 103) |

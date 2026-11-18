@@ -13,3 +13,4 @@ owner: THE FOUR GATES chat
 | LOCK | Date / time (UK) | Founder's words (exact) | What it locks | Queue lines |
 |---|---|---|---|---|
 | 34 | 2026-11-09 | Blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now". Not shown one by one; prototype V92 | `SCENE_RUNNER_SPEC_CURRENT_VERSION_V1.md` (DOC-TFG-0111), `scene_runner_data_V1.json`, masters `sr01`-`sr02` | 41 |
+| 34 V2 | 2026-11-17 | Codex's QUESTIONS 16 answered by the THE FOUR GATES Claude chat inside the LOCK 103 reissue (Founder 17 Nov "LOCK it (Recommended)") | `scene_runner_data_V2.json` adds `words.people.talk` ("Talk"); spec V2 | copied by line 42 |

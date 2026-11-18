@@ -1,7 +1,7 @@
 ---
 id: DOC-TFG-0154
 type: SPEC
-status: CURRENT
+status: ARCHIVED
 feature: SHIFARA
 purpose: LOCK 48 - Shifara, the hospital (chapter 4): town, masjid, people; missions The fever, The doctor's secret and Knowledge carried (Idris: the hard year begins)
 links: [AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0155]

@@ -8,12 +8,12 @@ links: [AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0146]
 owner: THE FOUR GATES chat
 ---
 
-# TAHUNA SPEC — CURRENT VERSION V1 (LOCK 45)
+# TAHUNA SPEC — CURRENT VERSION V2 (LOCK 45)
 
 | Field | Value |
 |---|---|
 | Locked | 9 Nov 2026 under the Founder's blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now" - record `LOCK_RECORD.md` beside this file |
-| Words and numbers | `tahuna_data_V1.json` beside this file (exported from the prototype's own data object) |
+| Words and numbers | `tahuna_data_V2.json` beside this file (exported from the prototype's own data object) |
 | Builds on | LOCK 34 runner, LOCK 36 roads and earlier chapter LOCKs. Queue line 52 comes after line 51 |
 | Masters | `../MASTERS/th01`-`th24` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V92 |
@@ -121,7 +121,11 @@ Anything not written above; walking around inside towns.
 
 ## Build rules
 
-Words and numbers only from `tahuna_data_V1.json` (copied byte for byte to `SOURCE/data/tahuna.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+Words and numbers only from `tahuna_data_V2.json` (copied byte for byte to `SOURCE/data/tahuna.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+
+## LOCK 103 changes (17 Nov 2026, the six gates)
+
+The chapter 3 ending no longer opens the Gate of Knowledge (it opens at 40% of your journey). Its closing line becomes: the road west waits for the Gate of Knowledge. `chapter3_done` is still set.
 
 ## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
 
@@ -136,3 +140,4 @@ Words and numbers only from `tahuna_data_V1.json` (copied byte for byte to `SOUR
 | Date | Version | Change |
 |---|---|---|
 | 2026-11-09 | V1 | LOCK 45 under the Founder's blanket LOCK (9 Nov) |
+| 2026-11-17 | V2 | Six gates (LOCK 103): the chapter 3 ending no longer opens the Gate of Knowledge. Founder 17 Nov: "LOCK it (Recommended)" (LOCK 103) |

@@ -8,12 +8,12 @@ links: [AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0127]
 owner: THE FOUR GATES chat
 ---
 
-# CHAPTER 1 END SPEC — CURRENT VERSION V1 (LOCK 39)
+# CHAPTER 1 END SPEC — CURRENT VERSION V2 (LOCK 39)
 
 | Field | Value |
 |---|---|
 | Locked | 9 Nov 2026 under the Founder's blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now" - record `LOCK_RECORD.md` beside this file |
-| Words and numbers | `chapter1_end_data_V1.json` beside this file (exported from the prototype's own data object) |
+| Words and numbers | `chapter1_end_data_V2.json` beside this file (exported from the prototype's own data object) |
 | Builds on | LOCK 3 Idris, LOCKs 32-38. Queue line 46 comes after line 45 |
 | Masters | `../MASTERS/ce01`-`ce02` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V92 |
@@ -52,7 +52,11 @@ Idris judging your choices (he listens; the game never plays God).
 
 ## Build rules
 
-Words and numbers only from `chapter1_end_data_V1.json` (copied byte for byte to `SOURCE/data/chapter1_end.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+Words and numbers only from `chapter1_end_data_V2.json` (copied byte for byte to `SOURCE/data/chapter1_end.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+
+## LOCK 103 changes (17 Nov 2026, the six gates)
+
+Only the second paragraph of the ending scene changes (the Gate of Patience is north-west and opens at 20% of your journey, not at the end of chapter 1). Setting `chapter1_done` and the Journal chapter are unchanged.
 
 ## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
 
@@ -66,3 +70,4 @@ Words and numbers only from `chapter1_end_data_V1.json` (copied byte for byte to
 | Date | Version | Change |
 |---|---|---|
 | 2026-11-09 | V1 | LOCK 39 under the Founder's blanket LOCK (9 Nov) |
+| 2026-11-17 | V2 | Six gates (LOCK 103): Idris names the north-west gate and says Safira waits for when it opens. Founder 17 Nov: "LOCK it (Recommended)" (LOCK 103) |

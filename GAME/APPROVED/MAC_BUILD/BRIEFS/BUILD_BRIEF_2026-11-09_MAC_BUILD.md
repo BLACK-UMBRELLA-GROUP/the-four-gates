@@ -16,7 +16,8 @@ owner: THE FOUR GATES chat
 |---|---|
 | Built from | LOCK 101 V1: spec DOC-TFG-0313, data `mac_build_data_V1.json`, masters none-none |
 | Founder's words | Blanket LOCK, 9 Nov 2026 (see the LOCK record); placeholder shapes only |
-| Build after | line 107 (if the line before is not BUILT, this line stays WAITING with "waits for line 107") |
+| Needs | none (charters rule 15) |
+| Build after | every other line in this list that is not held (the Mac build packages the game last) - chain removed 17 Nov (Founder: "it should do some even if there others blockers"; charters rule 15, AD-AIOS-154) |
 | Build before | nothing |
 | ROADMAP | No row finished (say so in the task note). |
 

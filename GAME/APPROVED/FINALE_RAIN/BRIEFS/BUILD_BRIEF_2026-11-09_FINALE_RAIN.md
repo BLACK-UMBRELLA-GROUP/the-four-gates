@@ -14,9 +14,10 @@ owner: THE FOUR GATES chat
 
 | Field | Value |
 |---|---|
-| Built from | LOCK 50 V1: spec DOC-TFG-0160, data `finale_rain_data_V1.json`, masters h201-h206 |
-| Founder's words | Blanket LOCK, 9 Nov 2026 (see the LOCK record); placeholder shapes only |
-| Build after | line 56 (if the line before is not BUILT, this line stays WAITING with "waits for line 56") |
+| Built from | LOCK 50 V1: spec DOC-TFG-0160, data `finale_rain_data_V1.json`, masters h201-h206; reissued for LOCK 103 the six gates (DOC-TFG-0323) - no change to this LOCK's data |
+| Founder's words | Blanket LOCK, 9 Nov 2026 (see the LOCK record); placeholder shapes only; reissued 17 Nov 2026 after LOCK 103, clickable "LOCK it (Recommended)" |
+| Needs | none (charters rule 15) |
+| Build after | line 56 (LOCK 49, the hoarders) - set 17 Nov in the LOCK 103 reissue (charters rule 15, AD-AIOS-154) |
 | Build before | nothing |
 | ROADMAP | No row finished (say so in the task note). |
 
@@ -26,7 +27,7 @@ owner: THE FOUR GATES chat
 | 2 | Data | Copy `RECORD/finale_rain_data_V1.json` byte for byte to `SOURCE/data/finale_rain.json`; the LOCK 34 runner loads it with the other content files - no new code unless the spec says so |
 | 3 | Build | Everything in the spec, in order |
 | T | Tests | Every choice path of every mission (effects, flags, What people say lines, done in the Journal); every person line at trust 10 / 50 / 80; buttons only in their hours and conditions. Check the words. Add to `run_tests.gd`; the headless run must exit 0 with every earlier test passing |
-| E | Evidence | Screenshots beside the masters in `GAME/APPROVED/FINALE_RAIN/BUILT/V1/` with a `BUILD.json`. No exports or compiled builds |
+| E | Evidence | `BUILD.json` and the line's checks file in `FINALE_RAIN/BUILT/V1/` (under `GAME/APPROVED/`). No native Godot window or screenshots (QUESTIONS 15); the masters are reference only |
 | N | Task note | "Built from: <paths>", what matches, any difference, public checks A-F, the commit |
 | Q | Queue | Mark this line BUILT (or FAILED) in `GAME/APPROVED/BUILD_QUEUE.md` |
 
@@ -36,3 +37,7 @@ from the data files at run time.
 ## Answer note — 16 Nov 2026 (QUESTIONS row 15)
 
 Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the Godot window or take native screenshots for this line. Row E means: `BUILD.json` and the line's checks file in `BUILT/V1/`, with the full headless run passing. The masters stay the design reference only.
+
+## Reissue note — 17 Nov 2026 (LOCK 103, the six gates)
+
+Founder 17 Nov: "LOCK it (Recommended)". No change to this LOCK's words or numbers. The six gates (LOCK 103) change only which line it builds after; held 16 Nov and released now. Build after line 56. Needs: none.
