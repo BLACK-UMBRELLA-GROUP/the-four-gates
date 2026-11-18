@@ -899,6 +899,17 @@ in the Journal. Page 40 includes the chapter story.
 
 Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch04-only`.
 
+## LOCK 68 — The scholar's notebook, Chapter 5
+
+After completing Chapter 3, find page 41 with Zaynab at the Waraka town hub.
+Each find unlocks the next page through page 50. From 07:00 up to 19:00,
+find actions appear with Zaynab in Waraka, Kamil in Najmara and Shakir in
+Shifara. At the River Market masjid, Idris offers the lowest found unread
+page. Closing the notebook adds one to **The scholar's pages** in the
+Journal. Page 50 includes the chapter story.
+
+Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch05-only`.
+
 ## LOCK 74 — Wudu with Idris
 
 After meeting Idris, choose **Idris will show you wudu** at the River Market
