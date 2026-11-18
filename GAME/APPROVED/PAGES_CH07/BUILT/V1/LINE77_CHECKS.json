@@ -1,0 +1,67 @@
+{
+  "line": 77,
+  "lock": "LOCK 70 V1",
+  "focused": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch07-only",
+    "exit_code": 0,
+    "passed": 444,
+    "total": 444,
+    "failures": 0
+  },
+  "full_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 16022,
+    "total": 16022,
+    "failures": 0
+  },
+  "lock_70_in_both_runs": {
+    "passed": 245,
+    "total": 245,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "pg01_page_61__a.png": "page_61/a",
+    "pg02_read_61__a.png": "read_61/a",
+    "pg03_page_62__a.png": "page_62/a",
+    "pg04_read_62__a.png": "read_62/a",
+    "pg05_page_63__a.png": "page_63/a",
+    "pg06_read_63__a.png": "read_63/a",
+    "pg07_page_64__a.png": "page_64/a",
+    "pg08_read_64__a.png": "read_64/a",
+    "pg09_page_65__a.png": "page_65/a",
+    "pg10_read_65__a.png": "read_65/a",
+    "pg11_page_66__a.png": "page_66/a",
+    "pg12_read_66__a.png": "read_66/a",
+    "pg13_page_67__a.png": "page_67/a",
+    "pg14_read_67__a.png": "read_67/a",
+    "pg15_page_68__a.png": "page_68/a",
+    "pg16_read_68__a.png": "read_68/a",
+    "pg17_page_69__a.png": "page_69/a",
+    "pg18_read_69__a.png": "read_69/a",
+    "pg19_page_70__a.png": "page_70/a",
+    "pg20_read_70__a.png": "read_70/a"
+  },
+  "master_dimensions": [
+    1920,
+    1080
+  ],
+  "master_review": "All twenty masters matched the locked town or River Market locations, scene order and scene copy, including the story on page 70.",
+  "native_screenshots": 0,
+  "rules": {
+    "prerequisite": "The existing Chapter 2 ending sets chapter2_done.",
+    "find": "Pages 61–70 use their locked town hubs, people, 07:00–19:00 hours and sequential found flags. Taking a page records the find without raising the Journal count.",
+    "read": "Idris offers the lowest found unread page at the River Market masjid. The locked saying and Idris’s words appear in order, and page 70 shows the Fasting and seasons chapter story.",
+    "journal": "Closing each reading sets its read flag and raises the count by one. A returning-player fixture advanced from 60/100 to 70/100, with persistence after load.",
+    "q36": "The checks cover the ten pages delivered in this chapter.",
+    "q15_r11": "Headless rules and copy checks use the existing Godot layout."
+  },
+  "scholar_checks": {
+    "register": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md",
+    "rows": [
+      22,
+      53
+    ]
+  }
+}

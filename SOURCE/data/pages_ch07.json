@@ -1,0 +1,165 @@
+{
+ "version": "LOCK 70 V1 (9 Nov 2026) - the scholar's notebook, chapter 7: Fasting and seasons",
+ "builds_on": "LOCK 3 (page 1, read with Idris), LOCK 34 runner, LOCK 51 (the last page). Every reference checked on sunnah.com; the game never shows the reference.",
+ "words": {
+  "find_button": "{p} has found a page",
+  "find_kicker": "The scholar's notebook · a page found",
+  "find_title": "A page in the scholar's hand",
+  "take": "Take the page to Idris",
+  "read_button": "Read the scholar's page with Idris",
+  "read_kicker": "The scholar's notebook · page {n} of 100",
+  "read_turn": "Close the notebook",
+  "idris": "Idris: “{t}”",
+  "story": "Idris turns back through the pages. “{t}”",
+  "hours": [
+   420,
+   1140
+  ]
+ },
+ "chapter": {
+  "n": 7,
+  "title": "Fasting and seasons",
+  "story": "He kept the fast through a winter of famine and gave his own bread away at every iftar."
+ },
+ "pages": [
+  {
+   "n": 61,
+   "chapter": 7,
+   "ref": "Bukhari 6464",
+   "saying": "The most beloved deeds to Allah are the most regular, even if they are small.",
+   "idris": "A little every day beats a lot once. Like digging a well.",
+   "person": "Wahb",
+   "found": "Wahb found a page lining an old hat bought from a pedlar.",
+   "after": [
+    "chapter2_done"
+   ],
+   "town": "birana"
+  },
+  {
+   "n": 62,
+   "chapter": 7,
+   "ref": "Bukhari 39",
+   "saying": "The religion is easy; whoever makes it too hard for himself will be overcome. So aim for what is right, come close, and take heart.",
+   "idris": "Don't break yourself. Steady, not strained.",
+   "person": "Umm Hani",
+   "found": "Umm Hani hands you a loaf wrapped in an old page. “Look at the writing on this.”",
+   "after": [
+    "chapter2_done",
+    "page_61_found"
+   ],
+   "town": "jisra"
+  },
+  {
+   "n": 63,
+   "chapter": 7,
+   "ref": "Bukhari 1923",
+   "saying": "Eat suhoor, for there is blessing in it.",
+   "idris": "Even a mouthful of water before Fajr. The blessing isn't in the size.",
+   "person": "Mukhtar",
+   "found": "Mukhtar found a folded page in a crack while mending a wall. “It's in a scholar's hand. You'll know who wants it.”",
+   "after": [
+    "chapter2_done",
+    "page_62_found"
+   ],
+   "town": "sahila"
+  },
+  {
+   "n": 64,
+   "chapter": 7,
+   "ref": "Bukhari 2009",
+   "saying": "Whoever stands in prayer in Ramadan with faith and hoping for reward, his past sins are forgiven.",
+   "idris": "Tarawih is long and your legs ache. Read this page again.",
+   "person": "Sakhr",
+   "found": "Children are flying a kite made from an old page. Sakhr buys it from them for a date and gives it to you.",
+   "after": [
+    "chapter2_done",
+    "page_63_found"
+   ],
+   "town": "sukara"
+  },
+  {
+   "n": 65,
+   "chapter": 7,
+   "ref": "Bukhari 2017",
+   "saying": "Look for the Night of Power in the odd nights of the last ten of Ramadan.",
+   "idris": "He didn't tell us which night. So we stand on all of them.",
+   "person": "Amina",
+   "found": "Amina found a page pressed inside a second-hand book.",
+   "after": [
+    "chapter2_done",
+    "page_64_found"
+   ],
+   "town": "safira"
+  },
+  {
+   "n": 66,
+   "chapter": 7,
+   "ref": "Bukhari 1933",
+   "saying": "If someone fasting eats or drinks forgetting, let him complete his fast - it was Allah who fed him.",
+   "idris": "Forgetting isn't failing. Finish the day.",
+   "person": "Ghazi",
+   "found": "Ghazi has been using a page to wrap spices and has only just noticed the writing.",
+   "after": [
+    "chapter2_done",
+    "page_65_found"
+   ],
+   "town": "wadira"
+  },
+  {
+   "n": 67,
+   "chapter": 7,
+   "ref": "Bukhari 1902",
+   "saying": "The Prophet was the most generous of people, and most generous in Ramadan, more generous than the wind sent with rain.",
+   "idris": "Ramadan is when the purse opens widest. Remember the iftars.",
+   "person": "Wahb",
+   "found": "Wahb pulls a damp page from the bottom of a basket and dries it for you.",
+   "after": [
+    "chapter2_done",
+    "page_66_found"
+   ],
+   "town": "birana"
+  },
+  {
+   "n": 68,
+   "chapter": 7,
+   "ref": "Tirmidhi 807",
+   "saying": "Whoever gives food to a fasting person to break his fast gets the same reward, without taking anything from the faster's reward.",
+   "idris": "You fed the fasting at the masjid. Reward like a whole extra fast.",
+   "person": "Umm Hani",
+   "found": "Umm Hani found a page under a loose floor tile.",
+   "after": [
+    "chapter2_done",
+    "page_67_found"
+   ],
+   "town": "jisra"
+  },
+  {
+   "n": 69,
+   "chapter": 7,
+   "ref": "Bukhari 1503",
+   "saying": "Zakat al-fitr was made obligatory - a measure of dates or barley - for every Muslim, to be given before people go out to the Eid prayer.",
+   "idris": "Before Eid prayer. Remember the measure of dates.",
+   "person": "Mukhtar",
+   "found": "Mukhtar was given a debt note - and the scholar's page is written on the back of it.",
+   "after": [
+    "chapter2_done",
+    "page_68_found"
+   ],
+   "town": "sahila"
+  },
+  {
+   "n": 70,
+   "chapter": 7,
+   "ref": "Muslim 1162",
+   "saying": "Fasting the day of Arafah, I hope, wipes out the sins of the year before and the year after.",
+   "idris": "Two years for one day. Saeed's sheep and the fast before it.",
+   "person": "Sakhr",
+   "found": "Sakhr's little one folded a page into a paper boat. Sakhr dried it out for you.",
+   "after": [
+    "chapter2_done",
+    "page_69_found"
+   ],
+   "town": "sukara"
+  }
+ ]
+}

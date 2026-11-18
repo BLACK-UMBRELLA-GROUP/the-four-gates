@@ -921,6 +921,16 @@ up by one.
 
 Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch06-only`.
 
+## LOCK 70 — The scholar's notebook, Chapter 7
+
+After the Chapter 2 ending, find pages 61–70 in the town hubs from 07:00 up to 19:00.
+Start with Wahb in Birana. Each subsequent pickup requires taking the preceding page.
+At the River Market masjid, Idris offers the lowest found unread page. Page 70 includes
+the Fasting and seasons chapter story. Closing each reading adds one to
+**The scholar's pages** in the private Journal.
+
+Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch07-only`.
+
 ## LOCK 74 — Wudu with Idris
 
 After meeting Idris, choose **Idris will show you wudu** at the River Market
