@@ -269,6 +269,10 @@ func _run() -> void:
 		await check_promises_runtime()
 		finish()
 		return
+	if "--letters-home-only" in OS.get_cmdline_user_args():
+		await check_letters_home_runtime()
+		finish()
+		return
 	await check_six_gates_runtime()
 	if "--six-gates-only" in OS.get_cmdline_user_args():
 		finish()
@@ -404,6 +408,7 @@ func _run() -> void:
 	await check_visiting_sick_runtime()
 	await check_gossip_runtime()
 	await check_promises_runtime()
+	await check_letters_home_runtime()
 	await check_road_map_runtime()
 	await check_sahila_runtime()
 	await check_sukara_runtime()
@@ -8387,6 +8392,99 @@ func _choose_promise(mission: Dictionary, choice: Dictionary, reference: String)
 	check(app.ui.screen == origin and app.current_place == mission.place
 		and runner.mission_done(app, mission.id) and find_button(app.ui, mission.button) == null,
 		"the choice completes the mission and returns to the same quay view")
+
+
+func check_letters_home_runtime() -> void:
+	const DAY := 8
+	const MINUTE := 20 * 60
+	const TRUST := 50
+	const JISRA_TRUST := 31
+	const COINS := 7
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/LETTERS_HOME/RECORD/letters_home_data_V1.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/letters_home.json") == locked,
+		"the runtime Letters Home pack is byte-identical to LOCK 86")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var mission: Dictionary = runner.missions.get("letter_home", {})
+	var loaded: bool = approved is Dictionary and approved.missions.size() == 1 and approved.goals.size() == 1
+	if loaded:
+		loaded = mission == approved.missions[0] and approved.goals[0] in runner.data.goals
+	check(loaded, "the production index loads the locked letter mission and lifetime goal")
+	if not loaded:
+		return
+
+	var previous := MarketSave.snapshot(app)
+	app.set_process(false)
+	reset_at_market_place(mission.place, COINS, DAY)
+	app.progress.trust = TRUST
+	app.gate_of_trust.jisra_trust = JISRA_TRUST
+	_check_runner_mission_hours(mission, DAY)
+	var words: Dictionary = runner.data.words
+	var goal_row := {"label": approved.goals[0].label, "n": 0, "m": 100}
+	check(goal_row in runner.journal(app).goals, "the letter goal starts at zero out of 100")
+	await _check_runner_journal_goal(words, goal_row)
+	var scene: Dictionary = mission.scenes[mission.start]
+	var choice: Dictionary = scene.choices[0]
+	var reference: String = approved.design_reference_not_shown[mission.id]
+	var interval := int(mission.repeat_days)
+	check(interval == 30, "Q45 keeps the locked 30-day interval")
+
+	# Delay the second letter so a fixed schedule anchored to the first one would fail.
+	for completion_day: int in [DAY, DAY + interval + 2]:
+		var origin := "game" if completion_day == DAY else "market_map"
+		set_market_day_time(completion_day, MINUTE)
+		app.show_screen(origin)
+		var before := runner.state()
+		await press_button(mission.button, "open the locked letter scene at the inn")
+		_check_single_runner_choice(mission, scene, choice, reference)
+		var copy := visible_text().split("\n")
+		var kicker_index := copy.find(str(mission.kicker).to_upper())
+		var title_index := copy.find(mission.title)
+		var story_index := copy.find(scene.text)
+		check(kicker_index >= 0 and kicker_index < title_index
+			and title_index < story_index and story_index < copy.find(choice.label),
+			"the scene follows the master's kicker, title, story and choice order")
+		check(runner.state() == before and app.minute_of_day == MINUTE, "opening the scene has no effects")
+
+		await press_button(choice.label, "give the letter to the caravan using the locked choice")
+		goal_row.n += 1
+		var expected := before.duplicate(true)
+		expected.done[mission.id] = completion_day
+		expected.counters.letters = goal_row.n
+		check(runner.state() == expected and runner.mission_done(app, mission.id),
+			"sending adds one letter and records the last completion day, with no town trust or account changes")
+		check(app.day == completion_day and app.minute_of_day == MINUTE + 30,
+			"sending advances the clock by exactly 30 minutes")
+		check(app.ui.screen == origin and app.current_place == mission.place and find_button(app.ui, mission.button) == null,
+			"sending returns to the inn and closes the offer for the day")
+		check_wallet(TRUST, COINS, "sending changes neither River Market trust nor coins")
+		check(runner.town_trust(app, "jisra") == JISRA_TRUST, "sending does not change Jisra trust")
+
+		var saved := MarketSave.snapshot(app)
+		app.begin_game()
+		MarketSave.restore(app, saved)
+		app.show_screen(origin)
+		check(runner.state() == expected and goal_row in runner.journal(app).goals
+			and app.day == completion_day and app.minute_of_day == MINUTE + 30
+			and find_button(app.ui, mission.button) == null,
+			"loading preserves the letter count, time and closed offer")
+		await _check_runner_journal_goal(words, goal_row)
+		set_market_day_time(completion_day + interval - 1, MINUTE)
+		check(find_button(app.ui, mission.button) == null, "the letter stays closed 29 days after the latest completion")
+		app._runner_action("mission", mission)
+		check(app.ui.screen == origin, "direct mission dispatch also enforces the repeat interval")
+		set_market_day_time(completion_day + interval, int(mission.hours[0]) - 1)
+		check(find_button(app.ui, mission.button) == null, "on day 30 the letter still observes the inn time window")
+		set_market_day_time(completion_day + interval, int(mission.hours[0]))
+		check(find_button(app.ui, mission.button) != null, "the letter reopens 30 days after the latest completion")
+
+	MarketSave.restore(app, previous)
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 86 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
 
 
 func _check_house_of_learning_waraka_entry(visit: Dictionary) -> void:

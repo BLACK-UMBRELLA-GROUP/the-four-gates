@@ -1076,3 +1076,13 @@ Declining the offer completes it without a follow-up. These scenes add no Journa
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --promises-only`.
+
+## LOCK 86 — Letters home
+
+**Write a letter home** appears at the River Market inn from 19:00 through 21:59.
+Giving the letter to a passing caravan advances the clock by 30 in-game minutes
+and adds one to **Letters home** in the private Journal, toward a goal of 100.
+The action returns 30 in-game days after the last letter.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --letters-home-only`.

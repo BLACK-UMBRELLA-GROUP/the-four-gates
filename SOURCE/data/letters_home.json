@@ -1,0 +1,47 @@
+{
+ "version": "LOCK 86 V1 (9 Nov 2026) - A letter home",
+ "builds_on": "LOCK 2 prayer, LOCK 3 Idris, LOCK 6 regulars, LOCK 34 runner. Private counters go to the Journal; worship never earns trust.",
+ "goals": [
+  {
+   "id": "letters",
+   "label": "Letters home",
+   "m": 100
+  }
+ ],
+ "design_reference_not_shown": {
+  "letter_home": "Bukhari 5971"
+ },
+ "missions": [
+  {
+   "id": "letter_home",
+   "lock": 86,
+   "place": "inn",
+   "hours": [
+    1140,
+    1320
+   ],
+   "title": "A letter home",
+   "kicker": "Character · A letter home",
+   "button": "Write a letter home",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "You borrow a pen from the innkeeper and write to your mother: the market, the gate, the people, and that you are praying.",
+     "choices": [
+      {
+       "label": "Give it to a caravan going your way",
+       "fx": {
+        "minutes": 30,
+        "count": {
+         "letters": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "repeat_days": 30
+  }
+ ]
+}

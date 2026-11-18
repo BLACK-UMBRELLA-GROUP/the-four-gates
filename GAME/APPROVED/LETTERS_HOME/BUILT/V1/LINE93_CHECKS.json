@@ -1,0 +1,44 @@
+{
+  "line": 93,
+  "lock": "LOCK 86 V1",
+  "questions_answer_rows": [
+    15,
+    45
+  ],
+  "runner_contract": "Scene Runner V2, R1–R12",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --letters-home-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 266,
+      "total": 266,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17354,
+      "total": 17354,
+      "failures": 0
+    },
+    "lock_86": {
+      "passed": 67,
+      "total": 67,
+      "failures": 0
+    }
+  },
+  "native_screenshots": 0,
+  "result": "PASS",
+  "verified": [
+    "The production index loads the byte-identical mission and lifetime goal.",
+    "The River Market inn offers the mission at 19:00 through 21:59. Test boundaries are 18:59, 19:00, 21:59 and 22:00, plus the wrong town and place.",
+    "The one choice follows the locked kicker, title and story, records completion, advances 30 minutes, adds one letter and returns to the previous view.",
+    "The private Journal shows 0, 1 and 2 of 100 as letters are sent. Coins, local trust, Jisra trust and town accounts do not change. The design citation stays out of player text.",
+    "Restoring a save preserves completion, count and clock. The offer is unavailable on day 29 and reopens at 19:00 on day 30 after the latest letter. Sending the second letter two days late verifies the interval starts anew."
+  ],
+  "master_reference": {
+    "dm01_letter_home__a.png": "letter_home/a"
+  },
+  "visual_scope": "Checked the master for words and order. Q15 and R11 retain the existing Godot layout and use headless rules tests.",
+  "scholar_check": "DOC-TFG-0320 row 63, open before public release (OA-AIOS-432)"
+}

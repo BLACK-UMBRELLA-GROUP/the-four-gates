@@ -257,7 +257,10 @@ func _mission_available(app, mission: Dictionary, town: String) -> bool:
 
 func _already_completed(mission: Dictionary, day: int) -> bool:
 	var id: String = mission.id
-	return _done.has(id) and (mission.get("repeat") != "daily" or int(_done[id]) >= day)
+	if not _done.has(id):
+		return false
+	var interval := int(mission.get("repeat_days", 1 if mission.get("repeat") == "daily" else 0))
+	return interval <= 0 or day < int(_done[id]) + interval
 
 
 func choices(app, mission: Dictionary, scene: Dictionary) -> Array[Dictionary]:

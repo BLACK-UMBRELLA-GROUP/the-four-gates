@@ -1,0 +1,92 @@
+{
+  "line": 93,
+  "lock": "LOCK 86 V1",
+  "questions_answer_rows": [
+    15,
+    45
+  ],
+  "runner_contract": "Scene Runner V2, R1–R12",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --letters-home-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 266,
+      "total": 266,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17354,
+      "total": 17354,
+      "failures": 0
+    },
+    "lock_86": {
+      "passed": 67,
+      "total": 67,
+      "failures": 0
+    }
+  },
+  "native_screenshots": 0,
+  "brief": "DOC-TFG-0270",
+  "tested_base_commit_sha": "f776decd75389f44dcf5398c36ab68485dcdfbae",
+  "tested_source": "Base commit plus the source files hashed below. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T13:56:37+00:00",
+  "locked_inputs": {
+    "GAME/APPROVED/LETTERS_HOME/BRIEFS/BUILD_BRIEF_2026-11-09_LETTERS_HOME.md": {
+      "bytes": 2839,
+      "sha256": "ab64edb0534a277899f08730e9013a9b8e546e5d2a97becf339103a6b1b5b877"
+    },
+    "GAME/APPROVED/LETTERS_HOME/RECORD/LETTERS_HOME_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3070,
+      "sha256": "e98987f82ec64db4bdb5283f125bd7d3cefbfd7862d2c5525439131adcbbbac4"
+    },
+    "GAME/APPROVED/LETTERS_HOME/RECORD/LOCK_RECORD.md": {
+      "bytes": 726,
+      "sha256": "fe1478debe2f57c6197bc45f8f8e894dee785f183e7a0cc12539621cf3cad756"
+    },
+    "GAME/APPROVED/LETTERS_HOME/RECORD/letters_home_data_V1.json": {
+      "bytes": 1014,
+      "sha256": "4c1911ace559c21a60a4aa38520ed0a4d62beb9173100be85ae1dcdacb8e088e"
+    },
+    "GAME/APPROVED/LETTERS_HOME/MASTERS/dm01_letter_home__a.png": {
+      "bytes": 271391,
+      "sha256": "eb8f13ee2c23679e627638e93fb422d6801d4ac0e6cb191493f289a5b3d592ab"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 18738,
+      "sha256": "a9d118a9082ff9d8aee65d33d2f5c9cf44a61d4d40277f8e643de402ca35d0d3"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1258,
+      "sha256": "d9c61ece8a24f47a359d8a95274d057f3a3c53e609748323829361405fe9e4c9"
+    },
+    "SOURCE/data/letters_home.json": {
+      "bytes": 1014,
+      "sha256": "4c1911ace559c21a60a4aa38520ed0a4d62beb9173100be85ae1dcdacb8e088e"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 844013,
+      "sha256": "4cc8f4ed10b4c3a85b1fc761d7a68de0eb78884cbed4ae1a50077c4bfb8fdbd0"
+    },
+    "SOURCE/README.md": {
+      "bytes": 67365,
+      "sha256": "7595b3edcc0d07d97e97c972a18562146b4cffb9e85442412c5d0833b582bc4a"
+    }
+  },
+  "compiled_exports": 0,
+  "evidence": {
+    "GAME/APPROVED/LETTERS_HOME/BUILT/V1/LINE93_CHECKS.json": {
+      "bytes": 1770,
+      "sha256": "ea35972a600d040cc32ce41d4dec2574b8febed7ce2ac866fc0c9358bcbc89e0"
+    }
+  }
+}
