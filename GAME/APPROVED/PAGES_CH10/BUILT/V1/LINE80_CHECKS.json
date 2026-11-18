@@ -1,0 +1,58 @@
+{
+  "line": 80,
+  "lock": "LOCK 73 V1",
+  "focused": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch10-only",
+    "exit_code": 0,
+    "passed": 422,
+    "total": 422,
+    "failures": 0
+  },
+  "full_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 16735,
+    "total": 16735,
+    "failures": 0
+  },
+  "lock_73_in_both_runs": {
+    "passed": 223,
+    "total": 223,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "pj01_page_91__a.png": "page_91/a",
+    "pj02_read_91__a.png": "read_91/a",
+    "pj03_page_92__a.png": "page_92/a",
+    "pj04_read_92__a.png": "read_92/a",
+    "pj05_page_93__a.png": "page_93/a",
+    "pj06_read_93__a.png": "read_93/a",
+    "pj07_page_94__a.png": "page_94/a",
+    "pj08_read_94__a.png": "read_94/a",
+    "pj09_page_95__a.png": "page_95/a",
+    "pj10_read_95__a.png": "read_95/a",
+    "pj11_page_96__a.png": "page_96/a",
+    "pj12_read_96__a.png": "read_96/a",
+    "pj13_page_97__a.png": "page_97/a",
+    "pj14_read_97__a.png": "read_97/a",
+    "pj15_page_98__a.png": "page_98/a",
+    "pj16_read_98__a.png": "read_98/a",
+    "pj17_page_99__a.png": "page_99/a",
+    "pj18_read_99__a.png": "read_99/a"
+  },
+  "master_dimensions": [
+    1920,
+    1080
+  ],
+  "master_review": "All nine find and read pairs agree with the locked player-facing wording and order. The chapter story appears only in pj18. The HUD values are setup as specified. R11 keeps the existing Godot layout.",
+  "native_screenshots": 0,
+  "rules": {
+    "prerequisite": "Completing the existing Hoarders mission in line 56 sets hoarders_done. The test plays its quiet refusal from a Chapter 6 completion fixture.",
+    "find": "Pages 91–99 appear at their locked River Market places from 07:00 up to 19:00. The Hoarders flag is required for all nine finds. Pages 92–99 also require the previous page found. Taking saves the find without a Journal increment.",
+    "read": "Idris offers the lowest found unread page at the River Market masjid. The saying, Idris's words and, on page 99 alone, the chapter story appear in the locked order. Hadith references stay out of the UI.",
+    "journal": "A test save with ten earlier reads gains exactly nine reads. The saved total and completion flags persist on restore and prevent rereads. Q38 assigns the complete 1–100 progression to line 58.",
+    "effects": "The finds and reads leave coins, clock and town trust unchanged.",
+    "scholar_check": "Rows 25 and 56 of DOC-TFG-0320 remain open for before public release (OA-AIOS-432)."
+  }
+}

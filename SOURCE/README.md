@@ -953,6 +953,16 @@ each reading adds one to **The scholar's pages** in the private Journal.
 
 Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch09-only`.
 
+### The scholar's notebook, Chapter 10 — The heart (LOCK 73 V1)
+
+After completing The hoarders, find pages 91–99 in the River Market from
+07:00 up to 19:00. Start with Faris at the quay. Each subsequent pickup
+requires taking the preceding page. Idris offers the lowest found unread
+page at the masjid. Page 99 includes the chapter story. Closing each reading
+adds one to **The scholar's pages** in the private Journal.
+
+Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch10-only`.
+
 ## LOCK 74 — Wudu with Idris
 
 After meeting Idris, choose **Idris will show you wudu** at the River Market

@@ -129,6 +129,10 @@ func _run() -> void:
 		await check_pages_ch09_runtime()
 		finish()
 		return
+	if "--pages-ch10-only" in OS.get_cmdline_user_args():
+		await check_pages_ch10_runtime()
+		finish()
+		return
 	if "--side-goods-in-trust-only" in OS.get_cmdline_user_args():
 		await check_side_goods_in_trust_runtime()
 		finish()
@@ -362,6 +366,7 @@ func _run() -> void:
 	await check_pages_ch07_runtime()
 	await check_pages_ch08_runtime()
 	await check_pages_ch09_runtime()
+	await check_pages_ch10_runtime()
 	await check_jisra_people_runtime()
 	await check_wudu_runtime()
 	await check_adhan_rows_runtime()
@@ -6709,6 +6714,147 @@ func check_pages_ch09_runtime() -> void:
 	app.set_process(true)
 	var added_failures := failures - failures_before
 	print("LOCK 72 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func check_pages_ch10_runtime() -> void:
+	const DAY := 8
+	const MINUTE := 540
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/PAGES_CH10/RECORD/pages_ch10_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/pages_ch10.json")
+	check(not locked.is_empty() and runtime == locked, "Chapter 10 data is byte-identical to LOCK 73 V1")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = approved is Dictionary and approved.pages.size() == 9 and range(91, 100).all(
+		func(number: int) -> bool:
+			return runner.missions.has("page_%d" % number) and runner.missions.has("read_%d" % number))
+	check(loaded, "the production index loads the nine find and read pairs for pages 91–99")
+	if not loaded:
+		return
+
+	var words: Dictionary = approved.words
+	app.set_process(false)
+	reset_at_market_place("board", 60, DAY)
+	set_market_day_time(DAY, MINUTE)
+	app.known_words["sirr"] = true
+	app.open_purse.page_read = true
+	var ready := runner.state()
+	ready.flags.chapter6_done = DAY
+	# Earlier reads are fixture progress. Only this chapter's nine reads are played here.
+	for number in range(2, 11):
+		ready.flags["page_%d_found" % number] = DAY
+		ready.flags["page_%d_read" % number] = DAY
+		ready.done["page_%d" % number] = DAY
+		ready.done["read_%d" % number] = DAY
+	ready.counters.pages = 9
+	runner.restore(ready)
+	move_market_fixture("masjid")
+	var goal := {"label": "The scholar's pages", "n": 10, "m": 100}
+	check(goal in runner.journal(app).goals and find_button(app.ui, words.read_button) == null,
+		"the Journal retains the prior reads and Idris has no unread find")
+	move_market_fixture("quay")
+	var first_find: Dictionary = runner.missions.page_91
+	check(find_button(app.ui, first_find.button) == null,
+		"Chapter 6 alone does not unlock the first Chapter 10 find")
+	move_market_fixture("board")
+	var hoarders: Dictionary = runner.missions.hoarders
+	await press_button(hoarders.button, "open the live Hoarders mission")
+	await press_button(hoarders.scenes.a.choices[1].label, "refuse Jalal's offer quietly")
+	await press_button(runner.data.words.scene_back, "leave the Hoarders result")
+	check(runner.has_flag(app, "hoarders_done") and runner.mission_done(app, hoarders.id),
+		"the live Hoarders mission unlocks Chapter 10")
+
+	var trust: Dictionary = runner.state().trust
+	var coins: int = app.progress.coins
+	var opens := int(words.hours[0])
+	var closes := int(words.hours[1])
+	for page: Dictionary in approved.pages:
+		var number := int(page.n)
+		var find: Dictionary = runner.missions["page_%d" % number]
+		var read: Dictionary = runner.missions["read_%d" % number]
+		var found_flag: String = find.id + "_found"
+		var caption := str(words.find_button).format({"p": page.person})
+		check(find.kind == "page_find" and find.town.is_empty() and find.place == page.place
+			and find.after == page.after and find.button == caption and find.hours == words.hours
+			and read.kind == "page_read" and read.place == "masjid" and read.button == words.read_button
+			and read.after == [found_flag] and read.not == [find.id + "_read"],
+			"page %d uses its locked place, hours, prerequisites and actions" % number)
+		move_market_fixture("board" if page.place != "board" else "quay")
+		check(find_button(app.ui, caption) == null
+			and read not in runner.available_missions(app, "", "masjid"),
+			"page %d cannot be found elsewhere or read before pickup" % number)
+		move_market_fixture(page.place)
+		ready = runner.state()
+		for flag: String in page.after:
+			var missing := ready.duplicate(true)
+			missing.flags.erase(flag)
+			runner.restore(missing)
+			app.update_state()
+			check(find_button(app.ui, caption) == null, "page %d is hidden without %s" % [number, flag])
+		runner.restore(ready)
+		for minute: int in [opens - 1, opens, closes - 1, closes]:
+			set_market_day_time(DAY, minute)
+			check((find_button(app.ui, caption) != null) == (minute >= opens and minute < closes),
+				"page %d follows its locked find hours at minute %d" % [number, minute])
+		set_market_day_time(DAY, MINUTE)
+		await press_button(caption, "open the find scene for page %d" % number)
+		var take := {"label": words.take, "fx": {"flag": found_flag, "done": true}}
+		check(app.ui.screen == "runner_mission" and app.runner_mission() == find
+			and has_visible_label(app.ui, words.find_title)
+			and has_visible_label(app.ui, str(words.find_kicker).to_upper())
+			and visible_text().split("\n").has(page.found) and not visible_text().contains(page.ref)
+			and runner.choices(app, find, app.runner_scene()) == [take]
+			and not runner.has_flag(app, found_flag), "page %d shows the locked find scene and choice" % number)
+		await press_button(words.take, "take page %d to Idris" % number)
+		check(app.ui.screen == "market_map" and app.current_place == page.place
+			and runner.has_flag(app, found_flag) and runner.mission_done(app, find.id)
+			and find_button(app.ui, caption) == null and goal in runner.journal(app).goals,
+			"taking page %d returns to its location and records a find without a read" % number)
+
+	move_market_fixture("board")
+	check(find_button(app.ui, words.read_button) == null, "reading is offered only at the River Market masjid")
+	move_market_fixture("masjid")
+	app.show_screen("game")
+	for page: Dictionary in approved.pages:
+		var number := int(page.n)
+		var read: Dictionary = runner.missions["read_%d" % number]
+		var offered := runner.available_missions(app, "", "masjid").filter(
+			func(mission: Dictionary) -> bool: return mission.get("kind") == "page_read")
+		check(offered == [read], "Idris offers only the lowest found unread page: %d" % number)
+		await press_button(words.read_button, "open the reading for page %d" % number)
+		var scene: Dictionary = read.scenes[read.start]
+		var paragraphs := ["“%s”" % page.saying, str(words.idris).format({"t": page.idris})]
+		if number == 99:
+			paragraphs.append(str(words.story).format({"t": approved.chapter.story}))
+		check(read.title == approved.chapter.title and read.kicker == str(words.read_kicker).format({"n": number})
+			and scene.text == paragraphs, "page %d uses the locked reading text in order" % number)
+		var flag := "page_%d_read" % number
+		var close := {"label": words.read_turn, "fx": {"flag": flag, "count": "pages", "done": true}}
+		_check_single_runner_choice(read, scene, close, page.ref)
+		check(goal in runner.journal(app).goals and not runner.has_flag(app, flag),
+			"opening page %d keeps the read flag and Journal count pending" % number)
+		await press_button(words.read_turn, "close the notebook after page %d" % number)
+		goal.n += 1
+		check(app.ui.screen == "game" and app.current_place == "masjid"
+			and runner.has_flag(app, flag) and runner.mission_done(app, read.id) and goal in runner.journal(app).goals,
+			"closing page %d records a read and adds exactly one to the Journal" % number)
+
+	check(find_button(app.ui, words.read_button) == null, "Idris offers no reread after Chapter 10")
+	check(app.progress.coins == coins and app.minute_of_day == MINUTE and runner.state().trust == trust,
+		"finding and reading Chapter 10 leaves coins, time and town trust unchanged")
+	var finished := MarketSave.snapshot(app)
+	app.begin_game()
+	MarketSave.restore(app, finished)
+	move_market_fixture("masjid")
+	check(runner.state() == finished.scene_runner and goal in runner.journal(app).goals
+		and find_button(app.ui, words.read_button) == null, "a restored save keeps all nine reads and prevents rereads")
+	await _check_runner_journal_goal(runner.data.words, goal)
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 73 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
 		" passed; failures=", added_failures)
 
 
