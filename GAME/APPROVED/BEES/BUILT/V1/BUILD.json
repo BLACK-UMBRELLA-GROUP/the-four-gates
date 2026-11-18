@@ -1,0 +1,92 @@
+{
+  "line": 96,
+  "lock": "LOCK 89 V1",
+  "questions_answer_rows": [
+    15,
+    48
+  ],
+  "runner_contract": "Scene Runner V2, R1–R12",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --bees-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 242,
+      "total": 242,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17628,
+      "total": 17628,
+      "failures": 0
+    },
+    "lock_89": {
+      "passed": 43,
+      "total": 43,
+      "failures": 0
+    }
+  },
+  "native_screenshots": 0,
+  "brief": "DOC-TFG-0279",
+  "tested_base_commit_sha": "b52a0bf3c7b9277d16219ed94a368c2b4c1330c7",
+  "tested_source": "Base commit plus the source files hashed below. The 18 November task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T14:34:06+00:00",
+  "locked_inputs": {
+    "GAME/APPROVED/BEES/BRIEFS/BUILD_BRIEF_2026-11-09_BEES.md": {
+      "bytes": 3289,
+      "sha256": "427114a7de797b32703db5a2391f377b9f5c893a9239637d41c7d04bc0d396e5"
+    },
+    "GAME/APPROVED/BEES/RECORD/BEES_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3390,
+      "sha256": "9d1f633e9a3a0636063061aa3730b18c36fb8674c992d03e0667088a331691fd"
+    },
+    "GAME/APPROVED/BEES/RECORD/LOCK_RECORD.md": {
+      "bytes": 905,
+      "sha256": "0b7eb616f0f1555d23086417709c8dd0525c425d93529f671742257927b57e56"
+    },
+    "GAME/APPROVED/BEES/RECORD/bees_data_V1.json": {
+      "bytes": 1748,
+      "sha256": "3c90d5ee2b8432ab1226390bcf910a6442b7fac8befddda6382899a8b6903d9f"
+    },
+    "GAME/APPROVED/BEES/MASTERS/ob01_buy_hive__a.png": {
+      "bytes": 308635,
+      "sha256": "2b74591cbad525ff97ba70487b626174b85c2ca2b1912fe064a2d5b6625e24fd"
+    },
+    "GAME/APPROVED/BEES/MASTERS/ob02_honey_share__a.png": {
+      "bytes": 314189,
+      "sha256": "2275020720de259e4c7a12e5a6aef3bbcc66e9c1f2a987f5df3eab2fddee5f7a"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 68973,
+      "sha256": "9ef0adc66c68441107511929ae0e93961fb6b7ad12a4e4b79bfabfbe00405c6d"
+    },
+    "SOURCE/data/bees.json": {
+      "bytes": 1748,
+      "sha256": "3c90d5ee2b8432ab1226390bcf910a6442b7fac8befddda6382899a8b6903d9f"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1313,
+      "sha256": "6421e2ebfce917ac8e3cf0ba568f8a43dd126b2bff023c480dc354b8daf643b3"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 873090,
+      "sha256": "454841bd1dd044aecfc16336ade0069f631e0c7207a06e1271f4455ef22e28a1"
+    }
+  },
+  "compiled_exports": 0,
+  "evidence": {
+    "GAME/APPROVED/BEES/BUILT/V1/LINE96_CHECKS.json": {
+      "bytes": 1829,
+      "sha256": "0e931879e4104a402ee8353d650cc0cb9ae3935b1f78ab83f9b2ad964e4d1be5"
+    }
+  }
+}

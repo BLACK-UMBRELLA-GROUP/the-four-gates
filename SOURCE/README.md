@@ -1111,3 +1111,13 @@ lowers River Market trust by three, and adds his account to What people say.
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --animals-only`.
+
+## LOCK 89 — A hive at Nahla
+
+After completing Nahla's missions, visit its hub from 07:00 through 15:59
+to buy a hive from Dawud for 30 coins. Dawud pays six coins at the hub
+during the same hours, starting seven in-game days after purchase. Each
+later payment becomes available seven in-game days after the last collection.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --bees-only`.

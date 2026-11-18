@@ -277,6 +277,10 @@ func _run() -> void:
 		await check_animals_runtime()
 		finish()
 		return
+	if "--bees-only" in OS.get_cmdline_user_args():
+		await check_bees_runtime()
+		finish()
+		return
 	if "--truth-only" in OS.get_cmdline_user_args():
 		await check_truth_runtime()
 		finish()
@@ -419,6 +423,7 @@ func _run() -> void:
 	await check_letters_home_runtime()
 	await check_truth_runtime()
 	await check_animals_runtime()
+	await check_bees_runtime()
 	await check_road_map_runtime()
 	await check_sahila_runtime()
 	await check_sukara_runtime()
@@ -8521,6 +8526,137 @@ func check_animals_runtime() -> void:
 	app.set_process(true)
 	print("LOCK 88 TESTS: ", checks - checks_before - (failures - failures_before), "/", checks - checks_before,
 		" passed; failures=", failures - failures_before)
+
+
+func check_bees_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/BEES/RECORD/bees_data_V1.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/bees.json") == locked,
+		"the live Bees pack is byte-identical to LOCK 89 V1")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	for mission: Dictionary in approved.missions:
+		check(runner.missions.get(mission.id) == mission, "the production index loads " + str(mission.id))
+	if not runner.missions.has_all(["buy_hive", "honey_share"]):
+		return
+	var purchase: Dictionary = runner.missions.buy_hive
+	var payout: Dictionary = runner.missions.honey_share
+	var previous := MarketSave.snapshot(app)
+	app.set_process(false)
+
+	const PURCHASE_DAY := 8
+	const MORNING := 480
+	var buy: Dictionary = purchase.scenes.a.choices[0]
+	var decline: Dictionary = purchase.scenes.a.choices[1]
+	var cost := int(buy.need_coins)
+	_enter_nahla_fixture(cost - 1)
+	set_market_day_time(PURCHASE_DAY, MORNING)
+	check(find_button(app.ui, purchase.button) == null and find_button(app.ui, payout.button) == null,
+		"the hive requires Nahla completion and honey requires hive ownership")
+	var expected := runner.state()
+	expected.flags.nahla_done = PURCHASE_DAY
+	expected.trust.nahla = 60
+	runner.restore(expected)
+	var market_trust: int = app.progress.trust
+	var journal := runner.journal(app)
+	check(not runner.available_missions(app, "river_market", "gate").has(purchase)
+		and not runner.available_missions(app, "waraka", "").has(purchase), "the hive offer is exclusive to Nahla")
+	var map_words: Dictionary = app.road_map.data.words
+	await press_button(map_words.map_button, "leave the Nahla hub for the Road map")
+	check(find_button(app.ui, purchase.button) == null, "the hive button is confined to the hub")
+	await press_button(map_words.back, "return to the Nahla hub")
+	_check_bees_hours(purchase, PURCHASE_DAY)
+	set_market_day_time(PURCHASE_DAY, MORNING)
+
+	await press_button(purchase.button, "open Dawud's hive offer one coin short")
+	_check_runner_scene_copy(purchase, "a")
+	check(find_button(app.ui, buy.label) == null and find_button(app.ui, decline.label) != null,
+		"one coin short hides Buy it and leaves Not now")
+	app._runner_action("choice", buy)
+	check(app.ui.screen == "runner_mission" and runner.state() == expected and app.progress.coins == cost - 1,
+		"an underfunded choice leaves the scene, coins and runner state intact")
+	await press_button(decline.label, "decline with Not now")
+	check(app.ui.screen == "runner_town" and find_button(app.ui, purchase.button) != null
+		and runner.state() == expected and runner.journal(app) == journal and app.progress.coins == cost - 1,
+		"Not now returns to the hub and leaves the offer open")
+
+	app.progress.coins = cost
+	app.update_state()
+	await press_button(purchase.button, "reopen Dawud's offer with exactly 30 coins")
+	var labels := visible_text().split("\n")
+	check(labels.find(buy.label) >= 0 and labels.find(buy.label) < labels.find(decline.label),
+		"ob01 shows Buy it before Not now")
+	await press_button(buy.label, "buy Dawud's hive")
+	expected.flags.own_hive = PURCHASE_DAY
+	expected.done[purchase.id] = PURCHASE_DAY
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "nahla"
+		and app.progress.coins == 0 and runner.state() == expected and app.progress.trust == market_trust
+		and runner.journal(app) == journal and app.minute_of_day == MORNING,
+		"buying spends exactly 30 coins, dates ownership and leaves trust, clock and Journal intact")
+	check(find_button(app.ui, purchase.button) == null and find_button(app.ui, payout.button) == null,
+		"the purchase and early payout buttons are hidden")
+	var owned := runner.state()
+	owned.done.erase(purchase.id)
+	runner.restore(owned)
+	app.update_state()
+	check(find_button(app.ui, purchase.button) == null, "ownership alone prevents a second purchase")
+	runner.restore(expected)
+
+	var first_due := PURCHASE_DAY + int(payout.after_days.own_hive)
+	set_market_day_time(first_due - 1, MORNING)
+	check(find_button(app.ui, payout.button) == null, "Dawud has no payout six days after purchase")
+	_check_bees_hours(payout, first_due)
+	set_market_day_time(first_due, MORNING)
+	check(not runner.available_missions(app, "river_market", "gate").has(payout)
+		and not runner.available_missions(app, "waraka", "").has(payout), "honey is collected in Nahla only")
+	var take: Dictionary = payout.scenes.a.choices[0]
+	var share := int(take.fx.coins)
+	var first_collection := first_due + 2
+	set_market_day_time(first_collection, MORNING)
+	await press_button(payout.button, "open the first honey payout two days after it became available")
+	_check_runner_scene_copy(payout, "a")
+	check(runner.choices(app, payout, app.runner_scene()) == [take], "ob02 offers only Take 6 coins")
+	await press_button(take.label, "collect the first six coins")
+	expected.done[payout.id] = first_collection
+	check(app.ui.screen == "runner_town" and app.progress.coins == share and runner.state() == expected
+		and find_button(app.ui, payout.button) == null, "payout saves its collection day and closes the offer")
+	app._runner_action("choice", take)
+	check(app.progress.coins == share, "a stale choice cannot pay a second time")
+
+	var saved := MarketSave.snapshot(app)
+	runner.reset()
+	MarketSave.restore(app, saved)
+	app.show_screen("runner_town")
+	check(app.runner_town_id() == "nahla" and runner.state() == expected and app.progress.coins == share
+		and find_button(app.ui, payout.button) == null, "save and restore preserve ownership and the collection day")
+	var next_due := first_collection + int(payout.repeat_days)
+	set_market_day_time(next_due - 1, MORNING)
+	check(find_button(app.ui, payout.button) == null, "the next payout waits seven days from actual collection")
+	set_market_day_time(next_due, MORNING)
+	await press_button(payout.button, "open the next payout seven days after collection")
+	await press_button(take.label, "collect the next six coins")
+	expected.done[payout.id] = next_due
+	check(app.progress.coins == 2 * share and runner.state() == expected and find_button(app.ui, payout.button) == null
+		and find_button(app.ui, purchase.button) == null and app.progress.trust == market_trust
+		and runner.journal(app) == journal and app.minute_of_day == MORNING,
+		"recurring honey pays only six coins and leaves trust, clock, counters and the Journal intact")
+
+	MarketSave.restore(app, previous)
+	app.show_screen("market_map")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 89 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_bees_hours(mission: Dictionary, day: int) -> void:
+	var opens := int(mission.hours[0])
+	var closes := int(mission.hours[1])
+	for minute: int in [opens - 1, opens, closes - 1, closes]:
+		set_market_day_time(day, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= opens and minute < closes),
+			"%s follows its Nahla hub hours at minute %d" % [mission.id, minute])
 
 
 func _check_animal_purchase(runner: SceneRunner, mission: Dictionary) -> void:

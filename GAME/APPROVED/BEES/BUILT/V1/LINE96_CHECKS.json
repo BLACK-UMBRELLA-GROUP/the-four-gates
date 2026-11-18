@@ -1,0 +1,45 @@
+{
+  "line": 96,
+  "lock": "LOCK 89 V1",
+  "questions_answer_rows": [
+    15,
+    48
+  ],
+  "runner_contract": "Scene Runner V2, R1–R12",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --bees-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 242,
+      "total": 242,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17628,
+      "total": 17628,
+      "failures": 0
+    },
+    "lock_89": {
+      "passed": 43,
+      "total": 43,
+      "failures": 0
+    }
+  },
+  "native_screenshots": 0,
+  "result": "PASS",
+  "verified": [
+    "The production content index loads both missions from the byte-identical LOCK 89 V1 pack.",
+    "Dawud's offer requires Nahla's hub and the Nahla completion flag. Each action is available from 07:00 through 15:59 and only in Nahla.",
+    "The two scenes use the approved title, kicker, dialogue and choice order. At 29 coins Buy it is hidden. Not now returns to the hub without effects. Buying with 30 coins spends exactly 30, saves ownership and closes the offer.",
+    "The first payout is available seven in-game days after purchase. A late collection gives six coins and starts the next seven-day interval on the actual collection date. Collection is available once per interval and survives save and restore.",
+    "Both missions leave local and River Market trust, Journal chapters, side totals, lifetime goals and unrelated runner state intact."
+  ],
+  "master_reference": {
+    "ob01_buy_hive__a.png": "buy_hive/a",
+    "ob02_honey_share__a.png": "honey_share/a"
+  },
+  "visual_scope": "Reviewed master words and choice order. Q15 and R11 require headless rules checks.",
+  "scholar_check": "DOC-TFG-0320 row 66, open before public release (OA-AIOS-432)"
+}

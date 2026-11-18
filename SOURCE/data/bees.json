@@ -1,0 +1,83 @@
+{
+ "version": "LOCK 89 V1 (9 Nov 2026) - A hive of your own",
+ "builds_on": "LOCK 5 (clothes and bags), LOCK 9 (secret giving after page 1), LOCK 23 Saeed, LOCK 34 runner, LOCK 36 roads. Founder 8 Nov picks: animals, land and buildings, businesses, waqf; marriage and family (scholar check set aside 9 Nov).",
+ "design_reference_not_shown": {
+  "buy_hive": "Quran 16:68-69",
+  "honey_share": ""
+ },
+ "missions": [
+  {
+   "id": "buy_hive",
+   "lock": 89,
+   "hours": [
+    420,
+    960
+   ],
+   "title": "A hive of your own",
+   "kicker": "Owning · Bees",
+   "button": "Dawud will sell you a hive · 30 coins",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Dawud shows you a clay hive at the end of his row. “I'll keep the bees for you and sell the honey. Your share every week.”",
+     "choices": [
+      {
+       "label": "Buy it · 30 coins",
+       "need_coins": 30,
+       "fx": {
+        "coins": -30,
+        "flag": "own_hive",
+        "done": true
+       }
+      },
+      {
+       "label": "Not now",
+       "fx": {}
+      }
+     ]
+    }
+   },
+   "town": "nahla",
+   "after": [
+    "nahla_done"
+   ],
+   "not": [
+    "own_hive"
+   ]
+  },
+  {
+   "id": "honey_share",
+   "lock": 89,
+   "hours": [
+    420,
+    960
+   ],
+   "title": "Your honey",
+   "kicker": "Owning · Bees",
+   "button": "Dawud has your honey money",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Dawud counts out six coins. “Good week. The bees liked the thyme.”",
+     "choices": [
+      {
+       "label": "Take 6 coins",
+       "fx": {
+        "coins": 6,
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "town": "nahla",
+   "after": [
+    "own_hive"
+   ],
+   "after_days": {
+    "own_hive": 7
+   },
+   "repeat_days": 7
+  }
+ ]
+}
