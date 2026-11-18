@@ -125,16 +125,25 @@ func town_is_open(app, road: Dictionary) -> bool:
 	return false
 
 
-func travel_minutes(origin: String, destination: String) -> int:
+func travel_minutes(app, origin: String, destination: String) -> int:
 	var from := road_to(origin)
 	var to := road_to(destination)
 	if (not origin.is_empty() and from.is_empty()) or (not destination.is_empty() and to.is_empty()):
 		return -1
 	var from_minutes := int(from.get("minutes", 0))
 	var to_minutes := int(to.get("minutes", 0))
-	if from.get("gate") == to.get("gate"):
-		return absi(from_minutes - to_minutes)
-	return from_minutes + to_minutes
+	var minutes := absi(from_minutes - to_minutes) if from.get("gate") == to.get("gate") else from_minutes + to_minutes
+	return adjust_travel_minutes(app, minutes)
+
+
+func adjust_travel_minutes(app, minutes: int) -> int:
+	var runner = app.scene_runner
+	var numbers: Dictionary = runner.data.get("numbers", {})
+	var factor := 1.0
+	for animal: String in ["donkey", "camel", "horse"]:
+		if runner.has_flag(app, "own_" + animal):
+			factor = minf(factor, float(numbers.get(animal + "_factor", 1.0)))
+	return roundi(minutes * factor)
 
 
 func roads_are_shut(minute: int) -> bool:

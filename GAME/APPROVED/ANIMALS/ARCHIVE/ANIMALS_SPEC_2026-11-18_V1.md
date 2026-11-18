@@ -1,7 +1,7 @@
 ---
 id: DOC-TFG-0274
 type: SPEC
-status: CURRENT
+status: ARCHIVED
 feature: ANIMALS
 purpose: LOCK 88 - animals (donkey, camel, horse) and feeding them
 links: [AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0275]

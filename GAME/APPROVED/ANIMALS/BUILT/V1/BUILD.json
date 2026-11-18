@@ -1,0 +1,120 @@
+{
+  "line": 95,
+  "lock": "LOCK 88 V2",
+  "questions_answer_rows": [
+    15,
+    47
+  ],
+  "runner_contract": "Scene Runner V2, R1–R12",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --animals-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 350,
+      "total": 350,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17585,
+      "total": 17585,
+      "failures": 0
+    },
+    "lock_88": {
+      "passed": 151,
+      "total": 151,
+      "failures": 0
+    }
+  },
+  "native_screenshots": 0,
+  "brief": "DOC-TFG-0276",
+  "tested_base_commit_sha": "074afb7f3f60bc31212cbdc3a33843a2ede82b31",
+  "tested_source": "Base commit plus the source files hashed below. The 18 November task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T14:23:35+00:00",
+  "locked_inputs": {
+    "GAME/APPROVED/ANIMALS/BRIEFS/BUILD_BRIEF_2026-11-09_ANIMALS.md": {
+      "bytes": 2972,
+      "sha256": "94ec215ed9aacf44c81bce82cc2d2748427296ed2f1f2c2df93c74a082f08471"
+    },
+    "GAME/APPROVED/ANIMALS/RECORD/ANIMALS_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 4766,
+      "sha256": "ecbc0a8da7a430814937ebfc7a01d4a60c740bc199e176e3a3aaeabfea64a8b2"
+    },
+    "GAME/APPROVED/ANIMALS/RECORD/LOCK_RECORD.md": {
+      "bytes": 1010,
+      "sha256": "3df09a2773d7ddfb94cffd6453dd415de65f6deb90fd014308f44145bd140bc8"
+    },
+    "GAME/APPROVED/ANIMALS/RECORD/animals_data_V2.json": {
+      "bytes": 3854,
+      "sha256": "c2345634b4ce68fa7786e378f5d6c245675146f4b365f398f005a6538d11a9d2"
+    },
+    "GAME/APPROVED/ANIMALS/MASTERS/oa01_buy_animal__a.png": {
+      "bytes": 301845,
+      "sha256": "5d5028ab37614a43bed367aefd9dfd8dab379fdd307ce0cf5a4aa8d3ce3d7c3b"
+    },
+    "GAME/APPROVED/ANIMALS/MASTERS/oa02_buy_animal__b.png": {
+      "bytes": 315140,
+      "sha256": "ebc1b9cdfbdc9a9a626537bc05f0f3279b2397462c643e6d692acd6215270815"
+    },
+    "GAME/APPROVED/ANIMALS/MASTERS/oa03_buy_animal__no.png": {
+      "bytes": 313559,
+      "sha256": "1ba2cc1fd100802a1bff5baefa7f72ae51b53637e5bdea518f2c45cd69c38eb4"
+    },
+    "GAME/APPROVED/ANIMALS/MASTERS/oa04_feed_animal__a.png": {
+      "bytes": 315998,
+      "sha256": "c20eb03ea36b0ff37b0a4fd03130e30165476d4d7ebcd67c7d3b6e5286faaa8a"
+    },
+    "GAME/APPROVED/ANIMALS/MASTERS/oa05_animal_neglected__a.png": {
+      "bytes": 316945,
+      "sha256": "fa0a57b8e62ca66415bfee9db44368ba5ebcc2a1e6e6760aa6888d49695002bf"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 68533,
+      "sha256": "f801d93188cfc34a3d3d2df927f96cd5898b2faa453303f5ecf317db7fc451ed"
+    },
+    "SOURCE/data/animals.json": {
+      "bytes": 3854,
+      "sha256": "c2345634b4ce68fa7786e378f5d6c245675146f4b365f398f005a6538d11a9d2"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1296,
+      "sha256": "3d5db46840b8c19dc483f3ebadc73ec93203a4d31983dcae0931d2f88ef31b5d"
+    },
+    "SOURCE/game/market_ui.gd": {
+      "bytes": 159028,
+      "sha256": "80c1213d222812e5d534ffad198f7835672eaa6832d2e714c8e33e0d602915ac"
+    },
+    "SOURCE/game/river_market.gd": {
+      "bytes": 70813,
+      "sha256": "26c192507dbec0c20c61003875929efb53a2c1b69a4ea0b921d1be4f599f4248"
+    },
+    "SOURCE/game/road_map.gd": {
+      "bytes": 4971,
+      "sha256": "4b373179d30e2f585d7856cf30e6de292cf6a88280be93c86ee7b49b042b2932"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 20716,
+      "sha256": "d2125a1f73872ebd1eb882464c4567cb2af938b550af2309a208d4d421b5dc36"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 865795,
+      "sha256": "d0556a30232e859951cab0e60bbeb944745601c2c434fb7923e6b7187b0e1e4a"
+    }
+  },
+  "compiled_exports": 0,
+  "evidence": {
+    "GAME/APPROVED/ANIMALS/BUILT/V1/LINE95_CHECKS.json": {
+      "bytes": 2543,
+      "sha256": "7645b06c24937e77d731ff8dfaf24e03ea441c73452579b348dba9c045b337d2"
+    }
+  }
+}

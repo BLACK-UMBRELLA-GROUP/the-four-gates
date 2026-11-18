@@ -1556,7 +1556,8 @@ func travel_to_jisra() -> void:
 		return
 	if _road_is_shut():
 		return
-	_arrive_by_road("jisra", int(gate_of_trust.data.numbers.travel_minutes))
+	var minutes := int(gate_of_trust.data.numbers.travel_minutes)
+	_arrive_by_road("jisra", road_map.adjust_travel_minutes(self, minutes))
 
 
 func return_from_jisra() -> void:
@@ -1564,7 +1565,8 @@ func return_from_jisra() -> void:
 		return
 	if _road_is_shut():
 		return
-	_arrive_by_road("", int(gate_of_trust.data.numbers.travel_minutes))
+	var minutes := int(gate_of_trust.data.numbers.travel_minutes)
+	_arrive_by_road("", road_map.adjust_travel_minutes(self, minutes))
 
 
 func _road_is_shut() -> bool:
@@ -1580,7 +1582,7 @@ func travel_on_road(town: String) -> void:
 	var origin := runner_town_id()
 	if origin == town or (not town.is_empty() and not road_map.town_is_open(self, road_map.road_to(town))):
 		return
-	var minutes := road_map.travel_minutes(origin, town)
+	var minutes := road_map.travel_minutes(self, origin, town)
 	if minutes > 0:
 		_arrive_by_road(town, minutes)
 

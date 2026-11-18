@@ -1,0 +1,49 @@
+{
+  "line": 95,
+  "lock": "LOCK 88 V2",
+  "questions_answer_rows": [
+    15,
+    47
+  ],
+  "runner_contract": "Scene Runner V2, R1–R12",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --animals-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 350,
+      "total": 350,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17585,
+      "total": 17585,
+      "failures": 0
+    },
+    "lock_88": {
+      "passed": 151,
+      "total": 151,
+      "failures": 0
+    }
+  },
+  "native_screenshots": 0,
+  "result": "PASS",
+  "verified": [
+    "The running game loads the byte-identical V2 pack. All five scenes use the locked title, kicker, copy and choice order. Selling happens at the River Market gate during its locked hours.",
+    "All three purchases enforce the exact coin threshold and set the ownership flags. Already owned animals are hidden. Buying or declining ends on Back and the offer reopens the next day.",
+    "The stable requires ownership, the River Market inn and its locked hours. Feeding spends one coin, adds ten minutes and completes today's action. Opening either stable scene without enough coins hides its paid choice without applying effects.",
+    "Neglect first uses the ownership date. Ordinary feeding and restitution each reset the timer using the most recent completion. Restitution spends three coins, applies exactly three points of local trust loss, and adds the stable boy's account once. Saving and reloading retains ownership, completion days and the account.",
+    "The best available animal multiplies the calculated road duration before rounding. Foot, donkey, camel and horse durations are checked for the actual Jisra map buttons in both directions, plus shared and cross-gate calculations. The direct Jisra crossing and return are adjusted too. Night closure still blocks departure.",
+    "Animal actions add no private Journal chapter row, side count or lifetime goal."
+  ],
+  "master_reference": {
+    "oa01_buy_animal__a.png": "buy_animal/a",
+    "oa02_buy_animal__b.png": "buy_animal/b",
+    "oa03_buy_animal__no.png": "buy_animal/no",
+    "oa04_feed_animal__a.png": "feed_animal/a",
+    "oa05_animal_neglected__a.png": "animal_neglected/a"
+  },
+  "visual_scope": "Masters checked for words and order. Q15 and R11 keep the existing Godot layout and require headless rules checks.",
+  "scholar_check": "DOC-TFG-0320 row 65, open before public release (OA-AIOS-432)"
+}

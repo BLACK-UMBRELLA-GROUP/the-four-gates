@@ -273,6 +273,10 @@ func _run() -> void:
 		await check_letters_home_runtime()
 		finish()
 		return
+	if "--animals-only" in OS.get_cmdline_user_args():
+		await check_animals_runtime()
+		finish()
+		return
 	if "--truth-only" in OS.get_cmdline_user_args():
 		await check_truth_runtime()
 		finish()
@@ -414,6 +418,7 @@ func _run() -> void:
 	await check_promises_runtime()
 	await check_letters_home_runtime()
 	await check_truth_runtime()
+	await check_animals_runtime()
 	await check_road_map_runtime()
 	await check_sahila_runtime()
 	await check_sukara_runtime()
@@ -8494,6 +8499,217 @@ func check_letters_home_runtime() -> void:
 		" passed; failures=", added_failures)
 
 
+func check_animals_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/ANIMALS/RECORD/animals_data_V2.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/animals.json") == locked,
+		"the live Animals pack is byte-identical to LOCK 88 V2")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	for mission: Dictionary in approved.missions:
+		check(runner.missions.get(mission.id) == mission, "the production index loads " + str(mission.id))
+	for key: String in approved.numbers:
+		check(runner.data.numbers.get(key) == approved.numbers[key], "the runner loads the approved number " + key)
+	var previous := MarketSave.snapshot(app)
+	app.set_process(false)
+	await _check_animal_purchase(runner, runner.missions.buy_animal)
+	await _check_animal_stable(runner, runner.missions.feed_animal, runner.missions.animal_neglected)
+	await _check_animal_roads(runner)
+	MarketSave.restore(app, previous)
+	app.show_screen("market_map")
+	app.set_process(true)
+	print("LOCK 88 TESTS: ", checks - checks_before - (failures - failures_before), "/", checks - checks_before,
+		" passed; failures=", failures - failures_before)
+
+
+func _check_animal_purchase(runner: SceneRunner, mission: Dictionary) -> void:
+	const DAY := 8
+	const FIXTURE_COINS := 198
+	var options: Array = mission.scenes.a.choices
+	var back: String = runner.data.words.scene_back
+	reset_at_market_place("inn", FIXTURE_COINS, DAY)
+	check(find_button(app.ui, mission.button) == null, "Saeed sells at the gate only")
+	move_market_fixture("gate")
+	for minute: int in [419, 420, 1079, 1080]:
+		set_market_day_time(DAY, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 420 and minute < 1080),
+			"Saeed's selling hours at minute %d" % minute)
+	set_market_day_time(DAY, 8 * 60)
+	var journal := runner.journal(app)
+	var trust: int = app.progress.trust
+	await press_button(mission.button, "open Saeed's offer at the gate")
+	_check_runner_scene_copy(mission, "a")
+	var labels := visible_text()
+	check(labels.find(options[0].label) >= 0 and labels.find(options[0].label) < labels.find(options[1].label)
+		and labels.find(options[1].label) < labels.find(options[3].label) and not labels.contains(options[2].label),
+		"oa01: 198 coins offers donkey, camel and Not today in that order")
+	await press_button(options[3].label, "decline Saeed's offer")
+	_check_runner_scene_copy(mission, "no")
+	check(not runner.mission_done(app, mission.id), "the decline ending completes on Back")
+	await press_button(back, "leave Saeed's decline ending")
+	check(runner.mission_done(app, mission.id) and find_button(app.ui, mission.button) == null
+		and not runner.has_flag(app, "own_any") and app.minute_of_day == 480,
+		"declining completes today's visit without buying or advancing time")
+	check_wallet(trust, FIXTURE_COINS, "declining has no wallet or trust effect")
+
+	for index in range(3):
+		var day := DAY + index + 1
+		var choice: Dictionary = options[index]
+		var cost := int(choice.need_coins)
+		var flag: String = choice.fx.flag[0]
+		app.progress.coins = cost - 1
+		set_market_day_time(day, 8 * 60)
+		await press_button(mission.button, "Saeed sells again the next day")
+		check(find_button(app.ui, choice.label) == null, "hidden one coin below the price for " + flag)
+		app._runner_action("choice", choice)
+		check(app.runner_scene() == mission.scenes.a and not runner.has_flag(app, flag)
+			and app.progress.coins == cost - 1, "a direct underfunded purchase is rejected")
+		app.progress.coins = cost
+		app.update_state()
+		await press_button(choice.label, "buy with the exact price for " + flag)
+		_check_runner_scene_copy(mission, "b")
+		check(runner.state().flags.get(flag) == day and runner.state().flags.get("own_any") == DAY + 1
+			and app.minute_of_day == 480, "purchase records ownership without changing the original ownership day or clock")
+		check_wallet(trust, 0, "purchase deducts only the locked amount")
+		await press_button(back, "leave Saeed's purchase ending")
+		check(runner.state().done.get(mission.id) == day and find_button(app.ui, mission.button) == null,
+			"Back records today's purchase visit and hides its button")
+	app.progress.coins = 400
+	set_market_day_time(DAY + 4, 8 * 60)
+	await press_button(mission.button, "reopen Saeed's offer after buying all three animals")
+	check(runner.choices(app, mission, app.runner_scene()) == [options[3]],
+		"owned animals cannot be repurchased even when affordable")
+	check(runner.journal(app) == journal, "buying and declining add no chapter rows, side counts or lifetime goals")
+
+
+func _check_animal_stable(runner: SceneRunner, feed: Dictionary, neglect: Dictionary) -> void:
+	const DAY := 8
+	const TRUST := 50
+	reset_at_market_place("inn", 2, DAY)
+	var journal := runner.journal(app)
+	check(find_button(app.ui, feed.button) == null and find_button(app.ui, neglect.button) == null,
+		"the stable shows neither animal action before ownership")
+	runner.restore({"flags": {"own_donkey": DAY, "own_any": DAY}})
+	app.progress.trust = TRUST
+	set_market_day_time(DAY + 2, 360)
+	check(find_button(app.ui, feed.button) != null and find_button(app.ui, neglect.button) == null,
+		"two days after purchase the animal can be fed and the stable boy has no complaint")
+	move_market_fixture("gate")
+	set_market_day_time(DAY + 3, 360)
+	check(find_button(app.ui, feed.button) == null and find_button(app.ui, neglect.button) == null,
+		"both stable actions are absent at the gate even when overdue")
+	move_market_fixture("inn")
+	for minute: int in [299, 300, 1199, 1200]:
+		set_market_day_time(DAY + 3, minute)
+		var open := minute >= 300 and minute < 1200
+		check((find_button(app.ui, feed.button) != null) == open
+			and (find_button(app.ui, neglect.button) != null) == open,
+			"stable hours and three-day ownership fallback at minute %d" % minute)
+
+	var feed_choice: Dictionary = feed.scenes.a.choices[0]
+	var pay_choice: Dictionary = neglect.scenes.a.choices[0]
+	var account: Array = neglect.say.neglect
+	var jisra_trust := runner.town_trust(app, "jisra")
+	for step: Array in [[feed, feed_choice, 0], [neglect, pay_choice, 2]]:
+		var mission: Dictionary = step[0]
+		var choice: Dictionary = step[1]
+		app.progress.coins = step[2]
+		set_market_day_time(DAY + 3, 360)
+		await press_button(mission.button, "open the stable scene with an underfunded wallet")
+		_check_runner_scene_copy(mission, "a")
+		check(find_button(app.ui, choice.label) == null, "R2 hides the unaffordable choice: " + str(choice.label))
+		app._runner_action("choice", choice)
+		await press_button(runner.data.words.scene_back, "leave without paying")
+		check(app.progress.coins == step[2] and app.progress.trust == TRUST and app.minute_of_day == 360
+			and runner.state().done.is_empty() and account not in runner.town_sayings(""),
+			"underfunded actions leave the wallet, trust, clock, feeding date and account untouched")
+
+	app.progress.coins = 1
+	set_market_day_time(DAY + 4, 360)
+	await press_button(feed.button, "open feeding with exactly one coin")
+	_check_runner_scene_copy(feed, "a")
+	await press_button(feed_choice.label, "feed the animal")
+	check_wallet(TRUST, 0, "ordinary feeding costs one coin and leaves trust intact")
+	check(app.ui.screen == "market_map" and app.current_place == "inn" and app.minute_of_day == 370
+		and runner.state().done.get(feed.id) == DAY + 4 and find_button(app.ui, feed.button) == null,
+		"feeding advances ten minutes, returns to the inn and completes today's visit")
+	check(find_button(app.ui, neglect.button) == null, "feeding resets the old purchase clock immediately")
+	set_market_day_time(DAY + 6, 360)
+	check(find_button(app.ui, neglect.button) == null, "two days after feeding it is still too soon for neglect")
+	for day: int in [DAY + 7, DAY + 10]:
+		app.progress.coins = 3
+		set_market_day_time(day, 360)
+		await press_button(neglect.button, "the stable boy speaks exactly three days after the latest feeding event")
+		_check_runner_scene_copy(neglect, "a")
+		await press_button(pay_choice.label, "repay the stable boy with exactly three coins")
+		check_wallet(TRUST - (3 if day == DAY + 7 else 6), 0, "restitution spends three coins and applies only the locked local trust loss")
+		check(app.ui.screen == "market_map" and app.minute_of_day == 360 and app.current_place == "inn"
+			and runner.state().done.get(neglect.id) == day and find_button(app.ui, neglect.button) == null,
+			"restitution leaves the clock unchanged and completes the stable boy scene")
+		set_market_day_time(day + 2, 360)
+		check(find_button(app.ui, neglect.button) == null, "restitution updates the feeding timer across later days")
+		check(app.ui.reputation_lines().count(account) == 1 and account not in runner.town_sayings("jisra", app)
+			and runner.town_trust(app, "jisra") == jisra_trust, "the stable boy's account is local and appears only once")
+	var saved := MarketSave.snapshot(app)
+	app.begin_game()
+	MarketSave.restore(app, saved)
+	move_market_fixture("inn")
+	check(runner.state().done == saved.scene_runner.done and runner.has_flag(app, "own_any")
+		and find_button(app.ui, neglect.button) == null and app.ui.reputation_lines().count(account) == 1,
+		"the save persists ownership, stable dates and account")
+	var single_stale := neglect.duplicate(true)
+	single_stale.stale.mission = feed.id
+	check(runner._mission_available(app, single_stale, "river_market"),
+		"R1 also accepts a single stale mission id")
+	check(runner.journal(app) == journal, "neither stable action adds a Journal row, side count or goal")
+
+
+func _check_animal_roads(runner: SceneRunner) -> void:
+	const DAY := 8
+	const MINUTE := 480
+	var roads: Dictionary = app.road_map.data
+	var words: Dictionary = roads.words
+	var go := str(words.go)
+	var ownership := {}
+	for step: Array in [["", 90, 60, 330], ["donkey", 68, 45, 248], ["camel", 54, 36, 198], ["horse", 45, 30, 165]]:
+		reset_at_market_place("gate", 0, DAY)
+		if not str(step[0]).is_empty():
+			ownership["own_any"] = DAY
+			ownership["own_" + str(step[0])] = DAY
+		runner.restore({"flags": ownership})
+		app.progress.trust = int(data.numbers.gate_trust)
+		app.progress.lesson_done = true
+		app.progress.gate_open = true
+		set_market_day_time(DAY, MINUTE)
+		check(app.road_map.travel_minutes(app, "jisra", "sahila") == step[2]
+			and app.road_map.travel_minutes(app, "sukara", "safira") == step[3]
+			and app.road_map.travel_minutes(app, "", "unmapped") == -1,
+			"apply the best factor once to shared-road and cross-gate distances, preserving the unmapped sentinel")
+		await press_button(words.map_button, "open the map with the current ownership flags")
+		await press_button(go.format({"n": step[1]}), "the map shows the adjusted minutes to Jisra")
+		check(app.runner_town_id() == "jisra" and app.minute_of_day == MINUTE + step[1],
+			"the map button advances by its displayed duration")
+		await press_button(words.map_button, "open the return road from Jisra")
+		await press_button(go.format({"n": step[1]}), "the map shows the same duration back to Ilmara")
+		check(app.runner_town_id().is_empty() and app.current_place == "gate" and app.minute_of_day == MINUTE + 2 * step[1],
+			"return travel uses the same factor and arrives at the market gate")
+
+	set_market_day_time(DAY, MINUTE)
+	await press_button(app.gate_of_trust.data.road_button, "the original Jisra crossing uses the same road with an animal")
+	check(app.runner_town_id() == "jisra" and app.minute_of_day == MINUTE + 45,
+		"the original Jisra route also takes 45 minutes with the best animal")
+	app.return_from_jisra()
+	check(app.runner_town_id().is_empty() and app.minute_of_day == MINUTE + 90,
+		"the original return applies the same adjustment")
+	set_market_day_time(DAY, 1200)
+	await press_button(app.gate_of_trust.data.road_button, "attempt the direct crossing after the gates shut")
+	await press_button(words.map_button, "open the map with the gates shut")
+	app.travel_on_road("jisra")
+	check(app.runner_town_id().is_empty() and app.minute_of_day == 1200 and app.ui.screen == "runner_road_map"
+		and not visible_text().contains(go.get_slice("{n}", 0)), "animals cannot bypass the locked night closure")
+
+
 func check_truth_runtime() -> void:
 	const DAY := 8
 	const MINUTE := 8 * 60
@@ -8596,7 +8812,7 @@ func check_truth_runtime() -> void:
 	await press_button(words.scene_back, "leave Ziyad's ending")
 	var road: Dictionary = app.road_map.data.words
 	await press_button(road.map_button, "open Road map from Sahila")
-	var travel_minutes: int = app.road_map.travel_minutes(boat.town, "")
+	var travel_minutes: int = app.road_map.travel_minutes(app, boat.town, "")
 	await press_button(str(road.go).format({"n": travel_minutes}), "return to River Market")
 	move_market_fixture(mission.place)
 	_check_runner_mission_hours(mission, DAY + 7)
@@ -8659,7 +8875,7 @@ func _check_house_of_learning_waraka_entry(visit: Dictionary) -> void:
 	check(runner.has_flag(app, visit.after[0]), "the built Waraka mission supplies the prerequisite without a flag fixture")
 	var roads: Dictionary = app.road_map.data.words
 	await press_button(roads.map_button, "open the Road map from Waraka")
-	var travel := str(roads.go).format({"n": app.road_map.travel_minutes("waraka", "")})
+	var travel := str(roads.go).format({"n": app.road_map.travel_minutes(app, "waraka", "")})
 	await press_button(travel, "return to Ilmara from Waraka")
 	move_market_fixture(visit.place)
 	check(app.runner_town_id().is_empty() and find_button(app.ui, visit.button) != null,

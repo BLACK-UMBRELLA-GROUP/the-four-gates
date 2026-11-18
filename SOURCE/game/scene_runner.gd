@@ -259,7 +259,17 @@ func _mission_available(app, mission: Dictionary, town: String) -> bool:
 	for flag: String in after_days:
 		if not has_flag(app, flag) or app.day - int(_flags.get(flag, app.day)) < int(after_days[flag]):
 			return false
-	return true
+	var stale: Dictionary = mission.get("stale", {})
+	return stale.is_empty() or _is_stale(app.day, stale)
+
+
+func _is_stale(day: int, stale: Dictionary) -> bool:
+	var last_day := -1
+	for mission_id: String in _string_list(stale.mission):
+		last_day = maxi(last_day, int(_done.get(mission_id, -1)))
+	if last_day < 0:
+		last_day = int(_flags.get(stale.flag, -1))
+	return last_day >= 0 and day - last_day >= int(stale.days)
 
 
 func _already_completed(mission: Dictionary, day: int) -> bool:
@@ -279,7 +289,11 @@ func choices(app, mission: Dictionary, scene: Dictionary) -> Array[Dictionary]:
 
 
 func choice_available(app, mission: Dictionary, choice: Dictionary) -> bool:
-	return (app.progress.coins >= int(choice.get("need_coins", 0))
+	var cost := int(choice.get("need_coins", 0))
+	var effects: Variant = choice.get("fx", {})
+	if effects is Dictionary:
+		cost = maxi(cost, -int(effects.get("coins", 0)))
+	return (app.progress.coins >= cost
 		and town_trust(app, str(mission.get("town", ""))) >= int(choice.get("min_trust", 0))
 		and _flags_match(app, choice.get("if", []), true)
 		and _flags_match(app, choice.get("unless", []), false))
@@ -330,10 +344,10 @@ func _apply_effects(app, mission: Dictionary, effects: Dictionary) -> void:
 		_add_trust(app, town, int(effects.trust))
 	if effects.has("trust_rm"):
 		_add_trust(app, RIVER_MARKET, int(effects.trust_rm))
-	for flag: String in _flag_list(effects.get("flag", [])):
+	for flag: String in _string_list(effects.get("flag", [])):
 		if not flag.begins_with("toll:") and flag != "gate_opened" and not _flags.has(flag):
 			_flags[flag] = app.day
-	for flag: String in _flag_list(effects.get("unflag", [])):
+	for flag: String in _string_list(effects.get("unflag", [])):
 		if not flag.begins_with("toll:") and flag != "gate_opened":
 			_flags.erase(flag)
 	if effects.has("say"):
@@ -346,14 +360,14 @@ func _apply_effects(app, mission: Dictionary, effects: Dictionary) -> void:
 		_done[mission.id] = app.day
 
 
-func _flag_list(value: Variant) -> Array:
+func _string_list(value: Variant) -> Array:
 	if value is String and not value.is_empty():
 		return [value]
 	return value if value is Array else []
 
 
 func _flags_match(app, value: Variant, required: bool) -> bool:
-	for flag: String in _flag_list(value):
+	for flag: String in _string_list(value):
 		if has_flag(app, flag) != required:
 			return false
 	return true

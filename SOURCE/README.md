@@ -1098,3 +1098,16 @@ effect or Journal row.
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --truth-only`.
+
+
+## LOCK 88 V2 — Animals and feeding
+
+Saeed sells a donkey, camel and mare at the River Market gate from 07:00
+through 17:59. The best animal you own reduces travel time, and the Road map
+shows the adjusted minutes. The River Market inn stable opens from 05:00
+through 19:59. Feeding costs one coin and takes ten minutes. After three days
+without feeding, paying the stable boy three coins resets the feeding timer,
+lowers River Market trust by three, and adds his account to What people say.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --animals-only`.

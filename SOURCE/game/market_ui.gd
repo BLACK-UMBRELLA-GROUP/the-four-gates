@@ -2185,7 +2185,8 @@ func _road_map_status(panel: Panel, y: float, value: String) -> float:
 
 
 func _road_map_place_row(panel: Panel, y: float, place: String, town: String, origin: String, shut: bool, opened: bool) -> float:
-	var road_map = get_parent().road_map
+	var app := get_parent()
+	var road_map = app.road_map
 	var copy: Dictionary = road_map.data.words
 	_label(panel, place, Vector2(34 if town.is_empty() else 64, y + 14), Vector2(780, 48), 23, PAPER)
 	var status := ""
@@ -2194,7 +2195,7 @@ func _road_map_place_row(panel: Panel, y: float, place: String, town: String, or
 	elif not opened:
 		status = copy.closed
 	elif not shut:
-		var minutes: int = road_map.travel_minutes(origin, town)
+		var minutes: int = road_map.travel_minutes(app, origin, town)
 		if minutes > 0:
 			var go := str(copy.go).format({"n": minutes})
 			_stall_row_button(panel, go, y, func(): runner_requested.emit("travel", town), true)
