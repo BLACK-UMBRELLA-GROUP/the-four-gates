@@ -273,6 +273,10 @@ func _run() -> void:
 		await check_letters_home_runtime()
 		finish()
 		return
+	if "--truth-only" in OS.get_cmdline_user_args():
+		await check_truth_runtime()
+		finish()
+		return
 	await check_six_gates_runtime()
 	if "--six-gates-only" in OS.get_cmdline_user_args():
 		finish()
@@ -409,6 +413,7 @@ func _run() -> void:
 	await check_gossip_runtime()
 	await check_promises_runtime()
 	await check_letters_home_runtime()
+	await check_truth_runtime()
 	await check_road_map_runtime()
 	await check_sahila_runtime()
 	await check_sukara_runtime()
@@ -5039,6 +5044,8 @@ func _check_spilled_spice_outcome(mission: Dictionary, trust: int, choice_index:
 		check(find_button(app.ui, choice.label) != null, "Rashid's question offers: " + choice.label)
 
 	await press_button(question.choices[choice_index].label, "choose the spilled spice response: " + outcome.id)
+	check(int(runner.state().counters.get("lies", 0)) == int(outcome.id == "lie"),
+		"only blaming Faris counts as a lie")
 	var ending: Dictionary = mission.scenes[outcome.id]
 	check(app.runner_scene() == ending, "the response opens the intended ending: " + outcome.id)
 	_check_side_mission_scene(mission, ending)
@@ -8487,6 +8494,158 @@ func check_letters_home_runtime() -> void:
 		" passed; failures=", added_failures)
 
 
+func check_truth_runtime() -> void:
+	const DAY := 8
+	const MINUTE := 8 * 60
+	const TRUST := 50
+	const COINS := 40
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/TRUTH/RECORD/truth_data_V1.json")
+	check(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/truth.json"),
+		"the runtime truth pack is byte-identical to LOCK 87")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var mission: Dictionary = runner.missions.get("truth_found", {})
+	check(approved is Dictionary and not mission.is_empty() and mission == approved.missions[0]
+		and runner.data.get("truth") == approved.truth and approved.goals.is_empty(),
+		"the production index loads the locked truth scene and tags with no Journal goal")
+	if mission.is_empty() or not approved is Dictionary:
+		return
+	var truth: Dictionary = approved.truth
+	var words: Dictionary = runner.data.words
+	var account: Array = truth.line
+	var tags: Array = truth.lie_choices
+	var previous := MarketSave.snapshot(app)
+	app.set_process(false)
+	reset_at_market_place(mission.place, COINS, DAY)
+	app.progress.trust = TRUST
+	set_market_day_time(DAY, MINUTE)
+	check(not runner.state().counters.has("lies") and find_button(app.ui, mission.button) == null
+		and account not in app.ui.reputation_lines(), "a fresh game has no lie count, account or quiet word")
+
+	var spice_tag: Dictionary = tags[2]
+	var spice: Dictionary = runner.missions[spice_tag.mission]
+	move_market_fixture(spice.place)
+	await press_button(spice.button, "open the spilled spice scene")
+	await press_button(spice.scenes[spice.start].choices[0].label, "remember the spilled spice")
+	check(not runner.state().counters.has("lies"), "opening the choice scene adds no lie")
+	await press_button(spice_tag.label, "take the tagged spilled spice choice")
+	app._runner_action("choice", spice.scenes[spice_tag.scene].choices[1])
+	check(int(runner.state().counters.get("lies", 0)) == 1, "the tagged spice choice counts once")
+	check_wallet(TRUST - 8, COINS, "only the locked spice effect changes River Market trust")
+	var save_path: String = app.storage_directory.path_join("truth-test.save")
+	check(MarketSave.save_slot(app, save_path) == OK, "save after the tagged choice and before Back")
+	var unfinished := MarketSave.read_slot(save_path)
+	check(unfinished.get("scene_runner") == runner.state(), "the save slot retains the lie and its tag")
+	if unfinished.is_empty():
+		MarketSave.restore(app, previous)
+		app.set_process(true)
+		return
+	app.begin_game()
+	MarketSave.restore(app, unfinished)
+	app.show_screen("market_map")
+	await press_button(spice.button, "reopen the unfinished spice scene after a reload")
+	await press_button(spice.scenes[spice.start].choices[0].label, "return to the witness choice")
+	await press_button(spice_tag.label, "replay the witness choice before completing the mission")
+	check(runner.state() == unfinished.scene_runner and app.progress.trust == unfinished.progress.trust
+		and app.runner_scene() == spice.scenes.lie,
+		"replaying a saved tag reopens its ending without adding a lie or reapplying its effects")
+	await press_button(words.scene_back, "leave the spice ending")
+	move_market_fixture(mission.place)
+	check(find_button(app.ui, mission.button) == null and app.ui.reputation_lines() == [spice.say.lie],
+		"one lie leaves the quiet word hidden and shows only the original spice account")
+	app._runner_action("mission", mission)
+	check(app.ui.screen == "market_map", "direct dispatch respects the minimum count")
+	var saved := MarketSave.snapshot(app)
+	app.begin_game()
+	MarketSave.restore(app, saved)
+	app.show_screen("market_map")
+	check(runner.state().counters == saved.scene_runner.counters and find_button(app.ui, mission.button) == null,
+		"restoring the first lie keeps the mission closed")
+
+	var boat_tag: Dictionary = tags[0]
+	var boat: Dictionary = runner.missions[boat_tag.mission]
+	app.enter_runner_town(boat.town)
+	var sahila_trust := runner.town_trust(app, boat.town)
+	await press_button(boat.button, "open the built Sahila boat sale")
+	await press_button(boat.scenes[boat.start].choices[0].label, "agree to sell the boat")
+	await press_button(boat_tag.label, "take the tagged Sahila boat choice")
+	check(int(runner.state().counters.get("lies", 0)) == 2
+		and runner.town_sayings("river_market").count(account) == 1
+		and runner.town_sayings(boat.town).is_empty()
+		and runner.town_trust(app, boat.town) == sahila_trust,
+		"the second lie adds one River Market account and changes neither Sahila trust nor accounts")
+	check(mission in runner.available_missions(app, "", mission.place),
+		"two lies meet the quiet word's minimum count at the masjid")
+	check(app.progress.trust == TRUST - 8 and app.progress.coins == COINS + 5,
+		"the second lie keeps only the boat's locked coin effect")
+	await press_button(words.scene_back, "leave the boat sale ending")
+	var found_tag: Dictionary = tags[1]
+	var found: Dictionary = runner.missions[found_tag.mission]
+	set_market_day_time(DAY + int(found.after_days.sahila_lied), MINUTE)
+	await press_button(found.button, "open Ziyad's built follow-up")
+	await press_button(found_tag.label, "take the tagged Ziyad choice")
+	check(int(runner.state().counters.get("lies", 0)) == 3
+		and runner.town_sayings("river_market").count(account) == 1
+		and runner.town_sayings(boat.town) == [found.say.found]
+		and runner.town_trust(app, boat.town) == maxi(0, sahila_trust - 15),
+		"the third lie counts once, applies the locked local effects and adds no duplicate account")
+	check(app.progress.trust == TRUST - 8 and app.progress.coins == COINS + 5,
+		"Ziyad's choice does not change River Market trust or coins")
+	await press_button(words.scene_back, "leave Ziyad's ending")
+	var road: Dictionary = app.road_map.data.words
+	await press_button(road.map_button, "open Road map from Sahila")
+	var travel_minutes: int = app.road_map.travel_minutes(boat.town, "")
+	await press_button(str(road.go).format({"n": travel_minutes}), "return to River Market")
+	move_market_fixture(mission.place)
+	_check_runner_mission_hours(mission, DAY + 7)
+	set_market_day_time(DAY + 7, MINUTE)
+	await press_button(app.chapter.purse.morning.to_rep, "open River Market What people say")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines() == [spice.say.lie, account],
+		"What people say shows the original and new accounts in order")
+	check_reputation_row(account)
+	await press_button(app.chapter.rep.to_map, "return to the masjid view")
+	var before := runner.state()
+	var journal := runner.journal(app)
+	var scene: Dictionary = mission.scenes[mission.start]
+	var choice: Dictionary = scene.choices[0]
+	await press_button(mission.button, "open the locked quiet word scene")
+	_check_single_runner_choice(mission, scene, choice, approved.design_reference_not_shown[mission.id])
+	var copy := visible_text().split("\n")
+	var kicker_index := copy.find(str(mission.kicker).to_upper())
+	var title_index := copy.find(mission.title)
+	var story_index := copy.find(scene.text)
+	check(kicker_index >= 0 and kicker_index < title_index and title_index < story_index
+		and story_index < copy.find(choice.label), "the quiet word follows the master's text order")
+	check(runner.state() == before, "opening Idris's scene has no effects")
+	await press_button(choice.label, "Listen completes the quiet word")
+	before.done[mission.id] = DAY + 7
+	check(runner.state() == before and runner.mission_done(app, mission.id)
+		and app.day == DAY + 7 and app.minute_of_day == MINUTE,
+		"Listen records only completion and does not advance time")
+	check_wallet(TRUST - 8, COINS + 5, "the quiet word changes neither River Market trust nor coins")
+	check(app.ui.screen == "market_map" and app.current_place == mission.place
+		and find_button(app.ui, mission.button) == null, "Listen returns to the masjid and removes the offer")
+	await press_button(words.journal_button, "open the private Journal")
+	check(runner.journal(app) == journal and not has_visible_label(app.ui, mission.title)
+		and not visible_text().to_lower().contains("lies"),
+		"the quiet word and lie count add no chapter, side or goal rows")
+	saved = MarketSave.snapshot(app)
+	app.begin_game()
+	MarketSave.restore(app, saved)
+	app.show_screen("market_map")
+	set_market_day_time(DAY + 8, MINUTE)
+	check(runner.state() == before and find_button(app.ui, mission.button) == null
+		and app.ui.reputation_lines().count(account) == 1,
+		"the saved count, reputation account and once-only completion survive on the next day")
+	MarketSave.restore(app, previous)
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 87 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
 func _check_house_of_learning_waraka_entry(visit: Dictionary) -> void:
 	reset_at_market_place(visit.place, 20, 8)
 	var runner: SceneRunner = app.scene_runner
@@ -10976,6 +11135,8 @@ func _check_sahila_missions(boat: Dictionary, found: Dictionary, boat_choice: in
 	for option: Dictionary in boat.scenes.b.choices:
 		check(find_button(app.ui, option.label) != null, "the sale offers the exact choice: " + str(option.label))
 	await press_button(choice.label, "take the boat choice: " + str(choice.label))
+	check(int(runner.state().counters.get("lies", 0)) == int(boat_choice == 1),
+		"only telling Ziyad the boat is sound counts as a lie")
 	_check_runner_scene_copy(boat, "honest" if honest else "lied")
 	var flag := "sahila_honest" if honest else "sahila_lied"
 	var flags := {"sahila_boat_done": 8}
@@ -11012,6 +11173,7 @@ func _check_sahila_followup(found: Dictionary, index: int, words: Dictionary) ->
 	var runner: SceneRunner = app.scene_runner
 	var paid := index == 0
 	var coins: int = app.progress.coins
+	var lies_before := int(runner.state().counters.get("lies", 0))
 	var choice: Dictionary = found.scenes.a.choices[index]
 	await press_button(found.button, "open Ziyad's follow-up")
 	_check_runner_scene_copy(found, "a")
@@ -11022,6 +11184,8 @@ func _check_sahila_followup(found: Dictionary, index: int, words: Dictionary) ->
 		app._runner_action("choice", found.scenes.a.choices[0])
 		check(app.runner_scene() == found.scenes.a and app.progress.coins == coins, "the hidden offer cannot apply by direct dispatch")
 	await press_button(choice.label, "take Ziyad's follow-up choice: " + str(choice.label))
+	check(int(runner.state().counters.get("lies", 0)) == lies_before + int(not paid),
+		"only denying knowledge of the plank adds a lie in the follow-up")
 	_check_runner_scene_copy(found, "paid" if paid else "denied")
 	check(app.progress.coins == (coins - 30 if paid else coins) and runner.town_trust(app, "sahila") == (45 if paid else 35)
 		and runner.state().flags.get("sahila_found") == 15 and not runner.mission_done(app, found.id),

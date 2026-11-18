@@ -1721,7 +1721,7 @@ func _choose_runner_scene(choice: Dictionary) -> void:
 	var scene := runner_scene()
 	if choice not in scene_runner.choices(self, mission, scene):
 		return
-	var next: String = scene_runner.apply_choice(self, mission, choice)
+	var next: String = scene_runner.apply_choice(self, mission, choice, _runner_scene_id)
 	scene_runner.leave_scene(self, mission, scene)
 	if next.is_empty():
 		_close_runner_mission()

@@ -13,6 +13,7 @@ var people: Dictionary
 var _flags: Dictionary = {}
 var _done: Dictionary = {}
 var _counters: Dictionary = {}
+var _counted_lie_choices: Dictionary = {}
 var _trust: Dictionary = {}
 var _work_days: Dictionary = {}
 var _sayings: Dictionary = {}
@@ -161,6 +162,7 @@ static func _merge_fields(target: Dictionary, source: Dictionary) -> void:
 func state() -> Dictionary:
 	return {
 		"flags": _flags, "done": _done, "counters": _counters,
+		"counted_lie_choices": _counted_lie_choices,
 		"trust": _trust, "work_days": _work_days, "sayings": _sayings,
 	}.duplicate(true)
 
@@ -170,6 +172,7 @@ func restore(saved: Dictionary) -> void:
 	_flags = source.get("flags", {})
 	_done = source.get("done", {})
 	_counters = source.get("counters", {})
+	_counted_lie_choices = source.get("counted_lie_choices", {})
 	_trust = source.get("trust", {})
 	_work_days = source.get("work_days", {})
 	_sayings = source.get("sayings", {})
@@ -246,6 +249,10 @@ func _mission_available(app, mission: Dictionary, town: String) -> bool:
 		return false
 	if town_trust(app, town) < int(mission.get("min_trust", 0)):
 		return false
+	var minimum_counts: Dictionary = mission.get("min_count", {})
+	for counter: String in minimum_counts:
+		if _goal_count(app, counter) < int(minimum_counts[counter]):
+			return false
 	if not _flags_match(app, mission.get("after", []), true) or not _flags_match(app, mission.get("not", []), false):
 		return false
 	var after_days: Dictionary = mission.get("after_days", {})
@@ -278,16 +285,35 @@ func choice_available(app, mission: Dictionary, choice: Dictionary) -> bool:
 		and _flags_match(app, choice.get("unless", []), false))
 
 
-func apply_choice(app, mission: Dictionary, choice: Dictionary) -> String:
+func apply_choice(app, mission: Dictionary, choice: Dictionary, scene_id: String = "") -> String:
 	if not choice_available(app, mission, choice):
 		return ""
+	var next := str(choice.get("go", ""))
+	if not _record_lie_once(app, mission, scene_id, str(choice.get("label", ""))):
+		return next
 	var effects: Variant = choice.get("fx", {})
 	if effects is Dictionary:
 		_apply_effects(app, mission, effects)
 	elif effects is Array:
 		for effect: Dictionary in effects:
 			_apply_effects(app, mission, effect)
-	return str(choice.get("go", ""))
+	return next
+
+
+func _record_lie_once(app, mission: Dictionary, scene_id: String, label: String) -> bool:
+	# A previously saved choice can reopen its ending without reapplying effects.
+	for tag: Dictionary in data.get("truth", {}).get("lie_choices", []):
+		if tag.mission != mission.id or tag.scene != scene_id or tag.label != label:
+			continue
+		# Reloading can reopen a mission saved before its ending was acknowledged.
+		# A repeatable mission starts its next run after the previous completion.
+		var occurrence := JSON.stringify([mission.id, scene_id, label, _done.get(mission.id)])
+		if _counted_lie_choices.has(occurrence):
+			return false
+		_counted_lie_choices[occurrence] = true
+		_add_count(app, "lies", 1)
+		break
+	return true
 
 
 func leave_scene(app, mission: Dictionary, scene: Dictionary) -> void:
@@ -505,6 +531,10 @@ func town_sayings(town: String, app = null) -> Array:
 	for line: Variant in _sayings.get(id, []):
 		if line not in lines:
 			lines.append(line)
+	var truth: Dictionary = data.get("truth", {})
+	if id == RIVER_MARKET and not truth.is_empty() and int(_counters.get("lies", 0)) >= int(truth.found_out_at):
+		if truth.line not in lines:
+			lines.append(truth.line.duplicate(true))
 	return lines
 
 

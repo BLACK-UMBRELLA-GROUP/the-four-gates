@@ -1086,3 +1086,15 @@ The action returns 30 in-game days after the last letter.
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --letters-home-only`.
+
+## LOCK 87 — The truth comes out
+
+The tagged responses in the Sahila boat sale, Ziyad's follow-up and the spilled
+spice encounter add to a private count. After two lies, River Market's **What
+people say** adds the account from people who compare notes. **Idris wants
+a quiet word** appears once at the River Market masjid from 07:00 through
+19:59. Choose **Listen** to finish the scene. The truth system adds no trust
+effect or Journal row.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --truth-only`.

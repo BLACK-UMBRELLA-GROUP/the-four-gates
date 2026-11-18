@@ -1,0 +1,96 @@
+{
+  "line": 94,
+  "lock": "LOCK 87 V1",
+  "questions_answer_rows": [
+    15,
+    46
+  ],
+  "runner_contract": "Scene Runner V2, R1–R12",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --truth-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 261,
+      "total": 261,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17434,
+      "total": 17434,
+      "failures": 0
+    },
+    "lock_87": {
+      "passed": 62,
+      "total": 62,
+      "failures": 0
+    }
+  },
+  "native_screenshots": 0,
+  "brief": "DOC-TFG-0273",
+  "tested_base_commit_sha": "48a893f9c955116a2d2fee1b9b2f9bb69142ff33",
+  "tested_source": "Base commit plus the source files hashed below. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T14:09:40+00:00",
+  "locked_inputs": {
+    "GAME/APPROVED/TRUTH/BRIEFS/BUILD_BRIEF_2026-11-09_TRUTH.md": {
+      "bytes": 2751,
+      "sha256": "0855854fadd17831794d10c8885d8e3f4fba501fc673d46b2318947676a930a6"
+    },
+    "GAME/APPROVED/TRUTH/RECORD/TRUTH_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3463,
+      "sha256": "46e91a210786a20fdc0e6fb49d6798976c827d87791a823edeb900472f8734a5"
+    },
+    "GAME/APPROVED/TRUTH/RECORD/LOCK_RECORD.md": {
+      "bytes": 702,
+      "sha256": "83ed9796a11f0ad03aef42a4269777a1fcf3389c2a59e2a30bb148db1f78a34b"
+    },
+    "GAME/APPROVED/TRUTH/RECORD/truth_data_V1.json": {
+      "bytes": 1512,
+      "sha256": "0fa3222b14d587e6ce524544b27abb050009b6b5d18ef996d5481a59602127ef"
+    },
+    "GAME/APPROVED/TRUTH/MASTERS/dn01_truth_found__a.png": {
+      "bytes": 319442,
+      "sha256": "262509dc2686029f04a2e901b91f33992c4e361d6673b5dfc2430ee45c844db5"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 67922,
+      "sha256": "ed84d5bc2d8e786108adcacce1b8b7844ce5a4d33dcc6e702603b46996b53ba2"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1276,
+      "sha256": "48c970b50cc0635c61f607ea154a124669557bf31b77a830b54418cf5ad9446c"
+    },
+    "SOURCE/data/truth.json": {
+      "bytes": 1512,
+      "sha256": "0fa3222b14d587e6ce524544b27abb050009b6b5d18ef996d5481a59602127ef"
+    },
+    "SOURCE/game/river_market.gd": {
+      "bytes": 70683,
+      "sha256": "4e99d514bc7f6072eccbd890b1cd37da883f570b9e2d733a3efa4a0087fa9df4"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 20162,
+      "sha256": "10a70405f7ecf114fb90cd3856d487ba8e88ae4ecc5c8572818a27634d978976"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 853448,
+      "sha256": "b283a8a72ce6b8f54267c2940a18b40dbaabf2d80a476ebc962b5b6bdd22f4bd"
+    }
+  },
+  "compiled_exports": 0,
+  "evidence": {
+    "GAME/APPROVED/TRUTH/BUILT/V1/LINE94_CHECKS.json": {
+      "bytes": 2017,
+      "sha256": "22730c92f4660a1d657e9816606c558a0ab44bbfab7b6a597477827f6c5fd3b8"
+    }
+  }
+}

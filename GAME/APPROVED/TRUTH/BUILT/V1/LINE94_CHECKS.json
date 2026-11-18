@@ -1,0 +1,44 @@
+{
+  "line": 94,
+  "lock": "LOCK 87 V1",
+  "questions_answer_rows": [
+    15,
+    46
+  ],
+  "runner_contract": "Scene Runner V2, R1–R12",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --truth-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 261,
+      "total": 261,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17434,
+      "total": 17434,
+      "failures": 0
+    },
+    "lock_87": {
+      "passed": 62,
+      "total": 62,
+      "failures": 0
+    }
+  },
+  "native_screenshots": 0,
+  "result": "PASS",
+  "verified": [
+    "The production index reads the LOCK 87 file byte for byte. The three exact mission, scene and choice tags count, while the other Sahila and spilled-spice choices do not.",
+    "The locked spill and Sahila choices are exercised with built game data and scene buttons. The private counter gates the encounter at zero, one and two. Replaying a saved tagged choice before Back reopens its result without applying the count or effects again.",
+    "At two lies, the locked account appears once in River Market's What people say. A third lie adds no duplicate, and the other town's accounts and trust follow its own locked data.",
+    "The quiet word opens once at the River Market masjid from 07:00 through 19:59. Checks cover the time boundaries, wrong place and town, and the locked title, kicker, dialogue and Listen choice in order.",
+    "Listen records completion and returns to the previous view. The scene changes no trust, coins, clock, Journal row or goal. Saved counts and completion persist, and the design citation stays out of player text."
+  ],
+  "master_reference": {
+    "dn01_truth_found__a.png": "truth_found/a"
+  },
+  "visual_scope": "Master checked for words and order. Q15 and R11 retain the existing Godot layout and require headless rules tests.",
+  "scholar_check": "DOC-TFG-0320 row 64, open before public release (OA-AIOS-432)"
+}
