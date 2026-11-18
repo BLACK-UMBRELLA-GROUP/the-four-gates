@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 
 | Field | Value |
 |---|---|
-| Built from | LOCK 58 V1: spec DOC-TFG-0184, data `side_water_seller_data_V1.json`, masters sj01-sj04 |
+| Built from | LOCK 58 V2: spec DOC-TFG-0184, data `side_water_seller_data_V2.json`, masters sj01-sj04 |
 | Founder's words | Blanket LOCK, 9 Nov 2026 (see the LOCK record); placeholder shapes only |
 | Needs | none (charters rule 15) |
 | Build after | line 41 (the scene runner, BUILT) - chain removed 17 Nov (Founder: "it should do some even if there others blockers"; charters rule 15, AD-AIOS-154) |
@@ -23,8 +23,8 @@ owner: THE FOUR GATES chat
 
 | # | Step | Detail |
 |---|---|---|
-| 1 | Read | `GAME/APPROVED/SIDE_WATER_SELLER/RECORD/SIDE_WATER_SELLER_SPEC_CURRENT_VERSION_V1.md` (all), `RECORD/side_water_seller_data_V1.json`, `RECORD/LOCK_RECORD.md`, masters sj01-sj04, and the builds of lines 2-64. Report any problem in `GAME/APPROVED/QUESTIONS.md` and set this line to QUESTION |
-| 2 | Data | Copy `RECORD/side_water_seller_data_V1.json` byte for byte to `SOURCE/data/side_water_seller.json`; the LOCK 34 runner loads it with the other content files - no new code unless the spec says so |
+| 1 | Read | `GAME/APPROVED/SIDE_WATER_SELLER/RECORD/SIDE_WATER_SELLER_SPEC_CURRENT_VERSION_V2.md` (all), `RECORD/side_water_seller_data_V2.json`, `RECORD/LOCK_RECORD.md`, masters sj01-sj04, and the builds of lines 2-64. Report any problem in `GAME/APPROVED/QUESTIONS.md` and set this line to QUESTION |
+| 2 | Data | Copy `RECORD/side_water_seller_data_V2.json` byte for byte to `SOURCE/data/side_water_seller.json`; the LOCK 34 runner loads it with the other content files - no new code unless the spec says so |
 | 3 | Build | Everything in the spec, in order |
 | T | Tests | Every choice path of every mission (effects, flags, What people say lines, done in the Journal); every person line at trust 10 / 50 / 80; buttons only in their hours and conditions. Check the words. Add to `run_tests.gd`; the headless run must exit 0 with every earlier test passing |
 | E | Evidence | Screenshots beside the masters in `GAME/APPROVED/SIDE_WATER_SELLER/BUILT/V1/` with a `BUILD.json`. No exports or compiled builds |
@@ -37,3 +37,7 @@ from the data files at run time.
 ## Answer note — 16 Nov 2026 (QUESTIONS row 15)
 
 Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the Godot window or take native screenshots for this line. Row E means: `BUILD.json` and the line's checks file in `BUILT/V1/`, with the full headless run passing. The masters stay the design reference only.
+
+## Answer note — 2026-11-18 (QUESTIONS row 20)
+
+**A.** "Four times" is approved (scene and master sj01). `side_water_seller_data_V2.json` changes only the gate button to "A water seller is charging travellers four times the price". Brief points at V2. Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.

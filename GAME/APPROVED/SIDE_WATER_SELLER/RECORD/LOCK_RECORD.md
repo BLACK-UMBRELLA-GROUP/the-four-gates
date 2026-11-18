@@ -13,3 +13,4 @@ owner: THE FOUR GATES chat
 | LOCK | Date / time (UK) | Founder's words (exact) | What it locks | Queue lines |
 |---|---|---|---|---|
 | 58 | 2026-11-09 | Blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now". Not shown one by one; prototype V92 | `SIDE_WATER_SELLER_SPEC_CURRENT_VERSION_V1.md` (DOC-TFG-0184), `side_water_seller_data_V1.json`, masters `sj01`-`sj04` | 65 |
+| V2 | 2026-11-18 | QUESTIONS answer by the THE FOUR GATES Claude chat, inside the locked design (no new Founder decision) | gate button says "four times", matching the scene and master sj01 (Q20) | as queued |

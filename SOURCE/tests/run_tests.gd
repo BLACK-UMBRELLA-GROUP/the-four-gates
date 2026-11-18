@@ -101,6 +101,10 @@ func _run() -> void:
 		await check_side_lost_child_runtime()
 		finish()
 		return
+	if "--side-water-seller-only" in OS.get_cmdline_user_args():
+		await check_side_water_seller_runtime()
+		finish()
+		return
 	if "--jisra-masjid-only" in OS.get_cmdline_user_args():
 		await check_jisra_masjid_runtime()
 		finish()
@@ -303,6 +307,7 @@ func _run() -> void:
 	await check_side_creditor_runtime()
 	await check_side_lost_child_runtime()
 	await check_side_drowning_boy_runtime()
+	await check_side_water_seller_runtime()
 	await check_side_thirsty_dog_runtime()
 	await check_side_spilled_spice_runtime()
 	await check_side_archery_runtime()
@@ -4752,6 +4757,120 @@ func _check_thirsty_dog_outcome(mission: Dictionary, trust: int, choice_index: i
 		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
 		"the Journal counts the thirsty dog mission exactly once")
 	await press_button(words.journal.back, "the Journal returns to the market")
+
+
+func check_side_water_seller_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/SIDE_WATER_SELLER/RECORD/side_water_seller_data_V2.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/side_water_seller.json")
+	check(not locked.is_empty() and runtime == locked, "water seller data is the byte-identical LOCK 58 V2 file")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var mission: Dictionary = app.scene_runner.missions.get("water_seller", {})
+	check(approved is Dictionary and not mission.is_empty() and mission == approved.missions[0],
+		"the production index loads the locked water seller mission")
+	if mission.is_empty():
+		return
+
+	app.set_process(false)
+	reset_at_market_place("gate", 2, 8)
+	for minute: int in [599, 600, 1019, 1020]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 600 and minute < 1020),
+			"the gate offers the water seller mission during locked hours at minute %d" % minute)
+	set_market_day_time(8, 660)
+	move_market_fixture("inn")
+	check(find_button(app.ui, mission.button) == null, "the new mission is available only at the gate")
+	move_market_fixture("gate")
+	app.show_screen("game")
+	await press_button(mission.button, "the locked gate button opens the mission from the walking view")
+	var opening: Dictionary = mission.scenes[mission.start]
+	_check_side_mission_scene(mission, opening)
+
+	var buy: Dictionary = opening.choices[1]
+	for coins: int in [0, 1]:
+		reset_at_market_place("gate", coins, 8)
+		await press_button(mission.button, "the mission still opens with %d coins" % coins)
+		check(find_button(app.ui, buy.label) == null, "buying water is hidden with %d coins" % coins)
+		for index: int in [0, 2]:
+			check(find_button(app.ui, opening.choices[index].label) != null, "free choices remain available")
+		app._runner_action("choice", buy)
+		check(app.runner_scene() == opening and app.progress.coins == coins, "a direct purchase also needs two coins")
+
+	var outcomes := [
+		{"scene": "nasir", "coins": 0, "trust": 6, "sayings": [mission.say.reported]},
+		{"scene": "buy", "coins": -2, "trust": 3, "sayings": [mission.say.bought]},
+		{"scene": "out", "coins": 0, "trust": 0, "sayings": []},
+	]
+	for trust: int in [10, 50, 80]:
+		for index in outcomes.size():
+			await _check_water_seller_outcome(mission, trust, index, outcomes[index])
+	app.set_process(true)
+	var failures_added := failures - failures_before
+	print("LOCK 58 TESTS: ", checks - checks_before - failures_added, "/", checks - checks_before,
+		" passed; failures=", failures_added)
+
+
+func _check_water_seller_outcome(mission: Dictionary, trust: int, index: int, outcome: Dictionary) -> void:
+	const DAY := 8
+	const MINUTE := 660
+	const COINS := 2
+	reset_at_market_place("gate", COINS, DAY)
+	app.progress.apply_trust(trust - app.progress.trust)
+	set_market_day_time(DAY, MINUTE)
+	var runner: SceneRunner = app.scene_runner
+	var before := runner.state()
+	var initial_side: Dictionary = runner.journal(app).side
+	var jisra_trust := runner.town_trust(app, "jisra")
+	var words: Dictionary = runner.data.words
+	var opening: Dictionary = mission.scenes[mission.start]
+
+	await press_button(mission.button, "open the water seller mission at trust %d" % trust)
+	_check_side_mission_scene(mission, opening)
+	var labels: Array[String] = []
+	for choice: Dictionary in opening.choices:
+		labels.append(choice.label)
+	_check_town_hub_button_order(labels, "the water seller choices follow the locked order with two coins")
+	check(find_button(app.ui, words.scene_back) == null, "the opening requires a choice")
+
+	await press_button(labels[index], "choose the water seller response for " + outcome.scene)
+	var ending: Dictionary = mission.scenes[outcome.scene]
+	check(app.runner_scene() == ending, "the response opens the locked ending: " + outcome.scene)
+	_check_side_mission_scene(mission, ending)
+	for label: String in labels:
+		check(find_button(app.ui, label) == null, "the ending removes choice: " + label)
+	check_wallet(trust + int(outcome.trust), COINS + int(outcome.coins), "the response applies its locked effects")
+	var after := runner.state()
+	check(after.flags == before.flags and after.counters == before.counters
+		and app.day == DAY and app.minute_of_day == MINUTE, "the response adds no flags, counters or elapsed time")
+	check(runner.town_trust(app, "jisra") == jisra_trust and runner.town_sayings("jisra", app).is_empty(),
+		"the response affects River Market only")
+	check(runner.town_sayings("river_market", app) == outcome.sayings, "the response records its locked local account")
+	check(not runner.mission_done(app, mission.id) and runner.journal(app).side == initial_side,
+		"the ending waits for Back before counting completion")
+
+	await press_button(words.scene_back, "Back finishes the mission and returns to the gate")
+	check(app.ui.screen == "market_map" and app.current_place == "gate"
+		and runner.state().done == {mission.id: DAY}, "Back records the completion day at the gate")
+	check(find_button(app.ui, mission.button) == null, "the completed mission disappears from the gate")
+	set_market_day_time(DAY + 1, MINUTE)
+	check(find_button(app.ui, mission.button) == null, "the completed mission stays hidden the next day")
+
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say after the water seller mission")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines() == outcome.sayings,
+		"What people say shows the account for this response")
+	for line: Array in outcome.sayings:
+		check_reputation_row(line)
+	if outcome.sayings.is_empty():
+		check(visible_text().contains(app.chapter.rep.empty), "walking away leaves What people say empty")
+	await press_button(app.chapter.rep.to_map, "return from What people say")
+	await press_button(words.journal_button, "open the Journal after the water seller mission")
+	var side: Dictionary = runner.journal(app).side
+	check(side == {"done": initial_side.done + 1, "total": initial_side.total}
+		and has_visible_label(app.ui, str(words.journal.count).format({"n": side.done, "m": side.total})),
+		"the private Journal counts the water seller mission once")
+	await press_button(words.journal.back, "return from the Journal")
 
 
 func check_side_spilled_spice_runtime() -> void:

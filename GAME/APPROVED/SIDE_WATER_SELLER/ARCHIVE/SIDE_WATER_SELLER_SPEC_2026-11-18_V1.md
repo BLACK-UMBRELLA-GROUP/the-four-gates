@@ -1,7 +1,7 @@
 ---
 id: DOC-TFG-0184
 type: SPEC
-status: CURRENT
+status: ARCHIVED
 feature: SIDE_WATER_SELLER
 purpose: LOCK 58 - River Market side mission - the overcharging water seller
 links: [AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0185]

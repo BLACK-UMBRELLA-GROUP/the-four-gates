@@ -802,6 +802,15 @@ the mission and count it once in the **Journal**. Jumping in or throwing a rope
 adds the boatmen's account to **What people say**. The headless suite covers all
 three responses.
 
+## LOCK 58 — The overcharging water seller
+
+At the River Market gate from 10:00 up to 17:00, choose
+**A water seller is charging travellers four times the price**. Fetching Nasir
+adds six River Market trust. Buying water costs two coins and adds three trust.
+Both actions add an account to **What people say**. Use **Back** on any ending
+to complete the mission once in the **Journal**. Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --side-water-seller-only`.
+
 ## LOCK 59 — A thirsty dog
 
 At the River Market quay, **A dog is panting by the well** is available from

@@ -1,0 +1,78 @@
+{
+  "line": 65,
+  "lock": "LOCK 58 V2",
+  "brief": "DOC-TFG-0186",
+  "questions_answer_rows": [
+    15,
+    20
+  ],
+  "tested_base_commit_sha": "d10e7ae3ba8c4d1174b6dae9636d64997f8e17ac",
+  "tested_source": "Base commit plus the source files identified by SHA-256. The containing commit is recorded in the 18 Nov task note.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T10:45:51Z",
+  "locked_inputs": {
+    "GAME/APPROVED/SIDE_WATER_SELLER/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_WATER_SELLER.md": {
+      "bytes": 3110,
+      "sha256": "7199158ec063de7209ebc6c6ee381fd8f1e20c04a4b4fa98dd3e84627072b5b4"
+    },
+    "GAME/APPROVED/SIDE_WATER_SELLER/RECORD/LOCK_RECORD.md": {
+      "bytes": 988,
+      "sha256": "c8c735fb966879db3261553ddfea6476f38dd8b68b3f91d4a0978c5d8d7d041f"
+    },
+    "GAME/APPROVED/SIDE_WATER_SELLER/RECORD/SIDE_WATER_SELLER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 3886,
+      "sha256": "36bf25c813eb1eb1ebc78747a09054269b032e01fbc32ebb727e354d5eaa4464"
+    },
+    "GAME/APPROVED/SIDE_WATER_SELLER/RECORD/side_water_seller_data_V2.json": {
+      "bytes": 1965,
+      "sha256": "936c2f06a1b85e83ffdeaec64e8205946df05d0d636e2d7e9b4701b0898c402f"
+    },
+    "GAME/APPROVED/SIDE_WATER_SELLER/MASTERS/sj01_water_seller__a.png": {
+      "bytes": 297764,
+      "sha256": "9bb4deec96779771ac90c43b8382189f5db5baab21f11d5fc4960578c28acccd"
+    },
+    "GAME/APPROVED/SIDE_WATER_SELLER/MASTERS/sj02_water_seller__nasir.png": {
+      "bytes": 311906,
+      "sha256": "b4e9f162b5db7ca8835600be7e12b10a445313ff9f288f0054a5a5981a92e298"
+    },
+    "GAME/APPROVED/SIDE_WATER_SELLER/MASTERS/sj03_water_seller__buy.png": {
+      "bytes": 310447,
+      "sha256": "f07ca61671998466ea4ca83e377699ef15ecb818a232e3b80989451e67b23b3d"
+    },
+    "GAME/APPROVED/SIDE_WATER_SELLER/MASTERS/sj04_water_seller__out.png": {
+      "bytes": 310510,
+      "sha256": "59141a7de73a2c7231a157a7e48414a556e3fd4e0b8ee4932bd9c46e7b553387"
+    }
+  },
+  "runner_contract": {
+    "path": "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md",
+    "rules": "R1–R12",
+    "bytes": 10811,
+    "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 831,
+      "sha256": "06e1fc217553e753d3f13dc10ed18cc785c1462396b785f3ed4bcecb2de83170"
+    },
+    "SOURCE/data/side_water_seller.json": {
+      "bytes": 1965,
+      "sha256": "936c2f06a1b85e83ffdeaec64e8205946df05d0d636e2d7e9b4701b0898c402f"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 710990,
+      "sha256": "7a169a11c14c03ad669c7c03a4a0ee97163c1a10e5a1e7c53a8ab03dca12c802"
+    },
+    "SOURCE/README.md": {
+      "bytes": 57375,
+      "sha256": "9ffacefb69dc932f24eef977b371ee0315e95705125c1b754a39e927cde7bfbb"
+    }
+  },
+  "evidence": {
+    "LINE65_CHECKS.json": {
+      "bytes": 2570,
+      "sha256": "33687a4b83f7cbc4018d7164cf0738a6235782a988502984df9ba8e64b2fe0b6"
+    }
+  }
+}

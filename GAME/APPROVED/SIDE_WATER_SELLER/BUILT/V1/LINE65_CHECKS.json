@@ -1,0 +1,98 @@
+{
+  "line": 65,
+  "lock": "LOCK 58 V2",
+  "focused": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --side-water-seller-only",
+    "exit_code": 0,
+    "passed": 489,
+    "total": 489,
+    "failures": 0
+  },
+  "full_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 14020,
+    "total": 14020,
+    "failures": 0
+  },
+  "lock_58_in_both_runs": {
+    "passed": 290,
+    "total": 290,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "sj01_water_seller__a.png": "a",
+    "sj02_water_seller__nasir.png": "nasir",
+    "sj03_water_seller__buy.png": "buy",
+    "sj04_water_seller__out.png": "out"
+  },
+  "asserted": {
+    "entry": {
+      "town": "river_market",
+      "place": "gate",
+      "button": "A water seller is charging travellers four times the price",
+      "available_at": [
+        "10:00",
+        "16:59"
+      ],
+      "hidden_at": [
+        "09:59",
+        "17:00"
+      ],
+      "hidden_away_from_gate": true,
+      "views": [
+        "market_map",
+        "game"
+      ]
+    },
+    "scene_copy": "The mission title, kicker, all four scene texts, ordered opening choices and Back.",
+    "buy_hidden_with_coins": [
+      0,
+      1
+    ],
+    "buy_tested_with_coins": 2,
+    "all_paths_tested_at_trust": [
+      10,
+      50,
+      80
+    ],
+    "outcomes": [
+      {
+        "ending": "nasir",
+        "coin_delta": 0,
+        "river_market_trust_delta": 6,
+        "what_people_say": [
+          [
+            "Reported the water seller's prices",
+            "Nasir the inspector",
+            1
+          ]
+        ]
+      },
+      {
+        "ending": "buy",
+        "coin_delta": -2,
+        "river_market_trust_delta": 3,
+        "what_people_say": [
+          [
+            "Bought water for a stranger at the gate",
+            "the gate",
+            1
+          ]
+        ]
+      },
+      {
+        "ending": "out",
+        "coin_delta": 0,
+        "river_market_trust_delta": 0,
+        "what_people_say": []
+      }
+    ],
+    "other_state": "The clock, flags, counters, and Jisra trust and accounts stay unchanged.",
+    "completion": "Back records the completion day at the gate, adds one side mission to the Journal and keeps the button hidden on following days.",
+    "person_dialogue": "The pack defines scene dialogue and two witness accounts."
+  },
+  "native_screenshots": 0,
+  "presentation_scope": "Q15 and R11 specify headless rules checks. The design chat reviews the masters."
+}
