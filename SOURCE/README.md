@@ -856,6 +856,16 @@ the inn's account to **What people say**. Going to bed leaves coins, trust
 and the inn's accounts as they were. Use **Back** on any ending to finish the
 mission once and count it in the **Journal**.
 
+## LOCK 64 V2 — The scholar's notebook, Chapter 1
+
+Read the first page with Idris through the inn's open-purse story. People around
+the River Market then offer pages 2–10 in order between 07:00 and 19:00. Take
+each page to Idris and read it at the River Market masjid. The masjid offers the
+lowest unread page you have found. Page 10 includes the chapter story. The private
+Journal counts each page read under **The scholar's pages**.
+
+Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch01-only`.
+
 ## LOCK 74 — Wudu with Idris
 
 After meeting Idris, choose **Idris will show you wudu** at the River Market

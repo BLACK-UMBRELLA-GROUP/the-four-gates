@@ -32,6 +32,10 @@ static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 	var goals_by_id := {}
 	for file: String in files:
 		var document := _read_document(index_path.get_base_dir().path_join(file))
+		if document.has("chapter") and document.has("pages"):
+			_add_page_missions(content.missions, document)
+			_merge_records(goals_by_id, document.get("goals", []))
+			continue
 		for key: String in document:
 			match key:
 				"chapters":
@@ -56,6 +60,60 @@ static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 		content.chapters.append(chapters_by_number[number])
 	content.goals = goals_by_id.values()
 	return content
+
+
+static func _add_page_missions(target: Dictionary, document: Dictionary) -> void:
+	var words: Dictionary = document.words
+	var chapter: Dictionary = document.chapter
+	var pages: Array = document.pages
+	if pages.is_empty():
+		return
+	var last_page := int(pages.back().n)
+	for page: Dictionary in pages:
+		var number := int(page.n)
+		var find_id := "page_%d" % number
+		var read_id := "read_%d" % number
+		var found_flag := find_id + "_found"
+		var read_flag := find_id + "_read"
+		target[find_id] = {
+			"id": find_id,
+			"kind": "page_find",
+			"title": "Page %d" % number,
+			"kicker": words.find_kicker,
+			"button": str(words.find_button).format({"p": page.person}),
+			"town": page.get("town", ""),
+			"place": page.get("place", ""),
+			"hours": words.hours,
+			"after": page.after,
+			"start": "a",
+			"scenes": {"a": {
+				"title": words.find_title,
+				"text": page.found,
+				"choices": [{"label": words.take, "fx": {"flag": found_flag, "done": true}}],
+			}},
+		}
+		var paragraphs := ["“%s”" % page.saying, str(words.idris).format({"t": page.idris})]
+		if number == last_page:
+			paragraphs.append(str(words.story).format({"t": chapter.story}))
+		target[read_id] = {
+			"id": read_id,
+			"kind": "page_read",
+			"page": number,
+			"title": chapter.title,
+			"kicker": str(words.read_kicker).format({"n": number}),
+			"button": words.read_button,
+			"place": "masjid",
+			"after": [found_flag],
+			"not": [read_flag],
+			"start": "a",
+			"scenes": {"a": {
+				"text": paragraphs,
+				"choices": [{
+					"label": words.read_turn,
+					"fx": {"flag": read_flag, "count": "pages", "done": true},
+				}],
+			}},
+		}
 
 
 static func _read_document(path: String) -> Dictionary:
@@ -134,6 +192,8 @@ func observe_builtin_flags(app) -> void:
 func has_flag(app, id: String) -> bool:
 	if id == "met_teacher":
 		return app.idris_met
+	if id == "sirr":
+		return app.known_words.has(id)
 	if id == "gate_opened":
 		return app.progress.gate_open
 	if id.begins_with("toll:"):
@@ -156,12 +216,19 @@ func available_missions(app, town: String, place: String) -> Array[Dictionary]:
 	var here := _town_id(town)
 	if here != RIVER_MARKET and not towns.has(here):
 		return available
+	var first_page: Dictionary = {}
 	for mission: Dictionary in missions.values():
 		var location := _town_id(str(mission.get("town", "")))
 		if location != here or (here == RIVER_MARKET and mission.get("place", "") != place):
 			continue
-		if _mission_available(app, mission, here):
-			available.append(mission)
+		if not _mission_available(app, mission, here):
+			continue
+		if mission.get("kind") == "page_read" and (first_page.is_empty() or int(mission.page) < int(first_page.page)):
+			first_page = mission
+		available.append(mission)
+	if not first_page.is_empty():
+		return available.filter(func(mission: Dictionary) -> bool:
+			return mission.get("kind") != "page_read" or mission.id == first_page.id)
 	return available
 
 
@@ -283,6 +350,7 @@ func _goal_count(app, id: String) -> int:
 		"children": return app.qurans_school.children_in_school
 		"masjids": return app.jisra_masjid.prayed_in.size()
 		"names": return app.names_of_allah.learned.size()
+		"pages": return int(has_flag(app, "sirr")) + int(_counters.get(id, 0))
 	return int(_counters.get(id, 0))
 
 

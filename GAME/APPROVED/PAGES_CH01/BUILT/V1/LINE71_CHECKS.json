@@ -1,0 +1,74 @@
+{
+  "line": 71,
+  "lock": "LOCK 64 V2",
+  "focused": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch01-only",
+    "exit_code": 0,
+    "passed": 433,
+    "total": 433,
+    "failures": 0
+  },
+  "full_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 14481,
+    "total": 14481,
+    "failures": 0
+  },
+  "lock_64_in_both_runs": {
+    "passed": 234,
+    "total": 234,
+    "failures": 0
+  },
+  "lock_51_in_full_suite": {
+    "passed": 358,
+    "total": 358,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "pa01_page_2__a.png": "page_2/a",
+    "pa02_read_2__a.png": "read_2/a",
+    "pa03_page_3__a.png": "page_3/a",
+    "pa04_read_3__a.png": "read_3/a",
+    "pa05_page_4__a.png": "page_4/a",
+    "pa06_read_4__a.png": "read_4/a",
+    "pa07_page_5__a.png": "page_5/a",
+    "pa08_read_5__a.png": "read_5/a",
+    "pa09_page_6__a.png": "page_6/a",
+    "pa10_read_6__a.png": "read_6/a",
+    "pa11_page_7__a.png": "page_7/a",
+    "pa12_read_7__a.png": "read_7/a",
+    "pa13_page_8__a.png": "page_8/a",
+    "pa14_read_8__a.png": "read_8/a",
+    "pa15_page_9__a.png": "page_9/a",
+    "pa16_read_9__a.png": "read_9/a",
+    "pa17_page_10__a.png": "page_10/a",
+    "pa18_read_10__a.png": "read_10/a"
+  },
+  "asserted": {
+    "pages": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "find": "Each page uses its locked person, place and hours. LOCK 3 sirr gates the chapter and pages 3–10 require the prior page found. Taking a page records its flag and completion without advancing the Journal goal.",
+    "read": "The River Market masjid offers only the lowest found unread page. Each scene uses the locked title, kicker, saying, Idris line and sole closing choice. Page 10 adds the chapter story. References stay outside the player-facing scene.",
+    "journal": "The goal begins at 0/100. Reading the original page adds one, including on an older save. Closing each of pages 2–10 adds one and records its flag and completion, reaching 10/100. The existing finale increments the same goal in its regression test.",
+    "persistence": "Save restore preserves find and read flags, completions and the goal count. A fresh game clears the progress.",
+    "chapter_scope": "Q36 scopes line 71 to the pages in this pack and their count. The full notebook count belongs to the complete game."
+  },
+  "scholar_check": {
+    "status": "open before public release",
+    "register": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md, rows 16 and 47",
+    "action": "OA-AIOS-432"
+  },
+  "native_screenshots": 0,
+  "presentation_scope": "Q15 and R11 specify Godot headless rules checks. The 18 masters were checked as references for the scene wording and order."
+}

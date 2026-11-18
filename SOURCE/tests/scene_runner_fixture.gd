@@ -26,6 +26,7 @@ class Context:
 	var sealed_purse := SealedPurse.new()
 	var gate_of_trust := GateOfTrust.new()
 	var feeding := Feeding.new()
+	var known_words: Dictionary = {}
 	var clock: PrayerClock
 	var market_day: MarketDay
 	var qurans_school: QuransSchool
