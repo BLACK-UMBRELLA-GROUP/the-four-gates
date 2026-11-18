@@ -15,6 +15,7 @@
 .godot/
 *.translation
 builds/
+BUILDS/
 exports/
 
 # Mac

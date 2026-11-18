@@ -80,6 +80,10 @@ func _run() -> void:
 	root.add_child(app)
 	await frames(3)
 	data = app.data
+	if "--mac-build-only" in OS.get_cmdline_user_args():
+		check_mac_build()
+		finish()
+		return
 	if "--reminder-restart" in OS.get_cmdline_user_args():
 		await check_reminder_capture_restart()
 		finish()
@@ -339,6 +343,7 @@ func _run() -> void:
 	if "--six-gates-only" in OS.get_cmdline_user_args():
 		finish()
 		return
+	check_mac_build()
 	check(app.ui.screen == "title", "launch opens the title")
 	check(visible_text().replace("\n", "").contains(data.title_screen.title), "title uses approved title text")
 	check(visible_text().contains(data.title_screen.line), "title uses approved subtitle")
@@ -1419,6 +1424,45 @@ func tap_map(at: Vector2) -> void:
 	event.position = at
 	app.ui.map._gui_input(event)
 	await frames(2)
+
+
+func check_mac_build() -> void:
+	var runtime := FileAccess.get_file_as_bytes("res://data/mac_build.json")
+	var approved := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/MAC_BUILD/RECORD/mac_build_data_V1.json"
+	)
+	check(not runtime.is_empty() and runtime == approved, "Mac build data is byte-identical to LOCK 101")
+	var locked = JSON.parse_string(approved.get_string_from_utf8())
+	var settings: Dictionary = app.scene_runner.data.get("macbuild", {})
+	check(locked is Dictionary and settings == locked.macbuild, "runner reads the locked Mac build settings")
+	if settings.is_empty():
+		return
+
+	var preset := ConfigFile.new()
+	var loaded := preset.load("res://export_presets.cfg") == OK
+	check(loaded, "Mac export preset loads")
+	if not loaded:
+		return
+
+	const SECTION := "preset.0"
+	const OPTIONS := "preset.0.options"
+	var six_gates: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/six_gates.json"))
+	var old_name := str(settings.name).get_basename().to_upper()
+	var renamed_title := ""
+	for pair: Array in six_gates.renames:
+		if pair[0] == old_name:
+			renamed_title = pair[1]
+	check(not renamed_title.is_empty() and renamed_title == data.title_screen.title, "Q61 uses the LOCK 103 title for the Mac app")
+	var feature := str(preset.get_value(SECTION, "custom_features", ""))
+	var bundle_name := str(ProjectSettings.get_setting("application/config/name." + feature, ""))
+	check(bundle_name == renamed_title and not bundle_name.is_empty(), "Mac export project name uses the current title")
+	var output_dir := str(settings.output).get_slice(" (", 0)
+	var bundle_path := "../" + output_dir.path_join(renamed_title + "." + str(settings.name).get_extension())
+	check(preset.get_value(SECTION, "name", "") == settings.preset
+		and preset.get_value(SECTION, "platform", "") == settings.preset, "preset targets the locked macOS platform")
+	check(preset.get_value(SECTION, "export_path", "") == bundle_path, "Mac preset writes the renamed app in the locked export directory")
+	check(preset.get_value(OPTIONS, "codesign/codesign", -1) == 0
+		and preset.get_value(OPTIONS, "notarization/notarization", -1) == 0, "Mac export disables signing and notarization")
 
 
 func check_six_gates_runtime() -> void:

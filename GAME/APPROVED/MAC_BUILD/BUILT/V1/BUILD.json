@@ -1,0 +1,80 @@
+{
+  "line": 108,
+  "lock": "LOCK 101 V1",
+  "brief": "DOC-TFG-0315",
+  "questions_answer_rows": [
+    15,
+    61
+  ],
+  "tested_base_commit_sha": "1e4f1c25ec2c5fe80309b382f9c3ee1d642548ee",
+  "tested_source": "The base commit plus the fingerprinted changes below. The 18 November task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Headless Godot rules tests and local macOS release export",
+  "timestamp_utc": "2026-11-18T17:47:47+00:00",
+  "checks_passed": {
+    "headless_focused_suite": 211,
+    "headless_full_suite": 21842
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/MAC_BUILD/BRIEFS/BUILD_BRIEF_2026-11-09_MAC_BUILD.md": {
+      "bytes": 2922,
+      "sha256": "b5f31f42174b597b11a87b2ef914dae3f51cb991fbfe945b3269620d3337d3d4"
+    },
+    "GAME/APPROVED/MAC_BUILD/RECORD/MAC_BUILD_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3153,
+      "sha256": "77abd04514cc36c67f2a688adc69ebfa063cf0f79526125f323d0b29bce6dd3b"
+    },
+    "GAME/APPROVED/MAC_BUILD/RECORD/LOCK_RECORD.md": {
+      "bytes": 717,
+      "sha256": "a4870644aa8c7daa94bdd801f4908ca97dd64a13f7e270fe82e1e67ced7880cd"
+    },
+    "GAME/APPROVED/MAC_BUILD/RECORD/mac_build_data_V1.json": {
+      "bytes": 173,
+      "sha256": "b0db458f4deca54fa154e7593579e9e9c17761f30b56064af32ab1fc475d614c"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "SOURCE/data/six_gates.json": {
+      "bytes": 3298,
+      "sha256": "867a462d9b2b2938eaf8a74ec84c79105373e15f81800d461ab830f24dc784bc"
+    }
+  },
+  "changed_source_files_at_test": {
+    ".gitignore": {
+      "bytes": 293,
+      "sha256": "7584e4a2e5a46ab6db5d69990aed5dad399597df278fe644148b2732e9011db2"
+    },
+    "SOURCE/README.md": {
+      "bytes": 77355,
+      "sha256": "cec811edd3f6c0c37998060ad6895d2c207a61345c2547745b61fc7cf4d11e20"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1610,
+      "sha256": "8a1d3d5a827686a792cd53530068233ed14bfc57f3b6773e00fda198ae92a8cd"
+    },
+    "SOURCE/data/mac_build.json": {
+      "bytes": 173,
+      "sha256": "b0db458f4deca54fa154e7593579e9e9c17761f30b56064af32ab1fc475d614c"
+    },
+    "SOURCE/export_presets.cfg": {
+      "bytes": 371,
+      "sha256": "f36d2ef799f4654ccc7fa977fca00f21ede73b3ce914386d41da6f3956e1803a"
+    },
+    "SOURCE/project.godot": {
+      "bytes": 1779,
+      "sha256": "c5af98493930cc5607ec1ff79d94d439902d16d9c4fe324e80b333949aae5d7d"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 1000565,
+      "sha256": "6316f3e7320ca7c157e06f3f58f01380032ce922072f80dffb318ccc97923795"
+    }
+  },
+  "evidence": {
+    "LINE108_CHECKS.json": {
+      "bytes": 1647,
+      "sha256": "5f2ed65dfde355a7a3d38f7898069f4f8d9c45be2c72a1f8cdad54184fb86bae"
+    }
+  }
+}

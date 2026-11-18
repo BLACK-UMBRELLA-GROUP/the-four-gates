@@ -1,0 +1,8 @@
+{
+ "version": "LOCK 101 V1 (9 Nov 2026) - the Mac build",
+ "macbuild": {
+  "preset": "macOS",
+  "output": "BUILDS/mac/ (ignored by git)",
+  "name": "The Four Gates.app"
+ }
+}

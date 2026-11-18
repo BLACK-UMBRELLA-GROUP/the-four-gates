@@ -78,6 +78,19 @@ market map. Open World map from the city map and tap one of the twelve placehold
 and Masjid street points and routes from that copy. `SOURCE/data/six_gates.json` supplies the LOCK 103 text updates,
 goal rows and city gate directions at runtime. Content and gameplay settings stay in portable JSON.
 
+## macOS build
+
+With the Godot 4.7.2 macOS export template available, run these commands from the repository root:
+
+```sh
+mkdir -p BUILDS/mac
+godot --headless --path SOURCE --export-release macOS "../BUILDS/mac/THE SIX GATES.app"
+```
+
+The preset writes `BUILDS/mac/THE SIX GATES.app`, an unsigned, unnotarized local build. In Finder, right-click
+**THE SIX GATES.app** and choose **Open** the first time. If macOS blocks the app you just built, follow
+[Apple's first-open steps](https://support.apple.com/en-gb/102445) in **System Settings → Privacy & Security**.
+
 ## Checks and evidence
 
 Run the GDScript integration suite from the root of a complete checkout:

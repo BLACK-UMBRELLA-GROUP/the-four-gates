@@ -1,0 +1,53 @@
+{
+  "line": 108,
+  "lock": "LOCK 101 V1",
+  "questions_answer_rows": [
+    15,
+    61
+  ],
+  "prerequisites": "The only WAITING line at preflight was 108. Lines 106, 109 and 110 were BUILT.",
+  "focused_run": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --mac-build-only",
+    "exit_code": 0,
+    "passed": 211,
+    "total": 211,
+    "failures": 0
+  },
+  "full_run": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 21842,
+    "total": 21842,
+    "failures": 0
+  },
+  "locked_data_byte_identical": true,
+  "local_export": {
+    "command": "godot --headless --path SOURCE --export-release macOS \"../BUILDS/mac/THE SIX GATES.app\"",
+    "exit_code": 0,
+    "preset": "macOS",
+    "bundle": "BUILDS/mac/THE SIX GATES.app",
+    "bundle_name": "THE SIX GATES",
+    "architectures": [
+      "arm64",
+      "x86_64"
+    ],
+    "runtime_json_file_count": 106,
+    "ignored_by_git": true,
+    "codesigning_enabled": false,
+    "notarization_enabled": false,
+    "template": "Official Godot 4.7.2 stable macos.zip, supplied to the preset for the verification run only.",
+    "template_sha256": "88df5e2e6fee99088699be66e6d42e4da4fb0c5619d054297d755a49558a4792"
+  },
+  "bundle_launch": {
+    "mode": "headless",
+    "quit_after_frames": 20,
+    "exit_code": 0,
+    "engine_errors": 0
+  },
+  "native_screenshots": 0,
+  "scholar_check": {
+    "register": "DOC-TFG-0320",
+    "action": "OA-AIOS-432",
+    "status": "Applicable hadith and ruling rows for the bundled game remain open before public release. LOCK 101 adds no religious content."
+  }
+}
