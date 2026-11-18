@@ -42,6 +42,11 @@ static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 			_add_fountain_missions(content.missions, content.towns, document)
 			_merge_records(goals_by_id, document.goals)
 			continue
+		if file == "stars.json":
+			var unlocks := _read_document(directory.path_join("stars_unlocks.json"))
+			_add_star_missions(content.missions, document, unlocks)
+			_merge_records(goals_by_id, document.goals)
+			continue
 		if document.has("chapter") and document.has("pages"):
 			_add_page_missions(content.missions, document)
 			_merge_records(goals_by_id, document.get("goals", []))
@@ -188,6 +193,40 @@ static func _add_fountain_missions(target: Dictionary, towns_by_id: Dictionary, 
 				"secret": {"text": words.done_secret, "end": true},
 			},
 		}
+
+
+static func _add_star_missions(target: Dictionary, document: Dictionary, unlocks: Dictionary) -> void:
+	var words: Dictionary = document.words
+	var stars: Array = document.stars
+	var counter: String = document.goals[0].id
+	var previous_flag := ""
+	for index in stars.size():
+		var star: Dictionary = stars[index]
+		var id := "star_%d" % index
+		var learned_flag := id + "_learned"
+		var mission := {
+			"id": id,
+			"town": unlocks.town,
+			"hours": words.hours,
+			"after": unlocks.after,
+			"title": star.ar,
+			"kicker": words.kicker,
+			"button": words.button,
+			"start": "a",
+			"scenes": {"a": {
+				"text": str(words.text).format(star),
+				"allow_back": true,
+				"choices": [{
+					"label": words.done,
+					"unless": learned_flag,
+					"fx": {"flag": learned_flag, "count": counter, "done": true},
+				}],
+			}},
+		}
+		if not previous_flag.is_empty():
+			mission["after_days"] = {previous_flag: unlocks.after_days}
+		target[id] = mission
+		previous_flag = learned_flag
 
 
 static func _read_document(path: String) -> Dictionary:

@@ -1761,7 +1761,8 @@ func _runner_back() -> void:
 		"runner_mission":
 			var scene := runner_scene()
 			var mission := runner_mission()
-			if mission.get("kind") == "name_read" or scene_runner.choices(self, mission, scene).is_empty():
+			if scene.get("allow_back", false) or mission.get("kind") == "name_read" \
+					or scene_runner.choices(self, mission, scene).is_empty():
 				scene_runner.leave_scene(self, mission, scene)
 				_close_runner_mission()
 		"runner_person":

@@ -1,0 +1,24 @@
+{
+  "line": 104,
+  "result": "passed",
+  "checks_passed": {
+    "lock_97": 168,
+    "focused": 367,
+    "scene_runner_regression": 317,
+    "safira_regression": 465,
+    "najmara_regression": 605,
+    "headless_full_suite": 20546
+  },
+  "dependencies_built": [
+    47,
+    54
+  ],
+  "coverage": [
+    "The production index loads the byte-identical STARS V2 data, ten ordered lessons and one private Journal goal. Each lesson renders its locked title, kicker, body and single confirmation.",
+    "Both live qibla choices allow the first lesson in Najmara. Each lesson is checked at the four time boundaries, from the minute before 20:00 through exactly 23:00. Each next lesson opens from the next day, including after a missed evening.",
+    "Escape returns to Najmara without recording anything. Confirming returns to the hub, records the lesson flag and day, and awards one star without changing trust, coins or any unrelated saved value. Replaying confirmation gives no extra star.",
+    "The two live branch awards and the ten lessons produce the private Journal goal of 12 / 12. Loading a save preserves the lesson day, both branch awards and the same-day limit."
+  ],
+  "visual_reference": "All ten masters nc01–nc10 agree on copy and order. Q15 and R11 use the shared Godot layout. No native screenshots.",
+  "scholar_review": "DOC-TFG-0320 row 71 is open before public release (OA-AIOS-432)."
+}

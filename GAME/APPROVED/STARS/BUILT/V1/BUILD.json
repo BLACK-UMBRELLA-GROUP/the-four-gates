@@ -1,0 +1,122 @@
+{
+  "line": 104,
+  "lock": "LOCK 97 V2",
+  "brief": "DOC-TFG-0303",
+  "questions": [
+    "Q15",
+    "Q56"
+  ],
+  "tested_base_commit_sha": "65ea93a53b38ad601b82bbf708ff58300127c641",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily report identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T16:28:13+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --stars-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --scene-runner-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --safira-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --najmara-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_97": 168,
+    "focused": 367,
+    "scene_runner_regression": 317,
+    "safira_regression": 465,
+    "najmara_regression": 605,
+    "headless_full_suite": 20546
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/STARS/BRIEFS/BUILD_BRIEF_2026-11-09_STARS.md": {
+      "bytes": 3596,
+      "sha256": "f81acd8a199f384bef5db2460b44773c9e60e478effa5f3acdfd5cd15b1b50d0"
+    },
+    "GAME/APPROVED/STARS/RECORD/STARS_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 3396,
+      "sha256": "59fcc66467a965a511a1de2b5432c6cccd2e831a934544b4251c2d84edd7cb9a"
+    },
+    "GAME/APPROVED/STARS/RECORD/LOCK_RECORD.md": {
+      "bytes": 1138,
+      "sha256": "db64fa9021bdd7ce4e0d76d8a815adb178de7f13f5e82a6d51e8892e7579b822"
+    },
+    "GAME/APPROVED/STARS/RECORD/stars_data_V2.json": {
+      "bytes": 2154,
+      "sha256": "4362debe895bc8c1ff8d9e5750a2a3759c8dd5da2f7114202998a9df27e17e2f"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/STARS/MASTERS/nc01_star_0__a.png": {
+      "bytes": 268784,
+      "sha256": "742f557b9ba2a5675cc97d38417e017ae10328259addd15d4a2279dff151c824"
+    },
+    "GAME/APPROVED/STARS/MASTERS/nc02_star_1__a.png": {
+      "bytes": 270540,
+      "sha256": "d0d164009684dead5f9bc2f1643d77e2d77dc7c9a799c167c6fbfcbd9fd662b7"
+    },
+    "GAME/APPROVED/STARS/MASTERS/nc03_star_2__a.png": {
+      "bytes": 270472,
+      "sha256": "26bd44779fb8bb5682cf1bf4267e529a9c85e17562aa0b42a6691c9c27f98bc3"
+    },
+    "GAME/APPROVED/STARS/MASTERS/nc04_star_3__a.png": {
+      "bytes": 275711,
+      "sha256": "34b9a87d744ddfd6677ca0352999dfe2ae2cff5df7499380a44a7218f2ef4368"
+    },
+    "GAME/APPROVED/STARS/MASTERS/nc05_star_4__a.png": {
+      "bytes": 268939,
+      "sha256": "60bc25b3e5c52acdb9f0ee3048ac7c37bd812c59c7f5869d2a1949816d833e19"
+    },
+    "GAME/APPROVED/STARS/MASTERS/nc06_star_5__a.png": {
+      "bytes": 269285,
+      "sha256": "314ea9573507ec8cef711386917963812381ed956c230bdde50ea1e07d41a5f8"
+    },
+    "GAME/APPROVED/STARS/MASTERS/nc07_star_6__a.png": {
+      "bytes": 269515,
+      "sha256": "087a1d7e6643f8dc1e0e3bab4822bcd8125e6e0a24c8f00f9b9b2ca4df20ae1e"
+    },
+    "GAME/APPROVED/STARS/MASTERS/nc08_star_7__a.png": {
+      "bytes": 276615,
+      "sha256": "8fea027c73b6b246450ffb75831e0b8588599dafa112be0dbc8edea3dcd79685"
+    },
+    "GAME/APPROVED/STARS/MASTERS/nc09_star_8__a.png": {
+      "bytes": 274950,
+      "sha256": "d1c10f2b75425357cbbf36e6b246c7908835fb02d23c90b503f1a447f4d0bc65"
+    },
+    "GAME/APPROVED/STARS/MASTERS/nc10_star_9__a.png": {
+      "bytes": 269953,
+      "sha256": "0857acefff73bdb95af201adb97895b8b6733847b39d72d4641f71c47ef32c73"
+    }
+  },
+  "tested_changes": {
+    "SOURCE/README.md": {
+      "bytes": 74412,
+      "sha256": "7d60b1d636a813f2366fee91024e791906928116b1a2fc3bab0bfed3d840e0f7"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1490,
+      "sha256": "6a4dd3e432e6ea880e3dbc6b54ba0182a1a6d2f70d967da2f11919f452338549"
+    },
+    "SOURCE/data/stars.json": {
+      "bytes": 2154,
+      "sha256": "4362debe895bc8c1ff8d9e5750a2a3759c8dd5da2f7114202998a9df27e17e2f"
+    },
+    "SOURCE/data/stars_unlocks.json": {
+      "bytes": 68,
+      "sha256": "994740062ce487e7e9e14c621539881c412ee4b7b7ef94d3ad6e39cc3c611d2b"
+    },
+    "SOURCE/game/river_market.gd": {
+      "bytes": 71689,
+      "sha256": "d9ec9f9551357145f2791821eadd7238bf6d683314b3f8d698a5c8b9872d15f3"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 26079,
+      "sha256": "3a8d39d5b700f6e28a4a9634b755d7c327fa8448bb28203f605176337ad775fb"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 960420,
+      "sha256": "a0884205aef7974357260fee43c37f89d387fa4a5c49512120f7415d5ca59ae9"
+    }
+  },
+  "native_screenshot_count": 0
+}

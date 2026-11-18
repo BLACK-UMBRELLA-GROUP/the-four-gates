@@ -1219,3 +1219,16 @@ and the completed LOCK 15 fountain in River Market, out of 13.
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --fountains-towns-only`.
+
+## LOCK 97 V2 — The stars of Najmara
+
+Either qibla outcome opens Hilal's first lesson in Najmara from 20:00 up to
+23:00. **Find it again yourself** records the lesson. The next lesson can
+open from the following day, during the same evening hours. Leaving with
+Escape keeps the current lesson available.
+
+The private Journal counts the ten lessons and the two star awards from
+Safira and Najmara in **Stars you can find your way by**, out of 12.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --stars-only`.

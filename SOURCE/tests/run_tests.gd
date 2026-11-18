@@ -305,6 +305,10 @@ func _run() -> void:
 		await check_fountains_towns_runtime()
 		finish()
 		return
+	if "--stars-only" in OS.get_cmdline_user_args():
+		await check_stars_runtime()
+		finish()
+		return
 	if "--family-only" in OS.get_cmdline_user_args():
 		await check_family_runtime()
 		finish()
@@ -475,6 +479,7 @@ func _run() -> void:
 	await check_family_runtime()
 	await check_names_towns_runtime()
 	await check_fountains_towns_runtime()
+	await check_stars_runtime()
 	finish()
 
 
@@ -9736,6 +9741,150 @@ func _check_fountain_town_repair(mission: Dictionary, words: Dictionary, goal_ro
 	await press_button(runner.data.words.trep.back, "return from the town account in " + town)
 
 
+func check_stars_runtime() -> void:
+	const PATH := "res://data/stars.json"
+	const LOCKED_SHA256 := "4362debe895bc8c1ff8d9e5750a2a3759c8dd5da2f7114202998a9df27e17e2f"
+	var checks_before := checks
+	var failures_before := failures
+	var matches_lock := FileAccess.get_sha256(PATH) == LOCKED_SHA256
+	check(matches_lock, "the production stars data is byte-identical to LOCK 97 V2")
+	if not matches_lock:
+		return
+	var approved: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(PATH))
+	var words: Dictionary = approved.words
+	var runner: SceneRunner = app.scene_runner
+	var lessons: Array[Dictionary] = []
+	for index in approved.stars.size():
+		var lesson: Dictionary = runner.missions.get("star_%d" % index, {})
+		if not lesson.is_empty():
+			lessons.append(lesson)
+	var goal: Dictionary = approved.goals[0]
+	var loaded: bool = lessons.size() == 10 and runner.data.goals.count(goal) == 1
+	check(loaded, "the production runner loads ten lessons and one locked Journal goal")
+	if not loaded:
+		return
+	var original := MarketSave.snapshot(app)
+	app.set_process(false)
+	reset_at_market_place("gate", 20, 8)
+	var row := {"label": goal.label, "n": 0, "m": int(goal.m)}
+	check(row in runner.journal(app).goals, "a new game starts with zero stars")
+	await _check_runner_journal_goal(runner.data.words, row)
+
+	app.enter_runner_town("najmara")
+	set_market_day_time(8, int(words.hours[0]))
+	check(find_button(app.ui, words.button) == null,
+		"the lesson is hidden during its hours before qibla_done")
+	var qibla: Dictionary = runner.missions.qibla
+	await press_button(qibla.button, "open the qibla mission during the first lesson's hours")
+	await press_button(qibla.scenes.a.choices[1].label, "choose to let the builders continue")
+	await press_button(runner.data.words.scene_back, "return to Najmara after the qibla mission")
+	check(runner.has_flag(app, "qibla_done") and not runner.has_flag(app, "qibla_fixed")
+		and row in runner.journal(app).goals and find_button(app.ui, words.button) != null,
+		"the build-on qibla branch opens lesson one and awards no star itself")
+	await _check_star_lesson(lessons[0], approved.stars[0], words, row)
+	app.restore_runner_town("")
+	app.show_screen("market_map")
+	await _check_runner_journal_goal(runner.data.words, row)
+
+	reset_at_market_place("gate", 20, 8)
+	app.enter_runner_town("safira")
+	var slow: Dictionary = runner.missions.slow_pilgrim
+	await press_button(slow.button, "open Safira's prerequisite mission")
+	await press_button(slow.scenes.a.choices.back().label, "take the last slow pilgrim choice")
+	await press_button(runner.data.words.scene_back, "finish the slow pilgrim's story")
+	set_market_day_time(8, 1290)
+	var night: Dictionary = runner.missions.lost_night
+	await press_button(night.button, "open Safira's night mission")
+	await press_button(night.scenes.a.choices[0].label, "go with the lantern")
+	await press_button(night.scenes.b.choices[0].label, "follow the still star")
+	await press_button(runner.data.words.scene_back, "finish the star-awarding Safira route")
+	row.n = 1
+	check(row in runner.journal(app).goals and runner.has_flag(app, "night_found"),
+		"Safira's locked branch contributes one star before any lesson")
+	check(find_button(app.ui, words.button) == null, "lessons do not appear in Safira")
+	app.restore_runner_town("")
+	app.show_screen("market_map")
+	app.enter_runner_town("najmara")
+	set_market_day_time(9, 960)
+	await press_button(qibla.button, "open the qibla mission before the first lesson's hours")
+	await press_button(qibla.scenes.a.choices[0].label, "take the star sightings with Hilal")
+	await press_button(runner.data.words.scene_back, "finish the star-awarding Najmara route")
+	row.n = 2
+	check(row in runner.journal(app).goals and runner.has_flag(app, "qibla_fixed")
+		and find_button(app.ui, words.button) != null,
+		"the star-sightings branch adds one star and also opens lesson one")
+
+	var lesson_day := 9
+	for index in lessons.size():
+		if index == 5:
+			lesson_day += 1
+		var opens := int(words.hours[0])
+		var closes := int(words.hours[1])
+		for minute: int in [opens - 1, opens, closes - 1, closes]:
+			set_market_day_time(lesson_day, minute)
+			var available := runner.available_missions(app, "najmara", "").filter(
+				func(mission: Dictionary) -> bool: return mission in lessons)
+			var expected := [lessons[index]] if minute >= opens and minute < closes else []
+			check(available == expected and (find_button(app.ui, words.button) != null) == (not expected.is_empty()),
+				"only lesson %d can open at minute %d, within the locked hours" % [index + 1, minute])
+		set_market_day_time(lesson_day, opens)
+		await _check_star_lesson(lessons[index], approved.stars[index], words, row)
+		if index == 0:
+			var expected := runner.state()
+			var path: String = app.storage_directory.path_join("line104-stars.save")
+			check(MarketSave.save_slot(app, path) == OK, "save after the first recorded lesson")
+			runner.reset()
+			MarketSave.restore(app, MarketSave.read_slot(path))
+			app.show_screen("runner_town")
+			check(runner.state() == expected and app.runner_town_id() == "najmara"
+				and find_button(app.ui, words.button) == null and row in runner.journal(app).goals,
+				"loading keeps the learned day, both earlier awards and the same-day limit")
+		lesson_day += 1
+	set_market_day_time(lesson_day, int(words.hours[0]))
+	check(find_button(app.ui, words.button) == null, "the finished sequence never opens again")
+	check(row.n == row.m and row in runner.journal(app).goals, "the combined Journal count reaches 12 / 12")
+	app.restore_runner_town("")
+	app.show_screen("market_map")
+	await _check_runner_journal_goal(runner.data.words, row)
+	MarketSave.restore(app, original)
+	app.show_screen("market_map")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 97 STARS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_star_lesson(mission: Dictionary, star: Dictionary, words: Dictionary, row: Dictionary) -> void:
+	var runner: SceneRunner = app.scene_runner
+	var expected := MarketSave.snapshot(app)
+	var title: String = star.ar
+	await press_button(words.button, "open Hilal's lesson for " + title)
+	check(app.ui.screen == "runner_mission" and app.runner_mission() == mission
+		and has_visible_label(app.ui, str(words.kicker).to_upper()) and has_visible_label(app.ui, title)
+		and visible_text().split("\n").has(str(words.text).format(star)),
+		"the locked title, kicker and teaching appear for " + title)
+	_check_town_hub_button_order([words.done], "the lesson has exactly one confirmation choice")
+	key_event(KEY_ESCAPE, true)
+	key_event(KEY_ESCAPE, false)
+	await frames(1)
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "najmara"
+		and MarketSave.snapshot(app) == expected and find_button(app.ui, words.button) != null,
+		"leaving keeps the same lesson open and records nothing for " + title)
+	await press_button(words.button, "reopen the unconfirmed lesson for " + title)
+	var confirmation: Dictionary = mission.scenes.a.choices[0]
+	await press_button(words.done, "record " + title)
+	row.n += 1
+	expected.scene_runner.flags[mission.id + "_learned"] = app.day
+	expected.scene_runner.done[mission.id] = app.day
+	expected.scene_runner.counters.stars = row.n
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "najmara"
+		and MarketSave.snapshot(app) == expected and row in runner.journal(app).goals
+		and find_button(app.ui, words.button) == null,
+		"confirmation records exactly one star and its day, with no trust or other effects for " + title)
+	runner.apply_choice(app, mission, confirmation, mission.start)
+	check(MarketSave.snapshot(app) == expected, "the same confirmation cannot award another star")
+
+
 func check_family_runtime() -> void:
 	const WEDDING_DAY := 8
 	var checks_before := checks
@@ -13681,7 +13830,7 @@ func _check_safira_missions(slow: Dictionary, night: Dictionary, slow_choice: in
 	app.show_screen("runner_town")
 	check(app.runner_town_id() == "safira" and runner.state() == expected,
 		"Safira saves both completions and their effects")
-	_check_journal_completions(journal, [slow, night])
+	_check_journal_completions(journal, [slow, night], {"stars": int(ending == "found")})
 	set_market_day_time(10, 600)
 	check(find_button(app.ui, slow.button) == null, "the completed slow pilgrim stays hidden during its hours after reload")
 	set_market_day_time(10, 1140)
@@ -13945,7 +14094,7 @@ func _check_wadira_missions(sandstorm: Dictionary, cheated: Dictionary, sand_pat
 		"both completed missions stay hidden during their hours on a later day")
 
 
-func _check_journal_completions(before: Dictionary, completed: Array) -> void:
+func _check_journal_completions(before: Dictionary, completed: Array, goal_increments: Dictionary = {}) -> void:
 	var runner: SceneRunner = app.scene_runner
 	var expected := before.duplicate(true)
 	for index in runner.data.chapters.size():
@@ -13955,7 +14104,10 @@ func _check_journal_completions(before: Dictionary, completed: Array) -> void:
 			if row >= 0 and not expected.chapters[index].rows[row].done:
 				expected.chapters[index].rows[row] = {"title": mission.title, "done": true}
 				expected.chapters[index].done += 1
-	check(runner.journal(app) == expected, "saved completions update only the rows named by the loaded chapters")
+	for index in runner.data.goals.size():
+		var id: String = runner.data.goals[index].id
+		expected.goals[index].n += int(goal_increments.get(id, 0))
+	check(runner.journal(app) == expected, "saved completions update only the expected Journal chapters and goals")
 
 
 func check_birana_runtime() -> void:
@@ -15689,7 +15841,7 @@ func _check_najmara_path(qibla: Dictionary, student: Dictionary, qibla_outcome: 
 	check(runner.state() == expected and app.progress.coins == coins and app.runner_town_id() == "najmara"
 		and find_button(app.ui, qibla.button) == null and find_button(app.ui, student.button) == null,
 		"the save keeps both completion days and choice effects and hides both buttons on a later day")
-	_check_journal_completions(journal, [qibla, student])
+	_check_journal_completions(journal, [qibla, student], {"stars": int(qibla_outcome.scene == "stars")})
 
 
 func check_shifara_runtime() -> void:
