@@ -1,0 +1,66 @@
+{
+  "line": 83,
+  "lock": "LOCK 76 V1",
+  "focused_run": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --friday-only",
+    "exit_code": 0,
+    "passed": 244,
+    "total": 244,
+    "failures": 0
+  },
+  "full_run": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 16780,
+    "total": 16780,
+    "failures": 0
+  },
+  "line_83": {
+    "passed": 45,
+    "total": 45,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "dc01_friday_proper__a.png": "a"
+  },
+  "asserted": {
+    "entry": {
+      "town": "river_market",
+      "place": "masjid",
+      "weekday": "Friday",
+      "visible_boundary_minutes": [
+        540,
+        734
+      ],
+      "hidden_boundary_minutes": [
+        539,
+        735
+      ],
+      "prerequisite": "The live Adhan Rows lesson sets rows_learned.",
+      "views": [
+        "market_map",
+        "game"
+      ]
+    },
+    "scene_copy": "Exact title, kicker, dialogue and sole choice. The design reference stays out of the scene and Journal.",
+    "choice": {
+      "label": "Sit near the front and wait with him",
+      "next": "exit",
+      "effects": {
+        "flag": "friday_learned",
+        "done": true
+      }
+    },
+    "completion": "The action stays hidden once completed, on the following Friday and after save restoration.",
+    "other_state": "Coins, trust, the clock, counters, Journal chapter and side totals, and lifetime goals stay unchanged."
+  },
+  "presentation": "Q39 treats the master's Thursday HUD as set-up. Q15 and R11 retain the compact Godot choice.",
+  "native_screenshots": 0,
+  "scholar_check": {
+    "register": "DOC-TFG-0320",
+    "row": 57,
+    "action": "OA-AIOS-432",
+    "status": "open before public release"
+  }
+}

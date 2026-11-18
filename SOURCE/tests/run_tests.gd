@@ -229,6 +229,10 @@ func _run() -> void:
 		await check_adhan_rows_runtime()
 		finish()
 		return
+	if "--friday-only" in OS.get_cmdline_user_args():
+		await check_friday_runtime()
+		finish()
+		return
 	if "--extra-prayers-only" in OS.get_cmdline_user_args():
 		await check_extra_prayers_runtime()
 		finish()
@@ -370,6 +374,7 @@ func _run() -> void:
 	await check_jisra_people_runtime()
 	await check_wudu_runtime()
 	await check_adhan_rows_runtime()
+	await check_friday_runtime()
 	await check_extra_prayers_runtime()
 	await check_dhikr_runtime()
 	await check_surahs_runtime()
@@ -7206,6 +7211,95 @@ func _check_single_runner_choice(mission: Dictionary, scene: Dictionary, choice:
 	check(runner.choices(app, mission, scene) == [choice] and find_button(app.ui, choice.label) != null
 		and find_button(app.ui, runner.data.words.scene_back) == null,
 		"the scene offers only the locked choice")
+
+
+func check_friday_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/FRIDAY/RECORD/friday_data_V1.json")
+	check(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/friday.json"),
+		"the Friday data is byte-identical to LOCK 76")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner = app.scene_runner
+	var mission: Dictionary = runner.missions.get("friday_proper", {})
+	var loaded: bool = approved is Dictionary and not mission.is_empty() and mission == approved.missions[0]
+	check(loaded, "the production index loads the locked Friday mission")
+	if not loaded:
+		return
+
+	const FRIDAY := 2
+	const LATER_FRIDAY := 9
+	const SCENE_TIME := 10 * 60
+	const COINS := 198
+	const TRUST := 50
+	app.set_process(false)
+	reset_at_market_place(mission.place, COINS, FRIDAY)
+	app.progress.apply_trust(TRUST - app.progress.trust)
+	app.idris_met = true
+	set_market_day_time(FRIDAY, SCENE_TIME)
+	var prerequisite: String = mission.after[0]
+	check(not runner.has_flag(app, prerequisite) and find_button(app.ui, mission.button) == null,
+		"the Friday action requires the adhan and rows flag")
+	var wudu: Dictionary = runner.missions.wudu_lesson
+	await press_button(wudu.button, "open the live wudu lesson")
+	await press_button(wudu.scenes[wudu.start].choices[0].label, "finish the live wudu lesson")
+	check(find_button(app.ui, mission.button) == null, "wudu alone does not reveal the Friday action")
+	var rows: Dictionary = runner.missions.adhan_rows
+	await press_button(rows.button, "open the live adhan and rows lesson")
+	var repeat: Dictionary = rows.scenes[rows.start].choices[0]
+	await press_button(repeat.label, "repeat the adhan")
+	await press_button(rows.scenes[repeat.go].choices[0].label, "stand in the row to finish the lesson")
+	check(runner.has_flag(app, prerequisite) and find_button(app.ui, mission.button) != null,
+		"finishing the live adhan and rows lesson reveals the Friday action")
+
+	for day: int in range(FRIDAY, LATER_FRIDAY + 1):
+		set_market_day_time(day, SCENE_TIME)
+		check((find_button(app.ui, mission.button) != null) == (day in [FRIDAY, LATER_FRIDAY]),
+			"the masjid action is Friday-only at 10:00 on day %d" % day)
+	_check_runner_mission_hours(mission, LATER_FRIDAY)
+	set_market_day_time(LATER_FRIDAY, SCENE_TIME)
+	app.show_screen("game")
+	check(find_button(app.ui, mission.button) != null, "the walking view offers the Friday action")
+	app.show_screen("market_map")
+
+	var expected_state: Dictionary = runner.state()
+	var journal_before: Dictionary = runner.journal(app)
+	check(approved.goals.is_empty() and not journal_before.goals.is_empty(),
+		"the Friday pack adds no goals and preserves the existing Journal goals")
+	await press_button(mission.button, "open the Friday scene from the River Market map")
+	var scene: Dictionary = mission.scenes[mission.start]
+	var choice: Dictionary = scene.choices[0]
+	var reference: String = approved.design_reference_not_shown[mission.id]
+	_check_single_runner_choice(mission, scene, choice, reference)
+	await press_button(choice.label, "sit near the front and wait with Idris")
+	expected_state.flags[choice.fx.flag] = LATER_FRIDAY
+	expected_state.done[mission.id] = LATER_FRIDAY
+	check(app.ui.screen == "market_map" and runner.mission_done(app, mission.id)
+		and find_button(app.ui, mission.button) == null,
+		"the choice returns to the map, completes the Friday mission and hides its action")
+	check(runner.state() == expected_state, "the choice adds only the locked flag and mission completion")
+	check_wallet(TRUST, COINS, "the Friday scene leaves River Market trust and coins unchanged")
+	check(app.day == LATER_FRIDAY and app.minute_of_day == SCENE_TIME,
+		"the Friday scene leaves the clock unchanged")
+	var words: Dictionary = runner.data.words
+	await press_button(words.journal_button, "open the Journal after the Friday scene")
+	check(app.ui.screen == "journal" and runner.journal(app) == journal_before,
+		"the Friday scene leaves Journal chapters, side totals and lifetime goals unchanged")
+	check(not visible_text().contains(reference), "the design reference stays out of the Journal")
+	await press_button(words.journal.back, "close the Journal")
+
+	set_market_day_time(LATER_FRIDAY + 7, SCENE_TIME)
+	check(find_button(app.ui, mission.button) == null, "the completed action remains hidden the following Friday")
+	var saved := MarketSave.snapshot(app)
+	app.begin_game()
+	MarketSave.restore(app, saved)
+	app.show_screen("market_map")
+	check(runner.state() == expected_state and find_button(app.ui, mission.button) == null,
+		"loading a save preserves the prerequisite, the Friday flag and the one-time completion")
+	app.set_process(true)
+	var failures_added := failures - failures_before
+	print("LOCK 76 TESTS: ", checks - checks_before - failures_added, "/", checks - checks_before,
+		" passed; failures=", failures_added)
 
 
 func check_extra_prayers_runtime() -> void:

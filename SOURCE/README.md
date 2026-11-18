@@ -977,6 +977,15 @@ something** at the River Market masjid from 05:00 up to 21:00. Choose
 **Repeat the adhan after him**, then **Stand in the row** to finish the
 scene once. The scene leaves trust, coins and Journal totals unchanged.
 
+## LOCK 76 — Friday done properly
+
+After completing **The adhan and the rows**, visit the River Market masjid on
+Friday from 09:00 up to 12:15. Choose **Idris is early for Friday prayer**,
+then **Sit near the front and wait with him** to complete the scene once.
+Trust, coins and Journal totals stay the same.
+
+Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --friday-only`.
+
 ## LOCK 77 — The extra prayers
 
 After learning the adhan and the rows, choose **Idris prays two more rak'ahs**

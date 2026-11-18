@@ -1,0 +1,69 @@
+{
+  "line": 83,
+  "lock": "LOCK 76 V1",
+  "brief": "DOC-TFG-0240",
+  "questions_answer_rows": [
+    15,
+    39
+  ],
+  "tested_base_commit_sha": "4b6c519c6b9df02651bef6fc7f9ead06964886cc",
+  "tested_source": "The base commit with the source changes identified by SHA-256 below. The 18 November task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T12:55:17Z",
+  "checks_passed": {
+    "headless_full_suite": 16780,
+    "headless_focused_suite": 244,
+    "lock_76_subset": 45
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/FRIDAY/BRIEFS/BUILD_BRIEF_2026-11-09_FRIDAY.md": {
+      "bytes": 2746,
+      "sha256": "92c804bd30a9e206048dbd2eacaf2f794be90c05fbcff64c80ef5aac8073cac7"
+    },
+    "GAME/APPROVED/FRIDAY/RECORD/FRIDAY_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3104,
+      "sha256": "556e200a8adcef3bfd11776d2446d0269d4d67fe204d11b1db6b4a3f7a806617"
+    },
+    "GAME/APPROVED/FRIDAY/RECORD/LOCK_RECORD.md": {
+      "bytes": 710,
+      "sha256": "62bfc10ac51422a8ee576499fb4832fe83c7d9bc6f55638d6c1e515d51d432b3"
+    },
+    "GAME/APPROVED/FRIDAY/RECORD/friday_data_V1.json": {
+      "bytes": 1070,
+      "sha256": "64ca3f92dab6c0bacfaabac94c87989e1d070d81f754e576b2d165801016b4e9"
+    },
+    "GAME/APPROVED/FRIDAY/MASTERS/dc01_friday_proper__a.png": {
+      "bytes": 322888,
+      "sha256": "c3a6b2e47fbef29e05959666f29c5570ae4839084c38a9bde14cfef75b7b4d64"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 64244,
+      "sha256": "d6fe6250056533458e76b921d20b4aa5db13139068fc438413c6ed9cfe21c1f4"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1109,
+      "sha256": "6dfc795ca43299378366da9d7f18ee1a2e0bb7f3498995f5d38ca4d74aea738e"
+    },
+    "SOURCE/data/friday.json": {
+      "bytes": 1070,
+      "sha256": "64ca3f92dab6c0bacfaabac94c87989e1d070d81f754e576b2d165801016b4e9"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 804861,
+      "sha256": "64fa11c56d3e923db633f1bb7e808eabb641e435ddf282f5382f9a082bdf869f"
+    }
+  },
+  "evidence": {
+    "LINE83_CHECKS.json": {
+      "bytes": 1828,
+      "sha256": "8603d04665e035e645d2c6362822b58fba4a84c4995df67dd47ad737cc4de7d5"
+    }
+  }
+}
