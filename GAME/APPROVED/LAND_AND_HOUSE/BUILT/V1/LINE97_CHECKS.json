@@ -1,0 +1,19 @@
+{
+  "line": 97,
+  "result": "passed",
+  "checks_passed": {
+    "lock_90": 118,
+    "focused": 317,
+    "headless_full_suite": 17746
+  },
+  "coverage": [
+    "The index loads all four missions from the byte-identical LOCK 90 V1 file.",
+    "The live Chapter 1 ending unlocks the house at the quay from 08:00 through 17:59. One coin short hides the purchase. Not now and purchase show their exact endings and complete on Back. Buying costs 300 coins and saves ownership.",
+    "House ownership unlocks free sleep at the quay from 19:00 through 04:29. An expired choice cannot act. Sleep before or after midnight wakes at the next 04:40 and saves the opening evening as the completed day. Reload preserves the once-per-night allowance.",
+    "The live Road map reaches Tinara and its live story sets tinara_done. Tinara's orchard offer opens from 07:00 through 16:59. Not now keeps it open. Buying costs exactly 150 coins and saves ownership and completion.",
+    "The harvest opens on day 30 from purchase, then at 30-day intervals measured from the last collection. Gleaning adds 25 coins and 20 meals to the existing Journal goal; selling adds 30 coins. Neither creates Journal mission rows. Reload preserves the orchard timer and meal total.",
+    "The purchase, sleep and harvest choices use locked wording and order. No LOCK 90 choice changes trust or adds local sayings."
+  ],
+  "visual_reference": "Approved oc01–oc06 are 1920 × 1080. Q15 and Q49 Layout B (R11) use the existing Godot layout with headless rules checks. The masters establish the words and order.",
+  "scholar_review": "DOC-TFG-0320 row 67, open before public release (OA-AIOS-432)."
+}

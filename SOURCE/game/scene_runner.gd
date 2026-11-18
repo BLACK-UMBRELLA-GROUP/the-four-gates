@@ -236,7 +236,7 @@ func available_missions(app, town: String, place: String) -> Array[Dictionary]:
 
 
 func _mission_available(app, mission: Dictionary, town: String) -> bool:
-	if _already_completed(mission, app.day):
+	if _already_completed(app, mission):
 		return false
 	if mission.get("friday", false) and not app.clock.is_friday():
 		return false
@@ -272,12 +272,35 @@ func _is_stale(day: int, stale: Dictionary) -> bool:
 	return last_day >= 0 and day - last_day >= int(stale.days)
 
 
-func _already_completed(mission: Dictionary, day: int) -> bool:
+func _already_completed(app, mission: Dictionary) -> bool:
 	var id: String = mission.id
 	if not _done.has(id):
 		return false
 	var interval := int(mission.get("repeat_days", 1 if mission.get("repeat") == "daily" else 0))
-	return interval <= 0 or day < int(_done[id]) + interval
+	return interval <= 0 or _completion_day(app, mission) < int(_done[id]) + interval
+
+
+func _completion_day(app, mission: Dictionary) -> int:
+	var hours: Variant = mission.get("hours", [])
+	if mission.get("repeat") != "daily" or hours == null or hours.is_empty():
+		return app.day
+	var closes := int(hours[1])
+	if int(hours[0]) <= closes or app.minute_of_day >= closes:
+		return app.day
+	# Q49 counts the after-midnight portion of a sleep window with its opening evening.
+	for scene: Dictionary in mission.scenes.values():
+		if _has_sleep_effect(scene.get("fx_end", {})):
+			return app.clock.evening_day(closes)
+		for choice: Dictionary in scene.get("choices", []):
+			if _has_sleep_effect(choice.get("fx", {})):
+				return app.clock.evening_day(closes)
+	return app.day
+
+
+func _has_sleep_effect(effects: Variant) -> bool:
+	if effects is Array:
+		return effects.any(_has_sleep_effect)
+	return effects is Dictionary and effects.get("sleep", false)
 
 
 func choices(app, mission: Dictionary, scene: Dictionary) -> Array[Dictionary]:
@@ -291,10 +314,13 @@ func choices(app, mission: Dictionary, scene: Dictionary) -> Array[Dictionary]:
 func choice_available(app, mission: Dictionary, choice: Dictionary) -> bool:
 	var cost := int(choice.get("need_coins", 0))
 	var effects: Variant = choice.get("fx", {})
+	var town := str(mission.get("town", ""))
+	if _has_sleep_effect(effects) and not _mission_available(app, mission, town):
+		return false
 	if effects is Dictionary:
 		cost = maxi(cost, -int(effects.get("coins", 0)))
 	return (app.progress.coins >= cost
-		and town_trust(app, str(mission.get("town", ""))) >= int(choice.get("min_trust", 0))
+		and town_trust(app, town) >= int(choice.get("min_trust", 0))
 		and _flags_match(app, choice.get("if", []), true)
 		and _flags_match(app, choice.get("unless", []), false))
 
@@ -331,8 +357,8 @@ func _record_lie_once(app, mission: Dictionary, scene_id: String, label: String)
 
 
 func leave_scene(app, mission: Dictionary, scene: Dictionary) -> void:
-	if scene.get("end", false) and not _already_completed(mission, app.day):
-		_done[mission.id] = app.day
+	if scene.get("end", false) and not _already_completed(app, mission):
+		_done[mission.id] = _completion_day(app, mission)
 		_apply_effects(app, mission, scene.get("fx_end", {}))
 
 
@@ -357,7 +383,11 @@ func _apply_effects(app, mission: Dictionary, effects: Dictionary) -> void:
 	if effects.has("minutes"):
 		app.clock.advance_to(app.day, app.minute_of_day + int(effects.minutes))
 	if effects.get("done", false):
-		_done[mission.id] = app.day
+		_done[mission.id] = _completion_day(app, mission)
+	if effects.get("sleep", false):
+		var wake := int(data.numbers.wake)
+		var wake_day: int = app.clock.evening_day(wake) + 1
+		app.clock.advance_to(wake_day, wake, false)
 
 
 func _string_list(value: Variant) -> Array:

@@ -1121,3 +1121,19 @@ later payment becomes available seven in-game days after the last collection.
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --bees-only`.
+
+## LOCK 90 — Land and house
+
+After Chapter 1, the River Market quay offers the house by the canal for
+300 coins from 08:00 through 17:59. Owners can sleep free at the quay from
+19:00 through 04:29 and wake at the next 04:40. Sleep after midnight counts
+toward the evening that began the night.
+
+After the Tinara missions, its hub offers the orchard for 150 coins from
+07:00 through 16:59. Declining leaves the orchard offer open. The first
+harvest opens 30 in-game days after purchase, and each later harvest opens
+30 days after the last collection. Leaving the gleanings pays 25 coins and
+adds 20 meals to the Journal goal. Selling the whole harvest pays 30 coins.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --land-and-house-only`.

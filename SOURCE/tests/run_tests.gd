@@ -281,6 +281,10 @@ func _run() -> void:
 		await check_bees_runtime()
 		finish()
 		return
+	if "--land-and-house-only" in OS.get_cmdline_user_args():
+		await check_land_and_house_runtime()
+		finish()
+		return
 	if "--truth-only" in OS.get_cmdline_user_args():
 		await check_truth_runtime()
 		finish()
@@ -440,6 +444,7 @@ func _run() -> void:
 	await check_finale_hoarders_runtime()
 	await check_finale_rain_runtime()
 	await check_finale_ending_runtime()
+	await check_land_and_house_runtime()
 	finish()
 
 
@@ -8648,6 +8653,236 @@ func check_bees_runtime() -> void:
 	var added_failures := failures - failures_before
 	print("LOCK 89 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
 		" passed; failures=", added_failures)
+
+
+func check_land_and_house_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/LAND_AND_HOUSE/RECORD/land_and_house_data_V1.json")
+	check(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/land_and_house.json"),
+		"LOCK 90 is loaded from a byte-identical copy")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = approved is Dictionary and approved.missions.all(
+		func(mission: Dictionary) -> bool: return runner.missions.get(mission.id) == mission)
+	check(loaded, "the production index supplies the four locked land and house missions")
+	if not loaded:
+		return
+	var previous := MarketSave.snapshot(app)
+	app.set_process(false)
+	await _check_house_and_sleep(runner.missions.buy_house, runner.missions.sleep_home)
+	await _check_orchard_and_harvest(runner.missions.buy_orchard, runner.missions.orchard_harvest)
+	MarketSave.restore(app, previous)
+	app.show_screen("market_map")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 90 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_house_and_sleep(house: Dictionary, sleep: Dictionary) -> void:
+	const DAY := 8
+	var runner: SceneRunner = app.scene_runner
+	var back: String = runner.data.words.scene_back
+	var buy: Dictionary = house.scenes.a.choices[0]
+	var decline: Dictionary = house.scenes.a.choices[1]
+	reset_at_market_place("quay", 299, DAY)
+	set_market_day_time(DAY, 540)
+	check(find_button(app.ui, house.button) == null, "the house requires the Chapter 1 ending")
+	set_market_day_time(DAY, 1200)
+	check(find_button(app.ui, sleep.button) == null, "home sleep requires house ownership")
+
+	var chapter_end: Dictionary = runner.missions.trust_home
+	var prereqs := runner.state()
+	for flag: String in chapter_end.after:
+		prereqs.flags[flag] = DAY
+	runner.restore(prereqs)
+	move_market_fixture(chapter_end.place)
+	set_market_day_time(DAY, 540)
+	await press_button(chapter_end.button, "open the live Chapter 1 ending")
+	await press_button(chapter_end.scenes.a.choices[0].label, "finish the live Chapter 1 ending")
+	await press_button(back, "leave the Chapter 1 ending")
+	check(runner.has_flag(app, "chapter1_done") and find_button(app.ui, house.button) == null,
+		"Chapter 1 grants the prerequisite and the offer stays exclusive to the quay")
+	move_market_fixture("quay")
+	_check_runner_mission_hours(house, DAY)
+	move_market_fixture("quay")
+	set_market_day_time(DAY, 540)
+	var ready := MarketSave.snapshot(app)
+	var journal := runner.journal(app)
+	var expected := runner.state()
+	await press_button(house.button, "open the house offer with 299 coins")
+	_check_runner_scene_copy(house, "a")
+	check(find_button(app.ui, buy.label) == null, "oc01 hides Buy it below 300 coins")
+	app._runner_action("choice", buy)
+	check(app.runner_scene() == house.scenes.a and runner.state() == expected and app.progress.coins == 299,
+		"an unaffordable house purchase leaves the wallet and scene intact")
+	await press_button(decline.label, "decline the house")
+	_check_runner_scene_copy(house, "no")
+	check(not runner.mission_done(app, house.id), "the house decline completes on Back")
+	await press_button(back, "leave the house decline ending")
+	check(runner.mission_done(app, house.id) and not runner.has_flag(app, "own_house")
+		and app.progress.coins == 299, "declining completes the offer without buying")
+	app.progress.coins = 300
+	set_market_day_time(DAY + 1, 540)
+	check(find_button(app.ui, house.button) == null, "the declined house offer stays completed on a later day")
+
+	MarketSave.restore(app, ready)
+	app.progress.coins = 300
+	app.show_screen("market_map")
+	await press_button(house.button, "open the house offer with exactly 300 coins")
+	_check_town_hub_button_order([buy.label, decline.label], "the house actions appear in locked order")
+	await press_button(buy.label, "buy the house")
+	_check_runner_scene_copy(house, "b")
+	expected.flags.own_house = DAY
+	check(app.progress.coins == 0 and runner.state() == expected, "the sale spends exactly 300 coins and dates ownership")
+	await press_button(back, "leave the purchase ending")
+	expected.done[house.id] = DAY
+	check(runner.state() == expected and app.ui.screen == "market_map" and app.current_place == "quay"
+		and app.progress.trust == ready.progress.trust and find_button(app.ui, house.button) == null,
+		"purchase completion returns to the quay and only changes coins, ownership and completion")
+	_check_runner_mission_hours(sleep, DAY + 1)
+	move_market_fixture("quay")
+	var owned := MarketSave.snapshot(app)
+	var sleep_choice: Dictionary = sleep.scenes.a.choices[0]
+	set_market_day_time(DAY + 1, 269)
+	await press_button(sleep.button, "open home shortly before the sleep window closes")
+	app.clock.advance_to(DAY + 1, 270, false)
+	app.update_state()
+	check(find_button(app.ui, sleep_choice.label) == null, "Sleep is unavailable if its window closes in the scene")
+	app._runner_action("choice", sleep_choice)
+	check(app.minute_of_day == 270 and runner.state() == expected, "an expired sleep choice has no effects")
+	await press_button(back, "leave home after the sleep window closes")
+	for start: Array in [[DAY, 1200], [DAY + 1, 0], [DAY + 1, 269]]:
+		MarketSave.restore(app, owned)
+		app.show_screen("market_map")
+		set_market_day_time(start[0], start[1])
+		await press_button(sleep.button, "open the home at minute %d" % start[1])
+		_check_runner_scene_copy(sleep, "a")
+		await press_button(sleep_choice.label, "sleep at home")
+		expected.done[sleep.id] = DAY
+		check(app.day == DAY + 1 and app.minute_of_day == 280 and app.progress.coins == 0
+			and runner.state() == expected and app.progress.trust == ready.progress.trust,
+			"free sleep wakes at the next 04:40 and records the evening that began the night")
+		check(app.ui.screen == "market_map" and app.current_place == "quay"
+			and find_button(app.ui, sleep.button) == null and runner.journal(app) == journal,
+			"sleep returns to the quay at wake and leaves the Journal unchanged")
+		var saved := MarketSave.snapshot(app)
+		runner.reset()
+		MarketSave.restore(app, saved)
+		check(runner.state() == expected and app.minute_of_day == 280, "reload preserves ownership and the completed night")
+		set_market_day_time(DAY + 1, 269)
+		check(find_button(app.ui, sleep.button) == null, "the same night cannot be used again after midnight")
+		set_market_day_time(DAY + 1, 1140)
+		check(find_button(app.ui, sleep.button) != null, "a new evening opens another free sleep")
+
+
+func _check_orchard_and_harvest(orchard: Dictionary, harvest: Dictionary) -> void:
+	const DAY := 8
+	const MORNING := 480
+	var runner: SceneRunner = app.scene_runner
+	var back: String = runner.data.words.scene_back
+	var buy: Dictionary = orchard.scenes.a.choices[0]
+	var decline: Dictionary = orchard.scenes.a.choices[1]
+	reset_at_market_place("gate", 149, DAY)
+	app.progress.gate_open = true
+	app.road_map.restore({"mercy": true})
+	var route_state := runner.state()
+	route_state.flags.nahla_done = DAY
+	runner.restore(route_state)
+	app.update_state()
+	var roads: Dictionary = app.road_map.data.words
+	await press_button(roads.map_button, "open the Road map at the River Market gate")
+	var route: Dictionary = app.road_map.road_to("tinara")
+	await press_button(str(roads.go).format({"n": int(route.minutes)}), "take the live route to Tinara")
+	check(app.runner_town_id() == "tinara", "the Road map reaches the live Tinara hub")
+	set_market_day_time(DAY, MORNING)
+	check(find_button(app.ui, orchard.button) == null and find_button(app.ui, harvest.button) == null,
+		"Tinara completion gates the offer and ownership gates the harvest")
+	var widow: Dictionary = runner.missions.widow_harvest
+	var orphan: Dictionary = runner.missions.orphan_share
+	await press_button(widow.button, "open Tinara's live widow mission")
+	await press_button(widow.scenes.a.choices[2].label, "finish the widow mission without paying")
+	await press_button(back, "leave the widow mission")
+	await press_button(orphan.button, "open the live orphan mission")
+	await press_button(orphan.scenes.a.choices[2].label, "finish the orphan mission without paying")
+	await press_button(back, "leave the orphan mission")
+	check(runner.has_flag(app, "tinara_done"), "the live Tinara ending grants the orchard prerequisite")
+	var expected := runner.state()
+	var journal := runner.journal(app)
+	var market_trust: int = app.progress.trust
+	var town_trust := runner.town_trust(app, "tinara")
+	check(orchard not in runner.available_missions(app, "river_market", "quay")
+		and orchard not in runner.available_missions(app, "nahla", ""), "the orchard is offered only in Tinara")
+	for minute: int in [419, 420, 1019, 1020]:
+		set_market_day_time(DAY, minute)
+		check((find_button(app.ui, orchard.button) != null) == (minute >= 420 and minute < 1020),
+			"the orchard offer follows the Tinara hub hours at minute %d" % minute)
+	set_market_day_time(DAY, MORNING)
+	await press_button(orchard.button, "open the orchard offer with 149 coins")
+	_check_runner_scene_copy(orchard, "a")
+	check(find_button(app.ui, buy.label) == null, "the orchard purchase is hidden below 150 coins")
+	app._runner_action("choice", buy)
+	check(app.runner_scene() == orchard.scenes.a and runner.state() == expected and app.progress.coins == 149,
+		"an unaffordable orchard purchase leaves the wallet and scene intact")
+	await press_button(decline.label, "decline the orchard")
+	check(app.ui.screen == "runner_town" and find_button(app.ui, orchard.button) != null
+		and runner.state() == expected and app.progress.coins == 149, "Q49 keeps the orchard offer open after Not now")
+	app.progress.coins = 150
+	app.update_state()
+	await press_button(orchard.button, "reopen the orchard with exactly 150 coins")
+	_check_town_hub_button_order([buy.label, decline.label], "oc05 shows Buy it before Not now")
+	await press_button(buy.label, "buy the orchard")
+	expected.flags.own_orchard = DAY
+	expected.done[orchard.id] = DAY
+	check(app.ui.screen == "runner_town" and find_button(app.ui, orchard.button) == null
+		and runner.state() == expected and app.progress.coins == 0 and runner.journal(app) == journal,
+		"buying the orchard costs exactly 150 coins and dates ownership without adding Journal rows")
+
+	set_market_day_time(DAY + 29, MORNING)
+	check(find_button(app.ui, harvest.button) == null, "the first harvest is unavailable for 29 days")
+	for minute: int in [419, 420, 1019, 1020]:
+		set_market_day_time(DAY + 30, minute)
+		check((find_button(app.ui, harvest.button) != null) == (minute >= 420 and minute < 1020),
+			"the first harvest opens on day 30 at the locked hours: minute %d" % minute)
+	var glean: Dictionary = harvest.scenes.a.choices[0]
+	var sell: Dictionary = harvest.scenes.a.choices[1]
+	var meals := int(app.feeding.meal_counter.total)
+	var meal_goal: Dictionary = runner.data.goals.filter(func(goal: Dictionary) -> bool: return goal.id == "meals")[0]
+	var goal_index: int = runner.data.goals.find(meal_goal)
+	journal.goals[goal_index].n += 20
+	# Collect late to distinguish a timer from purchase from a timer from collection.
+	set_market_day_time(DAY + 33, MORNING)
+	await press_button(harvest.button, "open the first harvest after waiting three extra days")
+	_check_runner_scene_copy(harvest, "a")
+	_check_town_hub_button_order([glean.label, sell.label], "oc06 shows gleanings before selling")
+	await press_button(glean.label, "leave the gleanings")
+	expected.done[harvest.id] = DAY + 33
+	check(app.progress.coins == 25 and app.feeding.meal_counter.total == meals + 20
+		and runner.state() == expected and runner.journal(app) == journal,
+		"gleanings add exactly 25 coins and 20 meals to the existing Journal goal")
+	check(app.ui.screen == "runner_town" and find_button(app.ui, harvest.button) == null,
+		"harvesting returns to Tinara and hides the same-day action")
+	var saved := MarketSave.snapshot(app)
+	runner.reset()
+	MarketSave.restore(app, saved)
+	app.show_screen("runner_town")
+	check(runner.state() == expected and runner.journal(app) == journal, "reload preserves the orchard timer and meal goal")
+	set_market_day_time(DAY + 62, MORNING)
+	check(find_button(app.ui, harvest.button) == null, "the second harvest is closed 29 days after the first")
+	set_market_day_time(DAY + 63, MORNING)
+	await press_button(harvest.button, "open the second harvest 30 days after the first")
+	await press_button(sell.label, "sell the entire harvest")
+	expected.done[harvest.id] = DAY + 63
+	check(app.progress.coins == 55 and runner.state() == expected and runner.journal(app) == journal
+		and app.feeding.meal_counter.total == meals + 20 and app.progress.trust == market_trust
+		and runner.town_trust(app, "tinara") == town_trust and app.minute_of_day == MORNING,
+		"selling adds only 30 coins and moves the completion date; both harvests leave trust and the clock unchanged")
+	set_market_day_time(DAY + 92, MORNING)
+	check(find_button(app.ui, harvest.button) == null, "selling also starts a fresh 30-day interval")
+	set_market_day_time(DAY + 93, MORNING)
+	check(find_button(app.ui, harvest.button) != null, "the third harvest opens from the second completion date")
 
 
 func _check_bees_hours(mission: Dictionary, day: int) -> void:

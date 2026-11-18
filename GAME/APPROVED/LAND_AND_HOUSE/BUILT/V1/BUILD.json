@@ -1,0 +1,83 @@
+{
+  "line": 97,
+  "lock": "LOCK 90 V1",
+  "brief": "DOC-TFG-0282",
+  "tested_base_commit_sha": "076f0320a894a60cc14ab9c90dce4d54c32156b4",
+  "tested_source": "Base commit plus hashed source changes. The 18 November daily task note identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T14:47:47+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --land-and-house-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_90": 118,
+    "focused": 317,
+    "headless_full_suite": 17746
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/LAND_AND_HOUSE/BRIEFS/BUILD_BRIEF_2026-11-09_LAND_AND_HOUSE.md": {
+      "bytes": 3663,
+      "sha256": "1f844caa1483203e8ef6a0cf4525da86161df9fd9dff9ab40d135163b345dbd1"
+    },
+    "GAME/APPROVED/LAND_AND_HOUSE/RECORD/LOCK_RECORD.md": {
+      "bytes": 971,
+      "sha256": "a6af5bd75b0d21aaf4846652f12e48cf649204f86e10f9734ee05503ead58914"
+    },
+    "GAME/APPROVED/LAND_AND_HOUSE/RECORD/LAND_AND_HOUSE_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 4512,
+      "sha256": "6914f3a778f37eac7db31560c61d5dd28785283100143fd217c658a2893a820e"
+    },
+    "GAME/APPROVED/LAND_AND_HOUSE/RECORD/land_and_house_data_V1.json": {
+      "bytes": 3832,
+      "sha256": "5be07be0eb5fc5301a01e40e269692444d76b8a01dc594cdea93843588357fd9"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/LAND_AND_HOUSE/MASTERS/oc01_buy_house__a.png": {
+      "bytes": 319475,
+      "sha256": "5ab83b0d3796ce22042ce3eefa1d86ee944407501f3e17f41019b7b8a4cb73d3"
+    },
+    "GAME/APPROVED/LAND_AND_HOUSE/MASTERS/oc02_buy_house__b.png": {
+      "bytes": 316615,
+      "sha256": "fad5375eade2f1ca1eab9625771fd474b6594f06aa0c79b90b2bd2a2abbd9529"
+    },
+    "GAME/APPROVED/LAND_AND_HOUSE/MASTERS/oc03_buy_house__no.png": {
+      "bytes": 313639,
+      "sha256": "a23b52e5c5e9cb879214d9eb9384436a9d567606ce79401f37e8074906332a0f"
+    },
+    "GAME/APPROVED/LAND_AND_HOUSE/MASTERS/oc04_sleep_home__a.png": {
+      "bytes": 272093,
+      "sha256": "8855e3dfa44b9256b04ab1f8c9e11953e12f3925bd20e5384abdf1e20fa29a24"
+    },
+    "GAME/APPROVED/LAND_AND_HOUSE/MASTERS/oc05_buy_orchard__a.png": {
+      "bytes": 308989,
+      "sha256": "bd286ec7a5af78cbf30adeac17447da42d04b75977ce20cdec19dbeb25a0d32c"
+    },
+    "GAME/APPROVED/LAND_AND_HOUSE/MASTERS/oc06_orchard_harvest__a.png": {
+      "bytes": 312605,
+      "sha256": "8295fd989502a79cfbefb38e0f9b9be2d8d0e986d0bca9bffa6b98701c08fe1b"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 1340,
+      "sha256": "10423f47fb357e39483a34d2b362712f5947d0c8250913e78856533b36da4cae"
+    },
+    "SOURCE/data/land_and_house.json": {
+      "bytes": 3832,
+      "sha256": "5be07be0eb5fc5301a01e40e269692444d76b8a01dc594cdea93843588357fd9"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 21916,
+      "sha256": "40f7def78741de607ad2a2f97e85f3633526e9fcab201d039592a518e5724862"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 886501,
+      "sha256": "bf3eae863f7ab76b215436b16f3afeed5d3360dd19632ba2c33af5d92bf9ea1b"
+    }
+  }
+}
