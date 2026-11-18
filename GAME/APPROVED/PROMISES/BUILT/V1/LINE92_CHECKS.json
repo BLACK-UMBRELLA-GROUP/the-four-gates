@@ -1,0 +1,45 @@
+{
+  "line": 92,
+  "lock": "LOCK 85 V1",
+  "result": "PASS",
+  "questions_answer_rows": [
+    15,
+    44
+  ],
+  "runner_contract": "Scene Runner V2, R1–R12",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --promises-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 336,
+      "total": 336,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17284,
+      "total": 17284,
+      "failures": 0
+    },
+    "lock_85": {
+      "passed": 137,
+      "total": 137,
+      "failures": 0
+    }
+  },
+  "verified": [
+    "The production index loads all three missions from the byte-identical LOCK 85 content pack.",
+    "The initial offer is gated by Chapter 1 at the River Market quay. Both the Q44 fixture and the built line 46 ending exercise the original chapter1_done flag.",
+    "The tests cover both ends of every time window, the wrong place and town, the one-day minimum, the 07:00 handoff, and the once-only and mutually exclusive follow-ups.",
+    "The four choices use locked copy and order. Accepting or declining leaves trust, time and coins intact. Keeping the promise adds five River Market trust and advances the clock by 90 minutes. Apologising subtracts five River Market trust.",
+    "Only Jamal's selected local account appears in What people say with its locked wording and tone. Journal rows, counters and goals are unchanged. Save restoration preserves the selected result and closure of the other follow-up."
+  ],
+  "master_reference": {
+    "dl01_promise__a.png": "promise/a",
+    "dl02_promise_kept__a.png": "promise_kept/a",
+    "dl03_promise_broken__a.png": "promise_broken/a"
+  },
+  "visual_scope": "Master copy and choice order checked. The masters contain staged HUD values. Existing Godot controls under Q15 and R11.",
+  "native_screenshots": 0
+}

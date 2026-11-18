@@ -265,6 +265,10 @@ func _run() -> void:
 		await check_gossip_runtime()
 		finish()
 		return
+	if "--promises-only" in OS.get_cmdline_user_args():
+		await check_promises_runtime()
+		finish()
+		return
 	await check_six_gates_runtime()
 	if "--six-gates-only" in OS.get_cmdline_user_args():
 		finish()
@@ -399,6 +403,7 @@ func _run() -> void:
 	await check_voluntary_fasts_runtime()
 	await check_visiting_sick_runtime()
 	await check_gossip_runtime()
+	await check_promises_runtime()
 	await check_road_map_runtime()
 	await check_sahila_runtime()
 	await check_sukara_runtime()
@@ -8230,6 +8235,158 @@ func _check_gossip_choice(mission: Dictionary, choice: Dictionary, reference: St
 		"loading preserves trust, the account, and the once-only completion")
 	set_market_day_time(day + 1, minute)
 	check(find_button(app.ui, mission.button) == null, "Gossip stays completed on later days")
+
+
+func check_promises_runtime() -> void:
+	const DAY := 8
+	const MINUTE := 9 * 60
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/PROMISES/RECORD/promises_data_V1.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/promises.json") == locked,
+		"the runtime Promises pack is byte-identical to LOCK 85")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var ids := ["promise", "promise_kept", "promise_broken"]
+	var loaded: bool = approved is Dictionary and approved.missions.size() == ids.size()
+	if loaded:
+		loaded = ids.all(func(id: String) -> bool:
+			return runner.missions.has(id) and approved.missions.has(runner.missions[id]))
+	check(loaded, "the production index loads all three locked promise missions")
+	if not loaded:
+		return
+	var promise: Dictionary = runner.missions.promise
+	var kept: Dictionary = runner.missions.promise_kept
+	var broken: Dictionary = runner.missions.promise_broken
+	var previous := MarketSave.snapshot(app)
+	app.set_process(false)
+	reset_at_market_place(promise.place, 7, DAY)
+	set_market_day_time(DAY, MINUTE)
+	check(find_button(app.ui, promise.button) == null, "the quay hides the promise before Chapter 1 ends")
+	app._runner_action("mission", promise)
+	check(app.ui.screen == "market_map", "direct mission dispatch also enforces the Chapter 1 gate")
+	var ready := runner.state()
+	ready.flags.chapter1_done = DAY
+	ready.counters.pages = 2
+	ready.trust.sahila = 23
+	runner.restore(ready)
+	_check_runner_mission_hours(promise, DAY)
+	check(approved.goals.is_empty(), "the locked pack adds no lifetime goal")
+	var journal := runner.journal(app)
+	var references: Dictionary = approved.design_reference_not_shown
+	var offer: Dictionary = promise.scenes[promise.start]
+
+	for opens: Dictionary in [kept, broken]:
+		set_market_day_time(DAY + 1, int(opens.hours[0]))
+		check(find_button(app.ui, opens.button) == null, "a follow-up requires a promise: " + str(opens.id))
+	set_market_day_time(DAY, MINUTE)
+	app.progress.trust = 50
+	app.show_screen("game")
+	await _choose_promise(promise, offer.choices[1], references[promise.id])
+	var declined := ready.duplicate(true)
+	declined.done[promise.id] = DAY
+	check(runner.state() == declined and runner.journal(app) == journal,
+		"declining marks the offer done and preserves flags, accounts and Journal progress")
+	check_wallet(50, 7, "declining changes neither trust nor coins")
+	check(app.day == DAY and app.minute_of_day == MINUTE, "declining does not advance the clock")
+	for mission: Dictionary in [kept, broken, promise]:
+		set_market_day_time(DAY + 1, int(mission.hours[0]))
+		check(find_button(app.ui, mission.button) == null, "declining leaves this action closed: " + str(mission.id))
+
+	for outcome: Dictionary in [kept, broken]:
+		var other: Dictionary = broken if outcome == kept else kept
+		runner.restore(ready)
+		set_market_day_time(DAY, MINUTE)
+		await _choose_promise(promise, offer.choices[0], references[promise.id])
+		var expected := ready.duplicate(true)
+		expected.flags.promise_made = DAY
+		expected.done[promise.id] = DAY
+		check(runner.state() == expected, "accepting records the day and completes only the initial offer")
+		check_wallet(50, 7, "accepting changes neither trust nor coins")
+		check(app.day == DAY and app.minute_of_day == MINUTE, "accepting does not advance the clock")
+		for follow_up: Dictionary in [kept, broken]:
+			set_market_day_time(DAY, int(follow_up.hours[0]))
+			check(find_button(app.ui, follow_up.button) == null, "the same day is too early: " + str(follow_up.id))
+			_check_runner_mission_hours(follow_up, DAY + 1)
+
+		var next_day := DAY + 1
+		var opens_at := int(outcome.hours[0])
+		set_market_day_time(next_day, opens_at)
+		check(find_button(app.ui, other.button) == null, "only the follow-up for the current time is offered")
+		var choice: Dictionary = outcome.scenes[outcome.start].choices[0]
+		await _choose_promise(outcome, choice, references[outcome.id])
+		var effects: Dictionary = choice.fx
+		var account: Array = outcome.say[effects.say]
+		expected.flags[effects.flag] = next_day
+		expected.done[outcome.id] = next_day
+		expected.sayings.river_market = [account]
+		var trust := 50 + int(effects.trust)
+		var minute := opens_at + int(effects.get("minutes", 0))
+		check_wallet(trust, 7, "the follow-up applies only the locked River Market trust change")
+		check(runner.state() == expected and app.day == next_day and app.minute_of_day == minute,
+			"the follow-up applies only its locked flag, account, completion and clock change")
+		var saved := MarketSave.snapshot(app)
+		app.begin_game()
+		MarketSave.restore(app, saved)
+		app.show_screen("market_map")
+		check(runner.state() == expected and app.day == next_day and app.minute_of_day == minute
+			and runner.mission_done(app, outcome.id), "loading preserves the selected follow-up and elapsed time")
+		check_wallet(trust, 7, "loading preserves the River Market trust and coins")
+		for mission: Dictionary in [kept, broken, promise]:
+			set_market_day_time(next_day + 1, int(mission.hours[0]))
+			check(find_button(app.ui, mission.button) == null, "resolved promises stay closed: " + str(mission.id))
+		await press_button(app.chapter.purse.morning.to_rep, "open River Market What people say")
+		check(app.ui.screen == "reputation" and app.ui.reputation_lines() == [account],
+			"only Jamal's selected account reaches What people say")
+		check_reputation_row(account)
+		await press_button(app.chapter.rep.to_map, "leave What people say")
+		await press_button(runner.data.words.journal_button, "open the private Journal")
+		check(app.ui.screen == "journal" and runner.journal(app) == journal
+			and not visible_text().contains(str(account[0])),
+			"the Journal keeps its chapters, side count and goals, and excludes Jamal's account")
+		await press_button(runner.data.words.journal.back, "leave the private Journal")
+		app.progress.trust = 50
+
+	var chapter_end: Dictionary = runner.missions.trust_home
+	reset_at_market_place(chapter_end.place, 7, DAY)
+	set_market_day_time(DAY, MINUTE)
+	var chapter_ready := runner.state()
+	for flag: String in chapter_end.after:
+		chapter_ready.flags[flag] = DAY
+	runner.restore(chapter_ready)
+	app.update_state()
+	check(not runner.has_flag(app, "chapter1_done"), "the Chapter 1 handoff starts without the final flag")
+	await press_button(chapter_end.button, "open the built Chapter 1 ending")
+	await press_button(chapter_end.scenes[chapter_end.start].choices[0].label, "ask about the road north")
+	await press_button(runner.data.words.scene_back, "leave the Chapter 1 ending")
+	move_market_fixture(promise.place)
+	check(runner.has_flag(app, "chapter1_done") and find_button(app.ui, promise.button) != null,
+		"the built Chapter 1 ending unlocks Jamal's initial offer")
+	MarketSave.restore(app, previous)
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 85 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _choose_promise(mission: Dictionary, choice: Dictionary, reference: String) -> void:
+	var origin: String = app.ui.screen
+	var runner: SceneRunner = app.scene_runner
+	var before := runner.state()
+	var trust: int = app.progress.trust
+	await press_button(mission.button, "open " + str(mission.title))
+	_check_runner_scene_copy(mission, mission.start)
+	var choices: Array = mission.scenes[mission.start].choices
+	var labels: Array = choices.map(func(offered: Dictionary) -> String: return offered.label)
+	var displayed: Array = Array(visible_text().split("\n"))
+	check(displayed.filter(func(line: String) -> bool: return line in labels) == labels
+		and find_button(app.ui, runner.data.words.scene_back) == null, "the choices use the locked words and order")
+	check(runner.state() == before and app.progress.trust == trust
+		and not visible_text().contains(reference), "opening has no effects and keeps the design reference private")
+	await press_button(choice.label, "choose " + str(choice.label))
+	check(app.ui.screen == origin and app.current_place == mission.place
+		and runner.mission_done(app, mission.id) and find_button(app.ui, mission.button) == null,
+		"the choice completes the mission and returns to the same quay view")
 
 
 func _check_house_of_learning_waraka_entry(visit: Dictionary) -> void:

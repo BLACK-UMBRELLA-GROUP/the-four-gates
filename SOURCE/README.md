@@ -1065,3 +1065,14 @@ Declining to gossip adds four local trust. Joining in removes three. Both choice
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --gossip-only`.
+
+## LOCK 85 — A promise to Jamal
+
+After Chapter 1, Jamal asks for help at the River Market quay between 08:00 and 18:00.
+Agreeing opens two possible follow-ups from the next day. Help unload from 04:40 until
+07:00 to gain 5 River Market trust and spend 90 minutes, or apologise from 07:00 until
+19:00 and lose 5 River Market trust. Jamal's account appears in **What people say**.
+Declining the offer completes it without a follow-up. These scenes add no Journal rows or goals.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --promises-only`.

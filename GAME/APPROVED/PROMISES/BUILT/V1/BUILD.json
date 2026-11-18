@@ -1,0 +1,96 @@
+{
+  "line": 92,
+  "lock": "LOCK 85 V1",
+  "brief": "DOC-TFG-0267",
+  "questions_answer_rows": [
+    15,
+    44
+  ],
+  "tested_base_commit_sha": "7fe5dc9c982818b91e5f7868f7aae2ab815e03a2",
+  "tested_source": "Base commit plus the source files hashed below. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T13:44:43+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --promises-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 336,
+      "total": 336,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17284,
+      "total": 17284,
+      "failures": 0
+    },
+    "lock_85": {
+      "passed": 137,
+      "total": 137,
+      "failures": 0
+    }
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/PROMISES/BRIEFS/BUILD_BRIEF_2026-11-09_PROMISES.md": {
+      "bytes": 2731,
+      "sha256": "15e548c6aa304efa98d781f3229cccb97d7cc65837fce796ad88fc54a3c9bec3"
+    },
+    "GAME/APPROVED/PROMISES/RECORD/PROMISES_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 4120,
+      "sha256": "391aee5193e4d1b92775351bf6a43878c5e70e6d1808896ca86e9732205a7bc9"
+    },
+    "GAME/APPROVED/PROMISES/RECORD/promises_data_V1.json": {
+      "bytes": 2776,
+      "sha256": "e38d221df3132474b4071cb675ce4f1eeecd52672181701364abf0a0d2c6eb5f"
+    },
+    "GAME/APPROVED/PROMISES/RECORD/LOCK_RECORD.md": {
+      "bytes": 716,
+      "sha256": "68273738f8f48f57431b7127417847f36e6d05e7df0038e8344510790e0d2a32"
+    },
+    "GAME/APPROVED/PROMISES/MASTERS/dl01_promise__a.png": {
+      "bytes": 307782,
+      "sha256": "a9980c899c76d99d4c8c42a62fc0ca178b7dc82ecdd6bb086b3dcc0cef5edc45"
+    },
+    "GAME/APPROVED/PROMISES/MASTERS/dl02_promise_kept__a.png": {
+      "bytes": 317779,
+      "sha256": "05fd1aed7fe63017d4b86c2df2fca0821f766bea2807591a67de696d197bd1b6"
+    },
+    "GAME/APPROVED/PROMISES/MASTERS/dl03_promise_broken__a.png": {
+      "bytes": 316328,
+      "sha256": "ff52e04f8e73ce2d0f69abfd1db5956494bf307806268eb41cc1fc816f811a89"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "runner_contract": "Scene Runner V2, R1–R12",
+  "changed_source_files_at_test": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 1233,
+      "sha256": "b60050154393b59a5ff9a781c975ad67b81b549807272c56ee1eccad8ccf3703"
+    },
+    "SOURCE/data/promises.json": {
+      "bytes": 2776,
+      "sha256": "e38d221df3132474b4071cb675ce4f1eeecd52672181701364abf0a0d2c6eb5f"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 838865,
+      "sha256": "7a53b1e384caf44dafdd0462360988808fa91e46117da545a191f06b3ffd9108"
+    },
+    "SOURCE/README.md": {
+      "bytes": 66916,
+      "sha256": "9b06c4293935ce29f5819e17b77a5105faf75e16ec230b48ff7eaa1f413fcacb"
+    }
+  },
+  "native_screenshots": 0,
+  "compiled_exports": 0,
+  "evidence": {
+    "GAME/APPROVED/PROMISES/BUILT/V1/LINE92_CHECKS.json": {
+      "bytes": 1901,
+      "sha256": "d6a5f67842e1bd6377ba665e95b2ff89aa8594edbc528bd1763139ef05d821ec"
+    }
+  }
+}

@@ -1,0 +1,141 @@
+{
+ "version": "LOCK 85 V1 (9 Nov 2026) - A promise, A promise kept, A promise broken",
+ "builds_on": "LOCK 2 prayer, LOCK 3 Idris, LOCK 6 regulars, LOCK 34 runner. Private counters go to the Journal; worship never earns trust.",
+ "goals": [],
+ "design_reference_not_shown": {
+  "promise": "Bukhari 33",
+  "promise_kept": "Bukhari 33",
+  "promise_broken": "Bukhari 33"
+ },
+ "missions": [
+  {
+   "id": "promise",
+   "lock": 85,
+   "place": "quay",
+   "hours": [
+    480,
+    1080
+   ],
+   "title": "A promise",
+   "kicker": "Character · A promise",
+   "button": "Jamal needs help tomorrow",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Jamal has a cargo of timber arriving at dawn tomorrow and his son is sick. “Will you help me unload? Before seven - the boat leaves at seven.”",
+     "choices": [
+      {
+       "label": "Promise to come",
+       "fx": {
+        "flag": "promise_made",
+        "done": true
+       }
+      },
+      {
+       "label": "Say you can't",
+       "fx": {
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "chapter1_done"
+   ]
+  },
+  {
+   "id": "promise_kept",
+   "lock": 85,
+   "place": "quay",
+   "hours": [
+    280,
+    420
+   ],
+   "title": "A promise kept",
+   "kicker": "Character · A promise",
+   "button": "Help Jamal unload",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "You're at the quay before sunrise. Jamal is already there, and his face when he sees you is worth the early start.",
+     "choices": [
+      {
+       "label": "Unload the timber",
+       "fx": {
+        "minutes": 90,
+        "trust": 5,
+        "flag": "promise_kept",
+        "say": "kept",
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "promise_made"
+   ],
+   "after_days": {
+    "promise_made": 1
+   },
+   "not": [
+    "promise_kept",
+    "promise_broken"
+   ],
+   "say": {
+    "kept": [
+     "Keeps their word",
+     "Jamal the boatman",
+     1
+    ]
+   }
+  },
+  {
+   "id": "promise_broken",
+   "lock": 85,
+   "place": "quay",
+   "hours": [
+    420,
+    1140
+   ],
+   "title": "A promise broken",
+   "kicker": "Character · A promise",
+   "button": "Jamal wants a word",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Jamal doesn't look up from his ropes. “I waited. The boat left half loaded.”",
+     "choices": [
+      {
+       "label": "Apologise",
+       "fx": {
+        "trust": -5,
+        "flag": "promise_broken",
+        "say": "broke",
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "promise_made"
+   ],
+   "after_days": {
+    "promise_made": 1
+   },
+   "not": [
+    "promise_kept",
+    "promise_broken"
+   ],
+   "say": {
+    "broke": [
+     "Didn't come when they promised",
+     "Jamal the boatman",
+     -1
+    ]
+   }
+  }
+ ]
+}
