@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026 under the Founder's blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now" - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `birana_data_V2.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 34 runner, LOCK 36 roads and earlier chapter LOCKs. Queue line 49 comes after line 48 |
+| Builds on | LOCK 34 runner, LOCK 36 roads and earlier chapter LOCKs. Queue line 49 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/bi01`-`bi28` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V92 |
 | ROADMAP | No row; noted for Fable |
@@ -156,3 +156,4 @@ The chapter 2 ending no longer opens the Gate of Mercy (it opens at 30% of your 
 |---|---|---|
 | 2026-11-09 | V1 | LOCK 42 under the Founder's blanket LOCK (9 Nov) |
 | 2026-11-17 | V2 | Six gates (LOCK 103): the chapter 2 ending points south-west and no longer opens the Gate of Mercy. Founder 17 Nov: "LOCK it (Recommended)" (LOCK 103) |
+| 2026-11-18 | V2 | Two more six-gate words fixed in V2 before it was built: "the north-west road", "Ask about the road south-west" (Q28) |

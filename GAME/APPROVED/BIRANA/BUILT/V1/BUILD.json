@@ -1,0 +1,186 @@
+{
+  "line": 49,
+  "lock": "LOCK 42 V2",
+  "brief": "DOC-TFG-0138",
+  "tested_base_commit_sha": "a963798ccf75c8ce72aeb56cd0d14d7a2aea4818",
+  "tested_source": "Base commit plus the hashed source files. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T08:34:56+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --birana-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --scene-runner-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_42": 355,
+    "focused": 554,
+    "headless_full_suite": 10232,
+    "scene_runner_regression": 311
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/BIRANA/BRIEFS/BUILD_BRIEF_2026-11-09_BIRANA.md": {
+      "bytes": 3900,
+      "sha256": "1ece39ea607682fdabd7f165da9d1c9435ca9ec088e84d0e64b49a6f4cf443f8"
+    },
+    "GAME/APPROVED/BIRANA/RECORD/LOCK_RECORD.md": {
+      "bytes": 1032,
+      "sha256": "c93119ba5d81b3667c37bbb5885194869204cb9000cae0da212f0fb2a3e185aa"
+    },
+    "GAME/APPROVED/BIRANA/RECORD/BIRANA_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 8285,
+      "sha256": "ae1f6473f0bd1a67bdd3e82ad15fbaf7a97f54cf1c4c7f5bc7e4b882703a95df"
+    },
+    "GAME/APPROVED/BIRANA/RECORD/birana_data_V2.json": {
+      "bytes": 8653,
+      "sha256": "b0945eb7db2f6e12e5fee346d07ea0af1c4662c9d7b94e2a474fb9e8ed81ac2d"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/SIX_GATES_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 6532,
+      "sha256": "ea7e353b6d74f3d3933df88855cbab3b050edad229f9f2e014df64b055caa98b"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi01_birana__town.png": {
+      "bytes": 255833,
+      "sha256": "d5ebff5f9bf5fcad3d04b74075e87a6f88a2f704e1053a47c591bfbcb6ddcef5"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi02_birana__people.png": {
+      "bytes": 249348,
+      "sha256": "c9173cc5ecf410abe45df24f6abf6e28ee01dd084c5f63f989707c9ec79bc135"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi03_birana__thabit_trust_10.png": {
+      "bytes": 268987,
+      "sha256": "4b79659dcf1c4e467637257c4eee79e5c07cccfb4effd2f2de82edff796b77b7"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi04_birana__thabit_trust_50.png": {
+      "bytes": 270421,
+      "sha256": "4f6f5b149c266f2a506e3d8530224ad733b713f5606169e095451c882723e876"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi05_birana__thabit_trust_80.png": {
+      "bytes": 269122,
+      "sha256": "2ac521a205a7972ac141ea80a93f0dc1be9d161b4e38d0ab2d040c04a8a0699c"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi06_birana__safiyya_trust_10.png": {
+      "bytes": 268506,
+      "sha256": "422f4d122edb7d8207489e46019499905af8b7718739ac0a13be0f0869f47c45"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi07_birana__safiyya_trust_50.png": {
+      "bytes": 270052,
+      "sha256": "1628cef3286c9c5f4eae18d19d8edb7f3481b4de349ec7a8c6cb12c1d5dc71dc"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi08_birana__safiyya_trust_80.png": {
+      "bytes": 270454,
+      "sha256": "44a9f0f9b4d8078e18e273f11891499045512653ded44a431d90264367c51726"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi09_birana__wahb_trust_10.png": {
+      "bytes": 269319,
+      "sha256": "9a1fa00fbb612fdcce04f1ca47e3cad387b1f7be4ae70a8c62b56b5379d362a5"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi10_birana__wahb_trust_50.png": {
+      "bytes": 269916,
+      "sha256": "5da18b615e3f4c92be929707693ffd3cbd01b07db9d553dad206326528942fa2"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi11_birana__wahb_trust_80.png": {
+      "bytes": 269174,
+      "sha256": "1143c2d2d64a0f594160ae3ffd959c4886d8c4790bda6a4ecf5223d047aa339f"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi12_birana__what_people_say_empty.png": {
+      "bytes": 270297,
+      "sha256": "d729b4f083c39294d493376bffde8c917e4faf15f786f571c8f4908e24e51bbe"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi13_birana__masjid_prayer.png": {
+      "bytes": 270477,
+      "sha256": "225850aaf20a35796c81764c3b4877b9b1c91b454658e3e77034cb2e04cacc5b"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi14_birana__masjid_first_prayer.png": {
+      "bytes": 271122,
+      "sha256": "f508ba276be35741d71766fb2fce3f627da334d168b75b76a6d05508f3c30b3c"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi15_dry_well__a.png": {
+      "bytes": 237847,
+      "sha256": "ef105b707aa17207b54ecd6cfb5dc05e5d6377d72217cd4c00159c90d3c0848d"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi16_dry_well__b.png": {
+      "bytes": 252493,
+      "sha256": "fa9d6f04d1b428fc651bd3647f4b637c3d73e99aed9e654961f68c6d23a7e6fd"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi17_dry_well__water.png": {
+      "bytes": 265914,
+      "sha256": "baba97fa0a4092ae69f372f9cb7374d793c7e5fdc787b8e6bfe5b69d8a6c5b6f"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi18_dry_well__gave.png": {
+      "bytes": 266294,
+      "sha256": "50ffdc2246d7c935c8df3d4a7c59f379d6ec8750c8e40a7e709e3bb4cd787a73"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi19_dry_well__pay.png": {
+      "bytes": 266421,
+      "sha256": "6c293f0c6c8b994e8af146bc6d50f06b5750237f7d513ea49cee15b96372f666"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi20_dry_well__leave.png": {
+      "bytes": 264491,
+      "sha256": "5c7274055683db11e11f6828adbdd2f7a727b6585b994df031edb2041d2b4933"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi21_long_wait__a.png": {
+      "bytes": 239350,
+      "sha256": "21987f581952970569c05ff8371632ea3aafc6c5a68f383130daeac83f9e1439"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi22_long_wait__wait.png": {
+      "bytes": 266635,
+      "sha256": "443eb258cc2c052805ffb3159a7bfc95a90f527ab688aa710ec5cf994553130d"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi23_long_wait__bribe.png": {
+      "bytes": 266473,
+      "sha256": "fa11fdf50d35993b77c1966070bd13b805eb0a49bc1f6b588bd6cec740a1648e"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi24_long_wait__report.png": {
+      "bytes": 266384,
+      "sha256": "0e74d4f44f5224fd4d7be53a56710d74c856d1c906e8f0b506174cfde3067617"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi25_permit_ready__a.png": {
+      "bytes": 266215,
+      "sha256": "274f6d5f83baf1a418c6674e58c14b565ff0100a597ef62150048dff8ca2d87d"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi26_permit_ready__b.png": {
+      "bytes": 263819,
+      "sha256": "0b0e414bbf4c962e4d25b16059fa76c17b105dd1c00f42a3b729a25ddc77c31c"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi27_patience_home__a.png": {
+      "bytes": 316204,
+      "sha256": "8938cfe117fc1150b1899162ac30afbf8eb84375e5a3f5ef70ccb03063ab1eb9"
+    },
+    "GAME/APPROVED/BIRANA/MASTERS/bi28_patience_home__b.png": {
+      "bytes": 309336,
+      "sha256": "f8ed1b74fa4abdf79e87c59b349b72844730556c8fcfc64a0e7eaa39f684a365"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/birana.json": {
+      "bytes": 8653,
+      "sha256": "b0945eb7db2f6e12e5fee346d07ea0af1c4662c9d7b94e2a474fb9e8ed81ac2d"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 548,
+      "sha256": "0b267b6538a9779e289307f16820506d5e388c5892b95273dd4b1499d49bb8a4"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 568122,
+      "sha256": "3ffebfff6cfed830158eadbf4a6f1b77454ca5e70b1c8272c2d0b48829b7b349"
+    },
+    "SOURCE/tests/scene_runner_fixture.gd": {
+      "bytes": 14947,
+      "sha256": "a28fcd2f2fa8343572ca2ce6eb184b73e2432a4a1a48eb126452fa6a280d9760"
+    }
+  },
+  "rules": [
+    "QUESTIONS 15",
+    "QUESTIONS 28 A",
+    "LOCK 103",
+    "Runner and town contract R1–R12"
+  ],
+  "native_godot_windows": 0,
+  "screenshots": 0,
+  "masters": "28 approved masters at 1920 × 1080, used as copy and order references under R11. Q28 supersedes bi27 and bi28 wording. R6 labels the action Back and returns to Birana for bi13 and bi14."
+}

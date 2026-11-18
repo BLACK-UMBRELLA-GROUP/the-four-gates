@@ -317,7 +317,7 @@
    "main": true,
    "title": "Patience kept",
    "kicker": "Chapter 2 · Patience kept",
-   "button": "Idris wants to hear about the north road",
+   "button": "Idris wants to hear about the north-west road",
    "after": [
     "safira_done",
     "wadira_done",
@@ -336,7 +336,7 @@
      ],
      "choices": [
       {
-       "label": "Ask about the road south",
+       "label": "Ask about the road south-west",
        "go": "b",
        "fx": {
         "flag": "chapter2_done"

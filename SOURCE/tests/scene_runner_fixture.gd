@@ -80,10 +80,17 @@ static func _check_content(runner: SceneRunner, app: Context, check: Callable) -
 	var shipped_ids: Array = shipped.missions.keys() + shipped.towns.keys() + shipped.people.keys()
 	check.call(fixture_ids.all(func(id): return id not in shipped_ids), "production index exposes no fixture content")
 	var live_journal := shipped.journal(app)
-	var live_chapter: Dictionary = live_journal.chapters[0]
-	check.call(live_journal.chapters.size() == 1 and live_chapter.n == 1 and live_chapter.done == 0
-		and live_chapter.total == 7 and live_chapter.rows.all(func(row): return not row.done and row.title.is_empty()),
-		"fresh live Journal has only Chapter 1 and seven undiscovered rows")
+	var live_chapters: Array = live_journal.chapters
+	check.call(not live_chapters.is_empty() and live_chapters[0].n == 1 and live_chapters[0].total == 7
+		and live_chapters.size() == shipped.data.chapters.size(),
+		"fresh live Journal includes all loaded chapters, starting with the seven Chapter 1 rows")
+	for index in mini(live_chapters.size(), shipped.data.chapters.size()):
+		var chapter: Dictionary = live_chapters[index]
+		var record: Dictionary = shipped.data.chapters[index]
+		check.call(chapter.n == int(record.n) and chapter.name == record.name and chapter.done == 0
+			and chapter.total == record.missions.size() and chapter.rows.size() == chapter.total
+			and chapter.rows.all(func(row): return not row.done and row.title.is_empty()),
+			"fresh Journal starts with every row undiscovered in Chapter %d" % int(record.n))
 	var side_count := shipped.missions.values().filter(func(mission: Dictionary) -> bool: return mission.get("side", false)).size()
 	var base_runner: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/scene_runner.json"))
 	check.call(live_journal.side == {"done": 0, "total": side_count}

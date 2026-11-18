@@ -635,6 +635,18 @@ The missions appear in the **Journal** when Chapter 2 is loaded.
 Run the focused rules checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --wadira-only`.
 
+## LOCK 42 V2 — Birana and the Chapter 2 ending
+
+After the Gate of Patience opens and you finish Wadira, take the Road map to Birana. Talk to
+Thabit, Safiyya and Wahb, draw water in the morning, or pray at the well masjid.
+The dry well leads to The long wait. Waiting or reporting Wahb makes the permit available
+five days later during his hours. The Journal lists seven Chapter 2 missions, and the permit
+appears as a follow-up in Birana.
+
+After Safira, Wadira and Birana, return to the River Market masjid for Patience kept.
+The Gate of Mercy opens at 30% journey progress. Run the Birana headless checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --birana-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from
