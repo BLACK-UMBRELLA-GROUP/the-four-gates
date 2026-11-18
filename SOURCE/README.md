@@ -710,6 +710,20 @@ rows come with the locked chapter data.
 Run the focused rules checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --najmara-only`.
 
+## LOCK 48 V2 — Shifara and the Chapter 4 ending
+
+After finishing Najmara, take the **Road map** through the Gate of Knowledge to Shifara.
+Talk to Rahma, Shakir and Malik during their hours, wash hospital bandages, pray at the
+hospital masjid or rest at the inn. Complete **The fever** to unlock **The doctor's
+secret** during its hours. **What Shifara says** shows the accounts your choices earn.
+
+After finishing Waraka, Najmara and Shifara, return to the River Market masjid for
+**Knowledge carried**. The three Shifara missions count toward **The Gate of Knowledge**
+in the Journal.
+
+Run the focused rules checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --shifara-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from

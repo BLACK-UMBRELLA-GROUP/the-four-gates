@@ -1,0 +1,155 @@
+{
+  "line": 55,
+  "lock": "LOCK 48 V2",
+  "brief": "DOC-TFG-0156",
+  "tested_base_commit_sha": "0729709e250cbc9ee0ae17cd16723a54a8d37c3d",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T09:44:42+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --shifara-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_48": 428,
+    "focused": 627,
+    "headless_full_suite": 12324
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SHIFARA/BRIEFS/BUILD_BRIEF_2026-11-09_SHIFARA.md": {
+      "bytes": 3757,
+      "sha256": "b8c327112a208d58abc096e979c69420e33cd56954b0b8a5d81743245fa3d3dd"
+    },
+    "GAME/APPROVED/SHIFARA/RECORD/LOCK_RECORD.md": {
+      "bytes": 988,
+      "sha256": "67a354f3879b669fad4870556469edce5ca76a0b9c53e7bcda292d27b553948c"
+    },
+    "GAME/APPROVED/SHIFARA/RECORD/SHIFARA_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 7325,
+      "sha256": "d33bfc036ef54a49b6ce42d6a7815dc22e83a373787ccc5e75b5d99d4c7f77d7"
+    },
+    "GAME/APPROVED/SHIFARA/RECORD/shifara_data_V2.json": {
+      "bytes": 7144,
+      "sha256": "c3ffc1854158d322c906fbed45d8dd6c30b07218d91503d03d9abfd844275b8c"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/LOCK_RECORD.md": {
+      "bytes": 1193,
+      "sha256": "097e458b36812235cf8b7af3da1b87b413b920c6a032f7454c4cc2586378afdd"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/SIX_GATES_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 6532,
+      "sha256": "ea7e353b6d74f3d3933df88855cbab3b050edad229f9f2e014df64b055caa98b"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd01_shifara__town.png": {
+      "bytes": 258912,
+      "sha256": "b16eacb31b38f87412ced04dd7123829070e3f7376a3a8cb1bf8e77e3c00b97e"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd02_shifara__people.png": {
+      "bytes": 248368,
+      "sha256": "1590803e8bb766448e0a50c2305325673ed9a00710506f68c163374ea984cb15"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd03_shifara__rahma_trust_10.png": {
+      "bytes": 269195,
+      "sha256": "1bfd53d639f330bcf20c124125480247d1979953c70cda9244f6e6755c45383a"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd04_shifara__rahma_trust_50.png": {
+      "bytes": 269547,
+      "sha256": "17ec23c42d5cf10c787ae502292f1d86c5a1a15bfa705bca1fba9a7ecc192f04"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd05_shifara__rahma_trust_80.png": {
+      "bytes": 270263,
+      "sha256": "65c7a9419cca85cdc8879e1426b421e0e583602b22af9a97660f84c40a3231b7"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd06_shifara__shakir_trust_10.png": {
+      "bytes": 268722,
+      "sha256": "83b6f67484e4281dbc92c73281bb738ce74cf6cf61ecaa72d1cd44af02aa209e"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd07_shifara__shakir_trust_50.png": {
+      "bytes": 269898,
+      "sha256": "6dad0c56bbc7708f2ac0a5b3a299199294a39b6c503b0d04be37f46068e5118e"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd08_shifara__shakir_trust_80.png": {
+      "bytes": 269062,
+      "sha256": "d79e08086cd2b7ea0cb650f864a993a4ea0fc69db83758aaf1126bb901ea2d5c"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd09_shifara__malik_trust_10.png": {
+      "bytes": 268955,
+      "sha256": "d657af1c5315df709d59b81e8f9640ebf4c58d06981a3e7aba6f11edee16c0fa"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd10_shifara__malik_trust_50.png": {
+      "bytes": 270455,
+      "sha256": "e5a5929affb35dacaf49d07fe92327126014f090f3d29642cef9360ddb1449e1"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd11_shifara__malik_trust_80.png": {
+      "bytes": 269538,
+      "sha256": "e34f2fc8b10198c1aa4806e5556548649bf5cfc1e84b33342382831421d8732f"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd12_shifara__what_people_say_empty.png": {
+      "bytes": 270465,
+      "sha256": "169f8e66872e1a6cec153c305e3a475f3b59271c9a3273a2c5e3a56127974bab"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd13_shifara__masjid_prayer.png": {
+      "bytes": 270886,
+      "sha256": "9b499da8cab3efba11d8e7cf77e33d7312a9fb4526bc9d07da514523d3aa93ab"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd14_shifara__masjid_first_prayer.png": {
+      "bytes": 272577,
+      "sha256": "d450a2f78ae57fbfe49fd449acaa1280771e9ffce9806c9e1362c77c98531ee5"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd15_fever__a.png": {
+      "bytes": 240668,
+      "sha256": "51a9e9f59bcf5341fdbc32fefc4eccaa2355804c33b8e2874f21ee5fadb5058b"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd16_fever__stay.png": {
+      "bytes": 265417,
+      "sha256": "d573ff7ea1dacd59ecb46425c9573b3c974d1216b4b9df3697d7696c074257b5"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd17_fever__wait.png": {
+      "bytes": 265689,
+      "sha256": "63838de74144e13afda9de94cd7ef9352fbe81b98fa1ec3ca4c5b45b93ab93ee"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd18_fever__flee.png": {
+      "bytes": 262016,
+      "sha256": "a0be8f87d9355e910b4c0344802bafb729e8925bd47282b836c69341132400bd"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd19_doctor_secret__a.png": {
+      "bytes": 251617,
+      "sha256": "930457d154d6d73cd9a52aca47cfa16d1ef6b992e4a706e404cebcf23c137447"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd20_doctor_secret__keep.png": {
+      "bytes": 267371,
+      "sha256": "2cc549295dff5b97e40dd37b98ec71227db9fc56efc859b40eb0e53e13bfb5f3"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd21_doctor_secret__tell.png": {
+      "bytes": 263253,
+      "sha256": "7364523ecfc4d4a361391e35b3315adfc23f84267abeb3d7ba3327d8403e40f8"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd22_knowledge_home__a.png": {
+      "bytes": 314019,
+      "sha256": "494f60e61eb47f8a4ea877c502f0f82b107ae1798c0cd88c8c3ebcc473be35ea"
+    },
+    "GAME/APPROVED/SHIFARA/MASTERS/sd23_knowledge_home__b.png": {
+      "bytes": 309879,
+      "sha256": "4a11c3d896a0144a2ac33bb496f0ae8836ad840aa618f4712c48a4a84dd0cb36"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 663,
+      "sha256": "a6895f8e67c5f8e984968e947933863f859eeddbfe04d269828f43b2ae8d2729"
+    },
+    "SOURCE/data/shifara.json": {
+      "bytes": 7144,
+      "sha256": "c3ffc1854158d322c906fbed45d8dd6c30b07218d91503d03d9abfd844275b8c"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 662737,
+      "sha256": "b0a462b16cd19a1ba8a17f546819efeb5fa174f90a74a5ba6fec0551d4936b75"
+    }
+  }
+}

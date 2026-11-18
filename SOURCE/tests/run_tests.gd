@@ -145,6 +145,10 @@ func _run() -> void:
 		await check_najmara_runtime()
 		finish()
 		return
+	if "--shifara-only" in OS.get_cmdline_user_args():
+		await check_shifara_runtime()
+		finish()
+		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
 		await check_jisra_people_runtime()
 		finish()
@@ -300,6 +304,7 @@ func _run() -> void:
 	await check_tahuna_runtime()
 	await check_waraka_runtime()
 	await check_najmara_runtime()
+	await check_shifara_runtime()
 	finish()
 
 
@@ -10550,7 +10555,7 @@ func _check_waraka_path(copyist: Dictionary, seller: Dictionary, copyist_result:
 	check(runner.state() == expected and app.progress.coins == 20 and app.runner_town_id() == "waraka"
 		and find_button(app.ui, copyist.button) == null and find_button(app.ui, seller.button) == null,
 		"the save keeps both completion days and choice effects, and both actions stay hidden on a later day")
-	check(runner.journal(app) == journal, "Q32 leaves the Journal at its loaded chapter rows")
+	_check_journal_completions(journal, [copyist, seller])
 
 
 func check_najmara_runtime() -> void:
@@ -10803,4 +10808,308 @@ func _check_najmara_path(qibla: Dictionary, student: Dictionary, qibla_outcome: 
 	check(runner.state() == expected and app.progress.coins == coins and app.runner_town_id() == "najmara"
 		and find_button(app.ui, qibla.button) == null and find_button(app.ui, student.button) == null,
 		"the save keeps both completion days and choice effects and hides both buttons on a later day")
-	check(runner.journal(app) == journal, "Q33 leaves the Journal at its loaded chapter rows")
+	_check_journal_completions(journal, [qibla, student])
+
+
+func check_shifara_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/SHIFARA/RECORD/shifara_data_V2.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/shifara.json") == locked,
+		"Shifara uses byte-identical LOCK 48 V2 data")
+	var copy: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = copy is Dictionary and runner.towns.has("shifara") and runner.missions.has("fever") \
+		and runner.missions.has("doctor_secret") and runner.missions.has("knowledge_home")
+	check(loaded, "the production index loads Shifara and its three missions")
+	if not loaded:
+		return
+	var town: Dictionary = runner.towns.shifara
+	var masjid: Dictionary = copy.masjids.shifara
+	var fever: Dictionary = runner.missions.fever
+	var secret: Dictionary = runner.missions.doctor_secret
+	var home: Dictionary = runner.missions.knowledge_home
+	var words: Dictionary = runner.data.words
+	check(town == copy.towns.shifara.merged({"id": "shifara"}) and runner.town_people(app, "shifara") == copy.people,
+		"Shifara loads its locked town and people in order")
+	check(runner.town_masjids("shifara") == [masjid.merged({"id": "shifara"})],
+		"the hospital masjid resolves by its ID")
+	check([fever, secret, home] == copy.missions and runner.data.chapters.size() >= 4
+		and runner.data.chapters[3] == copy.chapters[0], "all three missions and the Chapter 4 rows use the locked copy")
+	var original := MarketSave.snapshot(app)
+	app.set_process(false)
+	await _check_shifara_road()
+	await _check_shifara_hub(town, masjid, fever, secret, words)
+	await _check_shifara_people(copy.people, words)
+	var fever_results := [
+		{"scene": "stay", "minutes": 480, "trust": 10, "flags": ["fever_stayed", "fever_done"], "saying": fever.say.stayed},
+		{"scene": "wait", "minutes": 0, "trust": 0, "flags": ["fever_done"], "saying": []},
+		{"scene": "flee", "minutes": 0, "trust": -10, "flags": ["fever_done"], "saying": fever.say.fled},
+	]
+	var secret_results := [
+		{"scene": "keep", "minutes": 0, "trust": 6, "flags": ["secret_kept", "shifara_done"], "saying": secret.say.kept},
+		{"scene": "tell", "minutes": 0, "trust": -10, "flags": ["secret_told", "shifara_done"], "saying": secret.say.told},
+	]
+	for fever_result: Dictionary in fever_results:
+		for secret_result: Dictionary in secret_results:
+			await _check_shifara_path(fever, secret, fever_result, secret_result, words)
+	await _check_knowledge_carried(home, words)
+	MarketSave.restore(app, original)
+	app.show_screen("market_map")
+	app.set_process(true)
+	print("LOCK 48 SHIFARA: ", checks - checks_before - (failures - failures_before), "/", checks - checks_before, " passed")
+
+
+func _check_shifara_road() -> void:
+	reset_at_market_place("gate", 20, 8)
+	app.enter_runner_town("najmara")
+	var words: Dictionary = app.road_map.data.words
+	var road: Dictionary = app.road_map.road_to("shifara")
+	check(road.gate == "knowledge" and road.opens == "najmara_done" and int(road.minutes) == 240,
+		"line 43 owns Shifara's Knowledge road and Najmara prerequisite")
+	var state: Dictionary = app.scene_runner.state()
+	state.flags.najmara_done = 8
+	app.scene_runner.restore(state)
+	check(not app.road_map.town_is_open(app, road), "completing Najmara cannot bypass Knowledge")
+	app.road_map.restore({"knowledge": true})
+	state.flags.erase("najmara_done")
+	app.scene_runner.restore(state)
+	await press_button(words.map_button, "open the Road map from Najmara")
+	var outbound := str(words.go).format({"n": 60})
+	check(has_visible_label(app.ui, app.road_map.data.names.shifara) and find_button(app.ui, outbound) == null,
+		"the Road map lists Shifara without a travel action before Najmara is complete")
+	await press_button(words.back, "return to Najmara")
+	state.flags.najmara_done = 8
+	app.scene_runner.restore(state)
+	await press_button(words.map_button, "open the Road map after completing Najmara")
+	await press_button(outbound, "take the road to Shifara")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "shifara" and app.minute_of_day == 660,
+		"the live Road map reaches Shifara in 60 minutes from Najmara")
+	await press_button(words.map_button, "open Shifara's Road map")
+	await press_button(words.back, "close Shifara's Road map")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "shifara", "Road map Back returns to Shifara")
+	await press_button(words.map_button, "reopen the Road map to leave Shifara")
+	await press_button(str(words.go).format({"n": 240}), "take the road to Ilmara")
+	check(app.ui.screen == "market_map" and app.runner_town_id().is_empty() and app.minute_of_day == 900,
+		"Shifara's Road map exits to Ilmara in 240 minutes")
+
+
+func _check_shifara_hub(town: Dictionary, masjid: Dictionary, fever: Dictionary, secret: Dictionary, words: Dictionary) -> void:
+	reset_at_market_place("gate", 20, 8)
+	app.enter_runner_town("shifara")
+	var noon: int = app._minutes(identity.clock.prayers[1].begins)
+	var sayings := str(words.rep_button).format({"town": town.name})
+	var inn := str(words.inn_button).format({"n": 2})
+	var map_button: String = app.road_map.data.words.map_button
+	var actions: Array[String] = [fever.button, words.people_button, town.work.label, sayings, masjid.button, inn, map_button]
+	check(app.ui.screen == "runner_town" and has_visible_label(app.ui, town.name)
+		and has_visible_label(app.ui, str(town.kicker).to_upper()) and visible_text().split("\n").has(town.text),
+		"Shifara uses the locked hub copy")
+	check_gate_of_trust_meter("Trust · Shifara", 10)
+	_check_town_hub_button_order(actions, "Shifara uses the R6 hub order")
+	check(find_button(app.ui, words.road_back) == null, "the loaded Road map is the hub exit")
+	await _check_town_sayings("shifara", [], words)
+	for minute: int in [359, 360, 479, 480, 899, 900, 1199, 1200]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, fever.button) != null) == (minute >= 360 and minute < 1200)
+			and (find_button(app.ui, town.work.label) != null) == (minute >= 360 and minute < 900)
+			and find_button(app.ui, secret.button) == null, "fever, work and secret conditions at minute %d" % minute)
+	set_market_day_time(8, noon)
+	actions.insert(5, app.clock.prayer_label(false))
+	_check_town_hub_button_order(actions, "an open prayer sits between the masjid and the inn")
+	set_market_day_time(9, noon)
+	check(find_button(app.ui, town.work.label) == null, "bandage work closes during Friday prayer")
+	var market_trust: int = app.progress.trust
+	for shift: Array in [[10, 360, 23, 11], [10, 420, 26, 11], [11, 360, 29, 12]]:
+		set_market_day_time(shift[0], shift[1])
+		await press_button(town.work.label, "wash bandages at the hospital")
+		check(app.minute_of_day == shift[1] + 60 and app.progress.coins == shift[2]
+			and app.scene_runner.town_trust(app, "shifara") == shift[3] and app.progress.trust == market_trust,
+			"bandage work takes an hour, pays three coins and adds local trust once per day")
+	for day: int in [11, 12]:
+		set_market_day_time(day, noon)
+		await press_button(masjid.button, "open the hospital masjid")
+		check(app.ui.screen == "runner_masjid" and has_visible_label(app.ui, masjid.title)
+			and has_visible_label(app.ui, str(masjid.kicker).to_upper()) and visible_text().split("\n").has(masjid.text),
+			"the hospital masjid uses the locked title, kicker and paragraph")
+		await press_button(identity.clock.pray_congregation, "pray at the hospital masjid")
+		check(app.jisra_masjid.prayed_in == {"shifara": true}
+			and app.jisra_masjid.counter() == "Masjids you have prayed in: 1 / 50"
+			and visible_text().split("\n").has(masjid.first) == (day == 11),
+			"the hospital masjid counts once and shows its first-prayer line once")
+		check(find_button(app.ui, app.jisra_masjid.data.masjid.back) == null, "Q34 reserves the bridge return for Jisra")
+		await press_button(words.back, "leave the hospital masjid")
+		check(app.ui.screen == "runner_town" and app.runner_town_id() == "shifara", "the masjid's Back returns to Shifara")
+	await press_button(inn, "rest at Shifara's inn")
+	check(app.progress.coins == 27 and app.day == 13 and app.minute_of_day == 280
+		and app.runner_town_id() == "shifara", "the inn costs two coins and wakes you in Shifara at 04:40")
+
+
+func _check_shifara_people(residents: Array, words: Dictionary) -> void:
+	reset_at_market_place("gate", 20, 8)
+	app.enter_runner_town("shifara")
+	var runner: SceneRunner = app.scene_runner
+	await press_button(words.people_button, "open Shifara's people list")
+	check(has_visible_label(app.ui, words.people.title)
+		and has_visible_label(app.ui, str(words.people.kicker).format({"town": "Shifara"}).to_upper()),
+		"the people list uses the locked headings")
+	for person: Dictionary in residents:
+		check(has_visible_label(app.ui, person.name) and has_visible_label(app.ui, str(person.role).to_upper()),
+			"the list uses the locked name and role for " + str(person.name))
+	for band: Array in [[10, "wary"], [50, "friendly"], [80, "warm"]]:
+		var state := runner.state()
+		state.trust.shifara = band[0]
+		runner.restore(state)
+		for index in residents.size():
+			var person: Dictionary = residents[index]
+			var buttons := _runner_talk_buttons(words)
+			check(buttons.size() == residents.size(), "one Talk action per present Shifara resident")
+			if buttons.size() != residents.size():
+				break
+			await press_control(buttons[index], "talk to %s at Shifara trust %d" % [person.name, band[0]])
+			var kicker := str(words.talk.kicker).format({"town": "Shifara", "role": person.role}).to_upper()
+			check(app.ui.screen == "runner_person" and has_visible_label(app.ui, person.name)
+				and has_visible_label(app.ui, kicker) and visible_text().split("\n").has(person.lines[band[1]]),
+				"the exact %s line for %s" % [band[1], person.name])
+			await press_button(words.talk.back, "return to the people list")
+	for minute: int in [359, 360, 479, 480, 1139, 1140, 1199, 1200, 1259, 1260]:
+		_check_town_people_presence(residents, words, 8, minute, false)
+	_check_town_people_presence(residents, words, 9, app._minutes(identity.clock.prayers[1].begins), true)
+
+
+func _check_shifara_path(fever: Dictionary, secret: Dictionary, fever_result: Dictionary,
+		secret_result: Dictionary, words: Dictionary) -> void:
+	reset_at_market_place("gate", 20, 8)
+	app.enter_runner_town("shifara")
+	var runner: SceneRunner = app.scene_runner
+	var journal := runner.journal(app)
+	var expected := runner.state()
+	var market_trust: int = app.progress.trust
+	var trust := 10
+	var minute := 600
+	var accounts: Array = []
+	for step: Array in [[fever, fever_result], [secret, secret_result]]:
+		var mission: Dictionary = step[0]
+		var result: Dictionary = step[1]
+		await press_button(mission.button, "open " + str(mission.title))
+		_check_runner_scene_copy(mission, "a")
+		var labels: Array[String] = []
+		var chosen := ""
+		for choice: Dictionary in mission.scenes.a.choices:
+			labels.append(choice.label)
+			if choice.go == result.scene:
+				chosen = choice.label
+		_check_town_hub_button_order(labels, "the scene shows its exact choices in order")
+		await press_button(chosen, "take the choice leading to " + str(result.scene))
+		_check_runner_scene_copy(mission, result.scene)
+		_check_town_hub_button_order([words.scene_back], "the ending offers Back")
+		minute += int(result.minutes)
+		trust = clampi(trust + int(result.trust), 0, 100)
+		if result.trust != 0:
+			expected.trust.shifara = trust
+		for flag: String in result.flags:
+			expected.flags[flag] = 8
+		if not result.saying.is_empty():
+			accounts.append(result.saying)
+			expected.sayings.shifara = accounts
+		check(runner.state() == expected and runner.town_trust(app, "shifara") == trust
+			and app.progress.trust == market_trust and app.progress.coins == 20
+			and app.day == 8 and app.minute_of_day == minute, "the choice applies the exact local effects before Back")
+		await press_button(words.scene_back, "finish " + str(mission.title))
+		expected.done[mission.id] = 8
+		check(runner.state() == expected and runner.mission_done(app, mission.id)
+			and app.ui.screen == "runner_town" and app.runner_town_id() == "shifara"
+			and find_button(app.ui, mission.button) == null, "Back saves completion and hides the finished action")
+		await _check_town_sayings("shifara", accounts, words)
+		if mission.id == fever.id:
+			for at: int in [479, 480, 1199, 1200]:
+				set_market_day_time(8, at)
+				check((find_button(app.ui, secret.button) != null) == (at >= 480 and at < 1200),
+					"the secret action follows its hours after fever_done at minute %d" % at)
+			set_market_day_time(8, minute)
+	for person: Dictionary in runner.town_people(app, "shifara"):
+		var lines: Array = [person.lines.wary]
+		for memory: Array in person.memory:
+			if expected.flags.has(memory[0]):
+				lines.append(memory[1])
+				break
+		check(runner.person_lines(app, "shifara", person) == lines, "the outcomes give %s the exact memory" % person.name)
+	var path: String = app.storage_directory.path_join("shifara-%s-%s.save" % [fever_result.scene, secret_result.scene])
+	check(MarketSave.save_slot(app, path) == OK, "save both Shifara missions and their outcomes")
+	var saved := MarketSave.read_slot(path)
+	check(not saved.is_empty(), "read the isolated Shifara save")
+	if saved.is_empty():
+		return
+	runner.reset()
+	MarketSave.restore(app, saved)
+	app.show_screen("runner_town")
+	set_market_day_time(10, 600)
+	check(runner.state() == expected and app.progress.coins == 20 and app.runner_town_id() == "shifara"
+		and find_button(app.ui, fever.button) == null and find_button(app.ui, secret.button) == null,
+		"the save keeps choice effects and completions and both actions stay hidden on a later day")
+	_check_journal_completions(journal, [fever, secret])
+
+
+func _check_knowledge_carried(mission: Dictionary, words: Dictionary) -> void:
+	reset_at_market_place("masjid", 20, 8)
+	var runner: SceneRunner = app.scene_runner
+	var state := runner.state()
+	state.flags = {"waraka_done": 8, "najmara_done": 8, "shifara_done": 8}
+	for id: String in ["copyist", "fake_hadith", "qibla", "student", "fever", "doctor_secret"]:
+		state.done[id] = 8
+	for required: String in state.flags:
+		var missing := state.duplicate(true)
+		missing.flags.erase(required)
+		runner.restore(missing)
+		app.show_screen("market_map")
+		check(find_button(app.ui, mission.button) == null, "Knowledge carried needs " + required)
+	runner.restore(state)
+	var journal := runner.journal(app)
+	for minute: int in [419, 420, 1199, 1200]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 420 and minute < 1200),
+			"Knowledge carried uses its hours at minute %d" % minute)
+	set_market_day_time(8, 600)
+	move_market_fixture("inn")
+	check(find_button(app.ui, mission.button) == null, "Knowledge carried is confined to the River Market masjid")
+	move_market_fixture("masjid")
+	var trust: int = app.progress.trust
+	var gates: Dictionary = app.road_map.state()
+	await press_button(mission.button, "open Knowledge carried")
+	_check_runner_scene_copy(mission, "a")
+	_check_town_hub_button_order(["Stay in Ilmara"], "Knowledge carried offers the exact choice")
+	await press_button("Stay in Ilmara", "choose to stay in Ilmara")
+	_check_runner_scene_copy(mission, "b")
+	state.flags.chapter4_done = 8
+	check(mission.scenes.b.text == "Four of the six gates are open. And the sky over Ilmara stays clear and dry."
+		and runner.state() == state and app.progress.trust == trust and app.progress.coins == 20
+		and app.minute_of_day == 600 and app.road_map.state() == gates,
+		"the V2 ending shows the six-gate wording and its choice sets only the Chapter 4 flag")
+	await press_button(words.scene_back, "finish Knowledge carried")
+	state.done.knowledge_home = 8
+	check(runner.state() == state and find_button(app.ui, mission.button) == null,
+		"Back saves Knowledge carried and hides the completed action")
+	_check_journal_completions(journal, [mission])
+	var saved := MarketSave.snapshot(app)
+	runner.reset()
+	MarketSave.restore(app, saved)
+	app.show_screen("market_map")
+	check(runner.state() == state and find_button(app.ui, mission.button) == null,
+		"Knowledge carried stays complete after restoring the save")
+	await press_button(words.journal_button, "open the Journal with Chapter 4 loaded")
+	var chapter: Dictionary = runner.journal(app).chapters[3]
+	check(chapter.n == 4 and chapter.name == "The Gate of Knowledge" and chapter.done == 7 and chapter.total == 7
+		and has_visible_label(app.ui, "Chapter 4 · The Gate of Knowledge") and has_visible_label(app.ui, "7 / 7"),
+		"the Journal shows all seven Chapter 4 completions")
+	for row: Dictionary in chapter.rows:
+		check(row.done and has_visible_label(app.ui, row.title), "the Journal shows the completed row for " + str(row.title))
+	var back := find_button(app.ui, words.journal.back)
+	var scroll := app.ui.find_child("RunnerScroll", true, false) as ScrollContainer
+	check(back != null and scroll != null, "the Journal has scrollable content and a Back action")
+	if back != null and scroll != null:
+		scroll.ensure_control_visible(back)
+		await frames(2)
+		check(scroll.scroll_vertical > 0 and scroll.get_global_rect().encloses(back.get_global_rect()),
+			"Back is reachable with all four chapters loaded")
+	await press_control(back, "leave the Journal")
+	check(app.ui.screen == "market_map", "Journal Back returns to the River Market")

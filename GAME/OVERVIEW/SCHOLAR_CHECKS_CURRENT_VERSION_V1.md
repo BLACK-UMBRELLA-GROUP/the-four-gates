@@ -46,7 +46,7 @@ checked against sunnah.com / the Quran by the THE FOUR GATES chat (that is not a
 | 26 | PRAYER_3D | DOC-TFG-0307 | LOCK 99 | The order and naming of the positions | Set aside 9 Nov - OPEN |
 | 27 | PROPHETS_STORIES | DOC-TFG-0250 | LOCK 80 | Each story retold in plain words | Set aside 9 Nov - OPEN |
 | 28 | SAHILA | DOC-TFG-0120 | LOCK 37 | A seller's agent's duty to disclose a defect | Set aside 9 Nov - OPEN |
-| 29 | SHIFARA | DOC-TFG-0154 | LOCK 48 | The plague rule applied to a fever | Set aside 9 Nov - OPEN |
+| 29 | SHIFARA | DOC-TFG-0154 | LOCK 48 | Review Sahih al-Bukhari 5728, Sahih Muslim 2699 and Quran 20:114 as design references. Check the portrayal of applying the plague rule to a fever and of keeping or disclosing a patient's private information. | Set aside 9 Nov - OPEN (before public release) |
 | 30 | SIDE_BROTHERS | DOC-TFG-0166 | LOCK 52 | How far “saying good” may go when making peace | Set aside 9 Nov - OPEN |
 | 31 | SOUND | DOC-TFG-0310 | LOCK 100 | Whether the adhan plays as a sound | Set aside 9 Nov - OPEN |
 | 32 | SUKARA | DOC-TFG-0123 | LOCK 38 | The partnership terms and returning the principal only | Set aside 9 Nov - OPEN |

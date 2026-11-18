@@ -1,0 +1,19 @@
+{
+  "line": 55,
+  "result": "passed",
+  "checks_passed": {
+    "lock_48": 428,
+    "focused": 627,
+    "headless_full_suite": 12324
+  },
+  "coverage": [
+    "The production index loads byte-identical LOCK 48 V2 data. The live line 43 road requires Knowledge and najmara_done. Travel takes 60 minutes from Najmara and 240 minutes back to Ilmara. Road map Back returns to Shifara.",
+    "The hub starts at trust 10 and follows R6 action order. Bandage work is available from 06:00 up to 15:00 outside Friday prayer. Work takes 60 minutes, pays three coins and gives one Shifara trust on the first shift of each day. The inn costs two coins and wakes the player at 04:40.",
+    "The hospital masjid resolves by ID, counts once and shows the exact first-prayer text once. Back returns to Shifara under Q34 and R6.",
+    "Rahma, Shakir and Malik use the locked names, roles, availability and lines at trust 10, 50 and 80. Rahma's and Shakir's memories follow the mission outcomes.",
+    "All six fever and secret combinations use the exact choices and scene text. Verified hours, trust, time, flags, local sayings, persistent completion, hidden repeat actions and Chapter 4 Journal records.",
+    "Knowledge carried requires all three town flags and the River Market masjid from 07:00 up to 20:00. The V2 wording appears and the choice sets chapter4_done. Back saves completion. Chapter 4 can reach 7 / 7 and Back is reachable with all four chapters loaded."
+  ],
+  "visual_reference": "23 approved masters at 1920 × 1080. Q15 and R11 call for headless rules checks. Q34 and R6 give the masjid a Back button that returns to Shifara. LOCK 103 V2 wording takes precedence over sd23.",
+  "scholar_check": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md row 29 (OA-AIOS-432). Due before public release."
+}
