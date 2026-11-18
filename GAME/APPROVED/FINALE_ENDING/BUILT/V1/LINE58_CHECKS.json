@@ -1,0 +1,18 @@
+{
+  "line": 58,
+  "result": "passed",
+  "checks_passed": {
+    "lock_51": 358,
+    "focused": 557,
+    "headless_full_suite": 13127
+  },
+  "coverage": [
+    "The production index loads both missions from the byte-identical LOCK 51 payload. Both are offered at the River Market masjid from 07:00 until 20:00. The checks cover both minute boundaries, the wrong place, the wrong town, and walking and map entry.",
+    "An actual line 57 riot choice supplies riot_done. Reading with Idris adds one page. Back applies the terminal last_page_read flag and records The last page in Chapter 7. Your choice opens after Back.",
+    "Both endings pass at River Market trust 10, 50 and 80. Titles, paragraphs, choice labels and choice order match the locked data. The selection sets its own ending flag and game_complete. Back records the final mission. The existing witness accounts, wallet and clock are preserved.",
+    "The Journal shows both titles and 6 / 6 for Chapter 7. Save and Continue restores the page count, flags and both completions. Both buttons remain hidden during their hours on the next day."
+  ],
+  "visual_reference": "Five approved 1920 × 1080 masters (h301–h305) match the locked scene words and order. Q15 and R11 use headless rules checks with the existing Godot layout.",
+  "prerequisite": "Line 57 is BUILT and supplies riot_done. The fixtures supply earlier Chapter 7 progress and earn riot_done through the live riot. In live play the first Chapter 7 mission opens after chapter6_done.",
+  "scholar_check": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md row 42 (OA-AIOS-432) records the Quran reference and attribution check before public release."
+}

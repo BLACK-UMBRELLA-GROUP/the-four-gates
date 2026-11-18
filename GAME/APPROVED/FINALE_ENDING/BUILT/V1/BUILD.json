@@ -1,0 +1,83 @@
+{
+  "line": 58,
+  "lock": "LOCK 51 V1",
+  "brief": "DOC-TFG-0165",
+  "tested_base_commit_sha": "275a4570ecfba7aa51db6fd69ef7e85bf33b64fb",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T10:17:24+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --finale-ending-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_51": 358,
+    "focused": 557,
+    "headless_full_suite": 13127
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/FINALE_ENDING/BRIEFS/BUILD_BRIEF_2026-11-09_FINALE_ENDING.md": {
+      "bytes": 3098,
+      "sha256": "91a842551281a536ca9c4858828c6680f45ebbd7a5fd6e4ee3d84fa83a0b5c0a"
+    },
+    "GAME/APPROVED/FINALE_ENDING/RECORD/LOCK_RECORD.md": {
+      "bytes": 970,
+      "sha256": "703aef9665a47d759f772c813e3bcd0352cb1618cf778ee96e7eb6c5880e9842"
+    },
+    "GAME/APPROVED/FINALE_ENDING/RECORD/FINALE_ENDING_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3769,
+      "sha256": "e33b7b67a8a979843e13081004ead113af5b5e6056ce723f640207a191640b10"
+    },
+    "GAME/APPROVED/FINALE_ENDING/RECORD/finale_ending_data_V1.json": {
+      "bytes": 2617,
+      "sha256": "8c6378f4ce1b31824137447848ae3c1758a79ce5ff7d4586fb12b92665072ebe"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/LOCK_RECORD.md": {
+      "bytes": 1193,
+      "sha256": "097e458b36812235cf8b7af3da1b87b413b920c6a032f7454c4cc2586378afdd"
+    },
+    "GAME/APPROVED/FINALE_ENDING/MASTERS/h301_last_page__a.png": {
+      "bytes": 315297,
+      "sha256": "18a32a5f49430311be77d2672478c6465e915f4846b6db22260c7bae1f3467aa"
+    },
+    "GAME/APPROVED/FINALE_ENDING/MASTERS/h302_last_page__b.png": {
+      "bytes": 313822,
+      "sha256": "91e47edb8d9078458faf99f4e70a907e0e30bc7bcc00ce991b490b0175d2e88f"
+    },
+    "GAME/APPROVED/FINALE_ENDING/MASTERS/h303_your_choice__a.png": {
+      "bytes": 304146,
+      "sha256": "6889b7b035d89b2066c43177ba4190ff85be6772cf8a2b8b753c89d06f14bc30"
+    },
+    "GAME/APPROVED/FINALE_ENDING/MASTERS/h304_your_choice__stay.png": {
+      "bytes": 313967,
+      "sha256": "1fac77e5bf429c989999536b58f9fa5e2e2c67a0c73a9c084ba1a3afe746e135"
+    },
+    "GAME/APPROVED/FINALE_ENDING/MASTERS/h305_your_choice__home.png": {
+      "bytes": 314378,
+      "sha256": "b1e2d2d7b48134cf943ee71b3894cba07d51d0fa863fcd7d4f2f88ee8df34c03"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 741,
+      "sha256": "30e15c7dd8d71fb57338f294ba890eefdf8c59d7bb58e28fab7d4eb65a6a52bf"
+    },
+    "SOURCE/data/finale_ending.json": {
+      "bytes": 2617,
+      "sha256": "8c6378f4ce1b31824137447848ae3c1758a79ce5ff7d4586fb12b92665072ebe"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 16031,
+      "sha256": "342b84f4bef948b5a1c3173a05d0455d9176ac4fa39852c5cde72567082a8e9c"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 689373,
+      "sha256": "7d238e41e8818e8ade21e17f639c9e1bd9f2b384a85b8dc4c92af2ec3eb548ac"
+    }
+  }
+}

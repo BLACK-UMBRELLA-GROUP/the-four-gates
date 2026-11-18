@@ -166,8 +166,7 @@ func available_missions(app, town: String, place: String) -> Array[Dictionary]:
 
 
 func _mission_available(app, mission: Dictionary, town: String) -> bool:
-	var id: String = mission.id
-	if _done.has(id) and (mission.get("repeat") != "daily" or int(_done[id]) >= app.day):
+	if _already_completed(mission, app.day):
 		return false
 	if not _within_hours(int(app.minute_of_day), mission.get("hours", [])):
 		return false
@@ -180,6 +179,11 @@ func _mission_available(app, mission: Dictionary, town: String) -> bool:
 		if not has_flag(app, flag) or app.day - int(_flags.get(flag, app.day)) < int(after_days[flag]):
 			return false
 	return true
+
+
+func _already_completed(mission: Dictionary, day: int) -> bool:
+	var id: String = mission.id
+	return _done.has(id) and (mission.get("repeat") != "daily" or int(_done[id]) >= day)
 
 
 func choices(app, mission: Dictionary, scene: Dictionary) -> Array[Dictionary]:
@@ -210,8 +214,9 @@ func apply_choice(app, mission: Dictionary, choice: Dictionary) -> String:
 
 
 func leave_scene(app, mission: Dictionary, scene: Dictionary) -> void:
-	if scene.get("end", false):
+	if scene.get("end", false) and not _already_completed(mission, app.day):
 		_done[mission.id] = app.day
+		_apply_effects(app, mission, scene.get("fx_end", {}))
 
 
 func _apply_effects(app, mission: Dictionary, effects: Dictionary) -> void:

@@ -743,6 +743,14 @@ of the **Journal**. The riot choice changes River Market trust and can add a wit
 to **What people say**. Run the focused headless checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --finale-rain-only`.
 
+## LOCK 51 — The last page and your choice
+
+After **The riot**, visit the River Market masjid from 07:00 until 20:00. Read the last
+page with Idris and use **Back** to finish it. Idris then asks whether you will stay
+in Ilmara or go home and return every year. Use **Back** on either ending to record
+the final mission in Chapter 7 of the **Journal**. Run the focused headless checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --finale-ending-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from

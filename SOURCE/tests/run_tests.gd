@@ -157,6 +157,10 @@ func _run() -> void:
 		await check_finale_rain_runtime()
 		finish()
 		return
+	if "--finale-ending-only" in OS.get_cmdline_user_args():
+		await check_finale_ending_runtime()
+		finish()
+		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
 		await check_jisra_people_runtime()
 		finish()
@@ -315,6 +319,7 @@ func _run() -> void:
 	await check_shifara_runtime()
 	await check_finale_hoarders_runtime()
 	await check_finale_rain_runtime()
+	await check_finale_ending_runtime()
 	finish()
 
 
@@ -11467,3 +11472,136 @@ func check_finale_rain_runtime() -> void:
 	var added_failures := failures - failures_before
 	print("LOCK 50 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
 		" passed; failures=", added_failures)
+
+
+func check_finale_ending_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/FINALE_ENDING/RECORD/finale_ending_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/finale_ending.json")
+	check(not locked.is_empty() and runtime == locked, "the finale ending data is the byte-identical LOCK 51 file")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	if not approved is Dictionary:
+		check(false, "LOCK 51 parses as a dictionary")
+		return
+	var runner: SceneRunner = app.scene_runner
+	for mission: Dictionary in approved.missions:
+		var loaded: bool = runner.missions.get(mission.id) == mission
+		check(loaded, "the production index loads " + str(mission.id))
+		if not loaded:
+			return
+	check(not approved.has("people"), "LOCK 51 adds no resident dialogue")
+	app.set_process(false)
+	for trust: int in [10, 50, 80]:
+		await _check_finale_ending_path(trust, 0, "stay", "ending_stay")
+		await _check_finale_ending_path(trust, 1, "home", "ending_home")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 51 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_finale_ending_path(trust: int, choice_index: int, ending: String, ending_flag: String) -> void:
+	const DAY := 8
+	const MINUTE := 660
+	var runner: SceneRunner = app.scene_runner
+	var last_page: Dictionary = runner.missions.last_page
+	var your_choice: Dictionary = runner.missions.your_choice
+	var riot: Dictionary = runner.missions.riot
+	var words: Dictionary = runner.data.words
+	reset_at_market_place("masjid", 19, DAY)
+	runner.restore({
+		"flags": {"rain_prayed": DAY},
+		"done": {"hoarders": DAY, "bread_lines": DAY, "rain_prayer": DAY},
+		"counters": {"pages": 2},
+	})
+	set_market_day_time(DAY, MINUTE)
+	check(find_button(app.ui, last_page.button) == null and find_button(app.ui, your_choice.button) == null,
+		"neither mission is offered before the riot")
+	move_market_fixture("board")
+	await press_button(riot.button, "open the line 57 riot")
+	await press_button(riot.scenes.a.choices[0].label, "earn riot_done from the riot and record a witness account")
+	await press_button(words.scene_back, "finish the riot")
+	check(runner.has_flag(app, "riot_done") and runner.mission_done(app, "riot"),
+		"the real riot supplies the prerequisite")
+
+	move_market_fixture("masjid")
+	app.progress.apply_trust(trust - app.progress.trust)
+	app.update_state()
+	_check_runner_mission_hours(last_page, DAY)
+	set_market_day_time(DAY, MINUTE)
+	app.show_screen("game")
+	check(find_button(app.ui, last_page.button) != null, "the walking view offers the last page at the masjid")
+	app.show_screen("market_map")
+	check(find_button(app.ui, your_choice.button) == null, "the final choice waits for last_page_read")
+	var accounts: Array = app.ui.reputation_lines()
+	var journal_before := runner.journal(app)
+	var expected := runner.state()
+	await press_button(last_page.button, "open The last page")
+	_check_runner_scene_copy(last_page, "a")
+	var read_label: String = last_page.scenes.a.choices[0].label
+	_check_town_hub_button_order([read_label], "The last page offers the locked reading choice")
+	check(find_button(app.ui, words.scene_back) == null, "the reading choice has no Back button")
+	await press_button(read_label, "read the page with Idris")
+	_check_runner_scene_copy(last_page, "b")
+	expected.counters.pages += 1
+	check(runner.state() == expected and runner.journal(app) == journal_before,
+		"reading adds one page and leaves the flag and Journal completion pending")
+	check(find_button(app.ui, read_label) == null, "the reading choice closes on the second scene")
+	await press_button(words.scene_back, "leave the last page")
+	expected.flags.last_page_read = DAY
+	expected.done.last_page = DAY
+	check(app.ui.screen == "market_map" and app.current_place == "masjid"
+		and runner.state() == expected and find_button(app.ui, last_page.button) == null
+		and find_button(app.ui, your_choice.button) != null,
+		"Back records The last page once and opens Your choice at the masjid")
+	_check_journal_completions(journal_before, [last_page])
+	var journal_after_reading := runner.journal(app)
+
+	_check_runner_mission_hours(your_choice, DAY)
+	set_market_day_time(DAY, MINUTE)
+	app.show_screen("game")
+	check(find_button(app.ui, your_choice.button) != null, "the walking view offers the ending at the masjid")
+	app.show_screen("market_map")
+	await press_button(your_choice.button, "open Your choice")
+	_check_runner_scene_copy(your_choice, "a")
+	var labels: Array[String] = []
+	for choice: Dictionary in your_choice.scenes.a.choices:
+		labels.append(choice.label)
+	_check_town_hub_button_order(labels, "Your choice offers both endings in locked order")
+	check(find_button(app.ui, words.scene_back) == null, "choosing an ending has no Back button")
+	await press_button(labels[choice_index], "choose " + labels[choice_index])
+	_check_runner_scene_copy(your_choice, ending)
+	expected.flags[ending_flag] = DAY
+	expected.flags.game_complete = DAY
+	check(runner.state() == expected and runner.journal(app) == journal_after_reading,
+		"choosing an ending sets only its flag and game_complete before Back")
+	for label: String in labels:
+		check(find_button(app.ui, label) == null, "the ending closes the choice " + label)
+	await press_button(words.scene_back, "leave ending " + ending)
+	expected.done.your_choice = DAY
+	check(app.ui.screen == "market_map" and app.current_place == "masjid"
+		and runner.state() == expected and find_button(app.ui, your_choice.button) == null,
+		"Back records Your choice once and returns to the masjid")
+	_check_journal_completions(journal_before, [last_page, your_choice])
+	check_wallet(trust, 19, "both finale missions leave River Market trust and coins unchanged")
+	check(app.day == DAY and app.minute_of_day == MINUTE, "both finale missions leave the clock unchanged")
+	await press_button(words.journal_button, "open the Journal after the ending")
+	check(app.ui.screen == "journal" and has_visible_label(app.ui, "Chapter 7 · The hard year")
+		and has_visible_label(app.ui, "6 / 6") and has_visible_label(app.ui, last_page.title)
+		and has_visible_label(app.ui, your_choice.title), "the Journal shows both titles and six of six done")
+	await press_button(words.journal.back, "return from the Journal")
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say after the ending")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines() == accounts,
+		"the finale leaves the existing witness accounts unchanged")
+	await press_button(app.chapter.rep.to_map, "return from What people say")
+	app.show_screen("pause")
+	app.save_game(true)
+	app.begin_game()
+	app.show_screen("title")
+	app.continue_game()
+	check(app.ui.screen == "market_map" and runner.state() == expected and app.progress.trust == trust,
+		"Save and Continue preserves the page, ending flags and both completions")
+	set_market_day_time(DAY + 1, MINUTE)
+	check(find_button(app.ui, last_page.button) == null and find_button(app.ui, your_choice.button) == null,
+		"both one-time missions stay hidden during their hours on the next day")

@@ -1,0 +1,96 @@
+{
+ "version": "LOCK 51 V1 (9 Nov 2026) - the finale: the last page and your choice",
+ "builds_on": "LOCK 3 the scholar's pages, LOCKs 49-50. Design reference (not shown): Quran 20:114 (my Lord, increase me in knowledge).",
+ "missions": [
+  {
+   "id": "last_page",
+   "place": "masjid",
+   "main": true,
+   "title": "The last page",
+   "kicker": "The hard year · The last page",
+   "button": "Idris has something to show you",
+   "hours": [
+    420,
+    1200
+   ],
+   "after": [
+    "riot_done"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "When Jalal's storehouse was emptied, a porter found a page folded into a crack in the wall. He brought it to Idris. It is in the scholar's hand - the last page of his notebook, the one he wrote on the night his caravan was robbed.",
+     "choices": [
+      {
+       "label": "Read it with Idris",
+       "go": "b",
+       "fx": {
+        "count": {
+         "pages": 1
+        }
+       }
+      }
+     ]
+    },
+    "b": {
+     "text": "Idris reads it twice before he can speak. “He wrote: whoever finds these pages, they are not mine to keep and not yours. Give them to the people.”",
+     "end": true,
+     "fx_end": {
+      "flag": "last_page_read"
+     }
+    }
+   }
+  },
+  {
+   "id": "your_choice",
+   "place": "masjid",
+   "main": true,
+   "title": "Your choice",
+   "kicker": "The hard year · Your choice",
+   "button": "Idris asks what you will do now",
+   "hours": [
+    420,
+    1200
+   ],
+   "after": [
+    "last_page_read"
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "The rain has come and the fields are green again. The House of Learning has asked you to stay and look after the scholar's notebook. A letter from home asks when you are coming back.",
+     "choices": [
+      {
+       "label": "Stay in Ilmara",
+       "go": "stay",
+       "fx": {
+        "flag": [
+         "ending_stay",
+         "game_complete"
+        ]
+       }
+      },
+      {
+       "label": "Go home, and come back every year",
+       "go": "home",
+       "fx": {
+        "flag": [
+         "ending_home",
+         "game_complete"
+        ]
+       }
+      }
+     ]
+    },
+    "stay": {
+     "text": "You give the notebook to the House of Learning with your own hands, and they give you a room above the library. River Market goes on around you. It always will.",
+     "end": true
+    },
+    "home": {
+     "text": "Idris walks you to the quay where you landed. “Come back at Ramadan,” he says. The boat pulls out, and Ilmara gets small behind you - and then you remember you can come back whenever you like.",
+     "end": true
+    }
+   }
+  }
+ ]
+}
