@@ -1,0 +1,135 @@
+{
+  "line": 79,
+  "lock": "LOCK 72 V1",
+  "brief": "DOC-TFG-0228",
+  "tested_base_commit_sha": "95eba3419763be1235c5ae468bbd53f655032f37",
+  "tested_source": "Base commit plus the hashed source files. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests (Q15)",
+  "timestamp_utc": "2026-11-18T12:34:02+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch09-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_72": 245,
+    "focused": 444,
+    "full_headless_suite": 16512
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/PAGES_CH09/BRIEFS/BUILD_BRIEF_2026-11-09_PAGES_CH09.md": {
+      "bytes": 3243,
+      "sha256": "b48fefc25702044503dba4516cb1666eb1412e60da47abe67841c249b01b4e64"
+    },
+    "GAME/APPROVED/PAGES_CH09/RECORD/LOCK_RECORD.md": {
+      "bytes": 985,
+      "sha256": "f883ece8dc50bdc3a7b35d44ca4101d34237cb3a0544e64e3367d60a45dde53d"
+    },
+    "GAME/APPROVED/PAGES_CH09/RECORD/PAGES_CH09_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 5163,
+      "sha256": "b458ed4faad74a00fbc96248cd4d9c5df4d8ce5a8f236b28a8c6cb793acb127b"
+    },
+    "GAME/APPROVED/PAGES_CH09/RECORD/pages_ch09_data_V1.json": {
+      "bytes": 5437,
+      "sha256": "9b2aef92ab6998e8290f2e95567c5a839f783dcb375af4b84b7869b7725717ec"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi01_page_81__a.png": {
+      "bytes": 317700,
+      "sha256": "b8766a479548c36f59cb6ce236da9c0a829a3304c3ff2faf12bfcf2b5de1d0ae"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi02_read_81__a.png": {
+      "bytes": 322560,
+      "sha256": "201063bfde159be420b96861057a6ce8fff85de9ff3097982191e23cad45b40c"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi03_page_82__a.png": {
+      "bytes": 274103,
+      "sha256": "48ee3fa911876dbb8baa9cb2883fca228f5f76c0d688aa0cd2a7e0dbe8a0687c"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi04_read_82__a.png": {
+      "bytes": 321159,
+      "sha256": "c90e57cf49d45f449cd8ebf8b1159a04a1177fa70218a2d780853918bc46ab7f"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi05_page_83__a.png": {
+      "bytes": 269815,
+      "sha256": "0b3b6e62287f3af6e333368e0c748151ed39c138e33348f8e1675ff504bea23e"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi06_read_83__a.png": {
+      "bytes": 320348,
+      "sha256": "8b6995836ff785eafefedd20432a50514a7ae663906d6495d31402be3d055437"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi07_page_84__a.png": {
+      "bytes": 275289,
+      "sha256": "367264db57316d1a0e08b37484ebead78ad946a495d0464f3f4a69dd8930f060"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi08_read_84__a.png": {
+      "bytes": 319483,
+      "sha256": "7d5b658b49056b05793c0914ad950caa734e29501bbf82dfcd63a567a4bd1d29"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi09_page_85__a.png": {
+      "bytes": 317194,
+      "sha256": "6ca7e2d34952a824978369590005efad8e10d894005a6e5dd6514616136df057"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi10_read_85__a.png": {
+      "bytes": 319892,
+      "sha256": "6858132eb9e699c69ecfe7352d989bba5cf2c54d0c5f303f3f509597c85fd6ea"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi11_page_86__a.png": {
+      "bytes": 275055,
+      "sha256": "e2dce7a1010cf11e82670a96127dc51219f0c978074101f16bea6aa8867300c3"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi12_read_86__a.png": {
+      "bytes": 322360,
+      "sha256": "9c1f0a4f17604d6043ab23f4b873953623fdb6c0dc21c0759b4b1bbe753093eb"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi13_page_87__a.png": {
+      "bytes": 274175,
+      "sha256": "8a7f6b9bccd71674499413d6fc60eb6dd84149a69ff1f96bee157d5751028cb9"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi14_read_87__a.png": {
+      "bytes": 320805,
+      "sha256": "40e53c0f7881c279713bd9f613dd0ade21763d634a247dbc42dae62343aac832"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi15_page_88__a.png": {
+      "bytes": 272417,
+      "sha256": "f05fe6f662f57af2d9ddc42c330a26f46f9a6e7953f6928b5d3f04f33980cdf4"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi16_read_88__a.png": {
+      "bytes": 321155,
+      "sha256": "ed67c02b4f35ae23f3161c50d49c43be4ca9e32c53b1c60ae6ab7c036936e713"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi17_page_89__a.png": {
+      "bytes": 318397,
+      "sha256": "5cb303622d0763fb916076019c31c5fe2a00f3a05e321d3a999965fbc7f22b02"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi18_read_89__a.png": {
+      "bytes": 320716,
+      "sha256": "232beec667f84dbeae3e0e933db5aa500a3d201ee890774b9c729b4b4d9401e1"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi19_page_90__a.png": {
+      "bytes": 274336,
+      "sha256": "5dc283572613e5f1eb92daec5fcf1c804aad408171d9d76809e360d04488f7d9"
+    },
+    "GAME/APPROVED/PAGES_CH09/MASTERS/pi20_read_90__a.png": {
+      "bytes": 319315,
+      "sha256": "e2f349ddcb093b2c8ceb312f22f61997744191bdacd1eae3df5e6687575a7f4b"
+    }
+  },
+  "tested_source_files": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 1067,
+      "sha256": "74415af44079ac32a69e6c20104e69b5dc20516b95c1ebb571b7fcb559b7f8af"
+    },
+    "SOURCE/data/pages_ch09.json": {
+      "bytes": 5437,
+      "sha256": "9b2aef92ab6998e8290f2e95567c5a839f783dcb375af4b84b7869b7725717ec"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 791810,
+      "sha256": "85808665a25ef0763e3af2568d7e45e73b7b55aa2040cd73ec94c776a6e21018"
+    }
+  }
+}

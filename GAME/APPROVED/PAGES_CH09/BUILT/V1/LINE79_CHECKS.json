@@ -1,0 +1,68 @@
+{
+  "line": 79,
+  "lock": "LOCK 72 V1",
+  "focused": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch09-only",
+    "exit_code": 0,
+    "passed": 444,
+    "total": 444,
+    "failures": 0
+  },
+  "full_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 16512,
+    "total": 16512,
+    "failures": 0
+  },
+  "lock_72_in_both_runs": {
+    "passed": 245,
+    "total": 245,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "pi01_page_81__a.png": "page_81/a",
+    "pi02_read_81__a.png": "read_81/a",
+    "pi03_page_82__a.png": "page_82/a",
+    "pi04_read_82__a.png": "read_82/a",
+    "pi05_page_83__a.png": "page_83/a",
+    "pi06_read_83__a.png": "read_83/a",
+    "pi07_page_84__a.png": "page_84/a",
+    "pi08_read_84__a.png": "read_84/a",
+    "pi09_page_85__a.png": "page_85/a",
+    "pi10_read_85__a.png": "read_85/a",
+    "pi11_page_86__a.png": "page_86/a",
+    "pi12_read_86__a.png": "read_86/a",
+    "pi13_page_87__a.png": "page_87/a",
+    "pi14_read_87__a.png": "read_87/a",
+    "pi15_page_88__a.png": "page_88/a",
+    "pi16_read_88__a.png": "read_88/a",
+    "pi17_page_89__a.png": "page_89/a",
+    "pi18_read_89__a.png": "read_89/a",
+    "pi19_page_90__a.png": "page_90/a",
+    "pi20_read_90__a.png": "read_90/a"
+  },
+  "master_dimensions": [
+    1920,
+    1080
+  ],
+  "master_review": "All ten find and ten read scenes match the locked visible wording and order. Town HUDs match the town find locations. Page 90 alone shows the chapter story. Headless tests verify entry labels, River Market locations, hours and prerequisites.",
+  "native_screenshots": 0,
+  "rules": {
+    "prerequisite": "The built Chapter 4 ending, Knowledge carried, sets chapter4_done.",
+    "find": "Pages 81–90 use the locked town hubs and River Market places, people, 07:00–19:00 hours and prerequisites. Page 81 needs chapter4_done alone. Each subsequent find also needs its predecessor found. Taking records the find with no reading increment.",
+    "read": "Idris offers the lowest found unread page at the River Market masjid. The saying and Idris's response appear in order. Page 90 also shows the Knowledge and patience story.",
+    "journal": "Closing each reading saves its read flag and adds one. The returning-player test goes from 80/100 to 90/100 and restores that count from its save.",
+    "q36": "The recorded runner answer scopes this line's count check to its ten pages.",
+    "q15_r11": "The rules-only checks use the existing Godot layout."
+  },
+  "scholar_checks": {
+    "register": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md",
+    "rows": [
+      24,
+      55
+    ],
+    "status": "OPEN before public release"
+  }
+}

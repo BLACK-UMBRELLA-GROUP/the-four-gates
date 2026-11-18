@@ -942,6 +942,17 @@ pages** in the private Journal.
 
 Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch08-only`.
 
+### The scholar's notebook, Chapter 9 — Knowledge and patience (LOCK 72 V1)
+
+After completing Chapter 4, find pages 81–90 from 07:00 up to 19:00 in
+Waraka, Najmara, Shifara and at the River Market masjid, weaver and inn.
+Start with Yunus the muezzin at the River Market masjid. Each subsequent
+pickup requires taking the preceding page. Idris offers the lowest found
+unread page at the masjid. Page 90 includes the chapter story. Closing
+each reading adds one to **The scholar's pages** in the private Journal.
+
+Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch09-only`.
+
 ## LOCK 74 — Wudu with Idris
 
 After meeting Idris, choose **Idris will show you wudu** at the River Market
