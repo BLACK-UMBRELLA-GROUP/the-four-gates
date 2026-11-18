@@ -827,6 +827,17 @@ Telling the truth or blaming Faris adds the corresponding account to
 and count it in the **Journal**. The headless suite covers all three responses
 at trust 10, 50 and 80.
 
+## LOCK 61 — A ring found in the masjid
+
+At the River Market masjid, **Something is shining under a prayer mat** is
+available from 07:00 up to 20:00. Ask Yunus to announce the ring or keep it
+for eight coins. Use **Back** on either ending to count the mission once in
+the **Journal**. Three days after the announcement, **Umm Salim is asking
+about a ring** appears during the same hours. Returning it adds six River
+Market trust and Salma's account to **What people say**. Use **Back** to
+complete the follow-up. Run its focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --side-ring-masjid-only`.
+
 ## LOCK 62 — A cheat at archery
 
 At the River Market gate, **There's an archery contest outside the gate** is

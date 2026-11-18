@@ -105,6 +105,10 @@ func _run() -> void:
 		await check_side_water_seller_runtime()
 		finish()
 		return
+	if "--side-ring-masjid-only" in OS.get_cmdline_user_args():
+		await check_side_ring_masjid_runtime()
+		finish()
+		return
 	if "--jisra-masjid-only" in OS.get_cmdline_user_args():
 		await check_jisra_masjid_runtime()
 		finish()
@@ -310,6 +314,7 @@ func _run() -> void:
 	await check_side_water_seller_runtime()
 	await check_side_thirsty_dog_runtime()
 	await check_side_spilled_spice_runtime()
+	await check_side_ring_masjid_runtime()
 	await check_side_archery_runtime()
 	await check_side_stranger_runtime()
 	await check_jisra_people_runtime()
@@ -5227,6 +5232,140 @@ func _check_goods_in_trust_path(mission: Dictionary, follow_up: Dictionary, trus
 	check(runner.state() == completion and runner.journal(app) == counted
 		and find_button(app.ui, mission.button) == null and find_button(app.ui, follow_up.button) == null,
 		"Save and Continue preserves the witness account and both hidden completions")
+
+
+func check_side_ring_masjid_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/SIDE_RING_MASJID/RECORD/side_ring_masjid_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/side_ring_masjid.json")
+	check(not locked.is_empty() and runtime == locked, "ring data is byte-identical to LOCK 61")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var mission: Dictionary = runner.missions.get("ring_masjid", {})
+	var follow_up: Dictionary = runner.missions.get("ring_owner", {})
+	check(approved is Dictionary and mission == approved.missions[0] and follow_up == approved.missions[1],
+		"the production index loads both locked ring missions")
+	if mission.is_empty() or follow_up.is_empty():
+		return
+
+	app.set_process(false)
+	reset_at_market_place("masjid", 2, 8)
+	_check_ring_mission_hours(mission, 8)
+	set_market_day_time(11, 8 * 60)
+	check(find_button(app.ui, follow_up.button) == null, "the owner needs an announcement even after three days")
+	move_market_fixture("inn")
+	check(find_button(app.ui, mission.button) == null, "the ring is offered only at the masjid")
+	for trust: int in [10, 50, 80]:
+		await _check_ring_path(mission, follow_up, trust, 0, "announce", "ring_announced", 0)
+		await _check_ring_path(mission, follow_up, trust, 1, "keep", "ring_kept", 8)
+	app.set_process(true)
+	var failures_added := failures - failures_before
+	print("LOCK 61 TESTS: ", checks - checks_before - failures_added, "/", checks - checks_before,
+		" passed; failures=", failures_added)
+
+
+func _check_ring_mission_hours(mission: Dictionary, day: int) -> void:
+	for minute: int in [419, 420, 1199, 1200]:
+		set_market_day_time(day, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 420 and minute < 1200),
+			"%s follows its locked masjid hours at minute %d" % [mission.id, minute])
+
+
+func _check_ring_path(mission: Dictionary, follow_up: Dictionary, trust: int, choice_index: int,
+		ending: String, flag: String, coin_change: int) -> void:
+	const DAY := 8
+	const MINUTE := 480
+	const COINS := 2
+	reset_at_market_place("masjid", COINS, DAY)
+	app.progress.apply_trust(trust - app.progress.trust)
+	set_market_day_time(DAY, MINUTE)
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var journal := runner.journal(app)
+	var sayings: Array = app.ui.reputation_lines()
+	var jisra_trust := runner.town_trust(app, "jisra")
+	var choices: Array = mission.scenes.a.choices
+
+	app.show_screen("game")
+	await press_button(mission.button, "the masjid offers the ring in the walking view")
+	_check_runner_scene_copy(mission, "a")
+	var displayed := visible_text().split("\n")
+	check(find_button(app.ui, choices[0].label) != null and find_button(app.ui, choices[1].label) != null
+		and displayed.find(choices[0].label) < displayed.find(choices[1].label)
+		and find_button(app.ui, words.scene_back) == null, "the game's two locked choices are in order")
+	await press_button(choices[choice_index].label, "choose the locked ring response: " + ending)
+	_check_runner_scene_copy(mission, ending)
+	check_wallet(trust, COINS + coin_change, "the first choice applies only its locked coin effect")
+	check(runner.state().flags == {flag: DAY} and runner.state().done.is_empty(),
+		"the first choice sets its branch flag on the choice day and waits for Back to complete")
+	check(app.ui.reputation_lines() == sayings and runner.journal(app) == journal,
+		"neither first choice earns an account or changes the Journal before Back")
+	await press_button(words.scene_back, "Back completes the side mission")
+	check(app.ui.screen == "game" and app.current_place == "masjid"
+		and runner.state().done == {mission.id: DAY} and find_button(app.ui, mission.button) == null
+		and find_button(app.ui, follow_up.button) == null,
+		"Back returns to the masjid and hides the completed ring action")
+	journal.side.done += 1
+	check(runner.journal(app) == journal, "the first scene increments only the side-mission count, once")
+
+	set_market_day_time(DAY + 2, MINUTE)
+	check(find_button(app.ui, follow_up.button) == null, "the owner is still absent after two days")
+	set_market_day_time(DAY + 3, MINUTE)
+	if ending == "announce":
+		_check_ring_mission_hours(follow_up, DAY + 3)
+		set_market_day_time(DAY + 3, MINUTE)
+		move_market_fixture("inn")
+		check(find_button(app.ui, follow_up.button) == null, "the owner follows the masjid place condition")
+		move_market_fixture("masjid")
+		await press_button(follow_up.button, "the owner appears at the masjid after three days")
+		_check_runner_scene_copy(follow_up, "a")
+		var give: Dictionary = follow_up.scenes.a.choices[0]
+		check(runner.choices(app, follow_up, follow_up.scenes.a) == [give]
+			and find_button(app.ui, words.scene_back) == null, "returning the ring is the only opening action")
+		await press_button(give.label, "give the ring to Umm Salim")
+		_check_runner_scene_copy(follow_up, "b")
+		check_wallet(trust + 6, COINS, "returning the ring gives six River Market trust")
+		check(not runner.mission_done(app, follow_up.id), "the follow-up is complete only after Back")
+		await press_button(words.scene_back, "Back records the owner's follow-up completion")
+		check(runner.state().done == {mission.id: DAY, follow_up.id: DAY + 3},
+			"the runner records both completion days under Q21")
+		sayings = sayings + [follow_up.say.returned]
+	else:
+		check(find_button(app.ui, follow_up.button) == null and not runner.mission_done(app, follow_up.id),
+			"keeping the ring never unlocks the owner")
+
+	check(runner.state().flags == {flag: DAY} and runner.town_trust(app, "jisra") == jisra_trust,
+		"the branch flag keeps its original day and Jisra trust stays local")
+	check(runner.journal(app) == journal, "the follow-up earns no additional Journal row or count under Q21")
+	set_market_day_time(DAY + 4, MINUTE)
+	check(find_button(app.ui, mission.button) == null and find_button(app.ui, follow_up.button) == null,
+		"the one-time mission and the completed or locked follow-up stay hidden")
+
+	app.show_screen("market_map")
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines() == sayings,
+		"only returning the ring adds the locked Salma account")
+	if ending == "announce":
+		check_reputation_row(follow_up.say.returned)
+	await press_button(app.chapter.rep.to_map, "return to the market from What people say")
+	await press_button(words.journal_button, "open the private Journal")
+	check(app.ui.screen == "journal" and has_visible_label(app.ui, str(words.journal.count).format(
+		{"n": journal.side.done, "m": journal.side.total})) and not has_visible_label(app.ui, follow_up.title),
+		"the visible Journal shows one side completion and no owner row")
+	await press_button(words.journal.back, "return to the market from the Journal")
+
+	move_market_fixture("masjid")
+	var saved := runner.state()
+	app.show_screen("pause")
+	app.save_game(true)
+	app.begin_game()
+	app.show_screen("title")
+	app.continue_game()
+	check(app.current_place == "masjid" and runner.state() == saved and runner.journal(app) == journal
+		and find_button(app.ui, mission.button) == null and find_button(app.ui, follow_up.button) == null,
+		"Save and Continue restores the branch, earned account, completions and hidden buttons")
 
 
 func check_side_stranger_runtime() -> void:

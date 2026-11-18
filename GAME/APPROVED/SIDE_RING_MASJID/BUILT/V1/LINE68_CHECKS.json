@@ -1,0 +1,73 @@
+{
+  "line": 68,
+  "lock": "LOCK 61 V1",
+  "focused": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --side-ring-masjid-only",
+    "exit_code": 0,
+    "passed": 423,
+    "total": 423,
+    "failures": 0
+  },
+  "full_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 14244,
+    "total": 14244,
+    "failures": 0
+  },
+  "lock_61_in_both_runs": {
+    "passed": 224,
+    "total": 224,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "sm01_ring_masjid__a.png": "ring_masjid/a",
+    "sm02_ring_masjid__announce.png": "ring_masjid/announce",
+    "sm03_ring_masjid__keep.png": "ring_masjid/keep",
+    "sm04_ring_owner__a.png": "ring_owner/a",
+    "sm05_ring_owner__b.png": "ring_owner/b"
+  },
+  "asserted": {
+    "entry": {
+      "place": "River Market masjid",
+      "available_at": [
+        "07:00",
+        "19:59"
+      ],
+      "hidden_at": [
+        "06:59",
+        "20:00"
+      ],
+      "hidden_away_from_masjid": true
+    },
+    "scene_copy": "Locked title, kicker, five paragraphs, ordered choice buttons and Back.",
+    "all_paths_tested_at_trust": [
+      10,
+      50,
+      80
+    ],
+    "announce": {
+      "flag": "ring_announced",
+      "coin_delta": 0,
+      "ring_owner_opens_after_days": 3
+    },
+    "keep": {
+      "flag": "ring_kept",
+      "coin_delta": 8,
+      "ring_owner_opens": false
+    },
+    "return": {
+      "river_market_trust_delta": 6,
+      "what_people_say": [
+        "Returned Umm Salim's ring",
+        "Salma the baker",
+        1
+      ]
+    },
+    "journal_q21": "Back counts ring_masjid once. ring_owner has no Journal row or count.",
+    "saved_state": "Save and Continue restores the branch flag, witness account where earned, completion days and hidden buttons."
+  },
+  "native_screenshots": 0,
+  "presentation_scope": "Q15 and R11 specify headless rules checks. All five 1920 × 1080 masters were reviewed as design references."
+}

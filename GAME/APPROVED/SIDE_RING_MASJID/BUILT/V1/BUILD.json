@@ -1,0 +1,82 @@
+{
+  "line": 68,
+  "lock": "LOCK 61 V1",
+  "brief": "DOC-TFG-0195",
+  "questions_answer_rows": [
+    15,
+    21
+  ],
+  "tested_base_commit_sha": "44e7221e8cd9b1e3bf14ba3a427b4b2f562dd588",
+  "tested_source": "Base commit plus the source files identified by SHA-256. The containing commit is recorded in the 18 Nov task note.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T10:55:42Z",
+  "locked_inputs": {
+    "GAME/APPROVED/SIDE_RING_MASJID/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_RING_MASJID.md": {
+      "bytes": 3055,
+      "sha256": "306b0a728959e879ffa60522b845ea7a5b811d8a9e22deeaec83b3eaa61652bc"
+    },
+    "GAME/APPROVED/SIDE_RING_MASJID/RECORD/LOCK_RECORD.md": {
+      "bytes": 770,
+      "sha256": "be3c2fe749a36bd8b1694a140fcc91c78aa811c5ac1c0104a471e13cc3dbe6f6"
+    },
+    "GAME/APPROVED/SIDE_RING_MASJID/RECORD/SIDE_RING_MASJID_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3907,
+      "sha256": "621ffee078626b5b206d2eb39355806755a25d33f927e789709ce1394c7e708f"
+    },
+    "GAME/APPROVED/SIDE_RING_MASJID/RECORD/side_ring_masjid_data_V1.json": {
+      "bytes": 2242,
+      "sha256": "b7f65a3d9e9527a38c4c5f3ddb7de3efff6dac432fa04e6e6c7932b081ea6963"
+    },
+    "GAME/APPROVED/SIDE_RING_MASJID/MASTERS/sm01_ring_masjid__a.png": {
+      "bytes": 305006,
+      "sha256": "5117fc1a8a94415aa81f1afb8bfaf463ade9b9aa91278757f1548e357cdef403"
+    },
+    "GAME/APPROVED/SIDE_RING_MASJID/MASTERS/sm02_ring_masjid__announce.png": {
+      "bytes": 311342,
+      "sha256": "37d63e7b4d0272b3889b0db42b53be3c0bd3c2a9dd36ff3ff79d8c2b85ae11fa"
+    },
+    "GAME/APPROVED/SIDE_RING_MASJID/MASTERS/sm03_ring_masjid__keep.png": {
+      "bytes": 309250,
+      "sha256": "8f9846a360bd971a76e84583a5ab9b63b233893c12dcbea611ac81adc8e8e7c3"
+    },
+    "GAME/APPROVED/SIDE_RING_MASJID/MASTERS/sm04_ring_owner__a.png": {
+      "bytes": 313119,
+      "sha256": "462c7a368f69fe7b85f9ab827f4777dba3ee9017a065991331e5aa5a04de9d4a"
+    },
+    "GAME/APPROVED/SIDE_RING_MASJID/MASTERS/sm05_ring_owner__b.png": {
+      "bytes": 310036,
+      "sha256": "ce3e5bef0cfe63220c175cde11894d3efc04a8813164b0ad10594fa4a9eebb1a"
+    }
+  },
+  "runner_contract": {
+    "path": "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md",
+    "rules": "R1–R12",
+    "bytes": 10811,
+    "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 860,
+      "sha256": "1069ab742840517a0db5d4a5ca84dfac2a360632c6f4345e93c296ea67335f81"
+    },
+    "SOURCE/data/side_ring_masjid.json": {
+      "bytes": 2242,
+      "sha256": "b7f65a3d9e9527a38c4c5f3ddb7de3efff6dac432fa04e6e6c7932b081ea6963"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 718578,
+      "sha256": "41e8616b97b3c9a26c453613ed4b2b93eaeda54538ec8ac2bfc313f4fe5c86ea"
+    },
+    "SOURCE/README.md": {
+      "bytes": 58014,
+      "sha256": "294de8d018b0c788a5c37cf7caa5c3e285be9ad8251630507220b980245406ac"
+    }
+  },
+  "evidence": {
+    "LINE68_CHECKS.json": {
+      "bytes": 2031,
+      "sha256": "2cd763c70f7153182f77686286f5296e1cfde68552ce5cea798d6fde91a5abb6"
+    }
+  }
+}
