@@ -1,0 +1,75 @@
+{
+  "line": 101,
+  "lock": "LOCK 94 V1",
+  "brief": "DOC-TFG-0294",
+  "tested_base_commit_sha": "11692e02f414ca58094698dc77642671c368bdfe",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily report identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T15:41:36+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --family-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_94": 200,
+    "focused": 399,
+    "headless_full_suite": 18704
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/FAMILY/BRIEFS/BUILD_BRIEF_2026-11-09_FAMILY.md": {
+      "bytes": 2742,
+      "sha256": "950d401c90f10dda3d3bd4057865edbcb66786c64767b2a3148ad3701638331e"
+    },
+    "GAME/APPROVED/FAMILY/RECORD/FAMILY_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 4184,
+      "sha256": "2cd5828f6530935c129d9fd2cc6d32912b045b925e88fd3aae4ebea2eac634b2"
+    },
+    "GAME/APPROVED/FAMILY/RECORD/LOCK_RECORD.md": {
+      "bytes": 716,
+      "sha256": "a670bb6631f9c76bf162c04a0a9cff4af8b814000b324d6bd605637a37ea182f"
+    },
+    "GAME/APPROVED/FAMILY/RECORD/family_data_V1.json": {
+      "bytes": 3320,
+      "sha256": "5d2dced13f10c76c90a91dd1f00d4853fb75d58ecfd0c51ebb48d3141d57ab42"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/FAMILY/MASTERS/og01_expecting__a.png": {
+      "bytes": 316206,
+      "sha256": "c488fcf8ab16848f1cbe131e8dfe826426be5803440a4a1a8a2d3ffe8c8e7f9d"
+    },
+    "GAME/APPROVED/FAMILY/MASTERS/og02_baby_born__a.png": {
+      "bytes": 296874,
+      "sha256": "1c0cec57699bf5b4af5b8ba6362f2c35db18fae090f56049a5623c742919f9c4"
+    },
+    "GAME/APPROVED/FAMILY/MASTERS/og03_baby_born__b.png": {
+      "bytes": 315036,
+      "sha256": "ba5ce4547389cb2f8a438f8ea6349456ea76e14035d545201dd9aeb86f64da1e"
+    },
+    "GAME/APPROVED/FAMILY/MASTERS/og04_aqiqah__a.png": {
+      "bytes": 309435,
+      "sha256": "4583521402c24ed7d77e7a99cea3ef092b83c10e54a02c66965e0c1be96bb8e9"
+    },
+    "GAME/APPROVED/FAMILY/MASTERS/og05_aqiqah__b.png": {
+      "bytes": 314149,
+      "sha256": "22c49698ff6a1ae1d8b50db017dc619ab65d84dad787cf4db014a8bbdd8b6d3c"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 1420,
+      "sha256": "043de4bcbde1715f4be1928bde791c95392c649faecbb2f547857116a4246a98"
+    },
+    "SOURCE/data/family.json": {
+      "bytes": 3320,
+      "sha256": "5d2dced13f10c76c90a91dd1f00d4853fb75d58ecfd0c51ebb48d3141d57ab42"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 935003,
+      "sha256": "848bb95df5472cf6049a07d82ac48f070f01f5ff105f469c3ffbfeacf13e0a71"
+    }
+  }
+}

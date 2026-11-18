@@ -1179,3 +1179,16 @@ adds an account to **What people say**.
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --marriage-only`.
+
+## LOCK 94 — A daughter and the aqiqah
+
+At the River Market quay, good news from home opens 300 in-game days after
+marriage, from 08:00 until 19:00. The daughter's birth opens at the quay 270 days
+after telling Idris, from 05:00 until 21:00. Choose one of three names. The
+aqiqah opens at the gate seven days after the birth, from 07:00 until 18:00.
+
+The 15-coin aqiqah adds 30 meals to the private Journal goal and one account to
+**What people say**. The 8-coin option adds 15 meals. Neither changes trust.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --family-only`.

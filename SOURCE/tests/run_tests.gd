@@ -297,6 +297,10 @@ func _run() -> void:
 		await check_marriage_runtime()
 		finish()
 		return
+	if "--family-only" in OS.get_cmdline_user_args():
+		await check_family_runtime()
+		finish()
+		return
 	if "--truth-only" in OS.get_cmdline_user_args():
 		await check_truth_runtime()
 		finish()
@@ -460,6 +464,7 @@ func _run() -> void:
 	await check_businesses_runtime()
 	await check_waqf_runtime()
 	await check_marriage_runtime()
+	await check_family_runtime()
 	finish()
 
 
@@ -7496,8 +7501,10 @@ func _check_runner_mission_hours(mission: Dictionary, day: int) -> void:
 		set_market_day_time(day, 0)
 		check(find_button(app.ui, mission.button) != null, "%s window includes midnight" % mission.id)
 	set_market_day_time(day, opens)
-	move_market_fixture("gate")
+	move_market_fixture("quay" if mission.place == "gate" else "gate")
 	check(find_button(app.ui, mission.button) == null, "%s is hidden at the wrong place" % mission.id)
+	app._runner_action("mission", mission)
+	check(app.ui.screen == "market_map", "%s rejects a direct request from the wrong place" % mission.id)
 	check(app.scene_runner.available_missions(app, "jisra", mission.place).all(
 		func(available: Dictionary) -> bool: return available.id != mission.id),
 		"%s belongs only to the River Market" % mission.id)
@@ -9316,7 +9323,7 @@ func _check_marriage_feast(mission: Dictionary, entry: Dictionary, mahr_index: i
 	_check_runner_scene_copy(mission, "nikah")
 	var balance := opening_coins + int(mahr.fx.coins)
 	check(app.progress.coins == balance, "only the locked mahr amount is paid or received")
-	await _save_and_continue_marriage_scene(mission, "nikah")
+	await _save_and_continue_runner_scene(mission, "nikah")
 	check(app.gender == entry.gender and app.progress.coins == balance and runner.state() == entry.scene_runner,
 		"resuming from the nikah preserves gender, the exact mahr transfer and the unfinished mission")
 
@@ -9361,7 +9368,7 @@ func _check_marriage_feast(mission: Dictionary, entry: Dictionary, mahr_index: i
 		and app.progress.trust == entry.progress.trust and app.day == day and app.minute_of_day == minute,
 		"the feast charges its exact cost, counts meals, and leaves trust and time intact")
 	if feast.fx.has("say"):
-		await _save_and_continue_marriage_scene(mission, "walima")
+		await _save_and_continue_runner_scene(mission, "walima")
 		check(app.gender == entry.gender and runner.state() == expected and runner.journal(app) == journal
 			and app.progress.coins == 0 and app.progress.trust == entry.progress.trust,
 			"resuming the feast preserves gender, coins, trust and effects without replaying them")
@@ -9387,12 +9394,213 @@ func _check_marriage_feast(mission: Dictionary, entry: Dictionary, mahr_index: i
 	check(app.ui.screen == "market_map" and runner.state() == expected, "the completed marriage cannot replay")
 
 
-func _save_and_continue_marriage_scene(mission: Dictionary, scene: String) -> void:
+func _save_and_continue_runner_scene(mission: Dictionary, scene: String) -> void:
 	app._answer_reminder(true)
 	await press_button(app.menus.pause.quit, "save and quit following the prayer reminder")
 	var continue_text: String = str(app.menus.title_continue).format({"d": app.ui.continue_date})
-	await press_button(continue_text, "continue the saved marriage scene")
+	await press_button(continue_text, "continue the saved " + str(mission.id) + " scene")
 	_check_runner_scene_copy(mission, scene)
+
+
+func check_family_runtime() -> void:
+	const WEDDING_DAY := 8
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/FAMILY/RECORD/family_data_V1.json")
+	check(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/family.json"),
+		"the Family pack is byte-identical to LOCK 94")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = approved is Dictionary and approved.missions.size() == 3 and approved.missions.all(
+		func(mission: Dictionary) -> bool: return runner.missions.get(mission.id) == mission)
+	check(loaded, "the normal production index loads all three Family missions")
+	if not loaded:
+		return
+
+	var previous := MarketSave.snapshot(app)
+	var original_storage: String = app.storage_directory
+	app.storage_directory = original_storage.path_join("family")
+	app.set_process(false)
+	var expecting: Dictionary = runner.missions.expecting
+	var daughter: Dictionary = runner.missions.baby_born
+	var aqiqah: Dictionary = runner.missions.aqiqah
+	var marriage: Dictionary = runner.missions.marriage
+	var mahr: Dictionary = marriage.scenes.mahr.choices[0]
+	var feast: Dictionary = marriage.scenes.nikah.choices[1]
+	reset_at_market_place(marriage.place, int(mahr.need_coins) + int(feast.need_coins), WEDDING_DAY)
+	for mission: Dictionary in approved.missions:
+		set_market_day_time(WEDDING_DAY + int(mission.after_days.values()[0]), int(mission.hours[0]))
+		move_market_fixture(mission.place)
+		_check_closed_family_mission(mission, "without " + str(mission.after[0]))
+
+	# Complete the built marriage through its normal controls. Only earlier
+	# chapter and house progress are staged for this test.
+	set_market_day_time(WEDDING_DAY, int(marriage.hours[0]))
+	move_market_fixture(marriage.place)
+	app.progress.trust = int(marriage.min_trust)
+	var ready := runner.state()
+	for flag: String in marriage.after:
+		ready.flags[flag] = WEDDING_DAY - 1
+	runner.restore(ready)
+	app.show_screen("market_map")
+	await _open_marriage_scene(marriage, "mahr")
+	await press_button(mahr.label, "pay the mahr for the Family path")
+	await press_button(feast.label, "complete the family wedding feast")
+	await press_button(runner.data.words.scene_back, "return from the wedding")
+	check(runner.mission_done(app, marriage.id) and runner.state().flags.get("married") == WEDDING_DAY,
+		"the live wedding supplies the dated married prerequisite")
+
+	var trust: int = app.progress.trust
+	var coins: int = app.progress.coins
+	var journal := runner.journal(app)
+	var expecting_day := _check_family_entry(expecting, WEDDING_DAY)
+	var expected := runner.state()
+	await press_button(expecting.button, "open the good news at the quay")
+	_check_runner_scene_copy(expecting, expecting.start)
+	var tell: Dictionary = expecting.scenes.a.choices[0]
+	_check_town_hub_button_order([tell.label], "Expecting offers Tell Idris")
+	await press_button(tell.label, "tell Idris about the child")
+	expected.flags[tell.fx.flag] = expecting_day
+	_check_completed_family_mission(expecting, expecting_day, expected)
+	check(app.progress.coins == coins and app.progress.trust == trust and runner.journal(app) == journal,
+		"telling Idris adds no coins, trust or Journal changes")
+
+	var birth_day := _check_family_entry(daughter, expecting_day)
+	var names: Array = daughter.scenes.a.choices
+	var names_in_order: Array[String] = []
+	for choice: Dictionary in names:
+		names_in_order.append(choice.label)
+	var before_birth := MarketSave.snapshot(app)
+	for choice: Dictionary in names:
+		MarketSave.restore(app, before_birth)
+		app.show_screen("market_map")
+		expected = runner.state()
+		await press_button(daughter.button, "open the daughter's birth at the quay")
+		_check_runner_scene_copy(daughter, daughter.start)
+		_check_town_hub_button_order(names_in_order, "the three names appear in data order")
+		await press_button(choice.label, "choose " + str(choice.label))
+		_check_runner_scene_copy(daughter, choice.go)
+		_check_town_hub_button_order([runner.data.words.scene_back], "the daughter's ending offers Back")
+		for flag: String in choice.fx.flag:
+			expected.flags[flag] = birth_day
+		check(runner.state() == expected, "the name sets only its locked flags before Back")
+		await press_button(runner.data.words.scene_back, "return to the quay after naming the daughter")
+		_check_completed_family_mission(daughter, birth_day, expected)
+		check(app.progress.coins == coins and app.progress.trust == trust and runner.journal(app) == journal,
+			"the naming and Back leave coins, trust and the Journal unchanged")
+
+	var aqiqah_day := _check_family_entry(aqiqah, birth_day)
+	var before_aqiqah := MarketSave.snapshot(app)
+	for choice: Dictionary in aqiqah.scenes.a.choices:
+		MarketSave.restore(app, before_aqiqah)
+		app.show_screen("market_map")
+		await _check_family_aqiqah(aqiqah, choice, aqiqah_day)
+
+	app.storage_directory = original_storage
+	MarketSave.restore(app, previous)
+	app.show_screen("market_map")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 94 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_family_entry(mission: Dictionary, flag_day: int) -> int:
+	var day := flag_day + int(mission.after_days[mission.after[0]])
+	var opens := int(mission.hours[0])
+	move_market_fixture(mission.place)
+	set_market_day_time(day - 1, opens)
+	_check_closed_family_mission(mission, "one day early")
+	set_market_day_time(day + 1, opens)
+	check(find_button(app.ui, mission.button) != null, "%s remains available after the first eligible day" % mission.id)
+	_check_runner_mission_hours(mission, day)
+	return day
+
+
+func _check_closed_family_mission(mission: Dictionary, reason: String) -> void:
+	check(find_button(app.ui, mission.button) == null, "%s is hidden %s" % [mission.id, reason])
+	app._runner_action("mission", mission)
+	check(app.ui.screen == "market_map", "%s refuses direct entry %s" % [mission.id, reason])
+
+
+func _check_completed_family_mission(mission: Dictionary, day: int, expected: Dictionary) -> void:
+	var runner: SceneRunner = app.scene_runner
+	expected.done[mission.id] = day
+	check(app.ui.screen == "market_map" and app.current_place == mission.place
+		and runner.state() == expected and runner.mission_done(app, mission.id),
+		"%s returns to its original place and records the completion day" % mission.id)
+	set_market_day_time(day + 1, int(mission.hours[0]))
+	_check_closed_family_mission(mission, "after completion")
+
+
+func _check_family_aqiqah(mission: Dictionary, choice: Dictionary, day: int) -> void:
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var before := runner.state()
+	var trust: int = app.progress.trust
+	var options: Array = mission.scenes.a.choices
+	var regular: Dictionary = options[0]
+	var small: Dictionary = options[1]
+	for boundary: Array in [[int(small.need_coins) - 1, []], [int(small.need_coins), [small.label]],
+			[int(regular.need_coins) - 1, [small.label]], [int(regular.need_coins), [regular.label, small.label]]]:
+		app.progress.coins = boundary[0]
+		if app.ui.screen == "market_map":
+			await press_button(mission.button, "open the aqiqah at the gate")
+			_check_runner_scene_copy(mission, mission.start)
+		else:
+			app.show_screen("runner_mission")
+		var visible: Array[String] = []
+		visible.assign(boundary[1])
+		_check_town_hub_button_order(visible, "aqiqah choices in data order at %d coins" % boundary[0])
+		for option: Dictionary in options:
+			check((find_button(app.ui, option.label) != null) == (option.label in visible),
+				"the aqiqah checks affordability for " + str(option.label))
+			if option.label not in visible:
+				app._runner_action("choice", option)
+				check(app.runner_scene() == mission.scenes.a and app.progress.coins == boundary[0]
+					and runner.state() == before, "direct dispatch rejects an unaffordable aqiqah")
+		if visible.is_empty():
+			await press_button(words.scene_back, "back out when neither aqiqah is affordable")
+			check(app.ui.screen == "market_map" and find_button(app.ui, mission.button) != null
+				and not runner.mission_done(app, mission.id), "leaving an unaffordable aqiqah keeps the offer open")
+
+	app.progress.coins = int(choice.need_coins)
+	app.show_screen("runner_mission")
+	var initial_meals: int = app.feeding.meal_counter.total
+	var initial_sayings: Array = app.ui.reputation_lines()
+	var expected := runner.state()
+	var minute: int = app.minute_of_day
+	var account: Array = mission.say[regular.fx.say]
+	if choice.fx.has("say"):
+		expected.sayings.river_market = expected.sayings.get("river_market", []) + [account]
+	var journal := runner.journal(app)
+	var meals: Dictionary = runner.data.goals.filter(func(goal: Dictionary) -> bool: return goal.id == "meals")[0]
+	var old_goal := {"label": meals.label, "n": initial_meals, "m": int(meals.m)}
+	var goal := {"label": meals.label, "n": initial_meals + int(choice.fx.count.meals), "m": int(meals.m)}
+	journal.goals[journal.goals.find(old_goal)] = goal
+	await press_button(choice.label, "choose " + str(choice.label))
+	_check_runner_scene_copy(mission, choice.go)
+	_check_town_hub_button_order([words.scene_back], "the aqiqah ending offers Back")
+	check(runner.state() == expected and runner.journal(app) == journal and app.progress.coins == 0
+		and app.progress.trust == trust and app.day == day and app.minute_of_day == minute,
+		"the aqiqah applies only the locked price, meal count and any account before Back")
+
+	if choice.fx.has("say"):
+		await _save_and_continue_runner_scene(mission, choice.go)
+		check(runner.state() == expected and runner.journal(app) == journal
+			and app.progress.coins == 0 and app.progress.trust == trust and app.day == day,
+			"the saved ending preserves the dated flags and applies the payment and meals once")
+	await press_button(words.scene_back, "finish the aqiqah and return to the gate")
+	_check_completed_family_mission(mission, day, expected)
+	check(runner.journal(app) == journal and app.feeding.meal_counter.total == goal.n,
+		"Family completion leaves the chapter and side rows alone and updates the existing meals goal")
+	await _check_runner_journal_goal(words, goal)
+	await press_button(app.chapter.purse.morning.to_rep, "open River Market What people say")
+	check(app.ui.reputation_lines().count(account) == initial_sayings.count(account) + int(choice.fx.has("say"))
+		and app.progress.trust == trust, "only the full aqiqah adds its single public account and trust stays fixed")
+	if choice.fx.has("say"):
+		check_reputation_row(account)
+	await press_button(app.chapter.rep.to_map, "return from What people say")
 
 
 func check_businesses_runtime() -> void:
