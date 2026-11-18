@@ -1,0 +1,119 @@
+{
+  "line": 109,
+  "lock": "LOCK 102 V1",
+  "brief": "DOC-TFG-0318",
+  "questions": [
+    "Q15",
+    "Q60"
+  ],
+  "tested_base_commit_sha": "a5fcbafebff09508a9e4c3734e3e252d2786f5b9",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily report identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T17:18:39+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --masjids-of-ilmara-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "focused": 880,
+    "headless_full_suite": 21645
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/MASJIDS_OF_ILMARA/BRIEFS/BUILD_BRIEF_2026-11-09_MASJIDS_OF_ILMARA.md": {
+      "bytes": 2938,
+      "sha256": "52d01ab8c5e1558475362295f74fe96091e203fbe4b62e982314729de043d46a"
+    },
+    "GAME/APPROVED/MASJIDS_OF_ILMARA/RECORD/MASJIDS_OF_ILMARA_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3573,
+      "sha256": "a60606c91ab3d605b76d15fd9643da89ee2a4de40b550a7401b2fbd1ef845799"
+    },
+    "GAME/APPROVED/MASJIDS_OF_ILMARA/RECORD/LOCK_RECORD.md": {
+      "bytes": 771,
+      "sha256": "7ef32b88461315592b7d3338b730d6e6cbcd736b2ee423cd4a2546d297723bbf"
+    },
+    "GAME/APPROVED/MASJIDS_OF_ILMARA/RECORD/masjids_of_ilmara_data_V1.json": {
+      "bytes": 13223,
+      "sha256": "d690e0847910f691dc3c2e106bd1e20dba866005df006bbfb3168bc3794ead0c"
+    },
+    "GAME/APPROVED/MASJIDS_OF_ILMARA/MASTERS/fe01_map__inside_the_walls.png": {
+      "bytes": 201415,
+      "sha256": "57a0bf4ec4b06f77de5520f4cce6049a974db1d94383613b1c0fb532d9845f74"
+    },
+    "GAME/APPROVED/MASJIDS_OF_ILMARA/MASTERS/fe02_map__night_inside_walls_open.png": {
+      "bytes": 204585,
+      "sha256": "59ad5987a3b3223f8ba81b86a4d85127f0689f8e27d8d711dcf5b31c9410798b"
+    },
+    "GAME/APPROVED/MASJIDS_OF_ILMARA/MASTERS/fe03_district__centre.png": {
+      "bytes": 247975,
+      "sha256": "95ae2b3531cc4fcd810cf7d8376f6d2036097c30c48213dbbe420b12fa6698f9"
+    },
+    "GAME/APPROVED/MASJIDS_OF_ILMARA/MASTERS/fe04_district__north.png": {
+      "bytes": 255317,
+      "sha256": "fa3df15f35081f840e69ef83698113258f3aacea1604cda14e0956addbc59654"
+    },
+    "GAME/APPROVED/MASJIDS_OF_ILMARA/MASTERS/fe05_district__west.png": {
+      "bytes": 256710,
+      "sha256": "bc6abea330d0ddd394645eb4eb272ef2c44a8900c3f88d0b79d0ffe9d28fea02"
+    },
+    "GAME/APPROVED/MASJIDS_OF_ILMARA/MASTERS/fe06_district__south.png": {
+      "bytes": 255852,
+      "sha256": "966318f66d06ff0a6b95e2ffb1be5b559af3c37817b3ae9496221aa9eded6db4"
+    },
+    "GAME/APPROVED/MASJIDS_OF_ILMARA/MASTERS/fe07_district__east_lanes.png": {
+      "bytes": 266158,
+      "sha256": "de51a207d19ff122032547bca5a842a2a8ec6344a900d7170fd61f94fead60d1"
+    },
+    "GAME/APPROVED/MASJIDS_OF_ILMARA/MASTERS/fe08_masjid__the_great_masjid.png": {
+      "bytes": 276501,
+      "sha256": "265e63257092f57bc4c9f1e2505e1d948303227a5a18752fb553c009ec5853ae"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "tested_changes": {
+    "SOURCE/README.md": {
+      "bytes": 76297,
+      "sha256": "df275c452d0e72b9af0f8f224b78650e3f38bd67017ed939e45f57e0b71a36c6"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1566,
+      "sha256": "f23b075109dd7aeeb66cf4a2e0caba07791c971debbcf17b5999e81b0db82b68"
+    },
+    "SOURCE/data/masjids_of_ilmara.json": {
+      "bytes": 13223,
+      "sha256": "d690e0847910f691dc3c2e106bd1e20dba866005df006bbfb3168bc3794ead0c"
+    },
+    "SOURCE/game/jisra_masjid.gd": {
+      "bytes": 1231,
+      "sha256": "b991ef3d97929e11566e5466e76730079b3d5ae4aaa552e6f88e2f55d263510c"
+    },
+    "SOURCE/game/market_save.gd": {
+      "bytes": 7573,
+      "sha256": "d3e910c3545974a620d2d23085628c4be6a45129de1c1782fc512b4b87625004"
+    },
+    "SOURCE/game/market_ui.gd": {
+      "bytes": 160915,
+      "sha256": "cb389f687d870c52a613a0f1a879d5ecd65b19c3aa8f563bbbb8c7819e30845b"
+    },
+    "SOURCE/game/river_market.gd": {
+      "bytes": 74252,
+      "sha256": "ef3cf6f0ec517fdddd118a549489c08e133e78ef856abf6f650d2dc676d210ac"
+    },
+    "SOURCE/game/road_map.gd": {
+      "bytes": 5619,
+      "sha256": "569d599acf2c7c663ad5682bcaac334af794d39ae305e3cf1fa43b57377cd05e"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 26788,
+      "sha256": "72a7168ac4106e0d97dd938dc610f07cc56b0439610166482c71130fa02ae077"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 987761,
+      "sha256": "db4f6b7eb8a345157581f4bbf3c9ae21fe307aa026eb985171ea0d70810f97ba"
+    }
+  },
+  "native_screenshot_count": 0
+}

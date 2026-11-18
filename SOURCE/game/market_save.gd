@@ -69,6 +69,7 @@ static func snapshot(game: Node3D) -> Dictionary:
 	}
 	for component: String in COMPONENT_FIELDS:
 		state[component] = _capture_fields(game.get(component), COMPONENT_FIELDS[component])
+	state.jisra_masjid.district_first_greetings = game.jisra_masjid.district_first_greetings
 	return state.duplicate(true)
 
 
@@ -124,6 +125,8 @@ static func read_slot(path: String) -> Dictionary:
 		return {}
 	if not state.get("road_map", {}) is Dictionary:
 		return {}
+	if not state.get("jisra_masjid", {}).get("district_first_greetings", {}) is Dictionary:
+		return {}
 	return state
 
 
@@ -141,6 +144,7 @@ static func restore(game: Node3D, state: Dictionary) -> void:
 		game.jisra_masjid.restore_legacy(game.clock.has_prayed_at_masjid()
 			or game.ramadan.has_prayed_at_masjid() or game.eid_al_fitr.has_prayed_at_masjid()
 			or game.eid_al_adha.has_prayed_at_masjid())
+	game.jisra_masjid.district_first_greetings = values.get("jisra_masjid", {}).get("district_first_greetings", {})
 	game.feeding.meal_counter.total = values.meals_given
 	game.scene_runner.restore(values.get("scene_runner", {}))
 	game.road_map.restore(values.get("road_map", {}))

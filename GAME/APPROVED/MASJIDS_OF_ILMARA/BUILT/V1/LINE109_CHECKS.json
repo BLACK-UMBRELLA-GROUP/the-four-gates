@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "line": 109,
+  "lock": "LOCK 102 V1",
+  "focused": {
+    "passed": 880,
+    "total": 880,
+    "exit_code": 0
+  },
+  "full": {
+    "passed": 21645,
+    "total": 21645,
+    "exit_code": 0
+  },
+  "data": {
+    "byte_identical": true,
+    "runtime": "SOURCE/data/masjids_of_ilmara.json",
+    "bytes": 13223,
+    "sha256": "d690e0847910f691dc3c2e106bd1e20dba866005df006bbfb3168bc3794ead0c"
+  },
+  "covered": [
+    "The existing Road map lists the locked heading, note and five districts in order before the six gates.",
+    "All inside walks stay open through gate closure and reopening. The outside Jisra road retains its locked closure.",
+    "Each district's own map action uses its locked walk time, including the shared 30-minute labels. Road map returns to River Market across midnight.",
+    "Each district uses River Market trust, resolves only its listed masjid IDs and offers no people, work, inn or local sayings.",
+    "All 37 masjids use their locked labels, descriptions and first greetings. Back returns to each originating district.",
+    "Congregational, solo and Friday prayer finish through the shared prayer flow. Opening a masjid and praying in a district hub do not count.",
+    "First prayer counts by masjid ID. A repeat clears only that masjid's greeting and counts no extra visit. Save restore preserves the district, count and first greeting.",
+    "The private Journal renders 37 / 50 after all additions in the fixture. District travel and prayer leave trust, coins and public sayings unchanged."
+  ],
+  "visual_evidence": "Q15 and R11 use headless rules evidence. The inspected fe01–fe08 masters provide the design reference. Q60 and R6 give the Great Masjid the shared Back action to Centre.",
+  "scholar_check": "DOC-TFG-0320 row 73, open before public release."
+}

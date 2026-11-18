@@ -163,6 +163,10 @@ func _run() -> void:
 		await check_jisra_masjid_runtime()
 		finish()
 		return
+	if "--masjids-of-ilmara-only" in OS.get_cmdline_user_args():
+		await check_masjids_of_ilmara_runtime()
+		finish()
+		return
 	if "--road-map-only" in OS.get_cmdline_user_args():
 		await check_road_map_runtime()
 		finish()
@@ -468,6 +472,7 @@ func _run() -> void:
 	await check_animals_runtime()
 	await check_bees_runtime()
 	await check_road_map_runtime()
+	await check_masjids_of_ilmara_runtime()
 	await check_sahila_runtime()
 	await check_sukara_runtime()
 	await check_chapter1_end_runtime()
@@ -10496,7 +10501,11 @@ func _check_animal_roads(runner: SceneRunner) -> void:
 	await press_button(words.map_button, "open the map with the gates shut")
 	app.travel_on_road("jisra")
 	check(app.runner_town_id().is_empty() and app.minute_of_day == 1200 and app.ui.screen == "runner_road_map"
-		and not visible_text().contains(go.get_slice("{n}", 0)), "animals cannot bypass the locked night closure")
+		and find_button(app.ui, go.format({"n": 45})) == null, "animals cannot bypass the locked outside-road night closure")
+	for district: Dictionary in runner.data.get("ilmara", {}).get("towns", {}).values():
+		check(_ilmara_walk_button(district, words) != null
+			and app.road_map.travel_minutes(app, "", district.id) == int(district.walk),
+			"the animal does not change the locked night walk to " + str(district.name))
 
 
 func check_truth_runtime() -> void:
@@ -16951,3 +16960,170 @@ func _check_finale_ending_path(trust: int, choice_index: int, ending: String, en
 	set_market_day_time(DAY + 1, MINUTE)
 	check(find_button(app.ui, last_page.button) == null and find_button(app.ui, your_choice.button) == null,
 		"both one-time missions stay hidden during their hours on the next day")
+
+
+func check_masjids_of_ilmara_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/MASJIDS_OF_ILMARA/RECORD/masjids_of_ilmara_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/masjids_of_ilmara.json")
+	check(not locked.is_empty() and locked == runtime, "Ilmara uses byte-identical LOCK 102 data")
+	var parsed: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded := parsed is Dictionary and runner.data.has("ilmara")
+	check(loaded, "the production content index loads the Ilmara districts")
+	if not loaded:
+		return
+	var ilmara: Dictionary = parsed.ilmara
+	var starting_state := MarketSave.snapshot(app)
+	app.set_process(false)
+	reset_at_market_place("gate", 25, 8)
+	app.progress.trust = int(data.numbers.gate_trust)
+	app.progress.lesson_done = true
+	app.update_state()
+	await press_button(app.gate_of_trust.data.gate_open_button, "open the Gate of Trust using its existing requirements")
+	await press_button(app.gate_of_trust.data.opening.no, "stay at River Market after opening its gate")
+	var road: Dictionary = app.road_map.data.words
+	await press_button(road.map_button, "open the existing Road map at River Market")
+	var map_text := visible_text().split("\n")
+	var previous := map_text.find(road.ilmara)
+	check(previous >= 0 and map_text.find(ilmara.map_title) > previous
+		and map_text.find(ilmara.note) > map_text.find(ilmara.map_title), "the map shows Inside the walls and its exact note below River Market")
+	previous = map_text.find(ilmara.note)
+	for district: Dictionary in ilmara.towns.values():
+		var index := map_text.find(district.name)
+		check(index > previous, "the district appears in locked map order: " + str(district.name))
+		previous = index
+	var first_gate: Dictionary = app.road_map.data.gates[0]
+	check(map_text.find("%s · %s" % [first_gate.name, first_gate.dir]) > previous,
+		"the outside gates follow the inside map rows")
+	var outside_go := str(road.go).format({"n": app.road_map.travel_minutes(app, "", "jisra")})
+	for minute: int in [1199, 1200, 279, 280]:
+		set_market_day_time(8, minute)
+		var outside_open: bool = minute == 1199 or minute == 280
+		check((find_button(app.ui, outside_go) != null) == outside_open, "the Jisra road observes the closure boundary at %d" % minute)
+		var inside_buttons := 0
+		for district: Dictionary in ilmara.towns.values():
+			if _ilmara_walk_button(district, road) != null:
+				inside_buttons += 1
+		check(inside_buttons == ilmara.towns.size(), "all five walk buttons are usable at minute %d" % minute)
+		if not outside_open:
+			app.travel_on_road("jisra")
+			check(app.ui.screen == "runner_road_map" and app.minute_of_day == minute, "the outside travel action rejects night departures")
+	await press_button(road.back, "return to River Market before the district walks")
+
+	var prayed := {}
+	for district_id: String in ilmara.towns:
+		await _check_ilmara_district(district_id, ilmara, prayed)
+	check(prayed.size() == 37 and app.jisra_masjid.prayed_in == prayed, "all 37 locked IDs count exactly once")
+	var words: Dictionary = runner.data.words
+	var goal_label: String = ""
+	for goal: Dictionary in runner.data.goals:
+		if goal.id == "masjids":
+			goal_label = goal.label
+			break
+	var masjid_goal: Dictionary = {}
+	for goal: Dictionary in runner.journal(app).goals:
+		if goal.label == goal_label:
+			masjid_goal = goal
+			break
+	check(masjid_goal.get("n") == 37 and masjid_goal.get("m") == 50, "the private Journal retains the full-game goal of 50")
+	await press_button(words.journal_button, "open the Journal from River Market")
+	check(has_visible_label(app.ui, goal_label)
+		and has_visible_label(app.ui, str(words.journal.count).format(masjid_goal)), "the Journal renders the actual masjid count and goal")
+	await press_button(words.journal.back, "leave the Journal")
+	check(app.progress.trust == int(data.numbers.gate_trust) and app.progress.coins == 25
+		and runner.state().trust.is_empty() and runner.state().sayings.is_empty(), "walking and praying change neither trust, money nor public sayings")
+	MarketSave.restore(app, starting_state)
+	app.show_screen("market_map")
+	app.set_process(true)
+
+
+func _ilmara_walk_button(district: Dictionary, road: Dictionary) -> Button:
+	var row := find_visible_label(app.ui, district.name)
+	if row == null:
+		return null
+	var caption := str(road.go).format({"n": int(district.walk)})
+	return find_button_in_row(row.get_parent(), caption, row.global_position.y)
+
+
+func _check_ilmara_district(id: String, ilmara: Dictionary, prayed: Dictionary) -> void:
+	var district: Dictionary = ilmara.towns[id]
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var road: Dictionary = app.road_map.data.words
+	var walk := int(district.walk)
+	var noon: int = app._minutes(identity.clock.prayers[1].begins)
+	check(runner.towns.get(id) == district.merged({"id": id}) and runner.is_ilmara_district(id),
+		"the district preserves its locked metadata: " + id)
+	set_market_day_time(8, 1200)
+	await press_button(road.map_button, "open the River Market Road map for " + id)
+	await press_control(_ilmara_walk_button(district, road), "take the district's own row at night: " + id)
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == id and app.minute_of_day == 1200 + walk,
+		"the locked walk reaches the right district at the right time: " + id)
+	check(has_visible_label(app.ui, district.name) and has_visible_label(app.ui, str(district.kicker).to_upper())
+		and visible_text().split("\n").has(district.text), "the district shows its locked heading and description: " + id)
+	check_gate_of_trust_meter(data.ui.hud.trust_label, app.progress.trust)
+	check(runner.town_people(app, id).is_empty() and not runner.can_work(app, id) and runner.inn_cost(id) == -1
+		and runner.available_missions(app, id, "").is_empty(), "no people, work, inn or missions in " + id)
+	check(find_button(app.ui, str(words.rep_button).format({"town": district.name})) == null
+		and find_button(app.ui, words.road_back) == null, "Road map replaces local sayings and the fallback exit in " + id)
+	var records := runner.town_masjids(id)
+	var actions: Array[String] = []
+	for masjid_id: String in district.masjids:
+		actions.append(ilmara.masjids[masjid_id].button)
+	actions.append(road.map_button)
+	set_market_day_time(8, 600)
+	_check_town_hub_button_order(actions, "the district lists masjids in locked order, then Road map: " + id)
+	check(records.size() == district.masjids.size(), "every listed ID resolves in " + id)
+	set_market_day_time(8, noon)
+	var hub_prayer: String = app.clock.prayer_label(false)
+	await press_button(hub_prayer, "pray in the district hub outside a masjid")
+	check(app.jisra_masjid.prayed_in == prayed, "the hub prayer adds no masjid ID")
+	for index in records.size():
+		var masjid_id: String = district.masjids[index]
+		var masjid: Dictionary = ilmara.masjids[masjid_id]
+		check(records[index] == masjid.merged({"id": masjid_id}), "the runner resolves locked copy by ID: " + masjid_id)
+		await _check_ilmara_masjid(masjid_id, masjid, prayed, noon, index)
+	set_market_day_time(8, 1430)
+	await press_button(road.map_button, "use Road map as the district exit: " + id)
+	await press_button(road.back, "Back from Road map returns to " + id)
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == id, "map Back preserves the origin district")
+	await press_button(road.map_button, "reopen the Road map in " + id)
+	await press_button(str(road.go).format({"n": walk}), "walk back to River Market at night: " + id)
+	check(app.ui.screen == "market_map" and app.current_place == "gate" and app.runner_town_id().is_empty()
+		and app.minute_of_day == (1430 + walk) % 1440 and app.day == 8 + int(1430 + walk >= 1440),
+		"the district walk back applies its exact time across midnight: " + id)
+
+
+func _check_ilmara_masjid(id: String, masjid: Dictionary, prayed: Dictionary, noon: int, index: int) -> void:
+	var back: String = app.scene_runner.data.words.back
+	set_market_day_time(8, 600)
+	await press_button(masjid.button, "enter " + id)
+	check(app.ui.screen == "runner_masjid" and has_visible_label(app.ui, masjid.title)
+		and has_visible_label(app.ui, str(masjid.kicker).to_upper()) and visible_text().split("\n").has(masjid.text),
+		"opening the masjid shows its exact locked words: " + id)
+	check(app.clock.prayer_label(true).is_empty() and find_button(app.ui, app.jisra_masjid.data.masjid.back) == null,
+		"no prayer outside prayer time, and only the town Back label: " + id)
+	check(app.jisra_masjid.prayed_in == prayed, "entering alone does not add the masjid: " + id)
+	var day := 9 if index == 2 else 8
+	var minute := noon + 30 if index == 1 else noon
+	set_market_day_time(day, minute)
+	var prayer: String = app.clock.prayer_label(true)
+	await press_button(prayer, "pray at " + id)
+	prayed[id] = true
+	check(app.jisra_masjid.prayed_in == prayed and visible_text().split("\n").has(masjid.first)
+		and visible_text().split("\n").has(app.jisra_masjid.counter()), "first prayer counts the exact ID and shows its greeting: " + id)
+	await press_button(back, "leave " + id)
+	var town: String = app.runner_town_id()
+	check(app.ui.screen == "runner_town" and not town.is_empty(), "Back from the masjid reaches the district")
+	if index == 0:
+		MarketSave.restore(app, MarketSave.snapshot(app))
+		app.show_screen("runner_town")
+		check(app.runner_town_id() == town and app.jisra_masjid.prayed_in == prayed, "save restores the district and private count")
+	await press_button(masjid.button, "reopen " + id + " before praying again")
+	check(visible_text().split("\n").has(masjid.first), "the first greeting lasts until the next prayer at " + id)
+	set_market_day_time(10, noon)
+	await press_button(app.clock.prayer_label(true), "pray again at " + id)
+	check(app.jisra_masjid.prayed_in == prayed and visible_text().split("\n").has(masjid.text)
+		and not visible_text().split("\n").has(masjid.first), "a repeat prayer clears the greeting and does not count again: " + id)
+	await press_button(back, "return to the same district from " + id)
+	check(app.runner_town_id() == town and app.ui.screen == "runner_town", "the masjid returns to its original district: " + id)

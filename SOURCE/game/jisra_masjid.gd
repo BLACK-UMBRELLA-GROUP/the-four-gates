@@ -6,6 +6,7 @@ const JISRA := "jisra"
 
 var data: Dictionary
 var prayed_in: Dictionary = {}
+var district_first_greetings: Dictionary = {}
 var show_first := false
 
 
@@ -15,6 +16,7 @@ func _init(source: Dictionary) -> void:
 
 func reset() -> void:
 	prayed_in.clear()
+	district_first_greetings.clear()
 	show_first = false
 
 
@@ -31,6 +33,13 @@ func record_prayer(masjid_id: String, loaded_town_masjid := false) -> void:
 	if masjid_id == JISRA:
 		show_first = not prayed_in.has(JISRA)
 	prayed_in[masjid_id] = true
+
+
+func remember_district_greeting(masjid_id: String, first_prayer: bool) -> void:
+	if first_prayer:
+		district_first_greetings[masjid_id] = true
+	else:
+		district_first_greetings.erase(masjid_id)
 
 
 func counter() -> String:

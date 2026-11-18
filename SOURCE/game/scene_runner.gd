@@ -58,6 +58,11 @@ static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 						chapters_by_number[int(chapter.n)] = chapter
 				"missions", "towns", "people", "masjids":
 					_merge_records(content[key], document[key])
+				"ilmara":
+					var districts: Dictionary = document.ilmara
+					_merge_records(content.towns, districts.towns)
+					_merge_records(content.masjids, districts.masjids)
+					content.ilmara = districts
 				"town_says":
 					_merge_town_sayings(content.town_says, document[key])
 				"goals":
@@ -561,9 +566,14 @@ func _town_id(town: String) -> String:
 	return RIVER_MARKET if town.is_empty() else town
 
 
+func is_ilmara_district(town: String) -> bool:
+	return towns.has(town) and data.get("ilmara", {}).get("towns", {}).has(town)
+
+
 func town_trust(app, town: String) -> int:
-	match _town_id(town):
-		RIVER_MARKET: return app.progress.trust
+	if _town_id(town) == RIVER_MARKET or is_ilmara_district(town):
+		return app.progress.trust
+	match town:
 		JISRA: return app.gate_of_trust.jisra_trust
 	var town_data: Dictionary = towns.get(town, {})
 	return int(_trust.get(town, town_data.get("start_trust", 0)))
@@ -571,7 +581,7 @@ func town_trust(app, town: String) -> int:
 
 func _add_trust(app, town: String, amount: int) -> void:
 	var id := _town_id(town)
-	if id == RIVER_MARKET:
+	if id == RIVER_MARKET or is_ilmara_district(id):
 		app.progress.apply_trust(amount)
 		return
 	var limits: Dictionary = app.progress.data.numbers
@@ -681,7 +691,8 @@ func work(app, town: String) -> String:
 
 func inn_cost(town: String) -> int:
 	var town_data: Dictionary = towns.get(town, {})
-	return int(town_data.get("inn", -1))
+	var cost: Variant = town_data.get("inn")
+	return -1 if cost == null else int(cost)
 
 
 func rest(app, town: String) -> String:

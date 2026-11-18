@@ -1041,6 +1041,8 @@ func _do_prayer(action: Callable, compact_receipt: bool = false, masjid_id: Stri
 	if not receipt.is_empty() and not masjid_id.is_empty():
 		if town_masjid:
 			runner_masjid_first = not jisra_masjid.prayed_in.has(masjid_id)
+			if scene_runner.is_ilmara_district(runner_town_id()):
+				jisra_masjid.remember_district_greeting(masjid_id, runner_masjid_first)
 		jisra_masjid.record_prayer(masjid_id, town_masjid)
 	var adhan: String = _prayer_adhan
 	_prayer_adhan = null
@@ -1657,10 +1659,13 @@ func _road_is_shut() -> bool:
 
 
 func travel_on_road(town: String) -> void:
-	if ui.screen != "runner_road_map" or road_map.data.is_empty() or road_map.roads_are_shut(minute_of_day):
+	if ui.screen != "runner_road_map" or road_map.data.is_empty():
 		return
 	var origin := runner_town_id()
-	if origin == town or (not town.is_empty() and not road_map.town_is_open(self, road_map.road_to(town))):
+	if origin == town or road_map.route_is_shut(self, origin, town, minute_of_day):
+		return
+	if not town.is_empty() and not scene_runner.is_ilmara_district(town) \
+			and not road_map.town_is_open(self, road_map.road_to(town)):
 		return
 	var minutes := road_map.travel_minutes(self, origin, town)
 	if minutes > 0:
@@ -1755,7 +1760,7 @@ func _runner_action(action: String, value: Variant) -> void:
 		"back":
 			_runner_back()
 		"people", "sayings":
-			if at_hub:
+			if at_hub and not (action == "sayings" and scene_runner.is_ilmara_district(town)):
 				show_screen("runner_" + action)
 		"road_map":
 			update_state()
@@ -1773,7 +1778,7 @@ func _runner_action(action: String, value: Variant) -> void:
 		"masjid":
 			if at_hub and value in scene_runner.town_masjids(town):
 				runner_masjid = value
-				runner_masjid_first = false
+				runner_masjid_first = jisra_masjid.district_first_greetings.has(value.id)
 				show_screen("runner_masjid")
 		"work", "inn":
 			if at_hub:

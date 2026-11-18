@@ -1163,7 +1163,7 @@ func _build_hud() -> void:
 	var town: Dictionary = scene_runner.towns.get(town_id, {})
 	var trust_value: int = scene_runner.town_trust(get_parent(), town_id)
 	var trust_label: String = gate_of_trust.data.jisra.meter if at_jisra else data.ui.hud.trust_label
-	if not town.is_empty():
+	if not town.is_empty() and not scene_runner.is_ilmara_district(town_id):
 		var template: String = scene_runner.data.words.trep.title.get_slice(":", 0)
 		trust_label = template.format({"town": town.name})
 	var trust_width := roundf((306 if at_jisra else 352) * text_multiplier)
@@ -2171,11 +2171,16 @@ func _build_road_map() -> void:
 	var y := 0.0
 	if shut:
 		y += _story_text(rows, road_map.night_message(), y) + 16.0
-	y = _road_map_place_row(rows, y, copy.ilmara, "", origin, shut, true)
+	y = _road_map_place_row(rows, y, copy.ilmara, "", origin, true)
+	var ilmara: Dictionary = scene_runner.data.get("ilmara", {})
+	if not ilmara.is_empty():
+		y = _road_map_heading(rows, y, ilmara.map_title)
+		y = _road_map_status(rows, y, ilmara.note)
+		for district: Dictionary in ilmara.towns.values():
+			if scene_runner.is_ilmara_district(district.id):
+				y = _road_map_place_row(rows, y, district.name, district.id, origin, true)
 	for gate: Dictionary in road_map.data.gates:
-		_chapter_row_rule(rows, y)
-		_label(rows, "%s · %s" % [gate.name, gate.dir], Vector2(34, y + 10), Vector2(1120, 36), 23, PAPER, true)
-		y += 49.0
+		y = _road_map_heading(rows, y, "%s · %s" % [gate.name, gate.dir])
 		if not road_map.gate_is_open(app, gate):
 			var closed := str(copy.opens_at).format({"n": int(gate.opens_at)}) if gate.has("opens_at") \
 				else str(copy.gate_closed).format({"gate": gate.name})
@@ -2186,7 +2191,7 @@ func _build_road_map() -> void:
 			y = _road_map_status(rows, y, copy.no_roads)
 		for road: Dictionary in roads:
 			y = _road_map_place_row(rows, y, road_map.data.names[road.town], road.town,
-				origin, shut, road_map.town_is_open(app, road))
+				origin, road_map.town_is_open(app, road))
 	_chapter_button(rows, copy.back, Vector2(34, y + 12.0), func(): runner_requested.emit("back", null))
 	rows.custom_minimum_size.y = y + 82.0
 	var scroll := rows.get_parent() as ScrollContainer
@@ -2194,12 +2199,18 @@ func _build_road_map() -> void:
 	_chapter_finish(panel, 111.0 + scroll.size.y - 58.0)
 
 
+func _road_map_heading(panel: Panel, y: float, title: String) -> float:
+	_chapter_row_rule(panel, y)
+	_label(panel, title, Vector2(34, y + 10), Vector2(1120, 36), 23, PAPER, true)
+	return y + 49.0
+
+
 func _road_map_status(panel: Panel, y: float, value: String) -> float:
 	_label(panel, value, Vector2(64, y), Vector2(1090, 35), 20, PAPER)
 	return y + 45.0
 
 
-func _road_map_place_row(panel: Panel, y: float, place: String, town: String, origin: String, shut: bool, opened: bool) -> float:
+func _road_map_place_row(panel: Panel, y: float, place: String, town: String, origin: String, opened: bool) -> float:
 	var app := get_parent()
 	var road_map = app.road_map
 	var copy: Dictionary = road_map.data.words
@@ -2209,7 +2220,7 @@ func _road_map_place_row(panel: Panel, y: float, place: String, town: String, or
 		status = copy.here
 	elif not opened:
 		status = copy.closed
-	elif not shut:
+	elif not road_map.route_is_shut(app, origin, town, clock.minute_of_day):
 		var minutes: int = road_map.travel_minutes(app, origin, town)
 		if minutes > 0:
 			var go := str(copy.go).format({"n": minutes})
@@ -2354,7 +2365,8 @@ func _town_actions(id: String) -> Array[Dictionary]:
 		actions.append(_runner_action(words.people_button, "people", null))
 	if scene_runner.can_work(get_parent(), id):
 		actions.append(_runner_action(town.work.label, "work", null))
-	actions.append(_runner_action(str(words.rep_button).format({"town": town.name}), "sayings", null))
+	if not scene_runner.is_ilmara_district(id):
+		actions.append(_runner_action(str(words.rep_button).format({"town": town.name}), "sayings", null))
 	for masjid: Dictionary in scene_runner.town_masjids(id):
 		actions.append(_runner_action(masjid.button, "masjid", masjid))
 	return actions

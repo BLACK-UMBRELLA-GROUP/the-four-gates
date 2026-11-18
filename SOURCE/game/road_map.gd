@@ -125,7 +125,21 @@ func town_is_open(app, road: Dictionary) -> bool:
 	return false
 
 
+func _inside_walk_minutes(app, origin: String, destination: String) -> int:
+	if origin.is_empty() == destination.is_empty():
+		return -1
+	var district := destination if origin.is_empty() else origin
+	var runner = app.scene_runner
+	return int(runner.towns[district].walk) if runner.is_ilmara_district(district) else -1
+
+
+func route_is_shut(app, origin: String, destination: String, minute: int) -> bool:
+	return roads_are_shut(minute) and _inside_walk_minutes(app, origin, destination) < 0
+
+
 func travel_minutes(app, origin: String, destination: String) -> int:
+	if app.scene_runner.is_ilmara_district(origin) or app.scene_runner.is_ilmara_district(destination):
+		return _inside_walk_minutes(app, origin, destination)
 	var from := road_to(origin)
 	var to := road_to(destination)
 	if (not origin.is_empty() and from.is_empty()) or (not destination.is_empty() and to.is_empty()):

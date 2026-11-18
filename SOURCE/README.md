@@ -1256,3 +1256,19 @@ Nahla and Tahuna use the wind, bees and mill cues respectively.
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --sound-only`.
+
+## LOCK 102 — The masjids of Ilmara
+
+Open the **Road map** at River Market's opened Gate of Trust. The **Inside the
+walls** section lists walks to Centre, North, West, South and East · the back
+lanes. Walk from River Market to any district and back at any hour. The
+outside roads still close at night.
+
+The five districts share River Market's trust and contain 37 masjids. **Back**
+returns from a masjid to its district. **Road map** leaves the district hub.
+The first prayer at each masjid adds one to **Masjids you have prayed in** in
+the private Journal, toward the full game's goal of 50. Prayer leaves trust
+and coins as they were.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --masjids-of-ilmara-only`.
