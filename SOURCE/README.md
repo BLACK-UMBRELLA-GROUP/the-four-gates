@@ -611,6 +611,18 @@ The Gate of Patience opens at 20% journey progress.
 
 Run the focused rules checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --chapter1-end-only`.
 
+## LOCK 40 V2 — Safira, the slow pilgrim and lost at night
+
+Safira is 120 minutes from Ilmara through the Gate of Patience. The hub offers local
+work, three residents, the caravanserai masjid and a two-coin inn. **The slow pilgrim**
+is available from 05:00 up to 12:00. Completing it opens **Lost at night** from 18:00 up
+to 22:00. Both missions finish with **Back** on the ending. **What Safira says** shows
+the accounts your choices earn. The missions save their completion and appear in the
+**Journal** when Chapter 2 is loaded.
+
+Run the focused rules checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --safira-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from

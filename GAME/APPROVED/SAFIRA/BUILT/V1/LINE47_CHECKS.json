@@ -1,0 +1,19 @@
+{
+  "line": 47,
+  "result": "passed",
+  "checks_passed": {
+    "lock_40": 263,
+    "focused": 462,
+    "headless_full_suite": 9487
+  },
+  "coverage": [
+    "The production index loads the byte-identical LOCK 40 V2 data. The line 43 road takes 120 minutes each way from Ilmara once the Gate of Patience opens.",
+    "The hub uses the R6 button order, local trust, 06:00–18:00 work outside Friday prayer, four coins per 60-minute shift, one trust on the first shift of the day and the two-coin inn.",
+    "The caravanserai masjid resolves by ID. Only the first prayer shows the greeting and increases the distinct-masjid count. Back returns to Safira.",
+    "Harun, Amina and Shuayb use their exact lines at trust 10, 50 and 80. Their Talk buttons follow hours and Friday prayer. Shuayb is always available. The relevant mission flags add Harun's and Amina's memories.",
+    "The slow pilgrim opens at 05:00 and closes at 12:00. The camel choice requires 15 coins. Lost at night opens at 18:00 and closes at 22:00 after the slow pilgrim.",
+    "All three endings of each mission use the locked copy and record the specified trust, coins, clock, flags, stars and local accounts. Back records completion. The two missions stay hidden in their hours after saving and restoring.",
+    "Q26 and R8 keep Chapter 2 rows deferred to line 49. The tests confirm both saved completions and the current Journal contents."
+  ],
+  "visual_reference": "All 23 masters reviewed. Q26 uses Back to Safira in sf13 and sf14 and the corrected left in sf20 and sf21. Q15 and R11 specify headless rules evidence and the existing Godot layout."
+}

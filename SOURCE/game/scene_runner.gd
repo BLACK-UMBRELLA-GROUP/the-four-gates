@@ -304,8 +304,8 @@ func _add_trust(app, town: String, amount: int) -> void:
 		_trust[id] = trust
 
 
-func _within_hours(minute: int, hours: Array) -> bool:
-	if hours.is_empty():
+func _within_hours(minute: int, hours: Variant) -> bool:
+	if hours == null or hours.is_empty():
 		return true
 	var opens := int(hours[0])
 	var closes := int(hours[1])

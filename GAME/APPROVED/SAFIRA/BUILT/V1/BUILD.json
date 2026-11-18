@@ -1,0 +1,158 @@
+{
+  "line": 47,
+  "lock": "LOCK 40 V2",
+  "brief": "DOC-TFG-0132",
+  "tested_base_commit_sha": "99ab04fce86c06442e011f19defed4379ba92acc",
+  "tested_source": "Base commit plus the hashed source files. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T07:58:41+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --safira-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_40": 263,
+    "focused": 462,
+    "headless_full_suite": 9487
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SAFIRA/BRIEFS/BUILD_BRIEF_2026-11-09_SAFIRA.md": {
+      "bytes": 3942,
+      "sha256": "1c956fe93a9c663a000fccfee74715de87f6764c4e280b228e13bd98e74bfef5"
+    },
+    "GAME/APPROVED/SAFIRA/RECORD/LOCK_RECORD.md": {
+      "bytes": 1147,
+      "sha256": "658e10e1b04ca41df8acb91518451d7660c12600372f05b534d0c0ec56a53b8e"
+    },
+    "GAME/APPROVED/SAFIRA/RECORD/SAFIRA_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 6821,
+      "sha256": "1523cc50b0dd4120733bcf57100b70ebf2446e27ad03e2fdd2ae0ee87306a0c5"
+    },
+    "GAME/APPROVED/SAFIRA/RECORD/safira_data_V2.json": {
+      "bytes": 6984,
+      "sha256": "e28aab0dfc1af9383704d6d45c8f6a8c221ff9fd1618e34d12c9f99022a7f0a5"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf01_safira__town.png": {
+      "bytes": 257051,
+      "sha256": "44a39b70929290d393d3a1eea202ab7f076b9c843808a4277303eb4d7e28ca28"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf02_safira__people.png": {
+      "bytes": 251855,
+      "sha256": "8bef63709ca41e72241c46ef24b5d7552b8a40e414131109cb24490dc0af8be7"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf03_safira__harun_trust_10.png": {
+      "bytes": 269313,
+      "sha256": "da8ec65d081dea3869a04120bcda494348ca0954b02159f6b1e0acbbb38b494b"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf04_safira__harun_trust_50.png": {
+      "bytes": 270322,
+      "sha256": "ba7295325676f7497ee9f02c731fb0ca88df6e89b8f3306b3bc5a203c851009b"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf05_safira__harun_trust_80.png": {
+      "bytes": 269887,
+      "sha256": "8832ee1a80bfd9314345d8166c641e5642ad857e39f37e7c2a2d854c74fb094d"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf06_safira__amina_trust_10.png": {
+      "bytes": 270002,
+      "sha256": "40ea425dfe6cb8433f0d5a90f41de76f710e4fcd31482c1f3c4be3ee970aad47"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf07_safira__amina_trust_50.png": {
+      "bytes": 270378,
+      "sha256": "2f15fb01a63f0562363ea9990ef71d8c693961000c3fbbc88d26b0a8e2fe4678"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf08_safira__amina_trust_80.png": {
+      "bytes": 269652,
+      "sha256": "84fd75879eca150b1708592e03a9c87c39169630bc3eb1760192d57ffd5c27a6"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf09_safira__shuayb_trust_10.png": {
+      "bytes": 270462,
+      "sha256": "df309730d9fc603331a0d2c2424f82e5cf82f59377be6870fb53d156184375e6"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf10_safira__shuayb_trust_50.png": {
+      "bytes": 270207,
+      "sha256": "dabb25bf360dfc14eb3043b6bf3e000306401624147480dab84841abec40ce26"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf11_safira__shuayb_trust_80.png": {
+      "bytes": 270463,
+      "sha256": "769e9454e6d10aa11c419d95b9f42037352a33bb8c2543ca0eb4a9c5a24e230d"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf12_safira__what_people_say_empty.png": {
+      "bytes": 270336,
+      "sha256": "19eda517dd2b5c05561d6151888fb878ae806b5551538f86393156934f7fccfc"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf13_safira__masjid_prayer.png": {
+      "bytes": 271148,
+      "sha256": "321802daf634cf8e555375deee29a4a7352aa15f9a988f811be10fbf59bafb43"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf14_safira__masjid_first_prayer.png": {
+      "bytes": 273980,
+      "sha256": "52f194bbea36c95f59a3ba1f73995d6eff3972b6cc946f824e657f8d85548587"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf15_slow_pilgrim__a.png": {
+      "bytes": 238732,
+      "sha256": "28ffc1990f223dfedf49b38fa67ef05ddc815d8327fe4401b0c1ff8b4a7b8e7a"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf16_slow_pilgrim__walk.png": {
+      "bytes": 266725,
+      "sha256": "cbd9153f0b515f052edcae7817c5c1000e26e0e373c61410368ccfc8e6abda63"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf17_slow_pilgrim__camel.png": {
+      "bytes": 262317,
+      "sha256": "abdac591f39e7a34df4c4078560df9dd22eb17d83ca41860f9245f3e47822014"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf18_slow_pilgrim__left.png": {
+      "bytes": 266789,
+      "sha256": "d1ac9863cc7ffe1d9eebeef3ba08b5cd046560fc06bc966f80516beb535c786e"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf19_lost_night__a.png": {
+      "bytes": 244824,
+      "sha256": "9346c527a6baec90d3969e82abf27882494784cbd5f83c103a8c8e92b5737f39"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf20_lost_night__b.png": {
+      "bytes": 247250,
+      "sha256": "f1b241e59293731e9b2aef9a0554d94064db6b08ac7c5dca0dab2facf0498c4d"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf21_lost_night__found.png": {
+      "bytes": 265545,
+      "sha256": "665e58841611f4f47a4a61383080cda0f091cd01eda3fd48dbc8885734bd2a6e"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf22_lost_night__lost.png": {
+      "bytes": 263796,
+      "sha256": "f3612ae43640fa0e7da68c2b23462cdd4312115c00f913c51f9e4a21390e7d56"
+    },
+    "GAME/APPROVED/SAFIRA/MASTERS/sf23_lost_night__wait.png": {
+      "bytes": 268461,
+      "sha256": "07ed6c4129d85b4094b4426390278b181005eabb8bede421b95fd676c3098b4b"
+    }
+  },
+  "runner_contract": "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md, R1–R12",
+  "question_answers": [
+    15,
+    26
+  ],
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 48780,
+      "sha256": "20676ef486e58b9f76d6eaf6b3e5ed45321eaaf39f0d1ea907fdd2a3c9e320af"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 510,
+      "sha256": "a5d786ba3b7a13521d10eb87dc615577b07a12b75f7b0bb8cb6e7303e02fdf89"
+    },
+    "SOURCE/data/safira.json": {
+      "bytes": 6984,
+      "sha256": "e28aab0dfc1af9383704d6d45c8f6a8c221ff9fd1618e34d12c9f99022a7f0a5"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 15823,
+      "sha256": "fef4a514468ff7cba9471e965b7896326eaf14f5f3deb6cf5c854e5e35c7b14d"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 530849,
+      "sha256": "09a599626504652886f3c47ac7b5378910ce2ff55d04b3eef9bcc66e2db02910"
+    }
+  },
+  "native_screenshots": 0,
+  "compiled_exports": 0
+}

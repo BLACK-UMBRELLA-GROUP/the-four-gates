@@ -113,6 +113,10 @@ func _run() -> void:
 		await check_chapter1_end_runtime()
 		finish()
 		return
+	if "--safira-only" in OS.get_cmdline_user_args():
+		await check_safira_runtime()
+		finish()
+		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
 		await check_jisra_people_runtime()
 		finish()
@@ -260,6 +264,7 @@ func _run() -> void:
 	await check_sahila_runtime()
 	await check_sukara_runtime()
 	await check_chapter1_end_runtime()
+	await check_safira_runtime()
 	finish()
 
 
@@ -8516,3 +8521,240 @@ func _check_chapter1_end_path(mission: Dictionary) -> void:
 	await press_button(words.journal.back, "return from the Journal to the masjid")
 	set_market_day_time(app.day + 1, 600)
 	check(find_button(app.ui, mission.button) == null, "the once-only action stays hidden on a later day")
+
+
+func check_safira_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/SAFIRA/RECORD/safira_data_V2.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/safira.json")
+	check(not locked.is_empty() and runtime == locked, "Safira runtime is the byte-identical LOCK 40 V2 file")
+	var copy: Variant = JSON.parse_string(runtime.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = copy is Dictionary and runner.towns.has("safira") \
+		and runner.missions.has("slow_pilgrim") and runner.missions.has("lost_night")
+	check(loaded, "the production content index loads Safira and both missions")
+	if not loaded:
+		return
+	var town: Dictionary = runner.towns.safira
+	var masjid: Dictionary = copy.masjids.safira
+	var slow: Dictionary = runner.missions.slow_pilgrim
+	var night: Dictionary = runner.missions.lost_night
+	var words: Dictionary = runner.data.words
+	check(town == copy.towns.safira.merged({"id": "safira"}) and [slow, night] == copy.missions
+		and runner.town_people(app, "safira") == copy.people, "Safira uses the locked town, missions and residents in order")
+	check(runner.town_masjids("safira") == [masjid.merged({"id": "safira"})], "Safira resolves the separate masjid by ID")
+	var original := MarketSave.snapshot(app)
+	app.set_process(false)
+	await _check_safira_road()
+	await _check_safira_hub(town, masjid, slow, night, words)
+	await _check_safira_people(copy.people, words)
+	for path: Array in [[0, "found"], [1, "lost"], [2, "wait"]]:
+		await _check_safira_missions(slow, night, path[0], path[1], words)
+	MarketSave.restore(app, original)
+	app.show_screen("market_map")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 40 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_safira_road() -> void:
+	reset_at_market_place("gate", 15, 8)
+	app.progress.gate_open = true
+	app.update_state()
+	var road: Dictionary = app.road_map.data.words
+	var destination: Dictionary = app.road_map.road_to("safira")
+	var go := str(road.go).format({"n": 120})
+	await press_button(road.map_button, "open line 43's Road map from Ilmara")
+	check(not app.road_map.town_is_open(app, destination) and find_button(app.ui, go) == null,
+		"loading Safira still requires the Gate of Patience")
+	await press_button(road.back, "leave the Road map before opening Patience in the fixture")
+	app.road_map.restore({"patience": true})
+	await press_button(road.map_button, "open the map with Patience unlocked")
+	await press_button(go, "take the 120-minute road to Safira")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "safira" and app.minute_of_day == 720,
+		"the inherited road reaches the loaded Safira hub in two hours")
+	await press_button(road.map_button, "use the hub's Road map exit")
+	await press_button(road.back, "return to the hub from the map")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "safira", "map Back preserves Safira")
+	await press_button(road.map_button, "reopen the hub's Road map")
+	await press_button(go, "take the 120-minute road back to Ilmara")
+	check(app.ui.screen == "market_map" and app.runner_town_id().is_empty() and app.minute_of_day == 840,
+		"the road returns to Ilmara and advances the shared clock")
+
+
+func _enter_safira_fixture(coins: int = 15) -> void:
+	reset_at_market_place("gate", coins, 8)
+	app.enter_runner_town("safira")
+
+
+func _check_safira_hub(town: Dictionary, masjid: Dictionary, slow: Dictionary, night: Dictionary, words: Dictionary) -> void:
+	_enter_safira_fixture(25)
+	var runner: SceneRunner = app.scene_runner
+	var sayings := str(words.rep_button).format({"town": town.name})
+	var inn := str(words.inn_button).format({"n": 2})
+	var map_button: String = app.road_map.data.words.map_button
+	var noon: int = app._minutes(identity.clock.prayers[1].begins)
+	check(app.ui.screen == "runner_town" and has_visible_label(app.ui, town.name)
+		and has_visible_label(app.ui, str(town.kicker).to_upper()) and visible_text().split("\n").has(town.text),
+		"the hub shows the locked Safira title, kicker and description")
+	check_gate_of_trust_meter("Trust · Safira", 10)
+	var morning_actions: Array[String] = [slow.button, words.people_button, town.work.label, sayings, masjid.button,
+		inn, map_button]
+	_check_town_hub_button_order(morning_actions, "the Safira hub follows R6 in the morning")
+	check(find_button(app.ui, words.road_back) == null, "Road map is the loaded hub's exit")
+	for minute: int in [299, 300, 359, 360, 719, 720, 1079, 1080, 1319, 1320]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, slow.button) != null) == (minute >= 300 and minute < 720)
+			and (find_button(app.ui, town.work.label) != null) == (minute >= 360 and minute < 1080)
+			and find_button(app.ui, night.button) == null, "job and mission gates at minute %d before the first ending" % minute)
+	set_market_day_time(8, noon)
+	var prayer: String = app.clock.prayer_label(false)
+	check(not prayer.is_empty(), "the hub offers prayer in its prayer window")
+	var prayer_actions: Array[String] = [words.people_button, town.work.label, sayings, masjid.button, prayer, inn, map_button]
+	_check_town_hub_button_order(prayer_actions, "prayer is between the masjid and inn")
+	set_market_day_time(9, noon)
+	check(find_button(app.ui, town.work.label) == null, "Friday prayer closes the camel work")
+	var market_trust: int = app.progress.trust
+	for shift: Array in [[10, 600, 29, 11], [10, 660, 33, 11], [11, 600, 37, 12]]:
+		set_market_day_time(shift[0], shift[1])
+		await press_button(town.work.label, "work a 60-minute shift watering the camels")
+		check(app.progress.coins == shift[2] and runner.town_trust(app, town.id) == shift[3]
+			and app.minute_of_day == shift[1] + 60 and app.progress.trust == market_trust,
+			"work pays four coins each shift and earns one local trust on the first shift of the day")
+	for day: int in [11, 12]:
+		set_market_day_time(day, noon)
+		await press_button(masjid.button, "open the caravanserai masjid")
+		check(app.ui.screen == "runner_masjid" and has_visible_label(app.ui, masjid.title)
+			and has_visible_label(app.ui, str(masjid.kicker).to_upper()) and visible_text().split("\n").has(masjid.text),
+			"the resolved masjid shows its locked words before prayer")
+		await press_button(identity.clock.pray_congregation, "pray at the caravanserai masjid")
+		check(app.jisra_masjid.prayed_in == {"safira": true}
+			and visible_text().split("\n").has(masjid.first) == (day == 11), "the first prayer alone shows the greeting and adds to the count")
+		await press_button(words.back, "Back from the masjid")
+		check(app.ui.screen == "runner_town" and app.runner_town_id() == "safira", "Back returns to Safira")
+	await press_button(inn, "rest overnight at the Safira inn")
+	check(app.progress.coins == 35 and app.day == 13 and app.minute_of_day == 280
+		and app.runner_town_id() == "safira", "the inn costs two coins and wakes at 04:40 in Safira")
+
+
+func _check_safira_people(residents: Array, words: Dictionary) -> void:
+	_enter_safira_fixture(14)
+	var runner: SceneRunner = app.scene_runner
+	var slow: Dictionary = runner.missions.slow_pilgrim
+	await press_button(slow.button, "open the slow pilgrim with only 14 coins")
+	check(find_button(app.ui, slow.scenes.a.choices[1].label) == null, "the camel choice requires fifteen coins")
+	_enter_safira_fixture()
+	await press_button(words.people_button, "open the Safira people list")
+	check(app.ui.screen == "runner_people" and has_visible_label(app.ui, words.people.title), "the people list shows the locked heading")
+	for person: Dictionary in residents:
+		check(has_visible_label(app.ui, person.name) and has_visible_label(app.ui, str(person.role).to_upper()),
+			"the people list shows the locked name and role for " + str(person.name))
+	for band: Array in [[10, "wary"], [50, "friendly"], [80, "warm"]]:
+		var state := runner.state()
+		state.trust.safira = band[0]
+		runner.restore(state)
+		for index in residents.size():
+			var person: Dictionary = residents[index]
+			var buttons := _runner_talk_buttons(words)
+			check(buttons.size() == 3, "all three Safira residents have their own Talk button")
+			if buttons.size() != 3:
+				break
+			await press_control(buttons[index], "talk to %s at Safira trust %d" % [person.name, band[0]])
+			check(app.ui.screen == "runner_person" and has_visible_label(app.ui, person.name)
+				and visible_text().split("\n").has(person.lines[band[1]]), "the exact %s line for %s" % [band[1], person.name])
+			await press_button(words.talk.back, "return to the people list")
+	for moment: Array in [[8, 0, [2]], [8, 299, [2]], [8, 300, [0, 1, 2]], [8, 1199, [0, 1, 2]],
+		[8, 1200, [1, 2]], [8, 1259, [1, 2]], [8, 1260, [2]], [9, 725, [1, 2]], [9, 760, [0, 1, 2]]]:
+		set_market_day_time(moment[0], moment[1])
+		var text := visible_text().split("\n")
+		for index in residents.size():
+			var away := str(words.people.away).format({"name": residents[index].name})
+			check(text.has(away) == (index not in moment[2]), "%s availability at minute %d" % [residents[index].name, moment[1]])
+		check(_runner_talk_buttons(words).size() == moment[2].size(), "Talk buttons follow hours, Friday prayer and always-available Shuayb")
+	await press_button(words.people.back, "return from the people list")
+	await _check_town_sayings("safira", [], words)
+
+
+func _check_safira_missions(slow: Dictionary, night: Dictionary, slow_choice: int, ending: String, words: Dictionary) -> void:
+	_enter_safira_fixture()
+	var runner: SceneRunner = app.scene_runner
+	var expected := runner.state()
+	var journal := runner.journal(app)
+	var market_trust: int = app.progress.trust
+	var sayings: Array = []
+	await press_button(slow.button, "open The slow pilgrim")
+	_check_runner_scene_copy(slow, "a")
+	for choice: Dictionary in slow.scenes.a.choices:
+		check(find_button(app.ui, choice.label) != null, "the slow pilgrim offers " + str(choice.label))
+	var choice: Dictionary = slow.scenes.a.choices[slow_choice]
+	await press_button(choice.label, "take the slow pilgrim's " + str(choice.go) + " path")
+	_check_runner_scene_copy(slow, choice.go)
+	expected.flags.slow_pilgrim_done = 8
+	if slow_choice == 0:
+		expected.flags.slow_pilgrim_walked = 8
+		expected.trust.safira = 18
+		sayings.append(slow.say.walked)
+	elif slow_choice == 1:
+		expected.trust.safira = 15
+		sayings.append(slow.say.camel)
+	if not sayings.is_empty():
+		expected.sayings.safira = sayings.duplicate()
+	check(runner.state() == expected and app.progress.coins == (0 if slow_choice == 1 else 15)
+		and app.day == 8 and app.minute_of_day == (840 if slow_choice == 0 else 600),
+		"the slow pilgrim's exact effects precede completion on Back")
+	await press_button(words.scene_back, "complete The slow pilgrim")
+	expected.done.slow_pilgrim = 8
+	check(runner.state() == expected and app.ui.screen == "runner_town", "Back completes the slow pilgrim and returns to the hub")
+	await _check_town_sayings("safira", sayings, words)
+	for minute: int in [1079, 1080, 1319, 1320]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, night.button) != null) == (minute >= 1080 and minute < 1320),
+			"the first mission unlocks Lost at night at minute %d" % minute)
+	set_market_day_time(8, 1290)
+	await press_button(night.button, "open Lost at night after the slow pilgrim")
+	_check_runner_scene_copy(night, "a")
+	if ending == "wait":
+		await press_button(night.scenes.a.choices[1].label, "leave the search to Harun's men")
+	else:
+		await press_button(night.scenes.a.choices[0].label, "take the lantern")
+		_check_runner_scene_copy(night, "b")
+		check(runner.state() == expected and app.minute_of_day == 1290, "taking the lantern has no effects")
+		var index := 0 if ending == "found" else 1
+		await press_button(night.scenes.b.choices[index].label, "take the " + ending + " path")
+	_check_runner_scene_copy(night, ending)
+	expected.flags.safira_done = 8
+	if ending == "found":
+		expected.flags.night_found = 8
+		expected.counters.stars = 1
+		expected.trust.safira = int(expected.trust.get("safira", 10)) + 10
+		sayings.append(night.say.found)
+		expected.sayings.safira = sayings.duplicate()
+	elif ending == "lost":
+		expected.trust.safira = int(expected.trust.get("safira", 10)) + 3
+	var end_day := 9 if ending == "lost" else 8
+	check(runner.state() == expected and app.progress.trust == market_trust
+		and app.progress.coins == (0 if slow_choice == 1 else 15)
+		and app.day == end_day and app.minute_of_day == (30 if ending == "lost" else 1290),
+		"the night ending records the exact flags, trust, stars and clock effects")
+	await press_button(words.scene_back, "complete Lost at night")
+	expected.done.lost_night = end_day
+	check(runner.state() == expected and app.ui.screen == "runner_town", "Back records the night ending on its completion day")
+	await _check_town_sayings("safira", sayings, words)
+	for person: Dictionary in runner.town_people(app, "safira"):
+		var lines := runner.person_lines(app, "safira", person)
+		var expected_lines := [person.lines.wary]
+		if not person.memory.is_empty() and expected.flags.has(person.memory[0][0]):
+			expected_lines.append(person.memory[0][1])
+		check(lines == expected_lines, "the completed paths give the exact dialogue and memory for " + str(person.name))
+	var saved := MarketSave.snapshot(app)
+	runner.reset()
+	MarketSave.restore(app, saved)
+	app.show_screen("runner_town")
+	check(app.runner_town_id() == "safira" and runner.state() == expected and runner.journal(app) == journal,
+		"Q26 saves both missions and their effects without exposing Chapter 2 rows before line 49")
+	set_market_day_time(10, 600)
+	check(find_button(app.ui, slow.button) == null, "the completed slow pilgrim stays hidden during its hours after reload")
+	set_market_day_time(10, 1140)
+	check(find_button(app.ui, night.button) == null, "the completed night mission stays hidden during its hours after reload")
