@@ -101,6 +101,10 @@ func _run() -> void:
 		await check_road_map_runtime()
 		finish()
 		return
+	if "--sahila-only" in OS.get_cmdline_user_args():
+		await check_sahila_runtime()
+		finish()
+		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
 		await check_jisra_people_runtime()
 		finish()
@@ -245,6 +249,7 @@ func _run() -> void:
 	await check_surahs_runtime()
 	await check_prophets_stories_runtime()
 	await check_road_map_runtime()
+	await check_sahila_runtime()
 	finish()
 
 
@@ -4024,7 +4029,8 @@ func _check_runner_town(words: Dictionary, noon: int) -> void:
 	await press_button(prayer, "the generic masjid uses the existing congregation action")
 	check(app.jisra_masjid.prayed_in == {masjid.id: true} and visible_text().contains(masjid.first),
 		"the first real prayer adds the masjid once and shows the first greeting")
-	await press_button(masjid.back, "the loaded masjid returns to town")
+	check(find_button(app.ui, masjid.back) == null, "R6 gives inline town masjids the shared Back label too")
+	await press_button(words.back, "the loaded masjid returns to town")
 	var inn := str(words.inn_button).format({"n": int(town.inn)})
 	await press_button(inn, "the loaded town inn can be used")
 	check(app.day == 9 and app.minute_of_day == 280, "the generic town inn wakes at the locked 04:40")
@@ -5612,7 +5618,7 @@ func _check_jisra_people_hub(town: Dictionary, mission: Dictionary, words: Dicti
 	check_gate_of_trust_meter(bridge.meter, 10)
 	var road_button: String = app.road_map.data.words.map_button
 	var default_order: Array[String] = [bridge.watch, masjid, words.people_button, town.work.label, sayings, road_button, inn]
-	_check_jisra_hub_button_order(default_order)
+	_check_town_hub_button_order(default_order, "Q14 follows the locked Jisra hub action order")
 	check(find_button(app.ui, bridge.back) == null, "the road map replaces the direct return to Ilmara")
 	await press_button(sayings, "open the empty What Jisra says panel")
 	check(app.ui.screen == "runner_sayings" and visible_text().split("\n").has(words.trep.empty),
@@ -5626,7 +5632,7 @@ func _check_jisra_people_hub(town: Dictionary, mission: Dictionary, words: Dicti
 	app.gate_of_trust.jisra_trust = 15
 	app.update_state()
 	var open_order: Array[String] = [bridge.watch, masjid, mission.button, words.people_button, town.work.label, sayings, road_button, inn]
-	_check_jisra_hub_button_order(open_order)
+	_check_town_hub_button_order(open_order, "Q14 follows the locked Jisra hub action order")
 	for minute: int in [599, 600, 959, 960]:
 		set_market_day_time(8, minute)
 		check((find_button(app.ui, mission.button) != null) == (minute >= 600 and minute < 960),
@@ -5635,7 +5641,7 @@ func _check_jisra_people_hub(town: Dictionary, mission: Dictionary, words: Dicti
 	var prayer: String = app.clock.prayer_label(false)
 	check(not prayer.is_empty(), "the Jisra hub fixture has an open prayer")
 	var prayer_order: Array[String] = [bridge.watch, masjid, mission.button, words.people_button, sayings, road_button, prayer, inn]
-	_check_jisra_hub_button_order(prayer_order)
+	_check_town_hub_button_order(prayer_order, "Q14 follows the locked Jisra hub action order")
 
 
 func _reset_jisra_people_fixture(day: int) -> void:
@@ -5644,14 +5650,14 @@ func _reset_jisra_people_fixture(day: int) -> void:
 	await enter_jisra_masjid_fixture(day, 600)
 
 
-func _check_jisra_hub_button_order(expected: Array[String]) -> void:
+func _check_town_hub_button_order(expected: Array[String], description: String) -> void:
 	var buttons: Array[Button] = []
 	_collect_visible_buttons(app.ui, buttons)
 	var actions: Array[String] = []
 	for button: Button in buttons:
 		if button.text in expected:
 			actions.append(button.text)
-	check(actions == expected, "Q14 action order follows the locked Jisra hub: %s" % ", ".join(expected))
+	check(actions == expected, "%s: %s" % [description, ", ".join(expected)])
 
 
 func _collect_visible_buttons(node: Node, buttons: Array[Button]) -> void:
@@ -5663,7 +5669,7 @@ func _collect_visible_buttons(node: Node, buttons: Array[Button]) -> void:
 		_collect_visible_buttons(child, buttons)
 
 
-func _jisra_talk_buttons(words: Dictionary) -> Array[Button]:
+func _runner_talk_buttons(words: Dictionary) -> Array[Button]:
 	var buttons: Array[Button] = []
 	_collect_visible_buttons(app.ui, buttons)
 	return buttons.filter(func(button: Button) -> bool: return button.text == words.people.talk)
@@ -5682,7 +5688,7 @@ func _check_jisra_people_dialogue(residents: Array, words: Dictionary) -> void:
 		app.gate_of_trust.jisra_trust = band[0]
 		for index in residents.size():
 			var person: Dictionary = residents[index]
-			var buttons := _jisra_talk_buttons(words)
+			var buttons := _runner_talk_buttons(words)
 			check(buttons.size() == residents.size(), "one Talk button per available resident")
 			if buttons.size() != residents.size():
 				break
@@ -5706,14 +5712,14 @@ func _check_jisra_people_dialogue(residents: Array, words: Dictionary) -> void:
 			var present_count := 0
 			for resident: Dictionary in residents:
 				present_count += int(minute >= int(resident.hours[0]) and minute < int(resident.hours[1]))
-			check(_jisra_talk_buttons(words).size() == present_count, "Talk buttons track residents' hours at minute %d" % minute)
+			check(_runner_talk_buttons(words).size() == present_count, "Talk buttons track residents' hours at minute %d" % minute)
 	set_market_day_time(9, 724)
-	check(_jisra_talk_buttons(words).size() == 4, "all four residents are available just before the Friday adhan")
+	check(_runner_talk_buttons(words).size() == 4, "all four residents are available just before the Friday adhan")
 	set_market_day_time(9, 725)
-	check(_jisra_talk_buttons(words).size() == 3 and visible_text().split("\n").has(str(words.people.away).format({"name": "Rafiq"})),
+	check(_runner_talk_buttons(words).size() == 3 and visible_text().split("\n").has(str(words.people.away).format({"name": "Rafiq"})),
 		"only Rafiq is away for Friday prayer")
 	set_market_day_time(9, 760)
-	check(_jisra_talk_buttons(words).size() == 4, "Rafiq returns after the Friday prayer window")
+	check(_runner_talk_buttons(words).size() == 4, "Rafiq returns after the Friday prayer window")
 	await press_button(words.people.back, "the people list returns to Jisra")
 
 
@@ -5746,7 +5752,7 @@ func _check_jisra_toll_memories(copy: Dictionary, town: Dictionary, words: Dicti
 
 
 func _check_jisra_memory(person: Dictionary, flag: String, words: Dictionary, index: int) -> bool:
-	var buttons := _jisra_talk_buttons(words)
+	var buttons := _runner_talk_buttons(words)
 	var button: Button = buttons[index] if buttons.size() > index else null
 	if not await press_control(button, "Talk opens the resident with the locked memory: " + person.name):
 		return false
@@ -7859,3 +7865,272 @@ func seed_menu_save() -> void:
 	app.pilgrims._trips["jamal"] = {"home_day": day + 10, "secret": true, "home": false}
 	app.qurans_school.pay("school", false)
 	app.names_of_allah.learn_at("scales", true)
+
+
+func check_sahila_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/SAHILA/RECORD/sahila_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/sahila.json")
+	check(not locked.is_empty() and runtime == locked, "Sahila uses byte-identical LOCK 37 data")
+	var copy: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = copy is Dictionary and runner.towns.has("sahila") and runner.missions.has("sahila_boat") and runner.missions.has("sahila_found")
+	check(loaded, "the production content index loads Sahila and both missions")
+	if not loaded:
+		return
+	var town: Dictionary = copy.towns.sahila
+	var residents: Array = copy.people
+	var boat: Dictionary = copy.missions[0]
+	var found: Dictionary = copy.missions[1]
+	var masjid: Dictionary = copy.masjids.sahila
+	var words: Dictionary = runner.data.words
+	check(runner.missions[boat.id] == boat and runner.missions[found.id] == found
+		and runner.town_people(app, "sahila") == residents, "the production runner uses the locked Sahila mission and people records")
+	check(runner.town_masjids("sahila") == [masjid.merged({"id": "sahila"})], "the town resolves the shore masjid by its loaded ID")
+	var prior_state := MarketSave.snapshot(app)
+	app.set_process(false)
+	await _check_sahila_travel()
+	await _check_sahila_hub(town, boat, found, masjid, words)
+	await _check_sahila_people(residents, words)
+	for path: Array in [[0, -1], [1, 0], [1, 1], [2, 0], [2, 1]]:
+		await _check_sahila_missions(boat, found, path[0], path[1], words)
+	MarketSave.restore(app, prior_state)
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 37 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_sahila_travel() -> void:
+	reset_at_market_place("gate", 25, 8)
+	var gate: Dictionary = app.gate_of_trust.data
+	var road: Dictionary = app.road_map.data.words
+	app.progress.trust = int(data.numbers.gate_trust)
+	app.progress.lesson_done = true
+	app.update_state()
+	await press_button(gate.gate_open_button, "open the Gate of Trust before travelling to Sahila")
+	await press_button(road.map_button, "use the live Road map at the gate")
+	check(has_visible_label(app.ui, "Sahila") and find_button(app.ui, str(road.go).format({"n": 150})) == null,
+		"the loaded Sahila road still requires a first visit to Jisra")
+	await press_button(str(road.go).format({"n": 90}), "travel to Jisra to satisfy Sahila's road prerequisite")
+	await press_button(road.map_button, "open Road map from Jisra")
+	await press_button(str(road.go).format({"n": 60}), "the live road from Jisra reaches Sahila")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "sahila" and app.minute_of_day == 750,
+		"line 43 reaches the loaded Sahila hub in 60 minutes")
+
+
+func _enter_sahila_fixture(coins: int) -> void:
+	reset_at_market_place("gate", coins, 8)
+	app.enter_runner_town("sahila")
+
+
+func _check_sahila_hub(town: Dictionary, boat: Dictionary, found: Dictionary, masjid: Dictionary, words: Dictionary) -> void:
+	_enter_sahila_fixture(25)
+	var runner: SceneRunner = app.scene_runner
+	var sayings := str(words.rep_button).format({"town": town.name})
+	var inn := str(words.inn_button).format({"n": 2})
+	var road: String = app.road_map.data.words.map_button
+	var noon: int = app._minutes(identity.clock.prayers[1].begins)
+	set_market_day_time(8, noon)
+	check(app.ui.screen == "runner_town" and has_visible_label(app.ui, town.name)
+		and has_visible_label(app.ui, str(town.kicker).to_upper()) and visible_text().split("\n").has(town.text),
+		"the headless hub entry shows Sahila's locked town copy")
+	check_gate_of_trust_meter("Trust · Sahila", 10)
+	var prayer: String = app.clock.prayer_label(false)
+	var hub_actions: Array[String] = [boat.button, words.people_button, town.work.label, sayings, masjid.button, prayer, inn, road]
+	_check_town_hub_button_order(hub_actions, "R6 uses the locked Sahila hub action order")
+	check(not prayer.is_empty() and find_button(app.ui, words.road_back) == null,
+		"prayer is offered in its window and Road map is the hub exit")
+	await press_button(sayings, "open What Sahila says")
+	check(app.ui.screen == "runner_sayings" and visible_text().split("\n").has(words.trep.empty), "Sahila starts without local sayings")
+	await press_button(words.trep.back, "return to the shore hub from empty sayings")
+	for minute: int in [419, 420, 899, 900, 1079, 1080]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, boat.button) != null) == (minute >= 420 and minute < 1080)
+			and (find_button(app.ui, town.work.label) != null) == (minute >= 420 and minute < 900)
+			and find_button(app.ui, found.button) == null, "Sahila mission and work buttons follow their hours at minute %d" % minute)
+	set_market_day_time(9, noon)
+	check(find_button(app.ui, town.work.label) == null and find_button(app.ui, boat.button) != null,
+		"Friday prayer closes work while the boat mission keeps its hours")
+	set_market_day_time(10, 600)
+	var market_trust: int = app.progress.trust
+	await press_button(town.work.label, "take the first net-mending shift")
+	check(app.progress.coins == 28 and runner.town_trust(app, "sahila") == 11 and app.minute_of_day == 660,
+		"mending nets takes 60 minutes, pays three coins and adds one local trust")
+	await press_button(town.work.label, "take a second shift on the same day")
+	check(app.progress.coins == 31 and runner.town_trust(app, "sahila") == 11 and app.minute_of_day == 720,
+		"the second shift pays without increasing trust")
+	set_market_day_time(11, 600)
+	await press_button(town.work.label, "mend nets on the next day")
+	check(app.progress.coins == 34 and runner.town_trust(app, "sahila") == 12 and app.progress.trust == market_trust,
+		"the trust reward resets the next day and stays in Sahila")
+	for day: int in [11, 12]:
+		set_market_day_time(day, noon)
+		await press_button(masjid.button, "open the shore masjid on day %d" % day)
+		check(app.ui.screen == "runner_masjid" and has_visible_label(app.ui, masjid.title)
+			and has_visible_label(app.ui, str(masjid.kicker).to_upper()) and visible_text().split("\n").has(masjid.text),
+			"the resolved shore masjid shows locked copy before prayer")
+		await press_button(identity.clock.pray_congregation, "pray at the shore masjid")
+		check(app.jisra_masjid.prayed_in == {"sahila": true}
+			and visible_text().split("\n").has(masjid.first) == (day == 11), "the masjid counts once and only the first prayer shows the greeting")
+		await press_button(words.back, "the shore masjid uses Back per Q23")
+		check(app.ui.screen == "runner_town" and app.runner_town_id() == "sahila", "Back returns from the masjid to Sahila")
+	await press_button(inn, "rest at Sahila's inn for two coins")
+	check(app.progress.coins == 32 and app.day == 13 and app.minute_of_day == 280 and app.runner_town_id() == "sahila",
+		"Sahila's inn charges two coins and wakes at 04:40 in town")
+
+
+func _check_sahila_people(residents: Array, words: Dictionary) -> void:
+	_enter_sahila_fixture(25)
+	await press_button(words.people_button, "open Sahila's people list")
+	check(app.ui.screen == "runner_people" and has_visible_label(app.ui, words.people.title),
+		"the people list uses the locked heading")
+	for person: Dictionary in residents:
+		check(has_visible_label(app.ui, person.name) and has_visible_label(app.ui, str(person.role).to_upper()),
+			"the people list gives the exact name and role for " + str(person.name))
+	for band: Array in [[10, "wary"], [50, "friendly"], [80, "warm"]]:
+		var state: Dictionary = app.scene_runner.state()
+		state.trust.sahila = band[0]
+		app.scene_runner.restore(state)
+		for index in residents.size():
+			var person: Dictionary = residents[index]
+			var buttons := _runner_talk_buttons(words)
+			check(buttons.size() == residents.size(), "every present Sahila resident has a separate Talk button")
+			if buttons.size() != residents.size():
+				break
+			await press_control(buttons[index], "Talk opens %s at Sahila trust %d" % [person.name, band[0]])
+			check(app.ui.screen == "runner_person" and has_visible_label(app.ui, person.name)
+				and visible_text().split("\n").has(person.lines[band[1]]), "the %s line for %s is exact" % [band[1], person.name])
+			await press_button(words.talk.back, "return from the resident to the people list")
+	for person: Dictionary in residents:
+		for minute: int in [int(person.hours[0]) - 1, int(person.hours[0]), int(person.hours[1]) - 1, int(person.hours[1])]:
+			set_market_day_time(8, minute)
+			_check_sahila_people_hours(residents, words, minute, false)
+	set_market_day_time(9, 724)
+	_check_sahila_people_hours(residents, words, 724, false)
+	set_market_day_time(9, 725)
+	_check_sahila_people_hours(residents, words, 725, true)
+	set_market_day_time(9, 760)
+	_check_sahila_people_hours(residents, words, 760, false)
+	# Both flags make the ordering observable without changing the real mission routes.
+	var memory_state: Dictionary = app.scene_runner.state()
+	memory_state.flags = {"sahila_honest": 8, "sahila_lied": 8, "sahila_found": 15}
+	app.scene_runner.restore(memory_state)
+	for person: Dictionary in residents:
+		var lines: Array[String] = app.scene_runner.person_lines(app, "sahila", person)
+		check(lines.size() == 2 and lines[1] == person.memory[0][1], "%s uses only the first matching memory" % person.name)
+		for memory: Array in person.memory:
+			var flag: String = memory[0]
+			memory_state.flags = {flag: 8}
+			app.scene_runner.restore(memory_state)
+			lines = app.scene_runner.person_lines(app, "sahila", person)
+			check(lines == [person.lines.warm, memory[1]], "%s uses the exact memory for %s" % [person.name, flag])
+		memory_state.flags = {"sahila_honest": 8, "sahila_lied": 8, "sahila_found": 15}
+		app.scene_runner.restore(memory_state)
+
+
+func _check_sahila_people_hours(residents: Array, words: Dictionary, minute: int, at_friday_prayer: bool) -> void:
+	var count := 0
+	var text := visible_text().split("\n")
+	for person: Dictionary in residents:
+		var present: bool = minute >= int(person.hours[0]) and minute < int(person.hours[1]) \
+			and not (at_friday_prayer and person.id == "mukhtar")
+		count += int(present)
+		var away := str(words.people.away).format({"name": person.name})
+		check(text.has(away) != present, "%s shows the locked presence at minute %d" % [person.name, minute])
+	check(_runner_talk_buttons(words).size() == count, "availability controls the number of Talk buttons")
+
+
+func _check_sahila_missions(boat: Dictionary, found: Dictionary, boat_choice: int, found_choice: int, words: Dictionary) -> void:
+	var starting_coins := 24 if found_choice == 1 else 25
+	_enter_sahila_fixture(starting_coins)
+	var runner: SceneRunner = app.scene_runner
+	var state := runner.state()
+	state.trust.sahila = 50
+	runner.restore(state)
+	var market_trust: int = app.progress.trust
+	var honest := boat_choice == 0
+	var choice: Dictionary = boat.scenes.b.choices[boat_choice]
+	await press_button(boat.button, "open the boat sale")
+	_check_sahila_scene(boat, "a")
+	await press_button(boat.scenes.a.choices[0].label, "agree to sell Mukhtar's boat")
+	_check_sahila_scene(boat, "b")
+	for option: Dictionary in boat.scenes.b.choices:
+		check(find_button(app.ui, option.label) != null, "the sale offers the exact choice: " + str(option.label))
+	await press_button(choice.label, "take the boat choice: " + str(choice.label))
+	_check_sahila_scene(boat, "honest" if honest else "lied")
+	var flag := "sahila_honest" if honest else "sahila_lied"
+	var flags := {"sahila_boat_done": 8}
+	flags[flag] = 8
+	check(app.progress.coins == starting_coins + 5 and runner.town_trust(app, "sahila") == (60 if honest else 50)
+		and app.progress.trust == market_trust and runner.state().flags == flags and not runner.mission_done(app, boat.id),
+		"the boat choice pays five coins, applies the locked town trust and stamps only its proper flags")
+	await press_button(words.scene_back, "leave the boat ending and mark Chapter 1 progress")
+	check(runner.mission_done(app, boat.id) and find_button(app.ui, boat.button) == null, "the completed boat sale stays off the hub")
+	await _check_sahila_sayings([boat.say.honest] if honest else [], words)
+	set_market_day_time(14, 600)
+	check(find_button(app.ui, found.button) == null, "six days after the sale is too early for Ziyad's follow-up")
+	set_market_day_time(15, 600)
+	check((find_button(app.ui, found.button) != null) == not honest, "Ziyad waits seven days after an undisclosed plank")
+	if not honest:
+		await _check_sahila_followup(found, found_choice, words)
+	var save := MarketSave.snapshot(app)
+	MarketSave.restore(app, save)
+	app.show_screen("runner_town")
+	check(app.runner_town_id() == "sahila" and runner.mission_done(app, boat.id) and find_button(app.ui, boat.button) == null
+		and runner.mission_done(app, found.id) == not honest and find_button(app.ui, found.button) == null,
+		"saved completion survives restore and hides completed actions")
+	var road: Dictionary = app.road_map.data.words
+	await press_button(road.map_button, "open Road map to leave Sahila")
+	await press_button(str(road.go).format({"n": 150}), "return to Ilmara to read the Journal")
+	await press_button(words.journal_button, "open the private Journal in Ilmara")
+	var chapter: Dictionary = runner.journal(app).chapters[0]
+	check(app.ui.screen == "journal" and chapter.done == 1 and chapter.total == 7 and has_visible_label(app.ui, "1 / 7")
+		and has_visible_label(app.ui, boat.title) and not has_visible_label(app.ui, found.title),
+		"Q23 keeps the boat in Chapter 1 and the follow-up out of the Journal rows")
+
+
+func _check_sahila_followup(found: Dictionary, index: int, words: Dictionary) -> void:
+	var runner: SceneRunner = app.scene_runner
+	var paid := index == 0
+	var coins: int = app.progress.coins
+	var choice: Dictionary = found.scenes.a.choices[index]
+	await press_button(found.button, "open Ziyad's follow-up")
+	_check_sahila_scene(found, "a")
+	check((find_button(app.ui, found.scenes.a.choices[0].label) != null) == paid
+		and find_button(app.ui, found.scenes.a.choices[1].label) != null,
+		"the 30-coin offer is hidden at 29 coins and appears at 30, with denial always available")
+	if not paid:
+		app._runner_action("choice", found.scenes.a.choices[0])
+		check(app.runner_scene() == found.scenes.a and app.progress.coins == coins, "the hidden offer cannot apply by direct dispatch")
+	await press_button(choice.label, "take Ziyad's follow-up choice: " + str(choice.label))
+	_check_sahila_scene(found, "paid" if paid else "denied")
+	check(app.progress.coins == (coins - 30 if paid else coins) and runner.town_trust(app, "sahila") == (45 if paid else 35)
+		and runner.state().flags.get("sahila_found") == 15 and not runner.mission_done(app, found.id),
+		"the follow-up applies its exact coin and local trust effects before completion")
+	await press_button(words.scene_back, "leave the follow-up ending and save it as done")
+	check(runner.mission_done(app, found.id) and runner.state().done.get(found.id) == 15 and find_button(app.ui, found.button) == null,
+		"Q23 requires a saved follow-up completion and a hidden action")
+	await _check_sahila_sayings([found.say.admitted if paid else found.say.found], words)
+
+
+func _check_sahila_scene(mission: Dictionary, id: String) -> void:
+	check(app.ui.screen == "runner_mission" and app.runner_scene() == mission.scenes[id]
+		and has_visible_label(app.ui, mission.title) and has_visible_label(app.ui, str(mission.kicker).to_upper()),
+		"the scene uses its locked mission title and kicker: %s/%s" % [mission.id, id])
+	var text: Variant = mission.scenes[id].text
+	var paragraphs: Array = text if text is Array else [text]
+	for paragraph: String in paragraphs:
+		check(visible_text().split("\n").has(paragraph), "the exact locked paragraph appears in %s/%s" % [mission.id, id])
+
+
+func _check_sahila_sayings(lines: Array, words: Dictionary) -> void:
+	check(app.scene_runner.town_sayings("sahila", app) == lines, "Sahila stores only the local accounts earned by this path")
+	await press_button(str(words.rep_button).format({"town": "Sahila"}), "open the result in What Sahila says")
+	if lines.is_empty():
+		check(visible_text().split("\n").has(words.trep.empty), "the empty wording remains when no account was earned")
+	for line: Array in lines:
+		check(has_visible_label(app.ui, "“%s”" % line[0]) and has_visible_label(app.ui, str(line[1]).to_upper())
+			and has_visible_label(app.ui, app.chapter.rep.tone[str(int(line[2]))]), "the panel shows the exact account, witness and tone")
+	await press_button(words.trep.back, "return to the hub from What Sahila says")

@@ -582,6 +582,16 @@ open at 20%, 30%, 40%, 45% and 50%, respectively, and stay open in your save.
 The roads shut at 20:00 and reopen at 04:40. Run the focused rules checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --road-map-only`.
 
+## LOCK 37 — Sahila and Sahila's boat
+
+After visiting Jisra, take the Gate of Trust road to Sahila. The shore hub has its own trust,
+residents, net-mending work, masjid and inn. The **Road map** is the way out.
+**Mukhtar wants to sell his boat** appears from 07:00 up to 18:00. Completing **Sahila's boat**
+counts in Chapter 1 of the **Journal**. If the plank went undisclosed, **Ziyad is waiting for you**
+appears seven days later. The **What Sahila says** panel records the account your choices earn.
+
+Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --sahila-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from

@@ -2254,7 +2254,7 @@ func _build_runner_panel() -> void:
 			if not counter.is_empty():
 				paragraphs.append(counter)
 			_append_runner_prayer(actions, true)
-			back_label = copy.get("back", words.back)
+			back_label = words.back
 	if not back_label.is_empty():
 		actions.append(_runner_action(back_label, "back", null, stacked_choices and copy.get("end", false)))
 	var kicker := str(copy.get("kicker", mission.get("kicker", ""))).format(values)
@@ -2339,7 +2339,7 @@ func _town_actions(id: String) -> Array[Dictionary]:
 	if scene_runner.can_work(get_parent(), id):
 		actions.append(_runner_action(town.work.label, "work", null))
 	actions.append(_runner_action(str(words.rep_button).format({"town": town.name}), "sayings", null))
-	for masjid: Dictionary in town.get("masjids", []):
+	for masjid: Dictionary in scene_runner.town_masjids(id):
 		actions.append(_runner_action(masjid.button, "masjid", masjid))
 	return actions
 

@@ -27,7 +27,7 @@ func _init(content: Dictionary) -> void:
 
 static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 	var files: Array = _read_document(index_path).get("files", [])
-	var content := {"missions": {}, "towns": {}, "people": {}, "chapters": [], "town_says": {}}
+	var content := {"missions": {}, "towns": {}, "people": {}, "masjids": {}, "chapters": [], "town_says": {}}
 	var chapters_by_number := {}
 	var goals_by_id := {}
 	for file: String in files:
@@ -37,7 +37,7 @@ static func load_content(index_path: String = CONTENT_INDEX) -> Dictionary:
 				"chapters":
 					for chapter: Dictionary in document.chapters:
 						chapters_by_number[int(chapter.n)] = chapter
-				"missions", "towns", "people":
+				"missions", "towns", "people", "masjids":
 					_merge_records(content[key], document[key])
 				"town_says":
 					_merge_town_sayings(content.town_says, document[key])
@@ -320,6 +320,16 @@ func town_people(_app, town: String) -> Array[Dictionary]:
 		if person.get("town", "") == town:
 			residents.append(person)
 	return residents
+
+
+func town_masjids(town: String) -> Array[Dictionary]:
+	var records: Dictionary = data.get("masjids", {})
+	var masjids: Array[Dictionary] = []
+	for entry: Variant in towns.get(town, {}).get("masjids", []):
+		var record: Dictionary = entry if entry is Dictionary else records.get(entry, {})
+		if not record.is_empty():
+			masjids.append(record)
+	return masjids
 
 
 func person_available(app, person: Dictionary) -> bool:

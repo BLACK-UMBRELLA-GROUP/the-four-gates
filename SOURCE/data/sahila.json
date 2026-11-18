@@ -1,0 +1,260 @@
+{
+ "version": "LOCK 37 V1 (9 Nov 2026) - Sahila and Sahila's boat",
+ "builds_on": "LOCK 34 runner, LOCK 36 roads. Design reference (not shown): Bukhari 2079 (buyer and seller who speak the truth and make things clear are blessed).",
+ "towns": {
+  "sahila": {
+   "name": "Sahila",
+   "gate": "trust",
+   "start_trust": 10,
+   "inn": 2,
+   "kicker": "Sahila · the fishing shore",
+   "bg": "river_night",
+   "text": "Where the river widens into a lake, fishing boats lie on the sand to dry and nets hang between poles. The whole shore smells of salt and smoke.",
+   "masjids": [
+    "sahila"
+   ],
+   "work": {
+    "label": "Mend nets with Hind · 3 coins",
+    "hours": [
+     420,
+     900
+    ],
+    "minutes": 60,
+    "coins": 3,
+    "trust": 1
+   }
+  }
+ },
+ "masjids": {
+  "sahila": {
+   "button": "Go to the shore masjid",
+   "kicker": "Sahila · the shore masjid",
+   "title": "The shore masjid",
+   "text": "Whitewashed walls, a floor of reed mats, and the sound of the water through the open door.",
+   "first": "An old fisherman makes room for you in the row. “From Ilmara? Then you pray with us now.”"
+  }
+ },
+ "people": [
+  {
+   "id": "mukhtar",
+   "town": "sahila",
+   "name": "Mukhtar",
+   "role": "the old fisherman",
+   "hours": [
+    300,
+    1140
+   ],
+   "prays": true,
+   "lines": {
+    "wary": "Mukhtar sits by his boat, rubbing his knees. “Too old for the lake now. Too stubborn to stay off it.”",
+    "friendly": "“Forty years on that water. She has never thrown me in. Not once.”",
+    "warm": "“Sit with me. Tell me about Ilmara. I went once, as a boy.”"
+   },
+   "memory": [
+    [
+     "sahila_honest",
+     "“Fifty clean coins. My daughter says you were a fool. I say you were a friend.”"
+    ],
+    [
+     "sahila_lied",
+     "“Ziyad's boat took water. He came to my door. What could I tell him?”"
+    ]
+   ]
+  },
+  {
+   "id": "hind",
+   "town": "sahila",
+   "name": "Hind",
+   "role": "the net mender, Mukhtar's daughter",
+   "hours": [
+    420,
+    960
+   ],
+   "lines": {
+    "wary": "Hind's needle flies through the net. “If you want fish, the market is over there.”",
+    "friendly": "“A torn net catches nothing. A torn word is the same.”",
+    "warm": "“My father talks about you. He doesn't talk about many people.”"
+   },
+   "memory": [
+    [
+     "sahila_honest",
+     "“You told Ziyad about the plank. I was angry for a day. Then I was glad.”"
+    ]
+   ]
+  },
+  {
+   "id": "ziyad",
+   "town": "sahila",
+   "name": "Ziyad",
+   "role": "a boat trader",
+   "hours": [
+    480,
+    1020
+   ],
+   "lines": {
+    "wary": "Ziyad looks you up and down. “Selling or buying?”",
+    "friendly": "“I buy boats, mend them, sell them up the river. Honest wood is hard to find.”",
+    "warm": "“If you ever sell me anything again, I won't even look at it. Your word is enough.”"
+   },
+   "memory": [
+    [
+     "sahila_honest",
+     "“The plank. You could have kept quiet. I've told every trader on this shore.”"
+    ],
+    [
+     "sahila_found",
+     "“My boat sank at her mooring. You knew. Don't sell anything here again.”"
+    ]
+   ]
+  }
+ ],
+ "missions": [
+  {
+   "id": "sahila_boat",
+   "town": "sahila",
+   "main": true,
+   "title": "Sahila's boat",
+   "kicker": "Chapter 1 · Sahila's boat",
+   "button": "Mukhtar wants to sell his boat",
+   "hours": [
+    420,
+    1080
+   ],
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": [
+      "“My knees are done,” Mukhtar says. “I want to sell her, and I don't trust myself with traders - I'd give her away. River Market speaks for you. Sell her for me and keep five coins.”",
+      "Turning her over to clean her, you find one plank near the keel that is soft under the paint. She would float for a season, maybe two."
+     ],
+     "choices": [
+      {
+       "label": "Agree to sell her",
+       "go": "b"
+      }
+     ]
+    },
+    "b": {
+     "text": "Ziyad the trader walks round the boat twice. “Eighty coins. Is she sound?”",
+     "choices": [
+      {
+       "label": "Tell him about the soft plank",
+       "go": "honest",
+       "fx": {
+        "coins": 5,
+        "trust": 10,
+        "flag": [
+         "sahila_honest",
+         "sahila_boat_done"
+        ],
+        "say": "honest"
+       }
+      },
+      {
+       "label": "“She's sound”",
+       "go": "lied",
+       "fx": {
+        "coins": 5,
+        "flag": [
+         "sahila_lied",
+         "sahila_boat_done"
+        ]
+       }
+      },
+      {
+       "label": "Say nothing; let him look",
+       "go": "lied",
+       "fx": {
+        "coins": 5,
+        "flag": [
+         "sahila_lied",
+         "sahila_boat_done"
+        ]
+       }
+      }
+     ]
+    },
+    "honest": {
+     "text": [
+      "Ziyad kneels and presses the plank. “Fifty, then. And I'll remember who told me.” Mukhtar takes the fifty coins and is quiet for a long time.",
+      "“Better fifty clean coins than eighty that burn,” he says at last, and gives you your five."
+     ],
+     "end": true
+    },
+    "lied": {
+     "text": "Ziyad pays eighty coins and drags the boat to the water. Mukhtar presses five coins into your hand, delighted.",
+     "end": true
+    }
+   },
+   "say": {
+    "honest": [
+     "Told Ziyad the truth about the boat",
+     "Ziyad the boat trader",
+     1
+    ]
+   }
+  },
+  {
+   "id": "sahila_found",
+   "town": "sahila",
+   "title": "Ziyad's boat",
+   "kicker": "Sahila · the shore",
+   "button": "Ziyad is waiting for you",
+   "main": true,
+   "after": [
+    "sahila_lied"
+   ],
+   "after_days": {
+    "sahila_lied": 7
+   },
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Ziyad stands by an empty mooring. “She sank in the night. A soft plank by the keel - it went right through. You turned her over to clean her. You knew.”",
+     "choices": [
+      {
+       "label": "Admit it and offer to pay",
+       "go": "paid",
+       "need_coins": 30,
+       "fx": {
+        "coins": -30,
+        "trust": -5,
+        "flag": "sahila_found",
+        "say": "admitted"
+       }
+      },
+      {
+       "label": "Say you didn't know",
+       "go": "denied",
+       "fx": {
+        "trust": -15,
+        "flag": "sahila_found",
+        "say": "found"
+       }
+      }
+     ]
+    },
+    "paid": {
+     "text": "Ziyad takes the thirty coins without a word. Then he nods once. “That is more than most would do.”",
+     "end": true
+    },
+    "denied": {
+     "text": "Ziyad says nothing. By evening the whole shore knows.",
+     "end": true
+    }
+   },
+   "say": {
+    "admitted": [
+     "Sold a rotten boat - then paid for it",
+     "Ziyad the boat trader",
+     0
+    ],
+    "found": [
+     "Sold Ziyad a rotten boat",
+     "the whole shore",
+     -1
+    ]
+   }
+  }
+ ]
+}

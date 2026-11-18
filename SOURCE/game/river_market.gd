@@ -1689,7 +1689,7 @@ func _runner_action(action: String, value: Variant) -> void:
 				runner_person = value
 				show_screen("runner_person")
 		"masjid":
-			if at_hub and value in scene_runner.towns[town].get("masjids", []):
+			if at_hub and value in scene_runner.town_masjids(town):
 				runner_masjid = value
 				runner_masjid_first = false
 				show_screen("runner_masjid")

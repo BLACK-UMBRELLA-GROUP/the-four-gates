@@ -1,0 +1,27 @@
+{
+  "line": 44,
+  "result": "passed",
+  "checks_passed": {
+    "lock_37": 348,
+    "focused": 547,
+    "headless_full_suite": 8830,
+    "scene_runner_regression": 307,
+    "road_map_regression": 287,
+    "jisra_masjid_regression": 277,
+    "look_controls_regression": 28,
+    "player_movement_regression": 39,
+    "progress_restart_regression": 24
+  },
+  "coverage": [
+    "Byte-identical LOCK 37 V1 data loaded through the production content index.",
+    "Live Road map route through Jisra, headless town entry, exact hub copy and R6 action order.",
+    "Work hours and Friday closure, 60 minutes and 3 coins per shift, 1 town trust per day and a 2-coin inn at 04:40.",
+    "All three residents at trust 10, 50 and 80, each locked memory and memory priority, hours boundaries and Friday availability.",
+    "Shore masjid resolved by ID, first-prayer copy, distinct masjid count after two prayers and Back to Sahila.",
+    "All three boat choices and both follow-up choices, exact scenes, effects, saved flags and What Sahila says accounts.",
+    "Follow-up hidden on day six and visible on day seven after nondisclosure, with payment hidden at 29 coins and visible at 30.",
+    "Q23: Chapter 1 has seven rows and counts Sahila’s boat once; the follow-up is verified by saved completion and a hidden action."
+  ],
+  "visual_reference": "sh01–sh21. Q15 and R11 set rules-only evidence; zero native captures.",
+  "design_clarification": "Q23 and R6 use Back to Sahila at the shore masjid. The master label Back to the bridge belongs to Jisra."
+}

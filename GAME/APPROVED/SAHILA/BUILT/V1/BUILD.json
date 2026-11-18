@@ -1,0 +1,173 @@
+{
+  "line": 44,
+  "lock": "LOCK 37 V1",
+  "brief": "DOC-TFG-0122",
+  "tested_base_commit_sha": "198ad0ddf783d6d87567685ebfff4f04f00088cf",
+  "tested_source": "Base commit plus the hashed files. The daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T07:21:51+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --sahila-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --scene-runner-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --road-map-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --jisra-masjid-only",
+    "godot --headless --path SOURCE --script res://tests/test_look_controls.gd",
+    "godot --headless --path SOURCE --script res://tests/test_player_movement.gd",
+    "godot --headless --path SOURCE --script res://tests/test_progress_restart.gd"
+  ],
+  "checks_passed": {
+    "lock_37": 348,
+    "focused": 547,
+    "headless_full_suite": 8830,
+    "scene_runner_regression": 307,
+    "road_map_regression": 287,
+    "jisra_masjid_regression": 277,
+    "look_controls_regression": 28,
+    "player_movement_regression": 39,
+    "progress_restart_regression": 24
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SAHILA/BRIEFS/BUILD_BRIEF_2026-11-09_SAHILA.md": {
+      "bytes": 3697,
+      "sha256": "207f96e62e8b653f7307636735d75341c1537d0fa904056b40b758e15e34007d"
+    },
+    "GAME/APPROVED/SAHILA/RECORD/LOCK_RECORD.md": {
+      "bytes": 922,
+      "sha256": "47137c31d88ce08dae8a665d77724be373d0afb3cbe2c74eded81514b34142ce"
+    },
+    "GAME/APPROVED/SAHILA/RECORD/SAHILA_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 6297,
+      "sha256": "ddadcb14841a4c8038e9278b273f9204caa4397025c467879311683ff753087a"
+    },
+    "GAME/APPROVED/SAHILA/RECORD/sahila_data_V1.json": {
+      "bytes": 6704,
+      "sha256": "db6b16f0770bf2a43d366ba341c43d4837180cef772f6dd8d6ea5f5274e466e7"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/LOCK_RECORD.md": {
+      "bytes": 1193,
+      "sha256": "097e458b36812235cf8b7af3da1b87b413b920c6a032f7454c4cc2586378afdd"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh01_sahila__town.png": {
+      "bytes": 257732,
+      "sha256": "592de756c25210606f15689adfd46575bc12937b9a02370ecc33c7810d77cd6e"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh02_sahila__people.png": {
+      "bytes": 249358,
+      "sha256": "c45273d9845a226d5f10807e8c8eae72b2a9c450d078f6ec786fff9a04a80dd2"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh03_sahila__mukhtar_trust_10.png": {
+      "bytes": 270895,
+      "sha256": "82de1fb367887f351308531e1b6948a301ee32447f8afdcabe628c9d5deccd58"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh04_sahila__mukhtar_trust_50.png": {
+      "bytes": 270405,
+      "sha256": "5286008a34354af871a5aaada08c38135cedf02db68115edc9b99627396b395c"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh05_sahila__mukhtar_trust_80.png": {
+      "bytes": 269877,
+      "sha256": "b2063c41fcf28c52f427afc7ec9a13447d52704d2e095c9c6e38a77469be2211"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh06_sahila__hind_trust_10.png": {
+      "bytes": 270438,
+      "sha256": "6995fb56c63e8c3b537ef1a9bfde944e8fe7d2d1aa1ae3ac5da36d888b36d253"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh07_sahila__hind_trust_50.png": {
+      "bytes": 269247,
+      "sha256": "c749ae3bc5fde5640e91c4b24569512f691ff59ee23036fd77b3ad8b69a1eccf"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh08_sahila__hind_trust_80.png": {
+      "bytes": 270344,
+      "sha256": "672f01408156a73d616703853ffad64f4e6e189d2efd066843101d590acdc607"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh09_sahila__ziyad_trust_10.png": {
+      "bytes": 269542,
+      "sha256": "365cef5d945524372c80c61f8bc206516f224e7f598799c4277c4a478ef7ff71"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh10_sahila__ziyad_trust_50.png": {
+      "bytes": 270105,
+      "sha256": "43e81795c0b29f78f2c0de232cc1becd63efe34b372bbb796eb89a7e737e06aa"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh11_sahila__ziyad_trust_80.png": {
+      "bytes": 270237,
+      "sha256": "34807a70759e939c891fc1068d03560e36159329cc8efa47789e1751968b0ca5"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh12_sahila__what_people_say_empty.png": {
+      "bytes": 270324,
+      "sha256": "e3738c302b173b4499aeedd46a2de1e2e4dba964907aa4b8dc191b19c902862f"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh13_sahila__masjid_prayer.png": {
+      "bytes": 270797,
+      "sha256": "1d11f198464ebbd8599276caf5d8d05108e6abc211f2d57f47276e53f44eef40"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh14_sahila__masjid_first_prayer.png": {
+      "bytes": 271667,
+      "sha256": "19eba3b0e77eab82b49c3a11aa221124e6d688e6bd7d6d927cee91a24b9d574c"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh15_sahila_boat__a.png": {
+      "bytes": 261709,
+      "sha256": "f48b5eae6568e00f7cb792739cdcd53991338dae3b0b00a1a94b74970c80926b"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh16_sahila_boat__b.png": {
+      "bytes": 237004,
+      "sha256": "2d54cbd38e3404d422a56a49c6b27a8db7f657280dd5e78ba3a3310a8df9ee9d"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh17_sahila_boat__honest.png": {
+      "bytes": 262699,
+      "sha256": "ca811051558cfea0bf895618211810ab837a263efd1b5e6eba0f858232a00967"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh18_sahila_boat__lied.png": {
+      "bytes": 262293,
+      "sha256": "9fa0577a5144b15a347044419763cfa7fb1d479841db9bd2880a71bee360e163"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh19_sahila_found__a.png": {
+      "bytes": 251380,
+      "sha256": "98f65ae8c796bb0688a33cabb09b2ab3af3101bf3fb6efcf5416e78136b1e352"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh20_sahila_found__paid.png": {
+      "bytes": 266032,
+      "sha256": "43254d75a23afcd29b55d569aeaf556d79b5620f3bab8d334444e0affc6093dd"
+    },
+    "GAME/APPROVED/SAHILA/MASTERS/sh21_sahila_found__denied.png": {
+      "bytes": 265848,
+      "sha256": "a3a7ff4e234ac208404c3a4ccf81bb35738136a247de0b9425b7843040342dd7"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 46973,
+      "sha256": "99423a04e0e7585de8f2d3a39f2a51324ec0a6e769f64c2e9d31f725a19f2b1b"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 447,
+      "sha256": "fc9a1d919dacdf7f8db8e9571b3b95c312f4646cef3ad3cc912343a19d6690be"
+    },
+    "SOURCE/data/sahila.json": {
+      "bytes": 6704,
+      "sha256": "db6b16f0770bf2a43d366ba341c43d4837180cef772f6dd8d6ea5f5274e466e7"
+    },
+    "SOURCE/game/market_ui.gd": {
+      "bytes": 159007,
+      "sha256": "a58c2b6fba7e0ca265e5ba5da301a6574174fe99aa475e7090e639f0f9bd6f08"
+    },
+    "SOURCE/game/river_market.gd": {
+      "bytes": 70665,
+      "sha256": "93654e9bedf7d42587df613338167fdff1549ebd955b21e66595dc28b9be4651"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 15804,
+      "sha256": "2802b65b28c29786449ff85ae6774f5615c9dd853986c3f5a57025877145e159"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 494421,
+      "sha256": "1d7be4370a8a21b444515421a1e965e4c165e4d35e2c046739b9799d20f33a1e"
+    }
+  },
+  "native_screenshots": 0,
+  "compiled_exports": 0
+}
