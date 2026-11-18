@@ -910,6 +910,17 @@ Journal. Page 50 includes the chapter story.
 
 Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch05-only`.
 
+## LOCK 69 — The scholar's notebook, Chapter 6
+
+After the Chapter 1 ending, find pages 51–60 around the River Market from
+07:00 up to 19:00. Each find after page 51 requires taking the preceding
+page. At the River Market masjid, Idris offers the lowest found unread
+page. Read the chapter story on page 60. Each time you close the notebook
+after reading a page, **The scholar's pages** in the private Journal goes
+up by one.
+
+Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch06-only`.
+
 ## LOCK 74 — Wudu with Idris
 
 After meeting Idris, choose **Idris will show you wudu** at the River Market

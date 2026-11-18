@@ -1,0 +1,165 @@
+{
+ "version": "LOCK 69 V1 (9 Nov 2026) - the scholar's notebook, chapter 6: Worship",
+ "builds_on": "LOCK 3 (page 1, read with Idris), LOCK 34 runner, LOCK 51 (the last page). Every reference checked on sunnah.com; the game never shows the reference.",
+ "words": {
+  "find_button": "{p} has found a page",
+  "find_kicker": "The scholar's notebook · a page found",
+  "find_title": "A page in the scholar's hand",
+  "take": "Take the page to Idris",
+  "read_button": "Read the scholar's page with Idris",
+  "read_kicker": "The scholar's notebook · page {n} of 100",
+  "read_turn": "Close the notebook",
+  "idris": "Idris: “{t}”",
+  "story": "Idris turns back through the pages. “{t}”",
+  "hours": [
+   420,
+   1140
+  ]
+ },
+ "chapter": {
+  "n": 6,
+  "title": "Worship",
+  "story": "He wrote that he learned more from one night of prayer in a caravanserai than from a year of books."
+ },
+ "pages": [
+  {
+   "n": 51,
+   "chapter": 6,
+   "ref": "Nawawi 40, no. 37",
+   "saying": "Whoever intends a good deed and doesn't do it, it is written as one good deed; if he does it, ten or more. Whoever intends a bad deed and doesn't do it, it is written as a good deed.",
+   "idris": "Even turning back from a wrong is written for you. Allah is generous.",
+   "person": "Abbas",
+   "found": "Abbas found a page lining an old hat bought from a pedlar.",
+   "after": [
+    "chapter1_done"
+   ],
+   "place": "gate"
+  },
+  {
+   "n": 52,
+   "chapter": 6,
+   "ref": "Nawawi 40, no. 38",
+   "saying": "Allah says: My servant draws near to Me with nothing more beloved than what I made obligatory, and keeps drawing near with extra deeds until I love him.",
+   "idris": "Pray the five first. Then add a little, and keep adding.",
+   "person": "Karim",
+   "found": "Karim hands you a loaf wrapped in an old page. “Look at the writing on this.”",
+   "after": [
+    "chapter1_done",
+    "page_51_found"
+   ],
+   "place": "scales"
+  },
+  {
+   "n": 53,
+   "chapter": 6,
+   "ref": "Nawawi 40, no. 39",
+   "saying": "Allah has pardoned my people for mistakes, for forgetting, and for what they are forced into.",
+   "idris": "You will make mistakes. That's not the same as choosing wrong.",
+   "person": "The innkeeper",
+   "found": "The innkeeper found a folded page in a crack while mending a wall. “It's in a scholar's hand. You'll know who wants it.”",
+   "after": [
+    "chapter1_done",
+    "page_52_found"
+   ],
+   "place": "inn"
+  },
+  {
+   "n": 54,
+   "chapter": 6,
+   "ref": "Nawawi 40, no. 40",
+   "saying": "Be in this world as though you were a stranger or a traveller.",
+   "idris": "You came here as a traveller. Maybe that's why you see Ilmara so clearly.",
+   "person": "Yunus the muezzin",
+   "found": "Children are flying a kite made from an old page. Yunus the muezzin buys it from them for a date and gives it to you.",
+   "after": [
+    "chapter1_done",
+    "page_53_found"
+   ],
+   "place": "masjid"
+  },
+  {
+   "n": 55,
+   "chapter": 6,
+   "ref": "Nawawi 40, no. 41",
+   "saying": "None of you truly believes until his desires follow what I have brought.",
+   "idris": "Not the other way round. Let the guidance lead.",
+   "person": "Faris",
+   "found": "Faris found a page pressed inside a second-hand book.",
+   "after": [
+    "chapter1_done",
+    "page_54_found"
+   ],
+   "place": "quay"
+  },
+  {
+   "n": 56,
+   "chapter": 6,
+   "ref": "Nawawi 40, no. 42",
+   "saying": "Allah says: O son of Adam, as long as you call on Me and hope in Me, I will forgive you; even if your sins reached the clouds and you asked forgiveness, I would forgive you.",
+   "idris": "Read this one twice. Then keep it for a hard night.",
+   "person": "Salma",
+   "found": "Salma has been using a page to wrap spices and has only just noticed the writing.",
+   "after": [
+    "chapter1_done",
+    "page_55_found"
+   ],
+   "place": "board"
+  },
+  {
+   "n": 57,
+   "chapter": 6,
+   "ref": "Muslim 2593",
+   "saying": "Allah is gentle and loves gentleness, and gives for gentleness what He does not give for harshness.",
+   "idris": "Gentle with the donkey, gentle with the debtor, gentle with yourself.",
+   "person": "Rashid",
+   "found": "Rashid pulls a damp page from the bottom of a basket and dries it for you.",
+   "after": [
+    "chapter1_done",
+    "page_56_found"
+   ],
+   "place": "spice"
+  },
+  {
+   "n": 58,
+   "chapter": 6,
+   "ref": "Bukhari 334",
+   "saying": "In a journey with no water, the verse of tayammum came down - and people said it was a blessing that came through the family of Abu Bakr.",
+   "idris": "Ghazi's palms on the stone. Allah made it easy for us.",
+   "person": "Layla",
+   "found": "Layla found a page under a loose floor tile.",
+   "after": [
+    "chapter1_done",
+    "page_57_found"
+   ],
+   "place": "weaver"
+  },
+  {
+   "n": 59,
+   "chapter": 6,
+   "ref": "Bukhari 1012",
+   "saying": "The Prophet went out to the prayer ground to ask for rain, faced the qibla, prayed two rak'ahs and turned his cloak inside out.",
+   "idris": "You stood on the dry ground with the whole town. You remember the rain.",
+   "person": "Jamal",
+   "found": "Jamal was given a debt note - and the scholar's page is written on the back of it.",
+   "after": [
+    "chapter1_done",
+    "page_58_found"
+   ],
+   "place": "quay"
+  },
+  {
+   "n": 60,
+   "chapter": 6,
+   "ref": "Bukhari 6407",
+   "saying": "The one who remembers his Lord and the one who does not are like the living and the dead.",
+   "idris": "Remember Allah walking to the market. It costs nothing and it's life.",
+   "person": "Abbas",
+   "found": "Abbas's little one folded a page into a paper boat. Abbas dried it out for you.",
+   "after": [
+    "chapter1_done",
+    "page_59_found"
+   ],
+   "place": "gate"
+  }
+ ]
+}

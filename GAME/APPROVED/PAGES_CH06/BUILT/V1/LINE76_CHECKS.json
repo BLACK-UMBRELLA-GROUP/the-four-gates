@@ -1,0 +1,67 @@
+{
+  "line": 76,
+  "lock": "LOCK 69 V1",
+  "focused": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch06-only",
+    "exit_code": 0,
+    "passed": 445,
+    "total": 445,
+    "failures": 0
+  },
+  "full_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 15777,
+    "total": 15777,
+    "failures": 0
+  },
+  "lock_69_in_both_runs": {
+    "passed": 246,
+    "total": 246,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "pf01_page_51__a.png": "page_51/a",
+    "pf02_read_51__a.png": "read_51/a",
+    "pf03_page_52__a.png": "page_52/a",
+    "pf04_read_52__a.png": "read_52/a",
+    "pf05_page_53__a.png": "page_53/a",
+    "pf06_read_53__a.png": "read_53/a",
+    "pf07_page_54__a.png": "page_54/a",
+    "pf08_read_54__a.png": "read_54/a",
+    "pf09_page_55__a.png": "page_55/a",
+    "pf10_read_55__a.png": "read_55/a",
+    "pf11_page_56__a.png": "page_56/a",
+    "pf12_read_56__a.png": "read_56/a",
+    "pf13_page_57__a.png": "page_57/a",
+    "pf14_read_57__a.png": "read_57/a",
+    "pf15_page_58__a.png": "page_58/a",
+    "pf16_read_58__a.png": "read_58/a",
+    "pf17_page_59__a.png": "page_59/a",
+    "pf18_read_59__a.png": "read_59/a",
+    "pf19_page_60__a.png": "page_60/a",
+    "pf20_read_60__a.png": "read_60/a"
+  },
+  "master_dimensions": [
+    1920,
+    1080
+  ],
+  "master_review": "All twenty masters matched the locked words and scene order.",
+  "native_screenshots": 0,
+  "rules": {
+    "prerequisite": "The existing Chapter 1 ending sets chapter1_done.",
+    "find": "Pages 51–60 use their locked River Market places, 07:00–19:00 hours and sequential found flags. Taking a page records the find without raising the Journal count.",
+    "read": "Idris offers only the lowest found unread page at the River Market masjid. The locked saying and Idris's words appear in order. The Worship chapter story appears on page 60.",
+    "journal": "Closing each reading sets its read flag and raises the count by one. A returning-player fixture advanced from 50/100 to 60/100 and retained the count after loading.",
+    "q37": "The checks cover this chapter's ten pages.",
+    "q15_r11": "Headless rules and copy checks use the existing Godot layout."
+  },
+  "scholar_checks": {
+    "register": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md",
+    "rows": [
+      21,
+      52
+    ]
+  }
+}
