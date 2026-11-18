@@ -46,6 +46,12 @@ func prayer_attendance() -> String:
 	return _clock.prayer_name_during_iqamah_window(prayer_data.prayers, int(prayer_data.numbers.minutes_after_iqamah))
 
 
+func congregation_regular_count() -> int:
+	if _clock.is_friday_prayer_window(int(data.friday.closed_until_minutes_after_iqamah)):
+		return data.hours.size()
+	return 0 if prayer_attendance().is_empty() else prayer_data.goers.size()
+
+
 func masjid_attendance_notice(prayer: String) -> String:
 	var names := PackedStringArray()
 	for regular_id: String in prayer_data.goers:

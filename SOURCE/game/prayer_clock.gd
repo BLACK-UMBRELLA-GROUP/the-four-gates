@@ -142,6 +142,11 @@ func prayer_label(at_masjid: bool) -> String:
 	return str(_data.pray_here).format({"prayer": _prayer(prayer).name})
 
 
+func can_join_current_prayer(at_masjid: bool) -> bool:
+	var prayer := _latest_started()
+	return _is_active(prayer) and not _completed.has(prayer) and _can_join(prayer, at_masjid)
+
+
 func pray(at_masjid: bool) -> String:
 	var prayer := _latest_started()
 	if not _is_active(prayer) or _completed.has(prayer):

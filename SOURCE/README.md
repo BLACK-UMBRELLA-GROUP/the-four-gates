@@ -1243,6 +1243,16 @@ person has a Talk button in LOCK 6 order.
 Run the focused rules checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --regulars-routes-only`.
 
+## LOCK 99 — The prayer in 3D
+
+Joining an on-time congregation at a masjid records the prayer and shows its feedback immediately.
+A placeholder 3D sequence plays, with the player taking the next place as rows fill from the
+middle out. Press any key to skip and return to the same view. River Market attendance comes from
+the existing Dhuhr, Asr and Friday rules.
+
+Run the focused headless checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --prayer-3d-only`.
+
 ## LOCK 100 — Sound
 
 **Settings** saves **Sound** and **Adhan** separately from the game save. Both

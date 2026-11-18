@@ -1,0 +1,85 @@
+{
+  "line": 106,
+  "lock": "LOCK 99 V1",
+  "brief": "DOC-TFG-0309",
+  "questions_answer_rows": [
+    15,
+    58,
+    62
+  ],
+  "tested_base_commit_sha": "3e69059887cbad8e83d5db921522c95659d8faad",
+  "tested_source": "The base commit with the source changes fingerprinted below. The 18 November task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T17:32:01+00:00",
+  "checks_passed": {
+    "headless_focused_suite": 390,
+    "headless_full_suite": 21834
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/PRAYER_3D/BRIEFS/BUILD_BRIEF_2026-11-09_PRAYER_3D.md": {
+      "bytes": 3781,
+      "sha256": "101729712e8af6d367ec7322042ceeee17efe4f40610469215cbbea93d2d83ee"
+    },
+    "GAME/APPROVED/PRAYER_3D/RECORD/PRAYER_3D_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3223,
+      "sha256": "3ff58d7fa739636f02f20c05a4f62f4f8366a49f6c36c2cb747c3a47a3fa16a6"
+    },
+    "GAME/APPROVED/PRAYER_3D/RECORD/LOCK_RECORD.md": {
+      "bytes": 719,
+      "sha256": "30285096a387ecb309404499cb4587de86da5e59ca6f2823a00ae42f55cd0526"
+    },
+    "GAME/APPROVED/PRAYER_3D/RECORD/prayer_3d_data_V1.json": {
+      "bytes": 910,
+      "sha256": "fbb3381025fd0f8719d200d455175f5ad1c38054799a894c9d7d0a8079cefe21"
+    },
+    "GAME/APPROVED/PRAYER_3D/MASTERS/fb01_prayer3d__rows_and_positions.png": {
+      "bytes": 228025,
+      "sha256": "eabb70f5d464ca31d0bf6bbe384ef84b423f3aa4815be0d57a4b707f2392bcd2"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 76789,
+      "sha256": "d050c49fe06fdc6166b96e62539f5eaf84dc1b77344bf729e5a46bc25975a9d7"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1588,
+      "sha256": "18e9c43ea05addcb35857397b6417141747a6e09fb40b063feb1869520e45490"
+    },
+    "SOURCE/data/prayer_3d.json": {
+      "bytes": 910,
+      "sha256": "fbb3381025fd0f8719d200d455175f5ad1c38054799a894c9d7d0a8079cefe21"
+    },
+    "SOURCE/game/market_day.gd": {
+      "bytes": 2187,
+      "sha256": "ebacb5a74a3100c4e9fe82c6a629343d6b2b9654450bd2d7961d5b034c1285fa"
+    },
+    "SOURCE/game/prayer_clock.gd": {
+      "bytes": 13447,
+      "sha256": "189dfba5984fcaca64ace79f8f6d2df2d19edaf9b26583001f7ab614602eccea"
+    },
+    "SOURCE/game/prayer_3d.gd": {
+      "bytes": 5031,
+      "sha256": "93c91575f450bda4059c73a87d9529992ad5d53abc7d64cbeb51669c09c55afa"
+    },
+    "SOURCE/game/river_market.gd": {
+      "bytes": 75795,
+      "sha256": "ff098b817ea0b1d7bc9d76ff33e4452ce80cff4dbc0cc6b7fff2f36db196c2c2"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 998262,
+      "sha256": "69bc15d31e6f7078d7b77b6a457e6f904690efcf0825b990c350869ca054c99a"
+    }
+  },
+  "evidence": {
+    "LINE106_CHECKS.json": {
+      "bytes": 2020,
+      "sha256": "84063f263187fbae0606f9c88bcab101bd6ec5af4ab76da8ec15595de3c7c71c"
+    }
+  }
+}

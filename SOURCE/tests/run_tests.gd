@@ -93,6 +93,10 @@ func _run() -> void:
 		await check_sound_runtime()
 		finish()
 		return
+	if "--prayer-3d-only" in OS.get_cmdline_user_args():
+		await check_prayer_3d_runtime()
+		finish()
+		return
 	if "--regulars-routes-only" in OS.get_cmdline_user_args():
 		check_market_day_runtime()
 		check_regulars_at_prayer_runtime()
@@ -497,7 +501,185 @@ func _run() -> void:
 	await check_fountains_towns_runtime()
 	await check_stars_runtime()
 	await check_sound_runtime()
+	await check_prayer_3d_runtime()
 	finish()
+
+
+func check_prayer_3d_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/PRAYER_3D/RECORD/prayer_3d_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/prayer_3d.json")
+	check(not locked.is_empty() and locked == runtime, "Prayer 3D uses the byte-identical LOCK 99 V1 file")
+	var document: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	check(document is Dictionary and app.scene_runner.data.has("prayer3d"), "the scene runner loads the locked prayer sequence")
+	if not document is Dictionary or not app.scene_runner.data.has("prayer3d"):
+		return
+	var copy: Dictionary = document.prayer3d
+	check(app.scene_runner.data.prayer3d == copy and app.prayer_3d.positions == copy.positions,
+		"the sequence reads the locked position names, notes and durations")
+	var columns := [4, 5, 3, 6, 2, 7, 1, 8, 0]
+	check(copy.rows == 3 and copy.per_row == columns.size(), "the locked prayer layout has three rows of nine")
+	for row in range(3):
+		for index in range(columns.size()):
+			check(app.prayer_3d.slot_for(row * columns.size() + index) == Vector2i(columns[index], row),
+				"slot %d of row %d fills from the middle, right before left" % [index + 1, row + 1])
+
+	app.set_process(false)
+	var friday := 2
+	var saturday := 3
+	var clock_copy: Dictionary = identity.clock
+	var dhuhr: int = app._minutes(clock_copy.prayers[1].begins)
+	var asr: int = app._minutes(clock_copy.prayers[2].begins)
+	var friday_end := dhuhr + int(clock_copy.friday.iqamah_minutes_after_adhan) \
+		+ int(app.market_day.data.friday.closed_until_minutes_after_iqamah)
+	var market_id: String = app.jisra_masjid.RIVER_MARKET
+	reset_at_market_place("masjid", 198)
+	set_market_day_time(saturday, dhuhr)
+	await _check_prayer_3d_entry(market_id, "Dhuhr", 3, copy, true)
+	set_market_day_time(friday, asr)
+	app.show_screen("game")
+	await _check_prayer_3d_entry(market_id, "Asr", 3, copy)
+
+	for fixture: Vector3i in [Vector3i(friday, dhuhr, 5), Vector3i(friday, friday_end - 1, 5), Vector3i(friday, friday_end, 0)]:
+		set_market_day_time(fixture.x, fixture.y)
+		app.show_screen("market_map")
+		await _check_prayer_3d_entry(market_id, clock_copy.friday.name, fixture.z, copy)
+	for prayer_index: int in [0, 3, 4]:
+		var prayer: Dictionary = clock_copy.prayers[prayer_index]
+		set_market_day_time(saturday, app._minutes(prayer.begins))
+		await _check_prayer_3d_entry(market_id, prayer.name, 0, copy)
+
+	reset_at_market_place("gate", 198)
+	await enter_jisra_masjid_fixture(8, dhuhr)
+	await press_button(app.jisra_masjid.data.jisra_button, "open the Jisra masjid for the Prayer 3D entry")
+	await _check_prayer_3d_entry(app.jisra_masjid.JISRA, "Dhuhr", 0, copy)
+	check(visible_text().contains(app.jisra_masjid.data.masjid.first), "return to Jisra shows the first-prayer greeting")
+	_enter_sahila_fixture(198)
+	set_market_day_time(9, dhuhr)
+	var town_masjid: Dictionary = app.scene_runner.town_masjids("sahila")[0]
+	await press_button(town_masjid.button, "open the runner town masjid for Friday prayer")
+	await _check_prayer_3d_entry(town_masjid.id, clock_copy.friday.name, 0, copy)
+	check(app.runner_town_id() == "sahila" and app.runner_masjid.id == town_masjid.id,
+		"return from playback keeps the same runner town and masjid")
+
+	await _check_prayer_3d_excluded_actions(dhuhr)
+	app.set_process(true)
+
+
+func _check_prayer_3d_entry(masjid_id: String, prayer: String, regular_count: int, copy: Dictionary,
+		play_all_positions := false) -> void:
+	var origin: String = app.ui.screen
+	var origin_camera := root.get_camera_3d()
+	var origin_position: Vector3 = app.player.position
+	var wallet := Vector3i(app.progress.coins, app.progress.trust, app.gate_of_trust.jisra_trust)
+	var town_trust: Dictionary = app.scene_runner.state().trust.duplicate(true)
+	var visits: Dictionary = app.jisra_masjid.prayed_in.duplicate()
+	var expected_journal: Dictionary = app.scene_runner.journal(app)
+	var expected_totals: Dictionary = app.clock.totals()
+	var minutes: int = app.minute_of_day + int(identity.clock.prayer_takes_minutes)
+	var friday: bool = prayer == identity.clock.friday.name
+	expected_totals.on_time += 1
+	expected_totals.jamaah += 1
+	expected_totals.friday += int(friday)
+	visits[masjid_id] = true
+	for index in range(expected_journal.goals.size()):
+		if app.scene_runner.data.goals[index].id == "masjids":
+			expected_journal.goals[index].n = visits.size()
+
+	var context := "%s at %s from %s" % [prayer, masjid_id, origin]
+	if origin == "game":
+		key_event(KEY_P, true)
+		key_event(KEY_P, false)
+		await frames(2)
+	else:
+		var label: String = identity.clock.pray_friday if friday else identity.clock.pray_congregation
+		await press_button(label, "playback enters from the existing button for " + context, false)
+	check(app.prayer_3d.visible and app.prayer_3d.position_index == 0, "the first position begins for " + context)
+	if not app.prayer_3d.visible:
+		return
+	var columns := [4, 5, 3, 6, 2, 7, 1, 8, 0]
+	var slots: Array[Vector2i] = []
+	for index in range(regular_count + 1):
+		slots.append(Vector2i(columns[index], 0))
+	check(app.prayer_3d.slots == slots, "existing regulars fill first and the player takes the last slot for " + context)
+	check(root.get_camera_3d() == app.prayer_3d.camera and not app.player.enabled,
+		"the prayer camera takes over and movement pauses for " + context)
+	var receipt := str(identity.clock.toast_congregation).format({"prayer": prayer})
+	check(app.ui.screen == origin and has_visible_label(app.ui, receipt), "the existing receipt appears immediately for " + context)
+	check(not has_visible_label(app.ui, copy.title) and not has_visible_label(app.ui, str(copy.kicker).to_upper())
+		and not has_visible_label(app.ui, copy.text), "the reference card stays out of gameplay for " + context)
+	check(app.clock.totals() == expected_totals and app.jisra_masjid.prayed_in == visits
+		and app.scene_runner.journal(app) == expected_journal and app.minute_of_day == minutes,
+		"the existing prayer record, distinct masjid goal and time update before playback for " + context)
+
+	if play_all_positions:
+		var entry_height: float = app.prayer_3d.camera.position.y
+		for index in range(copy.positions.size()):
+			var position: Array = copy.positions[index]
+			var seconds := float(position[2])
+			check(app.prayer_3d.position_index == index, "playback reaches the locked position %s in order" % position[0])
+			app._process(seconds - 0.125)
+			check(app.prayer_3d.visible and app.prayer_3d.position_index == index and app.minute_of_day == minutes,
+				"position %s lasts its locked duration while the game clock pauses" % position[0])
+			if index == 0:
+				check(app.prayer_3d.camera.position.y > entry_height, "the camera rises behind the rows")
+			app._process(0.125)
+	else:
+		key_event(KEY_F10, false)
+		await frames(1)
+		check(app.prayer_3d.visible, "a key release alone leaves the sequence playing for " + context)
+		key_event(KEY_ESCAPE, true)
+		key_event(KEY_ESCAPE, false)
+		await frames(2)
+	check(not app.prayer_3d.visible and app.prayer_3d.position_index == -1 and app.ui.screen == origin
+		and root.get_camera_3d() == origin_camera and app.player.position.is_equal_approx(origin_position),
+		"playback restores the originating camera and place for " + context)
+	check(app.clock.totals() == expected_totals and app.jisra_masjid.prayed_in == visits
+		and app.scene_runner.journal(app) == expected_journal and app.minute_of_day == minutes,
+		"ending playback has no extra prayer record, Journal or clock effects for " + context)
+	check(Vector3i(app.progress.coins, app.progress.trust, app.gate_of_trust.jisra_trust) == wallet
+		and app.scene_runner.state().trust == town_trust, "prayer and playback award no coins or trust for " + context)
+	app.pray_here()
+	check(not app.prayer_3d.visible and app.clock.totals() == expected_totals and app.minute_of_day == minutes,
+		"requesting the completed prayer again has no effect for " + context)
+
+
+func _check_prayer_3d_excluded_actions(dhuhr: int) -> void:
+	reset_at_market_place("masjid", 198)
+	var late := dhuhr + int(identity.clock.prayers[1].iqamah_minutes_after_adhan) + 6
+	set_market_day_time(3, late)
+	await press_button(app.clock.prayer_label(true), "late masjid prayer still works as a solo prayer", false)
+	check(not app.prayer_3d.visible and app.clock.totals().alone_masjid == 1,
+		"solo prayer at a masjid records without starting the 3D sequence")
+
+	set_market_day_time(3, dhuhr)
+	move_market_fixture("quay")
+	await press_button(app.clock.prayer_label(false), "prayer away from a masjid still works", false)
+	check(not app.prayer_3d.visible and app.clock.totals().alone_elsewhere == 1,
+		"solo prayer away from a masjid uses its existing record")
+
+	app.clock.reset()
+	app.clock.advance_to(3, dhuhr, false)
+	move_market_fixture("masjid")
+	await press_button(str(identity.clock.make_up).format({"prayer": "Fajr"}),
+		"the masjid retains its existing Fajr make-up action", false)
+	check(not app.prayer_3d.visible and app.clock.totals().madeup == 1
+		and app.clock.record().rows[0].status == "madeup", "making up Fajr records it without starting the sequence")
+
+	reset_at_market_place("masjid", 198)
+	stage_ramadan(30, 1200, "masjid")
+	await press_button(app.ramadan.data.tarawih_button, "Tarawih retains its existing action", false)
+	check(not app.prayer_3d.visible and app.ramadan.record().tarawih == 1, "Tarawih does not start the sequence")
+	stage_ramadan(49, 1380, "masjid")
+	await press_button(app.eid_al_fitr.data.night_button, "standing at night retains its existing action", false)
+	check(not app.prayer_3d.visible and app.eid_al_fitr.record().nights == "1", "night standing does not start the sequence")
+	stage_ramadan(60, 390, "masjid")
+	await press_button(app.eid_al_fitr.data.eid_button, "Eid al-Fitr retains its existing action", false)
+	check(not app.prayer_3d.visible and app.ui.screen == "eid", "Eid al-Fitr keeps its existing panel")
+
+	reset_at_market_place("masjid", 198)
+	stage_adha(10, 390, "masjid")
+	await press_button(app.eid_al_adha.data.eid_button, "Eid al-Adha retains its existing action", false)
+	check(not app.prayer_3d.visible and app.ui.screen == "adha_eid", "Eid al-Adha keeps its existing panel")
 
 
 func horizontal_distance(a: Vector3, b: Vector3) -> float:
@@ -897,15 +1079,19 @@ func check_ui_states() -> void:
 	check(app.world.gate_body.collision_layer != 0, "temporary actions never open the gate")
 
 
-func press_button(label: String, description: String) -> bool:
-	return await press_control(find_button(app.ui, label), description)
+func press_button(label: String, description: String, skip_prayer_3d := true) -> bool:
+	return await press_control(find_button(app.ui, label), description, skip_prayer_3d)
 
 
-func press_control(button: Button, description: String) -> bool:
+func press_control(button: Button, description: String, skip_prayer_3d := true) -> bool:
 	check(button != null and button.is_visible_in_tree() and not button.disabled, description)
 	if button == null or button.disabled or not button.is_visible_in_tree():
 		return false
 	button.pressed.emit()
+	if skip_prayer_3d and app.prayer_3d.visible:
+		# Existing prayer checks continue immediately via the real skip input.
+		key_event(KEY_F10, true)
+		key_event(KEY_F10, false)
 	await frames(2)
 	return true
 

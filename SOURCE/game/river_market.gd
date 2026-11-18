@@ -7,6 +7,7 @@ const MarketPlayer = preload("res://game/market_player.gd")
 const MarketUI = preload("res://game/market_ui.gd")
 const TaskProgress = preload("res://game/task_progress.gd")
 const PrayerClock = preload("res://game/prayer_clock.gd")
+const Prayer3D = preload("res://game/prayer_3d.gd")
 const HijriCalendar = preload("res://game/hijri_calendar.gd")
 const Ramadan = preload("res://game/ramadan.gd")
 const EidAlFitr = preload("res://game/eid_al_fitr.gd")
@@ -97,6 +98,9 @@ var world: Node3D
 var player: CharacterBody3D
 var ui: CanvasLayer
 var clock: PrayerClock
+var prayer_3d := Prayer3D.new()
+var _prayer_camera: Camera3D
+var _prayer_map_visible := false
 var sound: MarketSound
 var ramadan: Ramadan
 var eid_al_fitr: EidAlFitr
@@ -201,6 +205,9 @@ func _ready() -> void:
 	add_child(player)
 	player.setup(data)
 	player.position = world.point(data.start_place)
+	add_child(prayer_3d)
+	prayer_3d.setup(scene_runner.data.prayer3d, data.player)
+	prayer_3d.finished.connect(_return_from_prayer_3d)
 	ui = MarketUI.new()
 	add_child(ui)
 	ui.menus = menus
@@ -456,6 +463,9 @@ func _set_capture_storage(prefix: String) -> bool:
 	return false
 
 func _process(delta: float) -> void:
+	if prayer_3d.visible:
+		prayer_3d.advance(delta)
+		return
 	if _reminder_on and Time.get_ticks_msec() >= _reminder_next_check:
 		_reminder_next_check = Time.get_ticks_msec() + int(reminder.numbers.check_seconds) * 1000
 		_poll_reminder(int(reminder_time_source.call()))
@@ -466,7 +476,7 @@ func _process(delta: float) -> void:
 	update_state()
 
 func _physics_process(_delta: float) -> void:
-	if ui.screen in PAUSE_SCREENS:
+	if prayer_3d.visible or ui.screen in PAUSE_SCREENS:
 		return
 	if ui.screen not in ["game", "market_map"]:
 		player.test_move_axis = Vector2.ZERO
@@ -1016,6 +1026,8 @@ func _show_adhan(message: String) -> void:
 		_prayer_adhan = message
 
 func pray_here() -> void:
+	if prayer_3d.visible:
+		return
 	if not runner_town_id().is_empty() and ui.screen not in ["jisra", "jisra_masjid", "runner_town", "runner_masjid"]:
 		return
 	update_state()
@@ -1027,14 +1039,38 @@ func pray_here() -> void:
 		masjid_id = JisraMasjid.JISRA
 	elif current_place == "masjid":
 		masjid_id = JisraMasjid.RIVER_MARKET
-	_do_prayer(clock.pray.bind(not masjid_id.is_empty()), false, masjid_id, town_masjid)
+	var at_masjid := not masjid_id.is_empty()
+	var play_sequence := clock.can_join_current_prayer(at_masjid)
+	# Take attendance before prayer advances the clock out of the closure window.
+	var regular_count := market_day.congregation_regular_count() if play_sequence and masjid_id == JisraMasjid.RIVER_MARKET else 0
+	if _do_prayer(clock.pray.bind(at_masjid), false, masjid_id, town_masjid) and play_sequence:
+		_start_prayer_3d(regular_count)
+
+func _start_prayer_3d(regular_count: int) -> void:
+	_prayer_camera = get_viewport().get_camera_3d()
+	_prayer_map_visible = ui.map.visible
+	ui.map.hide()
+	ui.content.hide()
+	player.enabled = false
+	player.set_physics_process(false)
+	world.set_scene_motion_paused(true)
+	prayer_3d.start(regular_count)
+
+func _return_from_prayer_3d() -> void:
+	_prayer_camera.make_current()
+	_prayer_camera = null
+	ui.map.visible = _prayer_map_visible
+	ui.content.show()
+	player.enabled = ui.screen in ["game", "market_map"]
+	player.set_physics_process(true)
+	world.set_scene_motion_paused(false)
 
 func make_up_prayer() -> void:
 	update_state()
 	var masjid_id := JisraMasjid.RIVER_MARKET if current_place == "masjid" else ""
 	_do_prayer(clock.make_up, false, masjid_id)
 
-func _do_prayer(action: Callable, compact_receipt: bool = false, masjid_id: String = "", town_masjid := false) -> void:
+func _do_prayer(action: Callable, compact_receipt: bool = false, masjid_id: String = "", town_masjid := false) -> bool:
 	# An adhan crossed during the ten-minute advance is shown first.
 	_prayer_adhan = ""
 	var receipt: String = action.call()
@@ -1052,6 +1088,7 @@ func _do_prayer(action: Callable, compact_receipt: bool = false, masjid_id: Stri
 		ui.show_toast(adhan, compact, receipt)
 	elif not receipt.is_empty():
 		ui.show_toast(receipt, compact)
+	return not receipt.is_empty()
 
 func show_prayer_record() -> void:
 	if ui.screen not in ["title", "arrival", "prayer_record", "zakat"] and ui.screen not in MarketUI.ADHA_SCREENS:
@@ -1903,6 +1940,12 @@ func do_daily_job() -> void:
 	if progress.do_daily_job():
 		show_board()
 		ui.show_toast(data.daily_job.toast)
+
+func _input(event: InputEvent) -> void:
+	if prayer_3d.visible:
+		get_viewport().set_input_as_handled()
+		if event is InputEventKey and event.pressed and not event.echo:
+			prayer_3d.skip()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if ui.screen in PAUSE_SCREENS:

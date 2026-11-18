@@ -1,0 +1,53 @@
+{
+ "version": "LOCK 99 V1 (9 Nov 2026) - the prayer in 3D",
+ "prayer3d": {
+  "kicker": "Worship in 3D · the congregation",
+  "title": "In the rows",
+  "text": "In the 3D game the camera rises behind the rows when the prayer starts. The imam stands alone in front; the rows fill from the middle outwards, shoulder to shoulder; you take the next free place. Each position plays for its time; any key skips to the end.",
+  "positions": [
+   [
+    "Takbir",
+    "hands raised",
+    2
+   ],
+   [
+    "Standing",
+    "Al-Fatiha and a surah",
+    20
+   ],
+   [
+    "Bowing",
+    "back straight",
+    5
+   ],
+   [
+    "Standing up",
+    "",
+    3
+   ],
+   [
+    "Prostration",
+    "",
+    5
+   ],
+   [
+    "Sitting",
+    "",
+    3
+   ],
+   [
+    "Prostration",
+    "",
+    5
+   ],
+   [
+    "Tashahhud and salam",
+    "at the end of the last rak'ah",
+    15
+   ]
+  ],
+  "rows": 3,
+  "per_row": 9,
+  "back": "Back"
+ }
+}

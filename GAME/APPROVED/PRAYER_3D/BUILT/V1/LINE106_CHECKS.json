@@ -1,0 +1,42 @@
+{
+  "line": 106,
+  "lock": "LOCK 99 V1",
+  "questions_answer_rows": [
+    15,
+    58,
+    62
+  ],
+  "focused_run": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --prayer-3d-only",
+    "exit_code": 0,
+    "passed": 390,
+    "total": 390,
+    "failures": 0
+  },
+  "full_run": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 21834,
+    "total": 21834,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "asserted": {
+    "entry": "Existing pray button and P input; only a successful on-time masjid congregation starts playback.",
+    "attendance": "River Market Dhuhr and Asr use the LOCK 27 goers. River Market Friday uses the LOCK 7 roster while that closure applies. The player takes the centre of the first row when no preceding regulars are defined, including Jisra, other runner masjids and other prayers.",
+    "seating": "Three rows of nine, front row first. Each row fills from the middle outward, right before left at equal distance. Checks cover all 27 slot coordinates and actual player entries.",
+    "playback": "Eight ordered positions with their loaded names, notes and durations. The camera rises behind the rows. A pressed key skips playback and releases alone leave it playing. Both paths restore the original camera and view.",
+    "existing_effects": "The existing feedback, prayer totals, private masjid goal and ten in-game minutes apply immediately and once. The clock is paused during playback. Existing solo, make-up, Tarawih, night and both Eid prayer entry points were checked. Coins and trust receive no playback effects."
+  },
+  "master_reference": "fb01_prayer3d__rows_and_positions.png is the reference for order, wording and placeholder positions under Q58 and R11.",
+  "native_screenshots": 0,
+  "scholar_check": {
+    "register": "DOC-TFG-0320",
+    "rows": [
+      26,
+      74
+    ],
+    "action": "OA-AIOS-432",
+    "status": "open before public release"
+  }
+}
