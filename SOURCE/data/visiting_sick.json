@@ -1,0 +1,78 @@
+{
+ "version": "LOCK 83 V1 (9 Nov 2026) - Visiting the sick",
+ "builds_on": "LOCK 2 prayer, LOCK 3 Idris, LOCK 6 regulars, LOCK 34 runner. Private counters go to the Journal; worship never earns trust.",
+ "goals": [],
+ "design_reference_not_shown": {
+  "visit_sick": "Muslim 2569"
+ },
+ "missions": [
+  {
+   "id": "visit_sick",
+   "lock": 83,
+   "place": "inn",
+   "hours": [
+    600,
+    1140
+   ],
+   "title": "Visiting the sick",
+   "kicker": "Character · Visiting the sick",
+   "button": "Old Musa is ill",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Old Musa hasn't been at prayer for three days. Idris says he is ill in his room behind the inn and that nobody has been to see him.",
+     "choices": [
+      {
+       "label": "Visit him and sit a while",
+       "go": "sit",
+       "fx": {
+        "minutes": 60,
+        "trust": 3,
+        "flag": "visited_musa",
+        "say": "visited"
+       }
+      },
+      {
+       "label": "Take him soup · 3 coins",
+       "need_coins": 3,
+       "go": "soup",
+       "fx": {
+        "coins": -3,
+        "minutes": 30,
+        "trust": 3,
+        "flag": "visited_musa",
+        "say": "visited"
+       }
+      },
+      {
+       "label": "Maybe later",
+       "go": "later"
+      }
+     ]
+    },
+    "sit": {
+     "text": "Musa is delighted. He tells you about his boat for an hour and is asleep before you leave.",
+     "end": true
+    },
+    "soup": {
+     "text": "Musa drinks the soup and holds the warm bowl a long time after it's empty.",
+     "end": true
+    },
+    "later": {
+     "text": "When you finally go, a week later, Musa is back at prayer.",
+     "end": true
+    }
+   },
+   "after": [
+    "chapter1_done"
+   ],
+   "say": {
+    "visited": [
+     "Visited Old Musa when he was ill",
+     "Idris",
+     1
+    ]
+   }
+  }
+ ]
+}

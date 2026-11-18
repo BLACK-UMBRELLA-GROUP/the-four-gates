@@ -1046,3 +1046,13 @@ Journal goal of 100. The choice leaves trust and coins unchanged.
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --voluntary-fasts-only`.
+
+## LOCK 83 — Visiting the sick
+
+After **Trust kept** sets the Chapter 1 flag, **Old Musa is ill** appears at the River Market inn
+from 10:00 until 19:00. Sitting with Musa takes 60 game minutes. Taking him soup costs 3 coins
+and takes 30 game minutes. Both give 3 River Market trust and add Idris's account to **What people say**.
+**Maybe later** changes none of those values. Back completes each outcome and closes the one-time visit.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --visiting-sick-only`.

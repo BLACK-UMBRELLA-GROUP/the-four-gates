@@ -1,0 +1,100 @@
+{
+  "line": 90,
+  "lock": "LOCK 83 V1",
+  "brief": "DOC-TFG-0261",
+  "questions_answer_rows": [
+    15,
+    42
+  ],
+  "tested_base_commit_sha": "f2290acc0681812f925bd894063f11015970c7e1",
+  "tested_source": "Base commit plus the hashed source files. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T13:24:44+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --visiting-sick-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 304,
+      "total": 304,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17060,
+      "total": 17060,
+      "failures": 0
+    },
+    "lock_83": {
+      "passed": 105,
+      "total": 105,
+      "failures": 0
+    }
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/VISITING_SICK/BRIEFS/BUILD_BRIEF_2026-11-09_VISITING_SICK.md": {
+      "bytes": 2790,
+      "sha256": "c6f9d7895aaa04d4e20fe6f6230904692ffc9ad43d91ef413ffbbad3b6cd4bf9"
+    },
+    "GAME/APPROVED/VISITING_SICK/RECORD/VISITING_SICK_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3612,
+      "sha256": "35ee104eba0d6c35710ccc419539a56e7b7c79b99fc16241d2a16a0ed0a653a9"
+    },
+    "GAME/APPROVED/VISITING_SICK/RECORD/LOCK_RECORD.md": {
+      "bytes": 735,
+      "sha256": "49b10741b94bfc3c63793b90e23eed47f9dc4f8d3630953d10738311a93694dc"
+    },
+    "GAME/APPROVED/VISITING_SICK/RECORD/visiting_sick_data_V1.json": {
+      "bytes": 1800,
+      "sha256": "07cfaeff0d13ff2d1d5d17227989a097d675de9607dae951cede015497022773"
+    },
+    "GAME/APPROVED/VISITING_SICK/MASTERS/dj01_visit_sick__a.png": {
+      "bytes": 297416,
+      "sha256": "8c58a1ad4846d744e9a591adddaabd33656d330b0968aa16177c98b5f622ffa3"
+    },
+    "GAME/APPROVED/VISITING_SICK/MASTERS/dj02_visit_sick__sit.png": {
+      "bytes": 315904,
+      "sha256": "6152ff61d7dcee9dbee914d42695a822c03f5746a9a2ed2ea06e88ee3b807576"
+    },
+    "GAME/APPROVED/VISITING_SICK/MASTERS/dj03_visit_sick__soup.png": {
+      "bytes": 315734,
+      "sha256": "070df2ae8410c7c066ba2420ef7d0d34a05f2e767214603bd33a995519985d53"
+    },
+    "GAME/APPROVED/VISITING_SICK/MASTERS/dj04_visit_sick__later.png": {
+      "bytes": 314883,
+      "sha256": "c2a200ea17a696c9c1f5f7851cadb48fd60cdb68332562e1bed736edbfb7deff"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "runner_contract": "Scene Runner V2, R1–R12",
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 65846,
+      "sha256": "280b095a49e4eeb1258778a65bb9bd6af779cc693b8ffb421b2efb240d2b08d7"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1193,
+      "sha256": "c0dfcece7dadc197863e2cd2f7caf4da7dce74fae8659da432ecfe8d459ad25f"
+    },
+    "SOURCE/data/visiting_sick.json": {
+      "bytes": 1800,
+      "sha256": "07cfaeff0d13ff2d1d5d17227989a097d675de9607dae951cede015497022773"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 823738,
+      "sha256": "f3148dce7f9424d8d0b94ef66177d77273414997d04fc6b896a9a89c05a07703"
+    }
+  },
+  "native_screenshots": 0,
+  "compiled_exports": 0,
+  "evidence": {
+    "GAME/APPROVED/VISITING_SICK/BUILT/V1/LINE90_CHECKS.json": {
+      "bytes": 2131,
+      "sha256": "5639f02071082fef96ef3b3b3c7908dfb31c98c4947881df9f70ab9d0c82bd96"
+    }
+  }
+}

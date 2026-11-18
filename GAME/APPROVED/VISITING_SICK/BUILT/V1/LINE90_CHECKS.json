@@ -1,0 +1,44 @@
+{
+  "line": 90,
+  "lock": "LOCK 83 V1",
+  "result": "passed",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --visiting-sick-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "suites": {
+    "focused": {
+      "passed": 304,
+      "total": 304,
+      "failures": 0
+    },
+    "full_suite": {
+      "passed": 17060,
+      "total": 17060,
+      "failures": 0
+    },
+    "lock_83": {
+      "passed": 105,
+      "total": 105,
+      "failures": 0
+    }
+  },
+  "runtime_data_byte_identical": true,
+  "coverage": [
+    "The locked action appears at the River Market inn with chapter1_done from 10:00 through 18:59. It is hidden at 09:59 and 19:00, at other places and towns, before the flag, and after completion.",
+    "The Q42 fixture sets the original flag. The built Trust kept encounter also sets it through the live road question and opens the inn action.",
+    "The mission title, kicker, opening paragraph, ordered choices, three outcome paragraphs and Back match the LOCK. The design reference stays private.",
+    "Soup is omitted at zero and two coins, cannot be dispatched there, and can be bought with exactly three coins.",
+    "Sit adds 60 minutes, three River Market trust, visited_musa and one good Idris account. Soup adds 30 minutes and the same trust, flag and account, and costs three coins. Maybe later adds no effects.",
+    "Back completes all branches once. River Market What people say shows Idris's exact account for the two visits. Other towns, unrelated counters and existing Journal goals and progress are preserved.",
+    "Restoring the save preserves the branch outcome and completion. The opportunity stays closed on the next day."
+  ],
+  "master_reference": {
+    "dj01_visit_sick__a.png": "a",
+    "dj02_visit_sick__sit.png": "sit",
+    "dj03_visit_sick__soup.png": "soup",
+    "dj04_visit_sick__later.png": "later"
+  },
+  "visual_scope": "The four reference PNGs match the locked scene copy and action order. Their HUD values are set-up values. Existing Godot layout retained under Q15 and R11.",
+  "native_screenshots": 0
+}
