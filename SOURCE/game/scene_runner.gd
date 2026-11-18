@@ -168,6 +168,8 @@ func available_missions(app, town: String, place: String) -> Array[Dictionary]:
 func _mission_available(app, mission: Dictionary, town: String) -> bool:
 	if _already_completed(mission, app.day):
 		return false
+	if mission.get("friday", false) and not app.clock.is_friday():
+		return false
 	if not _within_hours(int(app.minute_of_day), mission.get("hours", [])):
 		return false
 	if town_trust(app, town) < int(mission.get("min_trust", 0)):

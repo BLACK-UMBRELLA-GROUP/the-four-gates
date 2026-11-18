@@ -1,0 +1,75 @@
+{
+  "line": 63,
+  "lock": "LOCK 56 V1",
+  "brief": "DOC-TFG-0180",
+  "tested_base_commit_sha": "46c84ac26da1282cd5cdb865a45073d1480f77cf",
+  "tested_source": "The base commit plus the hashed source changes. The 18 November daily report records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T10:36:17+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --side-lost-child-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_56": 298,
+    "focused": 497,
+    "headless_full_suite": 13730
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/SIDE_LOST_CHILD/BRIEFS/BUILD_BRIEF_2026-11-09_SIDE_LOST_CHILD.md": {
+      "bytes": 3037,
+      "sha256": "0e4012ff8a67fc8ab0ad4fece5370687e5aa0aa59587d188ced26cf9aaad7493"
+    },
+    "GAME/APPROVED/SIDE_LOST_CHILD/RECORD/LOCK_RECORD.md": {
+      "bytes": 769,
+      "sha256": "e1324a8e62ff39172db966fcddc145220835e3cdfa5a70d061776364a7ca03c8"
+    },
+    "GAME/APPROVED/SIDE_LOST_CHILD/RECORD/SIDE_LOST_CHILD_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3598,
+      "sha256": "7c649a68f1b4b79897c2b1d88c72871e8fc5d76d6f26ed80464e2de35401d210"
+    },
+    "GAME/APPROVED/SIDE_LOST_CHILD/RECORD/side_lost_child_data_V1.json": {
+      "bytes": 1779,
+      "sha256": "deddf0f5fd502bab59d9de6b118f9b730b505109663fa886ed0953465bcce3b8"
+    },
+    "GAME/APPROVED/SIDE_LOST_CHILD/MASTERS/sg01_lost_child__a.png": {
+      "bytes": 295994,
+      "sha256": "946f21301d39bf6082f35f90d6119862aa92ab02467cff61175551f93ce35995"
+    },
+    "GAME/APPROVED/SIDE_LOST_CHILD/MASTERS/sg02_lost_child__imam.png": {
+      "bytes": 312815,
+      "sha256": "d013cba7792b166396843301c4ebecadb2cd0f9cdf037f891628866ea717245a"
+    },
+    "GAME/APPROVED/SIDE_LOST_CHILD/MASTERS/sg03_lost_child__shoulders.png": {
+      "bytes": 312881,
+      "sha256": "21e4ba5435cf9f288ed4a9b65fb82136e799caaaf824dd747353ce1e8ec94ff9"
+    },
+    "GAME/APPROVED/SIDE_LOST_CHILD/MASTERS/sg04_lost_child__out.png": {
+      "bytes": 311623,
+      "sha256": "624d19b0f79d21442ceaea4d814cce80e5995214ecb00e2d795e446dc063e0e1"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 801,
+      "sha256": "3bf6f6435a1cd2a419e1b7ca650031044ab46cf7d9e322843e80e459ff1a3306"
+    },
+    "SOURCE/data/side_lost_child.json": {
+      "bytes": 1779,
+      "sha256": "deddf0f5fd502bab59d9de6b118f9b730b505109663fa886ed0953465bcce3b8"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 16110,
+      "sha256": "04c1a1cabe0c4983c9241d1722ec7a2f617cd0181cf012d385461b73c5122368"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 704519,
+      "sha256": "7537f19951651d71ebff80a2d907b8699ec5d6f0effecd71b7e43f06b1344e8a"
+    }
+  }
+}

@@ -785,6 +785,15 @@ then use **Back** on the ending to finish the mission and count it once in the
 **Journal**. Pulling them apart or paying adds the corresponding account to
 **What people say**. The headless suite covers all three responses.
 
+## LOCK 56 — A lost child at Friday prayer
+
+At the River Market masjid on Fridays from 12:15 up to 14:00, choose
+**A small boy is crying by the masjid door**. Either way of helping adds
+four River Market trust and a masjid account to **What people say**. Use
+**Back** on any of the three endings to count the mission once in the
+**Journal**. Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --side-lost-child-only`.
+
 ## LOCK 57 — A boy drowning in the canal
 
 At the River Market quay, **Someone is shouting at the canal** is available from

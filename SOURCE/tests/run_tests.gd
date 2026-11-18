@@ -97,6 +97,10 @@ func _run() -> void:
 		await check_side_goods_in_trust_runtime()
 		finish()
 		return
+	if "--side-lost-child-only" in OS.get_cmdline_user_args():
+		await check_side_lost_child_runtime()
+		finish()
+		return
 	if "--jisra-masjid-only" in OS.get_cmdline_user_args():
 		await check_jisra_masjid_runtime()
 		finish()
@@ -297,6 +301,7 @@ func _run() -> void:
 	await check_side_neighbours_wall_runtime()
 	await check_side_goods_in_trust_runtime()
 	await check_side_creditor_runtime()
+	await check_side_lost_child_runtime()
 	await check_side_drowning_boy_runtime()
 	await check_side_thirsty_dog_runtime()
 	await check_side_spilled_spice_runtime()
@@ -4424,6 +4429,125 @@ func _check_creditor_outcome(mission: Dictionary, index: int, outcome: Dictionar
 		and has_visible_label(app.ui, str(words.journal.count).format({"n": completed.done, "m": completed.total})),
 		"the Journal counts the creditor mission exactly once")
 	await press_button(words.journal.back, "the Journal returns to the market")
+
+
+func check_side_lost_child_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/SIDE_LOST_CHILD/RECORD/side_lost_child_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/side_lost_child.json")
+	check(not locked.is_empty() and runtime == locked, "lost child data is the byte-identical LOCK 56 file")
+	var mission: Dictionary = app.scene_runner.missions.get("lost_child", {})
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	check(approved is Dictionary and not mission.is_empty() and mission == approved.missions[0],
+		"the production index loads the locked lost child mission")
+	if mission.is_empty():
+		return
+
+	app.set_process(false)
+	reset_at_market_place("masjid", 8, 2)
+	for day in range(2, 10):
+		set_market_day_time(day, 13 * 60 + 15)
+		check((find_button(app.ui, mission.button) != null) == (day in [2, 9]),
+			"the masjid offers the lost child action only on Friday, checked on day %d" % day)
+	for minute: int in [734, 735, 839, 840]:
+		set_market_day_time(2, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 735 and minute < 840),
+			"on Friday the lost child action follows the locked hours at minute %d" % minute)
+	set_market_day_time(3, 13 * 60 + 15)
+	app._runner_action("mission", mission)
+	check(app.ui.screen == "market_map", "the runner also refuses a direct request on Saturday")
+	set_market_day_time(2, 13 * 60 + 15)
+	move_market_fixture("inn")
+	check(find_button(app.ui, mission.button) == null, "the lost child action is hidden away from the masjid")
+	move_market_fixture("masjid")
+	app.show_screen("game")
+	await press_button(mission.button, "the lost child mission opens from the masjid walking view")
+	_check_side_mission_scene(mission, mission.scenes.a)
+
+	var outcomes := [
+		{"scene": "imam", "trust": 4, "sayings": [mission.say.found]},
+		{"scene": "shoulders", "trust": 4, "sayings": [mission.say.found]},
+		{"scene": "out", "trust": 0, "sayings": []},
+	]
+	for trust: int in [10, 50, 80]:
+		for index in outcomes.size():
+			await _check_lost_child_outcome(mission, trust, index, outcomes[index])
+	app.set_process(true)
+	var failures_added := failures - failures_before
+	print("LOCK 56 TESTS: ", checks - checks_before - failures_added, "/", checks - checks_before,
+		" passed; failures=", failures_added)
+
+
+func _check_lost_child_outcome(mission: Dictionary, trust: int, index: int, outcome: Dictionary) -> void:
+	const FRIDAY := 2
+	const MINUTE := 13 * 60 + 15
+	const COINS := 8
+	reset_at_market_place("masjid", COINS, FRIDAY)
+	app.progress.apply_trust(trust - app.progress.trust)
+	set_market_day_time(FRIDAY, MINUTE)
+	var runner: SceneRunner = app.scene_runner
+	var initial := runner.state()
+	var initial_side: Dictionary = runner.journal(app).side
+	var other_town_trust := runner.town_trust(app, "jisra")
+	var words: Dictionary = runner.data.words
+	var opening: Dictionary = mission.scenes[mission.start]
+	await press_button(mission.button, "open the lost child mission at trust %d" % trust)
+	_check_side_mission_scene(mission, opening)
+	var choice_labels: Array[String] = []
+	for choice: Dictionary in opening.choices:
+		choice_labels.append(choice.label)
+	_check_town_hub_button_order(choice_labels, "the lost child choices follow the locked order")
+	check(find_button(app.ui, words.scene_back) == null, "the opening offers choices before Back")
+
+	await press_button(choice_labels[index], "choose the lost child response for " + outcome.scene)
+	var ending: Dictionary = mission.scenes[outcome.scene]
+	check(app.runner_scene() == ending, "the response opens the locked ending: " + outcome.scene)
+	_check_side_mission_scene(mission, ending)
+	for label: String in choice_labels:
+		check(find_button(app.ui, label) == null, "the ending removes the opening choice: " + label)
+	check_wallet(trust + int(outcome.trust), COINS, "the response changes only the locked River Market trust")
+	check(runner.town_trust(app, "jisra") == other_town_trust and runner.town_sayings("jisra", app).is_empty(),
+		"the response has no effect in Jisra")
+	var state := runner.state()
+	check(state.flags == initial.flags and state.counters == initial.counters and app.minute_of_day == MINUTE,
+		"the response adds no flags, counters or elapsed time")
+	check(runner.town_sayings("river_market", app) == outcome.sayings,
+		"the masjid records the locked account only when the player helps")
+	check(not runner.mission_done(app, mission.id) and runner.journal(app).side == initial_side,
+		"the ending waits for Back before counting completion")
+
+	await press_button(words.scene_back, "Back completes the lost child mission")
+	var completed := runner.state()
+	check(app.ui.screen == "market_map" and completed.done == {mission.id: FRIDAY},
+		"Back saves completion and returns to the masjid")
+	check(find_button(app.ui, mission.button) == null, "the completed action disappears from the masjid")
+	set_market_day_time(FRIDAY + 7, MINUTE)
+	check(find_button(app.ui, mission.button) == null, "the completed action stays hidden next Friday")
+	await press_button(app.chapter.purse.morning.to_rep, "open What people say after the lost child mission")
+	check(app.ui.screen == "reputation" and app.ui.reputation_lines() == outcome.sayings,
+		"What people say shows the account for this response only")
+	for line: Array in outcome.sayings:
+		check_reputation_row(line)
+	if outcome.sayings.is_empty():
+		check(visible_text().contains(app.chapter.rep.empty), "leaving the boy adds no public account")
+	await press_button(app.chapter.rep.to_map, "return from What people say")
+	await press_button(words.journal_button, "open the Journal after the lost child mission")
+	var side: Dictionary = runner.journal(app).side
+	check(side == {"done": initial_side.done + 1, "total": initial_side.total}
+		and has_visible_label(app.ui, str(words.journal.count).format({"n": side.done, "m": side.total})),
+		"the private Journal counts the lost child mission once")
+	await press_button(words.journal.back, "return from the Journal")
+
+	app.show_screen("pause")
+	app.save_game(true)
+	app.begin_game()
+	app.show_screen("title")
+	app.continue_game()
+	check(runner.state() == completed and runner.journal(app).side == side
+		and find_button(app.ui, mission.button) == null,
+		"Save and Continue keeps the completed mission and its account")
 
 
 func check_side_drowning_boy_runtime() -> void:
