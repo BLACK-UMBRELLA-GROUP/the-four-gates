@@ -1,0 +1,19 @@
+{
+  "line": 98,
+  "result": "passed",
+  "checks_passed": {
+    "lock_91": 143,
+    "focused": 342,
+    "headless_full_suite": 17889
+  },
+  "coverage": [
+    "The production index loads the byte-identical LOCK 91 V1 data. All four scenes use their locked titles, kickers, paragraphs and choices in order.",
+    "Live Chapter 1 completion grants the stall prerequisite. The spice-row offer and payout follow 08:00–17:59. The live Road map reaches Sahila and Mukhtar's live boat sale grants the shore purchase prerequisite. The Sahila hub offer and payout follow 07:00–16:59.",
+    "Both offers hide purchase one coin short, show it at the exact cost, and leave the offer open after Not now. Purchase deducts exactly 80 or 100 coins, saves the ownership day and closes its offer.",
+    "Each first payout opens seven in-game days after ownership. Each later payout opens seven days from the last claim, including after a delayed claim and a save and reload.",
+    "The stall pays 12 coins for honest weighing, or 18 coins with −3 River Market trust, Nasir's short-measure account and one private cheats increment. Paying the fisherman first pays 10 coins and +1 Sahila trust. Delaying pays 15 coins and −2 Sahila trust and records the shore's account.",
+    "Repeated claims add each adverse account only once, leave other towns' trust and accounts alone, and preserve the existing Journal chapters, side count and goals. The cheats counter is saved and stays internal."
+  ],
+  "visual_reference": "Approved od01–od04 are 1920 × 1080. Q15 and Q50 Layout B (R11) use the existing Godot layout with headless rules checks. The masters establish the words and order.",
+  "scholar_review": "DOC-TFG-0320 row 68, open before public release (OA-AIOS-432)."
+}

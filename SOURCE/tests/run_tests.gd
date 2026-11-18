@@ -285,6 +285,10 @@ func _run() -> void:
 		await check_land_and_house_runtime()
 		finish()
 		return
+	if "--businesses-only" in OS.get_cmdline_user_args():
+		await check_businesses_runtime()
+		finish()
+		return
 	if "--truth-only" in OS.get_cmdline_user_args():
 		await check_truth_runtime()
 		finish()
@@ -445,6 +449,7 @@ func _run() -> void:
 	await check_finale_rain_runtime()
 	await check_finale_ending_runtime()
 	await check_land_and_house_runtime()
+	await check_businesses_runtime()
 	finish()
 
 
@@ -8883,6 +8888,211 @@ func _check_orchard_and_harvest(orchard: Dictionary, harvest: Dictionary) -> voi
 	check(find_button(app.ui, harvest.button) == null, "selling also starts a fresh 30-day interval")
 	set_market_day_time(DAY + 93, MORNING)
 	check(find_button(app.ui, harvest.button) != null, "the third harvest opens from the second completion date")
+
+
+func check_businesses_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/BUSINESSES/RECORD/businesses_data_V1.json")
+	check(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/businesses.json"),
+		"the live Businesses pack is byte-identical to LOCK 91 V1")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = approved is Dictionary and approved.missions.all(
+		func(mission: Dictionary) -> bool: return runner.missions.get(mission.id) == mission)
+	check(loaded, "the production index loads all four business missions")
+	if not loaded:
+		return
+
+	var previous := MarketSave.snapshot(app)
+	app.set_process(false)
+	await _check_stall_entry(runner.missions.rent_stall, runner.missions.stall_week)
+	await _check_business(runner.missions.rent_stall, runner.missions.stall_week, "own_stall", "market_map")
+	await _check_boat_entry(runner.missions.buy_boat, runner.missions.boat_week)
+	await _check_business(runner.missions.buy_boat, runner.missions.boat_week, "own_boat", "runner_town")
+
+	MarketSave.restore(app, previous)
+	app.show_screen("market_map")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 91 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_stall_entry(offer: Dictionary, payout: Dictionary) -> void:
+	const DAY := 8
+	var runner: SceneRunner = app.scene_runner
+	reset_at_market_place("spice", 80, DAY)
+	check(find_button(app.ui, offer.button) == null and find_button(app.ui, payout.button) == null,
+		"the stall offer requires Chapter 1 completion and the payout requires ownership")
+	var chapter_end: Dictionary = runner.missions.trust_home
+	var ready := runner.state()
+	for flag: String in chapter_end.after:
+		ready.flags[flag] = DAY
+	runner.restore(ready)
+	move_market_fixture(chapter_end.place)
+	await press_button(chapter_end.button, "open the live Chapter 1 ending")
+	await press_button(chapter_end.scenes.a.choices[0].label, "earn the Chapter 1 flag")
+	await press_button(runner.data.words.scene_back, "leave the Chapter 1 ending")
+	check(runner.has_flag(app, "chapter1_done") and find_button(app.ui, offer.button) == null,
+		"the live ending grants the flag but the stall offer is still confined to the spice row")
+	move_market_fixture("spice")
+
+
+func _check_boat_entry(offer: Dictionary, payout: Dictionary) -> void:
+	await _check_sahila_travel()
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	set_market_day_time(app.day, 480)
+	check(find_button(app.ui, offer.button) == null and find_button(app.ui, payout.button) == null,
+		"reaching Sahila does not unlock a purchase before the boat sale")
+	var boat_sale: Dictionary = runner.missions.sahila_boat
+	await press_button(boat_sale.button, "open the live Sahila boat sale")
+	await press_button(boat_sale.scenes.a.choices[0].label, "agree to sell Mukhtar's boat")
+	await press_button(boat_sale.scenes.b.choices[0].label, "tell Ziyad about Mukhtar's boat")
+	await press_button(words.scene_back, "leave the live Sahila boat ending")
+	check(runner.has_flag(app, "sahila_boat_done") and find_button(app.ui, offer.button) != null,
+		"the Sahila sale opens the shore purchase in the live hub")
+	var road: Dictionary = app.road_map.data.words
+	await press_button(road.map_button, "leave the hub for the Road map")
+	check(find_button(app.ui, offer.button) == null, "Ziyad's offer is unavailable outside the hub")
+	await press_button(road.back, "return to Sahila")
+
+
+func _check_business(offer: Dictionary, payout: Dictionary, ownership: String, hub: String) -> void:
+	var runner: SceneRunner = app.scene_runner
+	var day: int = app.day
+	var minute := int(offer.hours[0]) + 60
+	var town: String = offer.get("town", "river_market")
+	var local_trust := runner.town_trust(app, town)
+	var market_trust: int = app.progress.trust
+	var expected := runner.state()
+	var journal := runner.journal(app)
+	var purchase: Dictionary = offer.scenes.a.choices[0]
+	var decline: Dictionary = offer.scenes.a.choices[1]
+	var cost := int(purchase.need_coins)
+
+	_check_business_hours(offer, day)
+	app.progress.coins = cost - 1
+	set_market_day_time(day, minute)
+	await press_button(offer.button, "open %s one coin short" % offer.id)
+	_check_runner_scene_copy(offer, "a")
+	check(runner.choices(app, offer, app.runner_scene()) == [decline] and find_button(app.ui, purchase.label) == null,
+		"only Not now is available one coin short for %s" % offer.id)
+	app._runner_action("choice", purchase)
+	check(app.ui.screen == "runner_mission" and app.progress.coins == cost - 1 and runner.state() == expected,
+		"an unaffordable purchase cannot bypass the choice requirement for %s" % offer.id)
+	await press_button(decline.label, "choose Not now")
+	check(app.ui.screen == hub and find_button(app.ui, offer.button) != null and app.progress.coins == cost - 1
+		and runner.state() == expected and app.progress.trust == market_trust and runner.journal(app) == journal,
+		"Not now leaves %s open with no effects" % offer.id)
+
+	app.progress.coins = cost
+	app.update_state()
+	await press_button(offer.button, "reopen %s with the exact cost" % offer.id)
+	_check_town_hub_button_order([purchase.label, decline.label], "exact funds show both choices in locked order")
+	# A spare coin distinguishes an exact charge from an overcharge clamped at zero.
+	app.progress.coins += 1
+	app.update_state()
+	await press_button(purchase.label, "buy the property")
+	expected.flags[ownership] = day
+	expected.done[offer.id] = day
+	check(app.ui.screen == hub and app.progress.coins == 1 and runner.state() == expected
+		and app.progress.trust == market_trust and runner.journal(app) == journal and app.minute_of_day == minute,
+		"buying %s spends the exact cost and records only ownership and completion" % offer.id)
+	check(find_button(app.ui, offer.button) == null and find_button(app.ui, payout.button) == null,
+		"buying closes the offer and does not pay immediately")
+	var owned := runner.state()
+	owned.done.erase(offer.id)
+	runner.restore(owned)
+	app.update_state()
+	check(find_button(app.ui, offer.button) == null, "the ownership flag alone hides %s" % offer.id)
+	runner.restore(expected)
+
+	var due := day + int(payout.after_days[ownership])
+	set_market_day_time(due - 1, minute)
+	check(find_button(app.ui, payout.button) == null, "%s is unavailable six days after purchase" % payout.id)
+	_check_business_hours(payout, due)
+	var sayings := runner.town_sayings(town, app)
+	var other_town := "sahila" if town == "river_market" else "river_market"
+	var other_sayings := runner.town_sayings(other_town, app)
+	var other_trust := runner.town_trust(app, other_town)
+	# A late first claim distinguishes the last-claim timer from the purchase schedule.
+	var claim_day := due + 2
+	var expected_coins := 1
+	for choice_index: int in [0, 1, 1]:
+		set_market_day_time(claim_day, minute)
+		await press_button(payout.button, "open %s on its claim day" % payout.id)
+		_check_runner_scene_copy(payout, "a")
+		var options: Array = payout.scenes.a.choices
+		_check_town_hub_button_order([options[0].label, options[1].label], "weekly choices use the locked order")
+		var choice: Dictionary = options[choice_index]
+		await press_button(choice.label, "claim " + str(choice.label))
+
+		var effects: Dictionary = choice.fx
+		expected_coins += int(effects.coins)
+		local_trust += int(effects.get("trust", 0))
+		expected.done[payout.id] = claim_day
+		if effects.has("trust") and town != "river_market":
+			expected.trust[town] = local_trust
+		if effects.has("count"):
+			expected.counters.cheats = int(expected.counters.get("cheats", 0)) + 1
+		if effects.has("say"):
+			var account: Array = payout.say[effects.say]
+			var saved_sayings: Array = expected.sayings.get(town, [])
+			if account not in saved_sayings:
+				saved_sayings.append(account)
+			expected.sayings[town] = saved_sayings
+			if account not in sayings:
+				sayings.append(account)
+		check(app.ui.screen == hub and app.progress.coins == expected_coins and runner.state() == expected
+			and runner.town_trust(app, town) == local_trust and runner.town_sayings(town, app) == sayings
+			and runner.town_trust(app, other_town) == other_trust and runner.town_sayings(other_town, app) == other_sayings
+			and app.minute_of_day == minute and runner.journal(app) == journal,
+			"%s applies only the locked local effects, with no duplicate saying or Journal change" % choice.label)
+		app._runner_action("choice", choice)
+		check(app.progress.coins == expected_coins and runner.state() == expected
+			and find_button(app.ui, payout.button) == null, "a claimed payout cannot be collected twice")
+
+		var saved := MarketSave.snapshot(app)
+		runner.reset()
+		MarketSave.restore(app, saved)
+		app.show_screen(hub)
+		check(runner.state() == expected and app.progress.coins == expected_coins
+			and runner.journal(app) == journal and find_button(app.ui, payout.button) == null,
+			"reloading preserves ownership, the claim date, the private counter and local effects")
+		claim_day += int(payout.repeat_days)
+		set_market_day_time(claim_day - 1, minute)
+		check(find_button(app.ui, payout.button) == null, "%s waits seven days from the last claim" % payout.id)
+	set_market_day_time(claim_day, minute)
+	check(find_button(app.ui, payout.button) != null, "%s reopens after the most recent claim" % payout.id)
+
+	if town == "river_market":
+		await press_button(app.chapter.purse.morning.to_rep, "open River Market What people say")
+		check(app.ui.reputation_lines() == sayings, "the River Market shows Nasir's account once")
+		check_reputation_row(payout.say.short)
+		await press_button(app.chapter.rep.to_map, "leave What people say")
+		await press_button(runner.data.words.journal_button, "open the private Journal after cheating")
+		check(app.ui.screen == "journal" and runner.journal(app) == journal and not visible_text().to_lower().contains("cheats"),
+			"the Journal shows its existing sections and keeps the cheats counter private")
+		await press_button(runner.data.words.journal.back, "leave the private Journal")
+	else:
+		await _check_town_sayings(town, sayings, runner.data.words)
+
+
+func _check_business_hours(mission: Dictionary, day: int) -> void:
+	var opens := int(mission.hours[0])
+	var closes := int(mission.hours[1])
+	for minute: int in [opens - 1, opens, closes - 1, closes]:
+		set_market_day_time(day, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= opens and minute < closes),
+			"%s follows its locked place hours at minute %d" % [mission.id, minute])
+	set_market_day_time(day, opens)
+	var wrong_place := "spice" if mission.has("town") else "gate"
+	check(mission not in app.scene_runner.available_missions(app, "river_market", wrong_place),
+		"%s is unavailable at the River Market %s" % [mission.id, wrong_place])
+	check(mission not in app.scene_runner.available_missions(app, "jisra", ""),
+		"%s is unavailable in Jisra" % mission.id)
 
 
 func _check_bees_hours(mission: Dictionary, day: int) -> void:

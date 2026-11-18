@@ -1,0 +1,71 @@
+{
+  "line": 98,
+  "lock": "LOCK 91 V1",
+  "brief": "DOC-TFG-0285",
+  "tested_base_commit_sha": "3edb6839dbf57bead3b825b5fb28609c3578ddd4",
+  "tested_source": "Base commit plus hashed source changes. The 18 November daily task note identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T15:03:48+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --businesses-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_91": 143,
+    "focused": 342,
+    "headless_full_suite": 17889
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/BUSINESSES/BRIEFS/BUILD_BRIEF_2026-11-09_BUSINESSES.md": {
+      "bytes": 3354,
+      "sha256": "b0e6642ffda787bffedc377077ab333cfdc99e30d19d8e86e281f0bc64309501"
+    },
+    "GAME/APPROVED/BUSINESSES/RECORD/LOCK_RECORD.md": {
+      "bytes": 940,
+      "sha256": "23a0884f5ca4f79087a3ee68eb37fd23ac8eb49f8e66d520d372116726e1f11f"
+    },
+    "GAME/APPROVED/BUSINESSES/RECORD/BUSINESSES_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 4546,
+      "sha256": "e3604caeaa41a5ee595b67eb36cf7d99400f04e871f7e25bf55e5c9644dd29cc"
+    },
+    "GAME/APPROVED/BUSINESSES/RECORD/businesses_data_V1.json": {
+      "bytes": 3824,
+      "sha256": "9591dcadf05417e49341382d7536876561719f04d13c4757712bd76ec38988ab"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/BUSINESSES/MASTERS/od01_rent_stall__a.png": {
+      "bytes": 308440,
+      "sha256": "33f9d4aeefad8741b97c6da10479167aa9c6c37992f1906c8f3f98de7cf4a7d5"
+    },
+    "GAME/APPROVED/BUSINESSES/MASTERS/od02_stall_week__a.png": {
+      "bytes": 308865,
+      "sha256": "e10e0d606ae4eef5994d7ce306ece74f70387d55631bb5309d6347e19850e7ae"
+    },
+    "GAME/APPROVED/BUSINESSES/MASTERS/od03_buy_boat__a.png": {
+      "bytes": 257154,
+      "sha256": "618913675270646f1eaf70df1b2540360dda41ca123e59bb80d52ffe016eb5a6"
+    },
+    "GAME/APPROVED/BUSINESSES/MASTERS/od04_boat_week__a.png": {
+      "bytes": 256716,
+      "sha256": "b494ae400a02421cbb7c6fc7caacf925d3a98211cb68b7f8734fa767094aa92f"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 1363,
+      "sha256": "30faeba6c12b23b8d38d7280d348609c165ccacf043d0078b26a9f1a853215ed"
+    },
+    "SOURCE/data/businesses.json": {
+      "bytes": 3824,
+      "sha256": "9591dcadf05417e49341382d7536876561719f04d13c4757712bd76ec38988ab"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 897718,
+      "sha256": "d213ee5f866ea71023d6bf6df66f6ba24b2aedd1ec587bca13e3d8ef7f61a4f8"
+    }
+  }
+}

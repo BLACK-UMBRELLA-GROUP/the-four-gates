@@ -1137,3 +1137,20 @@ adds 20 meals to the Journal goal. Selling the whole harvest pays 30 coins.
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --land-and-house-only`.
+
+## LOCK 91 — A stall and a fishing boat
+
+After Chapter 1, the River Market spice row offers a stall for 80 coins from
+08:00 through 17:59. After Sahila's boat sale, the hub offers a fishing boat
+for 100 coins from 07:00 through 16:59. Choosing **Not now** leaves the offer
+open.
+
+Each property's first payout opens seven in-game days after purchase and
+each later payout opens seven days after the previous claim. The stall pays
+12 coins for honest weighing or 18 for short measure, which costs 3 River
+Market trust. At Sahila, paying the fisherman first earns 10 coins and 1
+local trust. Delaying his pay earns 15 coins and costs 2 local trust.
+River Market records the short measure and Sahila records late payment.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --businesses-only`.
