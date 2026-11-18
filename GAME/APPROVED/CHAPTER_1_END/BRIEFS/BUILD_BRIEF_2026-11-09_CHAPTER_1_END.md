@@ -41,3 +41,7 @@ Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the 
 ## Reissue note — 17 Nov 2026 (LOCK 103, the six gates)
 
 Founder 17 Nov: "LOCK it (Recommended)". V2: Idris now names the north-west gate and says Safira waits for when it opens. Nothing else changes. Build after line 41. Needs: none.
+
+## Answer note — 2026-11-18 (QUESTIONS row 25)
+
+**A.** Scene B becomes "The road north-west waits for the Gate of Patience." (fixed in `chapter1_end_data_V2.json`, not yet built; the masters' V1 lines are superseded, R12). The spec's dependency line now defers to the brief: line 41. Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.

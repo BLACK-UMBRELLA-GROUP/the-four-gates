@@ -1,0 +1,70 @@
+{
+  "line": 46,
+  "lock": "LOCK 39 V2",
+  "brief": "DOC-TFG-0128",
+  "tested_base_commit_sha": "e4b32dcca79539da75fd62daf280104cefed75e9",
+  "tested_source": "Base commit plus the hashed source files. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T07:46:28+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --chapter1-end-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_39": 95,
+    "focused": 294,
+    "headless_full_suite": 9224
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/CHAPTER_1_END/BRIEFS/BUILD_BRIEF_2026-11-09_CHAPTER_1_END.md": {
+      "bytes": 3425,
+      "sha256": "6bd9c70f660724443b21f70ef084f10439b458800e947b74dccc14b32c54a2a6"
+    },
+    "GAME/APPROVED/CHAPTER_1_END/RECORD/LOCK_RECORD.md": {
+      "bytes": 1019,
+      "sha256": "a006693debb4db62e95185674d4c0b627cc13943c6eace67babc9f913304552b"
+    },
+    "GAME/APPROVED/CHAPTER_1_END/RECORD/CHAPTER_1_END_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 3848,
+      "sha256": "f76af4feecb4660d52b190af98039bd0ae957276f6d0dbe91a71e5a029d8a493"
+    },
+    "GAME/APPROVED/CHAPTER_1_END/RECORD/chapter1_end_data_V2.json": {
+      "bytes": 1438,
+      "sha256": "e95af1b7d10de306eb680e01f6dab0a98268302eda964e90055e398e0b205723"
+    },
+    "GAME/APPROVED/CHAPTER_1_END/MASTERS/ce01_trust_home__a.png": {
+      "bytes": 312521,
+      "sha256": "0b328fdd30ac02ab799d28d5eb4047b410327c8aa03f67266e2853d4c367da5f"
+    },
+    "GAME/APPROVED/CHAPTER_1_END/MASTERS/ce02_trust_home__b.png": {
+      "bytes": 308711,
+      "sha256": "f7aedb1c761466ebb217fdccd03921e4fc68250c8b78cabf0d062fd07eff62e6"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/SIX_GATES_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 6532,
+      "sha256": "ea7e353b6d74f3d3933df88855cbab3b050edad229f9f2e014df64b055caa98b"
+    }
+  },
+  "runner_contract": "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md, R1–R12",
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 48125,
+      "sha256": "754a61d0c543c8e520ffb039986fd7413771ca79dbd70b4c25826f1504f5777b"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 491,
+      "sha256": "761fc28abdb3ac466fa33675e80d194ceca42156088e0964193fc5aa2e27755b"
+    },
+    "SOURCE/data/chapter1_end.json": {
+      "bytes": 1438,
+      "sha256": "e95af1b7d10de306eb680e01f6dab0a98268302eda964e90055e398e0b205723"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 516746,
+      "sha256": "f66b07a900ed4788afa2a3ba1de84a02477eabe1de76739a7033e8f66c004850"
+    }
+  },
+  "native_screenshots": 0,
+  "compiled_exports": 0
+}

@@ -109,6 +109,10 @@ func _run() -> void:
 		await check_sukara_runtime()
 		finish()
 		return
+	if "--chapter1-end-only" in OS.get_cmdline_user_args():
+		await check_chapter1_end_runtime()
+		finish()
+		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
 		await check_jisra_people_runtime()
 		finish()
@@ -255,6 +259,7 @@ func _run() -> void:
 	await check_road_map_runtime()
 	await check_sahila_runtime()
 	await check_sukara_runtime()
+	await check_chapter1_end_runtime()
 	finish()
 
 
@@ -8393,3 +8398,121 @@ func _check_sukara_followup(mission: Dictionary, choice_index: int, day: int, fl
 	check(runner.state().done.get(mission.id) == day and find_button(app.ui, mission.button) == null,
 		"Q24 checks the follow-up's saved completion and hidden button")
 	await _check_town_sayings("sukara", local_sayings, words)
+
+
+func check_chapter1_end_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/CHAPTER_1_END/RECORD/chapter1_end_data_V2.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/chapter1_end.json") == locked,
+		"Trust kept uses byte-identical LOCK 39 V2 data")
+	var copy: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = copy is Dictionary and runner.missions.has("trust_home")
+	check(loaded, "the production index loads the LOCK 39 mission")
+	if not loaded:
+		return
+	var mission: Dictionary = runner.missions.trust_home
+	check(mission == copy.missions[0] and runner.data.chapters[0] == copy.chapters[0],
+		"the runner loads the locked mission and Chapter 1 order")
+	check(mission.scenes.b.text == "The road north-west waits for the Gate of Patience.",
+		"Q25 supplies the exact Scene B wording")
+	var previous := MarketSave.snapshot(app)
+	app.set_process(false)
+	reset_at_market_place("masjid", 60, 8)
+	set_market_day_time(8, 600)
+	for flags: Dictionary in [{}, {"sahila_boat_done": 8}, {"sukara_chosen": 8}]:
+		var state := runner.state()
+		state.flags = flags
+		runner.restore(state)
+		app.update_state()
+		check(find_button(app.ui, mission.button) == null, "the masjid action requires both flags: " + str(flags.keys()))
+		app._runner_action("mission", mission)
+		check(app.ui.screen == "market_map", "dispatch cannot start Trust kept without both flags")
+	var ready := runner.state()
+	ready.flags = {"sahila_boat_done": 8, "sukara_chosen": 8}
+	runner.restore(ready)
+	for minute: int in [419, 420, 1199, 1200]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 420 and minute < 1200),
+			"the action respects the exact LOCK 39 hours at minute %d" % minute)
+	set_market_day_time(8, 600)
+	move_market_fixture("spice")
+	check(find_button(app.ui, mission.button) == null and mission not in runner.available_missions(app, "sukara", "masjid"),
+		"Trust kept is exclusive to the River Market masjid")
+	move_market_fixture("masjid")
+	for trust: int in [10, 50]:
+		runner.restore(ready)
+		app.progress.trust = trust
+		app.update_state()
+		await _check_chapter1_end_path(mission)
+
+	# Also earn the two flags via the live roads and mission buttons.
+	var words: Dictionary = runner.data.words
+	await _check_sukara_road(words)
+	var offers: Dictionary = runner.missions.sukara_offers
+	await press_button(offers.button, "open the live Sukara prerequisite")
+	await press_button(offers.scenes.a.choices[2].label, "choose to keep your coins")
+	await press_button(words.scene_back, "leave the completed Sukara offer")
+	check(runner.has_flag(app, "sahila_boat_done") and runner.has_flag(app, "sukara_chosen"),
+		"both prerequisite flags can be earned in live play")
+	var road: Dictionary = app.road_map.data.words
+	await press_button(road.map_button, "open Road map from Sukara after the offer")
+	await press_button(str(road.go).format({"n": 210}), "return to Ilmara after both prerequisites")
+	check(app.runner_town_id().is_empty(), "the live road returns to the River Market")
+	move_market_fixture("masjid")
+	app.progress.trust = 80
+	app.update_state()
+	await _check_chapter1_end_path(mission)
+	MarketSave.restore(app, previous)
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 39 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_chapter1_end_path(mission: Dictionary) -> void:
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var expected := runner.state()
+	var coins: int = app.progress.coins
+	var trust: int = app.progress.trust
+	var sayings := runner.town_sayings("river_market", app)
+	var patience: Dictionary = app.road_map.data.gates[1]
+	var chapter: Dictionary = runner.journal(app).chapters[0]
+	check(chapter.rows.back() == {"title": "", "done": false}, "Trust kept starts undiscovered in the Journal")
+	await press_button(mission.button, "open Trust kept at River Market trust %d" % trust)
+	_check_runner_scene_copy(mission, "a")
+	var choice: Dictionary = mission.scenes.a.choices[0]
+	check(runner.choices(app, mission, app.runner_scene()) == [choice] and find_button(app.ui, words.scene_back) == null,
+		"Scene A offers only the locked road question")
+	await press_button(choice.label, "ask Idris about the road")
+	_check_runner_scene_copy(mission, "b")
+	expected.flags.chapter1_done = app.day
+	check(runner.state() == expected and runner.journal(app).chapters[0] == chapter,
+		"the choice sets only chapter1_done and the Journal waits for Back")
+	await press_button(words.scene_back, "leave the final scene")
+	expected.done.trust_home = app.day
+	check(runner.state() == expected and app.ui.screen == "market_map" and app.current_place == "masjid",
+		"Back records completion and returns to the River Market masjid")
+	check(app.progress.coins == coins and app.progress.trust == trust and runner.town_sayings("river_market", app) == sayings,
+		"Trust kept changes no coins, trust or What people say lines")
+	check(patience.id == "patience" and int(patience.opens_at) == 20
+		and app.road_map.journey_percent(app) < 20 and not app.road_map.gate_is_open(app, patience),
+		"chapter1_done alone does not open the Gate of Patience below 20 percent")
+	var saved := MarketSave.snapshot(app)
+	runner.reset()
+	MarketSave.restore(app, saved)
+	move_market_fixture("masjid")
+	check(runner.state() == expected and find_button(app.ui, mission.button) == null,
+		"restoring the save restores the flag and keeps the once-only action hidden")
+	await press_button(words.journal_button, "open the private Journal from the masjid")
+	var completed: Dictionary = runner.journal(app).chapters[0]
+	check(app.ui.screen == "journal" and completed.done == chapter.done + 1 and completed.total == 7
+		and completed.rows.back() == {"title": mission.title, "done": true}
+		and has_visible_label(app.ui, mission.title) and has_visible_label(app.ui, words.journal.done)
+		and has_visible_label(app.ui, "%d / 7" % completed.done),
+		"Chapter 1 displays Trust kept as done in the final row")
+	await press_button(words.journal.back, "return from the Journal to the masjid")
+	set_market_day_time(app.day + 1, 600)
+	check(find_button(app.ui, mission.button) == null, "the once-only action stays hidden on a later day")

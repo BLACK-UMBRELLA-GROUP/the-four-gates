@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026 under the Founder's blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now" - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `chapter1_end_data_V2.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 3 Idris, LOCKs 32-38. Queue line 46 comes after line 45 |
+| Builds on | LOCK 3 Idris, LOCKs 32-38. Queue line 46 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/ce01`-`ce02` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V92 |
 | ROADMAP | No row; noted for Fable |
@@ -71,3 +71,4 @@ Only the second paragraph of the ending scene changes (the Gate of Patience is n
 |---|---|---|
 | 2026-11-09 | V1 | LOCK 39 under the Founder's blanket LOCK (9 Nov) |
 | 2026-11-17 | V2 | Six gates (LOCK 103): Idris names the north-west gate and says Safira waits for when it opens. Founder 17 Nov: "LOCK it (Recommended)" (LOCK 103) |
+| 2026-11-18 | V2 | Scene B fixed in V2 before it was built: "The road north-west waits for the Gate of Patience." (Q25) |

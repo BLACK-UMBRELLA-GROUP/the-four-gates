@@ -1,0 +1,20 @@
+{
+  "line": 46,
+  "result": "passed",
+  "checks_passed": {
+    "lock_39": 95,
+    "focused": 294,
+    "headless_full_suite": 9224
+  },
+  "coverage": [
+    "Production loads the byte-identical LOCK 39 V2 data and the locked seven-row Chapter 1 order.",
+    "The action requires both flags and the River Market masjid. It is hidden at 06:59 and 20:00 and visible at 07:00 and 19:59.",
+    "The live road and mission buttons earn both flags, return to Ilmara and lead to the masjid action.",
+    "Both scenes use the locked title, kicker, paragraphs and buttons at trust 10, 50 and 80. The pack adds no standalone resident dialogue.",
+    "The sole choice sets chapter1_done on its day. Back completes Trust kept in the seventh Journal row. Coins, trust and What people say lines are preserved.",
+    "Save restore keeps both the flag and completion. The mission stays hidden on the same and the following day.",
+    "The Gate of Patience stays closed while journey progress is below 20%, including after chapter1_done is set."
+  ],
+  "visual_reference": "ce01 and ce02 show V1 gate text. Q25 and R12 give priority to the locked V2 data. Q15 and R11 require headless rules evidence.",
+  "scene_b": "The road north-west waits for the Gate of Patience."
+}

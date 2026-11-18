@@ -602,6 +602,15 @@ after 14 days. Lending through Sakhr opens **Sakhr pays** after 30 days. The **J
 
 Run the focused rules checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --sukara-only`.
 
+## LOCK 39 V2 — Chapter 1 ends: Trust kept
+
+After finishing the boat sale in Sahila and responding to the offers in Sukara, return to the River Market
+masjid from 07:00 up to 20:00. Select **Idris wants to hear about your road**, then
+**Ask about the road north**. Choose **Back** to record **Trust kept** in Chapter 1 of the **Journal**.
+The Gate of Patience opens at 20% journey progress.
+
+Run the focused rules checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --chapter1-end-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from
