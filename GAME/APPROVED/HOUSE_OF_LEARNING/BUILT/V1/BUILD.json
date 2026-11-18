@@ -1,0 +1,79 @@
+{
+  "line": 88,
+  "lock": "LOCK 81 V1",
+  "brief": "DOC-TFG-0255",
+  "questions_answer_rows": [
+    15,
+    40
+  ],
+  "tested_base_commit_sha": "8c9af5ff3ec46ffe9a6df661697b8a89997a2c7f",
+  "tested_source": "The tested base with the source changes identified below. The 18 November task note identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T13:05:36Z",
+  "checks_passed": {
+    "headless_full_suite": 16876,
+    "headless_focused_suite": 292,
+    "lock_81_subset": 93
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/HOUSE_OF_LEARNING/BRIEFS/BUILD_BRIEF_2026-11-09_HOUSE_OF_LEARNING.md": {
+      "bytes": 2954,
+      "sha256": "14d0f7a5f2b8c4f3d5cd0a2880e977b791a7ff553c5293c24e13de5ef974d0cd"
+    },
+    "GAME/APPROVED/HOUSE_OF_LEARNING/MASTERS/dh01_house_of_learning__a.png": {
+      "bytes": 323850,
+      "sha256": "0573e21707577d9ae8af6fba6ce1fbc4b1547b565b4fd10bb0d3df47285d2272"
+    },
+    "GAME/APPROVED/HOUSE_OF_LEARNING/MASTERS/dh02_copy_page__a.png": {
+      "bytes": 316401,
+      "sha256": "251dbe3349bd27187b27927d064ccb805b7b7dc98d52b3c32e9ba775a84d4fc4"
+    },
+    "GAME/APPROVED/HOUSE_OF_LEARNING/RECORD/HOUSE_OF_LEARNING_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3460,
+      "sha256": "4e2ae33928cb6bfcf4dc3b069b653210c01459c949d945a7652509122aef10d8"
+    },
+    "GAME/APPROVED/HOUSE_OF_LEARNING/RECORD/LOCK_RECORD.md": {
+      "bytes": 767,
+      "sha256": "2ae0429f4c3534634b7881c6f5c67237dd74100538d9eba02a01b67a0d4c5584"
+    },
+    "GAME/APPROVED/HOUSE_OF_LEARNING/RECORD/house_of_learning_data_V1.json": {
+      "bytes": 1838,
+      "sha256": "90660262887207654e370561f409d3eee3315da8a16fc9431cf95ddc72f83245"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 64826,
+      "sha256": "806923e8d81a593ab93c9269acf0fa56e86bb8a0b57a9c305f15ee57956c6cfa"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1139,
+      "sha256": "63a18eae3b4f6c75d7321be0671dc2b2437b607b488788b36ba941a14e5e0e37"
+    },
+    "SOURCE/data/house_of_learning.json": {
+      "bytes": 1838,
+      "sha256": "90660262887207654e370561f409d3eee3315da8a16fc9431cf95ddc72f83245"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 811616,
+      "sha256": "56cb331e18e8fbc3700f3e71c31f30fdaa0c0f503aeff5b1f0ba65d0e1501879"
+    }
+  },
+  "legacy_suite_reference_at_test": {
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/scene_runner_data_V2.json": {
+      "bytes": 2496,
+      "sha256": "b1c9cb7a12ec13ec491cd33e4170f96890a4d4b3f06863373c1edb2d8b769bdf"
+    }
+  },
+  "evidence": {
+    "LINE88_CHECKS.json": {
+      "bytes": 2113,
+      "sha256": "a582efdd9d71e016df2c177a32e265c9b8d6c6910237b9857ba88ad630dd41d5"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "line": 88,
+  "lock": "LOCK 81 V1",
+  "headless_runs": {
+    "focused": {
+      "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --house-of-learning-only",
+      "exit_code": 0,
+      "passed": 292,
+      "total": 292,
+      "failures": 0
+    },
+    "full": {
+      "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+      "exit_code": 0,
+      "passed": 16876,
+      "total": 16876,
+      "failures": 0
+    }
+  },
+  "lock_81": {
+    "passed": 93,
+    "total": 93,
+    "failures": 0
+  },
+  "results": {
+    "data": "The production content index loads both locked missions and the private copies goal. Runtime JSON is byte-identical to the LOCK.",
+    "availability": "Both entries are at the River Market central square from 08:00 inclusive to 18:00 exclusive. The visit requires waraka_done and clears once. Copying requires library_met and opens once per in-game day. Q40's prerequisite fixture and the handoff from the built Waraka encounter both passed.",
+    "scene_copy": "Both entry labels, titles, kickers, scene texts and single choices match the locked data. The Quran design reference stays outside player-facing copy.",
+    "effects": "The visit sets library_met and records completion. Handing in a page pays six coins, advances the clock 120 minutes and adds one to the copies counter. Trust and public accounts stay unchanged.",
+    "journal_and_save": "The private copies goal renders 0 / 100, 1 / 100 and 2 / 100. Chapter rows and side mission totals stay unchanged. Save restoration preserves prerequisite flags, completion days, the daily limit, coins and the count."
+  },
+  "presentation": {
+    "questions_answer_rows": [
+      15,
+      40
+    ],
+    "master_review": "Both 1920 × 1080 masters agree with the locked words and actions. R11 specifies the existing Godot layout, which uses compact secondary choices.",
+    "native_windows": 0,
+    "native_screenshots": 0,
+    "exports": 0
+  },
+  "scholar_check": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md row 58 (OA-AIOS-432). Open for review before public release."
+}

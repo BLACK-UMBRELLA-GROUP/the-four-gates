@@ -1024,3 +1024,15 @@ servant follow in order. Each later story becomes available two in-game days
 after the preceding story. Choose **Thank him** to finish each story once and
 add one to **Stories of the prophets heard** in the private Journal. The
 stories leave trust unchanged.
+
+## LOCK 81 — The House of Learning and copying
+
+After finishing the fake hadith seller scene in Waraka, visit the House of
+Learning from the River Market's central square between 08:00 and 18:00.
+Agree to copy, then choose **Copy a page · 6 coins** once per in-game day
+during those hours. Handing over the page pays six coins, advances the
+clock by two in-game hours and adds one to the private Journal goal of 100.
+These scenes leave trust unchanged.
+
+Run the focused checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --house-of-learning-only`.

@@ -1,0 +1,82 @@
+{
+ "version": "LOCK 81 V1 (9 Nov 2026) - The House of Learning, Copying",
+ "builds_on": "LOCK 2 prayer, LOCK 3 Idris, LOCK 6 regulars, LOCK 34 runner. Private counters go to the Journal; worship never earns trust.",
+ "goals": [
+  {
+   "id": "copies",
+   "label": "Pages copied at the House of Learning",
+   "m": 100
+  }
+ ],
+ "design_reference_not_shown": {
+  "house_of_learning": "Quran 96:1-5",
+  "copy_page": ""
+ },
+ "missions": [
+  {
+   "id": "house_of_learning",
+   "lock": 81,
+   "place": "centre",
+   "hours": [
+    480,
+    1080
+   ],
+   "title": "The House of Learning",
+   "kicker": "Ilmara · The House of Learning",
+   "button": "Visit the House of Learning",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "Past the central square, the House of Learning: rooms full of scholars, translators and copyists bent over desks. The librarian looks at your hands. “Waraka paper on your fingers. Can you copy neatly? We pay six coins a page.”",
+     "choices": [
+      {
+       "label": "Say you'll come and copy",
+       "fx": {
+        "flag": "library_met",
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "waraka_done"
+   ]
+  },
+  {
+   "id": "copy_page",
+   "lock": 81,
+   "place": "centre",
+   "hours": [
+    480,
+    1080
+   ],
+   "title": "Copying",
+   "kicker": "Ilmara · The House of Learning",
+   "button": "Copy a page · 6 coins",
+   "start": "a",
+   "scenes": {
+    "a": {
+     "text": "You copy a page of a book on the stars, checking every word against the original twice.",
+     "choices": [
+      {
+       "label": "Hand it to the librarian",
+       "fx": {
+        "minutes": 120,
+        "coins": 6,
+        "count": {
+         "copies": 1
+        },
+        "done": true
+       }
+      }
+     ]
+    }
+   },
+   "after": [
+    "library_met"
+   ],
+   "repeat": "daily"
+  }
+ ]
+}

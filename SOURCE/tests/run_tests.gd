@@ -249,6 +249,10 @@ func _run() -> void:
 		await check_prophets_stories_runtime()
 		finish()
 		return
+	if "--house-of-learning-only" in OS.get_cmdline_user_args():
+		await check_house_of_learning_runtime()
+		finish()
+		return
 	await check_six_gates_runtime()
 	if "--six-gates-only" in OS.get_cmdline_user_args():
 		finish()
@@ -379,6 +383,7 @@ func _run() -> void:
 	await check_dhikr_runtime()
 	await check_surahs_runtime()
 	await check_prophets_stories_runtime()
+	await check_house_of_learning_runtime()
 	await check_road_map_runtime()
 	await check_sahila_runtime()
 	await check_sukara_runtime()
@@ -7759,6 +7764,124 @@ func check_prophets_stories_runtime() -> void:
 	var added_failures := failures - failures_before
 	print("LOCK 80 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
 		" passed; failures=", added_failures)
+
+
+func check_house_of_learning_runtime() -> void:
+	const FIRST_DAY := 8
+	const TRUST := 50
+	const COINS := 198
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes(
+		"res://../GAME/APPROVED/HOUSE_OF_LEARNING/RECORD/house_of_learning_data_V1.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/house_of_learning.json") == locked,
+		"the runtime House of Learning data is byte-identical to LOCK 81")
+	var approved: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = approved is Dictionary and approved.missions.size() == 2 and approved.missions.all(
+		func(mission: Dictionary) -> bool: return runner.missions.get(mission.id) == mission)
+	check(loaded, "the production index loads both locked House of Learning missions")
+	if not loaded:
+		return
+
+	var visit: Dictionary = approved.missions[0]
+	var copying: Dictionary = approved.missions[1]
+	var goal: Dictionary = approved.goals[0]
+	var words: Dictionary = runner.data.words
+	var goal_row := {"label": goal.label, "n": 0, "m": int(goal.m)}
+	app.set_process(false)
+	reset_at_market_place(visit.place, COINS, FIRST_DAY)
+	app.progress.apply_trust(TRUST - app.progress.trust)
+	check(app.current_place == visit.place and find_button(app.ui, visit.button) == null
+		and find_button(app.ui, copying.button) == null, "a fresh game offers neither mission in the central square")
+
+	var expected_journal := runner.journal(app)
+	var goal_index: int = expected_journal.goals.find(goal_row)
+	check(goal_index >= 0 and runner.data.goals.count(goal) == 1,
+		"one private copies goal starts at zero with the locked target")
+	await _check_runner_journal_goal(words, goal_row)
+
+	var expected := runner.state()
+	expected.flags[visit.after[0]] = FIRST_DAY
+	runner.restore(expected)
+	_check_runner_mission_hours(visit, FIRST_DAY)
+	check(find_button(app.ui, copying.button) == null, "the Waraka flag alone does not offer copying")
+	set_market_day_time(FIRST_DAY, 540)
+	var scene: Dictionary = visit.scenes[visit.start]
+	var choice: Dictionary = scene.choices[0]
+	await press_button(visit.button, "visit the House of Learning at the central square")
+	_check_single_runner_choice(visit, scene, choice, approved.design_reference_not_shown[visit.id])
+	check(runner.state() == expected and app.minute_of_day == 540, "opening the visit has no effects")
+	await press_button(choice.label, "agree to copy for the librarian")
+	expected.flags[choice.fx.flag] = FIRST_DAY
+	expected.done[visit.id] = FIRST_DAY
+	check(runner.state() == expected and runner.mission_done(app, visit.id)
+		and app.day == FIRST_DAY and app.minute_of_day == 540 and app.ui.screen == "market_map",
+		"agreeing completes the visit and unlocks copying without advancing the clock")
+	check_wallet(TRUST, COINS, "the visit changes neither trust nor coins")
+	check(runner.journal(app) == expected_journal, "the visit leaves the Journal totals as they were")
+
+	_check_runner_mission_hours(copying, FIRST_DAY)
+	var copy_scene: Dictionary = copying.scenes[copying.start]
+	var hand_in: Dictionary = copy_scene.choices[0]
+	for offset in range(2):
+		var day := FIRST_DAY + offset
+		set_market_day_time(day, 540)
+		var origin := "market_map" if offset == 0 else "game"
+		app.show_screen(origin)
+		check(find_button(app.ui, visit.button) == null, "a completed visit stays hidden on day %d" % day)
+		await press_button(copying.button, "start the daily copy on day %d" % day)
+		_check_single_runner_choice(copying, copy_scene, hand_in, "")
+		check(runner.state() == expected and app.minute_of_day == 540, "opening the copying scene has no effects")
+		await press_button(hand_in.label, "hand the copy to the librarian on day %d" % day)
+		expected.done[copying.id] = day
+		expected.counters[goal.id] = offset + 1
+		check(runner.state() == expected and runner.mission_done(app, copying.id),
+			"handing in a page updates only the copies counter and completion day")
+		check(app.ui.screen == origin and app.day == day and app.minute_of_day == 660,
+			"handing in advances the clock by 120 minutes and returns to the entry view")
+		check_wallet(TRUST, COINS + 6 * (offset + 1), "a copy pays six coins without changing trust")
+		check(find_button(app.ui, copying.button) == null, "a second copy is unavailable that day")
+
+		goal_row.n = offset + 1
+		if goal_index >= 0:
+			expected_journal.goals[goal_index] = goal_row.duplicate()
+		check(runner.journal(app) == expected_journal, "copying changes only its private Journal goal")
+		await _check_runner_journal_goal(words, goal_row)
+		var saved := MarketSave.snapshot(app)
+		app.begin_game()
+		MarketSave.restore(app, saved)
+		app.show_screen("market_map")
+		check(runner.state() == expected and runner.journal(app) == expected_journal
+			and find_button(app.ui, visit.button) == null and find_button(app.ui, copying.button) == null,
+			"loading the save preserves both flags, completion and the same-day copying limit")
+		check_wallet(TRUST, COINS + 6 * (offset + 1), "loading the save preserves trust and earned coins")
+
+	await _check_house_of_learning_waraka_entry(visit)
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 81 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_house_of_learning_waraka_entry(visit: Dictionary) -> void:
+	reset_at_market_place(visit.place, 20, 8)
+	var runner: SceneRunner = app.scene_runner
+	app.enter_runner_town("waraka")
+	var copyist: Dictionary = runner.missions.copyist
+	var seller: Dictionary = runner.missions.fake_hadith
+	for mission: Dictionary in [copyist, seller]:
+		await press_button(mission.button, "open the Waraka mission: " + str(mission.title))
+		await press_button(mission.scenes[mission.start].choices.back().label, "take the final Waraka choice")
+		await press_button(runner.data.words.scene_back, "finish the Waraka mission: " + str(mission.title))
+	check(runner.has_flag(app, visit.after[0]), "the built Waraka mission supplies the prerequisite without a flag fixture")
+	var roads: Dictionary = app.road_map.data.words
+	await press_button(roads.map_button, "open the Road map from Waraka")
+	var travel := str(roads.go).format({"n": app.road_map.travel_minutes("waraka", "")})
+	await press_button(travel, "return to Ilmara from Waraka")
+	move_market_fixture(visit.place)
+	check(app.runner_town_id().is_empty() and find_button(app.ui, visit.button) != null,
+		"the completed Waraka encounter opens the House of Learning at the central square")
 
 
 func check_jisra_people_runtime() -> void:
