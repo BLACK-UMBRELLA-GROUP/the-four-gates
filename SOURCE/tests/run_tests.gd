@@ -89,6 +89,12 @@ func _run() -> void:
 		await check_prayer_reminder_runtime()
 		finish()
 		return
+	if "--regulars-routes-only" in OS.get_cmdline_user_args():
+		check_market_day_runtime()
+		check_regulars_at_prayer_runtime()
+		check_regulars_routes_runtime()
+		finish()
+		return
 	if "--scene-runner-only" in OS.get_cmdline_user_args():
 		await check_scene_runner_runtime()
 		finish()
@@ -409,6 +415,7 @@ func _run() -> void:
 	await check_qurans_school_runtime()
 	await check_names_of_allah_runtime()
 	check_regulars_at_prayer_runtime()
+	check_regulars_routes_runtime()
 	await check_regulars_remember_runtime()
 	await check_menus_runtime()
 	check_real_prayer_times()
@@ -12451,6 +12458,110 @@ func check_masjid_prayer_attendance(prayer: String, copy: Dictionary) -> void:
 				"the Masjid notice fits below the calligraphy action on " + context)
 
 
+func check_regulars_routes_runtime() -> void:
+	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/REGULARS_ROUTES/RECORD/regulars_routes_data_V1.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/regulars_routes.json")
+	var routes: Dictionary = JSON.parse_string(approved.get_string_from_utf8()).routes
+	var runner: SceneRunner = app.scene_runner
+	check(not approved.is_empty() and runtime == approved, "LOCK 98 data is byte-identical")
+	check(runner.data.routes == routes, "the scene runner loads the route pack")
+	app.set_process(false)
+	reset_at_market_place("board", 198)
+	app.progress.trust = 45
+	var journal := runner.journal(app)
+	var runner_state := runner.state()
+	var reputation: Array = app.ui.reputation_lines()
+	var regulars := {}
+	for regular: Dictionary in app.talking.data.people:
+		regulars[regular.id] = regular
+	for id: String in routes.people:
+		var regular: Dictionary = regulars[id]
+		var caption: String = app.talking.button_for(regular)
+		var figure: MeshInstance3D = app.world.talking_people[id]
+		for window: Array in routes.people[id]:
+			var start := int(window[0])
+			var end := int(window[1])
+			var stop: String = window[2]
+			for day: int in [3, 4]:
+				for minute: int in [start - 10, start - 1, start, end - 1, end]:
+					var on_route := minute >= start and minute < end
+					var expected: String = stop if on_route else regular.place
+					set_market_day_time(day, minute)
+					check(runner.regular_place(regular, minute) == expected,
+						"%s is assigned to %s on day %d at %d" % [id, expected, day, minute])
+					check(horizontal_distance(figure.position, app.world.point(expected)) <= 2.0 * float(data.player.capsule_height),
+						"%s's placeholder is at the scheduled place" % id)
+					var available: bool = app.market_day.status(id) == MarketDay.Status.OPEN
+					for place_id: String in [regular.place, stop]:
+						move_market_fixture(place_id)
+						check((find_button(app.ui, caption) != null) == (place_id == expected and available),
+							"%s talk availability at %s on day %d at %d" % [id, place_id, day, minute])
+						if place_id != expected or not available:
+							app.show_talking(id)
+							check(app.ui.screen == "market_map", "a direct request can't open absent " + id)
+
+	# The same-place refresh must notice a route crossing even if no hours change.
+	set_market_day_time(3, 419)
+	move_market_fixture("quay")
+	check(find_button(app.ui, app.talking.button_for(regulars.rashid)) == null, "Rashid is away from the Quay before 07:00")
+	set_market_day_time(3, 450)
+	check_route_conversations("quay", [regulars.rashid, regulars.jamal])
+	set_market_day_time(3, 480)
+	check(find_button(app.ui, app.talking.button_for(regulars.rashid)) == null, "the Quay refresh removes Rashid at 08:00")
+	set_market_day_time(3, 600)
+	check_route_conversations("spice", [regulars.rashid])
+	set_market_day_time(3, 870)
+	move_market_fixture("board")
+	check(find_button(app.ui, app.talking.button_for(regulars.salma)) == null, "Salma is away from the board at 14:30")
+	check_route_conversations("quay", [regulars.salma, regulars.jamal])
+	set_market_day_time(3, 990)
+	check_route_conversations("board", [regulars.salma, regulars.layla])
+	set_market_day_time(3, 835)
+	check_route_conversations("inn", [regulars.jamal])
+	set_market_day_time(3, 330)
+	move_market_fixture("masjid")
+	check(app.market_day.status("musa") == MarketDay.Status.OUTSIDE_HOURS
+		and find_button(app.ui, app.talking.button_for(regulars.musa)) == null,
+		"Old Musa's masjid route remains subject to LOCK 7 hours")
+	check(runner.journal(app) == journal and runner.state() == runner_state, "routes add no Journal rows, goals, counters or effects")
+	check_wallet(45, 198, "routes and asking for tips leave trust and coins unchanged")
+	check(app.ui.reputation_lines() == reputation and app.talking.greeted.is_empty(), "routes and tips leave reputation and greetings unchanged")
+	app.set_process(true)
+
+
+func check_route_conversations(place_id: String, regulars: Array) -> void:
+	move_market_fixture(place_id)
+	for screen: String in ["market_map", "game"]:
+		app.show_screen(screen)
+		var last_x := -1.0
+		for regular: Dictionary in regulars:
+			var caption: String = app.talking.button_for(regular)
+			var button := find_button(app.ui, caption)
+			check(button != null, "%s offers %s on %s" % [place_id, caption, screen])
+			if button == null:
+				continue
+			var rect := button.get_global_rect()
+			check(rect.position.x > last_x and app.get_viewport().get_visible_rect().encloses(rect),
+				"%s fits and follows LOCK 6 order on %s" % [caption, screen])
+			last_x = rect.position.x
+		for regular: Dictionary in regulars:
+			var button := find_button(app.ui, app.talking.button_for(regular))
+			if button == null:
+				continue
+			button.pressed.emit()
+			var kicker: String = app.talking.data.panel.kicker.format({"place": data.places[place_id].name})
+			check(app.ui.screen == "talk" and app.talking.person.id == regular.id
+				and has_visible_label(app.ui, kicker.to_upper()) and has_visible_label(app.ui, "%s, %s" % [regular.name, regular.role]),
+				"the selected regular uses the locked dialogue at %s" % place_id)
+			app.ask_regular()
+			check(visible_text().split("\n").has(regular.tip), "asking reads %s's own locked tip" % regular.id)
+			var goodbye := find_button(app.ui, app.talking.data.panel.bye)
+			if goodbye != null:
+				goodbye.pressed.emit()
+			check(app.ui.screen == "market_map" and app.current_place == place_id, "Goodbye returns to the same stop")
+			app.show_screen(screen)
+
+
 func check_regulars_remember_runtime() -> void:
 	var approved := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/REGULARS_REMEMBER/RECORD/regulars_remember_data_V1.json")
 	var runtime := FileAccess.get_file_as_bytes("res://data/regulars_remember.json")
@@ -12930,8 +13041,8 @@ func seed_menu_save() -> void:
 	app.open_purse.done = true
 	app.bread_grab._seen_day = 2
 	app.market_stall._bag["bread"] = 2
-	app.talking.open_at("quay")
-	app.talking.greeted[app.talking.person.id] = true
+	var regular: Dictionary = app.talking.regular_at("quay")
+	app.talking.greeted[regular.id] = true
 	app.feeding._last_public_day = day
 	app.feeding.meal_counter.total = 43
 	app.iftar_giving._last_public_day = day - 3

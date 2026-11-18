@@ -1,12 +1,15 @@
 extends RefCounted
-## LOCK 6 dialogue and LOCK 28 memories from each regular's own knowledge.
+## LOCK 6 dialogue, LOCK 28 memories and LOCK 98 scheduled stops.
 
 const TaskProgress = preload("res://game/task_progress.gd")
 const BreadGrab = preload("res://game/bread_grab.gd")
 const MarketStall = preload("res://game/market_stall.gd")
+const PrayerClock = preload("res://game/prayer_clock.gd")
+const SceneRunner = preload("res://game/scene_runner.gd")
 
 var data: Dictionary
 var person: Dictionary = {}
+var place := ""
 var greeted: Dictionary = {}
 var reply := ""
 var _progress: TaskProgress
@@ -14,10 +17,15 @@ var _bread_grab: BreadGrab
 var _stall: MarketStall
 var _by_place: Dictionary = {}
 var _memories: Dictionary
+var _runner: SceneRunner
+var _clock: PrayerClock
 
 
-func setup(source: Dictionary, progress: TaskProgress, bread_grab: BreadGrab, stall: MarketStall, memories: Dictionary) -> void:
+func setup(source: Dictionary, progress: TaskProgress, bread_grab: BreadGrab, stall: MarketStall,
+		memories: Dictionary, runner: SceneRunner, clock: PrayerClock) -> void:
 	data = source
+	_runner = runner
+	_clock = clock
 	_memories = memories
 	_progress = progress
 	_bread_grab = bread_grab
@@ -30,27 +38,40 @@ func setup(source: Dictionary, progress: TaskProgress, bread_grab: BreadGrab, st
 
 func reset() -> void:
 	person = {}
+	place = ""
 	greeted.clear()
 	reply = ""
 
 
-func regular_at(place: String) -> Dictionary:
-	return _by_place.get(place, {})
+func regular_at(place_id: String) -> Dictionary:
+	return _by_place.get(place_id, {})
 
 
-func button_at(place: String) -> String:
-	var regular := regular_at(place)
-	if regular.is_empty():
-		return ""
+func scheduled_place(regular: Dictionary) -> String:
+	return _runner.regular_place(regular, _clock.minute_of_day)
+
+
+func regulars_at(place_id: String) -> Array[Dictionary]:
+	var regulars: Array[Dictionary] = []
+	for regular: Dictionary in data.people:
+		if scheduled_place(regular) == place_id:
+			regulars.append(regular)
+	return regulars
+
+
+func button_at(place_id: String) -> String:
+	var regular := regular_at(place_id)
+	return "" if regular.is_empty() else button_for(regular)
+
+
+func button_for(regular: Dictionary) -> String:
 	return str(data.talk_button).format({"name": regular.name})
 
 
-func open_at(place: String) -> bool:
-	if not _by_place.has(place):
-		return false
-	person = _by_place[place]
+func open(regular: Dictionary, place_id: String) -> void:
+	person = regular
+	place = place_id
 	reply = ""
-	return true
 
 
 func tier_line() -> String:

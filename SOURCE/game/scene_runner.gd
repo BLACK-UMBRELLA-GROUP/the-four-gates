@@ -592,6 +592,14 @@ func _within_hours(minute: int, hours: Variant) -> bool:
 	return minute >= opens and minute < closes
 
 
+func regular_place(regular: Dictionary, minute: int) -> String:
+	var schedules: Dictionary = data.get("routes", {}).get("people", {})
+	for window: Array in schedules.get(regular.id, []):
+		if _within_hours(minute, window):
+			return window[2]
+	return regular.place
+
+
 func town_people(_app, town: String) -> Array[Dictionary]:
 	var residents: Array[Dictionary] = []
 	for person: Dictionary in people.values():

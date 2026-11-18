@@ -1,0 +1,43 @@
+{
+ "version": "LOCK 98 V1 (9 Nov 2026) - the regulars walk their routes",
+ "routes": {
+  "words": {},
+  "people": {
+   "salma": [
+    [
+     840,
+     900,
+     "quay"
+    ]
+   ],
+   "rashid": [
+    [
+     420,
+     480,
+     "quay"
+    ]
+   ],
+   "layla": [
+    [
+     960,
+     1020,
+     "board"
+    ]
+   ],
+   "jamal": [
+    [
+     810,
+     870,
+     "inn"
+    ]
+   ],
+   "musa": [
+    [
+     300,
+     360,
+     "masjid"
+    ]
+   ]
+  }
+ }
+}

@@ -55,7 +55,7 @@ signal change_answered(give_back: bool)
 signal loom_purchase_requested(id: String)
 signal wear_requested(id: String)
 signal bread_given
-signal talk_requested
+signal talk_requested(regular_id: String)
 signal greeting_requested
 signal tip_requested
 signal feeding_requested
@@ -221,7 +221,8 @@ var _eid_prayer_available := false
 var _adha_action := EidAlAdha.Action.NONE
 var _eid_line := ""
 var _sealed_offer_available := false
-var _regular_status := MarketDay.Status.OPEN
+var _shopkeeper_status := MarketDay.Status.OPEN
+var _talk_entries: Array[Dictionary] = []
 var _attendance_prayer := ""
 var _can_feed := false
 var _board_prompt := BreadGrab.Prompt.NONE
@@ -591,13 +592,20 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 	var clock_changed: bool = _clock_day != clock.day or _clock_minute != clock.minute_of_day
 	var rebuild: bool = place_changed or _last_coins != progress.coins or _last_trust != progress.trust or _last_daily_count != progress.daily_count or _last_lesson != progress.lesson_done or _last_gate != progress.gate_open
 	if clock_changed or place_changed:
-		var regular_id: String = talking.regular_at(place_value).get("id", "")
-		var availability := market_day.status(regular_id)
+		var home_id: String = talking.regular_at(place_value).get("id", "")
+		var shopkeeper_status := market_day.status(home_id)
 		var attendance := ""
-		if place_value == "masjid" or availability == MarketDay.Status.AWAY_AT_PRAYER:
+		if place_value == "masjid" or shopkeeper_status == MarketDay.Status.AWAY_AT_PRAYER:
 			attendance = market_day.prayer_attendance()
-		if availability != _regular_status or attendance != _attendance_prayer:
-			_regular_status = availability
+		var entries: Array[Dictionary] = []
+		for regular in talking.regulars_at(place_value):
+			var status := market_day.status(regular.id)
+			var is_notice := status != MarketDay.Status.OPEN
+			var text := market_day.talk_notice(regular.id, status) if is_notice else talking.button_for(regular)
+			entries.append({"id": regular.id, "text": text, "is_notice": is_notice})
+		if entries != _talk_entries or shopkeeper_status != _shopkeeper_status or attendance != _attendance_prayer:
+			_talk_entries = entries
+			_shopkeeper_status = shopkeeper_status
 			_attendance_prayer = attendance
 			rebuild = rebuild or screen in ["game", "market_map"]
 	if screen == "reputation" or (place_value == "masjid" and screen in ["game", "market_map"]):
@@ -2712,7 +2720,7 @@ func _stall_panel_back(panel: Panel, caption: String, y: float) -> void:
 func _build_talking() -> void:
 	var regular := talking.person
 	var copy: Dictionary = talking.data.panel
-	var kicker: String = str(copy.kicker).format({"place": data.places[regular.place].name})
+	var kicker: String = str(copy.kicker).format({"place": data.places[talking.place].name})
 	var panel := _chapter_panel(kicker, "%s, %s" % [regular.name, regular.role])
 	var y := 111.0
 	y += _story_text(panel, talking.tier_line(), y) + 21.0
@@ -2921,9 +2929,9 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var name_width := bold_font.get_string_size(name_value, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x
 	var line_width := font.get_string_size(line_value, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x
 	var shop_notice := ""
-	if _regular_status != MarketDay.Status.OPEN and place_id in ["spice", "weaver"]:
+	if _shopkeeper_status != MarketDay.Status.OPEN and place_id in ["spice", "weaver"]:
 		var copy: Dictionary = market_day.data.text
-		match _regular_status:
+		match _shopkeeper_status:
 			MarketDay.Status.AWAY_AT_PRAYER:
 				shop_notice = str(market_day.prayer_data.text.stall).format({"prayer": _attendance_prayer})
 			MarketDay.Status.FRIDAY_PRAYER:
@@ -2953,16 +2961,13 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		extra_text = _jabirs_caption
 		extra_action = func(): jabirs_offer_opened.emit()
 	var extra_width := _button_width(extra_text, extra_primary) + 18.0 if not extra_text.is_empty() else 0.0
-	var talk_text := talking.button_at(place_id)
-	var talk_notice := ""
+	var talk_widths: Array[float] = []
 	var talk_width := 0.0
-	if not talk_text.is_empty():
-		if _regular_status == MarketDay.Status.OPEN:
-			talk_width = _button_width(talk_text) + 18.0
-		else:
-			talk_notice = market_day.talk_notice(talking.regular_at(place_id).id, _regular_status)
-			talk_width = font.get_string_size(talk_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x + 18.0
-	var talk_footer := place_id == "board" and talk_width > 0.0 and _feeding_available and extra_width > 0.0
+	for entry in _talk_entries:
+		var entry_width := font.get_string_size(entry.text, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(24)).x \
+			if entry.is_notice else _button_width(entry.text)
+		talk_widths.append(entry_width)
+		talk_width += entry_width + 18.0
 	var fountain_caption := ""
 	var fountain_width := 0.0
 	if place_id == "board":
@@ -3007,8 +3012,12 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	var cool_width := 0.0
 	if not cool_notice.is_empty():
 		cool_width = font.get_string_size(cool_notice, HORIZONTAL_ALIGNMENT_LEFT, -1, _font_size(label_size)).x + 18.0
+	var base_width := cool_width + name_width + line_width + action_width + partnership_width + loan_width \
+		+ fountain_width + feeding_width + iftar_giving_width + dice_width + calendar_width + jars_width + extra_width + purse_width + 55.0
+	var talk_footer := talk_width > 0.0 and ((place_id == "board" and _feeding_available and extra_width > 0.0) \
+		or base_width + talk_width > 1836.0)
 	var inline_talk_width := 0.0 if talk_footer else talk_width
-	var total_width := cool_width + name_width + line_width + action_width + partnership_width + loan_width + fountain_width + feeding_width + iftar_giving_width + dice_width + calendar_width + jars_width + extra_width + purse_width + inline_talk_width + 55.0
+	var total_width := base_width + inline_talk_width
 	var waiting := _board_prompt == BreadGrab.Prompt.WAIT
 	var harm_available := not _road_harm.is_empty()
 	var harm_label_at := Vector2.ZERO
@@ -3028,7 +3037,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		if harm_button_at.x + harm_button_width > inner_right:
 			harm_button_at = Vector2(18.0, previous_rows)
 		harm_row_height = 73.0 if harm_button_at.y > 0.0 else 0.0
-	var harm_bar_width := total_width
+	var harm_bar_width := maxf(total_width, talk_width + 18.0) if talk_footer else total_width
 	if harm_available:
 		harm_bar_width = 1836.0 if harm_row_height > 0.0 else harm_button_at.x + harm_button_width + 18.0
 	var ramadan_action := _ramadan_action
@@ -3120,12 +3129,12 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if place_id == "masjid" and not _attendance_prayer.is_empty():
 		attendance_notice = market_day.masjid_attendance_notice(_attendance_prayer)
 	var attendance_height := 50.0 if not attendance_notice.is_empty() else 0.0
-	var compact_spice_bar := place_id == "spice" and _regular_status == MarketDay.Status.AWAY_AT_PRAYER \
+	var compact_spice_bar := place_id == "spice" and _shopkeeper_status == MarketDay.Status.AWAY_AT_PRAYER \
 		and not carrying and not harm_available and ramadan_width == 0.0 and last_actions_width == 0.0
 	var compact_reduction := 24.0 if compact_spice_bar else 0.0
 	var caption_y := 15.0 - compact_reduction / 2.0
 	var prayer_width := _prayer_buttons_width("" if ramadan_width > 0.0 and place_id == "masjid" else _prayer_label)
-	var wrap := (harm_available or not talk_text.is_empty() or purse_width > 0.0 or dice_width > 0.0 or calendar_width > 0.0 or jars_width > 0.0 or loan_width > 0.0 or partnership_width > 0.0 or not _jabirs_caption.is_empty() or carrying or ramadan_width > 0.0 or iftar_giving_width > 0.0 or last_actions_width > 0.0 or _calligraphy_available) and x + bar_width + inline_carrying_width + prayer_width > 1878.0
+	var wrap := (harm_available or not _talk_entries.is_empty() or purse_width > 0.0 or dice_width > 0.0 or calendar_width > 0.0 or jars_width > 0.0 or loan_width > 0.0 or partnership_width > 0.0 or not _jabirs_caption.is_empty() or carrying or ramadan_width > 0.0 or iftar_giving_width > 0.0 or last_actions_width > 0.0 or _calligraphy_available) and x + bar_width + inline_carrying_width + prayer_width > 1878.0
 	if cool_width > 0.0:
 		wrap = wrap or x + bar_width + inline_carrying_width + _prayer_buttons_width("") > 1878.0
 	var bar_y := (891.0 if waiting else 965.0) - harm_row_height - extra_rows_height - attendance_height + compact_reduction
@@ -3139,7 +3148,7 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	wrap = wrap or x + bar_width + inline_carrying_width + prayer_width > 1878.0
 	nav_y -= mission_height
 	bar_y -= mission_height
-	var separate_navigation := wrap or separate_board_row or carrying_footer or attendance_height > 0.0 or mission_height > 0.0
+	var separate_navigation := wrap or separate_board_row or talk_footer or carrying_footer or attendance_height > 0.0 or mission_height > 0.0
 	if separate_navigation:
 		_build_prayer_buttons(x, 0.0, nav_y)
 		x = 42.0
@@ -3208,12 +3217,17 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 		talk_y = 73.0 + (50.0 if carrying_footer and not harm_available and ramadan_width == 0.0 and eid_width == 0.0 else 0.0)
 		if harm_available and waiting:
 			talk_y += 74.0
-	if not talk_notice.is_empty():
-		_label(panel, talk_notice, Vector2(talk_x - x, talk_y + caption_y), Vector2(talk_width - 14.0, 42), 24, PAPER)
-	elif not talk_text.is_empty():
-		_button(talk_text, Vector2(talk_x, bar_y + talk_y + 8.0), Vector2(talk_width - 18.0, 56), func(): talk_requested.emit())
+	for index in _talk_entries.size():
+		var entry := _talk_entries[index]
+		var entry_width := talk_widths[index]
+		if entry.is_notice:
+			_label(panel, entry.text, Vector2(talk_x - x, talk_y + caption_y), Vector2(entry_width + 4.0, 42), 24, PAPER)
+		else:
+			var regular_id: String = entry.id
+			_button(entry.text, Vector2(talk_x, bar_y + talk_y + 8.0), Vector2(entry_width, 56), func(): talk_requested.emit(regular_id))
+		talk_x += entry_width + 18.0
 	if cool_width > 0.0:
-		_label(panel, cool_notice, Vector2(talk_x + talk_width - x, 15), Vector2(cool_width, 42), label_size, PAPER)
+		_label(panel, cool_notice, Vector2(extra_x + purse_width + inline_talk_width - x, 15), Vector2(cool_width, 42), label_size, PAPER)
 	if harm_available:
 		_label(panel, _road_harm.bar, harm_label_at + Vector2(0, 15), Vector2(harm_label_width, 42), label_size, PAPER)
 		_button(_road_harm.move, harm_button_at + Vector2(x, bar_y + 8), Vector2(harm_button_width, 56), func(): road_harm_requested.emit())

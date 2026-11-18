@@ -20,6 +20,7 @@ var faris_at_quay: MeshInstance3D
 var rashid: MeshInstance3D
 var layla: MeshInstance3D
 var talking_people: Dictionary = {}
+var _regular_home_positions: Dictionary = {}
 # Hide named street figures from the static title and settings backdrop.
 const STREET_FIGURES_LAYER := 2
 
@@ -178,7 +179,9 @@ func setup_chapter_people(chapter: Dictionary, regulars: Array) -> void:
 		"scales": point("scales") + Vector3.RIGHT * spacing,
 	}
 	for regular: Dictionary in regulars:
-		talking_people[regular.id] = _add_chapter_person(self, regular.name, positions[regular.place])
+		var figure := _add_chapter_person(self, regular.name, positions[regular.place])
+		talking_people[regular.id] = figure
+		_regular_home_positions[regular.id] = figure.position
 	salma = talking_people.salma
 	rashid = talking_people.rashid
 	layla = talking_people.layla
@@ -206,6 +209,12 @@ func setup_chapter_people(chapter: Dictionary, regulars: Array) -> void:
 	# Frame the night scene from beyond the group waiting outside the inn.
 	var inn_view := point("inn") + down_street * (index + 1) * spacing + Vector3.UP * float(data.camera.height_above_feet)
 	dice_house_camera = _story_camera(inn_view, inn_view + down_street * distance)
+
+
+func set_regular_place(regular: Dictionary, place_id: String) -> void:
+	var figure: MeshInstance3D = talking_people[regular.id]
+	var home: Vector3 = _regular_home_positions[regular.id]
+	figure.position = home + (point(place_id) - point(regular.place))
 
 
 func set_inn_people_waiting(waiting: bool) -> void:

@@ -67,6 +67,7 @@ var open_purse := OpenPurse.new()
 var bread_grab := BreadGrab.new()
 var market_stall := MarketStall.new()
 var talking := Talking.new()
+var _regulars_minute := -1
 var feeding := Feeding.new()
 var iftar_giving: IftarGiving
 var sealed_purse := SealedPurse.new()
@@ -168,7 +169,8 @@ func _ready() -> void:
 	open_purse.setup(chapter, progress, clock)
 	bread_grab.setup(chapter, progress, clock)
 	market_stall.setup(Foundations.load_market_stall(), Foundations.load_clothes(), progress, clock)
-	talking.setup(Foundations.load_talking(), progress, bread_grab, market_stall, Foundations.load_regulars_remember().memories)
+	talking.setup(Foundations.load_talking(), progress, bread_grab, market_stall,
+		Foundations.load_regulars_remember().memories, scene_runner, clock)
 	feeding.setup(Foundations.load_feeding(), progress, clock)
 	iftar_giving = IftarGiving.new(ramadan)
 	iftar_giving.setup(Foundations.load_iftar_giving(), progress, clock, feeding.meal_counter)
@@ -493,6 +495,10 @@ func update_state() -> void:
 	pilgrims.resolve_returns()
 	if road_map != null and not road_map.data.is_empty():
 		road_map.update_gate_unlocks(self)
+	if minute_of_day != _regulars_minute:
+		_regulars_minute = minute_of_day
+		for regular: Dictionary in talking.data.people:
+			world.set_regular_place(regular, talking.scheduled_place(regular))
 	ui.refresh(player.position, current_place, night, _salma_available())
 
 func _nearest_market_place() -> String:
@@ -1499,14 +1505,19 @@ func give_bread_to_faris() -> void:
 		ui.show_toast(market_stall.data.feed, ui.screen == "market_map")
 
 
-func show_talking() -> void:
+func show_talking(regular_id: String = "") -> void:
 	update_state()
-	var regular := talking.regular_at(current_place)
-	if regular.is_empty() or market_day.status(regular.id) != MarketDay.Status.OPEN:
+	if ui.screen not in ["game", "market_map"]:
 		return
-	if ui.screen in ["game", "market_map"] and talking.open_at(current_place):
+	for regular in talking.regulars_at(current_place):
+		if not regular_id.is_empty() and regular.id != regular_id:
+			continue
+		if market_day.status(regular.id) != MarketDay.Status.OPEN:
+			continue
+		talking.open(regular, current_place)
 		_stop_travel()
 		show_screen("talk")
+		return
 
 
 func greet_regular() -> void:

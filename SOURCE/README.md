@@ -1232,3 +1232,13 @@ Safira and Najmara in **Stars you can find your way by**, out of 12.
 
 Run the focused checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --stars-only`.
+
+## LOCK 98 — The regulars walk their routes
+
+The five River Market regulars visit their scheduled stops at set times and return to
+their usual places outside those windows. Market hours, Friday closures and prayer
+attendance still govern when they can talk. When regulars share a stop, each available
+person has a Talk button in LOCK 6 order.
+
+Run the focused rules checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --regulars-routes-only`.

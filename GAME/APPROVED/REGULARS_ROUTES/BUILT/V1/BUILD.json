@@ -1,0 +1,99 @@
+{
+  "line": 105,
+  "lock": "LOCK 98 V1",
+  "brief": "DOC-TFG-0306",
+  "questions": [
+    "Q15",
+    "Q57"
+  ],
+  "tested_base_commit_sha": "4c940d5244ecabfca8af7b86ad4211ff0f6e2ac4",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily report identifies the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T16:40:19+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --regulars-routes-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "focused": 1309,
+    "headless_full_suite": 20897
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/REGULARS_ROUTES/BRIEFS/BUILD_BRIEF_2026-11-09_REGULARS_ROUTES.md": {
+      "bytes": 2968,
+      "sha256": "bce71882d6b929b27e2240849eed700fdee38b1a50bf4c8392ace9fdf9ad2816"
+    },
+    "GAME/APPROVED/REGULARS_ROUTES/RECORD/REGULARS_ROUTES_SPEC_CURRENT_VERSION_V1.md": {
+      "bytes": 3349,
+      "sha256": "19076e3aa5a24d6fdf4492b2f5ac66743bccd0f5a66c860ee8471cf7419f7591"
+    },
+    "GAME/APPROVED/REGULARS_ROUTES/RECORD/LOCK_RECORD.md": {
+      "bytes": 757,
+      "sha256": "8345e5cdc388ea538ba29c6eeef61b502f3cb209647e8c11874a22a628db96c9"
+    },
+    "GAME/APPROVED/REGULARS_ROUTES/RECORD/regulars_routes_data_V1.json": {
+      "bytes": 446,
+      "sha256": "c2d11ab9635a708a869593973cbead92adfbcc91c9043299ca957367c7379c62"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/REGULARS_ROUTES/MASTERS/fa01_routes__rashid_at_the_quay_0730.png": {
+      "bytes": 73751,
+      "sha256": "26c873fcd74ae0b6a3b98789f340271da95c762784aa7e0ce73684bae4b8d802"
+    },
+    "GAME/APPROVED/REGULARS_ROUTES/MASTERS/fa02_routes__rashid_at_his_stall_1000.png": {
+      "bytes": 76588,
+      "sha256": "40c72c2dc7afc3b346406269412b3da23baa00d511aeeb11b41991b1cd8b5d31"
+    },
+    "GAME/APPROVED/REGULARS_ROUTES/MASTERS/fa03_routes__salma_at_the_quay_1430.png": {
+      "bytes": 76753,
+      "sha256": "86f6ae614bea9bc928f7d96cd2b0f5f4ebcde5c6dc3937cad542339ccdb2abc9"
+    },
+    "GAME/APPROVED/REGULARS_ROUTES/MASTERS/fa04_routes__salma_buying_flour_1430.png": {
+      "bytes": 78804,
+      "sha256": "94655608c3d8d51fc6061d619ab7124dc421bfb3566ad46162fb0813b937363a"
+    }
+  },
+  "tested_changes": {
+    "SOURCE/README.md": {
+      "bytes": 74887,
+      "sha256": "a7875bdbcb59ca1da9425fa3d70d0191d3d20951872c21fb40aafc3191047be6"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 1518,
+      "sha256": "e509c048631d223863c7f4eabc5f8a7a95488de45fac1ddadcaa5cd30ed21ec5"
+    },
+    "SOURCE/data/regulars_routes.json": {
+      "bytes": 446,
+      "sha256": "c2d11ab9635a708a869593973cbead92adfbcc91c9043299ca957367c7379c62"
+    },
+    "SOURCE/game/market_ui.gd": {
+      "bytes": 159785,
+      "sha256": "e69008a45a98a37beed7358173e13515f0b3c06ef007fc16d03aeb0273079461"
+    },
+    "SOURCE/game/market_world.gd": {
+      "bytes": 19414,
+      "sha256": "07ccd8be7506a279ce4a4d3c004d5f281835ce9067e203e55254e252f9fd5bdd"
+    },
+    "SOURCE/game/river_market.gd": {
+      "bytes": 72039,
+      "sha256": "b72bdc9d90cf424c33cceef0eabe50f6be58acdb214d3414953fb1a014fa19d4"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 26346,
+      "sha256": "b27e84043d28c41b07ed8a372db517f962f39c63416df6976e9ff9782f9a00c2"
+    },
+    "SOURCE/game/talking.gd": {
+      "bytes": 3482,
+      "sha256": "5d0a90a194da9e306db92eb6aa36bb593c3c445bc1b1cd9ae8465296b64977ed"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 966174,
+      "sha256": "b61990aadcde86999e24718ed329cf28eaec1a49ba7e37582133b5db7a5d97aa"
+    }
+  },
+  "native_screenshot_count": 0
+}

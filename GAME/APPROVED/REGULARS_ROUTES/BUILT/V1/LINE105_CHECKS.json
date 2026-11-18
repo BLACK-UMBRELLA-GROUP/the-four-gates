@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "line": 105,
+  "lock": "LOCK 98 V1",
+  "focused": {
+    "passed": 1309,
+    "total": 1309,
+    "exit_code": 0
+  },
+  "full": {
+    "passed": 20897,
+    "total": 20897,
+    "exit_code": 0
+  },
+  "data": {
+    "byte_identical": true,
+    "runtime": "SOURCE/data/regulars_routes.json",
+    "bytes": 446,
+    "sha256": "c2d11ab9635a708a869593973cbead92adfbcc91c9043299ca957367c7379c62"
+  },
+  "covered": [
+    "Every locked route start, last minute, and return boundary. No early shift ten minutes before departure. Repeats on later days.",
+    "Existing market hours, Friday closure and Dhuhr and Asr attendance. Old Musa's scheduled masjid stop is outside his talk hours.",
+    "Shared Quay and board stops use LOCK 6 order. Each button opens the correct regular in both the map and walk views.",
+    "Scheduled place is checked again when a Talk action is requested. Absent regulars cannot be opened directly.",
+    "The existing talk panel uses the current stop with the locked title, tip and Goodbye action.",
+    "The regular's existing placeholder moves at the scheduled boundary.",
+    "Routes and asking for tips leave trust, coins, reputation, greeting state, Journal and runner state unchanged."
+  ],
+  "master_review": [
+    "fa01: Rashid visits the Quay at 07:30. Q57 also shows Jamal when he is available there.",
+    "fa02: Rashid is back at Spice row at 10:00.",
+    "fa03: Salma has no Talk button at the board at 14:30. Earlier board actions retain their own rules.",
+    "fa04: Salma has a Talk button at the Quay at 14:30. Q57 also shows Jamal when he is available there."
+  ],
+  "visual_evidence": "Q15 and R11 use headless checks. The masters are reference. Q57 assigns the 10-minute walk to Unreal."
+}
