@@ -672,6 +672,20 @@ saved as a follow-up.
 Run the focused rules checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --tinara-only`.
 
+## LOCK 45 V2 — Tahuna and the Chapter 3 ending
+
+After completing Tinara, use the **Road map** through the Gate of Mercy to reach Tahuna.
+Talk to Ma'n, Hafsa and Rami, carry sacks at the mill during work hours, or visit the
+millstream masjid. Complete **The miller's debt** to open **The enemy's son** during its
+hours. **What Tahuna says** shows the local accounts earned by your choices.
+
+After completing Nahla, Tinara and Tahuna, return to the River Market masjid for **Mercy shown**.
+All three Tahuna missions count toward **The Gate of Mercy** in the Journal.
+The Gate of Knowledge opens at 40% journey progress.
+
+Run the focused rules checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --tahuna-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from

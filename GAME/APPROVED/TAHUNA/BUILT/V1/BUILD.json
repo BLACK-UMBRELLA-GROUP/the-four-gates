@@ -1,0 +1,151 @@
+{
+  "line": 52,
+  "lock": "LOCK 45 V2",
+  "brief": "DOC-TFG-0147",
+  "tested_base_commit_sha": "895b6d232ac7622b7eb4f503b851708bfd69071b",
+  "tested_source": "Base commit plus the hashed source changes. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T09:14:18+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --tahuna-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_45": 295,
+    "focused": 494,
+    "headless_full_suite": 11108
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/TAHUNA/BRIEFS/BUILD_BRIEF_2026-11-09_TAHUNA.md": {
+      "bytes": 3675,
+      "sha256": "46b9fb4fc463e4cc3c9fbb70f274a1230cb3af788479e3be0bc01bdedf48d3a2"
+    },
+    "GAME/APPROVED/TAHUNA/RECORD/LOCK_RECORD.md": {
+      "bytes": 993,
+      "sha256": "96137e348b6f05880e38b5b9695e838346b6cb16adf951370740bd7f9ecd04e6"
+    },
+    "GAME/APPROVED/TAHUNA/RECORD/TAHUNA_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 7571,
+      "sha256": "f79940f2ffc21b2a3a9691fe06cdbe6251e49a8cc80a8a8886981f0283957840"
+    },
+    "GAME/APPROVED/TAHUNA/RECORD/tahuna_data_V2.json": {
+      "bytes": 7638,
+      "sha256": "70be11c867845b44ed593d9be5e8f38a32d2b618b5683b549dd9b166fc0a87c1"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th01_tahuna__town.png": {
+      "bytes": 256430,
+      "sha256": "0f09f4474c0c099ebc0877b56b4c0df9b2761dcc02bfb4785aba721eb8b9cd81"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th02_tahuna__people.png": {
+      "bytes": 247799,
+      "sha256": "b801d1c4b584caeb4805ad8fc668d312df469d2753b22c7c901847c1b34c0437"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th03_tahuna__man_trust_10.png": {
+      "bytes": 268462,
+      "sha256": "2d7f5c787a6815a6257c56dd2bbae18f1c0116dfbdee234a111ee5c65fc9e37e"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th04_tahuna__man_trust_50.png": {
+      "bytes": 268661,
+      "sha256": "aa430cc39459dd783c84db1ea7de1eea7e8587faf63d8a63ea89514378a12b5f"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th05_tahuna__man_trust_80.png": {
+      "bytes": 268979,
+      "sha256": "7338786a452eb7ec365aa29c52a8ef9386950477ead7fd222a1ab42b2d47213d"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th06_tahuna__hafsa_trust_10.png": {
+      "bytes": 267828,
+      "sha256": "d578b7662750c352577c2b98e19e93aa4555003f24f2dcf45625952ff696d314"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th07_tahuna__hafsa_trust_50.png": {
+      "bytes": 268692,
+      "sha256": "6f0f5f8e2a2a8ccdf58c4e83463f3fbca840977ee2d754fba8fc2d728c0e4161"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th08_tahuna__hafsa_trust_80.png": {
+      "bytes": 268652,
+      "sha256": "7a1796af17d308b11228a239613ed1549f7cb082d9eb162a2526c222e77d77ca"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th09_tahuna__rami_trust_10.png": {
+      "bytes": 268684,
+      "sha256": "0ba39491880c294bd07fa624dbaa7cf71502bb1506c614b1ca6c0804081a3c34"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th10_tahuna__rami_trust_50.png": {
+      "bytes": 269893,
+      "sha256": "78d09eee301d8a01e23723625a5857a44684642206d26d4e7a7bb2d9d7b9a994"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th11_tahuna__rami_trust_80.png": {
+      "bytes": 269971,
+      "sha256": "21d6c381b35652ecde25f4129980e0af6ac4e5366a7de2c4d98c2a56c1b6291c"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th12_tahuna__what_people_say_empty.png": {
+      "bytes": 270362,
+      "sha256": "466bf9d6af184f097da2d568e5996f165cc7ce9c2192dcfe0ca9f75044715799"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th13_tahuna__masjid_prayer.png": {
+      "bytes": 270105,
+      "sha256": "de7da1909808b6692c9ba5dc051d3bd66c62c89d2ac9c02bb046ea6254610731"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th14_tahuna__masjid_first_prayer.png": {
+      "bytes": 272167,
+      "sha256": "190fb36f98feafd0cf7ce119d07bbb8d2b250c5d17851a6ae517f3b1ea951a63"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th15_millers_debt__a.png": {
+      "bytes": 238247,
+      "sha256": "b18990c92cc7cdac6064ac0ea993aa81e4868b0d5b2a7d404fcecf3f6904b1f4"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th16_millers_debt__paid.png": {
+      "bytes": 266149,
+      "sha256": "c1a661deb70543cd43e23aee631067dc5697ed8ff68cec81d7d38f11d9acde97"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th17_millers_debt__time.png": {
+      "bytes": 266510,
+      "sha256": "aea1a739045efc21e620dae980f7582a3802f396c887f812f3eed8fc790b8f4a"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th18_millers_debt__seized.png": {
+      "bytes": 266441,
+      "sha256": "49f9a83f67390ccd22bf5d5dc916b5f029939582a520dac406674e4be11f1458"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th19_enemy_son__a.png": {
+      "bytes": 238321,
+      "sha256": "6e7befd25b349e1bfcfd36723b9d2fe2cdea99e23ac5719c3f1a71195f2fd1ce"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th20_enemy_son__help.png": {
+      "bytes": 264719,
+      "sha256": "23adf5ddf2f640126d2861e5ea7aaf964021d523338b899202c6365e4d59a0dc"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th21_enemy_son__carry.png": {
+      "bytes": 265882,
+      "sha256": "19e007a1de69b9026b009fe3ec294c3b81593a53eb50e0160ab4f7b7d242e410"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th22_enemy_son__leave.png": {
+      "bytes": 264294,
+      "sha256": "9d91b869f6c3ebc6f0526f8b331760cf0c908a2161b9f07c7fef7ee632b6270d"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th23_mercy_home__a.png": {
+      "bytes": 316278,
+      "sha256": "5b10338448fa50328c8c82b53874db7660b9ccc2229d279977c841948de12aa6"
+    },
+    "GAME/APPROVED/TAHUNA/MASTERS/th24_mercy_home__b.png": {
+      "bytes": 309351,
+      "sha256": "2130fb2bbaeeefee00b06e15536e1549805154273d871f0d11eb1f535e7d616a"
+    }
+  },
+  "tested_source_changes": {
+    "SOURCE/data/content_index.json": {
+      "bytes": 604,
+      "sha256": "287f065586e0fe5dca8a72360ee3f00fa7cfc9d26a4ca51b39db24dfdad86710"
+    },
+    "SOURCE/data/tahuna.json": {
+      "bytes": 7638,
+      "sha256": "70be11c867845b44ed593d9be5e8f38a32d2b618b5683b549dd9b166fc0a87c1"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 617863,
+      "sha256": "3fa6f77f86e443144a31360dfdb5f5072886eb66ff3bdf2317129311333f4856"
+    }
+  }
+}

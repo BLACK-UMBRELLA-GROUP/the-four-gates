@@ -1,0 +1,20 @@
+{
+  "line": 52,
+  "result": "passed",
+  "checks_passed": {
+    "lock_45": 295,
+    "focused": 494,
+    "headless_full_suite": 11108
+  },
+  "coverage": [
+    "The content index reads byte-identical Tahuna V2 data for the hub, its three people, the millstream masjid, three missions and seven Chapter 3 Journal rows.",
+    "The line 43 Road map requires the open Gate of Mercy and Tinara's completion flag. Travel between Ilmara and Tahuna takes 230 minutes and Road map Back returns to Tahuna.",
+    "The hub follows R6. Work runs from 06:00 to 18:00 outside Friday prayer, takes 90 minutes, pays five coins and grants one Tahuna trust on the day's first shift. The inn costs two coins.",
+    "The millstream masjid resolves by ID. Prayer counts once and displays the exact first-prayer line once. Back returns to Tahuna.",
+    "Ma'n, Hafsa and Rami have the locked lines at trust 10, 50 and 80. Talk actions follow their hours and Ma'n leaves for Friday prayer. Matching memories follow the locked flags and order.",
+    "The miller's debt and The enemy's son cover all six endings with exact copy, choice affordability, hours, coins, local trust, saved flags and completion, and accounts in What Tahuna says.",
+    "Mercy shown needs all three town flags and its River Market masjid hours. It sets chapter3_done and uses the V2 closing line. Knowledge remains closed below 40%.",
+    "The Journal shows all seven Chapter 3 completions and scrolling reaches Back with all three chapters loaded."
+  ],
+  "visual_reference": "24 approved masters at 1920 × 1080. Q15 and R11 use headless rules tests and the existing Godot layout. Q31 and R6 give th13–th14 Back to Tahuna. LOCK 103 V2 and R12 supply the revised closing line for th24."
+}

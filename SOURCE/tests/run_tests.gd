@@ -133,6 +133,10 @@ func _run() -> void:
 		await check_tinara_runtime()
 		finish()
 		return
+	if "--tahuna-only" in OS.get_cmdline_user_args():
+		await check_tahuna_runtime()
+		finish()
+		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
 		await check_jisra_people_runtime()
 		finish()
@@ -285,6 +289,7 @@ func _run() -> void:
 	await check_birana_runtime()
 	await check_nahla_runtime()
 	await check_tinara_runtime()
+	await check_tahuna_runtime()
 	finish()
 
 
@@ -9986,3 +9991,325 @@ func _check_tinara_repayment(repayment: Dictionary, sumayya: Dictionary, account
 		await press_button(words.talk.back, "return to the people list")
 	await press_button(words.people.back, "return from the people list to Tinara")
 	check(runner.journal(app) == journal_before, "the completed repayment follow-up adds no Journal row under R8")
+
+
+func check_tahuna_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/TAHUNA/RECORD/tahuna_data_V2.json")
+	check(not locked.is_empty() and FileAccess.get_file_as_bytes("res://data/tahuna.json") == locked,
+		"Tahuna copies the approved V2 data byte for byte")
+	var copy: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = copy is Dictionary and runner.towns.has("tahuna") \
+		and runner.missions.has("millers_debt") and runner.missions.has("enemy_son") and runner.missions.has("mercy_home")
+	check(loaded, "the production index loads Tahuna and all three missions")
+	if not loaded:
+		return
+	var town: Dictionary = runner.towns.tahuna
+	var masjid: Dictionary = copy.masjids.tahuna
+	var debt: Dictionary = runner.missions.millers_debt
+	var son: Dictionary = runner.missions.enemy_son
+	var ending: Dictionary = runner.missions.mercy_home
+	var words: Dictionary = runner.data.words
+	check(town == copy.towns.tahuna.merged({"id": "tahuna"}) and runner.town_people(app, "tahuna") == copy.people
+		and [debt, son, ending] == copy.missions, "Tahuna loads the locked town, people and missions in order")
+	check(runner.town_masjids("tahuna") == [masjid.merged({"id": "tahuna"})], "the millstream masjid resolves by ID")
+	check(runner.data.chapters.size() >= 3 and runner.data.chapters[2] == copy.chapters[0],
+		"the content index loads the seven locked Chapter 3 rows")
+
+	var original := MarketSave.snapshot(app)
+	app.set_process(false)
+	await _check_tahuna_road()
+	await _check_tahuna_hub(town, masjid, debt, son, words)
+	await _check_tahuna_people(copy.people, words)
+	await _check_tahuna_missions(debt, son, ["paid", -30, 10, ["debt_paid", "tahuna_debt"], [debt.say.paid]],
+		["help", -8, 10, ["enemy_helped", "tahuna_done"], [son.say.helped]])
+	await _check_tahuna_missions(debt, son, ["time", 0, 5, ["debt_time", "tahuna_debt"], [debt.say.time]],
+		["carry", 0, 6, ["enemy_helped", "tahuna_done"], []])
+	await _check_tahuna_missions(debt, son, ["seized", 5, -10, ["debt_seized", "tahuna_debt"], [debt.say.seized]],
+		["leave", 0, 0, ["tahuna_done"], []])
+	await _check_tahuna_chapter_end(ending, words)
+	MarketSave.restore(app, original)
+	app.show_screen("market_map")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 45 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_tahuna_road() -> void:
+	reset_at_market_place("gate", 40, 8)
+	app.progress.gate_open = true
+	app.update_state()
+	var map_words: Dictionary = app.road_map.data.words
+	var road: Dictionary = app.road_map.road_to("tahuna")
+	var travel := str(map_words.go).format({"n": 230})
+	var runner: SceneRunner = app.scene_runner
+	var state := runner.state()
+	state.flags.tinara_done = 8
+	runner.restore(state)
+	check(road.gate == "mercy" and not app.road_map.town_is_open(app, road), "Tahuna still needs the Gate of Mercy after Tinara")
+	state.flags.erase("tinara_done")
+	runner.restore(state)
+	app.road_map.restore({"mercy": true})
+	await press_button(map_words.map_button, "view the roads through the Gate of Mercy")
+	check(has_visible_label(app.ui, "Tahuna") and has_visible_label(app.ui, map_words.closed)
+		and not app.road_map.town_is_open(app, road) and find_button(app.ui, travel) == null,
+		"Tahuna stays closed until Tinara is complete")
+	await press_button(map_words.back, "leave the Road map before completing Tinara")
+	state.flags.tinara_done = 8
+	runner.restore(state)
+	await press_button(map_words.map_button, "view the roads after Tinara")
+	await press_button(travel, "take the 230-minute road to Tahuna")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "tahuna" and app.minute_of_day == 830,
+		"line 43 reaches Tahuna in the locked travel time")
+	await press_button(map_words.map_button, "open the Road map from Tahuna")
+	await press_button(map_words.back, "return to the Tahuna hub")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "tahuna", "Road map Back returns to Tahuna")
+	await press_button(map_words.map_button, "open the Road map for Ilmara")
+	await press_button(travel, "return to Ilmara")
+	check(app.ui.screen == "market_map" and app.runner_town_id().is_empty() and app.minute_of_day == 1060,
+		"the Road map exits Tahuna to Ilmara in 230 minutes")
+
+
+func _check_tahuna_hub(town: Dictionary, masjid: Dictionary, debt: Dictionary, son: Dictionary, words: Dictionary) -> void:
+	reset_at_market_place("gate", 20, 8)
+	app.enter_runner_town("tahuna")
+	var runner: SceneRunner = app.scene_runner
+	var noon: int = app._minutes(identity.clock.prayers[1].begins)
+	var sayings := str(words.rep_button).format({"town": town.name})
+	var inn := str(words.inn_button).format({"n": 2})
+	var map_button: String = app.road_map.data.words.map_button
+	var actions: Array[String] = [debt.button, words.people_button, town.work.label, sayings, masjid.button, inn, map_button]
+	check(app.ui.screen == "runner_town" and has_visible_label(app.ui, town.name)
+		and has_visible_label(app.ui, str(town.kicker).to_upper()) and visible_text().split("\n").has(town.text),
+		"the Tahuna hub shows the exact title, kicker and description")
+	check_gate_of_trust_meter("Trust · Tahuna", 10)
+	_check_town_hub_button_order(actions, "Tahuna follows the R6 action order")
+	check(find_button(app.ui, words.road_back) == null, "Road map is the loaded hub's exit")
+	await _check_town_sayings("tahuna", [], words)
+	for minute: int in [359, 360, 1079, 1080]:
+		set_market_day_time(8, minute)
+		var open := minute >= 360 and minute < 1080
+		check((find_button(app.ui, debt.button) != null) == open and (find_button(app.ui, town.work.label) != null) == open
+			and find_button(app.ui, son.button) == null, "the debt mission and work use their hours at minute %d" % minute)
+	set_market_day_time(8, noon)
+	var prayer: String = app.clock.prayer_label(false)
+	check(not prayer.is_empty(), "Tahuna offers prayer when a prayer is open")
+	actions.insert(5, prayer)
+	_check_town_hub_button_order(actions, "prayer follows the millstream masjid and precedes the inn")
+	set_market_day_time(9, noon)
+	check(find_button(app.ui, town.work.label) == null, "work closes during Friday prayer")
+	var market_trust: int = app.progress.trust
+	for shift: Array in [[10, 600, 25, 11], [10, 690, 30, 11], [11, 600, 35, 12]]:
+		set_market_day_time(shift[0], shift[1])
+		await press_button(town.work.label, "carry sacks at the mill")
+		check(app.progress.coins == shift[2] and runner.town_trust(app, "tahuna") == shift[3]
+			and app.minute_of_day == shift[1] + 90 and app.progress.trust == market_trust,
+			"work pays five coins for 90 minutes and adds one local trust on the first shift each day")
+	for day: int in [11, 12]:
+		set_market_day_time(day, noon)
+		await press_button(masjid.button, "open the millstream masjid")
+		check(app.ui.screen == "runner_masjid" and has_visible_label(app.ui, masjid.title)
+			and has_visible_label(app.ui, str(masjid.kicker).to_upper()) and visible_text().split("\n").has(masjid.text),
+			"the millstream masjid shows its exact title, kicker and description")
+		check(find_button(app.ui, app.jisra_masjid.data.masjid.back) == null, "Q31 reserves Back to the bridge for Jisra")
+		await press_button(identity.clock.pray_congregation, "pray at the millstream masjid")
+		check(app.jisra_masjid.prayed_in == {"tahuna": true}
+			and visible_text().split("\n").has(masjid.first) == (day == 11),
+			"prayer counts once by masjid ID and shows the exact first-prayer line once")
+		await press_button(words.back, "leave the millstream masjid")
+		check(app.ui.screen == "runner_town" and app.runner_town_id() == "tahuna", "Back returns to Tahuna")
+	await press_button(inn, "rest at the Tahuna inn")
+	check(app.progress.coins == 33 and app.day == 13 and app.minute_of_day == 280
+		and app.runner_town_id() == "tahuna", "the inn costs two coins and wakes you at 04:40 in Tahuna")
+
+
+func _check_tahuna_people(residents: Array, words: Dictionary) -> void:
+	reset_at_market_place("gate", 20, 8)
+	app.enter_runner_town("tahuna")
+	var runner: SceneRunner = app.scene_runner
+	await press_button(words.people_button, "open the Tahuna people list")
+	check(has_visible_label(app.ui, words.people.title)
+		and has_visible_label(app.ui, str(words.people.kicker).format({"town": "Tahuna"}).to_upper()),
+		"the people list shows the exact headings")
+	for person: Dictionary in residents:
+		check(has_visible_label(app.ui, person.name) and has_visible_label(app.ui, str(person.role).to_upper()),
+			"the list shows the name and role for " + str(person.name))
+	for band: Array in [[10, "wary"], [50, "friendly"], [80, "warm"]]:
+		var state := runner.state()
+		state.trust.tahuna = band[0]
+		runner.restore(state)
+		for index in residents.size():
+			var person: Dictionary = residents[index]
+			var buttons := _runner_talk_buttons(words)
+			check(buttons.size() == residents.size(), "one Talk action for each available Tahuna resident")
+			if buttons.size() != residents.size():
+				break
+			await press_control(buttons[index], "talk to %s at Tahuna trust %d" % [person.name, band[0]])
+			check(app.ui.screen == "runner_person" and has_visible_label(app.ui, person.name)
+				and visible_text().split("\n").has(person.lines[band[1]]), "the exact %s line for %s" % [band[1], person.name])
+			await press_button(words.talk.back, "return to the people list")
+	for minute: int in [299, 300, 359, 360, 419, 420, 1079, 1080, 1139, 1140]:
+		_check_town_people_presence(residents, words, 8, minute, false)
+	_check_town_people_presence(residents, words, 9, app._minutes(identity.clock.prayers[1].begins), true)
+	var state := runner.state()
+	state.flags = {"debt_paid": 8, "debt_seized": 8}
+	runner.restore(state)
+	check(runner.person_lines(app, "tahuna", residents[0]) == [residents[0].lines.warm, residents[0].memory[0][1]],
+		"Ma'n uses the first matching memory when both flags exist")
+	await press_button(words.people.back, "return from the people list to Tahuna")
+
+
+func _check_tahuna_missions(debt: Dictionary, son: Dictionary, debt_result: Array, son_result: Array) -> void:
+	reset_at_market_place("gate", 40, 8)
+	app.enter_runner_town("tahuna")
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var journal := runner.journal(app)
+	var expected := runner.state()
+	var coins: int = app.progress.coins
+	var market_trust: int = app.progress.trust
+	var trust := 10
+	var accounts: Array = []
+	for entry: Array in [[debt, debt_result], [son, son_result]]:
+		var mission: Dictionary = entry[0]
+		var result: Array = entry[1]
+		var scene: Dictionary = mission.scenes.a
+		var paid_option: Dictionary = scene.choices[0]
+		var cost: int = paid_option.need_coins
+		await press_button(mission.button, "open " + str(mission.title))
+		_check_runner_scene_copy(mission, "a")
+		app.progress.coins = cost - 1
+		app.show_screen("runner_mission")
+		check(find_button(app.ui, paid_option.label) == null and runner.apply_choice(app, mission, paid_option).is_empty()
+			and runner.state() == expected and app.progress.coins == cost - 1, "unaffordable choice is hidden and applies no effects")
+		app.progress.coins = cost
+		app.show_screen("runner_mission")
+		check(find_button(app.ui, paid_option.label) != null, "the paid choice appears at the exact cost")
+		app.progress.coins = coins
+		app.show_screen("runner_mission")
+		var labels: Array[String] = []
+		var chosen_label := ""
+		for choice: Dictionary in scene.choices:
+			labels.append(choice.label)
+			if choice.go == result[0]:
+				chosen_label = choice.label
+		_check_town_hub_button_order(labels, "the mission offers its locked choices in order")
+		await press_button(chosen_label, "take the choice leading to " + str(result[0]))
+		_check_runner_scene_copy(mission, result[0])
+		coins += result[1]
+		trust += result[2]
+		expected.trust.tahuna = trust
+		for flag: String in result[3]:
+			expected.flags[flag] = 8
+		accounts.append_array(result[4])
+		expected.sayings.tahuna = accounts
+		check(runner.state() == expected and app.progress.coins == coins and runner.town_trust(app, "tahuna") == trust
+			and app.progress.trust == market_trust and app.day == 8 and app.minute_of_day == 600,
+			"the ending applies exact coins, local trust, flags and accounts before Back")
+		await press_button(words.scene_back, "finish " + str(mission.title))
+		expected.done[mission.id] = 8
+		check(runner.state() == expected and app.ui.screen == "runner_town" and find_button(app.ui, mission.button) == null,
+			"Back completes the mission once and returns to Tahuna")
+		await _check_town_sayings("tahuna", accounts, words)
+		if mission.id == debt.id:
+			for minute: int in [359, 360, 1079, 1080]:
+				set_market_day_time(8, minute)
+				check((find_button(app.ui, son.button) != null) == (minute >= 360 and minute < 1080),
+					"the son mission uses its own hours after the debt flag at minute %d" % minute)
+			set_market_day_time(8, 600)
+
+	var residents := runner.town_people(app, "tahuna")
+	var man: Dictionary = residents[0]
+	var rami: Dictionary = residents[2]
+	var man_lines: Array = [man.lines.friendly if trust >= 30 else man.lines.wary]
+	if debt_result[0] == "paid":
+		man_lines.append(man.memory[0][1])
+	elif debt_result[0] == "seized":
+		man_lines.append(man.memory[1][1])
+	var rami_lines: Array = [rami.lines.friendly if trust >= 30 else rami.lines.wary]
+	if son_result[0] != "leave":
+		rami_lines.append(rami.memory[0][1])
+	check(runner.person_lines(app, "tahuna", man) == man_lines and runner.person_lines(app, "tahuna", rami) == rami_lines,
+		"Ma'n and Rami remember exactly the outcomes they witnessed")
+	var saved := MarketSave.snapshot(app)
+	runner.reset()
+	MarketSave.restore(app, saved)
+	app.show_screen("runner_town")
+	set_market_day_time(10, 600)
+	check(runner.state() == expected and app.progress.coins == coins and app.runner_town_id() == "tahuna"
+		and find_button(app.ui, debt.button) == null and find_button(app.ui, son.button) == null,
+		"the save preserves the ending effects and both missions stay hidden on later days")
+	_check_journal_completions(journal, [debt, son])
+
+
+func _check_tahuna_chapter_end(mission: Dictionary, words: Dictionary) -> void:
+	reset_at_market_place("masjid", 20, 8)
+	var runner: SceneRunner = app.scene_runner
+	var journal := runner.journal(app)
+	var expected := runner.state()
+	expected.flags = {"nahla_done": 8, "tinara_done": 8, "tahuna_done": 8}
+	for required: String in expected.flags.keys():
+		var missing := expected.duplicate(true)
+		missing.flags.erase(required)
+		runner.restore(missing)
+		app.show_screen("market_map")
+		check(find_button(app.ui, mission.button) == null, "Mercy shown needs " + required)
+	runner.restore(expected)
+	for minute: int in [419, 420, 1199, 1200]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, mission.button) != null) == (minute >= 420 and minute < 1200),
+			"Mercy shown uses its masjid hours at minute %d" % minute)
+	set_market_day_time(8, 600)
+	move_market_fixture("inn")
+	check(find_button(app.ui, mission.button) == null, "Mercy shown is confined to the River Market masjid")
+	move_market_fixture("masjid")
+	var knowledge: Dictionary = app.road_map.data.gates[3]
+	check(knowledge.id == "knowledge" and knowledge.opens_at == 40, "Knowledge retains the locked 40 percent threshold")
+	await press_button(mission.button, "open Mercy shown at the River Market masjid")
+	_check_runner_scene_copy(mission, "a")
+	_check_town_hub_button_order(["Ask about the road west"], "Mercy shown has the exact choice")
+	await press_button("Ask about the road west", "ask Idris about the road west")
+	_check_runner_scene_copy(mission, "b")
+	expected.flags.chapter3_done = 8
+	check(mission.scenes.b.text == "The road west waits for the Gate of Knowledge."
+		and runner.state() == expected and app.progress.coins == 20 and app.minute_of_day == 600,
+		"the V2 ending applies only the Chapter 3 flag and uses the revised wording")
+	await press_button(words.scene_back, "finish Mercy shown")
+	expected.done.mercy_home = 8
+	check(runner.state() == expected and find_button(app.ui, mission.button) == null
+		and app.road_map.journey_percent(app) < 40 and not app.road_map.gate_is_open(app, knowledge),
+		"Back saves Mercy shown and Knowledge stays closed below its threshold")
+	_check_journal_completions(journal, [mission])
+
+	# Combine the completed chapter routes in one saved Journal fixture.
+	var chapter_data: Dictionary = runner.data.chapters[2]
+	for id: String in chapter_data.missions:
+		expected.done[id] = 8
+	runner.restore(expected)
+	var saved := MarketSave.snapshot(app)
+	runner.reset()
+	MarketSave.restore(app, saved)
+	app.show_screen("market_map")
+	check(find_button(app.ui, mission.button) == null, "Mercy shown remains complete after restoring the save")
+	await press_button(words.journal_button, "open the Journal with three chapters loaded")
+	var chapter: Dictionary = runner.journal(app).chapters[2]
+	check(chapter.n == 3 and chapter.name == "The Gate of Mercy" and chapter.done == 7 and chapter.total == 7
+		and has_visible_label(app.ui, "Chapter 3 · The Gate of Mercy") and has_visible_label(app.ui, "7 / 7"),
+		"the Journal shows all seven Chapter 3 completions")
+	for index in chapter.rows.size():
+		var title: String = runner.missions[chapter_data.missions[index]].title
+		check(chapter.rows[index] == {"title": title, "done": true} and has_visible_label(app.ui, title),
+			"the Journal shows the exact completed row for " + title)
+	var back := find_button(app.ui, words.journal.back)
+	var scroll := app.ui.find_child("RunnerScroll", true, false) as ScrollContainer
+	check(back != null and scroll != null, "the full Journal has a scroll container and a Back action")
+	if back != null and scroll != null:
+		scroll.ensure_control_visible(back)
+		await frames(2)
+		check(scroll.scroll_vertical > 0 and scroll.get_global_rect().encloses(back.get_global_rect()),
+			"the Journal scrolls far enough to reach Back with all three chapters loaded")
+	await press_control(back, "leave the Journal")
+	check(app.ui.screen == "market_map", "Journal Back returns to the River Market")
