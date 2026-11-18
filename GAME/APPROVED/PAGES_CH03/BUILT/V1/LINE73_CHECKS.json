@@ -1,0 +1,71 @@
+{
+  "line": 73,
+  "lock": "LOCK 66 V1",
+  "focused": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch03-only",
+    "exit_code": 0,
+    "passed": 472,
+    "total": 472,
+    "failures": 0
+  },
+  "full_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 15037,
+    "total": 15037,
+    "failures": 0
+  },
+  "lock_66_in_both_runs": {
+    "passed": 273,
+    "total": 273,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "pc01_page_21__a.png": "page_21/a",
+    "pc02_read_21__a.png": "read_21/a",
+    "pc03_page_22__a.png": "page_22/a",
+    "pc04_read_22__a.png": "read_22/a",
+    "pc05_page_23__a.png": "page_23/a",
+    "pc06_read_23__a.png": "read_23/a",
+    "pc07_page_24__a.png": "page_24/a",
+    "pc08_read_24__a.png": "read_24/a",
+    "pc09_page_25__a.png": "page_25/a",
+    "pc10_read_25__a.png": "read_25/a",
+    "pc11_page_26__a.png": "page_26/a",
+    "pc12_read_26__a.png": "read_26/a",
+    "pc13_page_27__a.png": "page_27/a",
+    "pc14_read_27__a.png": "read_27/a",
+    "pc15_page_28__a.png": "page_28/a",
+    "pc16_read_28__a.png": "read_28/a",
+    "pc17_page_29__a.png": "page_29/a",
+    "pc18_read_29__a.png": "read_29/a",
+    "pc19_page_30__a.png": "page_30/a",
+    "pc20_read_30__a.png": "read_30/a"
+  },
+  "asserted": {
+    "pages": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30
+    ],
+    "find": "Each find uses its locked town, person, labels and hours. The live Chapter 1 ending sets chapter1_done. Pages 22–30 also require the previous find. Taking each page records its flag and completion, returns to the town hub and leaves the read count unchanged.",
+    "read": "The River Market masjid offers only the lowest found unread page across chapters. Each page shows the locked title, kicker, saying, Idris dialogue and close action. Only page 30 shows the chapter story. Hadith references stay out of player-facing text.",
+    "journal": "Closing a Chapter 3 reading records the read flag and completion and increases The scholar's pages by one, from 20/100 to 30/100. Q36 scopes the live count check to the pages in this chapter.",
+    "persistence": "A new game clears the count. Restoring a save preserves the page flags, completions and 30/100 count and prevents rereads."
+  },
+  "scholar_check": {
+    "status": "open before public release",
+    "register": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md, rows 18 and 49",
+    "action": "OA-AIOS-432"
+  },
+  "native_screenshots": 0,
+  "presentation_scope": "Q15 and R11 use headless rules checks and the existing Godot layout. All 20 masters were reviewed for Chapter 3 wording and order."
+}

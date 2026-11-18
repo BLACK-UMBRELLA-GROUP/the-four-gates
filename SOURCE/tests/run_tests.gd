@@ -101,6 +101,10 @@ func _run() -> void:
 		await check_pages_ch02_runtime()
 		finish()
 		return
+	if "--pages-ch03-only" in OS.get_cmdline_user_args():
+		await check_pages_ch03_runtime()
+		finish()
+		return
 	if "--side-goods-in-trust-only" in OS.get_cmdline_user_args():
 		await check_side_goods_in_trust_runtime()
 		finish()
@@ -327,6 +331,7 @@ func _run() -> void:
 	await check_side_stranger_runtime()
 	await check_pages_ch01_runtime()
 	await check_pages_ch02_runtime()
+	await check_pages_ch03_runtime()
 	await check_jisra_people_runtime()
 	await check_wudu_runtime()
 	await check_adhan_rows_runtime()
@@ -5656,6 +5661,155 @@ func check_pages_ch02_runtime() -> void:
 	app.set_process(true)
 	var added_failures := failures - failures_before
 	print("LOCK 65 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func check_pages_ch03_runtime() -> void:
+	const PATH := "res://data/pages_ch03.json"
+	const LOCKED_SHA256 := "55257d7fed00f37bcb9a922c1a8d0dea9c2fab3781292e6b0211f8cf732ad7b0"
+	const DAY := 8
+	const MINUTE := 480
+	var checks_before := checks
+	var failures_before := failures
+	var approved: Variant = JSON.parse_string(FileAccess.get_file_as_string(PATH))
+	check(approved is Dictionary and FileAccess.get_sha256(PATH) == LOCKED_SHA256,
+		"Chapter 3 runtime data matches LOCK 66 V1 byte for byte")
+	if not approved is Dictionary:
+		return
+	var words: Dictionary = approved.words
+	var pages: Array = approved.pages
+	var runner: SceneRunner = app.scene_runner
+	app.set_process(false)
+	reset_at_market_place("masjid", 60, DAY)
+	set_market_day_time(DAY, MINUTE)
+	check(find_button(app.ui, words.read_button) == null, "Idris offers no reading before any page is found")
+
+	var trust_kept: Dictionary = runner.missions.trust_home
+	var before_chapter_end := runner.state()
+	for flag: String in trust_kept.after:
+		before_chapter_end.flags[flag] = DAY
+	runner.restore(before_chapter_end)
+	app.update_state()
+	await press_button(trust_kept.button, "open the existing Chapter 1 ending")
+	await press_button(trust_kept.scenes.a.choices[0].label, "ask Idris about the north road")
+	await press_button(runner.data.words.scene_back, "leave the Chapter 1 ending")
+	check(runner.has_flag(app, "chapter1_done"), "the live Chapter 1 ending supplies the required flag")
+	var coins: int = app.progress.coins
+	var trust := {}
+	for town: String in ["river_market", "wadira", "birana", "safira"]:
+		trust[town] = runner.town_trust(app, town)
+
+	for page: Dictionary in pages:
+		var number := int(page.n)
+		var find_id := "page_%d" % number
+		var read_id := "read_%d" % number
+		var find: Dictionary = runner.missions.get(find_id, {})
+		var read: Dictionary = runner.missions.get(read_id, {})
+		var loaded: bool = find.get("kind") == "page_find" and read.get("kind") == "page_read"
+		check(loaded, "the production index loads the find and read missions for page %d" % number)
+		if not loaded:
+			app.set_process(true)
+			return
+		var town: String = page.town
+		var caption := str(words.find_button).format({"p": page.person})
+		check(runner.towns.has(town) and find.town == town and find.after == page.after
+			and find.button == caption and find.hours == words.hours
+			and read.place == "masjid" and read.button == words.read_button,
+			"page %d uses its locked town, prerequisites, hours and action labels" % number)
+		app.restore_runner_town("")
+		move_market_fixture("masjid")
+		check(find_button(app.ui, caption) == null, "the find action for page %d is hidden at the masjid" % number)
+		app.enter_runner_town(town)
+		var ready := runner.state()
+		for flag: String in page.after:
+			var missing := ready.duplicate(true)
+			missing.flags.erase(flag)
+			runner.restore(missing)
+			app.update_state()
+			check(find not in runner.available_missions(app, town, "")
+				and find_button(app.ui, caption) == null,
+				"page %d is hidden without %s" % [number, flag])
+		runner.restore(ready)
+		for minute: int in [int(words.hours[0]) - 1, int(words.hours[0]), int(words.hours[1]) - 1, int(words.hours[1])]:
+			set_market_day_time(DAY, minute)
+			var open := minute >= int(words.hours[0]) and minute < int(words.hours[1])
+			check((find_button(app.ui, caption) != null) == open,
+				"the find action for page %d follows its locked hours at minute %d" % [number, minute])
+		set_market_day_time(DAY, MINUTE)
+		await press_button(caption, "open the town find scene for page %d" % number)
+		var take := {"label": words.take, "fx": {"flag": find_id + "_found", "done": true}}
+		check(app.ui.screen == "runner_mission" and app.runner_mission() == find
+			and has_visible_label(app.ui, words.find_title)
+			and has_visible_label(app.ui, str(words.find_kicker).to_upper())
+			and visible_text().split("\n").has(page.found) and not visible_text().contains(page.ref)
+			and runner.choices(app, find, app.runner_scene()) == [take],
+			"page %d shows the locked find copy and take choice" % number)
+		await press_button(words.take, "take page %d to Idris" % number)
+		check(app.ui.screen == "runner_town" and app.runner_town_id() == town
+			and runner.has_flag(app, find_id + "_found") and runner.mission_done(app, find_id)
+			and find_button(app.ui, caption) == null and runner._goal_count(app, "pages") == 0,
+			"taking page %d records its find once and leaves the reading count unchanged" % number)
+		check(find_button(app.ui, words.read_button) == null, "page %d cannot be read in its town" % number)
+
+	app.restore_runner_town("")
+	move_market_fixture("board")
+	check(find_button(app.ui, words.read_button) == null, "found pages cannot be read away from the River Market masjid")
+	move_market_fixture("masjid")
+	app.show_screen("game")
+	# Resume with pages 1–19 read and page 20 found to check ordering across chapters.
+	app.known_words["sirr"] = true
+	app.open_purse.page_read = true
+	var earlier := runner.state()
+	earlier.flags.page_20_found = DAY
+	earlier.counters.pages = 18
+	runner.restore(earlier)
+	app.update_state()
+	await press_button(words.read_button, "open the lowest unread page across chapters")
+	check(app.runner_mission().get("id") == "read_20", "Idris offers page 20 before the found Chapter 3 pages")
+	await press_button(words.read_turn, "complete Chapter 2 with Idris")
+	var goal := {"label": "The scholar's pages", "n": 20, "m": 100}
+	check(goal in runner.journal(app).goals, "the earlier chapters leave the Journal at 20/100")
+
+	for page: Dictionary in pages:
+		var number := int(page.n)
+		var read: Dictionary = runner.missions["read_%d" % number]
+		var offered := runner.available_missions(app, "", "masjid").filter(
+			func(mission: Dictionary) -> bool: return mission.get("kind") == "page_read")
+		check(offered == [read], "Idris offers only the lowest found unread page: %d" % number)
+		await press_button(words.read_button, "read page %d at the River Market masjid" % number)
+		var scene: Dictionary = read.scenes[read.start]
+		var paragraphs := ["“%s”" % page.saying, str(words.idris).format({"t": page.idris})]
+		if number == int(pages.back().n):
+			paragraphs.append(str(words.story).format({"t": approved.chapter.story}))
+		check(read.title == approved.chapter.title and read.kicker == str(words.read_kicker).format({"n": number})
+			and scene.text == paragraphs, "page %d uses the locked reading copy and chapter-story order" % number)
+		var flag := "page_%d_read" % number
+		var close := {"label": words.read_turn, "fx": {"flag": flag, "count": "pages", "done": true}}
+		_check_single_runner_choice(read, scene, close, page.ref)
+		check(goal in runner.journal(app).goals and not runner.has_flag(app, flag),
+			"opening page %d leaves the read flag and Journal count pending" % number)
+		await press_button(words.read_turn, "close the notebook after page %d" % number)
+		goal.n += 1
+		check(app.ui.screen == "game" and app.current_place == "masjid"
+			and runner.has_flag(app, flag) and runner.mission_done(app, read.id) and goal in runner.journal(app).goals,
+			"closing page %d records one read and adds one to the Journal" % number)
+
+	check(find_button(app.ui, words.read_button) == null, "Idris offers no reread after Chapter 3")
+	check(app.progress.coins == coins and app.minute_of_day == MINUTE,
+		"finding and reading the pages leaves coins and the clock unchanged")
+	for town: String in trust:
+		check(runner.town_trust(app, town) == trust[town], "reading leaves trust unchanged in " + town)
+	var finished := MarketSave.snapshot(app)
+	app.begin_game()
+	check(runner._goal_count(app, "pages") == 0, "a new game clears the notebook count")
+	MarketSave.restore(app, finished)
+	move_market_fixture("masjid")
+	check(runner.state() == finished.scene_runner and goal in runner.journal(app).goals
+		and find_button(app.ui, words.read_button) == null, "restoring the save keeps 30/100 and prevents rereads")
+	await _check_runner_journal_goal(runner.data.words, goal)
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 66 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
 		" passed; failures=", added_failures)
 
 

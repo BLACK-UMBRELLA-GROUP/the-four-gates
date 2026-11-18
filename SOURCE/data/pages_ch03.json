@@ -1,0 +1,165 @@
+{
+ "version": "LOCK 66 V1 (9 Nov 2026) - the scholar's notebook, chapter 3: Giving and wealth",
+ "builds_on": "LOCK 3 (page 1, read with Idris), LOCK 34 runner, LOCK 51 (the last page). Every reference checked on sunnah.com; the game never shows the reference.",
+ "words": {
+  "find_button": "{p} has found a page",
+  "find_kicker": "The scholar's notebook · a page found",
+  "find_title": "A page in the scholar's hand",
+  "take": "Take the page to Idris",
+  "read_button": "Read the scholar's page with Idris",
+  "read_kicker": "The scholar's notebook · page {n} of 100",
+  "read_turn": "Close the notebook",
+  "idris": "Idris: “{t}”",
+  "story": "Idris turns back through the pages. “{t}”",
+  "hours": [
+   420,
+   1140
+  ]
+ },
+ "chapter": {
+  "n": 3,
+  "title": "Giving and wealth",
+  "story": "When his father died he gave away half the shop to the bookbinders who had no tools of their own."
+ },
+ "pages": [
+  {
+   "n": 21,
+   "chapter": 3,
+   "ref": "Bukhari 1471",
+   "saying": "It is better to take a rope, gather firewood and sell it than to beg from people who may give or refuse.",
+   "idris": "Work is never shameful. Asking when you can work is harder on the soul.",
+   "person": "Ghazi",
+   "found": "Ghazi found a page lining an old hat bought from a pedlar.",
+   "after": [
+    "chapter1_done"
+   ],
+   "town": "wadira"
+  },
+  {
+   "n": 22,
+   "chapter": 3,
+   "ref": "Nawawi 40, no. 19",
+   "saying": "Be mindful of Allah and He will protect you; when you ask, ask Allah; if the whole world gathered to help or harm you, it could do only what Allah has already written.",
+   "idris": "The pen has lifted and the ink is dry. So stop being afraid.",
+   "person": "Wahb",
+   "found": "Wahb hands you a loaf wrapped in an old page. “Look at the writing on this.”",
+   "after": [
+    "chapter1_done",
+    "page_21_found"
+   ],
+   "town": "birana"
+  },
+  {
+   "n": 23,
+   "chapter": 3,
+   "ref": "Nawawi 40, no. 20",
+   "saying": "From the words of the earlier prophets: if you feel no shame, do as you wish.",
+   "idris": "Shame is a guard at the door. Don't dismiss it.",
+   "person": "Amina",
+   "found": "Amina found a folded page in a crack while mending a wall. “It's in a scholar's hand. You'll know who wants it.”",
+   "after": [
+    "chapter1_done",
+    "page_22_found"
+   ],
+   "town": "safira"
+  },
+  {
+   "n": 24,
+   "chapter": 3,
+   "ref": "Nawawi 40, no. 21",
+   "saying": "A man asked for one thing to hold on to. He was told: say 'I believe in Allah', then stand firm.",
+   "idris": "Believing is the first step. Standing firm is every step after.",
+   "person": "Ghazi",
+   "found": "Children are flying a kite made from an old page. Ghazi buys it from them for a date and gives it to you.",
+   "after": [
+    "chapter1_done",
+    "page_23_found"
+   ],
+   "town": "wadira"
+  },
+  {
+   "n": 25,
+   "chapter": 3,
+   "ref": "Nawawi 40, no. 22",
+   "saying": "A man asked whether praying, fasting Ramadan and keeping to the lawful would bring him to Paradise, and was told yes.",
+   "idris": "Simple things done faithfully. Don't make it harder than it is.",
+   "person": "Wahb",
+   "found": "Wahb found a page pressed inside a second-hand book.",
+   "after": [
+    "chapter1_done",
+    "page_24_found"
+   ],
+   "town": "birana"
+  },
+  {
+   "n": 26,
+   "chapter": 3,
+   "ref": "Nawawi 40, no. 23",
+   "saying": "Purity is half of faith; praising Allah fills the scales; prayer is light, charity is proof, patience is brightness.",
+   "idris": "You saw the women at Birana's well before dawn. Patience is a kind of light.",
+   "person": "Amina",
+   "found": "Amina has been using a page to wrap spices and has only just noticed the writing.",
+   "after": [
+    "chapter1_done",
+    "page_25_found"
+   ],
+   "town": "safira"
+  },
+  {
+   "n": 27,
+   "chapter": 3,
+   "ref": "Nawawi 40, no. 24",
+   "saying": "Allah says: O My servants, I have forbidden injustice for Myself and made it forbidden between you, so do not wrong one another.",
+   "idris": "If Allah forbade injustice to Himself, who are we to allow it?",
+   "person": "Ghazi",
+   "found": "Ghazi pulls a damp page from the bottom of a basket and dries it for you.",
+   "after": [
+    "chapter1_done",
+    "page_26_found"
+   ],
+   "town": "wadira"
+  },
+  {
+   "n": 28,
+   "chapter": 3,
+   "ref": "Nawawi 40, no. 25",
+   "saying": "The poor said the rich take all the reward because they give in charity. He told them: every glorification of Allah is charity, every praise is charity, enjoining good and forbidding wrong is charity.",
+   "idris": "No one is too poor to give. Some gifts cost nothing but intention.",
+   "person": "Wahb",
+   "found": "Wahb found a page under a loose floor tile.",
+   "after": [
+    "chapter1_done",
+    "page_27_found"
+   ],
+   "town": "birana"
+  },
+  {
+   "n": 29,
+   "chapter": 3,
+   "ref": "Nawawi 40, no. 26",
+   "saying": "Every joint of a person owes a charity every day: making peace between two people, helping a man onto his mount, a good word, every step to prayer, removing harm from the road.",
+   "idris": "The thorns you moved from the street. Nobody saw. It counted.",
+   "person": "Amina",
+   "found": "Amina was given a debt note - and the scholar's page is written on the back of it.",
+   "after": [
+    "chapter1_done",
+    "page_28_found"
+   ],
+   "town": "safira"
+  },
+  {
+   "n": 30,
+   "chapter": 3,
+   "ref": "Muslim 2588",
+   "saying": "Charity never decreases wealth; Allah raises the one who forgives, and humbles no one who is humble for His sake.",
+   "idris": "Count your coins after giving. Then count what came back to you another way.",
+   "person": "Ghazi",
+   "found": "Ghazi's little one folded a page into a paper boat. Ghazi dried it out for you.",
+   "after": [
+    "chapter1_done",
+    "page_29_found"
+   ],
+   "town": "wadira"
+  }
+ ]
+}

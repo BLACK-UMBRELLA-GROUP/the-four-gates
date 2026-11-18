@@ -877,6 +877,17 @@ in the Journal. Page 20 includes the chapter story.
 
 Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch02-only`.
 
+## LOCK 66 — The scholar's notebook, Chapter 3
+
+After completing Chapter 1, find page 21 with Ghazi at the Wadira town hub.
+Each find unlocks the next page through page 30. The page buttons appear at
+the town hubs from 07:00 up to 19:00 for Ghazi in Wadira, Wahb in Birana and
+Amina in Safira. Idris offers the lowest found unread page at the River Market
+masjid. Closing each reading adds one to **The scholar's pages** in the
+Journal. Page 30 includes the chapter story.
+
+Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch03-only`.
+
 ## LOCK 74 — Wudu with Idris
 
 After meeting Idris, choose **Idris will show you wudu** at the River Market
