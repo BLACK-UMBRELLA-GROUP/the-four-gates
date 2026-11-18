@@ -647,6 +647,19 @@ After Safira, Wadira and Birana, return to the River Market masjid for Patience 
 The Gate of Mercy opens at 30% journey progress. Run the Birana headless checks with
 `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --birana-only`.
 
+## LOCK 43 V2 — Nahla, the sick child and the overloaded donkey
+
+When the Gate of Mercy opens at 30% journey progress, take the 100-minute road to Nahla.
+Talk to Dawud, Umm Yahya and Ayyub, carry honey jars during work hours, or pray at the
+hillside masjid. Use the **Road map** to leave town.
+
+Complete The sick child first. The overloaded donkey appears during its own hours.
+Both missions save their completion. **What Nahla says** shows the accounts earned by
+your choices. The Journal shows missions when their chapter is loaded.
+
+Run the focused rules checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --nahla-only`.
+
 ## LOCK 52 — Two brothers not speaking
 
 At the River Market spice row, **Adil is complaining about his brother** is available from

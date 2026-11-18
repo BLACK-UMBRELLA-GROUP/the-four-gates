@@ -1,0 +1,156 @@
+{
+  "line": 50,
+  "lock": "LOCK 43 V2",
+  "brief": "DOC-TFG-0141",
+  "tested_base_commit_sha": "b854de05ca4dee0b2b9f5db467cab37f52db075b",
+  "tested_source": "Base commit plus the hashed source files. The 18 November daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T08:46:53+00:00",
+  "commands": [
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --nahla-only",
+    "godot --headless --path SOURCE --script res://tests/run_tests.gd"
+  ],
+  "checks_passed": {
+    "lock_43": 274,
+    "focused": 473,
+    "headless_full_suite": 10506
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/NAHLA/BRIEFS/BUILD_BRIEF_2026-11-09_NAHLA.md": {
+      "bytes": 3848,
+      "sha256": "9895561cb3951edcad38cce3ac80244b2bba2d21b96dfb9b814800c290bd8865"
+    },
+    "GAME/APPROVED/NAHLA/RECORD/NAHLA_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 6780,
+      "sha256": "efd6b88d043186e687ff129622925bcfd4118579900c39c94e4d1d113845ca13"
+    },
+    "GAME/APPROVED/NAHLA/RECORD/LOCK_RECORD.md": {
+      "bytes": 1199,
+      "sha256": "cd4469ae29b1efb042c8a1fa369ed3d9c454e9a7d5944c84cb222055a6a1ef4b"
+    },
+    "GAME/APPROVED/NAHLA/RECORD/nahla_data_V2.json": {
+      "bytes": 6339,
+      "sha256": "0aeab7a4d32f0f037550e71cab580739c33045bae10719fd454c6b41859e5a86"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh01_nahla__town.png": {
+      "bytes": 307294,
+      "sha256": "080c30f7290444dbe1e92471c866b748dad430e3e4ede84c0d4b4222d1ecb22d"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh02_nahla__people.png": {
+      "bytes": 293985,
+      "sha256": "531f0cff0fab1d34d127c7f204bf70f19e6c2e0e9cae779bbbe6b3c2318bfc9f"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh03_nahla__dawud_trust_10.png": {
+      "bytes": 310533,
+      "sha256": "25fe4a5dc4fac7d054d5979c60fb50d338e388156bf3d3514ac09575ce3c2304"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh04_nahla__dawud_trust_50.png": {
+      "bytes": 311243,
+      "sha256": "d42e9ef822570588ab05ee55d6d8d548f53d2ea08c0c70c5c1fec33cd9f06996"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh05_nahla__dawud_trust_80.png": {
+      "bytes": 308861,
+      "sha256": "2d06b997110fe7f507a444a7043cc873645b8284ab748d40a4110921f782a098"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh06_nahla__umm_yahya_trust_10.png": {
+      "bytes": 310678,
+      "sha256": "e061a701c2c643579e9903ff855b0fa1c7f6c52205f0156904a743be4f1a4de7"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh07_nahla__umm_yahya_trust_50.png": {
+      "bytes": 309533,
+      "sha256": "60ecb9b9b8b3a6bc47bc99ccf5160f6a4b7ea0ef11d74a25a68ee3e38fb199fc"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh08_nahla__umm_yahya_trust_80.png": {
+      "bytes": 311321,
+      "sha256": "f0a3f634c57ee512a337dc3c4805769809bddd869705a6b61e14448dfce24da0"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh09_nahla__ayyub_trust_10.png": {
+      "bytes": 309831,
+      "sha256": "1a90e61df008c698dc2efbe0650d1954f6f4f9dbe8edaffb997811b510479e05"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh10_nahla__ayyub_trust_50.png": {
+      "bytes": 310049,
+      "sha256": "631efa81184856130ebd06f37b8af0366bcca46f32d5f619a6095a6a71a3825f"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh11_nahla__ayyub_trust_80.png": {
+      "bytes": 309652,
+      "sha256": "8428cb76b335ce85ed7a2080b357b8140ca2b6a10d4dd30f292483ac5e49ea6c"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh12_nahla__what_people_say_empty.png": {
+      "bytes": 311741,
+      "sha256": "f90563477d9c636bd373e580815632b692778ff377f6a06fffa28078fc6b694a"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh13_nahla__masjid_prayer.png": {
+      "bytes": 270436,
+      "sha256": "bcd56ae7d5e9d7edbee01eb95ad65b96b32a69b21f2c68c4d4d04993667c33a2"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh14_nahla__masjid_first_prayer.png": {
+      "bytes": 272079,
+      "sha256": "6a60003ac5570daceaa8b21bfae8b0453f1c1af18bbba556c1ecd6f233369c04"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh15_sick_child__a.png": {
+      "bytes": 294606,
+      "sha256": "2fa105f1e0bce20f38981e1afd2b2766f8315f7d80f414ac0583f40610801021"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh16_sick_child__sit.png": {
+      "bytes": 309459,
+      "sha256": "1b552d344d729f48e112a7365ea7261f2cfee94d8d9615f500b172ec5502bf21"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh17_sick_child__buy.png": {
+      "bytes": 310009,
+      "sha256": "4e3d3e90c6e4e39c7c25034304e2ddfd620f66bbca04e9c97e2901eaf7c30994"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh18_sick_child__go.png": {
+      "bytes": 307455,
+      "sha256": "7ef0f84de49a5fc2602e6ec45fa38e0be30498f54ffc67c33ca0bf7417cd579f"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh19_overloaded_donkey__a.png": {
+      "bytes": 294776,
+      "sha256": "1eb48fd2e6b492f25e44ddfff37243b87932d51a2b86d6eb2cb59bfc68a954c6"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh20_overloaded_donkey__help.png": {
+      "bytes": 314736,
+      "sha256": "a39a1710fb9e6502e226b7e05bedb789bc4cb8ce16f5bfc05a36d5930da6ba56"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh21_overloaded_donkey__hire.png": {
+      "bytes": 310809,
+      "sha256": "48a2864c6cf4d58d95c04005a45ba59d6c7eaf71347b7ff2893249bf5b9030cf"
+    },
+    "GAME/APPROVED/NAHLA/MASTERS/nh22_overloaded_donkey__walk.png": {
+      "bytes": 309528,
+      "sha256": "0893e32cfd4399e0578c3c09dd37bc76f8a36db8f095f2f029114e3375758d3b"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/data/nahla.json": {
+      "bytes": 6339,
+      "sha256": "0aeab7a4d32f0f037550e71cab580739c33045bae10719fd454c6b41859e5a86"
+    },
+    "SOURCE/data/content_index.json": {
+      "bytes": 566,
+      "sha256": "485c588198402779112be483b815cf9bf4f65a31a56a096829b3c8ec94bf1945"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 582133,
+      "sha256": "8141eddd1723e17ed3571a562b07c7bdae971c8bbbe4a33fad2cba94f6043809"
+    },
+    "SOURCE/README.md": {
+      "bytes": 50791,
+      "sha256": "aeff8990f1486b3e8ea2f13651b6a03e9839f9a898807de0fb7911d45428fdc4"
+    }
+  },
+  "rules": [
+    "QUESTIONS 15",
+    "QUESTIONS 29 A",
+    "LOCK 103",
+    "Runner and town contract R1–R12"
+  ],
+  "native_godot_windows": 0,
+  "screenshots": 0,
+  "masters": "22 approved masters at 1920 × 1080. Q15 and R11 use the existing Godot layout. Q29 and R6 replace the nh13–nh14 return label with Back to Nahla. Q29 and LOCK 43 V2 set donkey_hired on nh21; donkey_helped is set by nh20."
+}

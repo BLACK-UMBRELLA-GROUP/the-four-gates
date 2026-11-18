@@ -1,0 +1,19 @@
+{
+  "line": 50,
+  "result": "passed",
+  "checks_passed": {
+    "lock_43": 274,
+    "focused": 473,
+    "headless_full_suite": 10506
+  },
+  "coverage": [
+    "The content index loads byte-identical LOCK 43 V2 data, with the locked town, three people, separate masjid and both missions.",
+    "The line 43 Road map requires the Gate of Mercy and takes 100 minutes each way. Map Back returns to the hub.",
+    "Nahla starts at trust 10. The hub follows R6 and shows work from 07:00 to 16:00 outside Friday prayer. Each shift takes 60 minutes, earns four coins and adds one local trust on the first shift of the day. The inn costs two coins.",
+    "The hillside masjid resolves by id. The first prayer adds one distinct visit and shows its locked line. Back returns to Nahla.",
+    "Dawud, Umm Yahya and Ayyub use exact copy at trust 10, 50 and 80. Their own Talk buttons follow the locked hours and Friday prayer availability.",
+    "All six endings use exact copy, choice order, coin guards, effects, elapsed minutes, flags, local trust, memories and What Nahla says accounts. The paid donkey choice sets donkey_hired and leaves the grabbed-stick memory hidden.",
+    "The donkey mission requires sick_child_done and its own hours. Save and restore preserve both completions, and both actions stay hidden when done. Journal rows follow the loaded chapters under R8."
+  ],
+  "visual_reference": "22 approved masters at 1920 × 1080. Q15 and R11 use the existing Godot layout. Q29 and R6 replace the nh13–nh14 return label with Back to Nahla. Q29 and LOCK 43 V2 set donkey_hired on nh21; donkey_helped is set by nh20."
+}

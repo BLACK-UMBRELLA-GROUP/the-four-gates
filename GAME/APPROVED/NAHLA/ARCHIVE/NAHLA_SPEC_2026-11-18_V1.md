@@ -1,7 +1,7 @@
 ---
 id: DOC-TFG-0139
 type: SPEC
-status: CURRENT
+status: ARCHIVED
 feature: NAHLA
 purpose: LOCK 43 - Nahla, the beekeepers (chapter 3): town, masjid, people; missions The sick child and The overloaded donkey
 links: [AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0117, DOC-TFG-0140]

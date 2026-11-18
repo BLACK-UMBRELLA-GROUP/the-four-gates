@@ -125,6 +125,10 @@ func _run() -> void:
 		await check_birana_runtime()
 		finish()
 		return
+	if "--nahla-only" in OS.get_cmdline_user_args():
+		await check_nahla_runtime()
+		finish()
+		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
 		await check_jisra_people_runtime()
 		finish()
@@ -275,6 +279,7 @@ func _run() -> void:
 	await check_safira_runtime()
 	await check_wadira_runtime()
 	await check_birana_runtime()
+	await check_nahla_runtime()
 	finish()
 
 
@@ -9422,3 +9427,250 @@ func _check_birana_chapter_end(mission: Dictionary, words: Dictionary) -> void:
 			"scrolling makes the whole Journal Back button reachable with both chapters loaded")
 	await press_control(back, "leave the Journal using Back")
 	check(app.ui.screen == "market_map", "Journal Back returns to the River Market")
+
+
+func check_nahla_runtime() -> void:
+	var checks_before := checks
+	var failures_before := failures
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/NAHLA/RECORD/nahla_data_V2.json")
+	check(not locked.is_empty() and locked == FileAccess.get_file_as_bytes("res://data/nahla.json"),
+		"Nahla copies the approved V2 data byte for byte")
+	var copy: Variant = JSON.parse_string(locked.get_string_from_utf8())
+	var runner: SceneRunner = app.scene_runner
+	var loaded: bool = copy is Dictionary and runner.towns.has("nahla") and runner.missions.has("sick_child") \
+		and runner.missions.has("overloaded_donkey")
+	check(loaded, "the production index loads Nahla and its two missions")
+	if not loaded:
+		return
+	var town: Dictionary = runner.towns.nahla
+	var masjid: Dictionary = copy.masjids.nahla
+	var sick: Dictionary = runner.missions.sick_child
+	var donkey: Dictionary = runner.missions.overloaded_donkey
+	var words: Dictionary = runner.data.words
+	check(town == copy.towns.nahla.merged({"id": "nahla"}) and [sick, donkey] == copy.missions
+		and runner.town_people(app, "nahla") == copy.people, "Nahla loads the locked town, missions and people in order")
+	check(runner.town_masjids("nahla") == [masjid.merged({"id": "nahla"})], "the hillside masjid resolves by its locked id")
+
+	var original := MarketSave.snapshot(app)
+	app.set_process(false)
+	await _check_nahla_road()
+	await _check_nahla_hub(town, masjid, sick, donkey, words)
+	await _check_nahla_people(copy.people, words)
+	await _check_nahla_path(sick, donkey, copy.people,
+		["sit", 0, 8, 600, {"sick_sat": 8, "sick_child_done": 8}, [sick.say.sat]],
+		["help", 0, 6, 60, {"donkey_helped": 9, "nahla_done": 9}, [donkey.say.helped]])
+	await _check_nahla_path(sick, donkey, copy.people,
+		["buy", -12, 5, 0, {"sick_child_done": 8}, [sick.say.bought]],
+		["hire", -6, 4, 0, {"donkey_hired": 9, "nahla_done": 9}, []])
+	await _check_nahla_path(sick, donkey, copy.people,
+		["go", 0, 0, 0, {"sick_child_done": 8}, []],
+		["walk", 0, 0, 0, {"nahla_done": 9}, []])
+
+	MarketSave.restore(app, original)
+	app.show_screen("market_map")
+	app.set_process(true)
+	var added_failures := failures - failures_before
+	print("LOCK 43 TESTS: ", checks - checks_before - added_failures, "/", checks - checks_before,
+		" passed; failures=", added_failures)
+
+
+func _check_nahla_road() -> void:
+	reset_at_market_place("gate", 24, 8)
+	app.progress.gate_open = true
+	app.update_state()
+	var road: Dictionary = app.road_map.road_to("nahla")
+	var map_words: Dictionary = app.road_map.data.words
+	var travel := str(map_words.go).format({"n": 100})
+	await press_button(map_words.map_button, "open the Road map at the gate")
+	check(road.gate == "mercy" and not app.road_map.town_is_open(app, road)
+		and find_button(app.ui, travel) == null, "the loaded Nahla road requires the Gate of Mercy")
+	await press_button(map_words.back, "leave the map before restoring an earned Mercy gate")
+	app.road_map.restore({"mercy": true})
+	await press_button(map_words.map_button, "open the map with Mercy unlocked")
+	await press_button(travel, "take the 100-minute road to Nahla")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "nahla" and app.minute_of_day == 700,
+		"line 43 reaches Nahla and advances the clock by 100 minutes")
+	await press_button(map_words.map_button, "open the hub's Road map exit")
+	await press_button(map_words.back, "return from the Road map")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "nahla", "map Back returns to Nahla")
+	await press_button(map_words.map_button, "reopen the map from Nahla")
+	await press_button(travel, "take the road back to Ilmara")
+	check(app.ui.screen == "market_map" and app.runner_town_id().is_empty() and app.minute_of_day == 800,
+		"the road returns to Ilmara in 100 minutes")
+
+
+func _enter_nahla_fixture(coins: int = 24) -> void:
+	reset_at_market_place("gate", coins, 8)
+	app.enter_runner_town("nahla")
+
+
+func _check_nahla_hub(town: Dictionary, masjid: Dictionary, sick: Dictionary, donkey: Dictionary, words: Dictionary) -> void:
+	_enter_nahla_fixture()
+	var runner: SceneRunner = app.scene_runner
+	var sayings := str(words.rep_button).format({"town": town.name})
+	var inn := str(words.inn_button).format({"n": 2})
+	var map_button: String = app.road_map.data.words.map_button
+	var noon: int = app._minutes(identity.clock.prayers[1].begins)
+	check(app.ui.screen == "runner_town" and has_visible_label(app.ui, town.name)
+		and has_visible_label(app.ui, str(town.kicker).to_upper()) and visible_text().split("\n").has(town.text),
+		"the hub shows the locked Nahla title, kicker and description")
+	check_gate_of_trust_meter("Trust · Nahla", 10)
+	_check_town_hub_button_order([sick.button, words.people_button, town.work.label, sayings, masjid.button, inn, map_button],
+		"Nahla follows the R6 order")
+	check(find_button(app.ui, words.road_back) == null, "Road map is the loaded hub's exit")
+	await _check_town_sayings("nahla", [], words)
+	for minute: int in [359, 360, 419, 420, 959, 960, 1079, 1080]:
+		set_market_day_time(8, minute)
+		check((find_button(app.ui, sick.button) != null) == (minute >= 360 and minute < 1080)
+			and (find_button(app.ui, town.work.label) != null) == (minute >= 420 and minute < 960)
+			and find_button(app.ui, donkey.button) == null, "mission and work hours at minute %d before the first outcome" % minute)
+	set_market_day_time(8, noon)
+	var prayer: String = app.clock.prayer_label(false)
+	check(not prayer.is_empty(), "the hub offers prayer during its prayer window")
+	_check_town_hub_button_order([sick.button, words.people_button, town.work.label, sayings, masjid.button, prayer, inn, map_button],
+		"Nahla puts prayer between the masjid and the inn")
+	set_market_day_time(9, noon)
+	check(find_button(app.ui, town.work.label) == null, "Nahla closes work during Friday prayer")
+
+	var market_trust: int = app.progress.trust
+	for shift: Array in [[10, 600, 28, 11], [10, 660, 32, 11], [11, 600, 36, 12]]:
+		set_market_day_time(shift[0], shift[1])
+		await press_button(town.work.label, "carry honey jars for 60 minutes")
+		check(app.progress.coins == shift[2] and runner.town_trust(app, "nahla") == shift[3]
+			and app.minute_of_day == shift[1] + 60 and app.progress.trust == market_trust,
+			"each shift pays four coins and only the first shift of the day earns one Nahla trust")
+	for day: int in [11, 12]:
+		set_market_day_time(day, noon)
+		await press_button(masjid.button, "open the hillside masjid")
+		check(app.ui.screen == "runner_masjid" and has_visible_label(app.ui, masjid.title)
+			and has_visible_label(app.ui, str(masjid.kicker).to_upper()) and visible_text().split("\n").has(masjid.text),
+			"the resolved masjid shows the locked title and body before prayer")
+		await press_button(identity.clock.pray_congregation, "pray at the hillside masjid")
+		check(app.jisra_masjid.prayed_in == {"nahla": true}
+			and visible_text().split("\n").has(masjid.first) == (day == 11), "only the first prayer shows the gift and adds to the count")
+		await press_button(words.back, "Back from the hillside masjid")
+		check(app.ui.screen == "runner_town" and app.runner_town_id() == "nahla", "Back returns to Nahla")
+	await press_button(inn, "rest at the Nahla inn")
+	check(app.progress.coins == 34 and app.day == 13 and app.minute_of_day == 280
+		and app.runner_town_id() == "nahla", "the inn charges two coins and wakes at 04:40 in Nahla")
+
+
+func _check_nahla_people(residents: Array, words: Dictionary) -> void:
+	_enter_nahla_fixture()
+	var runner: SceneRunner = app.scene_runner
+	await press_button(words.people_button, "open the Nahla people list")
+	check(app.ui.screen == "runner_people" and has_visible_label(app.ui, words.people.title)
+		and has_visible_label(app.ui, str(words.people.kicker).format({"town": "Nahla"}).to_upper()),
+		"the people list shows the locked heading")
+	for person: Dictionary in residents:
+		check(has_visible_label(app.ui, person.name) and has_visible_label(app.ui, str(person.role).to_upper()),
+			"the people list shows the name and role for " + str(person.name))
+	for band: Array in [[10, "wary"], [50, "friendly"], [80, "warm"]]:
+		var state := runner.state()
+		state.trust.nahla = band[0]
+		runner.restore(state)
+		for index in residents.size():
+			var person: Dictionary = residents[index]
+			var buttons := _runner_talk_buttons(words)
+			check(buttons.size() == residents.size(), "every available Nahla resident has a Talk button")
+			if buttons.size() != residents.size():
+				break
+			await press_control(buttons[index], "talk to %s at Nahla trust %d" % [person.name, band[0]])
+			check(app.ui.screen == "runner_person" and has_visible_label(app.ui, person.name)
+				and visible_text().split("\n").has(person.lines[band[1]]), "the exact %s line for %s" % [band[1], person.name])
+			await press_button(words.talk.back, "return to the Nahla people list")
+	var noon: int = app._minutes(identity.clock.prayers[1].begins)
+	for moment: Array in [[8, 299, []], [8, 300, [0]], [8, 359, [0]], [8, 360, [0, 1]],
+		[8, 419, [0, 1]], [8, 420, [0, 1, 2]], [8, 1019, [0, 1, 2]], [8, 1020, [0, 1]],
+		[8, 1079, [0, 1]], [8, 1080, []], [9, noon, [1, 2]]]:
+		set_market_day_time(moment[0], moment[1])
+		var text := visible_text().split("\n")
+		for index in residents.size():
+			var away := str(words.people.away).format({"name": residents[index].name})
+			check(text.has(away) == (index not in moment[2]), "%s availability at minute %d" % [residents[index].name, moment[1]])
+		check(_runner_talk_buttons(words).size() == moment[2].size(), "Nahla Talk buttons follow hours and Friday prayer")
+	await press_button(words.people.back, "return to Nahla from the people list")
+
+
+func _check_nahla_path(sick: Dictionary, donkey: Dictionary, residents: Array, child: Array, carter: Array) -> void:
+	_enter_nahla_fixture()
+	var runner: SceneRunner = app.scene_runner
+	var words: Dictionary = runner.data.words
+	var journal := runner.journal(app)
+	var market_trust: int = app.progress.trust
+	var earned_flags := {}
+	var accounts: Array = []
+	var done := {}
+	for entry: Array in [[sick, child], [donkey, carter]]:
+		var mission: Dictionary = entry[0]
+		var outcome: Array = entry[1]
+		var ending: String = outcome[0]
+		var initial_coins: int = app.progress.coins
+		var initial_trust := runner.town_trust(app, "nahla")
+		var day: int = app.day
+		await press_button(mission.button, "open " + str(mission.title))
+		_check_runner_scene_copy(mission, "a")
+		var choices: Array = mission.scenes.a.choices
+		var choice: Dictionary = {}
+		for option: Dictionary in choices:
+			if option.go == ending:
+				choice = option
+		check(not choice.is_empty(), "the locked mission has an option for " + ending)
+		if choice.is_empty():
+			return
+		if outcome[1] < 0:
+			var cost: int = -outcome[1]
+			app.progress.coins = cost - 1
+			app.show_screen("runner_mission")
+			check(find_button(app.ui, choice.label) == null, "the paid option is hidden one coin short")
+			app._runner_action("choice", choice)
+			check(app.runner_scene() == mission.scenes.a and app.progress.coins == cost - 1
+				and runner.state().flags == earned_flags, "dispatching an unaffordable choice has no effects")
+			app.progress.coins = cost
+			app.show_screen("runner_mission")
+			check(find_button(app.ui, choice.label) != null, "the paid option appears at the required coin count")
+			app.progress.coins = initial_coins
+			app.show_screen("runner_mission")
+		_check_town_hub_button_order([choices[0].label, choices[1].label, choices[2].label], "choices use the locked order")
+		await press_button(choice.label, "choose the Nahla path to " + ending)
+		_check_runner_scene_copy(mission, ending)
+		earned_flags.merge(outcome[4])
+		accounts.append_array(outcome[5])
+		check(runner.state().flags == earned_flags and runner.state().done == done
+			and app.progress.coins == initial_coins + outcome[1] and app.progress.trust == market_trust
+			and runner.town_trust(app, "nahla") == initial_trust + outcome[2]
+			and app.day == day and app.minute_of_day == 600 + outcome[3],
+			"the ending applies the exact coins, local trust, flags and clock before Back: " + ending)
+		await press_button(words.scene_back, "complete " + str(mission.title))
+		done[mission.id] = day
+		check(runner.state().done == done and app.ui.screen == "runner_town" and app.runner_town_id() == "nahla",
+			"Back records completion and returns to Nahla")
+		await _check_town_sayings("nahla", accounts, words)
+		if mission.id == sick.id:
+			for minute: int in [419, 420, 1019, 1020]:
+				set_market_day_time(9, minute)
+				check((find_button(app.ui, donkey.button) != null) == (minute >= 420 and minute < 1020)
+					and find_button(app.ui, sick.button) == null, "donkey hours and child completion at minute %d" % minute)
+			set_market_day_time(9, 600)
+
+	for person: Dictionary in residents:
+		var expected: Array = [person.lines.wary]
+		var memory: Array = person.memory[0]
+		if earned_flags.has(memory[0]):
+			expected.append(memory[1])
+		check(runner.person_lines(app, "nahla", person) == expected, "the path gives the exact lines and memory for " + str(person.name))
+	var state := runner.state()
+	var path: String = app.storage_directory.path_join("nahla-%s-%s.save" % [child[0], carter[0]])
+	check(MarketSave.save_slot(app, path) == OK, "write the Nahla path to an isolated save slot")
+	var saved := MarketSave.read_slot(path)
+	check(not saved.is_empty(), "read the saved Nahla path back from disk")
+	if saved.is_empty():
+		return
+	runner.reset()
+	MarketSave.restore(app, saved)
+	app.show_screen("runner_town")
+	check(app.runner_town_id() == "nahla" and runner.state() == state, "the save preserves town, completion days, flags and accounts")
+	_check_journal_completions(journal, [sick, donkey])
+	set_market_day_time(10, 600)
+	check(find_button(app.ui, sick.button) == null and find_button(app.ui, donkey.button) == null,
+		"both completed missions remain hidden during their hours after reloading")
