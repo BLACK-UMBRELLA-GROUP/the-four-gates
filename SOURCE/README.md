@@ -888,6 +888,17 @@ Journal. Page 30 includes the chapter story.
 
 Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch03-only`.
 
+## LOCK 67 — The scholar's notebook, Chapter 4
+
+After completing Chapter 2, find page 31 with Ma'n at the Tahuna town hub.
+Each find unlocks the next page through page 40. From 07:00 up to 19:00
+the find actions appear at the town hubs for Ma'n in Tahuna, Dawud in Nahla
+and Usama in Tinara. At the River Market masjid, Idris offers the lowest
+found unread page. Closing the notebook adds one to **The scholar's pages**
+in the Journal. Page 40 includes the chapter story.
+
+Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch04-only`.
+
 ## LOCK 74 — Wudu with Idris
 
 After meeting Idris, choose **Idris will show you wudu** at the River Market

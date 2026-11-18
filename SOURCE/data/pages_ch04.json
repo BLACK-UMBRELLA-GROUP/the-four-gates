@@ -1,0 +1,165 @@
+{
+ "version": "LOCK 67 V1 (9 Nov 2026) - the scholar's notebook, chapter 4: Character and speech",
+ "builds_on": "LOCK 3 (page 1, read with Idris), LOCK 34 runner, LOCK 51 (the last page). Every reference checked on sunnah.com; the game never shows the reference.",
+ "words": {
+  "find_button": "{p} has found a page",
+  "find_kicker": "The scholar's notebook · a page found",
+  "find_title": "A page in the scholar's hand",
+  "take": "Take the page to Idris",
+  "read_button": "Read the scholar's page with Idris",
+  "read_kicker": "The scholar's notebook · page {n} of 100",
+  "read_turn": "Close the notebook",
+  "idris": "Idris: “{t}”",
+  "story": "Idris turns back through the pages. “{t}”",
+  "hours": [
+   420,
+   1140
+  ]
+ },
+ "chapter": {
+  "n": 4,
+  "title": "Character and speech",
+  "story": "He travelled east to study and was laughed at for his accent until he outlasted everyone in the circle."
+ },
+ "pages": [
+  {
+   "n": 31,
+   "chapter": 4,
+   "ref": "Bukhari 1410",
+   "saying": "Whoever gives charity equal to a date from honest earnings, Allah accepts it and makes it grow, as you would raise a foal, until it becomes like a mountain.",
+   "idris": "A date. That's all. Started honestly, it grows.",
+   "person": "Ma'n",
+   "found": "Ma'n found a page lining an old hat bought from a pedlar.",
+   "after": [
+    "chapter2_done"
+   ],
+   "town": "tahuna"
+  },
+  {
+   "n": 32,
+   "chapter": 4,
+   "ref": "Bukhari 1417",
+   "saying": "Protect yourselves from the Fire, even with half a date given in charity.",
+   "idris": "Half a date. There's no excuse left after that.",
+   "person": "Dawud",
+   "found": "Dawud hands you a loaf wrapped in an old page. “Look at the writing on this.”",
+   "after": [
+    "chapter2_done",
+    "page_31_found"
+   ],
+   "town": "nahla"
+  },
+  {
+   "n": 33,
+   "chapter": 4,
+   "ref": "Muslim 1631",
+   "saying": "When a person dies, his deeds end except three: ongoing charity, knowledge that benefits, and a righteous child who prays for him.",
+   "idris": "The fountain you mended will still be running when we're both gone.",
+   "person": "Usama",
+   "found": "Usama found a folded page in a crack while mending a wall. “It's in a scholar's hand. You'll know who wants it.”",
+   "after": [
+    "chapter2_done",
+    "page_32_found"
+   ],
+   "town": "tinara"
+  },
+  {
+   "n": 34,
+   "chapter": 4,
+   "ref": "Bukhari 1395",
+   "saying": "The Prophet sent Mu'adh to Yemen and told him zakat is taken from their rich and given back to their poor.",
+   "idris": "Zakat isn't a gift. It's the poor's share, held in your hand for a while.",
+   "person": "Ma'n",
+   "found": "Children are flying a kite made from an old page. Ma'n buys it from them for a date and gives it to you.",
+   "after": [
+    "chapter2_done",
+    "page_33_found"
+   ],
+   "town": "tahuna"
+  },
+  {
+   "n": 35,
+   "chapter": 4,
+   "ref": "Muslim 1605",
+   "saying": "No one hoards food to raise its price except a sinner.",
+   "idris": "Jalal's storehouses. Now you know why the qadi acted.",
+   "person": "Dawud",
+   "found": "Dawud found a page pressed inside a second-hand book.",
+   "after": [
+    "chapter2_done",
+    "page_34_found"
+   ],
+   "town": "nahla"
+  },
+  {
+   "n": 36,
+   "chapter": 4,
+   "ref": "Ibn Majah 2443",
+   "saying": "Give the worker his wages before his sweat dries.",
+   "idris": "Sumayya's pickers. Late wages are a debt that grows heavier every night.",
+   "person": "Usama",
+   "found": "Usama has been using a page to wrap spices and has only just noticed the writing.",
+   "after": [
+    "chapter2_done",
+    "page_35_found"
+   ],
+   "town": "tinara"
+  },
+  {
+   "n": 37,
+   "chapter": 4,
+   "ref": "Bukhari 2078",
+   "saying": "A merchant used to tell his servants: if a debtor is struggling, let him off, so that Allah may let us off. And Allah forgave him.",
+   "idris": "Ma'n's flood. Karim's patience. This page is for both of them.",
+   "person": "Ma'n",
+   "found": "Ma'n pulls a damp page from the bottom of a basket and dries it for you.",
+   "after": [
+    "chapter2_done",
+    "page_36_found"
+   ],
+   "town": "tahuna"
+  },
+  {
+   "n": 38,
+   "chapter": 4,
+   "ref": "Abu Dawud 3580",
+   "saying": "The Messenger of Allah cursed the one who gives a bribe and the one who takes it.",
+   "idris": "Both hands are dirty in a bribe. Wahb's and the one who fills it.",
+   "person": "Dawud",
+   "found": "Dawud found a page under a loose floor tile.",
+   "after": [
+    "chapter2_done",
+    "page_37_found"
+   ],
+   "town": "nahla"
+  },
+  {
+   "n": 39,
+   "chapter": 4,
+   "ref": "Tirmidhi 1295",
+   "saying": "In wine, ten people are cursed - including the one who carries it and the one it is carried to.",
+   "idris": "Qasim's jars. The carrier is not innocent because the jars aren't his.",
+   "person": "Usama",
+   "found": "Usama was given a debt note - and the scholar's page is written on the back of it.",
+   "after": [
+    "chapter2_done",
+    "page_38_found"
+   ],
+   "town": "tinara"
+  },
+  {
+   "n": 40,
+   "chapter": 4,
+   "ref": "Abu Dawud 2574",
+   "saying": "Prizes in contests are only for racing camels and horses and for archery.",
+   "idris": "Contests for skill, yes. Gambling for luck, no.",
+   "person": "Ma'n",
+   "found": "Ma'n's little one folded a page into a paper boat. Ma'n dried it out for you.",
+   "after": [
+    "chapter2_done",
+    "page_39_found"
+   ],
+   "town": "tahuna"
+  }
+ ]
+}

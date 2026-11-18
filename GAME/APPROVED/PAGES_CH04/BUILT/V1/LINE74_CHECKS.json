@@ -1,0 +1,72 @@
+{
+  "line": 74,
+  "lock": "LOCK 67 V1",
+  "focused": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch04-only",
+    "exit_code": 0,
+    "passed": 448,
+    "total": 448,
+    "failures": 0
+  },
+  "full_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 15286,
+    "total": 15286,
+    "failures": 0
+  },
+  "lock_67_in_both_runs": {
+    "passed": 249,
+    "total": 249,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "pd01_page_31__a.png": "page_31/a",
+    "pd02_read_31__a.png": "read_31/a",
+    "pd03_page_32__a.png": "page_32/a",
+    "pd04_read_32__a.png": "read_32/a",
+    "pd05_page_33__a.png": "page_33/a",
+    "pd06_read_33__a.png": "read_33/a",
+    "pd07_page_34__a.png": "page_34/a",
+    "pd08_read_34__a.png": "read_34/a",
+    "pd09_page_35__a.png": "page_35/a",
+    "pd10_read_35__a.png": "read_35/a",
+    "pd11_page_36__a.png": "page_36/a",
+    "pd12_read_36__a.png": "read_36/a",
+    "pd13_page_37__a.png": "page_37/a",
+    "pd14_read_37__a.png": "read_37/a",
+    "pd15_page_38__a.png": "page_38/a",
+    "pd16_read_38__a.png": "read_38/a",
+    "pd17_page_39__a.png": "page_39/a",
+    "pd18_read_39__a.png": "read_39/a",
+    "pd19_page_40__a.png": "page_40/a",
+    "pd20_read_40__a.png": "read_40/a"
+  },
+  "asserted": {
+    "pages": [
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40
+    ],
+    "find": "Each page uses its locked town hub, person, hours and text. The live Chapter 2 ending sets chapter2_done. Pages 32–40 also require the previous page found. Taking each page records its flag and completion and leaves the reading count unchanged.",
+    "read": "Idris offers only the lowest found unread page at the River Market masjid. The title, kicker, saying, Idris dialogue and close action match the data. Only page 40 includes the chapter story. Hadith references stay outside player-facing text.",
+    "journal": "Closing each reading records its flag and completion and increments The scholar's pages once, from 30/100 through 40/100. Q36 scopes the live count check to each chapter.",
+    "persistence": "A new game clears the count. Restoring the save preserves all ten finds, readings and the 40/100 count and prevents rereads.",
+    "side_effects": "Finding and reading leaves coins, town trust and time unchanged."
+  },
+  "scholar_check": {
+    "status": "open before public release",
+    "register": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md, rows 19 and 50",
+    "action": "OA-AIOS-432"
+  },
+  "native_screenshots": 0,
+  "presentation_scope": "Q15 and R11 use headless rules checks and the existing Godot layout. All 20 masters were reviewed for words and order."
+}
