@@ -1,0 +1,71 @@
+{
+  "line": 72,
+  "lock": "LOCK 65 V1",
+  "focused": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch02-only",
+    "exit_code": 0,
+    "passed": 482,
+    "total": 482,
+    "failures": 0
+  },
+  "full_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 14764,
+    "total": 14764,
+    "failures": 0
+  },
+  "lock_65_in_both_runs": {
+    "passed": 283,
+    "total": 283,
+    "failures": 0
+  },
+  "runtime_data_byte_identical": true,
+  "master_reference": {
+    "pb01_page_11__a.png": "page_11/a",
+    "pb02_read_11__a.png": "read_11/a",
+    "pb03_page_12__a.png": "page_12/a",
+    "pb04_read_12__a.png": "read_12/a",
+    "pb05_page_13__a.png": "page_13/a",
+    "pb06_read_13__a.png": "read_13/a",
+    "pb07_page_14__a.png": "page_14/a",
+    "pb08_read_14__a.png": "read_14/a",
+    "pb09_page_15__a.png": "page_15/a",
+    "pb10_read_15__a.png": "read_15/a",
+    "pb11_page_16__a.png": "page_16/a",
+    "pb12_read_16__a.png": "read_16/a",
+    "pb13_page_17__a.png": "page_17/a",
+    "pb14_read_17__a.png": "read_17/a",
+    "pb15_page_18__a.png": "page_18/a",
+    "pb16_read_18__a.png": "read_18/a",
+    "pb17_page_19__a.png": "page_19/a",
+    "pb18_read_19__a.png": "read_19/a",
+    "pb19_page_20__a.png": "page_20/a",
+    "pb20_read_20__a.png": "read_20/a"
+  },
+  "asserted": {
+    "pages": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "find": "Each town hub uses the locked person, button and hours. The Gate of Trust gates every find. Pages 12–20 also require the previous find. Taking each page records its flag and completion, returns to the hub and leaves the Journal count unchanged.",
+    "read": "The River Market masjid offers only the lowest found unread page across chapters. Each page shows the exact title, kicker, saying, Idris line and close choice. Page 20 also shows the chapter story. References remain out of player-facing text.",
+    "journal": "With Chapter 1 complete, closing each Chapter 2 reading records the read flag and completion and raises the Journal count by one from 10/100 to 20/100. Q36 scopes the live count check to each chapter's pages.",
+    "persistence": "A fresh game clears the count. Restoring the save preserves the find and read state and 20/100 count. Completed pages cannot be repeated."
+  },
+  "scholar_check": {
+    "status": "open before public release",
+    "register": "GAME/OVERVIEW/SCHOLAR_CHECKS_CURRENT_VERSION_V1.md, rows 17 and 48",
+    "action": "OA-AIOS-432"
+  },
+  "native_screenshots": 0,
+  "presentation_scope": "Q15 and R11 use the existing Godot layout and headless rules checks. All 20 masters were checked for scene wording and order."
+}

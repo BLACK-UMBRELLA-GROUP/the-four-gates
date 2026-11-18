@@ -1,0 +1,165 @@
+{
+ "version": "LOCK 65 V1 (9 Nov 2026) - the scholar's notebook, chapter 2: Honesty and trade",
+ "builds_on": "LOCK 3 (page 1, read with Idris), LOCK 34 runner, LOCK 51 (the last page). Every reference checked on sunnah.com; the game never shows the reference.",
+ "words": {
+  "find_button": "{p} has found a page",
+  "find_kicker": "The scholar's notebook · a page found",
+  "find_title": "A page in the scholar's hand",
+  "take": "Take the page to Idris",
+  "read_button": "Read the scholar's page with Idris",
+  "read_kicker": "The scholar's notebook · page {n} of 100",
+  "read_turn": "Close the notebook",
+  "idris": "Idris: “{t}”",
+  "story": "Idris turns back through the pages. “{t}”",
+  "hours": [
+   420,
+   1140
+  ]
+ },
+ "chapter": {
+  "n": 2,
+  "title": "Honesty and trade",
+  "story": "As a young man he sold paper in the markets and was known for weighing ink as carefully as gold."
+ },
+ "pages": [
+  {
+   "n": 11,
+   "chapter": 2,
+   "ref": "Nawawi 40, no. 12",
+   "saying": "Part of a person's good Islam is leaving what does not concern him.",
+   "idris": "Shakir could learn from this page.",
+   "person": "Umm Hani",
+   "found": "Umm Hani found a page lining an old hat bought from a pedlar.",
+   "after": [
+    "gate_opened"
+   ],
+   "town": "jisra"
+  },
+  {
+   "n": 12,
+   "chapter": 2,
+   "ref": "Nawawi 40, no. 13",
+   "saying": "None of you truly believes until he loves for his brother what he loves for himself.",
+   "idris": "Would you want the coin that rolled to your foot to come back to you? Then you know.",
+   "person": "Mukhtar",
+   "found": "Mukhtar hands you a loaf wrapped in an old page. “Look at the writing on this.”",
+   "after": [
+    "gate_opened",
+    "page_11_found"
+   ],
+   "town": "sahila"
+  },
+  {
+   "n": 13,
+   "chapter": 2,
+   "ref": "Tirmidhi 1956",
+   "saying": "Your smile at your brother is charity; enjoining good, guiding a lost man and removing a stone from the path are charity too.",
+   "idris": "Smile at the next stranger at the quay. It costs you nothing.",
+   "person": "Sakhr",
+   "found": "Sakhr found a folded page in a crack while mending a wall. “It's in a scholar's hand. You'll know who wants it.”",
+   "after": [
+    "gate_opened",
+    "page_12_found"
+   ],
+   "town": "sukara"
+  },
+  {
+   "n": 14,
+   "chapter": 2,
+   "ref": "Nawawi 40, no. 15",
+   "saying": "Whoever believes in Allah and the Last Day should speak good or stay silent, honour his neighbour, and honour his guest.",
+   "idris": "Three doors: your mouth, your neighbour's wall, your guest's bowl.",
+   "person": "Umm Hani",
+   "found": "Children are flying a kite made from an old page. Umm Hani buys it from them for a date and gives it to you.",
+   "after": [
+    "gate_opened",
+    "page_13_found"
+   ],
+   "town": "jisra"
+  },
+  {
+   "n": 15,
+   "chapter": 2,
+   "ref": "Nawawi 40, no. 16",
+   "saying": "A man asked for advice. He was told: do not get angry - three times.",
+   "idris": "Three times. He must have needed it. So do we.",
+   "person": "Mukhtar",
+   "found": "Mukhtar found a page pressed inside a second-hand book.",
+   "after": [
+    "gate_opened",
+    "page_14_found"
+   ],
+   "town": "sahila"
+  },
+  {
+   "n": 16,
+   "chapter": 2,
+   "ref": "Nawawi 40, no. 17",
+   "saying": "Allah has prescribed excellence in everything - even in how an animal is slaughtered: sharpen the blade and spare it suffering.",
+   "idris": "Even the sacrifice is done with mercy. Remember Eid.",
+   "person": "Sakhr",
+   "found": "Sakhr has been using a page to wrap spices and has only just noticed the writing.",
+   "after": [
+    "gate_opened",
+    "page_15_found"
+   ],
+   "town": "sukara"
+  },
+  {
+   "n": 17,
+   "chapter": 2,
+   "ref": "Nawawi 40, no. 18",
+   "saying": "Fear Allah wherever you are, follow a bad deed with a good one to wipe it out, and treat people with good character.",
+   "idris": "If you fell yesterday, do good today. That's the whole of it.",
+   "person": "Umm Hani",
+   "found": "Umm Hani pulls a damp page from the bottom of a basket and dries it for you.",
+   "after": [
+    "gate_opened",
+    "page_16_found"
+   ],
+   "town": "jisra"
+  },
+  {
+   "n": 18,
+   "chapter": 2,
+   "ref": "Muslim 102",
+   "saying": "Whoever cheats us is not one of us - said over a heap of grain that was wet underneath.",
+   "idris": "The heap looked fine from the top. So did Mukhtar's boat.",
+   "person": "Mukhtar",
+   "found": "Mukhtar found a page under a loose floor tile.",
+   "after": [
+    "gate_opened",
+    "page_17_found"
+   ],
+   "town": "sahila"
+  },
+  {
+   "n": 19,
+   "chapter": 2,
+   "ref": "Bukhari 2079",
+   "saying": "Buyer and seller who are truthful and make things clear are blessed in their sale; if they lie and hide things, the blessing is wiped out.",
+   "idris": "Fifty clean coins against eighty that burn. You know which Mukhtar chose.",
+   "person": "Sakhr",
+   "found": "Sakhr was given a debt note - and the scholar's page is written on the back of it.",
+   "after": [
+    "gate_opened",
+    "page_18_found"
+   ],
+   "town": "sukara"
+  },
+  {
+   "n": 20,
+   "chapter": 2,
+   "ref": "Bukhari 2072",
+   "saying": "No one has eaten better food than what he earned with his own hands; the Prophet Dawud ate from the work of his hands.",
+   "idris": "A prophet and a king, and he still worked. Carry your baskets proudly.",
+   "person": "Umm Hani",
+   "found": "Umm Hani's little one folded a page into a paper boat. Umm Hani dried it out for you.",
+   "after": [
+    "gate_opened",
+    "page_19_found"
+   ],
+   "town": "jisra"
+  }
+ ]
+}

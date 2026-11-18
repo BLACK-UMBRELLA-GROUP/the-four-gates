@@ -866,6 +866,17 @@ Journal counts each page read under **The scholar's pages**.
 
 Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch01-only`.
 
+## LOCK 65 — The scholar's notebook, Chapter 2
+
+After opening the Gate of Trust, find page 11 with Umm Hani in Jisra. Each
+page found unlocks the next through page 20. The page buttons appear at the
+town hubs from 07:00 up to 19:00 for Umm Hani in Jisra, Mukhtar in Sahila
+and Sakhr in Sukara. At the River Market masjid, Idris offers the lowest unread
+page you have found. Closing each reading adds one to **The scholar's pages**
+in the Journal. Page 20 includes the chapter story.
+
+Run the focused checks with `godot --headless --path SOURCE --script res://tests/run_tests.gd -- --pages-ch02-only`.
+
 ## LOCK 74 — Wudu with Idris
 
 After meeting Idris, choose **Idris will show you wudu** at the River Market
