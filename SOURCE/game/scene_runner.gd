@@ -125,6 +125,8 @@ func observe_builtin_flags(app) -> void:
 	if app.progress.gate_open and not _flags.has("gate_opened"):
 		_flags["gate_opened"] = app.day
 	var toll: String = app.gate_of_trust.toll_choice
+	if (app.gate_of_trust.in_jisra or not toll.is_empty()) and not _flags.has("met_jisra"):
+		_flags["met_jisra"] = app.day
 	if not toll.is_empty() and not _flags.has("toll:" + toll):
 		_flags["toll:" + toll] = app.day
 

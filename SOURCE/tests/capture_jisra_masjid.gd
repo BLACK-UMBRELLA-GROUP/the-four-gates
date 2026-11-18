@@ -70,10 +70,10 @@ func run(app: Node3D) -> void:
 	var watch := expect_button(app, gate.jisra.watch)
 	var enter := expect_button(app, copy.jisra_button)
 	var bridge_pray := expect_button(app, dhuhr)
-	var return_to_market := expect_button(app, gate.jisra.back)
+	var return_to_market := expect_button(app, app.road_map.data.words.map_button)
 	if watch != null and enter != null and bridge_pray != null and return_to_market != null:
-		helper.check(watch.position.x < enter.position.x and enter.position.x < bridge_pray.position.x
-			and bridge_pray.position.x < return_to_market.position.x, "bridge action order matches jm01")
+		helper.check(watch.get_index() < enter.get_index() and enter.get_index() < return_to_market.get_index()
+			and return_to_market.get_index() < bridge_pray.get_index(), "the bridge keeps its masjid action before the road map and prayer")
 	await capture_state(app, 0)
 
 	var wallet := wallet_state(app)

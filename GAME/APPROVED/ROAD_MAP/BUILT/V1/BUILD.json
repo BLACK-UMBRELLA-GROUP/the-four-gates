@@ -1,0 +1,102 @@
+{
+  "line": 43,
+  "lock": "LOCK 36 V2 and LOCK 103",
+  "brief": "DOC-TFG-0119",
+  "tested_base_commit_sha": "b836c9fde4bfdc122df576d61e173193f57f6715",
+  "tested_source": "Base commit plus the hashed files. The daily task note records the containing commit.",
+  "godot_version": "4.7.2.stable.official.ed1daf0bf",
+  "build_mode": "Godot headless rules tests",
+  "timestamp_utc": "2026-11-18T07:02:42+00:00",
+  "checks_passed": {
+    "focused": 287,
+    "headless_full_suite": 8481
+  },
+  "locked_inputs": {
+    "GAME/APPROVED/ROAD_MAP/BRIEFS/BUILD_BRIEF_2026-11-09_ROAD_MAP.md": {
+      "bytes": 3744,
+      "sha256": "63574c37d9a9204c2c6dad56469ec452a80552ed862863ba2bc6f7587d733c01"
+    },
+    "GAME/APPROVED/ROAD_MAP/RECORD/LOCK_RECORD.md": {
+      "bytes": 1209,
+      "sha256": "1f69a2467b5e6cec7900ffc2fad3d0970ed6c2ac0cf596ce0131cf6518037b6d"
+    },
+    "GAME/APPROVED/ROAD_MAP/RECORD/ROAD_MAP_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 5796,
+      "sha256": "7cf8c260cb2f3686b4e2a5ee18b885ee731aa1491be3427bdc8ab72bb347f167"
+    },
+    "GAME/APPROVED/ROAD_MAP/RECORD/road_map_data_V2.json": {
+      "bytes": 3312,
+      "sha256": "302aa20724ce2538f96b63b25cc18f3c290c82495b4fcdc9d4f747ba62ca1e5f"
+    },
+    "GAME/APPROVED/SIX_GATES/RECORD/LOCK_RECORD.md": {
+      "bytes": 1193,
+      "sha256": "097e458b36812235cf8b7af3da1b87b413b920c6a032f7454c4cc2586378afdd"
+    },
+    "GAME/APPROVED/SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md": {
+      "bytes": 10811,
+      "sha256": "1f3fb687a56824c85afbd9d48cdccbcbdebb0aadc46d419b6198d0120ee4dba5"
+    },
+    "GAME/APPROVED/ROAD_MAP/MASTERS/rd01_map__from_jisra_day.png": {
+      "bytes": 197048,
+      "sha256": "09ff8c3d4ee31651b1d24cda67258d16c8c15eb90926ca45dfb619926d29e751"
+    },
+    "GAME/APPROVED/ROAD_MAP/MASTERS/rd02_map__patience_open.png": {
+      "bytes": 193088,
+      "sha256": "196cb6e63240e359a969758e7e143f6d3f247b913d6a2c80f1787b0da147bb86"
+    },
+    "GAME/APPROVED/ROAD_MAP/MASTERS/rd03_map__night_gates_shut.png": {
+      "bytes": 199570,
+      "sha256": "c62da1d6df892a967663751bbe59b2fe1a8199c088e0f3db330cd9126d282519"
+    }
+  },
+  "changed_source_files_at_test": {
+    "SOURCE/README.md": {
+      "bytes": 46353,
+      "sha256": "34116c294532ac334c42560fd95ac03552e1788daf73e4fa0332a2384b1dd859"
+    },
+    "SOURCE/data/road_map.json": {
+      "bytes": 3312,
+      "sha256": "302aa20724ce2538f96b63b25cc18f3c290c82495b4fcdc9d4f747ba62ca1e5f"
+    },
+    "SOURCE/game/market_save.gd": {
+      "bytes": 6951,
+      "sha256": "b3fef26a0ce888753f4db522e072928d5ee105d13c611601a8f1e6d791ed6f97"
+    },
+    "SOURCE/game/market_ui.gd": {
+      "bytes": 159019,
+      "sha256": "4cf5660d6633e530eda8ae834021939e48fd93a21a85fa8b131abb073a1f17c3"
+    },
+    "SOURCE/game/river_market.gd": {
+      "bytes": 70677,
+      "sha256": "06836f869af9625e00003a53108e8e3dd21c112a9a1d3f715be13cca16095eaf"
+    },
+    "SOURCE/game/road_map.gd": {
+      "bytes": 4556,
+      "sha256": "aa86f258b12720840e86dfc0856682c30a115d6e8081d5fa82104c107353b9b3"
+    },
+    "SOURCE/game/scene_runner.gd": {
+      "bytes": 15417,
+      "sha256": "d3af5d5a2c538a14d595d7c64c6801c9b8d97905a0f50f64c14c116f7f4d9809"
+    },
+    "SOURCE/tests/capture_gate_of_trust.gd": {
+      "bytes": 9999,
+      "sha256": "aa1eef2bbc0aa64e757caa6b64d01cc4aed07486ca67dcfc7739e84d5598d942"
+    },
+    "SOURCE/tests/capture_jisra_masjid.gd": {
+      "bytes": 11521,
+      "sha256": "89d00d027d2965cbc58108c83a006c09e82cc524dcf0c96640dc5f87b3fd1488"
+    },
+    "SOURCE/tests/run_tests.gd": {
+      "bytes": 477354,
+      "sha256": "847b575d13235f92572f8e4b8756df57e65ba9bf6c5893c1bd4090a5c2337760"
+    }
+  },
+  "evidence": {
+    "GAME/APPROVED/ROAD_MAP/BUILT/V1/LINE43_CHECKS.json": {
+      "bytes": 3030,
+      "sha256": "e62f1a5d60d42d7cce961e5f2b3f688964554c93bf3fe7dcdaeeb14d7cde0c26"
+    }
+  },
+  "native_screenshots": 0,
+  "compiled_exports": 0
+}

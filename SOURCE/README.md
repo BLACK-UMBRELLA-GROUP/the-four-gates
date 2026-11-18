@@ -508,8 +508,9 @@ to put each master beside its capture. Both commands accept `--partnership-outpu
 
 At the Gate of Trust with 100 River Market trust and the market scales lesson complete, choose
 **The gatekeepers will open the gate**. **Not yet** returns to the gate and remembers the opening.
-**Take the road east to Jisra** advances the shared clock by 90 minutes. **Back to Ilmara** takes
-another 90 minutes and restores the River Market trust display.
+**Take the road east to Jisra** advances the shared clock by 90 minutes while the roads are open.
+From Jisra, use the **Road map** to return to Ilmara. The return takes 90 minutes and restores the
+River Market trust display.
 
 Choose **Watch the bridge** to play **One coin and three** once. Speaking adds five Jisra trust,
 paying costs three coins and adds three Jisra trust, and saying nothing leaves both values as they are.
@@ -570,6 +571,16 @@ and wakes you in Jisra at 04:40. If you cannot pay, you sleep by the wall and ke
 Run `godot --headless --path SOURCE --script res://tests/run_tests.gd` for the full suite, including
 both mission outcomes, resident dialogue, availability, work and the inn. The line 42 records are in
 `GAME/APPROVED/JISRA_PEOPLE/BUILT/V1/`.
+
+## LOCK 36 V2 — Road map and gates at night
+
+Open **Road map** at the opened Gate of Trust or from a town hub. **Go** advances the shared clock
+and takes you to the destination hub. Towns need a loaded hub, an open gate and any required flag.
+The **Journal** shows your journey percentage. Patience, Mercy, Knowledge, the Witness and Return
+open at 20%, 30%, 40%, 45% and 50%, respectively, and stay open in your save.
+
+The roads shut at 20:00 and reopen at 04:40. Run the focused rules checks with
+`godot --headless --path SOURCE --script res://tests/run_tests.gd -- --road-map-only`.
 
 ## LOCK 52 — Two brothers not speaking
 

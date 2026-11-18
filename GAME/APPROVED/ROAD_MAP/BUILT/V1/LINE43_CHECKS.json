@@ -1,0 +1,92 @@
+{
+  "line": 43,
+  "lock": "LOCK 36 V2 and LOCK 103",
+  "focused_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd -- --road-map-only",
+    "exit_code": 0,
+    "passed": 287,
+    "total": 287,
+    "failures": 0,
+    "engine_errors": 0
+  },
+  "full_suite": {
+    "command": "godot --headless --path SOURCE --script res://tests/run_tests.gd",
+    "exit_code": 0,
+    "passed": 8481,
+    "total": 8481,
+    "failures": 0,
+    "engine_errors": 0
+  },
+  "independent_headless_suites": {
+    "look_controls": {
+      "command": "godot --headless --path SOURCE --script res://tests/test_look_controls.gd",
+      "exit_code": 0,
+      "passed": 28,
+      "total": 28,
+      "failures": 0,
+      "engine_errors": 0
+    },
+    "player_movement": {
+      "command": "godot --headless --path SOURCE --script res://tests/test_player_movement.gd",
+      "exit_code": 0,
+      "passed": 39,
+      "total": 39,
+      "failures": 0,
+      "engine_errors": 0
+    },
+    "progress_restart": {
+      "command": "godot --headless --path SOURCE --script res://tests/test_progress_restart.gd",
+      "exit_code": 0,
+      "passed": 24,
+      "total": 24,
+      "failures": 0,
+      "engine_errors": 0
+    }
+  },
+  "locked_data_byte_identical": true,
+  "runtime_data_sha256": "302aa20724ce2538f96b63b25cc18f3c290c82495b4fcdc9d4f747ba62ca1e5f",
+  "verified": {
+    "gate_order_and_directions": [
+      [
+        "Gate of Trust",
+        "east"
+      ],
+      [
+        "Gate of Patience",
+        "north-west"
+      ],
+      [
+        "Gate of Mercy",
+        "south-west"
+      ],
+      [
+        "Gate of Knowledge",
+        "west"
+      ],
+      [
+        "Gate of the Witness",
+        "north-east"
+      ],
+      [
+        "Gate of Return",
+        "south-east"
+      ]
+    ],
+    "gate_requirements": [
+      "gate_opened",
+      20,
+      30,
+      40,
+      45,
+      50
+    ],
+    "gate_threshold_boundaries_and_persistence": "All five journey gates open at their locked threshold and stay open after a reduced percentage and save restore.",
+    "journey_fixture": "Known mission, page, Name, masjid and goal-tenth counts. 7 / 100 shows 7%, and 50 / 101 floors to 49%. The Journal uses the locked label.",
+    "town_rules": "First Jisra arrival records met_jisra. Unloaded hubs, closed gates and missing flags block travel. Open gates with no roads show the locked message.",
+    "travel": "Ilmara to and from Jisra 90 minutes, Jisra to Sahila 60 minutes, Sahila to Sukara 60 minutes, Sukara to Safira 330 minutes, and Safira to Ilmara 120 minutes.",
+    "night": "19:59 and 04:40 permit departure. 20:00 and 04:39 block it. The map hides Go and both LOCK 32 east road buttons give the locked night message.",
+    "jisra": "Q14 keeps the bridge and masjid actions first, with Road map before prayer and the inn. R6 makes the map the exit when it is loaded."
+  },
+  "native_screenshots": 0,
+  "visual_reference": "rd01–rd03 supply the layout reference and Q15 sets the headless evidence for this line."
+}

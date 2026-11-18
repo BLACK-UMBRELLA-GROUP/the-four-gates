@@ -12,6 +12,7 @@ const RealPrayerTimes = preload("res://game/real_prayer_times.gd")
 const MapCanvas = preload("res://game/map_canvas.gd")
 const RegularsRememberFixture = preload("res://tests/regulars_remember_fixture.gd")
 const SceneRunnerFixture = preload("res://tests/scene_runner_fixture.gd")
+const SceneRunner = preload("res://game/scene_runner.gd")
 
 var checks := 0
 var failures := 0
@@ -94,6 +95,10 @@ func _run() -> void:
 		return
 	if "--jisra-masjid-only" in OS.get_cmdline_user_args():
 		await check_jisra_masjid_runtime()
+		finish()
+		return
+	if "--road-map-only" in OS.get_cmdline_user_args():
+		await check_road_map_runtime()
 		finish()
 		return
 	if "--jisra-people-only" in OS.get_cmdline_user_args():
@@ -239,6 +244,7 @@ func _run() -> void:
 	await check_dhikr_runtime()
 	await check_surahs_runtime()
 	await check_prophets_stories_runtime()
+	await check_road_map_runtime()
 	finish()
 
 
@@ -3601,7 +3607,7 @@ func check_gate_of_trust_runtime() -> void:
 	check_gate_of_trust_meter(copy.jisra.meter, 10)
 	check(find_button(app.ui, str(identity.clock.pray_here).format({"prayer": "Dhuhr"})) == null,
 		"Jisra offers no prayer button before Dhuhr")
-	await press_button(copy.jisra.back, "return to the Gate of Trust without watching the bridge")
+	await _take_road_to_ilmara("return to the Gate of Trust without watching the bridge")
 	check(app.ui.screen == "market_map" and app.current_place == "gate" and not app.gate_of_trust.in_jisra
 		and app.day == 8 and app.minute_of_day == 780, "the road back takes exactly 90 minutes")
 	check_gate_of_trust_meter(data.ui.hud.trust_label, threshold)
@@ -3673,13 +3679,13 @@ func check_jisra_prayer_and_save(copy: Dictionary) -> void:
 		and find_button(app.ui, copy.jisra.watch) == null, "Continue returns to Jisra with the toll still resolved")
 	check_gate_of_trust_meter(copy.jisra.meter, 15)
 
-	await press_button(copy.jisra.back, "return to River Market after loading")
+	await _take_road_to_ilmara("return to River Market after loading")
 	app.clock.advance_to(8, 1020, false)
 	app.update_state()
 	await press_button(copy.road_button, "walk east while Asr is still open")
 	check(app.day == 8 and app.minute_of_day == 1110 and app.clock.record().rows[2].status == "missed",
 		"a prayer window ending on the road is recorded as missed")
-	await press_button(copy.jisra.back, "return after checking the missed prayer")
+	await _take_road_to_ilmara("return after checking the missed prayer")
 	var legacy := MarketSave.snapshot(app)
 	legacy.erase("gate_of_trust")
 	var payload := var_to_bytes(legacy)
@@ -3696,6 +3702,206 @@ func check_jisra_prayer_and_save(copy: Dictionary) -> void:
 	check(app.ui.screen == "market_map" and app.progress.gate_open and not app.gate_of_trust.in_jisra
 		and app.gate_of_trust.jisra_trust == 10 and app.gate_of_trust.toll_choice.is_empty(),
 		"an older slot keeps the existing open gate and starts Jisra fresh")
+
+
+func _take_road_to_ilmara(description: String) -> void:
+	var words: Dictionary = app.road_map.data.words
+	await press_button(words.map_button, "open the road map from Jisra")
+	await press_button(str(words.go).format({"n": int(app.gate_of_trust.data.numbers.travel_minutes)}), description)
+
+
+func check_road_map_runtime() -> void:
+	var locked := FileAccess.get_file_as_bytes("res://../GAME/APPROVED/ROAD_MAP/RECORD/road_map_data_V2.json")
+	var runtime := FileAccess.get_file_as_bytes("res://data/road_map.json")
+	var copy: Dictionary = app.road_map.data
+	check(not locked.is_empty() and runtime == locked and copy == JSON.parse_string(runtime.get_string_from_utf8()),
+		"the road map loads byte-identical LOCK 36 V2 data")
+	var original := MarketSave.snapshot(app)
+	var live: SceneRunner = app.scene_runner
+	app.set_process(false)
+	await _check_road_map_access(copy)
+	await _check_road_map_journey(copy)
+	await _check_road_map_travel(copy)
+	await _check_road_map_night(copy)
+	app.scene_runner = live
+	app.ui.scene_runner = live
+	MarketSave.restore(app, original)
+	app.show_screen("market_map")
+	app.set_process(true)
+
+
+func _check_road_map_access(copy: Dictionary) -> void:
+	var words: Dictionary = copy.words
+	var gate: Dictionary = app.gate_of_trust.data
+	reset_at_market_place("gate", 100, 8)
+	check(not app.road_map.gate_is_open(app, copy.gates[0]) and find_button(app.ui, words.map_button) == null,
+		"the closed Gate of Trust does not offer the road map")
+	app.progress.trust = int(data.numbers.gate_trust)
+	app.progress.lesson_done = true
+	app.update_state()
+	await press_button(gate.gate_open_button, "LOCK 32 opens the Gate of Trust")
+	await press_button(words.map_button, "the gate opening panel offers the road map")
+	check(app.ui.screen == "runner_road_map" and has_visible_label(app.ui, words.title)
+		and has_visible_label(app.ui, str(words.kicker).to_upper()) and has_visible_label(app.ui, words.here),
+		"the map shows its exact heading and current-place label")
+	var text := visible_text()
+	var position_on_map := text.find(words.ilmara)
+	check(position_on_map >= 0, "Ilmara · River Market is listed")
+	for row: Dictionary in copy.gates:
+		var gate_title := "%s · %s" % [row.name, row.dir]
+		var gate_position := text.find(gate_title)
+		check(gate_position > position_on_map, "gate and direction in data order: " + gate_title)
+		position_on_map = gate_position
+		if row.has("opens_at"):
+			check(has_visible_label(app.ui, str(words.opens_at).format({"n": int(row.opens_at)})),
+				"the closed gate uses its locked threshold wording: " + str(row.name))
+	check(app.road_map.gate_is_open(app, copy.gates[0]) and has_visible_label(app.ui, copy.names.jisra)
+		and find_button(app.ui, str(words.go).format({"n": 90})) != null,
+		"LOCK 32 opens Trust and makes its loaded town available")
+	await press_button(words.back, "Back leaves the map")
+	check(app.ui.screen == "gate_opening", "Back returns to the gate opening panel")
+	await press_button(gate.opening.no, "stay at the Gate of Trust")
+	await press_button(words.map_button, "the opened market gate offers the road map")
+	await press_button(words.back, "close the road map from Ilmara")
+	check(app.ui.screen == "market_map" and app.current_place == "gate", "Back returns to the same market gate")
+
+
+func _check_road_map_journey(copy: Dictionary) -> void:
+	var content: Dictionary = app.scene_runner.data.duplicate(true)
+	content.chapter_builtin = {"purse": content.chapter_builtin.purse}
+	content.goals = [{"id": "meals", "label": "Fixture meals", "m": 20}]
+	content.missions = {}
+	content.towns = {"jisra": content.towns.jisra, "safira": {"id": "safira", "name": copy.names.safira}}
+	content.masjids = {}
+	# 83 runner missions + 1 built-in mission + 1 page + 3 Names + 2 masjids + 10 goal tenths = 100.
+	for index in range(83):
+		var id := "road_map_fixture_%d" % index
+		content.missions[id] = {"id": id, "place": "fixture_only", "main": index != 1, "side": index == 1}
+	app.scene_runner = SceneRunner.new(content)
+	app.ui.scene_runner = app.scene_runner
+	app.open_purse.done = true
+	app.open_purse.salma_asked = true
+	app.names_of_allah.learned.assign(["salam"])
+	app.jisra_masjid.record_prayer("river_market")
+	app.feeding.meal_counter.total = 3
+	var saved_runner: Dictionary = app.scene_runner.state()
+	saved_runner.done = {"road_map_fixture_0": 8, "road_map_fixture_1": 8}
+	app.scene_runner.restore(saved_runner)
+	check(app.road_map.journey_percent(app) == 7, "one built-in and two runner missions, a page, a Name, a masjid and one of the goal tenths count")
+	var words: Dictionary = app.scene_runner.data.words
+	await press_button(words.journal_button, "open the live Journal to view journey progress")
+	check(app.ui.screen == "journal" and has_visible_label(app.ui, str(copy.journey.label).format({"n": 7})),
+		"the Journal shows the exact current percentage")
+	await press_button(words.journal.back, "leave the Journal")
+	check(not app.road_map.town_is_open(app, app.road_map.road_to("safira")),
+		"loading Safira cannot bypass its closed gate")
+	for gate: Dictionary in copy.gates:
+		if not gate.has("opens_at"):
+			continue
+		var threshold := int(gate.opens_at)
+		for percentage in range(threshold - 1, threshold + 1):
+			saved_runner.done.clear()
+			for mission_index in range(percentage - 5):
+				saved_runner.done["road_map_fixture_%d" % mission_index] = 8
+			app.scene_runner.restore(saved_runner)
+			app.update_state()
+			check(app.road_map.journey_percent(app) == percentage
+				and app.road_map.gate_is_open(app, gate) == (percentage == threshold),
+				"%s opens exactly at %d%% of the journey (checked at %d%%)" % [gate.name, threshold, percentage])
+	app.scene_runner.missions["road_map_extra_fixture"] = {"id": "road_map_extra_fixture", "place": "fixture_only", "main": true}
+	app.update_state()
+	check(app.road_map.journey_percent(app) == 49, "loading a 101st item floors 50 / 101 at 49 percent")
+	saved_runner.done.clear()
+	app.scene_runner.restore(saved_runner)
+	app.update_state()
+	var before_reset := MarketSave.snapshot(app)
+	app.begin_game()
+	check(not app.road_map.gate_is_open(app, copy.gates[-1]), "a new game clears an earned gate")
+	MarketSave.restore(app, before_reset)
+	app.show_screen("market_map")
+	for gate: Dictionary in copy.gates:
+		check(app.road_map.gate_is_open(app, gate), "each saved gate stays open after the percentage falls: " + str(gate.name))
+
+
+func _check_road_map_travel(copy: Dictionary) -> void:
+	var words: Dictionary = copy.words
+	await press_button(words.map_button, "open the road map after earning all five journey gates")
+	check(visible_text().count(words.no_roads) == 2, "open Witness and Return each show the locked no-roads wording")
+	await press_button(str(words.go).format({"n": 90}), "travel from Ilmara to Jisra in 90 minutes")
+	check(app.ui.screen == "jisra" and app.runner_town_id() == "jisra" and app.minute_of_day == 690
+		and app.scene_runner.has_flag(app, "met_jisra"), "the real road reaches the LOCK 32 panel and records the first Jisra visit")
+	check(find_button(app.ui, app.gate_of_trust.data.jisra.back) == null, "Road map is the Jisra hub exit while the map is loaded")
+	await press_button(words.map_button, "open the map at Jisra")
+	check(has_visible_label(app.ui, copy.names.sahila) and has_visible_label(app.ui, words.closed)
+		and find_button(app.ui, str(words.go).format({"n": 60})) == null,
+		"Sahila is still closed after the Jisra flag while Sahila is unloaded")
+	app.travel_on_road("sahila")
+	check(app.ui.screen == "runner_road_map" and app.minute_of_day == 690, "an unloaded destination cannot advance the clock")
+	for town_id: String in ["sahila", "sukara"]:
+		app.scene_runner.towns[town_id] = {"id": town_id, "name": copy.names[town_id]}
+	await press_button(words.back, "return from the map to Jisra")
+	check(app.ui.screen == "jisra", "Back preserves the Jisra panel")
+	await press_button(words.map_button, "reopen the map with the destinations loaded")
+	await press_button(str(words.go).format({"n": 60}), "Jisra to Sahila takes the difference on their shared road")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == "sahila" and app.minute_of_day == 750,
+		"an open same-road destination reaches its loaded hub")
+	await press_button(words.map_button, "open the road map from the loaded Sahila hub")
+	var go_sukara := str(words.go).format({"n": 60})
+	var go_jisra := find_button(app.ui, go_sukara)
+	check(go_jisra != null and find_button(app.ui, go_sukara, go_jisra) == null,
+		"the second 60-minute button is absent when the loaded Sukara lacks its flag")
+	app.travel_on_road("sukara")
+	check(app.ui.screen == "runner_road_map" and app.minute_of_day == 750, "the town flag guards direct travel too")
+	var runtime_state: Dictionary = app.scene_runner.state()
+	runtime_state.flags.sahila_boat_done = app.day
+	app.scene_runner.restore(runtime_state)
+	await press_button(words.back, "close the map before rechecking the new town flag")
+	await press_button(words.map_button, "open the road map after setting the Sukara prerequisite")
+	var first_go := find_button(app.ui, go_sukara)
+	await press_control(find_button(app.ui, go_sukara, first_go), "the second 60-minute button now leads to Sukara")
+	check(app.runner_town_id() == "sukara" and app.minute_of_day == 810, "the loaded town opens on its locked flag")
+	await press_button(words.map_button, "open the road map at Sukara")
+	await press_button(str(words.go).format({"n": 330}), "Sukara to Safira adds both roads through Ilmara")
+	check(app.runner_town_id() == "safira" and app.minute_of_day == 1140,
+		"cross-gate travel uses the combined minutes and reaches Safira")
+	await press_button(words.map_button, "open the road map at Safira")
+	await press_button(str(words.go).format({"n": 120}), "return to Ilmara using Safira's road distance")
+	check(app.ui.screen == "market_map" and app.runner_town_id().is_empty()
+		and app.current_place == "gate" and app.minute_of_day == 1260,
+		"travel to Ilmara arrives at the Gate of Trust and advances the full road time")
+
+
+func _check_road_map_night(copy: Dictionary) -> void:
+	var words: Dictionary = copy.words
+	var gate: Dictionary = app.gate_of_trust.data
+	var night := str(words.night).format({"a": "20:00", "b": "04:40"})
+	var go_jisra := str(words.go).format({"n": 90})
+	app.clock.skip_to(9, 1199)
+	await press_button(words.map_button, "open the road map just before the gates shut")
+	for step: Array in [[9, 1199, false], [9, 1200, true], [10, 279, true], [10, 280, false]]:
+		app.clock.skip_to(step[0], step[1])
+		app.update_state()
+		check(visible_text().contains(night) == step[2] and (find_button(app.ui, go_jisra) == null) == step[2],
+			"the map uses the locked night text and departure rule at minute %d" % step[1])
+		if step[2]:
+			check(not visible_text().contains(str(words.go).get_slice("{n}", 0)), "all road-map Go controls are hidden at night")
+			app.travel_on_road("jisra")
+			check(app.ui.screen == "runner_road_map" and app.minute_of_day == step[1], "the map action also blocks direct night travel")
+	await press_button(words.back, "close the dawn road map")
+	app.clock.skip_to(10, 1200)
+	app.update_state()
+	await press_button(gate.road_button, "attempt the existing Gate of Trust road button at night")
+	check(app.ui.screen == "market_map" and app.minute_of_day == 1200 and visible_text().contains(night),
+		"the market road button reports the same night closure without travel")
+	reset_at_market_place("gate", 100, 11)
+	app.clock.skip_to(11, 1200)
+	app.progress.trust = int(data.numbers.gate_trust)
+	app.progress.lesson_done = true
+	app.update_state()
+	await press_button(gate.gate_open_button, "open Trust at night before using the original opening panel")
+	await press_button(gate.opening.go, "attempt the opening panel's road button at night")
+	check(app.ui.screen == "gate_opening" and app.minute_of_day == 1200 and visible_text().contains(night)
+		and app.runner_town_id().is_empty(), "the original opening button also stops travel with the locked wording")
 
 
 func check_gate_of_trust_meter(label: String, value: int) -> void:
@@ -3730,7 +3936,7 @@ func check_scene_runner_runtime() -> void:
 	var noon: int = app._minutes(dhuhr.begins)
 	await enter_jisra_masjid_fixture(8, noon)
 	var jisra: Dictionary = app.gate_of_trust.data.jisra
-	for title: String in [jisra.watch, app.jisra_masjid.data.jisra_button, app.clock.prayer_label(false), jisra.back]:
+	for title: String in [jisra.watch, app.jisra_masjid.data.jisra_button, app.clock.prayer_label(false), app.road_map.data.words.map_button]:
 		check(find_button(app.ui, title) != null, "Jisra keeps its live LOCK 32/33 control: " + title)
 	check(find_button(app.ui, words.journal_button) == null, "the Journal entry remains in River Market")
 
@@ -3828,7 +4034,15 @@ func _check_runner_town(words: Dictionary, noon: int) -> void:
 	app.continue_game()
 	check(app.ui.screen == "runner_town" and app.runner_town_id() == town.id
 		and app.scene_runner.mission_done(app, story.id), "saving and continuing restores the generic town and mission")
-	await press_button(words.road_back, "generic town Back returns to Ilmara")
+	var map_words: Dictionary = app.road_map.data.words
+	check(find_button(app.ui, words.road_back) == null, "a generic town uses Road map as its exit")
+	await press_button(map_words.map_button, "a generic town opens the road map")
+	await press_button(map_words.back, "the road map Back returns to the generic town")
+	check(app.ui.screen == "runner_town" and app.runner_town_id() == town.id,
+		"closing the road map preserves the fixture town")
+	# This LOCK 34 town fixture is deliberately absent from the LOCK 36 roads.
+	app.restore_runner_town("")
+	app.show_screen("market_map")
 	await press_button(words.journal_button, "the River Market Journal reflects finished fixture content")
 	check(has_visible_label(app.ui, story.title) and has_visible_label(app.ui, "1 / 1")
 		and has_visible_label(app.ui, "1 / 50"), "the Journal reads the scene completion and distinct masjid counter")
@@ -5396,9 +5610,10 @@ func _check_jisra_people_hub(town: Dictionary, mission: Dictionary, words: Dicti
 		and visible_text().split("\n").has(bridge.text) and not visible_text().split("\n").has(town.text),
 		"Q14 keeps the exact LOCK 32 bridge-and-toll panel")
 	check_gate_of_trust_meter(bridge.meter, 10)
-	var default_order: Array[String] = [bridge.watch, masjid, words.people_button, town.work.label, sayings, inn, bridge.back]
+	var road_button: String = app.road_map.data.words.map_button
+	var default_order: Array[String] = [bridge.watch, masjid, words.people_button, town.work.label, sayings, road_button, inn]
 	_check_jisra_hub_button_order(default_order)
-	check(find_button(app.ui, "Road map") == null, "the later Road map action is absent")
+	check(find_button(app.ui, bridge.back) == null, "the road map replaces the direct return to Ilmara")
 	await press_button(sayings, "open the empty What Jisra says panel")
 	check(app.ui.screen == "runner_sayings" and visible_text().split("\n").has(words.trep.empty),
 		"new Jisra trust shows the exact empty sayings line")
@@ -5410,7 +5625,7 @@ func _check_jisra_people_hub(town: Dictionary, mission: Dictionary, words: Dicti
 	check(app.ui.screen == "jisra", "dispatching a hidden weak-rope action cannot start it")
 	app.gate_of_trust.jisra_trust = 15
 	app.update_state()
-	var open_order: Array[String] = [bridge.watch, masjid, mission.button, words.people_button, town.work.label, sayings, inn, bridge.back]
+	var open_order: Array[String] = [bridge.watch, masjid, mission.button, words.people_button, town.work.label, sayings, road_button, inn]
 	_check_jisra_hub_button_order(open_order)
 	for minute: int in [599, 600, 959, 960]:
 		set_market_day_time(8, minute)
@@ -5419,7 +5634,7 @@ func _check_jisra_people_hub(town: Dictionary, mission: Dictionary, words: Dicti
 	set_market_day_time(8, 725)
 	var prayer: String = app.clock.prayer_label(false)
 	check(not prayer.is_empty(), "the Jisra hub fixture has an open prayer")
-	var prayer_order: Array[String] = [bridge.watch, masjid, mission.button, words.people_button, sayings, prayer, inn, bridge.back]
+	var prayer_order: Array[String] = [bridge.watch, masjid, mission.button, words.people_button, sayings, road_button, prayer, inn]
 	_check_jisra_hub_button_order(prayer_order)
 
 
@@ -5639,7 +5854,7 @@ func _check_weak_rope_outcome(mission: Dictionary, words: Dictionary, choice_ind
 		if await _check_jisra_memory(residents[index], flag, words, index):
 			await press_button(words.talk.back, "return to the residents after the weak-rope memory")
 	await press_button(words.people.back, "return to Jisra after the weak-rope memories")
-	await press_button(app.gate_of_trust.data.jisra.back, "take the original road back to Ilmara")
+	await _take_road_to_ilmara("take the original road back to Ilmara")
 	check(find_button(app.ui, mission.button) == null and find_button(app.ui, words.people_button) == null,
 		"Jisra activities do not appear in River Market")
 	await press_button(words.journal_button, "open the Journal in River Market after the weak rope")

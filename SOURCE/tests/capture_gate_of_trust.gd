@@ -115,7 +115,9 @@ func run(app: Node3D) -> void:
 	var prayer: String = app.clock.prayer_label(false)
 	expect_button(app, prayer, true)
 	await capture_state(app, 8)
-	await click(app, copy.jisra.back)
+	var roads: Dictionary = app.road_map.data.words
+	await click(app, roads.map_button)
+	await click(app, str(roads.go).format({"n": int(copy.numbers.travel_minutes)}))
 	expect_screen(app, "market_map")
 	helper.check(app.current_place == "gate" and app.minute_of_day == DHUHR_FIXTURE + int(copy.numbers.travel_minutes), "the westward walk advances 90 minutes and returns to the gate")
 	expect_meter(app, false, 100)

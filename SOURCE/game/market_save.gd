@@ -54,6 +54,7 @@ const COMPONENT_FIELDS := {
 
 
 static func snapshot(game: Node3D) -> Dictionary:
+	game.road_map.update_gate_unlocks(game)
 	var state := {
 		"version": VERSION,
 		"day": game.day,
@@ -62,6 +63,7 @@ static func snapshot(game: Node3D) -> Dictionary:
 		"meals_given": game.feeding.meal_counter.total,
 		"scene_runner": game.scene_runner.state(),
 		"runner_town": game.runner_saved_town(),
+		"road_map": game.road_map.state(),
 	}
 	for component: String in COMPONENT_FIELDS:
 		state[component] = _capture_fields(game.get(component), COMPONENT_FIELDS[component])
@@ -113,6 +115,8 @@ static func read_slot(path: String) -> Dictionary:
 			return {}
 	if not state.get("scene_runner", {}) is Dictionary or not state.get("runner_town", "") is String:
 		return {}
+	if not state.get("road_map", {}) is Dictionary:
+		return {}
 	return state
 
 
@@ -131,6 +135,7 @@ static func restore(game: Node3D, state: Dictionary) -> void:
 			or game.eid_al_adha.has_prayed_at_masjid())
 	game.feeding.meal_counter.total = values.meals_given
 	game.scene_runner.restore(values.get("scene_runner", {}))
+	game.road_map.restore(values.get("road_map", {}))
 	game.restore_runner_town(values.get("runner_town", ""))
 	game.zakat.close_panel()
 	game.ui.known_words = game.known_words

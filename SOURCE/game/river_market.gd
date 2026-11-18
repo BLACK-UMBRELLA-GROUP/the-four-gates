@@ -33,6 +33,7 @@ const Partnership = preload("res://game/partnership.gd")
 const GateOfTrust = preload("res://game/gate_of_trust.gd")
 const JisraMasjid = preload("res://game/jisra_masjid.gd")
 const SceneRunner = preload("res://game/scene_runner.gd")
+const RoadMap = preload("res://game/road_map.gd")
 const HarmInTheRoad = preload("res://game/harm_in_the_road.gd")
 
 const MarketSave = preload("res://game/market_save.gd")
@@ -79,6 +80,8 @@ var partnership := Partnership.new()
 var gate_of_trust := GateOfTrust.new()
 var jisra_masjid: JisraMasjid
 var scene_runner: SceneRunner
+var road_map: RoadMap
+var _road_map_origin := ""
 var runner_person: Dictionary = {}
 var runner_masjid: Dictionary = {}
 var runner_masjid_first := false
@@ -155,6 +158,7 @@ func _ready() -> void:
 	gate_of_trust.setup(Foundations.load_gate_of_trust(), progress)
 	jisra_masjid = JisraMasjid.new(Foundations.load_jisra_masjid())
 	scene_runner = SceneRunner.new(SceneRunner.load_content())
+	road_map = RoadMap.new(RoadMap.load_data())
 	zakat = Zakat.new(Foundations.load_zakat(), clock, progress)
 	pilgrims = Pilgrims.new(Foundations.load_pilgrims(), clock, progress)
 	idris_recovery.setup(Foundations.load_idris_recovery(), progress)
@@ -486,6 +490,8 @@ func update_state() -> void:
 		world.set_night(world_night)
 	zakat.assess_years()
 	pilgrims.resolve_returns()
+	if road_map != null and not road_map.data.is_empty():
+		road_map.update_gate_unlocks(self)
 	ui.refresh(player.position, current_place, night, _salma_available())
 
 func _nearest_market_place() -> String:
@@ -722,6 +728,7 @@ func begin_game() -> void:
 	gate_of_trust.reset()
 	jisra_masjid.reset()
 	scene_runner.reset()
+	road_map.restore({})
 	restore_runner_town("")
 	harm_in_the_road.reset()
 	world.stop_faris_run()
@@ -1547,24 +1554,50 @@ func travel_to_jisra() -> void:
 	update_state()
 	if not progress.gate_open or (ui.screen != "gate_opening" and not _can_use_trust_gate()):
 		return
-	_stop_travel()
-	gate_of_trust.in_jisra = true
-	_walk_jisra_road("jisra")
+	if _road_is_shut():
+		return
+	_arrive_by_road("jisra", int(gate_of_trust.data.numbers.travel_minutes))
 
 
 func return_from_jisra() -> void:
 	if ui.screen != "jisra" or not gate_of_trust.in_jisra:
 		return
-	gate_of_trust.in_jisra = false
-	player.position = world.point("gate")
+	if _road_is_shut():
+		return
+	_arrive_by_road("", int(gate_of_trust.data.numbers.travel_minutes))
+
+
+func _road_is_shut() -> bool:
+	if road_map.data.is_empty() or not road_map.roads_are_shut(minute_of_day):
+		return false
+	ui.show_toast(road_map.night_message(), true)
+	return true
+
+
+func travel_on_road(town: String) -> void:
+	if ui.screen != "runner_road_map" or road_map.data.is_empty() or road_map.roads_are_shut(minute_of_day):
+		return
+	var origin := runner_town_id()
+	if origin == town or (not town.is_empty() and not road_map.town_is_open(self, road_map.road_to(town))):
+		return
+	var minutes := road_map.travel_minutes(origin, town)
+	if minutes > 0:
+		_arrive_by_road(town, minutes)
+
+
+func _arrive_by_road(town: String, minutes: int) -> void:
 	_stop_travel()
-	_walk_jisra_road("market_map")
-
-
-func _walk_jisra_road(arrival_screen: String) -> void:
-	show_screen(arrival_screen)
-	clock.advance_to(day, minute_of_day + int(gate_of_trust.data.numbers.travel_minutes))
-	update_state()
+	_prayer_adhan = ""
+	clock.advance_to(day, minute_of_day + minutes)
+	var adhan: String = _prayer_adhan
+	_prayer_adhan = null
+	gate_of_trust.in_jisra = town == "jisra"
+	restore_runner_town("" if gate_of_trust.in_jisra else town)
+	if town.is_empty():
+		player.position = world.point("gate")
+	show_screen(_runner_hub())
+	if not adhan.is_empty():
+		_show_adhan(adhan)
 
 
 func watch_jisra_bridge() -> void:
@@ -1593,6 +1626,7 @@ func runner_saved_town() -> String:
 
 func restore_runner_town(id: String) -> void:
 	_runner_town = id if scene_runner.towns.has(id) else ""
+	_road_map_origin = ""
 	_runner_origin = "market_map"
 	_runner_mission_id = ""
 	_runner_scene_id = ""
@@ -1638,9 +1672,18 @@ func _runner_action(action: String, value: Variant) -> void:
 			_choose_runner_scene(value)
 		"back":
 			_runner_back()
-		"people", "sayings", "road_map":
-			if at_hub and (action != "road_map" or scene_runner.towns[town].has("road_map")):
+		"people", "sayings":
+			if at_hub:
 				show_screen("runner_" + action)
+		"road_map":
+			update_state()
+			var at_gate: bool = ui.screen == "gate_opening" or (ui.screen in ["game", "market_map"] and current_place == "gate")
+			if not road_map.data.is_empty() and (at_hub or (at_gate and progress.gate_open)):
+				_road_map_origin = ui.screen
+				_stop_travel()
+				show_screen("runner_road_map")
+		"travel":
+			travel_on_road(value)
 		"person":
 			if ui.screen == "runner_people" and value in scene_runner.town_people(self, town) and scene_runner.person_available(self, value):
 				runner_person = value
@@ -1705,11 +1748,14 @@ func _runner_back() -> void:
 				_close_runner_mission()
 		"runner_person":
 			show_screen("runner_people")
-		"runner_people", "runner_sayings", "runner_masjid", "runner_road_map":
+		"runner_people", "runner_sayings", "runner_masjid":
 			show_screen(_runner_hub())
+		"runner_road_map":
+			show_screen(_runner_hub() if _road_map_origin.is_empty() else _road_map_origin)
 		"runner_town":
-			_runner_town = ""
-			show_screen("market_map")
+			if road_map.data.is_empty():
+				_runner_town = ""
+				show_screen("market_map")
 
 
 func show_goal() -> void:

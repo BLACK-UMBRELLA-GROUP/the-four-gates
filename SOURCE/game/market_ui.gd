@@ -366,6 +366,7 @@ func setup(source: Dictionary, progress_value: RefCounted, identity_value: Dicti
 	show_screen(screen)
 
 func show_screen(value: String) -> void:
+	var keep_runner_scroll := value != "runner_road_map" or screen == value
 	screen = value
 	if not is_instance_valid(content):
 		return
@@ -374,13 +375,13 @@ func show_screen(value: String) -> void:
 		toast_panel.hide()
 		_toast_seconds = 0.0
 		_following_toast = ""
-	_rebuild_screen()
+	_rebuild_screen(keep_runner_scroll)
 
-func _rebuild_screen() -> void:
+func _rebuild_screen(keep_runner_scroll := true) -> void:
 	var previous_wardrobe := content.find_child("WardrobeScroll", true, false) as ScrollContainer if screen == "bag" else null
 	var wardrobe_scroll := previous_wardrobe.scroll_vertical if previous_wardrobe != null else 0
 	var old_panel_scroll := content.get_node_or_null("LargePanelScroll") as ScrollContainer
-	var old_runner_scroll := content.find_child("RunnerScroll", true, false) as ScrollContainer if screen in RUNNER_SCREENS else null
+	var old_runner_scroll := content.find_child("RunnerScroll", true, false) as ScrollContainer if keep_runner_scroll and screen in RUNNER_SCREENS else null
 	var runner_scroll := old_runner_scroll.scroll_vertical if old_runner_scroll != null else 0
 	var panel_scroll := Vector2i(old_panel_scroll.scroll_horizontal, old_panel_scroll.scroll_vertical) if old_panel_scroll != null else Vector2i.ZERO
 	_scale_panel = large_text and screen not in ["title", "game", "market_map", "city_map", "world_map"]
@@ -526,9 +527,12 @@ func _rebuild_screen() -> void:
 		"journal":
 			_build_hud()
 			_build_journal()
-		"runner_mission", "runner_town", "runner_people", "runner_person", "runner_sayings", "runner_masjid", "runner_road_map":
+		"runner_mission", "runner_town", "runner_people", "runner_person", "runner_sayings", "runner_masjid":
 			_build_hud()
 			_build_runner_panel()
+		"runner_road_map":
+			_build_hud()
+			_build_road_map()
 		"gate_opening", "jisra", "jisra_toll":
 			_build_hud()
 			_build_gate_of_trust()
@@ -620,6 +624,9 @@ func refresh(position_value: Vector3, place_value: String, night_value: bool, sa
 		rebuild = rebuild or present != _runner_people_here
 	elif screen == "runner_mission" and clock_changed:
 		rebuild = true
+	elif screen == "runner_road_map" and clock_changed:
+		var road_map = get_parent().road_map
+		rebuild = rebuild or road_map.roads_are_shut(_clock_minute) != road_map.roads_are_shut(clock.minute_of_day)
 	var prompt := bread_grab.board_prompt(salma_present) if place_value == "board" else BreadGrab.Prompt.NONE
 	if prompt != _board_prompt:
 		_board_prompt = prompt
@@ -2024,6 +2031,10 @@ func _build_gate_of_trust() -> void:
 	match screen:
 		"gate_opening":
 			x += _chapter_button(panel, copy.go, Vector2(x, y), func(): jisra_travel_requested.emit(), true)
+			var road_data: Dictionary = get_parent().road_map.data
+			if not road_data.is_empty():
+				x += _chapter_button(panel, road_data.words.map_button, Vector2(x, y),
+					func(): runner_requested.emit("road_map", null))
 			_chapter_button(panel, copy.no, Vector2(x, y), func(): trust_gate_closed.emit())
 		"jisra":
 			var actions: Array[Dictionary] = []
@@ -2036,9 +2047,11 @@ func _build_gate_of_trust() -> void:
 			})
 			if scene_runner.towns.has("jisra"):
 				actions.append_array(_town_actions("jisra"))
+			var has_road_map := _append_road_map_button(actions)
 			_append_runner_prayer(actions, false)
 			_append_town_inn(actions, "jisra")
-			actions.append({"text": copy.back, "action": func(): jisra_return_requested.emit(), "primary": false})
+			if not has_road_map:
+				actions.append({"text": copy.back, "action": func(): jisra_return_requested.emit(), "primary": false})
 			y = _runner_buttons(panel, actions, y)
 		"jisra_toll":
 			if gate_of_trust.toll_choice.is_empty():
@@ -2082,8 +2095,14 @@ func _build_journal() -> void:
 	_spaced_caption(panel, copy.kicker, 26.0)
 	var title := _label(panel, copy.title, Vector2(34, 53), Vector2(1122, 48), 36, Color("ffd27e"), true)
 	title.add_theme_font_override("font", title_font)
-	_journal_section(panel, copy.main, 110.0)
-	var rows := _runner_scroll_body(panel, 137.0, 675.0)
+	var main_y := 110.0
+	var road_map = get_parent().road_map
+	if not road_map.data.is_empty():
+		var journey := str(road_map.data.journey.label).format({"n": road_map.journey_percent(get_parent())})
+		_label(panel, journey, Vector2(34, main_y), Vector2(1122, 30), 23, PAPER)
+		main_y += 36.0
+	_journal_section(panel, copy.main, main_y)
+	var rows := _runner_scroll_body(panel, main_y + 27.0, 785.0 - main_y)
 	var y := 0.0
 	for chapter_entry: Dictionary in journal.chapters:
 		var name_value := str(copy.chapter).format({"n": chapter_entry.n, "name": chapter_entry.name})
@@ -2125,6 +2144,66 @@ func _runner_scroll_body(panel: Panel, top: float, height: float) -> Panel:
 	return body
 
 
+func _build_road_map() -> void:
+	var app := get_parent()
+	var road_map = app.road_map
+	var copy: Dictionary = road_map.data.words
+	var origin: String = app.runner_town_id()
+	var shut: bool = road_map.roads_are_shut(clock.minute_of_day)
+	var panel := _chapter_panel(copy.kicker, copy.title, true)
+	(panel.get_theme_stylebox("panel") as StyleBoxFlat).set_corner_radius_all(18)
+	var rows := _runner_scroll_body(panel, 111.0, 1.0)
+	var y := 0.0
+	if shut:
+		y += _story_text(rows, road_map.night_message(), y) + 16.0
+	y = _road_map_place_row(rows, y, copy.ilmara, "", origin, shut, true)
+	for gate: Dictionary in road_map.data.gates:
+		_chapter_row_rule(rows, y)
+		_label(rows, "%s · %s" % [gate.name, gate.dir], Vector2(34, y + 10), Vector2(1120, 36), 23, PAPER, true)
+		y += 49.0
+		if not road_map.gate_is_open(app, gate):
+			var closed := str(copy.opens_at).format({"n": int(gate.opens_at)}) if gate.has("opens_at") \
+				else str(copy.gate_closed).format({"gate": gate.name})
+			y = _road_map_status(rows, y, closed)
+			continue
+		var roads: Array[Dictionary] = road_map.roads_for_gate(gate.id)
+		if roads.is_empty():
+			y = _road_map_status(rows, y, copy.no_roads)
+		for road: Dictionary in roads:
+			y = _road_map_place_row(rows, y, road_map.data.names[road.town], road.town,
+				origin, shut, road_map.town_is_open(app, road))
+	_chapter_button(rows, copy.back, Vector2(34, y + 12.0), func(): runner_requested.emit("back", null))
+	rows.custom_minimum_size.y = y + 82.0
+	var scroll := rows.get_parent() as ScrollContainer
+	scroll.size.y = minf(rows.custom_minimum_size.y, 696.0)
+	_chapter_finish(panel, 111.0 + scroll.size.y - 58.0)
+
+
+func _road_map_status(panel: Panel, y: float, value: String) -> float:
+	_label(panel, value, Vector2(64, y), Vector2(1090, 35), 20, PAPER)
+	return y + 45.0
+
+
+func _road_map_place_row(panel: Panel, y: float, place: String, town: String, origin: String, shut: bool, opened: bool) -> float:
+	var road_map = get_parent().road_map
+	var copy: Dictionary = road_map.data.words
+	_label(panel, place, Vector2(34 if town.is_empty() else 64, y + 14), Vector2(780, 48), 23, PAPER)
+	var status := ""
+	if town == origin:
+		status = copy.here
+	elif not opened:
+		status = copy.closed
+	elif not shut:
+		var minutes: int = road_map.travel_minutes(origin, town)
+		if minutes > 0:
+			var go := str(copy.go).format({"n": minutes})
+			_stall_row_button(panel, go, y, func(): runner_requested.emit("travel", town), true)
+	if not status.is_empty():
+		var caption := _label(panel, status, Vector2(800, y + 14), Vector2(354, 48), 20, PAPER)
+		caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+	return y + 74.0
+
+
 func _build_runner_panel() -> void:
 	var app := get_parent()
 	var words: Dictionary = scene_runner.data.words
@@ -2152,7 +2231,8 @@ func _build_runner_panel() -> void:
 			paragraphs = _runner_paragraphs(town.get("text", ""))
 			actions = _town_actions(town_id)
 			_append_runner_prayer(actions, false)
-			back_label = words.road_back
+			_append_town_inn(actions, town_id)
+			back_label = "" if _append_road_map_button(actions) else words.road_back
 		"runner_people":
 			copy = words.people
 			_runner_people_here = _town_people_present(town_id)
@@ -2174,10 +2254,6 @@ func _build_runner_panel() -> void:
 			if not counter.is_empty():
 				paragraphs.append(counter)
 			_append_runner_prayer(actions, true)
-			back_label = copy.get("back", words.back)
-		"runner_road_map":
-			copy = town.road_map
-			paragraphs = _runner_paragraphs(copy.get("text", ""))
 			back_label = copy.get("back", words.back)
 	if not back_label.is_empty():
 		actions.append(_runner_action(back_label, "back", null, stacked_choices and copy.get("end", false)))
@@ -2258,19 +2334,22 @@ func _town_actions(id: String) -> Array[Dictionary]:
 	var town: Dictionary = scene_runner.towns[id]
 	var words: Dictionary = scene_runner.data.words
 	var actions := _mission_actions(_runner_town_missions)
-	for masjid: Dictionary in town.get("masjids", []):
-		actions.append(_runner_action(masjid.button, "masjid", masjid))
 	if not scene_runner.town_people(get_parent(), id).is_empty():
 		actions.append(_runner_action(words.people_button, "people", null))
 	if scene_runner.can_work(get_parent(), id):
 		actions.append(_runner_action(town.work.label, "work", null))
-	if id != "jisra":
-		_append_town_inn(actions, id)
 	actions.append(_runner_action(str(words.rep_button).format({"town": town.name}), "sayings", null))
-	var road_map: Dictionary = town.get("road_map", {})
-	if road_map.has("button"):
-		actions.append(_runner_action(road_map.button, "road_map", null))
+	for masjid: Dictionary in town.get("masjids", []):
+		actions.append(_runner_action(masjid.button, "masjid", masjid))
 	return actions
+
+
+func _append_road_map_button(actions: Array[Dictionary]) -> bool:
+	var road_data: Dictionary = get_parent().road_map.data
+	if road_data.is_empty():
+		return false
+	actions.append(_runner_action(road_data.words.map_button, "road_map", null))
+	return true
 
 
 func _append_town_inn(actions: Array[Dictionary], town: String) -> void:
@@ -2996,7 +3075,10 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 	if place_id == "gate" and gate_of_trust.can_use_gate():
 		gate_button = gate_of_trust.data.road_button if progress.gate_open else gate_of_trust.data.gate_open_button
 	var gate_width := _button_width(gate_button, true) + 18.0 if not gate_button.is_empty() else 0.0
-	var last_actions_width := eid_width + zakat_width + pilgrims_width + school_width + gate_width
+	var road_data: Dictionary = get_parent().road_map.data
+	var road_button: String = road_data.words.map_button if place_id == "gate" and progress.gate_open and not road_data.is_empty() else ""
+	var road_width := _button_width(road_button) + 18.0 if not road_button.is_empty() else 0.0
+	var last_actions_width := eid_width + zakat_width + pilgrims_width + school_width + gate_width + road_width
 	var eid_at := Vector2(total_width + 1.0, 0.0)
 	var eid_height := 0.0
 	if last_actions_width > 0.0:
@@ -3161,6 +3243,9 @@ func _build_place_bar(x: float, separate_board_row: bool) -> float:
 				trust_gate_open_requested.emit()
 		var gate_at := eid_at + Vector2(x + eid_line_width + zakat_width + pilgrims_width + school_width, bar_y + 8.0)
 		_button(gate_button, gate_at, Vector2(gate_width - 18.0, 56), gate_action, true)
+	if road_width > 0.0:
+		var road_at := eid_at + Vector2(x + last_actions_width - road_width, bar_y + 8.0)
+		_button(road_button, road_at, Vector2(road_width - 18.0, 56), func(): runner_requested.emit("road_map", null))
 	if _calligraphy_available:
 		_button(names_of_allah.data.button, calligraphy_at + Vector2(x, bar_y + 8.0),
 			Vector2(calligraphy_width - 18.0, 56), func(): calligraphy_requested.emit())
