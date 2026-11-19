@@ -41,3 +41,7 @@ Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the 
 ## Reissue note — 17 Nov 2026 (LOCK 103, the six gates)
 
 Founder 17 Nov: "LOCK it (Recommended)". No change to this LOCK's words or numbers. The six gates (LOCK 103) change only which line it builds after; held 16 Nov and released now. Build after lines 43, 42, 44-45, 47-55. Needs: none.
+
+## Answer note — 2026-11-18 (QUESTIONS row 54)
+
+**A.** (1) Builds after the lines in its brief; fixtures where they are not yet built (R9); spec dependency line now defers to the brief. (2) A town's Name missions open when `met_teacher` and that town's fountain `after` flag (in `FOUNTAINS_TOWNS/RECORD/fountains_towns_data_V2.json`) are set; one at a time in data order (each after the previous Name in that town), lowest first (R5). (3) Confirming "Say it, and remember it" learns the Name (+1 to n / 99); leaving before confirming learns nothing and the Name stays offered. Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.

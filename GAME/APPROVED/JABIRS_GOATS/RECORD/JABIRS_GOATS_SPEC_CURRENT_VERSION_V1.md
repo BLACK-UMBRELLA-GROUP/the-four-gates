@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 8 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `jabirs_goats_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 1 (trust), LOCK 2 (clock, Gate of Trust), LOCK 3 (What people say), LOCK 11 (the build-up rule). Queue line 20 comes after line 19 |
+| Builds on | LOCK 1 (trust), LOCK 2 (clock, Gate of Trust), LOCK 3 (What people say), LOCK 11 (the build-up rule). Queue line 20 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/j01`-`j12` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V52 |
 | ROADMAP | No row (temptations); noted for Fable |

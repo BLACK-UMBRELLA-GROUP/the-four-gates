@@ -41,3 +41,7 @@ Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the 
 ## Reissue note — 17 Nov 2026 (LOCK 103, the six gates)
 
 Founder 17 Nov: "LOCK it (Recommended)". No change to this LOCK's words or numbers. The six gates (LOCK 103) change only which line it builds after; held 16 Nov and released now. Build after lines 43, 49, 55. Needs: none.
+
+## Answer note — 2026-11-18 (QUESTIONS row 51)
+
+**Entry B** (fixtures for Birana, Shifara, `library_met` until lines 49, 55 and 88 land, R9). **Gifts A**: learning `sirr` (page 1) unlocks every unnamed gift once you have the coins (R4). **Layout B** (R11). Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.

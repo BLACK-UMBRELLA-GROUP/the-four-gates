@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `rashids_loan_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 1 (trust, coins), LOCK 3 (What people say), LOCK 4 (Rashid's stall), LOCK 6 (Rashid), LOCK 7 (his hours and Friday prayer), LOCK 11 (Mansur, named in text). Queue line 23 comes after line 22 |
+| Builds on | LOCK 1 (trust, coins), LOCK 3 (What people say), LOCK 4 (Rashid's stall), LOCK 6 (Rashid), LOCK 7 (his hours and Friday prayer), LOCK 11 (Mansur, named in text). Queue line 23 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/l01`-`l18` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V58 |
 | ROADMAP | No row (wealth); noted for Fable |

@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `harm_in_the_road_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 1 (River Market places), LOCK 2 (clock, day numbers), LOCK 8 (private records). Queue line 24 comes after line 23 |
+| Builds on | LOCK 1 (River Market places), LOCK 2 (clock, day numbers), LOCK 8 (private records). Queue line 24 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/p01`-`p09` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V60 |
 | ROADMAP | No row (character and community); noted for Fable |

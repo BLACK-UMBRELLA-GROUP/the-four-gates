@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 8 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `market_stall_data_V1.json` beside this file - the only source for every word and number of this LOCK (exported from the prototype's own data object; all 15 masters' text checked against the data files: 0 missing) |
-| Builds on | LOCK 1 V2 (coins, trust, places), LOCK 2 V3 (clock, days), LOCK 3 V1 (Faris, What people say). Queue line 11 comes after line 10 |
+| Builds on | LOCK 1 V2 (coins, trust, places), LOCK 2 V3 (clock, days), LOCK 3 V1 (Faris, What people say). Queue line 11 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/s01`-`s15` at 1920 × 1080 (content, words, states and positions - not the look) |
 | Prototype | "The Four Gates Prototype" V34 |
 | ROADMAP | Closes "Tasks and money" (the shop was the missing part) |

@@ -15,7 +15,7 @@ owner: THE FOUR GATES chat
 | Locked | 9 Nov 2026, Founder clickable answer **"OK LOCK IT BUT SHOW ME HOW MANY MORE THINGS ARE LEFT ..."** - record `LOCK_RECORD.md` beside this file |
 | Founder's idea | 8 Nov: "lets add somewhere in game as again side mission masjids vistied max 50" |
 | Words and numbers | `jisra_masjid_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 2 (prayer, congregation until 5 minutes after the iqamah), LOCK 8 (All your prayers), LOCK 32 (Jisra). Queue line 40 comes after line 39 |
+| Builds on | LOCK 2 (prayer, congregation until 5 minutes after the iqamah), LOCK 8 (All your prayers), LOCK 32 (Jisra). Queue line 40 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/jm01`-`jm08` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V90 (draft) / V91 (locked) |
 

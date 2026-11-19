@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `qurans_school_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 2 (Idris, the masjid), LOCK 3 (Faris; giving in secret after page 1; What people say), LOCK 9 (the public/secret giving pattern, trust once a day). Queue line 32 comes after line 31 |
+| Builds on | LOCK 2 (Idris, the masjid), LOCK 3 (Faris; giving in secret after page 1; What people say), LOCK 9 (the public/secret giving pattern, trust once a day). Queue line 32 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/u01`-`u11` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V76 |
 | ROADMAP | No row; noted for Fable |

@@ -37,3 +37,7 @@ from the data files at run time.
 ## Answer note — 16 Nov 2026 (QUESTIONS row 15)
 
 Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the Godot window or take native screenshots for this line. Row E means: `BUILD.json` and the line's checks file in `BUILT/V1/`, with the full headless run passing. The masters stay the design reference only.
+
+## Answer note — 2026-11-18 (QUESTIONS row 38)
+
+**A.** Adapter and goal from line 71 (Q36); `hoarders_done` by fixture until line 56 lands (R9). Line 80 tests pages 91-99 only; the full 1-100 count is the finale's (line 58) to show, not a test target here. Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.

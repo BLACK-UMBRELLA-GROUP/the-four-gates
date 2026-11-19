@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `regulars_at_prayer_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 2 (prayer times, iqamah), LOCK 4 (Rashid's stall), LOCK 6 (regulars and their talk buttons), LOCK 7 (opening hours, Friday closing, the away texts), LOCK 16 (loan bar hidden when Rashid is away). Queue line 34 comes after line 33 |
+| Builds on | LOCK 2 (prayer times, iqamah), LOCK 4 (Rashid's stall), LOCK 6 (regulars and their talk buttons), LOCK 7 (opening hours, Friday closing, the away texts), LOCK 16 (loan bar hidden when Rashid is away). Queue line 34 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/ra01`-`ra08` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V80 |
 | ROADMAP | No row; noted for Fable |

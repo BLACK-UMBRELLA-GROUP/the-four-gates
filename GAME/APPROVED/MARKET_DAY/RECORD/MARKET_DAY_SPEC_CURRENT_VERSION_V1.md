@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 8 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `market_day_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 2 V3 clock (prayer times, Fridays, Friday iqamah 30 min), LOCK 3 (bread grab), LOCK 4 (stall), LOCK 5 (loom), LOCK 6 (talking). Queue line 14 comes after line 13 |
+| Builds on | LOCK 2 V3 clock (prayer times, Fridays, Friday iqamah 30 min), LOCK 3 (bread grab), LOCK 4 (stall), LOCK 5 (loom), LOCK 6 (talking). Queue line 14 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/d01`-`d10` at 1920 × 1080 (content, words, states and positions - not the look) |
 | Prototype | "The Four Gates Prototype" V40 |
 | ROADMAP | Closes "First district" (streets, river edge, shops, day and night lighting - now with the market's daily life) |

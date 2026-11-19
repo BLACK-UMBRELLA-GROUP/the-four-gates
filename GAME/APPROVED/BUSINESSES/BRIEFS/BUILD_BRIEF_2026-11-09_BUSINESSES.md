@@ -41,3 +41,7 @@ Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the 
 ## Reissue note — 17 Nov 2026 (LOCK 103, the six gates)
 
 Founder 17 Nov: "LOCK it (Recommended)". No change to this LOCK's words or numbers. The six gates (LOCK 103) change only which line it builds after; held 16 Nov and released now. Build after lines 43, 44. Needs: none.
+
+## Answer note — 2026-11-18 (QUESTIONS row 50)
+
+**Repeat A** (every seven days after the last payout, R1). **Offer A** ("Not now" leaves it open). **Entry B** (fixtures until lines 43, 44 and 46 land, R9). **Journal A** (`cheats` internal, R8). **Layout B** (R11). Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.

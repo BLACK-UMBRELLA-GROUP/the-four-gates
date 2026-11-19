@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 8 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `clothes_data_V1.json` beside this file (exported from the prototype's own data object; all 15 masters' text checked against the data files: 0 missing) |
-| Builds on | LOCK 4 V1 (bag, Rashid's stall, local clothes) and LOCK 2 V3 (clock, Fridays). Queue line 12 comes after line 11 |
+| Builds on | LOCK 4 V1 (bag, Rashid's stall, local clothes) and LOCK 2 V3 (clock, Fridays). Queue line 12 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/w01`-`w15` at 1920 × 1080 (content, words, states and positions - not the look) |
 | Prototype | "The Four Gates Prototype" V36 |
 | ROADMAP | Row "Clothes and inventory" requested from Fable on 8 Nov |

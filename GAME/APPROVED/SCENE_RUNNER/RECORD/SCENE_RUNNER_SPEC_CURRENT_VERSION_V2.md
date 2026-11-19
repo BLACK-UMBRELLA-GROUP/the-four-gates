@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026 under the Founder's blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now" - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `scene_runner_data_V2.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 1 trust, LOCK 2 prayer, LOCK 3 What people say, LOCK 6 talking, LOCK 8 All your prayers, LOCK 18 clock, LOCK 32 Jisra, LOCK 33 masjids. Queue line 41 comes after line 40 |
+| Builds on | LOCK 1 trust, LOCK 2 prayer, LOCK 3 What people say, LOCK 6 talking, LOCK 8 All your prayers, LOCK 18 clock, LOCK 32 Jisra, LOCK 33 masjids. Queue line 41 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/sr01`-`sr02` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V92 |
 | ROADMAP | No row; noted for Fable |
@@ -79,6 +79,25 @@ Words and numbers only from `scene_runner_data_V2.json` (copied byte for byte to
 
 `words.people.talk` ("Talk") is the button beside each person who is about in a town's people list (master jp02). Nothing else changes. Line 42 copies V2 over `SOURCE/data/scene_runner.json`.
 
+## Runner and town contract (18 Nov 2026, answers QUESTIONS 18-61)
+
+The prototype's runner is the design reference. The generic Godot runner honours every field below wherever a locked pack uses it; no pack needs its own code for them. Copy every pack byte for byte.
+
+| # | Rule |
+|---|---|
+| R1 Mission conditions | `hours` [from, to] in minutes of the day, may cross midnight; null or absent = any time. `friday: true` = Fridays only. `days` = weekday numbers with Sunday 0 (Monday 1 … Saturday 6); day index 0 of the game is a Thursday, so weekday = (day index + 4) mod 7. `not_friday_prayer`. `min_count` {counter: n}. `stale` {mission (one id or a list - the latest done day of any), days, flag (used when none of the missions is done yet)} = shown only when that many days have passed. `min_trust` (the mission's town). `after` / `not` flags. `after_days` {flag: n} = n days after the day the flag was set. `repeat: "daily"` = again the next day. `repeat_days: n` = a done mission opens again n days after the day it was last done (each interval counts from the last time) |
+| R2 Scenes and choices | Scene kicker and title fall back to the mission's (Q17). A scene with `end: true` marks the mission done when you leave it and applies its `fx_end` once. Choices: `need_coins`, `min_trust`, `if`, `unless`; a choice that costs coins (negative `fx.coins`) is also hidden while you have fewer coins than it costs, with or without `need_coins` |
+| R3 Effects | `coins` (never below 0), `trust` (the mission's town, or `trust_town`), `trust_rm`, `flag` (remembers the day it was set), `unflag`, `say` (once per mission and key, in the mission's town or `say_town`), `count` (meals, qurans, children or any named counter), `name` (learns that Name of Allah), `minutes`, `sleep` (wake at the next 04:40), `done` |
+| R4 Special flags | `girl` = the player chose the girl (saved `gender`; boy until the boy/girl screen of LOCK 2 is designed - tests cover both); `met_teacher`; `sirr` = the learned word from page 1 (LOCK 3); `toll:speak`/`toll:pay`/`toll:quiet`; `gate_opened` |
+| R5 Lowest-first lists | Missions with `kind: "page_read"` offer only the lowest found unread page; `kind: "name_read"` offer only the lowest in their `group` |
+| R6 Towns | Masjids may be listed by id: the runner resolves the id in the loaded masjid records (inline or separate) and counts the prayer by that id. A town masjid's return button is **Back** to the place it was opened from; "Back to the bridge" is Jisra's only (masters that show it elsewhere are a prototype slip). Hub actions in this order: open missions, Talk to people, the work button, What {town} says, the masjid buttons, the prayer button when a prayer is open, the inn, Road map. Road map is the exit; "Back to Ilmara" shows only while no road map is loaded. A person with `hours: null` is about at any hour |
+| R7 People | When two or more people are at one place, each gets its own Talk button, in their LOCK 6 order |
+| R8 Journal | Rows: the chapters in the loaded data, side missions n / m, and every goal record in the loaded data. A main mission that is in no chapter list (a follow-up) has no row: check its saved completion and hidden button. Private counters (lies, cheats) stay internal |
+| R9 Prerequisites from lines not yet built | When a pack needs a flag or place that another queue line produces, build it now: test it headlessly with a fixture that sets the flag or loads that pack's data file; in live play it stays closed until the producing line ships. This is not a reason to stop (charters rule 15) |
+| R10 Road map | A road whose destination town is not loaded shows `not open yet`; once the town is loaded the locked gate and flag rules apply (Q22 A) |
+| R11 Look (Q15) | Rules-only Godot build: keep the existing Godot layout and buttons; do not build new layouts to match masters. The masters are reference for words and order only. The look is made in Unreal |
+| R12 Masters with older words | Where a master shows words that differ from the locked data (four gates, V1 lines), the data wins |
+
 ## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
 
 | Date | QUESTIONS row | Clarification |
@@ -92,3 +111,4 @@ Words and numbers only from `scene_runner_data_V2.json` (copied byte for byte to
 |---|---|---|
 | 2026-11-09 | V1 | LOCK 34 under the Founder's blanket LOCK (9 Nov) |
 | 2026-11-17 | V2 | QUESTIONS 16: words.people.talk = "Talk", the button beside each person in a town's people list (as master jp02 and the prototype show). answers Codex's QUESTIONS 16 inside the LOCK 103 reissue |
+| 2026-11-18 | V2 | Runner and town contract R1-R12 recorded from the prototype runner (answers QUESTIONS 18-61); no data change |

@@ -8,13 +8,13 @@ links: [AD-AIOS-115, DOC-TFG-0017, DOC-TFG-0111, DOC-TFG-0203]
 owner: THE FOUR GATES chat
 ---
 
-# PAGES CH01 SPEC — CURRENT VERSION V1 (LOCK 64)
+# PAGES CH01 SPEC — CURRENT VERSION V2 (LOCK 64)
 
 | Field | Value |
 |---|---|
 | Locked | 9 Nov 2026 under the Founder's blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now" - record `LOCK_RECORD.md` beside this file |
-| Words and numbers | `pages_ch01_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 3 (page 1), LOCK 34 runner. Queue line 71 comes after line 70 |
+| Words and numbers | `pages_ch01_data_V2.json` beside this file (exported from the prototype's own data object) |
+| Builds on | LOCK 3 (page 1), LOCK 34 runner. Queue line 71 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/pa01`-`pa18` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V92 |
 | ROADMAP | No row; noted for Fable |
@@ -77,7 +77,7 @@ Pages that open new choices in missions; a page list screen (the Journal shows t
 
 ## Build rules
 
-Words and numbers only from `pages_ch01_data_V1.json` (copied byte for byte to `SOURCE/data/pages_ch01.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+Words and numbers only from `pages_ch01_data_V2.json` (copied byte for byte to `SOURCE/data/pages_ch01.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
 
 ## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
 
@@ -91,3 +91,4 @@ Words and numbers only from `pages_ch01_data_V1.json` (copied byte for byte to `
 | Date | Version | Change |
 |---|---|---|
 | 2026-11-09 | V1 | LOCK 64 under the Founder's blanket LOCK (9 Nov) |
+| 2026-11-18 | V2 | adds the Journal goal "The scholar's pages" n / 100 (page 1, pages 2-99, the last page) (Q36) (QUESTIONS answer, THE FOUR GATES Claude chat; within the locked design) |

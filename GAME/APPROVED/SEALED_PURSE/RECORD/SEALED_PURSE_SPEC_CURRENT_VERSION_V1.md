@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 8 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `sealed_purse_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 1 (trust, gate), LOCK 2 (quay; Karim is the fair money-changer of the arrival), LOCK 7 (opening hours, Friday prayer). Queue line 17 comes after line 16 |
+| Builds on | LOCK 1 (trust, gate), LOCK 2 (quay; Karim is the fair money-changer of the arrival), LOCK 7 (opening hours, Friday prayer). Queue line 17 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/h01`-`h10` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V46 |
 | ROADMAP | No row (chapter missions); noted for Fable |

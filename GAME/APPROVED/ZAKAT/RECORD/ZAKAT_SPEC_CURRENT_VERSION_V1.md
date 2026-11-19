@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `zakat_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 3 (Umm Salim, Faris, Yusuf and his son Ali), LOCK 8 (All your prayers), LOCK 18 (354-day year from arrival; the inn's "Your zakat year ends" row). Queue line 29 comes after line 28 |
+| Builds on | LOCK 3 (Umm Salim, Faris, Yusuf and his son Ali), LOCK 8 (All your prayers), LOCK 18 (354-day year from arrival; the inn's "Your zakat year ends" row). Queue line 29 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/z01`-`z13` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V70 |
 | ROADMAP | No row; noted for Fable |

@@ -41,3 +41,7 @@ Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the 
 ## Reissue note — 17 Nov 2026 (LOCK 103, the six gates)
 
 Founder 17 Nov: "LOCK it (Recommended)". V2: the hard year starts after `chapter6_done` and is Journal chapter 7. Tests set the flag (chapters 5-6 come in later LOCKs). Build after line 41. Needs: none.
+
+## Answer note — 2026-11-18 (QUESTIONS row 35)
+
+**Journal A** (`hoard_profit` is a follow-up: saved completion and hidden button, R8). **Layout:** keep the existing Godot layout (R11), no new renderer work. Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.

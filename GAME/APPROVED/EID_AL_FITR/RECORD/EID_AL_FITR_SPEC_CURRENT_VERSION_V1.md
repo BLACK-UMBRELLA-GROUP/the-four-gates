@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `eid_al_fitr_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 18 (calendar; 354-day year from arrival), LOCK 19 (Ramadan, the masjid, the private Ramadan record). Queue line 28 comes after line 27 |
+| Builds on | LOCK 18 (calendar; 354-day year from arrival), LOCK 19 (Ramadan, the masjid, the private Ramadan record). Queue line 28 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/y01`-`y14` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V68 |
 | ROADMAP | No row; noted for Fable |

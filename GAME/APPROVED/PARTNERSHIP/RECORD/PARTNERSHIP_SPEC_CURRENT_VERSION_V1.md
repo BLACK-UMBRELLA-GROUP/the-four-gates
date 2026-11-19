@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `partnership_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 5 (Layla's loom), LOCK 6 (Layla), LOCK 7 (her hours), LOCK 3 (What people say), LOCK 16 (riba refused through a person). Queue line 38 comes after line 37 |
+| Builds on | LOCK 5 (Layla's loom), LOCK 6 (Layla), LOCK 7 (her hours), LOCK 3 (What people say), LOCK 16 (riba refused through a person). Queue line 38 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/ps01`-`ps12` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V88 |
 | ROADMAP | No row; noted for Fable |

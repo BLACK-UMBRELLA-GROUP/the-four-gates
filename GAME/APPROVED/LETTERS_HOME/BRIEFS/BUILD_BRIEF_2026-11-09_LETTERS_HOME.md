@@ -37,3 +37,7 @@ from the data files at run time.
 ## Answer note — 16 Nov 2026 (QUESTIONS row 15)
 
 Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the Godot window or take native screenshots for this line. Row E means: `BUILD.json` and the line's checks file in `BUILT/V1/`, with the full headless run passing. The masters stay the design reference only.
+
+## Answer note — 2026-11-18 (QUESTIONS row 45)
+
+**A.** One letter every 30 in-game days (`repeat_days`, R1); the Journal goal of 100 letters stays (later sources may add). Spec's "once" means once per 30 days. Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.

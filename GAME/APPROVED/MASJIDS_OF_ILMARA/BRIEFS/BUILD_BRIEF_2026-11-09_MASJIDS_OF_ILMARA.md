@@ -17,7 +17,7 @@ owner: THE FOUR GATES chat
 | Built from | LOCK 102 V1: spec DOC-TFG-0316, data `masjids_of_ilmara_data_V1.json`, masters fe01-fe08 |
 | Founder's words | Blanket LOCK, 9 Nov 2026 (see the LOCK record); placeholder shapes only |
 | Needs | none (charters rule 15) |
-| Build after | line 41 (the scene runner, BUILT) - chain removed 17 Nov (Founder: "it should do some even if there others blockers"; charters rule 15, AD-AIOS-154) |
+| Build after | line 43 (the road map, whose result this line uses) - set 18 Nov (QUESTIONS 60) |
 | Build before | nothing |
 | ROADMAP | No row finished (say so in the task note). |
 
@@ -37,3 +37,7 @@ from the data files at run time.
 ## Answer note — 16 Nov 2026 (QUESTIONS row 15)
 
 Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the Godot window or take native screenshots for this line. Row E means: `BUILD.json` and the line's checks file in `BUILT/V1/`, with the full headless run passing. The masters stay the design reference only.
+
+## Answer note — 2026-11-18 (QUESTIONS row 60)
+
+**Travel:** line 109 now builds after line 43 (it uses the road map); districts reachable at any hour as locked. **Return A**: **Back** to the district (R6). **Journal A**: 50 is the finished game's target, not this line's acceptance. Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.

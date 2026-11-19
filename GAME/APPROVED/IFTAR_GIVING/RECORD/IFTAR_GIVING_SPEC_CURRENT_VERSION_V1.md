@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `iftar_giving_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 3 (page 1 unlocks giving in secret), LOCK 9 (meals for the poor and its goal of 10,000 - the same counter), LOCK 19 (Ramadan days, the masjid). Queue line 27 comes after line 26 |
+| Builds on | LOCK 3 (page 1 unlocks giving in secret), LOCK 9 (meals for the poor and its goal of 10,000 - the same counter), LOCK 19 (Ramadan days, the masjid). Queue line 27 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/v01`-`v10` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V66 |
 | ROADMAP | No row; noted for Fable |

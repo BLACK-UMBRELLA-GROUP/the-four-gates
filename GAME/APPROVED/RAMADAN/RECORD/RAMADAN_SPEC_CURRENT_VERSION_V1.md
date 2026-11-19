@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `ramadan_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 2 (prayer times, masjid, inn), LOCK 8 (All your prayers), LOCK 18 (calendar; Ramadan is month index 8, day 29 is 1 Ramadan; rested days). Queue line 26 comes after line 25 |
+| Builds on | LOCK 2 (prayer times, masjid, inn), LOCK 8 (All your prayers), LOCK 18 (calendar; Ramadan is month index 8, day 29 is 1 Ramadan; rested days). Queue line 26 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/n01`-`n11` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V64 |
 | ROADMAP | No row; noted for Fable |

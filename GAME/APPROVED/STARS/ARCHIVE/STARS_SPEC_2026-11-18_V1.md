@@ -1,7 +1,7 @@
 ---
 id: DOC-TFG-0301
 type: SPEC
-status: CURRENT
+status: ARCHIVED
 feature: STARS
 purpose: LOCK 97 - the stars of Najmara
 links: [AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0302]

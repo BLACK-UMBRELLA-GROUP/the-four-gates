@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `eid_al_adha_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 9 (meals for the poor), LOCK 13 (Saeed the herder; telling him about his goats), LOCK 18 (calendar: Dhu al-Hijjah is month index 11, 1 Dhu al-Hijjah is day 118), LOCK 19 (fasting times, private record), LOCK 21 (Eid prayer pattern). Queue line 30 comes after line 29 |
+| Builds on | LOCK 9 (meals for the poor), LOCK 13 (Saeed the herder; telling him about his goats), LOCK 18 (calendar: Dhu al-Hijjah is month index 11, 1 Dhu al-Hijjah is day 118), LOCK 19 (fasting times, private record), LOCK 21 (Eid prayer pattern). Queue line 30 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/a01`-`a18` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V72 |
 | ROADMAP | No row; noted for Fable |

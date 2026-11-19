@@ -37,3 +37,7 @@ from the data files at run time.
 ## Answer note — 16 Nov 2026 (QUESTIONS row 15)
 
 Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the Godot window or take native screenshots for this line. Row E means: `BUILD.json` and the line's checks file in `BUILT/V1/`, with the full headless run passing. The masters stay the design reference only.
+
+## Answer note — 2026-11-18 (QUESTIONS row 57)
+
+**Timing:** no lead field - in the rules build a regular is at the route place exactly during the window; the 10-minute walk is a look for Unreal (R11). **Talk:** each regular present gets a Talk button in LOCK 6 order (R7). Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.

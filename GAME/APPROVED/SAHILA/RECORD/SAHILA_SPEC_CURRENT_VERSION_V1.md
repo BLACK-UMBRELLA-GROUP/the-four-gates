@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026 under the Founder's blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now" - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `sahila_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 34 runner, LOCK 36 roads. Queue line 44 comes after line 43 |
+| Builds on | LOCK 34 runner, LOCK 36 roads. Queue line 44 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/sh01`-`sh21` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V92 |
 | ROADMAP | No row; noted for Fable |

@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 8 Nov 2026, Founder typed **"lock 6"**, then clickable **"LOCK it (Recommended)"** after seeing the prototype - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `talking_data_V1.json` beside this file (exported from the prototype's own data object; all 15 masters' text checked against the data files: 0 missing) |
-| Builds on | LOCK 1-5 (trust, places, bread grab, stall, clothes, What people say). Queue line 13 comes after line 12 |
+| Builds on | LOCK 1-5 (trust, places, bread grab, stall, clothes, What people say). Queue line 13 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/t01`-`t15` at 1920 × 1080 (content, words, states and positions - not the look) |
 | Prototype | "The Four Gates Prototype" V38 |
 | ROADMAP | Closes "Characters and dialogue" (talkable townspeople, a dialogue system, choices that change how people treat you) |

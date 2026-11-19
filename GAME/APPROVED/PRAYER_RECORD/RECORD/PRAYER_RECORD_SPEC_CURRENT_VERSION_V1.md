@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 8 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `prayer_record_data_V1.json` beside this file (exported from the prototype's own data object; 6 masters' text checked: 0 missing) |
-| Builds on | LOCK 2 V3 prayer record ("Your prayers", statuses `jamaah`, `alone`, `dhuhr_fri`, `missed`, `madeup`). Queue line 15 comes after line 14 |
+| Builds on | LOCK 2 V3 prayer record ("Your prayers", statuses `jamaah`, `alone`, `dhuhr_fri`, `missed`, `madeup`). Queue line 15 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/r01`-`r06` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V42 |
 | ROADMAP | No row (faith in play); noted for Fable |

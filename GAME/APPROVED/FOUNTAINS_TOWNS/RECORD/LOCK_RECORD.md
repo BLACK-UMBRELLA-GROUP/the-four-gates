@@ -14,3 +14,4 @@ owner: THE FOUR GATES chat
 |---|---|---|---|---|
 | 96 | 2026-11-09 | Blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now". Not shown one by one; prototype V92 | `FOUNTAINS_TOWNS_SPEC_CURRENT_VERSION_V1.md` (DOC-TFG-0298), `fountains_towns_data_V1.json`, masters `nb01`-`nb36` | 103 |
 | reissue | 2026-11-17 | Clickable **"LOCK it (Recommended)"** for LOCK 103 the six gates (record `GAME/APPROVED/SIX_GATES/RECORD/LOCK_RECORD.md`) | 17 Nov 2026 reissue: brief reissued, no data change | 103 |
+| V2 | 2026-11-18 | QUESTIONS answer by the THE FOUR GATES Claude chat, inside the locked design (no new Founder decision) | adds the Journal goal "Fountains repaired" n / 13, counter fountains (Q55) | as queued |

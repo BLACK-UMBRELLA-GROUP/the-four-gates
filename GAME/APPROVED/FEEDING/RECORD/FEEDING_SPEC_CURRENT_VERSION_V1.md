@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 8 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `feeding_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 3 (page 1 teaches giving in secret: learned word `sirr`), LOCK 6 (Salma), LOCK 7 (Salma's hours). Queue line 16 comes after line 15 |
+| Builds on | LOCK 3 (page 1 teaches giving in secret: learned word `sirr`), LOCK 6 (Salma), LOCK 7 (Salma's hours). Queue line 16 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/e01`-`e08` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V44 |
 | ROADMAP | No row (lifetime goals); noted for Fable |

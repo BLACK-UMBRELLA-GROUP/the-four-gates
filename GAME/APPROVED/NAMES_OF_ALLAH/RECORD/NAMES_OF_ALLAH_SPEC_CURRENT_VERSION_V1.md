@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `names_of_allah_data_V1.json` beside this file (exported from the prototype's own data object; Arabic copied exactly) |
-| Builds on | LOCK 1 (places), LOCK 2 (meeting Idris). Queue line 33 comes after line 32 |
+| Builds on | LOCK 1 (places), LOCK 2 (meeting Idris). Queue line 33 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/m01`-`m08` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V78 |
 | ROADMAP | "Learning thread" (already ticked by line 9); no new row |

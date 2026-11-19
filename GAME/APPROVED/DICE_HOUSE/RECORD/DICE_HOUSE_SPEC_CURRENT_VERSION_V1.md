@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 8 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `dice_house_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 1 (trust), LOCK 2 (clock, Isha, Fajr, inn), LOCK 3 (What people say). Queue line 18 comes after line 17 |
+| Builds on | LOCK 1 (trust), LOCK 2 (clock, Isha, Fajr, inn), LOCK 3 (What people say). Queue line 18 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/x01`-`x12` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V48 |
 | ROADMAP | No row (temptations); noted for Fable |

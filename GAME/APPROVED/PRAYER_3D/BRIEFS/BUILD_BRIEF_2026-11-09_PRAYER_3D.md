@@ -37,3 +37,11 @@ from the data files at run time.
 ## Answer note — 16 Nov 2026 (QUESTIONS row 15)
 
 Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the Godot window or take native screenshots for this line. Row E means: `BUILD.json` and the line's checks file in `BUILT/V1/`, with the full headless run passing. The masters stay the design reference only.
+
+## Answer note — 2026-11-18 (QUESTIONS row 58)
+
+**Placement A**: the masters' highlight is illustrative. Rows of 9, front row first, each row filling from the middle out, right before left at equal distance; the player takes the next free slot after the regulars present. **Panel**: the card is the design reference, not a screen; no card ships. **Prayer**: only an on-time congregational prayer at a masjid plays the sequence; make-up, Tarawih, night prayer and Eid keep their current hooks. The prayer record and feedback appear as now (immediately); the sequence then plays, any key skips, and it returns to where you prayed. T checks the existing record and masjid updates only. Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.
+
+## Answer note — 2026-11-18 (QUESTIONS row 62)
+
+**A.** Only attendance that already exists counts: at the River Market masjid, LOCK 27's goers (Rashid, Jamal, Old Musa) for Dhuhr and Asr, and at Friday prayer everyone LOCK 7 sends to the masjid; at every other masjid and prayer no regulars are defined, so zero precede the player, who takes the first slot (front row, middle). The full crowd is a look for Unreal (runner contract R11). Line 106 back to WAITING. Needs: none.

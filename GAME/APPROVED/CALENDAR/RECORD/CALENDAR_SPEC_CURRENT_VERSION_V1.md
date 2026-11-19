@@ -15,7 +15,7 @@ owner: THE FOUR GATES chat
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Founder's choice | 9 Nov: "Decide it now", then **"A · Real calendar + rest (Recommended)"** (real Hijri months starting in Sha'ban; rest for days at the inn; zakat one lunar year after arriving) |
 | Words and numbers | `calendar_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 2 (clock: 48 real minutes a day, weekdays with day 0 a Thursday, the inn at 2 coins a night, prayer times), LOCK 8 (prayer record). Queue line 25 comes after line 24 |
+| Builds on | LOCK 2 (clock: 48 real minutes a day, weekdays with day 0 a Thursday, the inn at 2 coins a night, prayer times), LOCK 8 (prayer record). Queue line 25 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/k01`-`k11` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V62 |
 | ROADMAP | No row; noted for Fable |

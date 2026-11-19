@@ -41,3 +41,7 @@ Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the 
 ## Reissue note — 17 Nov 2026 (LOCK 103, the six gates)
 
 Founder 17 Nov: "LOCK it (Recommended)". No change to this LOCK's words or numbers. The six gates (LOCK 103) change only which line it builds after; held 16 Nov and released now. Build after lines 43, 51. Needs: none.
+
+## Answer note — 2026-11-18 (QUESTIONS row 49)
+
+**Entry B** (fixtures for `tinara_done` and `chapter1_done` until lines 51 and 46 land, R9; still builds after 43 and 51 as briefed if they are BUILT, otherwise fixtures). **Harvest A** (30 days after purchase, then 30 days after the last harvest). **Sleep A**: wake at the next 04:40; a night's use counts for the evening it began (a sleep after midnight uses the previous evening's allowance). **Orchard A**: "Not now" leaves the offer open. **Layout B** (R11). Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.

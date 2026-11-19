@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `dry_fountain_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 1 (trust, coins, task board), LOCK 3 (public and secret giving, What people say). Queue line 22 comes after line 21 |
+| Builds on | LOCK 1 (trust, coins, task board), LOCK 3 (public and secret giving, What people say). Queue line 22 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/o01`-`o09` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V56 |
 | ROADMAP | No row (wealth); noted for Fable |

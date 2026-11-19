@@ -8,13 +8,13 @@ links: [AD-AIOS-115, DOC-TFG-0111, DOC-TFG-0299]
 owner: THE FOUR GATES chat
 ---
 
-# FOUNTAINS TOWNS SPEC — CURRENT VERSION V1 (LOCK 96)
+# FOUNTAINS TOWNS SPEC — CURRENT VERSION V2 (LOCK 96)
 
 | Field | Value |
 |---|---|
 | Locked | 9 Nov 2026 under the Founder's blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now" - record `LOCK_RECORD.md` beside this file |
-| Words and numbers | `fountains_towns_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 34 runner and earlier LOCKs named in the data. Queue line 103 comes after line 102 |
+| Words and numbers | `fountains_towns_data_V2.json` beside this file (exported from the prototype's own data object) |
+| Builds on | LOCK 34 runner and earlier LOCKs named in the data. Queue line 103 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/nb01`-`nb36` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V92 |
 | ROADMAP | No row; noted for Fable |
@@ -80,7 +80,7 @@ Anything not written above.
 
 ## Build rules
 
-Words and numbers only from `fountains_towns_data_V1.json` (copied byte for byte to `SOURCE/data/fountains_towns.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
+Words and numbers only from `fountains_towns_data_V2.json` (copied byte for byte to `SOURCE/data/fountains_towns.json`), read by the LOCK 34 runner - no mission or person in code. Placeholder shapes only; no art, no exports.
 
 ## Clarifications (11 Nov 2026 review; no change to the LOCK, data or masters)
 
@@ -94,3 +94,4 @@ Words and numbers only from `fountains_towns_data_V1.json` (copied byte for byte
 | Date | Version | Change |
 |---|---|---|
 | 2026-11-09 | V1 | LOCK 96 under the Founder's blanket LOCK (9 Nov) |
+| 2026-11-18 | V2 | adds the Journal goal "Fountains repaired" n / 13, counter fountains (Q55) (QUESTIONS answer, THE FOUR GATES Claude chat; within the locked design) |

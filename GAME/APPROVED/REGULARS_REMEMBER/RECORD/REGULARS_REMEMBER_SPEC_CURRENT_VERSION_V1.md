@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `regulars_remember_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 6 (talk panel: tier line, fact line, greeting, tip), LOCK 9 (feeding), LOCK 11 (dice), LOCK 12 (jars), LOCK 15 (fountain), LOCK 16 (loan), LOCK 24 V2 (pilgrims), LOCK 25 (school), LOCK 26 (Names). Queue line 35 comes after line 34 |
+| Builds on | LOCK 6 (talk panel: tier line, fact line, greeting, tip), LOCK 9 (feeding), LOCK 11 (dice), LOCK 12 (jars), LOCK 15 (fountain), LOCK 16 (loan), LOCK 24 V2 (pilgrims), LOCK 25 (school), LOCK 26 (Names). Queue line 35 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/rm01`-`rm17` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V82 |
 | ROADMAP | "Characters and dialogue" (closed by line 13); no new row |

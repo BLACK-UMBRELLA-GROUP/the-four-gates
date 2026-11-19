@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"**; V2 the same day, Founder clickable **"Show nothing (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `pilgrims_data_V2.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 3 (giving in secret after page 1; What people say), LOCK 6 (Old Musa, Jamal), LOCK 10 (Abbas at the Gate of Trust), LOCK 18 (calendar months). Queue line 31 comes after line 30 |
+| Builds on | LOCK 3 (giving in secret after page 1; What people say), LOCK 6 (Old Musa, Jamal), LOCK 10 (Abbas at the Gate of Trust), LOCK 18 (calendar months). Queue line 31 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/b01`-`b11` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V76 |
 | ROADMAP | No row; noted for Fable |

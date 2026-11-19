@@ -41,3 +41,7 @@ Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the 
 ## Reissue note — 17 Nov 2026 (LOCK 103, the six gates)
 
 Founder 17 Nov: "LOCK it (Recommended)". No change to this LOCK's words or numbers. The six gates (LOCK 103) change only which line it builds after; held 16 Nov and released now. Build after line 41. Needs: none.
+
+## Answer note — 2026-11-18 (QUESTIONS row 33)
+
+**A.** Per the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12): travel and Road map come from line 43 (R10: a road shows "not open yet" until the town is loaded; this line still builds after line 41 with headless hub entry); Journal: chapter rows only, follow-ups checked by saved completion and hidden button (R8); masjid by id, **Back** to this town (R6); hub order and exit as R6; layout as R11. Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.

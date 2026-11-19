@@ -37,3 +37,7 @@ from the data files at run time.
 ## Answer note — 16 Nov 2026 (QUESTIONS row 15)
 
 Founder: "Skip Godot pictures, rules tests only (Recommended)". Do not open the Godot window or take native screenshots for this line. Row E means: `BUILD.json` and the line's checks file in `BUILT/V1/`, with the full headless run passing. The masters stay the design reference only.
+
+## Answer note — 2026-11-18 (QUESTIONS row 59)
+
+**Switch:** Sound Off mutes everything, the adhan too; Adhan Off mutes only the adhan. **Events:** coins plays on any balance change; page on taking or reading a notebook page; door on entering the inn, the dice house or your house. **Prayer:** when time skips several starts, play the adhan once, for the latest. **Location:** at the Quay one river cue day and night (no market-night cue there); wind, bees and mill by fixtures until their towns land (R9); silent placeholders allowed. Contract: the runner and town contract in `SCENE_RUNNER/RECORD/SCENE_RUNNER_SPEC_CURRENT_VERSION_V2.md` (R1-R12). No native pictures (Q15). Needs: none.

@@ -13,3 +13,4 @@ owner: THE FOUR GATES chat
 | LOCK | Date / time (UK) | Founder's words (exact) | What it locks | Queue lines |
 |---|---|---|---|---|
 | 64 | 2026-11-09 | Blanket LOCK: "OK INSTEAD OF SHOWING ME 1 BY 1 LETS LOCK IN ALL 100 AND CODEX WILL BUILD WE CAN CHANGE AFTER"; then clickable "Lock all 100 now". Not shown one by one; prototype V92 | `PAGES_CH01_SPEC_CURRENT_VERSION_V1.md` (DOC-TFG-0202), `pages_ch01_data_V1.json`, masters `pa01`-`pa18` | 71 |
+| V2 | 2026-11-18 | QUESTIONS answer by the THE FOUR GATES Claude chat, inside the locked design (no new Founder decision) | adds the Journal goal "The scholar's pages" n / 100 (page 1, pages 2-99, the last page) (Q36) | as queued |

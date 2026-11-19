@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `gate_of_trust_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 1 (the gate rule: trust 100 + the scales lesson; towns), LOCK 2 (prayer), LOCK 8 (prayer record), LOCK 18 (clock and date). Queue line 39 comes after line 38 |
+| Builds on | LOCK 1 (the gate rule: trust 100 + the scales lesson; towns), LOCK 2 (prayer), LOCK 8 (prayer record), LOCK 18 (clock and date). Queue line 39 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/gj01`-`gj12` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V89 (draft) / V90 (locked) |
 | ROADMAP | No row for the world beyond River Market; noted for Fable |

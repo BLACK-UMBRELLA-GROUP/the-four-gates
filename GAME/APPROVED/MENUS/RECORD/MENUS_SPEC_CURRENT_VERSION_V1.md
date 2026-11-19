@@ -14,7 +14,7 @@ owner: THE FOUR GATES chat
 |---|---|
 | Locked | 9 Nov 2026, Founder clickable **"LOCK it (Recommended)"** - record `LOCK_RECORD.md` beside this file |
 | Words and numbers | `menus_data_V1.json` beside this file (exported from the prototype's own data object) |
-| Builds on | LOCK 1 (title screen with its Settings button - its toast is replaced), LOCK 2 V5 (the Settings button stays - AD-AIOS-137), LOCK 18 (the date). Queue line 36 comes after line 35 |
+| Builds on | LOCK 1 (title screen with its Settings button - its toast is replaced), LOCK 2 V5 (the Settings button stays - AD-AIOS-137), LOCK 18 (the date). Queue line 36 builds after the lines named in its brief (17 Nov reissue) |
 | Masters | `../MASTERS/mn01`-`mn09` at 1920 × 1080 |
 | Prototype | "The Four Gates Prototype" V84 |
 | ROADMAP | Advances "Save, menus and polish" (save and load, pause menu, settings). The playable Mac build is not in this LOCK, so the row stays open |
