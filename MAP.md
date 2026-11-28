@@ -23,7 +23,7 @@ re-run the tool.
 | ID | File | KB |
 |---|---|---|
 | DOC-TFG-0001 | `GAME/OVERVIEW/Summary.md` | 18 |
-| DOC-TFG-0002 (large - search it) | `GAME/APPROVED/BUILD_QUEUE.md` | 49 |
+| DOC-TFG-0002 (large - search it) | `GAME/APPROVED/BUILD_QUEUE.md` | 51 |
 | DOC-TFG-0003 (large - search it) | `GAME/APPROVED/QUESTIONS.md` | 118 |
 | DOC-TFG-0004 (large - search it) | `SOURCE/README.md` | 75 |
 
@@ -238,7 +238,7 @@ _Stop here unless you need to look up another ID._
 
 | ID | File | Type | Purpose | Links | KB |
 |---|---|---|---|---|---|
-| DOC-TFG-0002 | `GAME/APPROVED/BUILD_QUEUE.md` | REGISTER | Build queue - every LOCKed brief waits here; Codex builds WAITING lines at 01:00 or on GO (charters rule 9) | AD-AIOS-115, AD-AIOS-122 | 49 |
+| DOC-TFG-0002 | `GAME/APPROVED/BUILD_QUEUE.md` | REGISTER | Build queue - every LOCKed brief waits here; Codex builds WAITING lines at 01:00 or on GO (charters rule 9) | AD-AIOS-115, AD-AIOS-122 | 51 |
 | DOC-TFG-0003 | `GAME/APPROVED/QUESTIONS.md` | REGISTER | Codex's questions for the THE FOUR GATES chat - Codex never asks Shakeel in chat; he files the question… | AD-AIOS-116, AD-AIOS-122 | 118 |
 
 ### HARM_IN_THE_ROAD
